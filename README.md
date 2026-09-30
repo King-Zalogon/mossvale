@@ -46,3 +46,7 @@ Progress saves automatically in the current browser using local storage. Origina
 - `dist/favicon.svg`: site icon.
 
 The game uses vanilla JavaScript and Canvas 2D. It has no backend, account system, or multiplayer service. Fonts are loaded from Google Fonts with local fallbacks.
+
+## Development roadmap
+
+The [Mossvale 1.0 roadmap](https://github.com/King-Zalogon/mossvale/issues/1) organizes the audit, priorities, dependencies and parallel work. See [the detailed analysis](docs/FULL_GAME_ROADMAP.md) and [machine-readable backlog](docs/ROADMAP_BACKLOG.json).
