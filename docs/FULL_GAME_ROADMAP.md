@@ -31,7 +31,7 @@ The old 170–284 person-day forecast, 24-species target, nine-map campaign, man
 
 ## Existing implementation progress to preserve
 
-While this plan was being revised, [main advanced to 627dd6b](https://github.com/King-Zalogon/mossvale/commit/627dd6b3eb4b445bec35ad617054ca1a0f945000), merging save codec v3 with stable IDs/recovery, a required-asset loader with retry, save fixtures, asset validation and browser startup checks. Reuse `dist/save.js`, `dist/assets.js` and the existing test scripts rather than duplicating them. See [SAVE_FORMAT.md](https://github.com/King-Zalogon/mossvale/blob/main/docs/SAVE_FORMAT.md).
+While this plan was being revised, [main advanced to 627dd6b](https://github.com/King-Zalogon/mossvale/commit/627dd6b3eb4b445bec35ad617054ca1a0f945000), merging save codec v3 with stable IDs/recovery, a required-asset loader with retry, save fixtures, asset validation and browser startup checks. PR #49 moves these implementations to `dist/src/save.js` and `dist/src/services/loader.js`, with the asset manifest in `dist/src/data/assets.js`. Preserve their behavior and reuse the existing test scripts rather than duplicating them. See [SAVE_FORMAT.md](https://github.com/King-Zalogon/mossvale/blob/main/docs/SAVE_FORMAT.md).
 
 The previous progress log keeps #8 and #12 open pending acceptance verification. Remaining notes include real exported v1 fixtures, throttled-network/decode-failure browser cases and optional audio/font fallback checks. #9, #10 and #13 have useful partial foundations. No work is declared complete solely because the roadmap changed, and there is no mandatory human review/PR gate.
 

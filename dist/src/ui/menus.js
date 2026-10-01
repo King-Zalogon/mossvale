@@ -1,0 +1,153 @@
+/* Modal menus: map, journal, party, ranger, shrine, help, result and save-recovery notices.
+   Each menu reads state, renders HTML and wires buttons to controller `actions`. No game rules live here. */
+import {species} from '../data/species.js';
+import {regions} from '../data/regions.js';
+import {companion, level, maxHP, unlocked} from '../domain/rules.js';
+import {drawCreature, drawSprite} from '../render/sprites.js';
+import {$, header, openModal} from './dom.js';
+
+export function createMenus(app) {
+  const {game, ui, actions} = app;
+  const save = () => game.save;
+  const open = (content, mode, label) => openModal(ui, content, mode, label);
+  const wireClose = () => {
+    const c = $('#modal .close');
+    if (c) c.onclick = actions.close;
+  };
+  const wireSelect = () => {
+    for (const b of document.querySelectorAll('[data-select]')) b.onclick = () => actions.selectCompanion(+b.dataset.select);
+  };
+
+  function worldMap() {
+    if (game.battle) return;
+    const s = save();
+    open(
+      `${header('THREE ISLANDS. ONE ADVENTURE.', 'The Verdant Isles')}<p>Follow the eastern trails, or travel directly to any unlocked region.</p><div class="map-cards">${regions
+        .map(
+          (r, i) =>
+            `<div class="region-card ${s.region === i ? 'current' : ''} ${!unlocked(s, i) ? 'locked' : ''}"><div class="region-preview"><canvas id="region-art-${i}" width="110" height="110"></canvas></div><h3>${r.name}</h3><p>${unlocked(s, i) ? r.desc : `Earn the ${regions[i - 1].seal.toLowerCase()} to open this trail.`}</p><button data-travel="${i}" ${!unlocked(s, i) ? 'disabled' : ''}>${!unlocked(s, i) ? 'Trail locked' : s.region === i ? 'Return to this camp' : 'Travel to ' + r.short}</button></div>`,
+        )
+        .join(
+          '',
+        )}</div><div class="map-progress">${s.badges.length ? s.badges.map(i => '✦ ' + regions[i].seal).join(' &nbsp; · &nbsp; ') : 'Your first seal awaits at the meadow shrine. Befriend a wild creature, then visit the blue crystal north of camp.'}</div><div class="map-legend"><span><i class="legend-dot"></i> Camp / trail</span><span><i class="legend-dot blue"></i> Shrine</span><span><i class="legend-dot gold"></i> Treasure</span><span style="color:#e59b85">● You</span></div>`,
+      'map',
+      'Island map',
+    );
+    regions.forEach((r, i) => drawSprite($(`#region-art-${i}`).getContext('2d'), r.preview, 55, 103, r.preview === 0 ? 80 : 88));
+    for (const b of document.querySelectorAll('[data-travel]')) b.onclick = () => actions.travel(+b.dataset.travel);
+    wireClose();
+  }
+
+  function journal(filter = 'all') {
+    if (game.battle) return;
+    const s = save();
+    const ids = species.map((_, i) => i).filter(i => filter === 'all' || s.caught.includes(i));
+    open(
+      `${header('NOTES FROM THE MEADOW', 'Your field journal')}<p>${s.caught.length} species befriended · ${s.seen.length} discovered · ${8 - s.seen.length} yet to discover</p><div class="tab-buttons"><button id="all-species" class="${filter === 'all' ? 'selected' : ''}">All species</button><button id="caught-species" class="${filter === 'caught' ? 'selected' : ''}">Befriended</button></div><div class="journal-grid">${ids
+        .map(i => {
+          const sp = species[i];
+          const seen = s.seen.includes(i);
+          const caught = s.caught.includes(i);
+          return `<div class="species ${s.active === i ? 'active' : ''}">${seen ? `<canvas id="spec-${i}" width="110" height="110"></canvas>` : '<div class="unseen">?</div>'}<h3>${seen ? sp.name : 'Unknown creature'}</h3><small>${caught ? 'Befriended · Lv. ' + level(s, i) : seen ? 'Seen · ' + sp.type : 'Not yet discovered'}</small><p>${seen ? sp.desc : 'A new friend is waiting along a wild trail.'}</p><small>${
+            seen
+              ? regions
+                  .filter(r => r.pool.includes(i))
+                  .map(r => r.short)
+                  .join(' / ')
+              : 'Explore to discover'
+          }</small>${caught ? `<button data-select="${i}" ${s.active === i ? 'disabled' : ''}>${s.active === i ? 'Your companion' : 'Travel together'}</button>` : ''}</div>`;
+        })
+        .join('')}</div>`,
+      'journal',
+      'Field journal',
+    );
+    ids.forEach(i => {
+      if (s.seen.includes(i)) drawCreature($('#spec-' + i), i, 85);
+    });
+    $('#all-species').onclick = () => journal('all');
+    $('#caught-species').onclick = () => journal('caught');
+    wireSelect();
+    wireClose();
+  }
+
+  function party() {
+    if (game.battle?.busy) return;
+    const s = save();
+    const battle = game.battle;
+    open(
+      `${header('FRIENDS FOR THE TRAIL', 'Your companions', !battle)}<p>${battle ? 'Switching companions uses your turn. Choose a friend with health remaining.' : 'Every creature you befriend can join you on the trail.'}</p><div class="journal-grid party-grid">${s.caught
+        .map(
+          i =>
+            `<div class="species ${s.active === i ? 'active' : ''}"><canvas id="party-${i}" width="110" height="110"></canvas><h3>${species[i].name}</h3><small>${species[i].type} · Lv. ${level(s, i)}</small><div class="bar"><i style="width:${(companion(s, i).hp / maxHP(s, i)) * 100}%;background:${species[i].color}"></i></div><small>${companion(s, i).hp} / ${maxHP(s, i)} HP</small><button data-select="${i}" ${s.active === i || companion(s, i).hp === 0 ? 'disabled' : ''}>${s.active === i ? 'Active companion' : companion(s, i).hp === 0 ? 'Needs a rest' : 'Choose companion'}</button></div>`,
+        )
+        .join('')}</div>${battle ? '<button id="back-battle" class="muted-button" style="margin-top:14px">Back to encounter</button>' : ''}`,
+      'party',
+      'Companion team',
+    );
+    s.caught.forEach(i => drawCreature($('#party-' + i), i, 85));
+    wireSelect();
+    wireClose();
+    if ($('#back-battle')) $('#back-battle').onclick = () => actions.renderBattle('Choose your next move.');
+  }
+
+  function ranger(message = 'The shrines have been quiet for years. Perhaps your new friends can help wake them.') {
+    if (game.battle) return;
+    const s = save();
+    open(
+      `${header('RANGER STATION', 'A moment with Iris')}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free. I’ll refill your bag to 12 orbs, too.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">Rest your team</button><button id="buy-potion" ${s.coins < 10 ? 'disabled' : ''}>Potion · 10 coins</button><button id="buy-orbs" ${s.coins < 15 ? 'disabled' : ''}>5 orbs · 15 coins</button></div><p class="dialog-note">Potions restore 24 HP during battle. Earn coins from encounters and treasure chests.</p>`,
+      'ranger',
+      'Ranger Iris',
+    );
+    drawSprite($('#ranger-art').getContext('2d'), 8, 45, 130, 65);
+    $('#rest-team').onclick = () => actions.rest();
+    $('#buy-potion').onclick = () => actions.buy('potion');
+    $('#buy-orbs').onclick = () => actions.buy('orbs');
+    wireClose();
+  }
+
+  function shrine() {
+    const s = save();
+    const r = regions[s.region];
+    open(
+      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[r.boss].name} · Level ${r.bossLevel} · ${species[r.boss].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < 2 ? ' and open the trail to ' + regions[s.region + 1].name : '. All three shrines will be awake'}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div><p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. Potions and type strengths can help.</p>`,
+      'shrine',
+      'Shrine guardian',
+    );
+    drawCreature($('#guardian-preview'), r.boss, 110);
+    $('#challenge').onclick = () => actions.startBattle(r.boss, true);
+    $('#prepare-team').onclick = party;
+    wireClose();
+  }
+
+  function result({title, copy, id, sprite, rewards = [], note = '', button = 'Keep exploring', onContinue, secondary, onSecondary}) {
+    open(
+      `${header('A MOMENT FOR YOUR JOURNAL', title, false)}<div class="result-content"><canvas id="result-art" class="result-art" width="160" height="145"></canvas><p>${copy}</p><div class="reward-row">${rewards.map(r => `<span class="reward-chip">${r}</span>`).join('')}</div>${note ? `<p class="xp-gain">${note}</p>` : ''}<button id="result-continue" class="primary">${button}</button>${secondary ? `<button id="result-secondary" class="muted-button" style="display:block;margin:9px auto 0">${secondary}</button>` : ''}</div>`,
+      'result',
+      'Encounter result',
+    );
+    if (id !== undefined) drawCreature($('#result-art'), id, 110);
+    else drawSprite($('#result-art').getContext('2d'), sprite, 80, 138, 110);
+    $('#result-continue').onclick = onContinue || actions.close;
+    if (secondary) $('#result-secondary').onclick = onSecondary;
+  }
+
+  function help() {
+    if (game.battle) return;
+    open(
+      `${header('A FIELD GUIDE', 'Make yourself at home.')}<div class="help-copy"><p>Explore the isles with your companion. Befriend wild creatures and awaken all three shrines.</p><div class="shortcut-grid"><span><kbd>WASD</kbd> / arrows · Move in 8 directions</span><span><kbd>Shift</kbd> · Run</span><span><kbd>E</kbd> · Talk, open, or travel</span><span><kbd>M</kbd> · Island map</span><span><kbd>J</kbd> · Field journal</span><span><kbd>Q</kbd> · Companion team</span></div><ul><li>Walk through tall grass to meet creatures. Weaken them, then use a capture orb. The chance improves as their health drops.</li><li>Elemental attacks have strengths and weaknesses. The battle panel shows the current matchup.</li><li>Every friend you catch can become your companion. They gain XP, levels, and more health.</li><li>Find the blue shrine north of each camp. Win against its guardian to earn a seal and unlock the next region.</li><li>Talk to Iris to heal everyone and refill your orbs. Spend coins on extra orbs and potions.</li><li>On touch screens, use the eight-direction pad and tap Run. Tap the interaction prompt near a landmark.</li></ul><p>Your original meadow progress has been preserved. The game saves automatically on this device.</p></div>`,
+      'help',
+      'How to play',
+    );
+    wireClose();
+  }
+
+  function saveNotice(status, message) {
+    const title = {restored: 'Save restored', recovered: 'Save could not be read', future: 'Newer save found', unavailable: 'Storage unavailable'}[status];
+    $('#save-note').textContent = message;
+    open(`${header('SAVE RECOVERY', title)}<p>${message}</p><button class="primary" id="notice-ok">Continue</button>`, 'notice', 'Save recovery');
+    wireClose();
+    $('#notice-ok').onclick = actions.close;
+  }
+
+  return {worldMap, journal, party, ranger, shrine, result, help, saveNotice};
+}

@@ -1,6 +1,6 @@
 # Save format and recovery
 
-Implemented in `dist/save.js` (pure, tested without a browser). Issue: [#8](https://github.com/King-Zalogon/mossvale/issues/8).
+Implemented in `dist/src/save.js` (pure, tested without a browser). Issue: [#8](https://github.com/King-Zalogon/mossvale/issues/8).
 
 ## Storage keys
 
@@ -35,4 +35,4 @@ Validation: every field is type-checked; numbers must be finite and are clamped 
 
 ## Tests
 
-`npm test` (codec fixtures), `npm run test:browser` (needs Playwright + Chromium).
+`npm test` (codec fixtures in `tests/save.test.mjs`), `npm run test:browser` (needs Playwright + Chromium).
