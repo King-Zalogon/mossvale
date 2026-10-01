@@ -3,7 +3,9 @@ import {KEYS} from '../save.js';
 import {battleCheckpoint} from '../domain/battle.js';
 
 export function createPersistence({storage, codec, game, writable, onStatus}) {
-  return function persist() {
+  let locked = false;
+  const persist = function () {
+    if (locked) return false;
     game.save.x = game.player.x;
     game.save.y = game.player.y;
     game.save.battle = battleCheckpoint(game.battle);
@@ -20,4 +22,7 @@ export function createPersistence({storage, codec, game, writable, onStatus}) {
       return false;
     }
   };
+  /** After this, nothing is written (used right before starting over or restoring, then reloading). */
+  persist.lock = () => (locked = true);
+  return persist;
 }

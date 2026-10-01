@@ -4,7 +4,14 @@
 import {FOCUS_MAX, FOCUS_START, MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
 const VERSION = 3;
-const KEYS = {v3: 'mossvale-v3', v2: 'mossvale-v2', v1: 'mossvale-v1', backup: 'mossvale-backup', quarantine: 'mossvale-quarantine'};
+const KEYS = {
+  v3: 'mossvale-v3',
+  v2: 'mossvale-v2',
+  v1: 'mossvale-v1',
+  backup: 'mossvale-backup',
+  quarantine: 'mossvale-quarantine',
+  archive: 'mossvale-archive',
+};
 const MAX_COUNT = 9999,
   MAX_TIME = 1e9,
   MAX_QUARANTINE = 3;

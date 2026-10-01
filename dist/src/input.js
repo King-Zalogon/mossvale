@@ -65,7 +65,11 @@ export function installInput(app) {
       }
       return;
     }
-    if (e.repeat && ['e', 'm', 'j', 'q'].includes(k)) return;
+    if (e.repeat && ['e', 'm', 'j', 'q', 'escape'].includes(k)) return;
+    if (k === 'escape') {
+      actions.menu();
+      return;
+    }
     if (k === 'e') actions.interact();
     else if (k === 'm') actions.worldMap();
     else if (k === 'j') actions.journal();

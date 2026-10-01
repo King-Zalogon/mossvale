@@ -12,13 +12,15 @@ import {buildAdventure} from './domain/adventure.js';
 import {movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
+import {readArchive, restoreArchive, startOver} from './services/profile.js';
+import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
 import {fetchMaps} from './services/maps.js';
 import {createPersistence} from './services/persistence.js';
 import {createWorldRenderer} from './render/world.js';
 import {sprites} from './render/sprites.js';
 import {createController} from './controller.js';
 import {direction, installInput, isMoving} from './input.js';
-import {$, toast} from './ui/dom.js';
+import {$, hideModal, toast} from './ui/dom.js';
 import {renderHud, renderSaveStatus} from './ui/hud.js';
 import {createMenus} from './ui/menus.js';
 import {createBattleView} from './ui/battle-view.js';
@@ -40,7 +42,10 @@ const debug = params.has('debug');
 const rng = debug && params.has('seed') ? seededRng(Number(params.get('seed'))) : Math.random;
 const canvas = $('#game');
 const codec = save.create({species, regions, size: MAX_MAP_SIZE});
-const loaded = codec.load(getStorage());
+const storage = getStorage();
+const loaded = codec.load(storage);
+const settings = loadSettings(storage);
+const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 
 const game = {
   save: loaded.save,
@@ -59,7 +64,7 @@ const ui = {
   touchRun: false,
   paused: false,
   ready: false,
-  zoom: 1.45,
+  zoom: settings.zoom ?? 1.45,
   camera: {x: game.player.x, y: game.player.y},
   now: 0,
 };
@@ -71,8 +76,11 @@ const app = {
   actions: {},
   maps: [],
   audio: createAudio(),
-  reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
-  persist: createPersistence({storage: getStorage(), codec, game, writable: loaded.writable, onStatus: renderSaveStatus}),
+  settings,
+  motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,
+  archive: () => readArchive(storage, codec),
+  canStartOver: () => loaded.writable,
+  persist: createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus}),
 };
 app.menus = createMenus(app);
 app.renderBattle = createBattleView(app);
@@ -97,6 +105,73 @@ function showLoadError(message, detail) {
   setBusy(true);
   $('#load-retry').focus();
 }
+
+/** Runs once the player has passed the title screen: welcome, resume an interrupted fight, recovery notices. */
+function postStart() {
+  canvas.focus({preventScroll: true});
+  toast(game.save.badges.length ? 'Your trail continues. Welcome back, explorer.' : 'The shrines are stirring. Find a new friend in the tall grass.');
+  const resumed = actions.resumeBattle();
+  if (!resumed && game.save.recap) {
+    toast(game.save.recap);
+    game.save.recap = '';
+  }
+  if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
+}
+
+function applyMotion() {
+  document.body.classList.toggle('reduce-motion', app.motionReduced());
+}
+
+Object.assign(actions, {
+  startPlaying() {
+    hideModal(ui, canvas);
+    postStart();
+  },
+  menu() {
+    if (!ui.ready || ui.modalMode || game.phase !== 'explore') return;
+    app.menus.mainMenu();
+  },
+  setSetting(key, value) {
+    if (!(key in settings)) return;
+    settings[key] = value;
+    if (key === 'sound') {
+      app.audio.set(value);
+      $('#sound').textContent = value ? 'Sound on' : 'Sound off';
+      $('#sound').setAttribute('aria-pressed', String(value));
+      app.audio.tone(620);
+    }
+    if (key === 'run') {
+      ui.touchRun = value;
+      $('#touch-run').setAttribute('aria-pressed', String(value));
+    }
+    if (key === 'motion') applyMotion();
+    saveSettings(storage, settings);
+  },
+  /** `null` goes back to the automatic zoom for the screen width. */
+  setZoom(value) {
+    settings.zoom = value === null ? null : Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round(value * 100) / 100));
+    resize();
+    saveSettings(storage, settings);
+  },
+  newGame() {
+    const result = startOver({storage, codec, save: game.save});
+    if (!result.ok) {
+      toast('Could not start over: this browser will not let Mossvale write its save.');
+      return;
+    }
+    app.persist.lock();
+    location.reload();
+  },
+  restoreAdventure() {
+    const result = restoreArchive({storage, codec, save: game.save});
+    if (!result.ok) {
+      toast('Could not restore the earlier adventure.');
+      return;
+    }
+    app.persist.lock();
+    location.reload();
+  },
+});
 
 async function boot() {
   ui.ready = false;
@@ -148,13 +223,8 @@ async function boot() {
   setBusy(false);
   actions.refresh();
   canvas.focus({preventScroll: true});
-  toast(game.save.badges.length ? 'Your trail continues. Welcome back, explorer.' : 'The shrines are stirring. Find a new friend in the tall grass.');
-  const resumed = actions.resumeBattle();
-  if (!resumed && game.save.recap) {
-    toast(game.save.recap);
-    game.save.recap = '';
-  }
-  if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
+  if (debug) postStart();
+  else app.menus.mainMenu({title: true});
   if (!started) {
     started = true;
     requestAnimationFrame(loop);
@@ -165,7 +235,7 @@ function resize() {
   const bounds = canvas.getBoundingClientRect();
   const height = Math.round((960 * bounds.height) / bounds.width);
   if (Number.isFinite(height) && height > 0 && canvas.height !== height) canvas.height = height;
-  ui.zoom = innerWidth < 760 ? 1.9 : 1.45;
+  ui.zoom = settings.zoom ?? (innerWidth < 760 ? 1.9 : 1.45);
 }
 
 let last = 0;
@@ -189,7 +259,7 @@ function loop(t) {
       $('#interact').style.display = nearest ? 'block' : 'none';
       if (nearest) $('#interact').textContent = 'E · ' + nearest.label;
     }
-    const smoothing = app.reducedMotion ? 1 : Math.min(1, dt * 7);
+    const smoothing = app.motionReduced() ? 1 : Math.min(1, dt * 7);
     ui.camera.x += (game.player.x - ui.camera.x) * smoothing;
     ui.camera.y += (game.player.y - ui.camera.y) * smoothing;
     const view = {
@@ -218,12 +288,8 @@ $('#help').onclick = () => app.menus.help();
 $('#camp').onclick = actions.returnToCamp;
 $('#interact').onclick = actions.interact;
 $('#touch-e').onclick = actions.interact;
-$('#sound').onclick = () => {
-  const on = app.audio.toggle();
-  $('#sound').textContent = on ? 'Sound on' : 'Sound off';
-  $('#sound').setAttribute('aria-pressed', String(on));
-  app.audio.tone(620);
-};
+$('#sound').onclick = () => actions.setSetting('sound', !app.audio.enabled);
+$('#menu').onclick = () => actions.menu();
 $('#pause').onclick = () => {
   if (game.battle || ui.modalMode) return;
   ui.paused = !ui.paused;
@@ -232,10 +298,19 @@ $('#pause').onclick = () => {
   ui.touch = null;
   toast(ui.paused ? 'Taking a breather. Resume when you’re ready.' : 'Back to the adventure.');
 };
-$('#zoom-in').onclick = () => (ui.zoom = Math.min(2.5, ui.zoom + 0.2));
-$('#zoom-out').onclick = () => (ui.zoom = Math.max(0.85, ui.zoom - 0.2));
+$('#zoom-in').onclick = () => actions.setZoom(ui.zoom + 0.2);
+$('#zoom-out').onclick = () => actions.setZoom(ui.zoom - 0.2);
 window.addEventListener('resize', resize);
+motionQuery.addEventListener?.('change', applyMotion);
 
+app.audio.set(settings.sound);
+if (settings.sound) {
+  $('#sound').textContent = 'Sound on';
+  $('#sound').setAttribute('aria-pressed', 'true');
+}
+ui.touchRun = settings.run;
+$('#touch-run').setAttribute('aria-pressed', String(settings.run));
+applyMotion();
 resize();
 renderHud(game.save);
 boot();

@@ -11,12 +11,12 @@ import {hideModal, toast} from './ui/dom.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 
 export function createController(app) {
-  const {game, ui, audio, rng, persist, reducedMotion, canvas, actions, menus, maps} = app;
+  const {game, ui, audio, rng, persist, canvas, actions, menus, maps} = app;
   const save = () => game.save;
   const tone = (f, d) => audio.tone(f, d);
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
   const timeline = (app.timeline = createTimeline());
-  const wait = ms => (reducedMotion ? 250 : ms);
+  const wait = ms => (app.motionReduced() ? 250 : ms);
 
   function refresh() {
     clampHealth(save());
@@ -34,7 +34,7 @@ export function createController(app) {
   }
 
   function close() {
-    if (game.battle?.busy || timeline.active) return;
+    if (game.battle?.busy || timeline.active || ui.modalMode === 'title') return; // the title screen is left with a choice, not Escape
     if (game.battle && ui.modalMode === 'battle') {
       flee();
       return;

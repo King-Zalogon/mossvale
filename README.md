@@ -31,7 +31,9 @@ On touch screens, use the directional pad, Run button, and interaction prompt.
 
 ## Adventure
 
-Explore Mossvale Meadow, Amber Ridge, and Frostveil Grove. Befriend eight species and choose any captured creature as your companion. Battles include elemental strengths, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
+Explore Mossvale Meadow, Amber Ridge, and Frostveil Grove. Befriend eight species. Up to three companions form your team and the rest wait in the reserve. Battles include elemental strengths, a Focus resource for the elemental move, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
+
+A title screen offers Continue (or Start adventure), Settings, New game and, after a restart, Restore previous adventure. New game keeps your old adventure as a backup; sound, motion and zoom preferences persist.
 
 Awaken each shrine by defeating its guardian to unlock the next region. Visit Ranger Iris to heal your team and refill capture orbs, or buy extra supplies with coins earned from battles and treasure chests.
 

@@ -5,6 +5,8 @@ import {regions} from '../data/regions.js';
 import {companion, level, maxHP, moveName, reserve, unlocked} from '../domain/rules.js';
 import {PARTY_SIZE} from '../config.js';
 import {drawCreature, drawSprite} from '../render/sprites.js';
+import {hasProgress, summarize} from '../services/profile.js';
+import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
 import {$, header, openModal} from './dom.js';
 
 export function createMenus(app) {
@@ -167,5 +169,60 @@ export function createMenus(app) {
     $('#notice-ok').onclick = actions.close;
   }
 
-  return {worldMap, journal, party, ranger, shrine, result, help, saveNotice};
+  /** Title screen (`title: true`, shown after loading) and the in-game menu share one set of views. */
+  function mainMenu({title = false} = {}) {
+    let view = 'home';
+    const render = () => {
+      const s = save();
+      const st = app.settings;
+      const archived = app.archive();
+      const progress = hasProgress(s);
+      const mode = title ? 'title' : 'menu';
+      const choice = (key, value, label) =>
+        `<button data-set="${key}" data-value="${value}" class="muted-button ${st[key] === value ? 'selected' : ''}" aria-pressed="${st[key] === value}">${label}</button>`;
+      let body;
+      if (view === 'settings') {
+        const zoom = (ui.zoom || 1).toFixed(2);
+        body = `${header('SETTINGS', 'Make it comfortable', !title)}<div class="setting-row"><span>Sound</span><span class="choices">${choice('sound', true, 'On')}${choice('sound', false, 'Off')}</span></div><div class="setting-row"><span>Motion</span><span class="choices">${choice('motion', 'auto', 'Match system')}${choice('motion', 'reduced', 'Calm')}</span></div><div class="setting-row"><span>Zoom ${zoom}×</span><span class="choices"><button id="s-zoom-out" class="muted-button" aria-label="Zoom out" ${ui.zoom <= ZOOM_MIN ? 'disabled' : ''}>−</button><button id="s-zoom-in" class="muted-button" aria-label="Zoom in" ${ui.zoom >= ZOOM_MAX ? 'disabled' : ''}>+</button><button id="s-zoom-auto" class="muted-button">Auto</button></span></div><div class="setting-row"><span>Touch: run by default</span><span class="choices">${choice('run', true, 'On')}${choice('run', false, 'Off')}</span></div><div class="menu-list"><button id="m-back" class="primary">Back</button></div>`;
+      } else if (view === 'confirm-new') {
+        body = `${header('NEW GAME', 'Start over?', false)}<p class="menu-summary">${progress ? `Your current adventure (${summarize(s, species)}) will be kept as a backup you can restore from this menu.` : 'You have not made progress yet.'}${archived && progress ? ' This replaces the older backup from ' + new Date(archived.at).toLocaleDateString() + ' (' + summarize(archived.save, species) + ').' : ''}</p><div class="menu-list"><button id="m-confirm-new" class="primary">Start a new adventure</button><button id="m-cancel">Keep playing</button></div>`;
+      } else if (view === 'confirm-restore') {
+        body = `${header('RESTORE', 'Go back to your earlier adventure?', false)}<p class="menu-summary">Restores ${summarize(archived.save, species)}, archived ${new Date(archived.at).toLocaleDateString()}. Your current adventure (${summarize(s, species)}) becomes the backup, so nothing is lost.</p><div class="menu-list"><button id="m-confirm-restore" class="primary">Restore it</button><button id="m-cancel">Cancel</button></div>`;
+      } else {
+        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}</p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
+      }
+      open(body, mode, title ? 'Mossvale' : 'Game menu');
+      wireClose();
+      const on = (id, fn) => {
+        if ($(id)) $(id).onclick = fn;
+      };
+      const go = next => () => {
+        view = next;
+        render();
+      };
+      on('#m-primary', () => (title ? actions.startPlaying() : actions.close()));
+      on('#m-settings', go('settings'));
+      on('#m-back', go('home'));
+      on('#m-cancel', go('home'));
+      on('#m-new', go('confirm-new'));
+      on('#m-restore', go('confirm-restore'));
+      on('#m-confirm-new', () => actions.newGame());
+      on('#m-confirm-restore', () => actions.restoreAdventure());
+      for (const b of document.querySelectorAll('[data-set]')) {
+        b.onclick = () => {
+          actions.setSetting(b.dataset.set, b.dataset.value === 'true' ? true : b.dataset.value === 'false' ? false : b.dataset.value);
+          render();
+        };
+      }
+      on('#s-zoom-in', () => (actions.setZoom(ui.zoom + 0.2), render()));
+      on('#s-zoom-out', () => (actions.setZoom(ui.zoom - 0.2), render()));
+      on('#s-zoom-auto', () => (actions.setZoom(null), render()));
+      requestAnimationFrame(() =>
+        ($('#m-primary') || $('#m-back') || $('#m-confirm-new') || $('#m-confirm-restore') || $('#modal')).focus({preventScroll: true}),
+      );
+    };
+    render();
+  }
+
+  return {mainMenu, worldMap, journal, party, ranger, shrine, result, help, saveNotice};
 }
