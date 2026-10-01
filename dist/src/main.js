@@ -14,6 +14,7 @@ import {followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
+import {exportBackup, exportFileName, importSave, parseBackup, readCheckpoint, restoreCheckpoint} from './services/backup.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
 import {fetchAdventure} from './services/maps.js';
 import {describeBuild, fetchBuild} from './services/version.js';
@@ -22,7 +23,7 @@ import {createWorldRenderer} from './render/world.js';
 import {sprites} from './render/sprites.js';
 import {createController} from './controller.js';
 import {direction, installInput, isMoving} from './input.js';
-import {$, hideModal, toast} from './ui/dom.js';
+import {$, downloadText, hideModal, toast} from './ui/dom.js';
 import {renderHud, renderSaveStatus} from './ui/hud.js';
 import {createMenus} from './ui/menus.js';
 import {createBattleView} from './ui/battle-view.js';
@@ -88,6 +89,7 @@ const app = {
   buildLabel: () => describeBuild(app.build),
   motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,
   archive: () => readArchive(storage, codec),
+  checkpoint: () => readCheckpoint(storage, codec),
   canStartOver: () => loaded.writable,
   persist: createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus}),
 };
@@ -172,6 +174,28 @@ Object.assign(actions, {
       toast('Could not start over: this browser will not let Mossvale write its save.');
       return;
     }
+    app.persist.lock();
+    location.reload();
+  },
+  exportSave() {
+    app.persist(); // so the file matches what is on screen
+    downloadText(exportFileName(), exportBackup(codec, game.save, app.build));
+    toast('Save file downloaded. Import it in another browser to continue there.');
+  },
+  async readBackup(file) {
+    try {
+      return parseBackup(await file.text(), codec);
+    } catch {
+      return {ok: false, reason: 'That file could not be read.'};
+    }
+  },
+  applyImport(incoming) {
+    if (!importSave({storage, codec, save: game.save, incoming}).ok) return toast('Could not import: this browser will not let Mossvale write its save.');
+    app.persist.lock();
+    location.reload();
+  },
+  restoreCheckpoint() {
+    if (!restoreCheckpoint({storage, codec, save: game.save}).ok) return toast('Could not restore the checkpoint.');
     app.persist.lock();
     location.reload();
   },

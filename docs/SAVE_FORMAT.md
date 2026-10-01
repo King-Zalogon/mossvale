@@ -63,3 +63,7 @@ Double taps and stale timers: an ended battle returns `null` from `resolveTurn` 
 ## Starting over and restoring
 
 Issue [#20](https://github.com/King-Zalogon/mossvale/issues/20). **New game** copies the current adventure into `mossvale-archive` (only if it has progress), then writes a fresh save and resets the checkpoint so corruption recovery cannot resurrect the old one. If a different adventure was already archived, the confirmation says it will be replaced. **Restore previous adventure** swaps the archive and the current save, so nothing is lost either way. Both are disabled when the save is read-only (newer schema or storage unavailable), write nothing if the archive write fails, and reload the page afterwards.
+
+## Export and import
+
+Issue [#30](https://github.com/King-Zalogon/mossvale/issues/30). A backup file is `{ kind: "mossvale-save-backup", format: 1, exportedAt, build, save: <v3 save> }`; a bare save payload is also accepted on import. See [BACKUP.md](BACKUP.md).

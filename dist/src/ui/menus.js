@@ -194,6 +194,8 @@ export function createMenus(app) {
   /** Title screen (`title: true`, shown after loading) and the in-game menu share one set of views. */
   function mainMenu({title = false} = {}) {
     let view = 'home';
+    let pending = null; // an import or checkpoint waiting for confirmation: {save, label, when}
+    let problem = '';
     const render = () => {
       const s = save();
       const st = app.settings;
@@ -206,12 +208,17 @@ export function createMenus(app) {
       if (view === 'settings') {
         const zoom = (ui.zoom || 1).toFixed(2);
         body = `${header('SETTINGS', 'Make it comfortable', !title)}<div class="setting-row"><span>Sound</span><span class="choices">${choice('sound', true, 'On')}${choice('sound', false, 'Off')}</span></div><div class="setting-row"><span>Motion</span><span class="choices">${choice('motion', 'auto', 'Match system')}${choice('motion', 'reduced', 'Calm')}</span></div><div class="setting-row"><span>Zoom ${zoom}×</span><span class="choices"><button id="s-zoom-out" class="muted-button" aria-label="Zoom out" ${ui.zoom <= ZOOM_MIN ? 'disabled' : ''}>−</button><button id="s-zoom-in" class="muted-button" aria-label="Zoom in" ${ui.zoom >= ZOOM_MAX ? 'disabled' : ''}>+</button><button id="s-zoom-auto" class="muted-button">Auto</button></span></div><div class="setting-row"><span>Touch: run by default</span><span class="choices">${choice('run', true, 'On')}${choice('run', false, 'Off')}</span></div><div class="menu-list"><button id="m-back" class="primary">Back</button></div>`;
+      } else if (view === 'backup') {
+        const checkpoint = app.checkpoint();
+        body = `${header('BACKUP', 'Save backup', !title)}<p class="menu-summary">Your progress is saved in this browser, on this address only. To move it to another browser or device, export a file here and import it there. No account is needed.</p><div class="menu-list"><button id="b-export" class="primary">Export save file</button><button id="b-import" ${app.canStartOver() ? '' : 'disabled'}>Import save file…</button><input type="file" id="b-file" accept=".json,application/json" hidden>${checkpoint ? `<button id="b-checkpoint" ${app.canStartOver() ? '' : 'disabled'}>Restore the checkpoint from your last session<small>${summarize(checkpoint, species)}</small></button>` : ''}<button id="m-back">Back</button></div>${problem ? `<p class="menu-error" role="alert">${problem}</p>` : ''}`;
+      } else if (view === 'confirm-pending') {
+        body = `${header('REPLACE PROGRESS', pending.label, false)}<p class="menu-summary"><b>${pending.label}:</b> ${summarize(pending.save, species)}${pending.when ? ' · ' + new Date(pending.when).toLocaleDateString() : ''}<br><b>Your current adventure:</b> ${summarize(s, species)}<br><small>Your current adventure is kept as a backup you can restore from this menu.</small></p><div class="menu-list"><button id="b-confirm" class="primary">Replace my current adventure</button><button id="b-cancel">Keep playing</button></div>`;
       } else if (view === 'confirm-new') {
         body = `${header('NEW GAME', 'Start over?', false)}<p class="menu-summary">${progress ? `Your current adventure (${summarize(s, species)}) will be kept as a backup you can restore from this menu.` : 'You have not made progress yet.'}${archived && progress ? ' This replaces the older backup from ' + new Date(archived.at).toLocaleDateString() + ' (' + summarize(archived.save, species) + ').' : ''}</p><div class="menu-list"><button id="m-confirm-new" class="primary">Start a new adventure</button><button id="m-cancel">Keep playing</button></div>`;
       } else if (view === 'confirm-restore') {
         body = `${header('RESTORE', 'Go back to your earlier adventure?', false)}<p class="menu-summary">Restores ${summarize(archived.save, species)}, archived ${new Date(archived.at).toLocaleDateString()}. Your current adventure (${summarize(s, species)}) becomes the backup, so nothing is lost.</p><div class="menu-list"><button id="m-confirm-restore" class="primary">Restore it</button><button id="m-cancel">Cancel</button></div>`;
       } else {
-        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
+        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button><button id="m-backup">Backup & restore</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
       }
       open(body, mode, title ? 'Mossvale' : 'Game menu');
       wireClose();
@@ -224,6 +231,33 @@ export function createMenus(app) {
       };
       on('#m-primary', () => (title ? actions.startPlaying() : actions.close()));
       on('#m-settings', go('settings'));
+      on('#m-backup', () => {
+        problem = '';
+        go('backup')();
+      });
+      on('#b-export', () => actions.exportSave());
+      on('#b-import', () => $('#b-file').click());
+      if ($('#b-file')) {
+        $('#b-file').onchange = async e => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const result = await actions.readBackup(file);
+          if (result.ok) {
+            pending = {save: result.save, label: 'Imported file', when: result.exportedAt, apply: () => actions.applyImport(result.save)};
+            problem = '';
+            view = 'confirm-pending';
+          } else problem = result.reason;
+          render();
+        };
+      }
+      on('#b-checkpoint', () => {
+        const cp = app.checkpoint();
+        pending = {save: cp, label: 'Checkpoint from your last session', when: null, apply: () => actions.restoreCheckpoint()};
+        view = 'confirm-pending';
+        render();
+      });
+      on('#b-confirm', () => pending.apply());
+      on('#b-cancel', go('backup'));
       on('#m-back', go('home'));
       on('#m-cancel', go('home'));
       on('#m-new', go('confirm-new'));

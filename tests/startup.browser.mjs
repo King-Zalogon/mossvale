@@ -294,6 +294,48 @@ for (const [seed, weakened] of [
   console.log('ok premise, tips and ending');
 }
 {
+  // export from one browser, import into another; bad files and future saves change nothing
+  const played = newSave();
+  Object.assign(played, {coins: 77, wins: 9, met: true, badges: [0]});
+  const a = await browser.newContext({acceptDownloads: true});
+  await a.addInitScript(set('mossvale-v3', codec.serialize(played)));
+  const pa = await a.newPage();
+  const errors = [];
+  pa.on('pageerror', e => errors.push(e.message));
+  await pa.goto(url);
+  await pa.click('#m-primary');
+  await pa.keyboard.press('Escape');
+  await pa.click('#m-backup');
+  assert.match(await pa.textContent('#modal'), /this browser, on this address only/);
+  const [download] = await Promise.all([pa.waitForEvent('download'), pa.click('#b-export')]);
+  assert.match(download.suggestedFilename(), /^mossvale-save-\d{4}-\d\d-\d\d\.json$/);
+  const text = readFileSync(await download.path(), 'utf8');
+  assert.equal(JSON.parse(text).save.coins, 77);
+
+  const b = await browser.newContext();
+  const pb = await b.newPage();
+  pb.on('pageerror', e => errors.push(e.message));
+  await pb.goto(url);
+  await pb.click('#m-backup');
+  // A bad file first: refused, nothing changes.
+  await pb.setInputFiles('#b-file', {name: 'nope.json', mimeType: 'application/json', buffer: Buffer.from('{"hello": 1}')});
+  await pb.waitForSelector('.menu-error');
+  assert.match(await pb.textContent('.menu-error'), /does not look like a Mossvale save/);
+  await pb.setInputFiles('#b-file', {name: 'future.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify({version: 99}))});
+  await pb.waitForFunction(() => /newer version/.test(document.querySelector('.menu-error')?.textContent || ''));
+  assert.equal(await pb.evaluate(() => localStorage.getItem('mossvale-archive')), null);
+  // The real file: preview, then replace.
+  await pb.setInputFiles('#b-file', {name: 'save.json', mimeType: 'application/json', buffer: Buffer.from(text)});
+  await pb.waitForSelector('#b-confirm');
+  assert.match(await pb.textContent('#modal'), /Imported file[\s\S]*1 seal/);
+  await Promise.all([pb.waitForEvent('load'), pb.click('#b-confirm')]);
+  await pb.waitForSelector('#m-primary');
+  assert.equal(await pb.textContent('#m-primary'), 'Continue');
+  assert.equal(JSON.parse(await pb.evaluate(() => localStorage.getItem('mossvale-v3'))).coins, 77);
+  assert.deepEqual(errors, []);
+  console.log('ok export, import and bad files');
+}
+{
   // debug hook is absent without ?debug
   const {page} = await open('');
   await page.goto(url);
