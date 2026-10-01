@@ -152,7 +152,25 @@ function validateOne(m, byId, ctx, errors) {
     const where = `zones[${i}] (${z?.id})`;
     if (!Array.isArray(z?.terrain) || !z.terrain.every(ch => ch in TERRAIN && ch !== '.')) at(where + '.terrain', 'list of terrain characters (not ".")');
     if (!Array.isArray(z?.pool) || !z.pool.length) at(where + '.pool', 'needs at least one species');
-    else z.pool.forEach(id => species(where + '.pool', id));
+    else
+      z.pool.forEach(entry => {
+        const id = typeof entry === 'string' ? entry : entry?.species;
+        species(where + '.pool', id);
+        if (typeof entry === 'object' && entry !== null && !(Number.isFinite(entry.weight) && entry.weight > 0 && entry.weight <= 100))
+          at(where + '.pool', `weight for "${id}" must be a number above 0 and at most 100`);
+      });
+    if (
+      z?.distance !== undefined &&
+      !(
+        Array.isArray(z.distance) &&
+        z.distance.length === 2 &&
+        z.distance.every(Number.isFinite) &&
+        z.distance[0] >= 1 &&
+        z.distance[1] >= z.distance[0] &&
+        z.distance[1] <= 40
+      )
+    )
+      at(where + '.distance', '[min, max] tiles of walking in this zone between encounters (1 <= min <= max <= 40, default [4, 7])');
     if (!Array.isArray(z?.level) || z.level.length !== 2 || !z.level.every(Number.isInteger) || z.level[0] < 1 || z.level[1] < z.level[0] || z.level[1] > 99)
       at(where + '.level', '[min, max] integers, 1 <= min <= max <= 99');
     if (z?.rect !== undefined && !(Array.isArray(z.rect) && z.rect.length === 4 && z.rect.every(Number.isFinite))) at(where + '.rect', '[x0, y0, x1, y1]');
@@ -161,8 +179,16 @@ function validateOne(m, byId, ctx, errors) {
     const where = `triggers[${i}] (${t?.id})`;
     if (!inside(t?.at)) at(where + '.at', 'must be [x, y] inside the map');
     if (!['enter', 'interact'].includes(t?.on)) at(where + '.on', 'enter or interact');
-    if (!Array.isArray(t?.do) || !t.do.length || !t.do.every(a => a?.type === 'toast' && typeof a.text === 'string'))
-      at(where + '.do', 'list of { type: "toast", text }');
+    if (!Array.isArray(t?.do) || !t.do.length) at(where + '.do', 'needs at least one action');
+    else
+      t.do.forEach((a, j) => {
+        if (a?.type === 'toast') {
+          if (typeof a.text !== 'string') at(`${where}.do[${j}]`, 'toast needs text');
+        } else if (a?.type === 'battle') {
+          species(`${where}.do[${j}].species`, a.species);
+          if (!Number.isInteger(a.level) || a.level < 1 || a.level > 99) at(`${where}.do[${j}].level`, 'integer 1..99');
+        } else at(`${where}.do[${j}]`, 'action type must be "toast" or "battle"');
+      });
   });
 }
 
@@ -205,8 +231,24 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
   objects.push(...landmarks, ...exits);
   objects.sort((a, b) => a.x + a.y - b.x - b.y);
   const spawns = Object.fromEntries(Object.entries(m.spawns).map(([k, p]) => [k, {x: p[0], y: p[1]}]));
-  const zones = (m.zones ?? []).map(z => ({id: z.id, terrain: z.terrain.map(ch => TERRAIN[ch]), rect: z.rect, pool: z.pool.map(speciesIndex), level: z.level}));
-  const triggers = (m.triggers ?? []).map(t => ({id: t.id, x: t.at[0], y: t.at[1], radius: t.radius ?? 1.5, on: t.on, once: t.once !== false, actions: t.do}));
+  const zones = (m.zones ?? []).map(z => ({
+    id: z.id,
+    terrain: z.terrain.map(ch => TERRAIN[ch]),
+    rect: z.rect,
+    pool: z.pool.map(e => speciesIndex(typeof e === 'string' ? e : e.species)),
+    weights: z.pool.map(e => (typeof e === 'string' ? 1 : e.weight)),
+    level: z.level,
+    distance: z.distance ?? [4, 7],
+  }));
+  const triggers = (m.triggers ?? []).map(t => ({
+    id: t.id,
+    x: t.at[0],
+    y: t.at[1],
+    radius: t.radius ?? 1.5,
+    on: t.on,
+    once: t.once !== false,
+    actions: t.do.map(a => (a.type === 'battle' ? {type: 'battle', id: speciesIndex(a.species), level: a.level} : a)),
+  }));
   return {id: m.id, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers};
 }
 

@@ -47,9 +47,9 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 
 **props**: groups of decoration: `{ sprite, kind: "scenery" | "grass" | "flower", w, solid?, at: [[x, y], ...] }`. `solid` is a collision radius.
 
-**zones** (encounters): `{ id, terrain: ["t"], rect?: [x0, y0, x1, y1], pool: [speciesId...], level: [min, max] }`. Walking in a matching tile for long enough starts a wild encounter from `pool`. The first matching zone wins, so list narrow zones first.
+**zones** (encounters): `{ id, terrain: ["t"], rect?: [x0, y0, x1, y1], pool: [speciesId | { species, weight }...], level: [min, max], distance?: [min, max] }` (see [ENCOUNTERS.md](ENCOUNTERS.md)). Walking in a matching tile for long enough starts a wild encounter from `pool`. The first matching zone wins, so list narrow zones first.
 
-**triggers**: `{ id, at, radius?, on: "enter" | "interact", once?, do: [{ type: "toast", text }] }`. Deliberately small; milestones and dialogue are tracked in [#18](https://github.com/King-Zalogon/mossvale/issues/18).
+**triggers**: `{ id, at, radius?, on: "enter" | "interact", once?, do: [{ type: "toast", text } | { type: "battle", species, level }] }`. Deliberately small; milestones and dialogue are tracked in [#18](https://github.com/King-Zalogon/mossvale/issues/18).
 
 ## Persistence is separate from geometry
 

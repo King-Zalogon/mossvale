@@ -3,10 +3,11 @@
 import {species} from './data/species.js';
 import {regions} from './data/regions.js';
 import {addToParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, unlocked} from './domain/rules.js';
-import {createBattle, ensureHealthyCompanion, resolveTurn, rollWild} from './domain/battle.js';
+import {createBattle, encounterDistance, ensureHealthyCompanion, resolveTurn, rollWild} from './domain/battle.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
-import {buildWorld, nearestInteractive, triggersAt} from './domain/world.js';
+import {buildWorld, nearestInteractive, triggersAt, zoneAt} from './domain/world.js';
+import {GRACE_AFTER_BATTLE, GRACE_ON_ARRIVAL} from './config.js';
 import {$, hideModal, toast} from './ui/dom.js';
 import {TACTICS} from './data/tactics.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
@@ -20,6 +21,9 @@ export function createController(app) {
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
   const timeline = (app.timeline = createTimeline());
   const wait = ms => (app.motionReduced() ? 250 : ms);
+
+  /** Distance to walk before the next encounter, from the zone the player stands in (or the default range). */
+  const nextDistance = () => encounterDistance(zoneAt(game.world, Math.round(game.player.x), Math.round(game.player.y)), rng);
 
   function refresh() {
     clampHealth(save());
@@ -86,7 +90,7 @@ export function createController(app) {
     s.region = id;
     s.visited = [...new Set([...s.visited, id])];
     place(maps[id].spawns[spawn] || maps[id].spawns.camp);
-    game.pacing.encounterCooldown = 3;
+    game.pacing.encounterCooldown = GRACE_ON_ARRIVAL;
     game.pacing.steps = 0;
     enterRegion(id);
     fadeIn();
@@ -159,7 +163,7 @@ export function createController(app) {
       return;
     }
     place(maps[save().region].spawns.camp);
-    game.pacing.encounterCooldown = 3;
+    game.pacing.encounterCooldown = GRACE_ON_ARRIVAL;
     game.pacing.steps = 0;
     close();
     persist();
@@ -214,7 +218,10 @@ export function createController(app) {
       if (game.firedTriggers.has(`${game.world.map.id}/${t.id}`)) return;
       game.firedTriggers.add(`${game.world.map.id}/${t.id}`);
     }
-    for (const a of t.actions) if (a.type === 'toast') toast(a.text);
+    for (const a of t.actions) {
+      if (a.type === 'toast') toast(a.text);
+      else if (a.type === 'battle') beginBattle({id: a.id, level: a.level}); // a scripted wild encounter
+    }
   }
 
   /** Called every frame from the main loop: fires 'enter' triggers the player is standing in. */
@@ -311,8 +318,8 @@ export function createController(app) {
     if (turn.ended) {
       game.battle = null;
       game.pacing.steps = 0;
-      game.pacing.encounterAt = 4 + rng() * 3;
-      game.pacing.encounterCooldown = 4;
+      game.pacing.encounterAt = nextDistance();
+      game.pacing.encounterCooldown = GRACE_AFTER_BATTLE;
       transition(game, 'result');
       if (turn.ended === 'loss') {
         place(maps[s.region].spawns.camp);
@@ -465,8 +472,8 @@ export function createController(app) {
     timeline.cancel();
     game.battle = null;
     game.pacing.steps = 0;
-    game.pacing.encounterAt = 4 + rng() * 3;
-    game.pacing.encounterCooldown = 4;
+    game.pacing.encounterAt = nextDistance();
+    game.pacing.encounterCooldown = GRACE_AFTER_BATTLE;
     transition(game, 'explore');
     hideModal(ui, canvas);
     refresh();

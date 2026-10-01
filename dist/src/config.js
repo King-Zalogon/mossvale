@@ -29,3 +29,8 @@ export const GUARD_FACTOR = 0.35; // enemy damage multiplier while guarding
 export const PLAYER_RADIUS = 0.25; // feet footprint, in tiles: terrain and solid props use the same size
 export const MOVE_STEP = 1 / 60; // simulation sub-step so distance and collisions do not depend on the frame rate
 export const FOLLOW_GAP = 1.0; // how far behind the player (along the walked path) the companion trails
+
+// Encounter pacing (issue #26). Distance between encounters is per zone (default 4-7 tiles of walking in it).
+export const GRACE_AFTER_BATTLE = 4; // seconds without an encounter after a fight or fleeing
+export const GRACE_ON_ARRIVAL = 3; // seconds after changing maps or returning to camp
+export const UNSEEN_PREFERENCE = 0.6; // chance an encounter picks a creature you have not met yet, if the zone has any

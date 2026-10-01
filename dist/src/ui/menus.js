@@ -45,6 +45,14 @@ export function createMenus(app) {
     wireClose();
   }
 
+  /** Regions whose encounter zones can produce species `i`. */
+  const habitats = i => app.maps.map((m, ri) => (m.zones.some(z => z.pool.includes(i)) ? ri : -1)).filter(ri => ri >= 0);
+  /** A practical nudge for a creature you have not met: where to look, but only once you have been there. */
+  const hint = i => {
+    const found = habitats(i).filter(ri => save().visited.includes(ri));
+    return found.length ? 'Try the tall grass of ' + found.map(ri => regions[ri].short).join(' or ') : 'Explore to discover';
+  };
+
   function journal(filter = 'all') {
     if (game.battle) return;
     const s = save();
@@ -57,11 +65,10 @@ export function createMenus(app) {
           const caught = s.caught.includes(i);
           return `<div class="species ${s.active === i ? 'active' : ''}">${seen ? `<canvas id="spec-${i}" width="110" height="110"></canvas>` : '<div class="unseen">?</div>'}<h3>${seen ? sp.name : 'Unknown creature'}</h3><small>${caught ? 'Befriended · Lv. ' + level(s, i) : seen ? 'Seen · ' + sp.type : 'Not yet discovered'}</small><p>${seen ? sp.desc : 'A new friend is waiting along a wild trail.'}</p><small>${
             seen
-              ? app.maps
-                  .map((m, ri) => (m.zones.some(z => z.pool.includes(i)) ? regions[ri].short : null))
-                  .filter(Boolean)
+              ? habitats(i)
+                  .map(ri => regions[ri].short)
                   .join(' / ')
-              : 'Explore to discover'
+              : hint(i)
           }</small>${caught ? `<button data-select="${i}" ${s.active === i ? 'disabled' : ''}>${s.active === i ? 'Your companion' : 'Travel together'}</button>` : ''}</div>`;
         })
         .join('')}</div>`,

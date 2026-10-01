@@ -1,6 +1,6 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
-import {BASE_LEVEL, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
+import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, HEAVY_FACTOR, planOf} from '../data/tactics.js';
 import {grant} from './economy.js';
@@ -17,13 +17,27 @@ export function ensureHealthyCompanion(save) {
   return true;
 }
 
+/** Weighted pick of one index from `ids` using the zone's weights. */
+function weightedPick(zone, ids, rng) {
+  const weights = ids.map(id => zone.weights?.[zone.pool.indexOf(id)] ?? 1);
+  let roll = rng() * weights.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < ids.length; i++) if ((roll -= weights[i]) < 0) return ids[i];
+  return ids.at(-1);
+}
+
 /** Picks a wild creature and level from an encounter zone (see mapdata.js). Prefers creatures not yet seen. */
 export function rollWild(save, rng, zone) {
   const missing = zone.pool.filter(i => !save.seen.includes(i));
-  const pool = missing.length && rng() < 0.6 ? missing : zone.pool;
-  const id = pool[Math.floor(rng() * pool.length)];
+  const candidates = missing.length && rng() < UNSEEN_PREFERENCE ? missing : zone.pool;
+  const id = weightedPick(zone, candidates, rng);
   const level = zone.level[0] + Math.floor(rng() * (zone.level[1] - zone.level[0] + 1));
   return {id, level};
+}
+
+/** How far to walk in `zone` before the next encounter. */
+export function encounterDistance(zone, rng) {
+  const [lo, hi] = zone?.distance ?? [4, 7];
+  return lo + rng() * (hi - lo);
 }
 
 /** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */

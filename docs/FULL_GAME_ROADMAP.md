@@ -51,6 +51,8 @@ Then: #21 stamped build artifact per commit, in-game build label, frozen save fi
 
 Then: #23 guardian tactics (spore guard, rolling charge, frost chorus) with a visible next-move line and a per-guardian damage multiplier ([BATTLE.md](BATTLE.md)); the fourth challenge waits for the fourth biome (#54).
 
+Then: #26 weighted zones with per-zone walking distance, named grace constants, journal habitat hints, a every-species-has-a-source check and a scripted-battle trigger action ([ENCOUNTERS.md](ENCOUNTERS.md)). Not done: the 12-creature roster and four-biome tuning wait for #24 and #51–#54.
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.

@@ -21,7 +21,7 @@ export function buildAdventure(rawMaps, {assets, species, regions}, rawObjective
   if (rawObjectives !== undefined) {
     errors.push(...validateObjectives(rawObjectives, {mapIds: new Set(rawMaps.map(m => m?.id))}));
   }
-  if (!errors.length) errors.push(...checkProgression(ordered, regions, rawObjectives?.objectives ?? []));
+  if (!errors.length) errors.push(...checkProgression(ordered, regions, rawObjectives?.objectives ?? []), ...checkSources(ordered, species));
   if (errors.length) return {maps: [], objectives: [], errors};
   const spriteIndex = name => assets.findIndex(a => a.name === name);
   const speciesIndex = id => species.findIndex(s => s.id === id);
@@ -56,4 +56,11 @@ function checkProgression(ordered, regions, objectives) {
   }
   for (const f of collectFlags(objectives)) if (!flags.has(f)) errors.push(`progression: objectives ask for "${f}", but no reachable landmark awards it`);
   return errors;
+}
+
+/** Every creature must be findable: it has to appear in at least one encounter zone (zones are validated as reachable). */
+function checkSources(ordered, species) {
+  const sourced = new Set();
+  for (const m of ordered) for (const z of m.zones ?? []) for (const e of z.pool) sourced.add(typeof e === 'string' ? e : e.species);
+  return species.filter(s => !sourced.has(s.id)).map(s => `species: "${s.id}" has no encounter zone in any map, so it could never be found`);
 }
