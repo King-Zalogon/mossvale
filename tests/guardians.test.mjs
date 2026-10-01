@@ -110,7 +110,7 @@ const policies = {
     return {kind: b.focus >= 1 ? 'element' : 'attack'};
   },
   // Slow and steady: strike, guard when hurt, heal early.
-  steady: (save, b) => {
+  steady: (save) => {
     if (companion(save).hp < maxHP(save, save.active) * 0.55 && save.potions > 0) return {kind: 'potion'};
     if (companion(save).hp < maxHP(save, save.active) * 0.45) return {kind: 'guard'};
     return {kind: 'attack'};
