@@ -1,7 +1,7 @@
 /* Mossvale save codec: validation, v1/v2 -> v3 migration, quarantine and checkpoints.
    Pure functions over a Storage-like object so it can be tested without a browser.
    In memory the game keeps species/region *indexes*; on disk (v3) it stores stable string IDs. */
-import {MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
+import {FOCUS_MAX, FOCUS_START, MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
 const VERSION = 3;
 const KEYS = {v3: 'mossvale-v3', v2: 'mossvale-v2', v1: 'mossvale-v1', backup: 'mossvale-backup', quarantine: 'mossvale-quarantine'};
@@ -92,7 +92,16 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
     const id = typeof b.id === 'string' ? speciesIndex(b.id) : -1;
     const intIn = (v, min, max) => Number.isInteger(v) && v >= min && v <= max;
     if (id < 0 || !intIn(b.level, 1, 99) || !intIn(b.max, 1, 9999) || !intIn(b.hp, 1, b.max) || !intIn(b.turn, 0, 9999)) return null;
-    return {id, hp: b.hp, max: b.max, level: b.level, boss: b.boss === true, guard: b.guard === true, turn: b.turn};
+    return {
+      id,
+      hp: b.hp,
+      max: b.max,
+      level: b.level,
+      boss: b.boss === true,
+      guard: b.guard === true,
+      turn: b.turn,
+      focus: intIn(b.focus, 0, FOCUS_MAX) ? b.focus : FOCUS_START,
+    };
   }
 
   // v1 stored only a few top-level fields; express them as a v2-shaped payload.

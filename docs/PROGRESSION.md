@@ -10,7 +10,7 @@ Issue [#25](https://github.com/King-Zalogon/mossvale/issues/25). Optional polish
 | Level-up | Heals 12 HP per level gained | Unchanged |
 | Bench share | Companions that did not fight earn 50% of each XP award (minimum 1) | Unused friends do not fall behind |
 | Catch-up | A fighter 2+ levels below the team's best earns 1.5× XP | Switching to a newly caught creature is viable without grinding |
-| Move upgrade | At level 10 the elemental move becomes `<name>+` and its base power goes from 12 to 16 | One visible milestone; no learnsets, evolutions or move choices |
+| Move upgrade | At level 10 the elemental move becomes `<name>+` and its base power goes from 16 to 20 | One visible milestone; no learnsets, evolutions or move choices |
 | New catches | Start at the wild creature's level (unchanged) | Immediately usable |
 
 Rewards per outcome are unchanged (wild win 24 XP, guardian 65 for a new seal, capture 20), so a lone fighter reaches the cap after roughly 19 wins; with the bench share and catch-up, a rotating team gets there sooner. Nothing requires reaching it: the test bot beats the meadow guardian at about level 7.
