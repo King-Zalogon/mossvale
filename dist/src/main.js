@@ -46,7 +46,8 @@ const game = {
   save: loaded.save,
   player: {x: loaded.save.x, y: loaded.save.y, dir: 8},
   world: {map: null, tiles: [], objects: []},
-  battle: null,
+  battle: loaded.save.battle ? {...loaded.save.battle, busy: false, over: false} : null,
+  phase: 'explore',
   firedTriggers: new Set(),
   pacing: {steps: 0, encounterAt: 4, encounterCooldown: 2},
 };
@@ -148,6 +149,11 @@ async function boot() {
   actions.refresh();
   canvas.focus({preventScroll: true});
   toast(game.save.badges.length ? 'Your trail continues. Welcome back, explorer.' : 'The shrines are stirring. Find a new friend in the tall grass.');
+  const resumed = actions.resumeBattle();
+  if (!resumed && game.save.recap) {
+    toast(game.save.recap);
+    game.save.recap = '';
+  }
   if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
   if (!started) {
     started = true;
@@ -194,6 +200,7 @@ function loop(t) {
       zoom: ui.zoom,
       now: ui.now,
       paused: ui.paused,
+      phase: game.phase,
       moving: isMoving(ui) && !ui.modalMode && !ui.paused,
     };
     renderer.drawWorld(view);
@@ -237,7 +244,16 @@ setInterval(app.persist, 6000);
 // Test/debug hook: only available with ?debug (optionally ?seed=N for deterministic encounters).
 if (debug) {
   window.mossvale = {
-    getState: () => ({player: game.player, save: game.save, battle: game.battle, paused: ui.paused, modalMode: ui.modalMode, world: game.world, zoom: ui.zoom}),
+    getState: () => ({
+      player: game.player,
+      save: game.save,
+      battle: game.battle,
+      paused: ui.paused,
+      phase: game.phase,
+      modalMode: ui.modalMode,
+      world: game.world,
+      zoom: ui.zoom,
+    }),
     encounter: id => actions.beginBattle({id, level: game.world.map.zones[0]?.level[0] ?? 5}),
     valid: (x, y) => isWalkable(game.world, x, y),
     grass: (x, y) => !!zoneAt(game.world, x, y),

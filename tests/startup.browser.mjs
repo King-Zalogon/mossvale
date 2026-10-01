@@ -90,6 +90,61 @@ const set = (k, v) =>
   assert.equal(await page.evaluate(() => typeof window.mossvale), 'object');
   console.log('ok gameplay smoke');
 }
+for (const [seed, weakened] of [
+  [11, false],
+  [12, true],
+  [13, true],
+  [14, true],
+]) {
+  // a refresh right after throwing an orb neither loses the orb nor the outcome; a double tap spends one orb
+  const {page} = await open('');
+  await page.goto(url + `?debug&seed=${seed}`);
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  await page.evaluate(() => window.mossvale.encounter(1));
+  await page.waitForSelector('#catch:not([disabled])');
+  if (weakened) await page.evaluate(() => (window.mossvale.getState().battle.hp = 1)); // makes capture likely so both outcomes get exercised
+  const orbs = await page.evaluate(() => window.mossvale.getState().save.orbs);
+  await page.keyboard.press('3');
+  await page.keyboard.press('3');
+  await page.reload();
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  const st = await page.evaluate(() => {
+    const s = window.mossvale.getState();
+    return {orbs: s.save.orbs, resumed: !!s.battle, wins: s.save.wins, caught: s.save.caught.length, modal: s.modalMode, phase: s.phase};
+  });
+  assert.equal(st.orbs, orbs - 1, 'exactly one orb spent');
+  if (st.resumed)
+    assert.deepEqual([st.modal, st.phase, st.wins], ['battle', 'battle', 0]); // broke free: encounter resumes
+  else assert.deepEqual([st.wins, st.caught, st.phase], [1, 2, 'explore']); // captured: reward applied once
+  console.log('ok refresh during capture (' + (st.resumed ? 'encounter resumed' : 'capture kept') + ')');
+}
+{
+  // a normal capture path with ordinary actions, no debug damage
+  const {page, errors} = await open('');
+  await page.goto(url + '?debug&seed=21');
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  for (let tries = 0; tries < 8; tries++) {
+    if ((await page.evaluate(() => window.mossvale.getState().save.caught.length)) >= 2) break;
+    await page.evaluate(() => window.mossvale.encounter(1));
+    for (let i = 0; i < 80; i++) {
+      if (await page.locator('#result-continue').count()) {
+        await page.click('#result-continue');
+        break;
+      }
+      const s = await page.evaluate(() => {
+        const g = window.mossvale.getState();
+        return g.battle && {busy: g.battle.busy, ratio: g.battle.hp / g.battle.max, orbs: g.save.orbs, mode: g.modalMode};
+      });
+      if (s && !s.busy && s.mode === 'battle') await page.keyboard.press(s.ratio <= 0.45 && s.orbs > 0 ? '3' : '2');
+      await page.waitForTimeout(250);
+    }
+    await page.waitForFunction(() => window.mossvale.getState().phase === 'explore');
+  }
+  const caught = await page.evaluate(() => window.mossvale.getState().save.caught.length);
+  assert.ok(caught >= 2, 'captured a new friend through normal play');
+  assert.deepEqual(errors, []);
+  console.log('ok normal capture flow');
+}
 {
   // debug hook is absent without ?debug
   const {page} = await open('');
