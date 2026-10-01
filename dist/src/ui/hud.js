@@ -1,0 +1,54 @@
+/* Side panel, region banner and status text. Reads state and writes DOM; no game rules. */
+import {species} from '../data/species.js';
+import {regions} from '../data/regions.js';
+import {companion, level, maxHP, objective} from '../domain/rules.js';
+import {drawCreature} from '../render/sprites.js';
+import {$} from './dom.js';
+
+export function renderRegion(region) {
+  const r = regions[region];
+  $('#region-name').textContent = r.name;
+  $('#region-subtitle').textContent = r.subtitle;
+  $('#area-number').textContent = 'AREA 0' + (region + 1);
+  $('#world-tag').textContent = '✦  ' + r.tag;
+  $('#coordinates').textContent = r.short.toUpperCase();
+}
+
+export function renderHud(save) {
+  const s = species[save.active];
+  const c = companion(save);
+  const hp = maxHP(save, save.active);
+  $('#companion-name').textContent = s.name;
+  $('#companion-desc').textContent = s.desc;
+  $('#companion-type').textContent = s.type.toUpperCase();
+  $('#companion-type').style.background = s.color + '33';
+  $('#companion-type').style.color = s.color;
+  $('#level').textContent = 'LV. ' + level(save, save.active);
+  $('#health').textContent = `${c.hp} / ${hp}`;
+  $('#hpbar').style.width = (c.hp / hp) * 100 + '%';
+  $('#hpbar').style.background = s.color;
+  $('#xp-label').textContent = `${c.xp % 45} / 45 XP`;
+  $('#xpbar').style.width = ((c.xp % 45) / 45) * 100 + '%';
+  $('#orbs').textContent = save.orbs;
+  $('#potions').textContent = save.potions;
+  $('#coins').textContent = save.coins;
+  $('#count').textContent = `${save.caught.length} befriended · ${save.seen.length} / 8 seen`;
+  $('#badge-count').textContent = `${save.badges.length} / 3 shrine seals`;
+  const q = objective(save);
+  $('#quest-title').textContent = q.title;
+  $('#quest-copy').textContent = q.copy;
+  $('#quest-step').textContent = q.step;
+  $('#quest-lines').innerHTML = q.lines.map(([done, text]) => `<div class="quest-line"><span>${done ? '✓' : '○'}</span>${text}</div>`).join('');
+  $('#objective-pin').textContent = q.pin;
+  drawCreature($('#buddy'), save.active, 106);
+}
+
+/** @param {'saved'|'session-only'|'unavailable'} status */
+export function renderSaveStatus(status) {
+  if (status === 'saved') {
+    $('#saved').textContent = 'PROGRESS SAVED';
+  } else {
+    $('#saved').textContent = 'SESSION ONLY';
+    if (status === 'unavailable') $('#save-note').textContent = 'Storage unavailable. Keep this tab open to retain progress.';
+  }
+}

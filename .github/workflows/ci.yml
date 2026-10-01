@@ -1,0 +1,28 @@
+name: CI
+
+# Runs on every push (main and branches) and on pull requests. No branch protection or required
+# approvals are assumed: failed checks stay visible on the commit but never block direct pushes to main.
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Lint, format, asset manifest, module boundaries and unit tests
+        run: npm run check
+      - name: Install Chromium for browser smoke tests
+        run: npx playwright install --with-deps chromium
+      - name: Browser smoke tests
+        run: npm run test:browser

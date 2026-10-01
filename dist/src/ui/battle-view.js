@@ -1,0 +1,34 @@
+/* Battle panel rendering. Presentation only: all rules are in domain/battle.js. */
+import {species} from '../data/species.js';
+import {regions} from '../data/regions.js';
+import {companion, effectiveness, level, maxHP} from '../domain/rules.js';
+import {captureChance} from '../domain/battle.js';
+import {drawCreature} from '../render/sprites.js';
+import {$, header, openModal} from './dom.js';
+
+const button = (id, title, detail, disabled = false, extra = '') =>
+  `<button id="${id}" ${disabled ? 'disabled' : ''} class="${extra}">${title}<small>${detail}</small></button>`;
+
+export function createBattleView(app) {
+  const {game, ui, actions} = app;
+  return function renderBattle(message, animation = '') {
+    const b = game.battle;
+    if (!b) return;
+    const save = game.save;
+    const a = species[save.active];
+    const s = species[b.id];
+    const eff = effectiveness(save.active, b.id);
+    const mine = companion(save);
+    openModal(
+      ui,
+      `${header(b.boss ? 'SHRINE GUARDIAN' : 'WILD ENCOUNTER', b.boss ? 'A shrine begins to stir.' : s.name + ' crossed your path.', false)}<div class="battle-top"><span>${a.type} ${eff > 1 ? 'is strong against' : eff < 1 ? 'is weaker against' : 'meets'} ${s.type}</span><span class="${b.boss ? 'boss-label' : ''}">${b.boss ? regions[save.region].seal : 'Turn ' + (b.turn + 1)}</span></div><div class="battle-scene"><div class="fighter"><canvas id="fight-buddy" class="${animation === 'attack' ? 'attack' : animation === 'enemy' ? 'hit' : ''}" width="160" height="145"></canvas><div class="name-line">${a.name} · Lv. ${level(save, save.active)}</div><div class="bar"><i style="width:${(mine.hp / maxHP(save, save.active)) * 100}%;background:${a.color}"></i></div><small>${mine.hp} / ${maxHP(save, save.active)} HP</small></div><div class="fighter"><canvas id="fight-wild" class="${animation === 'attack' ? 'hit' : animation === 'capture' ? 'catching' : ''}" width="160" height="145"></canvas><div class="name-line">${s.name} · Lv. ${b.level}</div><div class="bar"><i style="width:${(b.hp / b.max) * 100}%;background:${s.color}"></i></div><small>${b.hp} / ${b.max} HP</small></div></div><div class="battle-log" role="status" aria-live="polite">${message}</div><div class="battle-actions">${button('attack', '1 · Quick strike', 'Reliable damage', b.busy)}${button('element', '2 · ' + a.move, eff > 1 ? 'Super effective!' : eff < 1 ? 'Less effective' : 'Elemental attack', b.busy)}${button('catch', '3 · Capture orb', b.boss ? 'Guardians cannot be caught' : Math.round(captureChance(save, b) * 100) + '% chance · ' + save.orbs + ' left', b.busy || b.boss || save.orbs === 0, 'capture-button')}${button('potion', '4 · Potion', 'Restore 24 HP · ' + save.potions + ' left', b.busy || save.potions === 0 || mine.hp === maxHP(save, save.active))}${button('guard', '5 · Guard', 'Reduce the next hit', b.busy)}${button('switch', '6 · Switch friend', 'Choose a companion', b.busy || save.caught.filter(i => companion(save, i).hp > 0).length < 2)}</div><div class="battle-subactions"><button id="flee" ${b.busy ? 'disabled' : ''}>Leave encounter <kbd>Esc</kbd></button><span>${b.boss ? 'Win to awaken the shrine' : 'Weaken it before you catch it'}</span></div>`,
+      'battle',
+      s.name + ' encounter',
+    );
+    drawCreature($('#fight-buddy'), save.active, 107);
+    drawCreature($('#fight-wild'), b.id, 107);
+    for (const id of ['attack', 'element', 'catch', 'potion', 'guard']) $('#' + id).onclick = () => actions.battleAction(id);
+    $('#switch').onclick = actions.party;
+    $('#flee').onclick = actions.flee;
+  };
+}

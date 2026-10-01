@@ -16,16 +16,16 @@ Open <http://localhost:8080> in a browser. Any static web server can serve the `
 
 ## Controls
 
-| Control | Action |
-| --- | --- |
-| WASD / arrow keys | Move in eight directions |
-| Shift | Run |
-| E | Interact with a nearby ranger, shrine, chest, sign, or trail |
-| M | Island map |
-| J | Field journal |
-| Q | Companion team |
-| 1–6 during battle | Select a battle action |
-| Escape | Close a menu or leave an encounter |
+| Control           | Action                                                       |
+| ----------------- | ------------------------------------------------------------ |
+| WASD / arrow keys | Move in eight directions                                     |
+| Shift             | Run                                                          |
+| E                 | Interact with a nearby ranger, shrine, chest, sign, or trail |
+| M                 | Island map                                                   |
+| J                 | Field journal                                                |
+| Q                 | Companion team                                               |
+| 1–6 during battle | Select a battle action                                       |
+| Escape            | Close a menu or leave an encounter                           |
 
 On touch screens, use the directional pad, Run button, and interaction prompt.
 
@@ -39,19 +39,27 @@ Progress saves automatically in the current browser using local storage. Origina
 
 ## Files
 
-- `dist/index.html`: game interface and controls.
-- `dist/style.css`: responsive interface, menus, and animation styles.
-- `dist/save.js`: save validation, migration and recovery ([format](docs/SAVE_FORMAT.md)).
-- `dist/assets.js`: asset manifest (names, sizes, required status) checked by `npm run validate`.
-- `dist/game.js`: world rendering, movement, encounters, progression, and save handling.
-- `dist/sprite*.png`: original creature, character, and environment artwork.
-- `dist/favicon.svg`: site icon.
+- `dist/index.html`, `dist/style.css`: interface and styles.
+- `dist/src/`: game code as ES modules (data, pure domain rules, save codec, services, rendering, UI, controller). See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+- `dist/src/data/assets.js`: asset manifest (names, sizes, required status).
+- `dist/sprite*.png`: original creature, character, and environment artwork. `dist/favicon.svg`: site icon.
+- `docs/`: [game design](docs/GAME_DESIGN.md), [architecture](docs/ARCHITECTURE.md), [save format](docs/SAVE_FORMAT.md), [roadmap](docs/FULL_GAME_ROADMAP.md).
+- `tests/`, `scripts/`, `.github/workflows/ci.yml`: automated checks.
 
 The game uses vanilla JavaScript and Canvas 2D. It has no backend, account system, or multiplayer service. Fonts are loaded from Google Fonts with local fallbacks.
 
-## Tests
+## Development and checks
 
-`npm test` runs save-migration fixtures (Node 20+, no dependencies); `npm run validate` checks the asset manifest; `npm run test:browser` runs startup/recovery checks in Chromium (requires Playwright).
+Node 20+ (CI uses 22). Install once with `npm ci`; serving the game needs no build (`npm start` or the command above).
+
+| Command                | What it runs                                                                                                                                                      |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run check`        | ESLint, Prettier check, asset manifest + module-boundary validation, unit tests (save codec, seeded gameplay rules)                                               |
+| `npm run test:browser` | Chromium smoke tests: malformed/corrupt saves, missing-sprite retry, a seeded battle, menus, travel, v3 save write (needs `npx playwright install chromium` once) |
+| `npm run verify`       | Everything above, same as CI                                                                                                                                      |
+| `npm run format`       | Apply Prettier                                                                                                                                                    |
+
+CI (`.github/workflows/ci.yml`) runs `verify` on every push and pull request. It never blocks direct pushes to `main`; failures show on the commit. To reproduce a CI failure locally, run `npm ci && npm run verify`. Open the game with `?debug` (and `&seed=N`) to get `window.mossvale` for manual inspection.
 
 ## Development roadmap
 

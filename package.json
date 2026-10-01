@@ -1,9 +1,26 @@
 {
- "name": "mossvale",
- "private": true,
- "scripts": {
-  "validate": "node scripts/validate-assets.mjs",
-  "test": "node --test tests/save.test.mjs",
-  "test:browser": "node tests/startup.browser.mjs"
- }
+  "name": "mossvale",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 8080 --directory dist",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate": "node scripts/validate-assets.mjs && node scripts/check-boundaries.mjs",
+    "test": "node --test tests/save.test.mjs tests/gameplay.test.mjs",
+    "test:browser": "node tests/startup.browser.mjs",
+    "check": "npm run lint && npm run format:check && npm run validate && npm test",
+    "verify": "npm run check && npm run test:browser"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.1.0",
+    "globals": "17.13.0",
+    "playwright": "1.56.1",
+    "prettier": "3.9.9"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
 }

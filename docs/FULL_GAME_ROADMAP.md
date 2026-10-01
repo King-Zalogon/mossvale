@@ -71,6 +71,8 @@ A mixed team of about three full-time contributors might need roughly **16–26 
 
 - 2026-10-01: #8 and #12 implemented on branch `ccr-075e1d10-ok9hef` (`dist/save.js`, `dist/assets.js`, tests; see [SAVE_FORMAT.md](SAVE_FORMAT.md)). Issues stay open until reviewed against their acceptance criteria; remaining gaps: #8 save fixtures are not yet exported from real v1 data; #12 has no throttled-network or decode-failure browser test, and optional audio/font fallbacks are untested (no audio assets exist yet).
 
+- 2026-10-01: #7 baseline written in [GAME_DESIGN.md](GAME_DESIGN.md) (targets, content inventory, metrics, cut list; no roadmap estimate changed). #10: pinned `package-lock.json`, ESLint/Prettier, `npm run verify`, GitHub Actions CI, known-bad checks (missing asset and startup exception both fail). #9: runtime split into ES modules under `dist/src/` with enforced pure-domain boundaries, seeded gameplay tests and a `?debug`-gated test hook; see [ARCHITECTURE.md](ARCHITECTURE.md). Remaining gaps: #7 needs owner sign-off on the numbers; #10 has no green run on `main` yet; #9 has no typed event payloads and CSS is not split.
+
 ## Tracking
 This backlog contains 36 required issues, five optional issues and five epics. Each task includes observed evidence, scoped work, acceptance criteria, verification, an effort range and parallelization guidance. No implementation work is marked complete merely because an issue exists.
 

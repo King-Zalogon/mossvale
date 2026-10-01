@@ -1,0 +1,215 @@
+/* Mossvale save codec: validation, v1/v2 -> v3 migration, quarantine and checkpoints.
+   Pure functions over a Storage-like object so it can be tested without a browser.
+   In memory the game keeps species/region *indexes*; on disk (v3) it stores stable string IDs. */
+const VERSION = 3;
+const KEYS = {v3: 'mossvale-v3', v2: 'mossvale-v2', v1: 'mossvale-v1', backup: 'mossvale-backup', quarantine: 'mossvale-quarantine'};
+const XP_PER_LEVEL = 45,
+  MAX_XP = XP_PER_LEVEL * 95,
+  MAX_COUNT = 9999,
+  MAX_TIME = 1e9,
+  MAX_QUARANTINE = 3;
+const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
+const num = (v, min, max, def) => (typeof v === 'number' && Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : def);
+
+function create({species, regions, size, spawn = {x: 12, y: 13}}) {
+  const speciesIndex = id => species.findIndex(s => s.id === id);
+  const regionIndex = id => regions.findIndex(r => r.id === id);
+  const maxHP = (idx, xp) => species[idx].hp + Math.floor(xp / XP_PER_LEVEL) * 4;
+
+  function fresh() {
+    return {
+      version: VERSION,
+      region: 0,
+      x: spawn.x,
+      y: spawn.y,
+      active: 0,
+      orbs: 12,
+      potions: 3,
+      coins: 0,
+      seen: [0],
+      caught: [0],
+      team: {0: {xp: 0, hp: species[0].hp}},
+      badges: [],
+      chests: [],
+      visited: [0],
+      met: false,
+      wins: 0,
+      playTime: 0,
+    };
+  }
+
+  // Convert a raw payload (v3 IDs, or legacy indexes when `legacy`) into a fully valid in-memory save, or null.
+  function normalize(raw, legacy) {
+    if (!isObj(raw)) return null;
+    const ref = (v, list, find) => (legacy ? (Number.isInteger(v) && v >= 0 && v < list.length ? v : -1) : typeof v === 'string' ? find(v) : -1);
+    const refs = (a, list, find) => [...new Set((Array.isArray(a) ? a : []).map(v => ref(v, list, find)).filter(i => i >= 0))];
+    const s = fresh();
+    s.caught = refs(raw.caught, species, speciesIndex);
+    if (!s.caught.length) s.caught = [0];
+    s.seen = [...new Set([...refs(raw.seen, species, speciesIndex), ...s.caught])];
+    s.badges = refs(raw.badges, regions, regionIndex);
+    s.chests = refs(raw.chests, regions, regionIndex);
+    s.visited = [...new Set([0, ...refs(raw.visited, regions, regionIndex)])];
+    s.team = {};
+    const rawTeam = isObj(raw.team) ? raw.team : {};
+    for (const idx of s.caught) {
+      const key = legacy ? String(idx) : species[idx].id;
+      const rec = isObj(rawTeam[key]) ? rawTeam[key] : {};
+      const xp = num(rec.xp, 0, MAX_XP, 0);
+      s.team[idx] = {xp, hp: Math.round(num(rec.hp, 0, maxHP(idx, xp), maxHP(idx, xp)))};
+    }
+    const active = ref(raw.active, species, speciesIndex);
+    s.active = s.caught.includes(active) ? active : s.caught[0];
+    for (const [key, def] of [
+      ['orbs', 12],
+      ['potions', 3],
+      ['coins', 0],
+    ])
+      s[key] = Math.floor(num(raw[key], 0, MAX_COUNT, def));
+    s.wins = Math.floor(num(raw.wins, 0, MAX_COUNT, 0));
+    s.playTime = num(raw.playTime, 0, MAX_TIME, 0);
+    s.met = raw.met === true;
+    const region = ref(raw.region, regions, regionIndex);
+    s.region = region >= 0 && (region === 0 || s.badges.includes(region - 1)) ? region : 0;
+    s.x = num(raw.x, 0, size - 1, spawn.x);
+    s.y = num(raw.y, 0, size - 1, spawn.y);
+    return s;
+  }
+
+  // v1 stored only a few top-level fields; express them as a v2-shaped payload.
+  function fromV1(old) {
+    if (!isObj(old)) return null;
+    const wins = Math.floor(num(old.wins, 0, MAX_COUNT, 0));
+    return {seen: old.seen, caught: old.caught, orbs: old.orbs, wins, met: old.met, active: 0, team: {0: {xp: wins * 14, hp: old.hp}}};
+  }
+
+  function serialize(save) {
+    const sid = i => species[i].id,
+      rid = i => regions[i].id;
+    const team = {};
+    for (const idx of save.caught) team[sid(idx)] = {xp: save.team[idx].xp, hp: save.team[idx].hp};
+    return JSON.stringify({
+      version: VERSION,
+      region: rid(save.region),
+      x: save.x,
+      y: save.y,
+      active: sid(save.active),
+      orbs: save.orbs,
+      potions: save.potions,
+      coins: save.coins,
+      seen: save.seen.map(sid),
+      caught: save.caught.map(sid),
+      team,
+      badges: save.badges.map(rid),
+      chests: save.chests.map(rid),
+      visited: save.visited.map(rid),
+      met: save.met,
+      wins: save.wins,
+      playTime: save.playTime,
+    });
+  }
+
+  function quarantine(storage, key, raw, reason) {
+    try {
+      let list = [];
+      try {
+        const prev = JSON.parse(storage.getItem(KEYS.quarantine));
+        if (Array.isArray(prev)) list = prev;
+      } catch {
+        /* no previous quarantine list */
+      }
+      list.push({key, reason, at: new Date().toISOString(), raw: String(raw).slice(0, 200000)});
+      storage.setItem(KEYS.quarantine, JSON.stringify(list.slice(-MAX_QUARANTINE)));
+    } catch {
+      /* quarantine is best effort */
+    }
+  }
+
+  /* Returns {save, status, message, writable, source}.
+     status: 'new' | 'ok' | 'migrated' | 'restored' | 'recovered' | 'future' | 'unavailable'
+     - restored: primary save was invalid and the last checkpoint was loaded instead.
+     - recovered: nothing usable; a fresh save is used and the bad payload is kept under KEYS.quarantine.
+     - future: written by a newer game version; it is never overwritten (writable=false).
+     - unavailable: storage cannot be read; play continues in memory only (writable=false). */
+  function load(storage) {
+    const out = {save: fresh(), status: 'new', message: '', writable: true, source: null};
+    const candidates = [
+      [KEYS.v3, 3],
+      [KEYS.backup, 3],
+      [KEYS.v2, 2],
+      [KEYS.v1, 1],
+    ];
+    let failed = null;
+    for (const [key, version] of candidates) {
+      let raw;
+      try {
+        raw = storage.getItem(key);
+      } catch {
+        return {
+          ...out,
+          status: 'unavailable',
+          writable: false,
+          message: 'Browser storage is unavailable, so progress cannot be saved. Keep this tab open to retain progress.',
+        };
+      }
+      if (raw == null) continue;
+      let parsed;
+      try {
+        parsed = JSON.parse(raw);
+      } catch {
+        quarantine(storage, key, raw, 'invalid JSON');
+        failed = failed || key;
+        continue;
+      }
+      if (isObj(parsed) && Number.isInteger(parsed.version) && parsed.version > VERSION)
+        return {
+          ...out,
+          status: 'future',
+          writable: false,
+          source: key,
+          message: `This save was made by a newer version of Mossvale (schema ${parsed.version}). It was left untouched; progress in this session will not be saved.`,
+        };
+      const save =
+        version === 1
+          ? normalize(fromV1(parsed), true)
+          : version === 2
+            ? isObj(parsed) && parsed.version === 2
+              ? normalize(parsed, true)
+              : null
+            : isObj(parsed) && parsed.version === 3
+              ? normalize(parsed, false)
+              : null;
+      if (!save) {
+        quarantine(storage, key, raw, 'invalid or unsupported structure');
+        failed = failed || key;
+        continue;
+      }
+      out.save = save;
+      out.source = key;
+      if (key === KEYS.backup) {
+        out.status = 'restored';
+        out.message = 'Your latest save could not be read, so the previous checkpoint was restored. The damaged data was kept for recovery.';
+      } else if (failed) {
+        out.status = 'restored';
+        out.message = 'Your latest save could not be read, so an older save was restored. The damaged data was kept for recovery.';
+      } else if (key === KEYS.v3) {
+        out.status = 'ok';
+        try {
+          storage.setItem(KEYS.backup, raw);
+        } catch {
+          /* checkpoint is best effort */
+        }
+      } else out.status = 'migrated';
+      return out;
+    }
+    if (failed) {
+      out.status = 'recovered';
+      out.message = 'Your saved progress could not be read, so a new adventure was started. The damaged data was kept for recovery and not erased.';
+    }
+    return out;
+  }
+
+  return {fresh, normalize, serialize, load};
+}
+
+export {VERSION, KEYS, create};
