@@ -1,11 +1,11 @@
 /* Mossvale save codec: validation, v1/v2 -> v3 migration, quarantine and checkpoints.
    Pure functions over a Storage-like object so it can be tested without a browser.
    In memory the game keeps species/region *indexes*; on disk (v3) it stores stable string IDs. */
+import {MAX_XP, XP_PER_LEVEL} from './config.js';
+
 const VERSION = 3;
 const KEYS = {v3: 'mossvale-v3', v2: 'mossvale-v2', v1: 'mossvale-v1', backup: 'mossvale-backup', quarantine: 'mossvale-quarantine'};
-const XP_PER_LEVEL = 45,
-  MAX_XP = XP_PER_LEVEL * 95,
-  MAX_COUNT = 9999,
+const MAX_COUNT = 9999,
   MAX_TIME = 1e9,
   MAX_QUARANTINE = 3;
 const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);

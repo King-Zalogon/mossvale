@@ -1,7 +1,7 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
 import {BASE_LEVEL, XP_PER_LEVEL} from '../config.js';
-import {companion, effectiveness, gainXP, healTeam, level, maxHP} from './rules.js';
+import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
 
@@ -39,10 +39,10 @@ export function captureChance(save, battle) {
 /** The player's attack. kind: 'attack' (quick strike) | 'element'. Mutates battle.hp. */
 export function playerStrike(save, battle, kind, rng) {
   const eff = kind === 'element' ? effectiveness(save.active, battle.id) : 1;
-  const base = kind === 'element' ? 12 : 10;
+  const base = kind === 'element' ? elementPower(save, save.active) : 10;
   const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff));
   battle.hp = Math.max(0, battle.hp - damage);
-  return {kind, damage, eff, defeated: battle.hp === 0};
+  return {kind, damage, eff, move: kind === 'element' ? moveName(save, save.active) : 'Quick strike', defeated: battle.hp === 0};
 }
 
 export function usePotion(save) {
@@ -90,7 +90,7 @@ export function resolveWin(save, battle, rng) {
   const xp = newSeal ? 65 : battle.boss ? 20 : 24;
   save.wins++;
   save.coins += reward;
-  const xpText = gainXP(save, xp);
+  const xpText = awardXP(save, xp).text;
   if (newSeal) {
     save.badges.push(save.region);
     save.potions += 2;
@@ -108,7 +108,7 @@ export function resolveCapture(save, battle) {
     save.team[id] = {xp: Math.max(0, battle.level - BASE_LEVEL) * XP_PER_LEVEL, hp: 0};
     save.team[id].hp = maxHP(save, id);
   }
-  const xpText = gainXP(save, 20);
+  const xpText = awardXP(save, 20).text;
   save.coins += 10;
   save.wins++;
   return {isNew, id, xpText};

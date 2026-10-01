@@ -1,7 +1,7 @@
 /* Side panel, region banner and status text. Reads state and writes DOM; no game rules. */
 import {species} from '../data/species.js';
 import {regions} from '../data/regions.js';
-import {companion, level, maxHP, objective} from '../domain/rules.js';
+import {companion, level, maxHP, objective, xpProgress} from '../domain/rules.js';
 import {drawCreature} from '../render/sprites.js';
 import {$} from './dom.js';
 
@@ -27,8 +27,9 @@ export function renderHud(save) {
   $('#health').textContent = `${c.hp} / ${hp}`;
   $('#hpbar').style.width = (c.hp / hp) * 100 + '%';
   $('#hpbar').style.background = s.color;
-  $('#xp-label').textContent = `${c.xp % 45} / 45 XP`;
-  $('#xpbar').style.width = ((c.xp % 45) / 45) * 100 + '%';
+  const xp = xpProgress(save, save.active);
+  $('#xp-label').textContent = xp.maxed ? 'MAX LEVEL' : `${xp.into} / ${xp.needed} XP`;
+  $('#xpbar').style.width = (xp.into / xp.needed) * 100 + '%';
   $('#orbs').textContent = save.orbs;
   $('#potions').textContent = save.potions;
   $('#coins').textContent = save.coins;

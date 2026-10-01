@@ -299,7 +299,7 @@ export function createController(app) {
     for (const e of turn.events) {
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
-        player = `${species[before.active].name} used ${e.kind === 'element' ? species[before.active].move : 'Quick strike'} for ${e.damage} damage.${e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
+        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
         frames.push({message: player, animation: 'attack', after: e.after, tone: [e.kind === 'element' ? 490 : 330], wait: wait(650)});
       } else if (e.type === 'throw') {
         player = 'The creature broke free of the orb.';
