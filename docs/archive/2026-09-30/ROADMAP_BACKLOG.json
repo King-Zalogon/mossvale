@@ -1,0 +1,1404 @@
+{
+  "date": "2026-09-30",
+  "baseline": "8fc2c7b33251d7a8045b196712982be0489f4b20",
+  "repository": "King-Zalogon/mossvale",
+  "roadmapIssue": 1,
+  "requiredEffortDays": [
+    170,
+    284
+  ],
+  "withIntegrationReserveDays": [
+    213,
+    355
+  ],
+  "epics": [
+    {
+      "key": "foundation",
+      "title": "Runtime foundations, reliable saves and first playable chapter",
+      "description": "Remove reliability blockers and establish contracts that let gameplay, content, art and QA advance independently.",
+      "issue": 2
+    },
+    {
+      "key": "combat",
+      "title": "Creature collection, strategic combat and balanced progression",
+      "description": "Turn the basic encounter loop into a readable, varied system with individual companions, meaningful moves and a measured economy.",
+      "issue": 3
+    },
+    {
+      "key": "world",
+      "title": "Authored exploration, quests and a complete campaign",
+      "description": "Replace repeated terrain and hardcoded objectives with authored regions, NPCs, quests and an ending.",
+      "issue": 4
+    },
+    {
+      "key": "experience",
+      "title": "Art, animation, audio and usable desktop/mobile play",
+      "description": "Deliver consistent pixel presentation and accessible, responsive controls, menus and performance.",
+      "issue": 5
+    },
+    {
+      "key": "production",
+      "title": "Testing, delivery and a supportable 1.0 release",
+      "description": "Make the game reproducibly buildable, tested, traceable, distributable and recoverable.",
+      "issue": 6
+    }
+  ],
+  "tasks": [
+    {
+      "key": "spec",
+      "title": "Define the 1.0 game design and measurable completion target",
+      "priority": "P0",
+      "phase": "0 · foundation",
+      "epic": "foundation",
+      "lane": "Design",
+      "days": [
+        2,
+        4
+      ],
+      "deps": [],
+      "evidence": "README.md describes a browser prototype; there is no design document, campaign target, content budget, or definition of a finished game.",
+      "scope": [
+        "Document the recommended small single-player RPG: 3–5-hour first campaign, three distinctive regions with nine authored maps, 24 discoverable species/forms, six side quests, three shrine guardians and a final story resolution. These are planning targets to validate, not existing features.",
+        "Specify the exploration/capture/training/battle loop, failure rules, six-member active party plus reserve collection, move learning/evolution rules, and map/quest structure.",
+        "Set PC keyboard and mobile-touch support, offline-first local saves with export/import, and browser performance/accessibility budgets.",
+        "Identify stretch scope explicitly: no account backend, trading/PvP, monetization, native ports, or mandatory online services for 1.0. Preserve original art identity and eight-direction isometric movement."
+      ],
+      "accept": [
+        "Versioned design, content inventory, success metrics and cut list live in docs/.",
+        "The first chapter can test all core mechanics; completing the campaign has an unambiguous ending.",
+        "Target platforms, party size, progression rules, and content counts are settled so downstream contracts can be written."
+      ],
+      "verify": "Review each target against current mechanics and resource estimates; perform a short scope feasibility review and update the roadmap rather than silently expanding it.",
+      "parallel": "Start immediately. Art reference gathering, audit reproduction, CI setup, and technical spikes can happen concurrently; final content implementation uses this baseline.",
+      "required": true,
+      "issue": 7,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/7"
+    },
+    {
+      "key": "save",
+      "title": "Prevent malformed saves from crashing startup and migrate to stable IDs",
+      "priority": "P0",
+      "phase": "0 · foundation",
+      "epic": "foundation",
+      "lane": "Core engineering",
+      "days": [
+        3,
+        5
+      ],
+      "deps": [],
+      "evidence": "dist/game.js:20–42 trusts nested team records; a v2 save with team={'0':7} reproduces \"Cannot create property xp on number 7\" and prevents window.mossvale from initializing. Species/regions are persisted as array indexes.",
+      "scope": [
+        "Validate every save field, nested creature record, finite number, ID, progression flag, and position before constructing runtime state.",
+        "Introduce stable creature/region/entity IDs and an explicit schema version with tested v1/v2 migration before reordering content arrays.",
+        "Quarantine invalid payloads and retain a previous known-good checkpoint; do not silently overwrite an unsupported newer schema or erase recoverable progress.",
+        "Bound numeric fields, reconcile caught/seen/team consistency, and handle unavailable storage with a clear recovery path."
+      ],
+      "accept": [
+        "The malformed nested-team fixture opens a playable recovery screen instead of crashing.",
+        "All known v1/v2 fixtures preserve collection, XP, inventory and unlocked regions; reordering definitions does not change their identities.",
+        "Truncated, invalid, future-version and storage-denied saves have documented safe outcomes; backup data survives a failed migration."
+      ],
+      "verify": "Fixture tests for nested scalar/null records, extreme/NaN-like values, duplicate/unknown IDs, corrupted JSON, missing storage, future schemas and unchanged valid saves.",
+      "parallel": "Begin the crash hotfix immediately without waiting for the architecture refactor. Agree stable-ID and save-envelope contracts with the architecture owner before the migration lands.",
+      "required": true,
+      "issue": 8,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/8"
+    },
+    {
+      "key": "architecture",
+      "title": "Split the monolithic runtime into modules with explicit data contracts",
+      "priority": "P0",
+      "phase": "0 · foundation",
+      "epic": "foundation",
+      "lane": "Core engineering",
+      "days": [
+        5,
+        8
+      ],
+      "deps": [
+        "spec"
+      ],
+      "evidence": "dist/game.js contains rendering, mutation, persistence, DOM menus, combat and content in one 282-line compressed IIFE; dist/style.css is seven very long lines. Shared mutable state makes independent edits conflict.",
+      "scope": [
+        "Separate domain state, content definitions, world simulation, combat, save service, input, rendering, audio, and UI adapters into documented modules.",
+        "Define stable IDs, event payloads and state transitions; make domain logic independent of DOM/Canvas and inject RNG/time/storage.",
+        "Adopt readable formatting and a small build/dev workflow; keep Canvas unless a bounded engine spike proves a clear benefit.",
+        "Keep public gameplay behavior intact while migrating incrementally; gate mutable debug helpers to development/test builds."
+      ],
+      "accept": [
+        "Modules have documented ownership and APIs; no domain module depends on querySelector or requestAnimationFrame.",
+        "Current behavior smoke tests pass during the split and old saves remain readable.",
+        "Gameplay/content/art/UI contributors can work in separate directories without simultaneously editing one runtime file."
+      ],
+      "verify": "Run migration smoke tests, seeded capture/guardian flows and module-boundary checks on each incremental commit.",
+      "parallel": "Architecture and save contracts need one coordinating owner. CI, art planning, story outlines and loader mitigation can run alongside; dependent implementations start after their specific contracts freeze.",
+      "required": true,
+      "issue": 9,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/9"
+    },
+    {
+      "key": "ci",
+      "title": "Add reproducible development tooling and GitHub quality checks",
+      "priority": "P0",
+      "phase": "0 · foundation",
+      "epic": "production",
+      "lane": "Build engineering",
+      "days": [
+        2,
+        4
+      ],
+      "deps": [],
+      "evidence": "The repository contains README plus dist assets only: no package manifest, lockfile, linter, formatter, committed tests or CI workflow. Earlier validation scripts exist only in the task workspace, not the repo.",
+      "scope": [
+        "Provide one-command local development and checks, pinned tool versions and a lockfile.",
+        "Add formatting/linting, JavaScript syntax/build checks, content/asset reference validation, and a minimal browser smoke test.",
+        "Create a GitHub Actions workflow for pushes to main and branches; do not require PR approval or introduce mandatory merge gates contrary to the owner preference.",
+        "Document test commands and how to reproduce failures; keep tooling proportional to the game."
+      ],
+      "accept": [
+        "A clean checkout installs reproducibly and runs the same checks locally and in GitHub Actions.",
+        "A deliberately broken asset reference or startup exception fails the relevant check.",
+        "main can receive direct commits while failed checks remain visible and actionable."
+      ],
+      "verify": "Exercise the workflow with known-bad fixtures and verify a green run on the real default branch.",
+      "parallel": "Start immediately; this is mostly isolated build configuration. Coordinate module paths with architecture; deeper tests can be added as systems stabilize.",
+      "required": true,
+      "issue": 10,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/10"
+    },
+    {
+      "key": "lifecycle",
+      "title": "Make encounters durable and handle pause, refresh and tab suspension",
+      "priority": "P0",
+      "phase": "0 · foundation",
+      "epic": "foundation",
+      "lane": "Core engineering",
+      "days": [
+        4,
+        7
+      ],
+      "deps": [
+        "save",
+        "architecture"
+      ],
+      "evidence": "dist/game.js:203–229 uses setTimeout for turns while battle state is not serialized. Browser reproduction: start capture, reload immediately; orbs drop 12→11 but the encounter disappears. document.hidden only stops loop rendering/simulation, not turn timers.",
+      "scope": [
+        "Use explicit exploration, dialogue, battle, result and paused states with a single lifecycle controller.",
+        "Choose and implement a documented safe encounter checkpoint/resume policy so item consumption, HP, XP, captures and rewards commit exactly once.",
+        "Suspend or consistently resume animations/turn resolution on tab hiding, focus changes, refresh and browser back/forward; cancel stale callbacks.",
+        "Prevent double actions, menus over active turns, same-frame battle duplicates and orphan result transitions."
+      ],
+      "accept": [
+        "Reloading at every capture/turn/reward boundary never loses an item without its corresponding action or duplicates a reward.",
+        "Pause/visibility behavior is deterministic and documented; stale callbacks cannot mutate a new encounter.",
+        "Exploration, dialogue, switch, defeat and result transitions all recover to a usable state."
+      ],
+      "verify": "Seeded timer/checkpoint tests plus browser refresh/visibility tests at each transaction boundary, rapid keyboard/touch inputs and storage failures.",
+      "parallel": "Needs state/save contracts. Can run alongside combat rule design and map authoring, but the combat implementation must integrate through this controller rather than adding independent timers.",
+      "required": true,
+      "issue": 11,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/11"
+    },
+    {
+      "key": "loader",
+      "title": "Add a real loading state, asset validation and startup recovery",
+      "priority": "P0",
+      "phase": "0 · foundation",
+      "epic": "foundation",
+      "lane": "Client engineering",
+      "days": [
+        2,
+        4
+      ],
+      "deps": [],
+      "evidence": "dist/game.js:70 resolves both image.onload and image.onerror identically; aborting sprite8.png still boots with no failure message and an invisible player.",
+      "scope": [
+        "Create a named asset manifest with sizes, expected frames and required/optional status.",
+        "Show load progress and a usable retry/error path; required missing player/map assets must not silently open normal play.",
+        "Provide deliberate fallbacks for optional assets, font/network failures and browser capability errors.",
+        "Validate assets at build time and distinguish cold loading from continuing a saved game."
+      ],
+      "accept": [
+        "A missing required player sprite is detected, explained, and retryable; restoring the asset resumes play.",
+        "Optional audio/font failures do not break gameplay.",
+        "A cold start on a slow connection communicates progress and does not accept gameplay input before ready."
+      ],
+      "verify": "Browser tests for 404, aborted requests, slow/throttled assets, decode failure and supported capability fallback.",
+      "parallel": "Implement the immediate error path now. Migrate it to the final asset manifest with the architecture/art owners; tooling and presentation work can proceed independently.",
+      "required": true,
+      "issue": 12,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/12"
+    },
+    {
+      "key": "regression",
+      "title": "Commit deterministic gameplay regression tests and fixtures",
+      "priority": "P0",
+      "phase": "0 · foundation",
+      "epic": "production",
+      "lane": "QA automation",
+      "days": [
+        4,
+        7
+      ],
+      "deps": [
+        "ci",
+        "architecture"
+      ],
+      "evidence": "No tests are committed. Previous workspace browser scripts forced guardian HP to 1 and Math.random to 0, verifying wiring but not real difficulty, natural navigation or complete playability.",
+      "scope": [
+        "Add pure-domain tests for movement/collision, capture probability, elemental effects, rewards, defeat, progression gates and save migrations.",
+        "Use injected seeded RNG/clock fixtures instead of mutating global Math.random or the live window.mossvale state in production.",
+        "Add browser flows for new game, real first capture, shrine unlock, region travel, shop, save/reload and touch input.",
+        "Cover exactly-once chest/reward behavior, invalid actions and frame-rate-independent movement; keep logic tests distinct from UI checks."
+      ],
+      "accept": [
+        "Core regression tests run in CI and reproduce failures deterministically.",
+        "At least one first-chapter smoke flow wins using normal game actions without setting enemy HP.",
+        "Tests catch duplicate rewards, malformed saves, missing required assets and stale turn callbacks."
+      ],
+      "verify": "Mutation-check a handful of critical rules to establish that tests detect the intended failures; retain failing seeds as fixtures.",
+      "parallel": "QA can design scenarios immediately and implement against core contracts as they land. Do not let every system owner invent a separate incompatible test harness.",
+      "required": true,
+      "issue": 13,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/13"
+    },
+    {
+      "key": "map-schema",
+      "title": "Create a data-driven map and event authoring pipeline",
+      "priority": "P1",
+      "phase": "1 · complete chapter",
+      "epic": "world",
+      "lane": "World engineering",
+      "days": [
+        5,
+        8
+      ],
+      "deps": [
+        "architecture",
+        "spec",
+        "save"
+      ],
+      "evidence": "dist/game.js:49–67 hardcodes one ellipse, central cross-path, pond, grass rules and the same special object positions for all regions. Terrain palettes change, but authored geography and event data do not exist.",
+      "scope": [
+        "Define versioned map data for tiles, collision, elevations/layers, entity IDs, spawn points, interactables, portals, encounter zones and quest triggers.",
+        "Support a practical authoring workflow such as a constrained Tiled export or validated JSON with preview and documentation.",
+        "Validate references, portal pairs, spawn safety, objective reachability, missing assets and map bounds.",
+        "Separate static map data from persistent dynamic state; provide one migrated meadow map as a reference."
+      ],
+      "accept": [
+        "A designer can change a route, encounter zone or event without editing simulation code.",
+        "Invalid maps fail validation with entity/path context.",
+        "The meadow reference map supports existing camp, chest, shrine and gate interactions using stable IDs."
+      ],
+      "verify": "Schema fixtures, portal/reachability validation and a real authored-map smoke test.",
+      "parallel": "Designers can sketch maps in parallel. Only schema/tool ownership is shared; separate map files become independent once the exporter contract is stable.",
+      "required": true,
+      "issue": 14,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/14"
+    },
+    {
+      "key": "movement",
+      "title": "Make traversal, collisions, portals and camera reliable on every map",
+      "priority": "P1",
+      "phase": "1 · complete chapter",
+      "epic": "world",
+      "lane": "World engineering",
+      "days": [
+        4,
+        7
+      ],
+      "deps": [
+        "map-schema",
+        "lifecycle"
+      ],
+      "evidence": "dist/game.js:68 checks circular object radii; movement resolves X then Y and follows a fixed camera. resize resets user zoom. The follower uses a fixed offset regardless of obstacles or water.",
+      "scope": [
+        "Implement tested eight-direction world movement with consistent world-space speed and collision shapes that match authored terrain/footprints.",
+        "Handle corner sliding, map boundaries, portal spawn direction, repeated interaction input, and stuck recovery.",
+        "Add camera bounds, sensible interpolation, persistent zoom, resize/orientation handling and robust occlusion.",
+        "Have followers use a movement history or safe path so they do not visually walk through obstacles or across ponds."
+      ],
+      "accept": [
+        "Players can reach every required objective and portal without clipping or becoming trapped.",
+        "Movement distance is consistent across supported frame rates and opposite diagonals; all eight directions work on keyboard/touch.",
+        "Resize does not reset the chosen zoom; portal transitions preserve intended facing and place the party safely."
+      ],
+      "verify": "Automated path/collision fixtures and hands-on traversal of every final map at 30/60/120Hz, narrow viewports and device rotation.",
+      "parallel": "World simulation and map design can proceed on separate fixtures after the schema lands; camera/render integration must coordinate with animation and performance work.",
+      "required": true,
+      "issue": 15,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/15"
+    },
+    {
+      "key": "battle",
+      "title": "Implement meaningful move sets, battle rules and status effects",
+      "priority": "P1",
+      "phase": "1 · complete chapter",
+      "epic": "combat",
+      "lane": "Gameplay engineering",
+      "days": [
+        7,
+        11
+      ],
+      "deps": [
+        "spec",
+        "architecture",
+        "lifecycle"
+      ],
+      "evidence": "dist/game.js:203–225 offers one basic strike and one elemental move per species, unlimited elemental attacks, simple guard/potion/switch, and alternating enemy actions. Neutral elemental attack generally outdamages the basic move without a cost.",
+      "scope": [
+        "Specify and implement a finite equipped move set with power, accuracy, resource/cooldown or opportunity-cost rules, targeting and turn ordering.",
+        "Add a small coherent status/stat-effect system and type matrix; avoid piling on mechanics before the first chapter is fun.",
+        "Centralize damage/capture/escape/item/switch resolution, legal actions and event output with seeded RNG.",
+        "Make battle UI, AI and simulations consume the same rule definitions; retain understandable capture feedback."
+      ],
+      "accept": [
+        "At least three distinct useful combat choices exist in the first chapter; one unrestricted attack is not always the best option.",
+        "Effects have clear duration/stacking rules and recover correctly after switching, defeat, refresh or battle end.",
+        "All displayed chances and damage explanations match the actual rule engine."
+      ],
+      "verify": "Rule fixtures for every effect, type matchup, legal action, turn order, damage boundary and resource cost; play a full early guardian encounter without debug intervention.",
+      "parallel": "Battle rule design can begin with the spec. Implementation can run beside map/quest work once state/action contracts are frozen; AI and balancing depend on those rules.",
+      "required": true,
+      "issue": 16,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/16"
+    },
+    {
+      "key": "ai",
+      "title": "Give trainers and shrine guardians deliberate battle behavior",
+      "priority": "P1",
+      "phase": "2 · full campaign",
+      "epic": "combat",
+      "lane": "Gameplay engineering",
+      "days": [
+        5,
+        8
+      ],
+      "deps": [
+        "battle",
+        "collection"
+      ],
+      "evidence": "dist/game.js:220 selects the elemental move on odd turns and quick strike on even turns. Guardians reuse the same creature behavior with increased level/HP.",
+      "scope": [
+        "Add bounded, deterministic AI policies that consider type matchup, health, resources, status and legal switches.",
+        "Create distinct guardian mechanics/telegraphs and encounter definitions for trainer teams; avoid hidden unavoidable punishments.",
+        "Provide adjustable difficulty/accessibility assistance rather than requiring grinding as the only solution.",
+        "Keep AI tunable via data and capture decision traces for balance diagnostics."
+      ],
+      "accept": [
+        "Each of three guardians tests a different learned mechanic and has at least two viable player strategies.",
+        "AI never uses illegal actions or information it should not know; replayed seeds produce the same choices.",
+        "Early trainers teach mechanics and assistance options preserve campaign completion."
+      ],
+      "verify": "AI scenario tests, seeded battle traces and human playtests with multiple team compositions.",
+      "parallel": "AI authoring can share the battle engine with balance work; guardian scripts can be written independently per encounter after the action API and team model stabilize.",
+      "required": true,
+      "issue": 23,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/23"
+    },
+    {
+      "key": "collection",
+      "title": "Model individual creatures, active party and reserve storage",
+      "priority": "P1",
+      "phase": "1 · complete chapter",
+      "epic": "combat",
+      "lane": "Gameplay engineering",
+      "days": [
+        5,
+        8
+      ],
+      "deps": [
+        "save",
+        "architecture",
+        "spec"
+      ],
+      "evidence": "save.caught is a species-index set and save.team is one record per species. Duplicate captures yield coins/XP and cannot become distinct companions; there is no limited active party or reserve collection.",
+      "scope": [
+        "Separate discovered species from individual creature instances with stable IDs, level/XP, health, learned/equipped moves and optional nickname.",
+        "Implement the agreed six-member active party and reserve storage with reorder, swap and inspect actions.",
+        "Specify capture-at-capacity, duplicate capture, fainted party, active companion replacement and migration from one-per-species saves.",
+        "Avoid introducing random hidden traits unless the design has a clear purpose and UI explanation."
+      ],
+      "accept": [
+        "Two captures of the same species can be distinct, persist correctly and be managed without losing either.",
+        "Party/reserve operations preserve identities, moves, XP and campaign flags across save/reload.",
+        "Full party, full storage and all-fainted edge cases have usable recovery paths."
+      ],
+      "verify": "Instance identity/save fixtures and browser party/storage flows including capacity, duplicate capture and battle switching.",
+      "parallel": "Agree instance/save contracts first. Collection UI, roster design and battle rules can then work concurrently against fixtures.",
+      "required": true,
+      "issue": 17,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/17"
+    },
+    {
+      "key": "growth",
+      "title": "Build a bounded XP curve, move learning and evolution progression",
+      "priority": "P1",
+      "phase": "2 · full campaign",
+      "epic": "combat",
+      "lane": "Game design + engineering",
+      "days": [
+        4,
+        7
+      ],
+      "deps": [
+        "collection",
+        "battle",
+        "roster"
+      ],
+      "evidence": "dist/game.js:43 and 133 use an unbounded linear level formula, fixed XP per outcome and HP increases. There are no learnsets, level cap or evolutions.",
+      "scope": [
+        "Create an XP curve and level cap appropriate to the 3–5-hour campaign; define party XP distribution and avoid bench members becoming unusable.",
+        "Implement move-learning decisions, safe replacement and any agreed six evolution lines with explicit conditions and communication.",
+        "Apply HP/stat changes consistently for level/evolution, battle and storage; migrate existing experience without unreasonable boosts or loss.",
+        "Data-drive growth and evolution; integrate notifications into party and battle results."
+      ],
+      "accept": [
+        "Progression unlocks meaningful choices throughout the campaign without mandatory repetitive grinding.",
+        "Learning/evolving preserves individual identity, valid moves, health ratios and saved state.",
+        "Cap, multi-level gains, declined evolution and old XP fixtures behave predictably."
+      ],
+      "verify": "Progression fixture tests plus full-campaign level/XP traces and bench catch-up playtests.",
+      "parallel": "Growth tables and learnsets can be designed alongside roster art; implementation integrates once collection and battle contracts are stable.",
+      "required": true,
+      "issue": 25,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/25"
+    },
+    {
+      "key": "roster",
+      "title": "Author a coherent 24-species roster with roles and evolution lines",
+      "priority": "P1",
+      "phase": "2 · full campaign",
+      "epic": "combat",
+      "lane": "Creature design",
+      "days": [
+        8,
+        12
+      ],
+      "deps": [
+        "spec",
+        "battle",
+        "collection",
+        "chapter"
+      ],
+      "evidence": "dist/game.js:6–15 defines eight species that mainly differ by HP, type, sprite and one move. Species and region pools are embedded in code.",
+      "scope": [
+        "Define 24 total discoverable species/forms, including the agreed evolution lines, without confusing forms with additional unique catches.",
+        "Give each a distinct combat role, habitat, encounter weight, growth/learnset and readable journal entry.",
+        "Keep region distribution intentional and ensure every required species is obtainable with no irreversible collection lockout.",
+        "Supply validated data and art briefs; implement a complete first-chapter subset before producing the remainder."
+      ],
+      "accept": [
+        "The roster has explicit counts, roles, region availability and a discoverable completion plan.",
+        "No required species, evolution prerequisite or move references an undefined ID.",
+        "Species differentiation survives playtesting beyond merely swapping type/color."
+      ],
+      "verify": "Content validation, encounter-availability checks and roster role review against the final battle rules.",
+      "parallel": "Creature concepts/data and art briefs can run alongside map/story design. Final move/stat assignments need combat contracts; split production by stable species IDs.",
+      "required": true,
+      "issue": 24,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/24"
+    },
+    {
+      "key": "encounters",
+      "title": "Make encounters varied, paced and discoverable",
+      "priority": "P1",
+      "phase": "2 · full campaign",
+      "epic": "world",
+      "lane": "Gameplay engineering",
+      "days": [
+        4,
+        7
+      ],
+      "deps": [
+        "map-schema",
+        "roster",
+        "battle"
+      ],
+      "evidence": "dist/game.js:190–195 uses region-wide pools and a preference for unseen species; movement accumulates a grass-distance threshold. There are no zone-specific habitats, trainer events or encounter protection items.",
+      "scope": [
+        "Author weighted encounter tables by map/zone with level ranges, rarity and clear habitat clues.",
+        "Define encounter grace periods, escape rules, trainer/one-time scripted encounters and optional suppression so exploration is not constantly interrupted.",
+        "Validate every campaign-required capture/evolution source and prevent scripted encounter reward duplication.",
+        "Communicate rarity/hints through the journal or NPCs instead of demanding blind random grinding."
+      ],
+      "accept": [
+        "Routes feel different and required collection goals are achievable within the campaign pacing budget.",
+        "Encounter cooldowns/grace periods survive battle transitions and save/restore.",
+        "Scripted encounters trigger once as intended and random tables cover every required species."
+      ],
+      "verify": "Seeded distribution tests, reachability/availability validation and timed exploration playtests.",
+      "parallel": "Encounter table authoring can run per map alongside level design; implementation uses the shared event/battle interfaces.",
+      "required": true,
+      "issue": 26,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/26"
+    },
+    {
+      "key": "quests",
+      "title": "Add a persistent quest, dialogue and world-event system",
+      "priority": "P1",
+      "phase": "1 · complete chapter",
+      "epic": "world",
+      "lane": "World engineering",
+      "days": [
+        6,
+        10
+      ],
+      "deps": [
+        "spec",
+        "architecture",
+        "save",
+        "map-schema"
+      ],
+      "evidence": "objective() derives one hardcoded step from captures/badges; Iris dialogue is repeated HTML. There are no branching dialogue nodes, persistent quest instances or general map events.",
+      "scope": [
+        "Define quest objectives, prerequisite flags, rewards and completion transitions with stable IDs and once-only commits.",
+        "Build dialogue nodes with conditions, choices, event dispatch and NPC presentation; let content authors use validated data.",
+        "Support world changes after quests, objective markers, journal history and resumable interactions.",
+        "Keep a small expressive system; avoid building an unrestricted scripting language or editor before the chapter ships."
+      ],
+      "accept": [
+        "A multi-step first-chapter quest can be authored without changing runtime code.",
+        "Dialogue/quest progress resumes after reload and rewards cannot be claimed twice.",
+        "Missing prerequisites, contradictory states and orphan references are caught by validation."
+      ],
+      "verify": "Quest state transition fixtures and browser flows through branching dialogue, abort/restart, rewards and map changes.",
+      "parallel": "Story writing can start now. Implementation needs map/save/event contracts; authors can build dialogue fixtures while the runtime is being completed.",
+      "required": true,
+      "issue": 18,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/18"
+    },
+    {
+      "key": "maps",
+      "title": "Build nine authored maps with distinct exploration and secrets",
+      "priority": "P1",
+      "phase": "2 · full campaign",
+      "epic": "world",
+      "lane": "Level design",
+      "days": [
+        10,
+        16
+      ],
+      "deps": [
+        "map-schema",
+        "movement",
+        "quests",
+        "chapter"
+      ],
+      "evidence": "All three existing regions reuse the same 25×25 terrain rules and camp/shrine/chest positions with different palettes and a few scenery sprites.",
+      "scope": [
+        "Build the remaining six ridge/grove maps and refine the three meadow maps from the validated chapter, totaling nine authored maps.",
+        "Give each region distinctive geography, safe paths, landmarks, shortcuts, encounters and at least one meaningful exploration challenge.",
+        "Place NPCs, chests, quest events, portals and shrine approaches using validated map data.",
+        "Stage production: complete and playtest one region first, then build ridge and grove from proven authoring patterns."
+      ],
+      "accept": [
+        "Players can distinguish regions by layout and activities, not just recoloring.",
+        "Every main objective and all six side-quest paths are reachable on keyboard/touch without sequence-break softlocks.",
+        "Each map passes reference, collision, spawn, portal and event validation."
+      ],
+      "verify": "Full navigation walkthroughs from new and mid-campaign saves, secret discovery playtests and map validation in CI.",
+      "parallel": "Design all regions concurrently after the schema is stable; implement separate map files in parallel. Do not duplicate the unproven first chapter before its playtest gate.",
+      "required": true,
+      "issue": 27,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/27"
+    },
+    {
+      "key": "story",
+      "title": "Deliver the first-play tutorial, campaign story and satisfying ending",
+      "priority": "P1",
+      "phase": "2 · full campaign",
+      "epic": "world",
+      "lane": "Narrative design",
+      "days": [
+        6,
+        10
+      ],
+      "deps": [
+        "spec",
+        "quests",
+        "maps",
+        "ai"
+      ],
+      "evidence": "The current game starts immediately in the meadow and ends with a guardian result message plus objective text. There is no playable introduction, narrative arc, final sequence or credits.",
+      "scope": [
+        "Write a concise story grounded in the three shrines, Iris and the companions; introduce region NPCs and motivations.",
+        "Teach movement, interaction, capture, type strengths, switching, healing and shrine progression through play with skip/review options.",
+        "Integrate three region chapters and a final resolution using the quest/event engine; make the next goal consistently discoverable.",
+        "Add ending/credits and a persisted completion state that lets players continue unfinished exploration."
+      ],
+      "accept": [
+        "A new player can reach the first capture and shrine without reading the external README.",
+        "The campaign has an identifiable beginning, escalating middle and explicit final resolution.",
+        "Returning or completing players receive correct objectives and can continue collecting without losing progress."
+      ],
+      "verify": "Blind first-time-player sessions and uninterrupted full campaign walkthroughs, including skipping tutorial and replaying ending from a checkpoint.",
+      "parallel": "Writing and tutorial storyboards start after the spec; integration proceeds per chapter against map/quest/AI fixtures, not all at the end.",
+      "required": true,
+      "issue": 28,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/28"
+    },
+    {
+      "key": "sidequests",
+      "title": "Add six side quests, regional secrets and collection goals",
+      "priority": "P1",
+      "phase": "2 · full campaign",
+      "epic": "world",
+      "lane": "Content design",
+      "days": [
+        5,
+        8
+      ],
+      "deps": [
+        "quests",
+        "maps",
+        "collection"
+      ],
+      "evidence": "The prototype has one reusable objective chain and one treasure chest per region. There are no side quests or exploration consequences.",
+      "scope": [
+        "Create two authored side quests per region with different activities: exploration, creature observation/training, NPC help or a small battle puzzle.",
+        "Give rewards and world/dialogue consequences, not only more coins; integrate regional secrets with journal clues.",
+        "Design completionist tracking and fallback access so optional paths do not permanently lock a required creature or reward.",
+        "Document prerequisites and quest graph for validation and QA."
+      ],
+      "accept": [
+        "All six quests have clear starts, objectives, rewards and completion states.",
+        "Optional content complements the main campaign and can be finished after the ending.",
+        "Rewards commit once, and no side quest can block mandatory progression."
+      ],
+      "verify": "Quest graph validation and playthroughs in different main/side-quest orders with save/reload at each step.",
+      "parallel": "Each quest can be authored independently once quest/map/collection contracts are available; reserve one integration owner for global reward/flag consistency.",
+      "required": true,
+      "issue": 29,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/29"
+    },
+    {
+      "key": "economy",
+      "title": "Create a coherent inventory, shop and reward economy",
+      "priority": "P1",
+      "phase": "1 · complete chapter",
+      "epic": "combat",
+      "lane": "Game design + engineering",
+      "days": [
+        4,
+        7
+      ],
+      "deps": [
+        "spec",
+        "save",
+        "battle",
+        "quests"
+      ],
+      "evidence": "Inventory is three scalar counts. Iris restores health and fills orbs to 12 for free; duplicate catches grant 10 coins; shops have hardcoded prices and two items. These choices have not been economy-tested.",
+      "scope": [
+        "Specify free-recovery and refill policy intentionally; prevent the campaign from requiring coin grinding or becoming unwinnable after spending supplies.",
+        "Define data-driven item types, quantities, effects, prices and reward tables with transactional purchase/use logic.",
+        "Add inventory inspection/use and clear insufficient-funds/capacity feedback; retain convenient camp recovery.",
+        "Balance reward sources and sinks, duplicate captures, chest rewards and guardian rewards against expected route length."
+      ],
+      "accept": [
+        "Every supported save can recover to a playable state without needing paid services or consumable luck.",
+        "Purchases, item use and rewards are once-only and capacity-safe across save/restore.",
+        "Expected campaign spending/rewards are documented with normal and low-skill routes."
+      ],
+      "verify": "Transaction/capacity fixtures and an economy simulation plus human low-resource playthroughs.",
+      "parallel": "Economy tables can be drafted alongside battle design. Transaction code must share the durable action/save service rather than implementing separate mutations.",
+      "required": true,
+      "issue": 19,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/19"
+    },
+    {
+      "key": "balance",
+      "title": "Measure and tune natural campaign difficulty and pacing",
+      "priority": "P1",
+      "phase": "3 · beta and polish",
+      "epic": "combat",
+      "lane": "Game design + QA",
+      "days": [
+        8,
+        12
+      ],
+      "deps": [
+        "growth",
+        "ai",
+        "encounters",
+        "economy",
+        "story",
+        "sidequests"
+      ],
+      "evidence": "Previous tests verify unlock wiring by forcing enemy HP to 1. No natural campaign duration, guardian difficulty, capture time, collection odds or viable team composition has been measured.",
+      "scope": [
+        "Build seeded batch simulations for combat, capture/collection availability, XP curves and economy using the real rules.",
+        "Run blind human sessions for first-time, casual and experienced players; record time-to-first-capture, shrine attempts, grind time and completion time.",
+        "Tune numbers, encounters, AI and tutorial feedback so multiple teams/strategies succeed.",
+        "Set explicit acceptance budgets and retain difficult/failing seeds plus playtest notes for future regression."
+      ],
+      "accept": [
+        "The target 3–5-hour campaign is supported by measured sessions rather than assumed from content count.",
+        "Every guardian has multiple viable strategies and no required action demands repetitive grind beyond the agreed budget.",
+        "Capture completion, failure recovery and economy are viable for low-resource and unlucky routes."
+      ],
+      "verify": "Publish simulation summaries and anonymized playtest observations; rerun key seeds after every balance change.",
+      "parallel": "Simulation tools can start as battle rules stabilize; final tuning must follow integrated content. Avoid parallel authors changing global balance tables without a coordinating designer.",
+      "required": true,
+      "issue": 31,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/31"
+    },
+    {
+      "key": "menus",
+      "title": "Add a title/continue flow and persistent player settings",
+      "priority": "P1",
+      "phase": "1 · complete chapter",
+      "epic": "experience",
+      "lane": "UI engineering",
+      "days": [
+        3,
+        5
+      ],
+      "deps": [
+        "spec",
+        "architecture",
+        "save"
+      ],
+      "evidence": "index.html opens straight into play; there is no title/new-game/continue flow. Sound starts off each time, zoom resets on resize, and other settings do not persist.",
+      "scope": [
+        "Create game-native new/continue and settings flows that lead promptly into play; make destructive restart explicit and recoverable.",
+        "Persist audio volume/mute, text speed, motion preferences, control sensitivity/run behavior and zoom where supported.",
+        "Provide consistent pause/settings access during exploration and appropriate restrictions during durable battle transactions.",
+        "Represent save/storage errors and finished-game continuation clearly."
+      ],
+      "accept": [
+        "Fresh, existing, completed and invalid-save states each have an intentional entry flow.",
+        "Settings persist and do not overwrite game progress; reset never silently destroys the only save.",
+        "Menus are usable on keyboard, touch, narrow screens and 200% text enlargement."
+      ],
+      "verify": "Browser flows for first launch, continue, new game, settings persistence, denied storage and restart recovery.",
+      "parallel": "UI layouts can be designed immediately; implementation depends only on entry/save/state contracts, allowing it to run beside content work.",
+      "required": true,
+      "issue": 20,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/20"
+    },
+    {
+      "key": "save-tools",
+      "title": "Add save slots, portable backups and recovery tools",
+      "priority": "P1",
+      "phase": "2 · full campaign",
+      "epic": "experience",
+      "lane": "Client engineering",
+      "days": [
+        3,
+        6
+      ],
+      "deps": [
+        "save",
+        "menus",
+        "collection"
+      ],
+      "evidence": "The only save is localStorage on one browser origin. There is no export/import, checkpoint restore, named slot or user recovery; hosted and localhost progress cannot transfer.",
+      "scope": [
+        "Implement the agreed small number of slots with timestamps, progress summaries and safe overwrite/delete confirmation.",
+        "Add validated export/import with schema/version checks, size limits, preview and rollback to the prior save.",
+        "Offer restore-from-backup and explain local-only storage/device/origin boundaries in player-facing language.",
+        "Do not add accounts/cloud sync to solve backup needs for the offline-first 1.0 target."
+      ],
+      "accept": [
+        "A player can export on one supported browser and import on another with identical progression.",
+        "Invalid/future-version imports never overwrite valid progress; interrupted writes leave a usable backup.",
+        "Slot switching, new game and recovery are accessible without devtools."
+      ],
+      "verify": "Round-trip fixtures across v1/v2/current schemas, storage-denied/quota scenarios and cross-browser file import/export checks.",
+      "parallel": "Work can run independently of map/combat content after stable save/instance contracts; coordinate UI with entry menus and accessibility.",
+      "required": true,
+      "issue": 30,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/30"
+    },
+    {
+      "key": "hud",
+      "title": "Improve exploration, battle, party and journal information design",
+      "priority": "P2",
+      "phase": "3 · beta and polish",
+      "epic": "experience",
+      "lane": "UI/UX",
+      "days": [
+        5,
+        8
+      ],
+      "deps": [
+        "menus",
+        "battle",
+        "collection",
+        "quests"
+      ],
+      "evidence": "Menus replace modal.innerHTML and reset focus/scroll on every battle render. The journal exposes only a simple species filter, and map/objective cues are rudimentary.",
+      "scope": [
+        "Create cohesive HUD/menu patterns for objective history, waypoint/map clues, inventory, individual creatures, equipped moves and reserve storage.",
+        "Keep battle choices, type information, turn history, status and resource costs legible without overwhelming mobile screens.",
+        "Preserve focus/scroll and selection when state updates; expose hidden/unknown species clues without spoiling content.",
+        "Support text expansion, user settings and input modes without duplicating state in UI code."
+      ],
+      "accept": [
+        "Players can find the next objective, explain why an action is effective, and manage their team without external instructions.",
+        "Battle updates do not unexpectedly lose keyboard focus or scroll a chosen control away.",
+        "Core screens remain usable at narrow widths and enlarged text with consistent navigation/back behavior."
+      ],
+      "verify": "Task-based usability sessions plus keyboard/touch and text-zoom screen checks using real final content.",
+      "parallel": "Design can run in parallel immediately; UI implementation uses shared domain contracts. Divide screen ownership but keep navigation/focus primitives under one owner.",
+      "required": true,
+      "issue": 33,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/33"
+    },
+    {
+      "key": "accessibility",
+      "title": "Make the game accessible across input, motion, color and text needs",
+      "priority": "P2",
+      "phase": "3 · beta and polish",
+      "epic": "experience",
+      "lane": "Accessibility + UI",
+      "days": [
+        4,
+        7
+      ],
+      "deps": [
+        "hud",
+        "menus",
+        "movement"
+      ],
+      "evidence": "The prototype has labels, a dialog role and basic focus wrapping, but world objectives are Canvas-only and battle actions rebuild DOM. Small text and motion/audio behavior have not been systematically audited.",
+      "scope": [
+        "Provide reliable keyboard-only controls, focus restoration, visible focus, logical reading order and inert background while dialogs are open.",
+        "Add text-based nearby-interaction/objective/map cues, non-color type/status indicators and appropriate live announcements.",
+        "Honor reduced motion, text speed, audio volume and 200% text enlargement; adjust contrast and minimum touch targets.",
+        "Document practical screen-reader support and limitations honestly; do not claim a fully accessible spatial world without testing it."
+      ],
+      "accept": [
+        "Keyboard-only players can complete all menu/battle/interact flows without focus traps or hidden controls.",
+        "Important state is not conveyed only by color, sound or animation.",
+        "Representative screen-reader, motion-disabled and 200%-text tasks pass with documented remaining constraints."
+      ],
+      "verify": "Automated UI accessibility checks plus manual VoiceOver/NVDA-style testing, keyboard walkthroughs and color/motion/text audits.",
+      "parallel": "Audit and design guidance should start early; final acceptance follows integrated HUD/input screens. Many fixes can be scoped per UI module without blocking content authors.",
+      "required": true,
+      "issue": 34,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/34"
+    },
+    {
+      "key": "mobile",
+      "title": "Harden touch input, orientation and browser compatibility",
+      "priority": "P2",
+      "phase": "3 · beta and polish",
+      "epic": "experience",
+      "lane": "Client QA + engineering",
+      "days": [
+        4,
+        7
+      ],
+      "deps": [
+        "menus",
+        "movement",
+        "hud",
+        "lifecycle"
+      ],
+      "evidence": "Touch uses pointer capture and a button grid; mobile dialogs are fixed overlays. Prior workspace checks used desktop Chromium emulation, not physical iOS Safari/Android devices.",
+      "scope": [
+        "Define a supported desktop Chrome/Firefox/Safari and iOS Safari/Android Chrome matrix; test real devices as well as emulation.",
+        "Handle safe areas, browser bars, rotation, pointer cancellation/multi-touch, accidental page scroll and background resumption.",
+        "Adjust control layout/target sizes and audio unlocking for mobile; verify small screens and landscape orientation.",
+        "Persist chosen input/run behavior and ensure hidden/stuck pointers cannot keep a character moving."
+      ],
+      "accept": [
+        "A complete first chapter works on target physical mobile devices with no inaccessible buttons or stuck movement.",
+        "Rotation and browser chrome changes retain game/menu state and do not reset zoom/settings unexpectedly.",
+        "All supported browsers load, save and recover as documented; unsupported features have a clear fallback."
+      ],
+      "verify": "Record device/OS/browser versions and manual scenario results, including 320px widths, landscape and interruption during battle.",
+      "parallel": "Device matrix planning and input testing start early; final fixes integrate after HUD/lifecycle contracts. Platform investigations can be split by browser/device.",
+      "required": true,
+      "issue": 35,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/35"
+    },
+    {
+      "key": "performance",
+      "title": "Profile and optimize rendering, asset delivery and battery use",
+      "priority": "P2",
+      "phase": "3 · beta and polish",
+      "epic": "experience",
+      "lane": "Rendering engineering",
+      "days": [
+        4,
+        7
+      ],
+      "deps": [
+        "architecture",
+        "map-schema",
+        "art",
+        "animation"
+      ],
+      "evidence": "drawWorld recomputes terrain details and sorts objects every frame, draws large cropped PNGs and applies Canvas filters. Minimap also redraws frequently; there are no performance measurements or budgets.",
+      "scope": [
+        "Instrument frame time, startup/asset load and memory on agreed desktop and representative mobile hardware.",
+        "Cache static terrain, sort only changing depth entries, bake repeated tints/size variants where measured useful and avoid unnecessary DOM/save work.",
+        "Optimize atlases/asset dimensions and delivery with a manifest; set a documented pixel/DPR strategy and quality tiers.",
+        "Throttle or stop background work properly and retain crisp pixel art while reducing mobile battery load."
+      ],
+      "accept": [
+        "Meet documented budgets such as desktop 60fps and mobile 30fps minimum, with representative p95 frame times and bounded memory growth.",
+        "Cold start and compressed transfer budgets are measured on a stated connection/device; required content loads reliably.",
+        "Thirty-minute sessions and repeated travel/menu transitions do not show a growing memory/resource leak."
+      ],
+      "verify": "Profile real devices and browser traces; compare before/after metrics on final maps with dense scenery, VFX and UI.",
+      "parallel": "Baseline instrumentation can start early. Optimize once representative content exists; do not concurrently rewrite renderer APIs while animation/asset integration depends on them.",
+      "required": true,
+      "issue": 37,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/37"
+    },
+    {
+      "key": "animation",
+      "title": "Produce eight-direction movement and creature animation sets",
+      "priority": "P2",
+      "phase": "3 · beta and polish",
+      "epic": "experience",
+      "lane": "Animation production",
+      "days": [
+        8,
+        13
+      ],
+      "deps": [
+        "spec",
+        "art",
+        "movement"
+      ],
+      "evidence": "The player has four static directions selected in movement(); diagonal movement reuses left/right. Walking only bobs sprites, and the follower is a fixed offset.",
+      "scope": [
+        "Create consistent eight-direction player idle/walk/run sets with frame timing, foot anchors and draw-depth rules.",
+        "Define a realistic creature animation budget: idle/walk/battle actions/hit/faint/capture for campaign roster, with controlled reusable patterns.",
+        "Integrate animations through a renderer-independent state/event contract and motion preference settings.",
+        "Validate atlas frames/pivots and transitions so pixel scale and contact points remain consistent."
+      ],
+      "accept": [
+        "All eight travel directions have intentional readable animation rather than four still images and bobbing.",
+        "Player, followers and battle creatures keep stable feet/pivots through transitions with no clipping.",
+        "Animation timing does not affect simulation results; reduced-motion mode remains understandable."
+      ],
+      "verify": "Atlas validation, animation contact sheets and hands-on walking/battle checks in all directions and supported viewports.",
+      "parallel": "Animation briefs/rig conventions can start with art standards. Artists can split by player/species once shared anchors and frame conventions are fixed; runtime integration has one owner.",
+      "required": true,
+      "issue": 36,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/36"
+    },
+    {
+      "key": "art",
+      "title": "Create a consistent art pipeline and full campaign asset inventory",
+      "priority": "P2",
+      "phase": "2 · full campaign",
+      "epic": "experience",
+      "lane": "Art production",
+      "days": [
+        10,
+        16
+      ],
+      "deps": [
+        "spec",
+        "roster",
+        "map-schema"
+      ],
+      "evidence": "The repo has 24 independently cropped PNG sprites from generated sheets, including eight creatures and a handful of landmarks. There is no source atlas metadata, environment tile set, interiors or systematic asset budget.",
+      "scope": [
+        "Set pixel resolution, palette, isometric angle, lighting, scale, silhouettes, anchors and transparency standards.",
+        "Create the full asset inventory for 24 species/forms, NPCs, region terrain, hub/interior/dungeon props, shrine/battle backgrounds and UI icons.",
+        "Store source/atlas metadata and deterministic export tools; fix crop-edge fragments and inconsistent scales.",
+        "Produce first-chapter assets first, then complete remaining region batches; log provenance for the rights audit."
+      ],
+      "accept": [
+        "Every 1.0 content asset has an owner/status, stable manifest ID and validated dimensions/pivot.",
+        "The same player/creature/environment assets look consistent in exploration, menus and battle.",
+        "Production exports can be regenerated without hand-cropping undocumented sheets."
+      ],
+      "verify": "Asset/reference CI, pixel-art review, representative scene comparisons and transparency/anchor contact sheets.",
+      "parallel": "Art conventions and briefs can begin immediately. Production is parallel by region/species after roster/map contracts, with one art-direction review to avoid incompatible batches.",
+      "required": true,
+      "issue": 32,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/32"
+    },
+    {
+      "key": "audio",
+      "title": "Add music, ambience and readable gameplay sound design",
+      "priority": "P2",
+      "phase": "3 · beta and polish",
+      "epic": "experience",
+      "lane": "Audio production",
+      "days": [
+        5,
+        8
+      ],
+      "deps": [
+        "spec",
+        "lifecycle",
+        "art"
+      ],
+      "evidence": "tone() creates a short triangle oscillator beep. There is no music, ambience, differentiated creature/action sound, mixer or persisted volume.",
+      "scope": [
+        "Create a small licensed/original score for regions, battles, guardians and ending plus ambient loops and action/UI cues.",
+        "Implement master/music/SFX controls, crossfades and lifecycle-safe playback with browser user-gesture unlocking.",
+        "Use distinct sound feedback for hits, elemental moves, capture states, rewards and danger without making audio essential to understanding.",
+        "Track provenance and optimize formats/loading; recover gracefully when audio is unavailable."
+      ],
+      "accept": [
+        "Region/battle transitions sound cohesive and do not leak or layer duplicate audio loops.",
+        "Volume/mute persists, mobile audio starts only after a valid gesture, and hidden/pause behavior is intentional.",
+        "All important sound cues also have clear visual/text equivalents."
+      ],
+      "verify": "Playback interruption/transition tests and headphone/speaker/mobile listening review; verify final license inventory.",
+      "parallel": "Composition and SFX production can run independently from map/combat implementation after briefs; runtime mixer integration needs lifecycle/settings events.",
+      "required": true,
+      "issue": 38,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/38"
+    },
+    {
+      "key": "qa",
+      "title": "Run a release-quality campaign, save and platform QA program",
+      "priority": "P2",
+      "phase": "3 · beta and polish",
+      "epic": "production",
+      "lane": "QA",
+      "days": [
+        6,
+        10
+      ],
+      "deps": [
+        "regression",
+        "spec",
+        "story",
+        "sidequests",
+        "growth",
+        "ai",
+        "encounters",
+        "economy",
+        "save-tools",
+        "mobile",
+        "accessibility",
+        "performance"
+      ],
+      "evidence": "There is no committed test plan, supported device matrix or defect triage process. Prior automated paths exercise a subset of the prototype and are not a full natural playthrough.",
+      "scope": [
+        "Create a test matrix covering every main/side quest, creature/evolution availability, party capacity, item transaction, map portal and ending.",
+        "Exercise new/mid/old/completed/corrupt saves, migration, refresh/suspension, denied storage and replay/backtracking orders.",
+        "Run natural full campaigns on target devices; organize external playtests and classify defects by severity and reproducible seed/save.",
+        "Establish release thresholds: no startup/data-loss/softlock defects and no unresolved critical platform failures."
+      ],
+      "accept": [
+        "A versioned QA matrix and reproducible defect log are maintained throughout production.",
+        "Every required content path and migration/platform combination has recorded results before release.",
+        "Release blockers are fixed or explicitly cut with a safe player outcome; gameplay difficulty is tested without forced HP/cheats."
+      ],
+      "verify": "Independent full-campaign playthroughs, fixture regressions and cross-device tests against the candidate build.",
+      "parallel": "Test design and exploratory testing begin immediately. Final campaign/platform sign-off waits for all 1.0 systems/content; QA is a continuous lane, not a last-week task.",
+      "required": true,
+      "issue": 39,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/39"
+    },
+    {
+      "key": "rights",
+      "title": "Document code, artwork, audio and font rights for distribution",
+      "priority": "P2",
+      "phase": "4 · release",
+      "epic": "production",
+      "lane": "Release management",
+      "days": [
+        2,
+        4
+      ],
+      "deps": [
+        "art",
+        "audio"
+      ],
+      "evidence": "The repository has no LICENSE or credits/provenance file. PNG artwork was generated and fonts are imported from Google Fonts; reusable asset/source terms have not been recorded.",
+      "scope": [
+        "Inventory code dependencies, fonts, artwork sources, generated assets and music/SFX with provenance and distribution terms.",
+        "Choose and document intended code/assets licensing separately, preserving third-party notices and attribution requirements.",
+        "Add credits/attribution and replace anything whose release rights cannot be established.",
+        "Make this a focused distribution review, not a speculative requirement for legal services or monetization."
+      ],
+      "accept": [
+        "Release includes clear code/asset licensing, complete credits and required third-party notices.",
+        "Each shipped asset has a recorded source/provenance and usable distribution basis.",
+        "No undocumented placeholder audio/art dependency remains."
+      ],
+      "verify": "Review inventory against the packaged build, dependency licenses and title/ending credits.",
+      "parallel": "Inventory preparation starts immediately and can run alongside production; final verification depends on the actual final art/audio/package.",
+      "required": true,
+      "issue": 40,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/40"
+    },
+    {
+      "key": "deployment",
+      "title": "Make GitHub main the documented release source and automate verified delivery",
+      "priority": "P1",
+      "phase": "1 · complete chapter",
+      "epic": "production",
+      "lane": "Build/release engineering",
+      "days": [
+        3,
+        5
+      ],
+      "deps": [
+        "ci",
+        "loader"
+      ],
+      "evidence": "GitHub contains a snapshot imported from the separately hosted Sites source repository. No workflow currently builds/publishes from GitHub, and the README link alone does not make commits deploy automatically.",
+      "scope": [
+        "Document the source-of-truth and publishing relationship between GitHub main and the existing Sites deployment; avoid silently changing hosting provider or audience.",
+        "Create a deterministic static build/package pipeline, preview/staging process and a secure supported publish mechanism or documented release handoff.",
+        "Embed build/version identity, validate base paths/assets/cache headers, and ensure a save-safe update strategy.",
+        "Provide rollback instructions and preserve old save compatibility; direct main commits remain allowed as requested."
+      ],
+      "accept": [
+        "A known GitHub commit produces a reproducible artifact, and the deployed build can be traced to that commit.",
+        "Preview, publish and rollback steps are tested with supported permissions; no secrets are stored in source.",
+        "Updating the live game preserves audience and valid existing saves, with no accidental assumption that GitHub push already deploys."
+      ],
+      "verify": "Exercise a non-production preview/release artifact plus a controlled publish/rollback; verify asset paths and embedded build identity.",
+      "parallel": "Can run beside gameplay/content once CI and packaging are stable. One release owner must coordinate publishing permissions/source identity; do not let separate workers independently deploy.",
+      "required": true,
+      "issue": 21,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/21"
+    },
+    {
+      "key": "diagnostics",
+      "title": "Add bounded diagnostics, feedback and support information",
+      "priority": "P2",
+      "phase": "4 · release",
+      "epic": "production",
+      "lane": "Client/release engineering",
+      "days": [
+        2,
+        4
+      ],
+      "deps": [
+        "lifecycle",
+        "save-tools",
+        "deployment"
+      ],
+      "evidence": "Startup/storage exceptions are mostly swallowed; there is no build ID, error report, reproducible player diagnostic export or support entry beyond the GitHub repository.",
+      "scope": [
+        "Expose version/build ID, a bounded local error/event log and a user-triggered diagnostic export with sensitive save details omitted by default.",
+        "Add a clear issue/feedback path and bug-report template capturing browser, device, steps, version and optional repro save consent.",
+        "Record failed asset/save/transaction states locally for troubleshooting without requiring mandatory telemetry or a backend.",
+        "Document limitations, known issues and recovery steps; use opt-in analytics only if later justified separately."
+      ],
+      "accept": [
+        "A tester can report a reproducible error tied to a release version without sharing unnecessary personal/local data.",
+        "Diagnostics do not grow indefinitely or affect play/performance; unsupported storage still has a visible support path.",
+        "Bug-report/recovery instructions are reachable in-game and in repository docs."
+      ],
+      "verify": "Trigger known asset/save errors, export diagnostics and verify privacy/bounds/version attribution.",
+      "parallel": "Issue templates/documentation can start immediately; runtime diagnostics integrate after lifecycle/save/build contracts. Independent of narrative/art production.",
+      "required": true,
+      "issue": 41,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/41"
+    },
+    {
+      "key": "release",
+      "title": "Ship a verified 1.0 candidate, credits, release notes and rollback plan",
+      "priority": "P2",
+      "phase": "4 · release",
+      "epic": "production",
+      "lane": "Release management",
+      "days": [
+        2,
+        4
+      ],
+      "deps": [
+        "balance",
+        "qa",
+        "accessibility",
+        "mobile",
+        "performance",
+        "rights",
+        "deployment",
+        "diagnostics",
+        "story",
+        "save-tools"
+      ],
+      "evidence": "There are no releases, release checklist, content completeness criteria or proven rollback/migration matrix in the repository.",
+      "scope": [
+        "Audit every 1.0 issue against the agreed design and explicitly defer optional work; complete content, credits and player documentation.",
+        "Prepare a tagged candidate with changelog, save/version compatibility notes and tested artifacts.",
+        "Run the final clean-checkout, full-campaign, device, accessibility, asset/rights and migration gates.",
+        "Publish using the established hosting mechanism and record rollback/recovery steps plus any known nonblocking issues."
+      ],
+      "accept": [
+        "All 1.0 blocking issue criteria pass; no unresolved crash, data-loss, softlock or required-content defect remains.",
+        "The playable release is traceable to a GitHub tag/commit and has accurate credits/release notes.",
+        "Rollback is possible without making valid player saves unreadable or changing access permissions."
+      ],
+      "verify": "Release checklist signed off with actual evidence links, clean-install test, campaign completion and rollback rehearsal.",
+      "parallel": "Checklist/release-note preparation can happen early; final packaging and deployment are sequential after the candidate passes all release gates.",
+      "required": true,
+      "issue": 42,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/42"
+    },
+    {
+      "key": "chapter",
+      "title": "Prove a complete first chapter before scaling the campaign",
+      "priority": "P1",
+      "phase": "1 · complete chapter",
+      "epic": "world",
+      "lane": "Integration + design + QA",
+      "days": [
+        6,
+        10
+      ],
+      "deps": [
+        "map-schema",
+        "movement",
+        "battle",
+        "collection",
+        "quests",
+        "economy",
+        "menus",
+        "regression"
+      ],
+      "evidence": "Current tests establish separate prototype flows, but no authored chapter combines tutorial, quests, normal battles, reliable saves and a measured guardian into a validated player experience.",
+      "scope": [
+        "Deliver the first three meadow hub/route/shrine maps, an eight-species starter subset, a short playable tutorial/quest chain and a meaningful guardian using the agreed core contracts.",
+        "Run the chapter from new game through its natural guardian win with normal actions, including capture, party decisions, healing, travel and interrupted-save recovery.",
+        "Use temporary but valid art/audio where necessary; record interaction, pacing and usability evidence before duplicating the loop into the remaining regions.",
+        "Feed findings back into the design, battle, map and quest contracts; explicitly freeze or revise them before bulk content production."
+      ],
+      "accept": [
+        "First-time testers can complete the chapter with understandable goals and no debug HP/RNG manipulation.",
+        "There are no startup, save-loss, progression-softlock or required-path failures in the chapter.",
+        "A checkpoint review records what is proven, unresolved issues, scope cuts and whether bulk production can start."
+      ],
+      "verify": "Run at least three blind first-time-player sessions plus deterministic normal-action regression flows; record time, attempts, confusion points and migration/interruption outcomes.",
+      "parallel": "First-chapter content, art placeholders and UI can be integrated in parallel once the core contracts exist. This is a sequential validation gate before the remaining map/campaign production; it does not wait for the full roster, final audio or all nine maps.",
+      "required": true,
+      "issue": 22,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/22"
+    },
+    {
+      "key": "cloud",
+      "title": "Evaluate opt-in cloud saves and cross-device accounts",
+      "days": [
+        10,
+        20
+      ],
+      "deps": [
+        "release"
+      ],
+      "scope": [
+        "Assess player demand, hosting/authentication/storage costs and account recovery.",
+        "Define secure identity, save conflict resolution, offline synchronization, privacy/deletion and version compatibility before adding a backend.",
+        "Keep local play/export/import available without an account."
+      ],
+      "accept": [
+        "A written go/no-go and threat/cost model precede implementation.",
+        "If pursued, offline/cloud conflicts, device loss and account deletion have tested outcomes."
+      ],
+      "priority": "P3",
+      "required": false,
+      "issue": 43,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/43"
+    },
+    {
+      "key": "multiplayer",
+      "title": "Evaluate trading or PvP as a separate online product track",
+      "days": [
+        20,
+        40
+      ],
+      "deps": [
+        "release",
+        "cloud"
+      ],
+      "scope": [
+        "Choose trading OR synchronous/asynchronous PvP through a separate design/prototype; do not assume both are cheap additions.",
+        "Specify authoritative server validation, creature ownership, matchmaking/consistency, disconnect recovery, abuse controls and operational budget.",
+        "Prevent manipulated local/debug state from becoming trusted online inventory or competitive outcomes."
+      ],
+      "accept": [
+        "A scoped online prototype proves state authority and reconnect behavior before production commitment.",
+        "Costs, privacy, abuse handling and ongoing operations have explicit owners."
+      ],
+      "priority": "P3",
+      "required": false,
+      "issue": 44,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/44"
+    },
+    {
+      "key": "postgame",
+      "title": "Expand postgame with rematches, challenge routes and new regions",
+      "days": [
+        10,
+        20
+      ],
+      "deps": [
+        "release"
+      ],
+      "scope": [
+        "Use completion/playtest feedback to select rematches, challenge rules or one additional region rather than adding all at once.",
+        "Reuse validated map/quest/roster pipelines and set a separate content/reward budget.",
+        "Maintain existing save compatibility and avoid invalidating completed players’ collections."
+      ],
+      "accept": [
+        "The expansion has its own measurable scope, estimate and compatibility plan.",
+        "A replayable challenge prototype demonstrates meaningful variation before broad content production."
+      ],
+      "priority": "P3",
+      "required": false,
+      "issue": 45,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/45"
+    },
+    {
+      "key": "offline",
+      "title": "Evaluate installable offline play and safe service-worker updates",
+      "days": [
+        4,
+        8
+      ],
+      "deps": [
+        "release",
+        "deployment"
+      ],
+      "scope": [
+        "Assess demand for PWA/offline installation across supported browsers.",
+        "Design versioned asset caches, offline font/audio support, update notices and rollback without mixed-version saves/assets.",
+        "Keep the standard browser route working when service workers or installation are unsupported."
+      ],
+      "accept": [
+        "A prototype proves offline startup and save-safe updates on target devices.",
+        "Stale/mixed caches, failed updates and storage pressure have explicit recovery tests."
+      ],
+      "priority": "P3",
+      "required": false,
+      "issue": 46,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/46"
+    },
+    {
+      "key": "localization",
+      "title": "Evaluate translations, controller input and additional platform ports",
+      "days": [
+        8,
+        16
+      ],
+      "deps": [
+        "release",
+        "accessibility",
+        "mobile"
+      ],
+      "scope": [
+        "Prioritize one expansion at a time based on player demand: translation infrastructure, gamepad support or a specific native wrapper.",
+        "Separate content strings and validate layout/input/platform requirements without rewriting game rules.",
+        "Estimate QA/distribution/support costs for each target before committing to it."
+      ],
+      "accept": [
+        "Each selected target has a separate scope, compatibility matrix and cost estimate.",
+        "A localized/input/port prototype passes existing gameplay and save regressions."
+      ],
+      "priority": "P3",
+      "required": false,
+      "issue": 47,
+      "url": "https://github.com/King-Zalogon/mossvale/issues/47"
+    }
+  ]
+}

@@ -63,4 +63,6 @@ CI (`.github/workflows/ci.yml`) runs `verify` on every push and pull request. It
 
 ## Development roadmap
 
-The [Mossvale 1.0 roadmap](https://github.com/King-Zalogon/mossvale/issues/1) organizes the audit, priorities, dependencies and parallel work. See [the detailed analysis](docs/FULL_GAME_ROADMAP.md) and [machine-readable backlog](docs/ROADMAP_BACKLOG.json).
+The [personal-adventure roadmap](https://github.com/King-Zalogon/mossvale/issues/1) targets four varied biomes, eight compact maps and 12 creatures, with reusable assets and a light progression story. These are planned additions; the current playable feature list above describes the existing game.
+
+See [the detailed plan](docs/FULL_GAME_ROADMAP.md) and [machine-readable backlog](docs/ROADMAP_BACKLOG.json). The superseded larger plan is retained in [the archive](docs/archive/2026-09-30/FULL_GAME_ROADMAP.md).
