@@ -14,3 +14,6 @@ export const UPGRADED_ELEMENT_POWER = 16;
 export const BENCH_SHARE = 0.5; // companions that did not fight get this fraction of each XP award (minimum 1)
 export const CATCH_UP_GAP = 2; // a fighter this many levels below the team's best earns bonus XP
 export const CATCH_UP_BONUS = 1.5;
+
+// Team (issue #17): up to PARTY_SIZE companions fight; everyone else waits in the reserve and still earns bench XP.
+export const PARTY_SIZE = 3;

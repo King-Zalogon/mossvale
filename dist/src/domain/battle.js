@@ -1,6 +1,6 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
-import {BASE_LEVEL, XP_PER_LEVEL} from '../config.js';
+import {BASE_LEVEL, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
@@ -8,7 +8,7 @@ export const POTION_HEAL = 24;
 /** Picks a different healthy companion if the active one is down. Returns false when the whole team is down. */
 export function ensureHealthyCompanion(save) {
   if (companion(save).hp > 0) return true;
-  const healthy = save.caught.find(i => companion(save, i).hp > 0);
+  const healthy = save.party.find(i => companion(save, i).hp > 0);
   if (healthy === undefined) return false;
   save.active = healthy;
   return true;
@@ -76,7 +76,7 @@ export function enemyAttack(save, battle, rng) {
 /** After an enemy hit: swap in a healthy companion, or report that the team is out. */
 export function resolveFaint(save) {
   if (companion(save).hp > 0) return {status: 'ok'};
-  const replacement = save.caught.find(i => i !== save.active && companion(save, i).hp > 0);
+  const replacement = save.party.find(i => i !== save.active && companion(save, i).hp > 0);
   if (replacement === undefined) return {status: 'lost'};
   const fainted = save.active;
   save.active = replacement;
@@ -103,15 +103,18 @@ export function resolveWin(save, battle, rng) {
 export function resolveCapture(save, battle) {
   const id = battle.id;
   const isNew = !save.caught.includes(id);
+  let joined = null;
   if (isNew) {
     save.caught.push(id);
+    joined = save.party.length < PARTY_SIZE ? 'team' : 'reserve'; // a full team never loses a capture: it waits in the reserve
+    if (joined === 'team') save.party.push(id);
     save.team[id] = {xp: Math.max(0, battle.level - BASE_LEVEL) * XP_PER_LEVEL, hp: 0};
     save.team[id].hp = maxHP(save, id);
   }
   const xpText = awardXP(save, 20).text;
   save.coins += 10;
   save.wins++;
-  return {isNew, id, xpText};
+  return {isNew, id, joined, xpText};
 }
 
 /** A lost battle: heal everyone; the controller moves the player to camp. */
@@ -164,7 +167,7 @@ export function resolveTurn(save, battle, action, rng) {
     battle.guard = true;
     push({type: 'guard'});
   } else if (action.kind === 'switch') {
-    if (!save.caught.includes(action.id) || action.id === save.active || companion(save, action.id).hp <= 0) return null;
+    if (!save.party.includes(action.id) || action.id === save.active || companion(save, action.id).hp <= 0) return null;
     save.active = action.id;
     push({type: 'switch', id: action.id});
   } else return null;

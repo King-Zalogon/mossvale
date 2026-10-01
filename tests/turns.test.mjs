@@ -111,6 +111,7 @@ test('defeat heals the team and ends the battle once', () => {
 test('switching companions uses the turn and the enemy still replies', () => {
   const save = newSave();
   save.caught.push(1);
+  save.party.push(1);
   save.team[1] = {xp: 0, hp: 40};
   const battle = wild(save);
   const turn = resolveTurn(save, battle, {kind: 'switch', id: 1}, seededRng(5));

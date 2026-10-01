@@ -10,6 +10,7 @@ import {
   MAX_LEVEL,
   MAX_XP,
   MOVE_UPGRADE_LEVEL,
+  PARTY_SIZE,
   UPGRADED_ELEMENT_POWER,
   XP_PER_LEVEL,
 } from '../config.js';
@@ -41,6 +42,46 @@ export function clampHealth(save) {
 
 export function healTeam(save) {
   for (const id of save.caught) companion(save, id).hp = maxHP(save, id);
+}
+
+/**
+ * Team rules. `save.party` lists the (at most PARTY_SIZE) companions who can fight, in order; every other captured
+ * creature is in the reserve. The active companion is always in the party. Nothing is ever dropped from `caught`.
+ */
+export const inParty = (save, id) => save.party.includes(id);
+export const reserve = save => save.caught.filter(i => !save.party.includes(i));
+export const healthyParty = save => save.party.filter(i => companion(save, i).hp > 0);
+
+/** Repairs `save.party` so it is unique, owned, bounded and contains the active companion. */
+export function normalizeParty(save) {
+  const party = [...new Set(save.party || [])].filter(i => save.caught.includes(i)).slice(0, PARTY_SIZE);
+  if (!party.includes(save.active)) party.length >= PARTY_SIZE ? party.splice(-1, 1, save.active) : party.push(save.active);
+  if (!save.party) for (const i of save.caught) if (party.length < PARTY_SIZE && !party.includes(i)) party.push(i);
+  save.party = party;
+}
+
+/** Makes `id` the companion. A reserve creature joins the team, replacing the previous companion if the team is full. */
+export function setActive(save, id) {
+  if (!save.caught.includes(id)) return false;
+  if (!inParty(save, id)) {
+    if (save.party.length < PARTY_SIZE) save.party.push(id);
+    else save.party[save.party.indexOf(save.active)] = id;
+  }
+  save.active = id;
+  return true;
+}
+
+export function addToParty(save, id) {
+  if (!save.caught.includes(id) || inParty(save, id) || save.party.length >= PARTY_SIZE) return false;
+  save.party.push(id);
+  return true;
+}
+
+/** Moves a teammate to the reserve. The active companion and the last teammate cannot leave. */
+export function removeFromParty(save, id) {
+  if (!inParty(save, id) || id === save.active || save.party.length <= 1) return false;
+  save.party = save.party.filter(i => i !== id);
+  return true;
 }
 
 /** Progress inside the current level for the HUD: `{into, needed, maxed}`. */

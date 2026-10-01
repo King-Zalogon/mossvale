@@ -2,7 +2,7 @@
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
 import {species} from './data/species.js';
 import {regions} from './data/regions.js';
-import {clampHealth, companion, flagDone, healTeam, unlocked} from './domain/rules.js';
+import {addToParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, unlocked} from './domain/rules.js';
 import {createBattle, ensureHealthyCompanion, resolveTurn, rollWild} from './domain/battle.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
@@ -71,14 +71,26 @@ export function createController(app) {
     const s = save();
     if (!s.caught.includes(id) || companion(s, id).hp <= 0 || game.battle?.busy) return;
     if (game.battle) {
-      if (id !== s.active) performTurn({kind: 'switch', id});
+      if (id !== s.active && inParty(s, id)) performTurn({kind: 'switch', id});
       return;
     }
-    s.active = id;
+    const previous = s.active;
+    const swapped = !inParty(s, id) && s.party.length >= 3;
+    setActive(s, id);
     refresh();
     tone(560);
     close();
-    toast(`${species[id].name} is ready to travel with you.`);
+    toast(swapped ? `${species[id].name} joined the team in place of ${species[previous].name}.` : `${species[id].name} is ready to travel with you.`);
+  }
+
+  /** Team editing outside battle: move a companion between the team and the reserve. */
+  function partyEdit(kind, id) {
+    if (game.battle) return;
+    const ok = kind === 'add' ? addToParty(save(), id) : removeFromParty(save(), id);
+    if (!ok) return;
+    refresh();
+    tone(520);
+    menus.party();
   }
 
   function rest() {
@@ -377,7 +389,9 @@ export function createController(app) {
       showResult({
         title: last.isNew ? species[last.id].name + ' is your new friend!' : 'Another friendly face.',
         copy: last.isNew
-          ? 'Choose them from your companion team to travel and battle together.'
+          ? last.joined === 'reserve'
+            ? 'Your team is full, so they wait in the reserve. Swap them in from the companion screen any time.'
+            : 'Choose them from your companion team to travel and battle together.'
           : `You already befriended ${species[last.id].name}. This one heads home happily.`,
         id: last.id,
         rewards: ['10 coins', '20 XP'],
@@ -424,6 +438,7 @@ export function createController(app) {
     close,
     travel,
     selectCompanion,
+    partyEdit,
     rest,
     buy,
     returnToCamp,

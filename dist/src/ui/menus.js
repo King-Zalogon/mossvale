@@ -2,7 +2,8 @@
    Each menu reads state, renders HTML and wires buttons to controller `actions`. No game rules live here. */
 import {species} from '../data/species.js';
 import {regions} from '../data/regions.js';
-import {companion, level, maxHP, unlocked} from '../domain/rules.js';
+import {companion, level, maxHP, moveName, reserve, unlocked} from '../domain/rules.js';
+import {PARTY_SIZE} from '../config.js';
 import {drawCreature, drawSprite} from '../render/sprites.js';
 import {$, header, openModal} from './dom.js';
 
@@ -74,18 +75,35 @@ export function createMenus(app) {
     if (game.battle?.busy) return;
     const s = save();
     const battle = game.battle;
+    const full = s.party.length >= PARTY_SIZE;
+    const card = (i, inTeam) => {
+      const hp = companion(s, i).hp;
+      const choose = s.active === i ? 'Active companion' : hp === 0 ? 'Needs a rest' : 'Choose companion';
+      const moves = `${moveName(s, i)} · ${species[i].type}`;
+      return `<div class="species ${s.active === i ? 'active' : ''}"><canvas id="party-${i}" width="110" height="110"></canvas><h3>${species[i].name}</h3><small>Lv. ${level(s, i)} · ${moves}</small><div class="bar"><i style="width:${(hp / maxHP(s, i)) * 100}%;background:${species[i].color}"></i></div><small>${hp} / ${maxHP(s, i)} HP</small><button data-select="${i}" ${s.active === i || hp === 0 ? 'disabled' : ''}>${choose}</button>${
+        battle
+          ? ''
+          : inTeam
+            ? `<button data-bench="${i}" class="muted-button" ${s.active === i || s.party.length <= 1 ? 'disabled' : ''}>Move to reserve</button>`
+            : `<button data-add="${i}" class="muted-button" ${full ? 'disabled' : ''}>${full ? 'Team is full' : 'Add to team'}</button>`
+      }</div>`;
+    };
+    const bench = reserve(s);
     open(
-      `${header('FRIENDS FOR THE TRAIL', 'Your companions', !battle)}<p>${battle ? 'Switching companions uses your turn. Choose a friend with health remaining.' : 'Every creature you befriend can join you on the trail.'}</p><div class="journal-grid party-grid">${s.caught
-        .map(
-          i =>
-            `<div class="species ${s.active === i ? 'active' : ''}"><canvas id="party-${i}" width="110" height="110"></canvas><h3>${species[i].name}</h3><small>${species[i].type} · Lv. ${level(s, i)}</small><div class="bar"><i style="width:${(companion(s, i).hp / maxHP(s, i)) * 100}%;background:${species[i].color}"></i></div><small>${companion(s, i).hp} / ${maxHP(s, i)} HP</small><button data-select="${i}" ${s.active === i || companion(s, i).hp === 0 ? 'disabled' : ''}>${s.active === i ? 'Active companion' : companion(s, i).hp === 0 ? 'Needs a rest' : 'Choose companion'}</button></div>`,
-        )
-        .join('')}</div>${battle ? '<button id="back-battle" class="muted-button" style="margin-top:14px">Back to encounter</button>' : ''}`,
+      `${header('FRIENDS FOR THE TRAIL', 'Your companions', !battle)}<p>${battle ? 'Switching companions uses your turn. Choose a teammate with health remaining.' : `Up to ${PARTY_SIZE} friends fight beside you. The rest wait in the reserve, still earning a share of XP.`}</p><h3 class="party-heading">Team · ${s.party.length} / ${PARTY_SIZE}</h3><div class="journal-grid party-grid">${s.party.map(i => card(i, true)).join('')}</div>${
+        !battle && bench.length
+          ? `<h3 class="party-heading">Reserve · ${bench.length}</h3><div class="journal-grid party-grid">${bench.map(i => card(i, false)).join('')}</div>`
+          : ''
+      }${battle ? '<button id="back-battle" class="muted-button" style="margin-top:14px">Back to encounter</button>' : ''}`,
       'party',
       'Companion team',
     );
-    s.caught.forEach(i => drawCreature($('#party-' + i), i, 85));
+    s.caught.forEach(i => {
+      if (!battle || s.party.includes(i)) drawCreature($('#party-' + i), i, 85);
+    });
     wireSelect();
+    for (const b of document.querySelectorAll('[data-bench]')) b.onclick = () => actions.partyEdit('remove', +b.dataset.bench);
+    for (const b of document.querySelectorAll('[data-add]')) b.onclick = () => actions.partyEdit('add', +b.dataset.add);
     wireClose();
     if ($('#back-battle')) $('#back-battle').onclick = () => actions.renderBattle('Choose your next move.');
   }

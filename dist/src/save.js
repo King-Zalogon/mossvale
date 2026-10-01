@@ -1,7 +1,7 @@
 /* Mossvale save codec: validation, v1/v2 -> v3 migration, quarantine and checkpoints.
    Pure functions over a Storage-like object so it can be tested without a browser.
    In memory the game keeps species/region *indexes*; on disk (v3) it stores stable string IDs. */
-import {MAX_XP, XP_PER_LEVEL} from './config.js';
+import {MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
 const VERSION = 3;
 const KEYS = {v3: 'mossvale-v3', v2: 'mossvale-v2', v1: 'mossvale-v1', backup: 'mossvale-backup', quarantine: 'mossvale-quarantine'};
@@ -37,6 +37,7 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       playTime: 0,
       recap: '',
       battle: null,
+      party: [0],
     };
   }
 
@@ -62,6 +63,11 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
     }
     const active = ref(raw.active, species, speciesIndex);
     s.active = s.caught.includes(active) ? active : s.caught[0];
+    // Team: stored by species ID. Saves without one (older builds) get the active companion plus the first captures.
+    let party = Array.isArray(raw.party) && !legacy ? refs(raw.party, species, speciesIndex) : [s.active, ...s.caught];
+    party = [...new Set(party.filter(i => s.caught.includes(i)))].slice(0, PARTY_SIZE);
+    if (!party.includes(s.active)) party.length >= PARTY_SIZE ? party.splice(-1, 1, s.active) : party.push(s.active);
+    s.party = party;
     for (const [key, def] of [
       ['orbs', 12],
       ['potions', 3],
@@ -120,6 +126,7 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       wins: save.wins,
       playTime: save.playTime,
       recap: save.recap || '',
+      party: save.party.map(sid),
       battle: save.battle ? {...save.battle, id: sid(save.battle.id)} : null,
     });
   }
