@@ -61,6 +61,8 @@ Then: #32 art renamed by what it shows (`dist/assets/<kind>/<name>.png`), conten
 
 Then: #33/#34 dialogs with an inert background and stable focus/scroll through battle re-renders, a text-size setting, 44 px touch targets, live-region cues and contrast/overflow tests ([UI.md](UI.md)). Needs your devices (#35) and eyes for what is still unclear or unnecessary.
 
+Checklist and open items for calling it ready: [READY.md](READY.md). Not attempted because they need art, hardware or ears rather than code: #24, #27, #36, #38, #51–#54 (content/art), #35 and #37 (your devices), #22 and #31 (your play).
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.
