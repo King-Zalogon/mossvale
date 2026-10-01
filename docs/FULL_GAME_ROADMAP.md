@@ -67,6 +67,10 @@ The 36 required implementation issues estimate **170–284 focused person-days**
 
 A mixed team of about three full-time contributors might need roughly **16–26 weeks** once dependencies, role bottlenecks and testing are accounted for. One person covering every role could need about **11–18 full-time months**. Neither number scales linearly by adding agents or people. Optional P3 work is excluded from these totals; epic estimates are rollups and must not be double-counted.
 
+## Progress log
+
+- 2026-10-01: #8 and #12 implemented on branch `ccr-075e1d10-ok9hef` (`dist/save.js`, `dist/assets.js`, tests; see [SAVE_FORMAT.md](SAVE_FORMAT.md)). Issues stay open until reviewed against their acceptance criteria; remaining gaps: #8 save fixtures are not yet exported from real v1 data; #12 has no throttled-network or decode-failure browser test, and optional audio/font fallbacks are untested (no audio assets exist yet).
+
 ## Tracking
 This backlog contains 36 required issues, five optional issues and five epics. Each task includes observed evidence, scoped work, acceptance criteria, verification, an effort range and parallelization guidance. No implementation work is marked complete merely because an issue exists.
 

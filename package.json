@@ -1,0 +1,9 @@
+{
+ "name": "mossvale",
+ "private": true,
+ "scripts": {
+  "validate": "node scripts/validate-assets.mjs",
+  "test": "node --test tests/save.test.mjs",
+  "test:browser": "node tests/startup.browser.mjs"
+ }
+}
