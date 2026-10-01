@@ -41,6 +41,8 @@ Then: #25 growth tuning (level cap 15, bench XP share, catch-up bonus, one eleme
 
 Then: #17 team of three plus reserve ([SAVE_FORMAT.md](SAVE_FORMAT.md)), #16 Focus-based battle actions ([BATTLE.md](BATTLE.md)) and #20 title/continue/new game/restore and persistent settings. All three need your play feedback; duplicate captures stay one record per species, and there is no reorder or individual-creature database.
 
+Then: #15 movement, collision footprint, trail-following companion and arrival fade ([MOVEMENT.md](MOVEMENT.md)).
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.

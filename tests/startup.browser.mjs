@@ -203,6 +203,26 @@ for (const [seed, weakened] of [
   console.log('ok title, settings, new game and restore');
 }
 {
+  // zoom survives a resize; walking, travelling and the arrival fade raise no errors
+  const {page, errors} = await open('');
+  await page.goto(url + '?debug&seed=3');
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  await page.click('#zoom-in');
+  const zoom = await page.evaluate(() => window.mossvale.getState().zoom);
+  await page.setViewportSize({width: 700, height: 900});
+  await page.setViewportSize({width: 1280, height: 800});
+  assert.equal(await page.evaluate(() => window.mossvale.getState().zoom), zoom, 'zoom is kept through resize');
+  await page.keyboard.down('d');
+  await page.waitForTimeout(600);
+  await page.keyboard.up('d');
+  const moved = await page.evaluate(() => window.mossvale.getState().player);
+  assert.ok(moved.x !== 12 || moved.y !== 13, 'the player moved');
+  await page.evaluate(() => (window.mossvale.getState().save.badges.push(0), window.mossvale.travel(1)));
+  await page.waitForTimeout(500);
+  assert.deepEqual(errors, []);
+  console.log('ok zoom, walking and travel');
+}
+{
   // debug hook is absent without ?debug
   const {page} = await open('');
   await page.goto(url);

@@ -2005,3 +2005,12 @@ body.reduce-motion *::after {
 .setting-row button.selected {
   outline: 2px solid currentColor;
 }
+
+.fade {
+  position: absolute;
+  inset: 0;
+  background: #0b1f19;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+}

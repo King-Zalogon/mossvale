@@ -24,3 +24,8 @@ export const FOCUS_START = 2;
 export const ELEMENT_COST = 1;
 export const FOCUS_GAIN = 1;
 export const GUARD_FACTOR = 0.35; // enemy damage multiplier while guarding
+
+// Movement (issue #15)
+export const PLAYER_RADIUS = 0.25; // feet footprint, in tiles: terrain and solid props use the same size
+export const MOVE_STEP = 1 / 60; // simulation sub-step so distance and collisions do not depend on the frame rate
+export const FOLLOW_GAP = 1.0; // how far behind the player (along the walked path) the companion trails

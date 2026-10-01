@@ -7,9 +7,9 @@ import {MAX_MAP_SIZE} from './config.js';
 import * as save from './save.js';
 import {seededRng} from './domain/rng.js';
 import {effectiveness, level, maxHP, objective} from './domain/rules.js';
-import {isWalkable, zoneAt} from './domain/world.js';
+import {isWalkable, nearestWalkable, zoneAt} from './domain/world.js';
 import {buildAdventure} from './domain/adventure.js';
-import {movePlayer} from './domain/exploration.js';
+import {followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
@@ -54,6 +54,7 @@ const game = {
   battle: loaded.save.battle ? {...loaded.save.battle, busy: false, over: false} : null,
   phase: 'explore',
   firedTriggers: new Set(),
+  trail: [],
   pacing: {steps: 0, encounterAt: 4, encounterCooldown: 2},
 };
 const ui = {
@@ -215,7 +216,7 @@ async function boot() {
   }
   if (!game.world.map) {
     actions.enterRegion(game.save.region);
-    if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, game.world.map.spawns.camp);
+    if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, nearestWalkable(game.world, game.player.x, game.player.y));
     actions.resetCamera();
   }
   ui.ready = true;
@@ -252,9 +253,10 @@ function loop(t) {
       game.save.playTime += dt;
       const [sx, sy] = direction(ui);
       const run = ui.keys.shift || ui.touchRun;
-      const zone = movePlayer({world: game.world, player: game.player, pacing}, sx, sy, run, dt);
+      const zone = movePlayer({world: game.world, player: game.player, pacing, trail: game.trail}, sx, sy, run, dt);
       if (zone) actions.startWild(zone);
       actions.checkTriggers();
+      if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, nearestWalkable(game.world, game.player.x, game.player.y)); // stuck recovery
       const nearest = actions.nearest();
       $('#interact').style.display = nearest ? 'block' : 'none';
       if (nearest) $('#interact').textContent = 'E · ' + nearest.label;
@@ -266,6 +268,7 @@ function loop(t) {
       save: game.save,
       world: game.world,
       player: game.player,
+      follower: followerPoint(game.world, game.player, game.trail),
       camera: ui.camera,
       zoom: ui.zoom,
       now: ui.now,

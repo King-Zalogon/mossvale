@@ -1,10 +1,29 @@
 /* Map data format (version 1): validation and compilation. Pure functions only.
    Authoring guide: docs/MAP_FORMAT.md. */
+import {PLAYER_RADIUS} from '../config.js';
 
 export const MAP_FORMAT = 1;
 export const TERRAIN = {'.': 'void', g: 'ground', p: 'path', w: 'water', t: 'tallgrass'};
 export const LANDMARK_KINDS = ['cottage', 'ranger', 'shrine', 'chest', 'sign'];
 export const MAX_SIZE = 64;
+
+const blocksTerrain = t => t === 'void' || t === 'water';
+
+/**
+ * Can feet with a PLAYER_RADIUS footprint stand at (x, y)? Terrain is sampled at the four corners of the footprint and
+ * solid props are circles. Used by the game and by map validation, so what validates is what can be walked.
+ */
+export function walkableAt(map, x, y) {
+  const r = PLAYER_RADIUS;
+  for (const [dx, dy] of [
+    [-r, -r],
+    [r, -r],
+    [-r, r],
+    [r, r],
+  ])
+    if (blocksTerrain(map.terrainAt(Math.round(x + dx), Math.round(y + dy)))) return false;
+  return !map.objects.some(o => o.solid && Math.hypot(x - o.x, y - o.y) < o.solid + r);
+}
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const FLAG = /^([a-z0-9]+(?:-[a-z0-9]+)*)\.(seal|chest)$/;
 const isPoint = p => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite);
@@ -182,10 +201,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
 /** Semantic checks that need the compiled map: spawn safety, exits on land, reachable goals. */
 function checkPlayable(map, byId, errors) {
   const at = (where, msg) => errors.push(`map ${map.id}: ${where}: ${msg}`);
-  const walkable = (x, y) => {
-    const t = map.terrainAt(Math.round(x), Math.round(y));
-    return t !== 'void' && t !== 'water' && !map.objects.some(o => o.solid && Math.hypot(x - o.x, y - o.y) < o.solid + 0.22);
-  };
+  const walkable = (x, y) => walkableAt(map, x, y);
   const camp = map.spawns.camp;
   if (!walkable(camp.x, camp.y)) return at('spawns.camp', `spawn (${camp.x}, ${camp.y}) is not walkable`);
   for (const [name, p] of Object.entries(map.spawns)) if (!walkable(p.x, p.y)) at(`spawns.${name}`, `spawn (${p.x}, ${p.y}) is not walkable`);

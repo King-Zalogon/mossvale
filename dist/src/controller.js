@@ -7,7 +7,7 @@ import {createBattle, ensureHealthyCompanion, resolveTurn, rollWild} from './dom
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
 import {buildWorld, nearestInteractive, triggersAt} from './domain/world.js';
-import {hideModal, toast} from './ui/dom.js';
+import {$, hideModal, toast} from './ui/dom.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 
 export function createController(app) {
@@ -26,6 +26,27 @@ export function createController(app) {
 
   function resetCamera() {
     ui.camera = {x: game.player.x, y: game.player.y};
+  }
+
+  /** Teleports the player (travel, camp, defeat). The companion's trail restarts so it appears beside the player. */
+  function place(point) {
+    Object.assign(game.player, point);
+    game.trail.length = 0;
+    resetCamera();
+  }
+
+  /** Brief fade-in on arrival so map changes read as a transition. Skipped for calm motion. */
+  function fadeIn() {
+    const el = $('#fade');
+    if (!el || app.motionReduced()) return;
+    el.style.transition = 'none';
+    el.style.opacity = '1';
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        el.style.transition = 'opacity .35s ease-out';
+        el.style.opacity = '0';
+      }),
+    );
   }
 
   function enterRegion(region) {
@@ -56,11 +77,11 @@ export function createController(app) {
     }
     s.region = id;
     s.visited = [...new Set([...s.visited, id])];
-    Object.assign(game.player, maps[id].spawns[spawn] || maps[id].spawns.camp);
-    resetCamera();
+    place(maps[id].spawns[spawn] || maps[id].spawns.camp);
     game.pacing.encounterCooldown = 3;
     game.pacing.steps = 0;
     enterRegion(id);
+    fadeIn();
     close();
     refresh();
     tone(600);
@@ -123,8 +144,7 @@ export function createController(app) {
       toast('Finish your encounter before returning to camp.');
       return;
     }
-    Object.assign(game.player, maps[save().region].spawns.camp);
-    resetCamera();
+    place(maps[save().region].spawns.camp);
     game.pacing.encounterCooldown = 3;
     game.pacing.steps = 0;
     close();
@@ -136,10 +156,14 @@ export function createController(app) {
     return nearestInteractive(game.world, game.player);
   }
 
+  let lastInteract = -Infinity;
+  const INTERACT_COOLDOWN_MS = 250;
   const sealOf = flag => regions.find(r => r.id === flag.split('.')[0]).seal.toLowerCase();
 
   function interact() {
     if (game.battle || ui.modalMode || ui.paused) return;
+    if (ui.now - lastInteract < INTERACT_COOLDOWN_MS && ui.now >= lastInteract) return; // double taps do nothing
+    lastInteract = ui.now;
     const o = nearest();
     if (!o) {
       const t = triggersAt(game.world, game.player, 'interact')[0];
@@ -278,8 +302,7 @@ export function createController(app) {
       game.pacing.encounterCooldown = 4;
       transition(game, 'result');
       if (turn.ended === 'loss') {
-        Object.assign(game.player, maps[s.region].spawns.camp);
-        resetCamera();
+        place(maps[s.region].spawns.camp);
       }
       s.recap = recapFor(turn, b);
     }
