@@ -181,7 +181,7 @@ export function createMenus(app) {
     );
     wireClose();
     $('#story-ok').onclick = actions.close;
-    requestAnimationFrame(() => $('#story-ok').focus({preventScroll: true}));
+    requestAnimationFrame(() => $('#story-ok')?.focus({preventScroll: true}));
   }
 
   function saveNotice(status, message) {
