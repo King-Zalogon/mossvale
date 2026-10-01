@@ -8,10 +8,11 @@ import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
 import {buildWorld, nearestInteractive, triggersAt} from './domain/world.js';
 import {$, hideModal, toast} from './ui/dom.js';
+import {currentObjective, pickLine} from './domain/objectives.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 
 export function createController(app) {
-  const {game, ui, audio, rng, persist, canvas, actions, menus, maps} = app;
+  const {game, ui, audio, rng, persist, canvas, actions, menus, maps, objCtx} = app;
   const save = () => game.save;
   const tone = (f, d) => audio.tone(f, d);
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
@@ -20,7 +21,12 @@ export function createController(app) {
 
   function refresh() {
     clampHealth(save());
-    renderHud(save());
+    const goal = app.objectives.length ? currentObjective(save(), app.objectives, objCtx) : null;
+    renderHud(save(), goal);
+    if (goal && goal.id !== save().goal) {
+      if (save().goal && ui.ready) toast(`New goal: ${goal.title}`); // first run and reloads stay quiet
+      save().goal = goal.id;
+    }
     persist();
   }
 
@@ -114,12 +120,21 @@ export function createController(app) {
     menus.party();
   }
 
+  const rangerLandmark = () => game.world.objects.find(o => o.kind === 'ranger');
+  const rangerName = () => rangerLandmark()?.name ?? 'the ranger';
+
+  /** Opens the ranger menu with `message`, or the first matching line from the map data. */
+  function openRanger(message) {
+    const o = rangerLandmark();
+    menus.ranger({name: o?.name ?? 'The ranger', message: message ?? pickLine(o?.lines, save(), objCtx) ?? 'Welcome back. Rest here whenever you need to.'});
+  }
+
   function rest() {
     healTeam(save());
     save().orbs = Math.max(save().orbs, 12);
     refresh();
     tone(640);
-    menus.ranger('Everyone is rested, and your capture orbs are topped up. Safe travels!');
+    openRanger('Everyone is rested, and your capture orbs are topped up. Safe travels!');
   }
 
   function buy(item) {
@@ -129,13 +144,13 @@ export function createController(app) {
       s.coins -= 10;
       s.potions++;
       refresh();
-      menus.ranger('One potion for the trail. Use it when your companion needs a little help.');
+      openRanger('One potion for the trail. Use it when your companion needs a little help.');
     } else {
       if (s.coins < 15) return;
       s.coins -= 15;
       s.orbs += 5;
       refresh();
-      menus.ranger('Five fresh capture orbs. There’s always room for one more friend.');
+      openRanger('Five fresh capture orbs. There’s always room for one more friend.');
     }
   }
 
@@ -149,7 +164,7 @@ export function createController(app) {
     game.pacing.steps = 0;
     close();
     persist();
-    toast('Back at camp. Talk to Iris just northwest of the trail to rest.');
+    toast(`Back at camp. Talk to ${rangerName()} to rest.`);
   }
 
   function nearest() {
@@ -173,8 +188,8 @@ export function createController(app) {
     }
     const s = save();
     tone(480);
-    if (o.kind === 'ranger') menus.ranger();
-    else if (o.kind === 'sign') toast(o.text);
+    if (o.kind === 'ranger') openRanger();
+    else if (o.kind === 'sign') toast(o.text ?? pickLine(o.lines, s, objCtx));
     else if (o.kind === 'chest') {
       if (flagDone(s, o.flag)) {
         toast('This treasure chest is empty. The next island may have another.');
@@ -238,7 +253,7 @@ export function createController(app) {
     const s = save();
     if (!ensureHealthyCompanion(s)) {
       transition(game, 'explore');
-      toast('Your team needs a rest. Talk to Iris at camp.');
+      toast(`Your team needs a rest. Talk to ${rangerName()} at camp.`);
       return;
     }
     timeline.cancel();
@@ -252,7 +267,7 @@ export function createController(app) {
   function startWild(zone) {
     if (game.battle || game.phase !== 'explore') return;
     if (!ensureHealthyCompanion(save())) {
-      toast('Your team needs a rest. Talk to Iris at camp.');
+      toast(`Your team needs a rest. Talk to ${rangerName()} at camp.`);
       return;
     }
     beginBattle(rollWild(save(), rng, zone));
@@ -291,7 +306,7 @@ export function createController(app) {
     if (!b || b.busy || b.over || game.phase !== 'battle' || (ui.modalMode !== 'battle' && action.kind !== 'switch')) return;
     const s = save();
     const before = {active: s.active};
-    const turn = resolveTurn(s, b, action, rng);
+    const turn = resolveTurn(s, b, action, rng, {sealReward: game.world.objects.find(o => o.kind === 'shrine')?.reward});
     if (!turn) return;
     b.busy = true;
     const frames = framesFor(turn, before, b);
@@ -402,7 +417,7 @@ export function createController(app) {
             : 'All three shrines shine again. You’ve become a keeper of the Verdant Isles!'
           : `${species[b.id].name} retreated into the wild.`,
         id: b.id,
-        rewards: [last.reward + ' coins', last.xp + ' XP', ...(last.newSeal ? ['2 potions'] : [])],
+        rewards: [last.reward + ' coins', last.xp + ' XP', ...(last.potions ? [`${last.potions} potions`] : [])],
         note: last.xpText,
         button: next ? 'Visit ' + regions[s.region + 1].short : 'Back to the trail',
         onContinue: next ? () => travel(s.region + 1) : undefined,
@@ -431,7 +446,7 @@ export function createController(app) {
     } else {
       showResult({
         title: 'A fresh start at camp.',
-        copy: 'Iris brought your team back safely. Everyone is rested. Try switching companions or using potions next time.',
+        copy: `${rangerName()} brought your team back safely. Everyone is rested. Try switching companions or using potions next time.`,
         id: last.id,
         rewards: ['Team fully healed'],
         button: 'Back to the trail',
@@ -469,6 +484,7 @@ export function createController(app) {
     startWild,
     startGuardian,
     beginBattle,
+    openRanger,
     checkTriggers,
     battleAction,
     performTurn,

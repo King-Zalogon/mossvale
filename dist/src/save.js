@@ -43,6 +43,7 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       wins: 0,
       playTime: 0,
       recap: '',
+      goal: '',
       battle: null,
       party: [0],
     };
@@ -85,6 +86,7 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
     s.playTime = num(raw.playTime, 0, MAX_TIME, 0);
     s.met = raw.met === true;
     s.recap = typeof raw.recap === 'string' ? raw.recap.slice(0, 200) : '';
+    s.goal = typeof raw.goal === 'string' && /^[a-z0-9-]{1,40}$/.test(raw.goal) ? raw.goal : ''; // last objective shown; unknown ids are harmless
     s.battle = normalizeBattle(raw.battle, legacy);
     const region = ref(raw.region, regions, regionIndex);
     s.region = region >= 0 && (region === 0 || s.badges.includes(region - 1)) ? region : 0;
@@ -142,6 +144,7 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       wins: save.wins,
       playTime: save.playTime,
       recap: save.recap || '',
+      goal: save.goal || '',
       party: save.party.map(sid),
       battle: save.battle ? {...save.battle, id: sid(save.battle.id)} : null,
     });

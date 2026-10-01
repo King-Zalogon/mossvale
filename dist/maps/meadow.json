@@ -56,6 +56,11 @@
       "guardian": {
         "species": "mushmallow",
         "level": 7
+      },
+      "reward": {
+        "coins": 60,
+        "potions": 2,
+        "xp": 65
       }
     },
     {
@@ -73,7 +78,25 @@
       "at": [10.5, 11],
       "w": 37,
       "label": "Talk to Ranger Iris",
-      "name": "Ranger Iris"
+      "name": "Ranger Iris",
+      "tag": "IRIS",
+      "lines": [
+        {
+          "when": {
+            "flag": "meadow.seal"
+          },
+          "text": "The meadow shrine is awake. Take the eastern trail whenever you're ready."
+        },
+        {
+          "when": {
+            "caught": 2
+          },
+          "text": "You've made a friend. The blue crystal north of camp is waiting for you."
+        },
+        {
+          "text": "The shrines have been quiet for years. Perhaps a new friend from the tall grass could help wake them."
+        }
+      ]
     },
     {
       "id": "sign",
@@ -82,7 +105,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
+      "text": "North: crystal shrine \u00b7 East: the next island \u00b7 Blue minimap marker: shrine \u00b7 Gold: treasure"
     },
     {
       "id": "chest",

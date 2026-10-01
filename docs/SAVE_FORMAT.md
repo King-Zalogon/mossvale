@@ -17,7 +17,9 @@ Implemented in `dist/src/save.js` (pure, tested without a browser). Issue: [#8](
 
 Species and regions are stored by ID, not array position, so content can be reordered or extended safely. Current IDs: species `fernling emberkin brooklet duskwing voltkit mushmallow frostowl pebblit`; regions `meadow amber-ridge frostveil-grove`. Never rename or reuse an ID.
 
-Fields: `version, region, x, y, active, orbs, potions, coins, seen[], caught[], team{speciesId:{xp,hp}}, badges[], chests[], visited[], met, wins, playTime`. Team: `party` lists the (at most 3) companions who can fight, by species ID; the active companion is always on it and everyone else captured waits in the reserve. Saves without `party` get the active companion plus the first captures.
+Fields: `version, region, x, y, active, orbs, potions, coins, seen[], caught[], team{speciesId:{xp,hp}}, badges[], chests[], visited[], met, wins, playTime`. Goal: `goal` is the id of the last objective shown (see [OBJECTIVES.md](OBJECTIVES.md)); it only drives the "New goal" toast, and progress itself is derived from the save.
+
+Team: `party` lists the (at most 3) companions who can fight, by species ID; the active companion is always on it and everyone else captured waits in the reserve. Saves without `party` get the active companion plus the first captures.
 
 Interrupted encounters: `battle` (`{id, hp, max, level, boss, guard, turn, focus}`, species by ID) is the checkpoint of a fight in progress, and `recap` is a one-line summary of an encounter that finished before its result screen was shown. Both are optional; older builds ignore them. See [Encounter durability](#encounter-durability).
 

@@ -9,8 +9,9 @@ import {buildAdventure} from '../dist/src/domain/adventure.js';
 
 const dir = new URL('../dist/maps/', import.meta.url);
 const read = name => JSON.parse(readFileSync(new URL(name, dir), 'utf8'));
-const raw = read('index.json').maps.map(id => read(id + '.json'));
-const {maps, errors} = buildAdventure(raw, {assets, species, regions});
+const index = read('index.json');
+const raw = index.maps.map(id => read(id + '.json'));
+const {maps, errors} = buildAdventure(raw, {assets, species, regions}, index.objectives ? read(index.objectives) : undefined);
 if (errors.length) {
   console.error(`${errors.length} map error(s):\n` + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);

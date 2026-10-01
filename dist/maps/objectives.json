@@ -1,0 +1,82 @@
+{
+  "format": 1,
+  "objectives": [
+    {
+      "id": "first-friend",
+      "step": "01",
+      "title": "A friend in the grass",
+      "copy": "Find a wild creature, weaken it, then throw a capture orb.",
+      "pin": "Explore the tall grass",
+      "done": {"caught": 2},
+      "lines": [
+        {"text": "Meet a wild creature", "done": {"met": true}},
+        {"text": "Catch your first new friend", "done": {"caught": 2}}
+      ]
+    },
+    {
+      "id": "meadow-seal",
+      "step": "02",
+      "title": "Awaken the meadow",
+      "copy": "Visit the blue crystal shrine north of camp and challenge its guardian.",
+      "map": "meadow",
+      "pin": "Follow the blue shrine marker north",
+      "pinElsewhere": "Take the western trail back to the Meadow",
+      "done": {"flag": "meadow.seal"},
+      "lines": [
+        {"text": "Earn the verdant seal", "done": {"flag": "meadow.seal"}},
+        {"text": "Explore meadow", "done": {"visited": "meadow"}}
+      ]
+    },
+    {
+      "id": "amber-seal",
+      "step": "03",
+      "title": "The heart of Amber Ridge",
+      "copy": "Travel to Amber Ridge and awaken its shrine. A strong team helps.",
+      "map": "amber-ridge",
+      "pin": "Follow the blue shrine marker north",
+      "pinElsewhere": "Take the eastern trail to Ridge",
+      "done": {"flag": "amber-ridge.seal"},
+      "lines": [
+        {"text": "Earn the amber seal", "done": {"flag": "amber-ridge.seal"}},
+        {"text": "Explore ridge", "done": {"visited": "amber-ridge"}}
+      ]
+    },
+    {
+      "id": "frostveil-seal",
+      "step": "04",
+      "title": "A light in the snow",
+      "copy": "Travel to Frostveil Grove and awaken its shrine. A strong team helps.",
+      "map": "frostveil-grove",
+      "pin": "Follow the blue shrine marker north",
+      "pinElsewhere": "Take the eastern trail to Grove",
+      "done": {"flag": "frostveil-grove.seal"},
+      "lines": [
+        {"text": "Earn the frostveil seal", "done": {"flag": "frostveil-grove.seal"}},
+        {"text": "Explore grove", "done": {"visited": "frostveil-grove"}}
+      ]
+    },
+    {
+      "id": "every-friend",
+      "step": "05",
+      "title": "Every friend has a story",
+      "copy": "The shrines are awake. Explore all three regions to befriend the remaining creatures.",
+      "pin": "Find the remaining creatures",
+      "done": {"caught": "all"},
+      "lines": [
+        {"text": "Awaken all three shrines", "done": {"all": [{"flag": "meadow.seal"}, {"flag": "amber-ridge.seal"}, {"flag": "frostveil-grove.seal"}]}},
+        {"text": "Befriend every species ({caught} / {total})", "done": {"caught": "all"}}
+      ]
+    },
+    {
+      "id": "keeper",
+      "step": "05",
+      "title": "Keeper of the isles",
+      "copy": "All three shrines are awake, and every creature has a place in your journal. Keep exploring.",
+      "pin": "All shrines awakened · Keep exploring",
+      "lines": [
+        {"text": "Awaken all three shrines", "done": {"all": []}},
+        {"text": "Befriend every species ({caught} / {total})", "done": {"all": []}}
+      ]
+    }
+  ]
+}

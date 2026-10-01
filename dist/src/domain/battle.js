@@ -87,19 +87,20 @@ export function resolveFaint(save) {
 }
 
 /** Applies victory rewards. Returns data for the result screen. */
-export function resolveWin(save, battle, rng) {
+export function resolveWin(save, battle, rng, ctx = {}) {
   const newSeal = battle.boss && !save.badges.includes(save.region);
-  const reward = newSeal ? 60 : battle.boss ? 12 : 8 + Math.floor(rng() * 7);
-  const xp = newSeal ? 65 : battle.boss ? 20 : 24;
+  const seal = ctx.sealReward ?? {coins: 60, potions: 2, xp: 65}; // from the shrine in the map data
+  const reward = newSeal ? seal.coins : battle.boss ? 12 : 8 + Math.floor(rng() * 7);
+  const xp = newSeal ? seal.xp : battle.boss ? 20 : 24;
   save.wins++;
   save.coins += reward;
   const xpText = awardXP(save, xp).text;
   if (newSeal) {
     save.badges.push(save.region);
-    save.potions += 2;
+    save.potions += seal.potions;
     healTeam(save);
   }
-  return {newSeal, reward, xp, xpText, id: battle.id, boss: battle.boss};
+  return {newSeal, reward, xp, potions: newSeal ? seal.potions : 0, xpText, id: battle.id, boss: battle.boss};
 }
 
 /** Applies a successful capture. */
@@ -140,11 +141,12 @@ export const battleCheckpoint = battle =>
  * Resolves one full round atomically: the player's action, then the enemy's reply (unless the battle just ended).
  * Everything that changes `save` (orbs, potions, HP, rewards, captures) happens here, exactly once; callers only
  * animate the returned `events`, each carrying an `after` snapshot for display.
+ * ctx: {sealReward} from the shrine's map data (optional).
  * action: {kind: 'attack'|'element'|'catch'|'potion'|'guard'|'switch', id?}
  * Returns null when the action is not allowed (battle over, no orbs/potions, invalid switch), otherwise
  * {events, ended: null|'win'|'caught'|'loss'}.
  */
-export function resolveTurn(save, battle, action, rng) {
+export function resolveTurn(save, battle, action, rng, ctx = {}) {
   if (battle.over) return null;
   const events = [];
   const push = event => events.push({...event, after: snapshot(save, battle)});
@@ -158,7 +160,7 @@ export function resolveTurn(save, battle, action, rng) {
     push({type: 'strike', ...strike});
     if (strike.defeated) {
       ended = 'win';
-      push({type: 'win', ...resolveWin(save, battle, rng)});
+      push({type: 'win', ...resolveWin(save, battle, rng, ctx)});
     }
   } else if (action.kind === 'catch') {
     if (!throwOrb(save, battle)) return null;

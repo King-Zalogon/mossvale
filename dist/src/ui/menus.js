@@ -110,13 +110,13 @@ export function createMenus(app) {
     if ($('#back-battle')) $('#back-battle').onclick = () => actions.renderBattle('Choose your next move.');
   }
 
-  function ranger(message = 'The shrines have been quiet for years. Perhaps your new friends can help wake them.') {
+  function ranger({name = 'The ranger', message = ''} = {}) {
     if (game.battle) return;
     const s = save();
     open(
-      `${header('RANGER STATION', 'A moment with Iris')}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free. I’ll refill your bag to 12 orbs, too.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">Rest your team</button><button id="buy-potion" ${s.coins < 10 ? 'disabled' : ''}>Potion · 10 coins</button><button id="buy-orbs" ${s.coins < 15 ? 'disabled' : ''}>5 orbs · 15 coins</button></div><p class="dialog-note">Potions restore 24 HP during battle. Earn coins from encounters and treasure chests.</p>`,
+      `${header('RANGER STATION', 'A moment with ' + name)}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free. I’ll refill your bag to 12 orbs, too.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">Rest your team</button><button id="buy-potion" ${s.coins < 10 ? 'disabled' : ''}>Potion · 10 coins</button><button id="buy-orbs" ${s.coins < 15 ? 'disabled' : ''}>5 orbs · 15 coins</button></div><p class="dialog-note">Potions restore 24 HP during battle. Earn coins from encounters and treasure chests.</p>`,
       'ranger',
-      'Ranger Iris',
+      name,
     );
     drawSprite($('#ranger-art').getContext('2d'), 8, 45, 130, 65);
     $('#rest-team').onclick = () => actions.rest();

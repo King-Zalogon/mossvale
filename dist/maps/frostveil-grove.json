@@ -56,6 +56,11 @@
       "guardian": {
         "species": "frostowl",
         "level": 11
+      },
+      "reward": {
+        "coins": 60,
+        "potions": 2,
+        "xp": 65
       }
     },
     {
@@ -73,7 +78,19 @@
       "at": [10.5, 11],
       "w": 37,
       "label": "Talk to Ranger Iris",
-      "name": "Ranger Iris"
+      "name": "Ranger Iris",
+      "tag": "IRIS",
+      "lines": [
+        {
+          "when": {
+            "flag": "frostveil-grove.seal"
+          },
+          "text": "All three shrines are awake. Thank you, keeper."
+        },
+        {
+          "text": "The last shrine is north of camp, through the snow. Rest here first."
+        }
+      ]
     },
     {
       "id": "sign",
@@ -82,7 +99,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
+      "text": "North: crystal shrine \u00b7 East: the next island \u00b7 Blue minimap marker: shrine \u00b7 Gold: treasure"
     },
     {
       "id": "chest",

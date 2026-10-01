@@ -1,7 +1,7 @@
 /* Side panel, region banner and status text. Reads state and writes DOM; no game rules. */
 import {species} from '../data/species.js';
 import {regions} from '../data/regions.js';
-import {companion, level, maxHP, objective, xpProgress} from '../domain/rules.js';
+import {companion, level, maxHP, xpProgress} from '../domain/rules.js';
 import {drawCreature} from '../render/sprites.js';
 import {$} from './dom.js';
 
@@ -14,7 +14,8 @@ export function renderRegion(region) {
   $('#coordinates').textContent = r.short.toUpperCase();
 }
 
-export function renderHud(save) {
+/** `q` = current objective (see domain/objectives.js), or null before the adventure data has loaded. */
+export function renderHud(save, q = null) {
   const s = species[save.active];
   const c = companion(save);
   const hp = maxHP(save, save.active);
@@ -35,7 +36,7 @@ export function renderHud(save) {
   $('#coins').textContent = save.coins;
   $('#count').textContent = `${save.caught.length} befriended · ${save.seen.length} / 8 seen`;
   $('#badge-count').textContent = `${save.badges.length} / 3 shrine seals`;
-  const q = objective(save);
+  if (!q) return drawCreature($('#buddy'), save.active, 106);
   $('#quest-title').textContent = q.title;
   $('#quest-copy').textContent = q.copy;
   $('#quest-step').textContent = q.step;

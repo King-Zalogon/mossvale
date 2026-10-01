@@ -6,7 +6,8 @@ import {assets} from './data/assets.js';
 import {MAX_MAP_SIZE} from './config.js';
 import * as save from './save.js';
 import {seededRng} from './domain/rng.js';
-import {effectiveness, level, maxHP, objective} from './domain/rules.js';
+import {effectiveness, level, maxHP} from './domain/rules.js';
+import {currentObjective} from './domain/objectives.js';
 import {isWalkable, nearestWalkable, zoneAt} from './domain/world.js';
 import {buildAdventure} from './domain/adventure.js';
 import {followerPoint, movePlayer} from './domain/exploration.js';
@@ -14,7 +15,7 @@ import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
-import {fetchMaps} from './services/maps.js';
+import {fetchAdventure} from './services/maps.js';
 import {createPersistence} from './services/persistence.js';
 import {createWorldRenderer} from './render/world.js';
 import {sprites} from './render/sprites.js';
@@ -76,6 +77,8 @@ const app = {
   canvas,
   actions: {},
   maps: [],
+  objectives: [],
+  objCtx: {speciesCount: species.length, regions},
   audio: createAudio(),
   settings,
   motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,
@@ -189,12 +192,14 @@ async function boot() {
   }
   if (!app.maps.length) {
     try {
-      const {maps, errors} = buildAdventure(await fetchMaps(), {assets, species, regions});
+      const {maps: rawMaps, objectives: rawObjectives} = await fetchAdventure();
+      const {maps, objectives, errors} = buildAdventure(rawMaps, {assets, species, regions}, rawObjectives);
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;
       }
       app.maps.push(...maps);
+      app.objectives.push(...objectives);
     } catch (e) {
       showLoadError('Could not load the map data. Check your connection, then try again.', String(e.message || e));
       return;
@@ -337,7 +342,7 @@ if (debug) {
     grass: (x, y) => !!zoneAt(game.world, x, y),
     travel: actions.travel,
     interact: actions.interact,
-    objective: () => objective(game.save),
+    objective: () => currentObjective(game.save, app.objectives, app.objCtx),
     level: id => level(game.save, id),
     maxHP: id => maxHP(game.save, id),
     effectiveness,

@@ -56,6 +56,11 @@
       "guardian": {
         "species": "pebblit",
         "level": 9
+      },
+      "reward": {
+        "coins": 60,
+        "potions": 2,
+        "xp": 65
       }
     },
     {
@@ -73,7 +78,19 @@
       "at": [10.5, 11],
       "w": 37,
       "label": "Talk to Ranger Iris",
-      "name": "Ranger Iris"
+      "name": "Ranger Iris",
+      "tag": "IRIS",
+      "lines": [
+        {
+          "when": {
+            "flag": "amber-ridge.seal"
+          },
+          "text": "The ridge shrine hums again. Frostveil Grove lies further east."
+        },
+        {
+          "text": "The sandstone is warm here, and the guardian sleeps lightly. Bring a rested team."
+        }
+      ]
     },
     {
       "id": "sign",
@@ -82,7 +99,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
+      "text": "North: crystal shrine \u00b7 East: the next island \u00b7 Blue minimap marker: shrine \u00b7 Gold: treasure"
     },
     {
       "id": "chest",

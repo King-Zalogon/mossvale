@@ -43,6 +43,8 @@ Then: #17 team of three plus reserve ([SAVE_FORMAT.md](SAVE_FORMAT.md)), #16 Foc
 
 Then: #15 movement, collision footprint, trail-following companion and arrival fade ([MOVEMENT.md](MOVEMENT.md)).
 
+Then: #18 objectives and short lines as data with an unlock-chain softlock check ([OBJECTIVES.md](OBJECTIVES.md)).
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.

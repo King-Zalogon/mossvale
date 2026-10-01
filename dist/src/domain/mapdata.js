@@ -1,6 +1,7 @@
 /* Map data format (version 1): validation and compilation. Pure functions only.
    Authoring guide: docs/MAP_FORMAT.md. */
 import {PLAYER_RADIUS} from '../config.js';
+import {validateLines} from './objectives.js';
 
 export const MAP_FORMAT = 1;
 export const TERRAIN = {'.': 'void', g: 'ground', p: 'path', w: 'water', t: 'tallgrass'};
@@ -112,12 +113,16 @@ function validateOne(m, byId, ctx, errors) {
         if (!Number.isInteger(l.guardian.level) || l.guardian.level < 1 || l.guardian.level > 99) at(where + '.guardian.level', 'integer 1..99');
       }
       if (typeof l.flag !== 'string') at(where + '.flag', 'shrines need the milestone flag they complete');
+      if (!isObj(l.reward) || !['coins', 'potions', 'xp'].every(k => Number.isInteger(l.reward[k]) && l.reward[k] >= 0))
+        at(where + '.reward', 'shrines need { coins, potions, xp } (whole numbers) paid once when the seal is earned');
     }
     if (l.kind === 'chest') {
       if (typeof l.flag !== 'string') at(where + '.flag', 'chests need a persistence flag so opening them is remembered');
       if (!isObj(l.reward)) at(where + '.reward', 'chests need { coins, potions, orbs }');
     }
-    if (l.kind === 'sign' && typeof l.text !== 'string') at(where + '.text', 'signs need text');
+    if (l.kind === 'sign' && typeof l.text !== 'string' && !Array.isArray(l.lines)) at(where + '.text', 'signs need text (or lines)');
+    if (l.lines !== undefined) errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys())}));
+    if (l.tag !== undefined && (typeof l.tag !== 'string' || l.tag.length > 16)) at(where + '.tag', 'tag is a short label (up to 16 characters)');
   });
   (m.exits ?? []).forEach((e, i) => {
     const where = `exits[${i}] (${e?.id})`;
@@ -185,6 +190,8 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
       name: l.name,
       flag: l.flag,
       text: l.text,
+      lines: l.lines,
+      tag: l.tag,
       reward: l.reward,
       guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level},
     }),

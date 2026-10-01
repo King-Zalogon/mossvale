@@ -123,7 +123,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         ctx.textAlign = 'center';
         const label =
           o.kind === 'ranger'
-            ? 'IRIS'
+            ? (o.tag ?? 'RANGER')
             : o.kind === 'shrine'
               ? save.badges.includes(region)
                 ? 'AWAKENED'

@@ -2,10 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {species} from '../dist/src/data/species.js';
 import {seededRng} from '../dist/src/domain/rng.js';
-import {level, maxHP, objective, unlocked} from '../dist/src/domain/rules.js';
+import {level, maxHP, unlocked} from '../dist/src/domain/rules.js';
+import {currentObjective} from '../dist/src/domain/objectives.js';
 import {createBattle, rollWild, enemyAttack, playerStrike, resolveCapture, resolveFaint, resolveLoss, resolveWin} from '../dist/src/domain/battle.js';
 import {buildWorld, isWalkable, nearestInteractive} from '../dist/src/domain/world.js';
-import {codec, maps} from './helpers.mjs';
+import {codec, maps, objCtx, objectives} from './helpers.mjs';
 import {movePlayer} from '../dist/src/domain/exploration.js';
 
 const newSave = () => codec.fresh();
@@ -82,13 +83,13 @@ test('enemy attacks reduce HP, guard softens them, faint swaps then loses', () =
 
 test('objective advances with progress', () => {
   const save = newSave();
-  assert.equal(objective(save).step, '01');
+  assert.equal(currentObjective(save, objectives, objCtx).step, '01');
   save.caught.push(1);
   save.party.push(1);
   save.team[1] = {xp: 0, hp: 40};
-  assert.equal(objective(save).step, '02');
+  assert.equal(currentObjective(save, objectives, objCtx).step, '02');
   save.badges = [0, 1, 2];
-  assert.equal(objective(save).step, '05');
+  assert.equal(currentObjective(save, objectives, objCtx).step, '05');
   assert.equal(level(save, 0), 5);
 });
 
