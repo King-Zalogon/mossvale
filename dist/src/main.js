@@ -79,6 +79,8 @@ const app = {
   actions: {},
   maps: [],
   objectives: [],
+  story: undefined,
+  skipPremise: debug && !params.has('premise'), // tests start in play; add &premise to see the opening card
   objCtx: {speciesCount: species.length, regions},
   audio: createAudio(),
   settings,
@@ -116,13 +118,17 @@ function showLoadError(message, detail) {
 /** Runs once the player has passed the title screen: welcome, resume an interrupted fight, recovery notices. */
 function postStart() {
   canvas.focus({preventScroll: true});
-  toast(game.save.badges.length ? 'Your trail continues. Welcome back, explorer.' : 'The shrines are stirring. Find a new friend in the tall grass.');
-  const resumed = actions.resumeBattle();
-  if (!resumed && game.save.recap) {
-    toast(game.save.recap);
-    game.save.recap = '';
-  }
-  if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
+  const rest = () => {
+    toast(game.save.badges.length ? 'Your trail continues. Welcome back, explorer.' : 'The shrines are stirring. Find a new friend in the tall grass.');
+    const resumed = actions.resumeBattle();
+    if (!resumed && game.save.recap) {
+      toast(game.save.recap);
+      game.save.recap = '';
+    }
+    if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
+    if (!resumed) actions.checkEnding(); // a save that already earned every seal sees the ending once
+  };
+  if (!actions.showPremise(rest)) rest(); // the opening card comes first on a brand-new adventure
 }
 
 function applyMotion() {
@@ -196,14 +202,15 @@ async function boot() {
   }
   if (!app.maps.length) {
     try {
-      const {maps: rawMaps, objectives: rawObjectives} = await fetchAdventure();
-      const {maps, objectives, errors} = buildAdventure(rawMaps, {assets, species, regions}, rawObjectives);
+      const {maps: rawMaps, objectives: rawObjectives, story: rawStory} = await fetchAdventure();
+      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions}, rawObjectives, rawStory);
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;
       }
       app.maps.push(...maps);
       app.objectives.push(...objectives);
+      app.story = story;
     } catch (e) {
       showLoadError('Could not load the map data. Check your connection, then try again.', String(e.message || e));
       return;

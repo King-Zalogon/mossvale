@@ -171,6 +171,18 @@ export function createMenus(app) {
     wireClose();
   }
 
+  /** A text card (opening premise or ending). Closing it, by button or Escape, continues via `ui.afterModal`. */
+  function story(screen) {
+    open(
+      `${header('MOSSVALE', screen.title)}<div class="story-copy">${screen.paragraphs.map(p => `<p>${p}</p>`).join('')}</div><div class="menu-list"><button class="primary" id="story-ok">${screen.button}</button></div>`,
+      'story',
+      screen.title,
+    );
+    wireClose();
+    $('#story-ok').onclick = actions.close;
+    requestAnimationFrame(() => $('#story-ok').focus({preventScroll: true}));
+  }
+
   function saveNotice(status, message) {
     const title = {restored: 'Save restored', recovered: 'Save could not be read', future: 'Newer save found', unavailable: 'Storage unavailable'}[status];
     $('#save-note').textContent = message;
@@ -199,7 +211,7 @@ export function createMenus(app) {
       } else if (view === 'confirm-restore') {
         body = `${header('RESTORE', 'Go back to your earlier adventure?', false)}<p class="menu-summary">Restores ${summarize(archived.save, species)}, archived ${new Date(archived.at).toLocaleDateString()}. Your current adventure (${summarize(s, species)}) becomes the backup, so nothing is lost.</p><div class="menu-list"><button id="m-confirm-restore" class="primary">Restore it</button><button id="m-cancel">Cancel</button></div>`;
       } else {
-        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
+        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
       }
       open(body, mode, title ? 'Mossvale' : 'Game menu');
       wireClose();
@@ -234,5 +246,5 @@ export function createMenus(app) {
     render();
   }
 
-  return {mainMenu, worldMap, journal, party, ranger, shrine, result, help, saveNotice};
+  return {story, mainMenu, worldMap, journal, party, ranger, shrine, result, help, saveNotice};
 }

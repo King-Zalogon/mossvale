@@ -252,6 +252,48 @@ for (const [seed, weakened] of [
   console.log('ok ranger shop and rest');
 }
 {
+  // opening premise on a new adventure, a first-battle tip, and the ending once everything is awake
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto(url + '?debug&premise&seed=2');
+  await page.waitForSelector('#story-ok');
+  assert.match(await page.textContent('#modal'), /The quiet shrines/);
+  await page.keyboard.press('Escape'); // closes the card like the button does
+  assert.equal(await page.locator('#modal').isHidden(), true);
+  await page.evaluate(() => window.mossvale.encounter(1));
+  await page.waitForSelector('#attack');
+  assert.match(await page.textContent('.battle-log'), /Tip: weaken it/);
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#modal', {state: 'hidden'});
+  await page.reload();
+  await page.waitForFunction(() => window.mossvale);
+  assert.equal(await page.locator('#story-ok').count(), 0, 'the opening card is only shown once');
+
+  const done = newSave();
+  done.badges = [0, 1, 2];
+  done.met = true;
+  done.wins = 5;
+  const ctx2 = await browser.newContext();
+  await ctx2.addInitScript(set('mossvale-v3', codec.serialize(done)));
+  const p2 = await ctx2.newPage();
+  p2.on('pageerror', e => errors.push(e.message));
+  await p2.goto(url);
+  await p2.click('#m-primary');
+  await p2.waitForSelector('#story-ok');
+  assert.match(await p2.textContent('#modal'), /The isles are awake/);
+  await p2.click('#story-ok');
+  assert.equal(await p2.locator('#modal').isHidden(), true);
+  await p2.reload();
+  await p2.waitForSelector('#m-primary');
+  assert.match(await p2.textContent('#modal'), /Adventure complete/);
+  await p2.click('#m-primary');
+  assert.equal(await p2.locator('#story-ok').count(), 0, 'the ending is shown once');
+  assert.deepEqual(errors, []);
+  console.log('ok premise, tips and ending');
+}
+{
   // debug hook is absent without ?debug
   const {page} = await open('');
   await page.goto(url);

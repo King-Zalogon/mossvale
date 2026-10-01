@@ -1,6 +1,7 @@
 /* Turns raw map JSON plus the content registries into validated, compiled maps indexed by region. Pure. */
 import {compileMap, validateMaps} from './mapdata.js';
 import {collectFlags, validateObjectives} from './objectives.js';
+import {validateStory} from './story.js';
 
 /**
  * @param {object[]} rawMaps parsed map files
@@ -9,7 +10,7 @@ import {collectFlags, validateObjectives} from './objectives.js';
  * @param {{assets:{name:string}[], species:{id:string}[], regions:{id:string}[]}} content
  * @returns {{maps: object[], errors: string[]}} `maps[i]` belongs to `regions[i]`; empty when errors exist
  */
-export function buildAdventure(rawMaps, {assets, species, regions}, rawObjectives) {
+export function buildAdventure(rawMaps, {assets, species, regions}, rawObjectives, rawStory) {
   const spriteNames = new Set(assets.map(a => a.name));
   const speciesIds = new Set(species.map(s => s.id));
   const errors = validateMaps(rawMaps, {spriteNames, speciesIds});
@@ -21,12 +22,18 @@ export function buildAdventure(rawMaps, {assets, species, regions}, rawObjective
   if (rawObjectives !== undefined) {
     errors.push(...validateObjectives(rawObjectives, {mapIds: new Set(rawMaps.map(m => m?.id))}));
   }
-  if (!errors.length) errors.push(...checkProgression(ordered, regions, rawObjectives?.objectives ?? []), ...checkSources(ordered, species));
-  if (errors.length) return {maps: [], objectives: [], errors};
+  if (rawStory !== undefined) errors.push(...validateStory(rawStory, {mapIds: new Set(rawMaps.map(m => m?.id))}));
+  if (!errors.length) errors.push(...checkProgression(ordered, regions, rawObjectives?.objectives ?? [], rawStory), ...checkSources(ordered, species));
+  if (errors.length) return {maps: [], objectives: [], story: undefined, errors};
   const spriteIndex = name => assets.findIndex(a => a.name === name);
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = id => regions.findIndex(r => r.id === id);
-  return {maps: ordered.map(m => compileMap(m, {spriteIndex, speciesIndex, regionIndex})), objectives: rawObjectives?.objectives ?? [], errors: []};
+  return {
+    maps: ordered.map(m => compileMap(m, {spriteIndex, speciesIndex, regionIndex})),
+    objectives: rawObjectives?.objectives ?? [],
+    story: rawStory,
+    errors: [],
+  };
 }
 
 /**
@@ -34,7 +41,7 @@ export function buildAdventure(rawMaps, {assets, species, regions}, rawObjective
  * maps you can reach (their shrines and chests are reachable: maps are validated first) and open the exits whose
  * requirement you hold. Every map must open up, and every flag an objective asks for must be earnable.
  */
-function checkProgression(ordered, regions, objectives) {
+function checkProgression(ordered, regions, objectives, story) {
   const errors = [];
   const byId = new Map(ordered.map(m => [m.id, m]));
   const reached = new Set([regions[0].id]);
@@ -54,7 +61,8 @@ function checkProgression(ordered, regions, objectives) {
       `progression: map "${r.id}" can never be reached from "${regions[0].id}"${needs.length ? ` (its entrances need ${needs.join(' or ')}, which cannot be earned first)` : ' (no exit leads to it)'}`,
     );
   }
-  for (const f of collectFlags(objectives)) if (!flags.has(f)) errors.push(`progression: objectives ask for "${f}", but no reachable landmark awards it`);
+  for (const f of [...collectFlags(objectives), ...collectFlags([{done: story?.ending?.when}])])
+    if (!flags.has(f)) errors.push(`progression: objectives ask for "${f}", but no reachable landmark awards it`);
   return errors;
 }
 

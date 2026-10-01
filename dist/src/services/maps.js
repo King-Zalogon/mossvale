@@ -7,6 +7,10 @@ export async function fetchAdventure(base = 'maps/') {
     return response.json();
   };
   const index = await get('index.json');
-  const [maps, objectives] = await Promise.all([Promise.all(index.maps.map(id => get(id + '.json'))), index.objectives ? get(index.objectives) : undefined]);
-  return {maps, objectives};
+  const [maps, objectives, story] = await Promise.all([
+    Promise.all(index.maps.map(id => get(id + '.json'))),
+    index.objectives ? get(index.objectives) : undefined,
+    index.story ? get(index.story) : undefined,
+  ]);
+  return {maps, objectives, story};
 }

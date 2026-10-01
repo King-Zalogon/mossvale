@@ -53,6 +53,8 @@ Then: #23 guardian tactics (spore guard, rolling charge, frost chorus) with a vi
 
 Then: #26 weighted zones with per-zone walking distance, named grace constants, journal habitat hints, a every-species-has-a-source check and a scripted-battle trigger action ([ENCOUNTERS.md](ENCOUNTERS.md)). Not done: the 12-creature roster and four-biome tuning wait for #24 and #51–#54.
 
+Then: #28 opening card, four one-time tips and a once-only ending that sets `completed` and leaves the world open ([STORY.md](STORY.md)). The text is placeholder copy for you to rewrite; credits and a distinct final-destination map are not done.
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.

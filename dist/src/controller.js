@@ -2,7 +2,8 @@
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
 import {species} from './data/species.js';
 import {regions} from './data/regions.js';
-import {addToParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, unlocked} from './domain/rules.js';
+import {maxHP} from './domain/rules.js';
+import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, unlocked} from './domain/rules.js';
 import {createBattle, encounterDistance, ensureHealthyCompanion, resolveTurn, rollWild} from './domain/battle.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
@@ -12,6 +13,7 @@ import {$, hideModal, toast} from './ui/dom.js';
 import {TACTICS} from './data/tactics.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
+import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 
 export function createController(app) {
@@ -79,6 +81,9 @@ export function createController(app) {
     hideModal(ui, canvas);
     if (game.phase === 'result') transition(game, 'explore');
     persist();
+    const after = ui.afterModal;
+    ui.afterModal = null;
+    after?.(); // e.g. continue the start-up sequence after the opening card
   }
 
   function travel(id, spawn = 'camp') {
@@ -132,7 +137,8 @@ export function createController(app) {
   /** Opens the ranger menu with `message`, or the first matching line from the map data. */
   function openRanger(message) {
     const o = rangerLandmark();
-    menus.ranger({name: o?.name ?? 'The ranger', message: message ?? pickLine(o?.lines, save(), objCtx) ?? 'Welcome back. Rest here whenever you need to.'});
+    const line = message ?? pickLine(o?.lines, save(), objCtx) ?? 'Welcome back. Rest here whenever you need to.';
+    menus.ranger({name: o?.name ?? 'The ranger', message: line + tip('first-ranger')});
   }
 
   function rest() {
@@ -251,6 +257,36 @@ export function createController(app) {
     menus.result(descriptor);
   }
 
+  /** The unseen tip for `event` as a sentence to append to a message, marking it seen. Empty when none. */
+  function tip(event) {
+    const hint = pendingHint(app.story, event, save());
+    if (!hint) return '';
+    markSeen(save(), hint.id);
+    return ' ' + hint.text;
+  }
+
+  /** Opening card on a brand-new adventure. Returns whether it was shown; `next` runs when it is closed. */
+  function showPremise(next) {
+    const premise = app.story?.premise;
+    const s = save();
+    if (app.skipPremise || !premise || s.hints.includes('premise') || s.met || s.wins > 0 || s.caught.length > 1 || s.badges.length) return false;
+    markSeen(s, 'premise');
+    persist();
+    ui.afterModal = next;
+    menus.story(premise);
+    return true;
+  }
+
+  /** The ending, once: marks the adventure complete (the world stays open for roaming and collecting). */
+  function checkEnding() {
+    const ending = endingDue(app.story, save(), objCtx);
+    if (!ending || ui.modalMode || game.battle) return false;
+    save().completed = true;
+    persist();
+    menus.story(ending);
+    return true;
+  }
+
   function beginBattle(spec) {
     if (game.battle || !transition(game, 'battle')) return;
     const s = save();
@@ -264,7 +300,7 @@ export function createController(app) {
     refresh();
     tone(spec.boss ? 230 : 660);
     renderBattle(
-      `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}`,
+      `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}${spec.boss ? '' : tip('first-battle')}${healthyParty(save()).length > 1 ? tip('can-switch') : ''}`,
     );
   }
 
@@ -315,6 +351,7 @@ export function createController(app) {
     if (!turn) return;
     b.busy = true;
     const frames = framesFor(turn, before, b);
+    if (!turn.ended && companion(s).hp < maxHP(s, s.active) * 0.35 && frames.length) frames.at(-1).message += tip('low-health');
     if (turn.ended) {
       game.battle = null;
       game.pacing.steps = 0;
@@ -433,7 +470,7 @@ export function createController(app) {
         rewards: [last.reward + ' coins', last.xp + ' XP', ...(last.potions ? [`${last.potions} potions`] : [])],
         note: last.xpText,
         button: next ? 'Visit ' + regions[s.region + 1].short : 'Back to the trail',
-        onContinue: next ? () => travel(s.region + 1) : undefined,
+        onContinue: next ? () => travel(s.region + 1) : () => (close(), checkEnding()),
       });
     } else if (turn.ended === 'caught') {
       tone(880, 0.35);
@@ -497,6 +534,8 @@ export function createController(app) {
     startWild,
     startGuardian,
     beginBattle,
+    showPremise,
+    checkEnding,
     openRanger,
     checkTriggers,
     battleAction,
