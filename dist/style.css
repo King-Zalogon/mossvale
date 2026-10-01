@@ -2034,3 +2034,27 @@ body.reduce-motion *::after {
   color: #ffb4a2;
   text-align: center;
 }
+
+/* Larger text for menus and side panels (the game canvas is unaffected; use Zoom for the world). */
+body.text-large #modal,
+body.text-large aside,
+body.text-large header,
+body.text-large .game-footer,
+body.text-large .heading {
+  zoom: 1.15;
+}
+body.text-larger #modal,
+body.text-larger aside,
+body.text-larger header,
+body.text-larger .game-footer,
+body.text-larger .heading {
+  zoom: 1.3;
+}
+/* Comfortable touch targets. */
+@media (pointer: coarse) {
+  button,
+  .touchpad button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

@@ -133,6 +133,11 @@ function postStart() {
   if (!actions.showPremise(rest)) rest(); // the opening card comes first on a brand-new adventure
 }
 
+function applyTextSize() {
+  document.body.classList.toggle('text-large', settings.text === 'large');
+  document.body.classList.toggle('text-larger', settings.text === 'larger');
+}
+
 function applyMotion() {
   document.body.classList.toggle('reduce-motion', app.motionReduced());
 }
@@ -160,6 +165,7 @@ Object.assign(actions, {
       $('#touch-run').setAttribute('aria-pressed', String(value));
     }
     if (key === 'motion') applyMotion();
+    if (key === 'text') applyTextSize();
     saveSettings(storage, settings);
   },
   /** `null` goes back to the automatic zoom for the screen width. */
@@ -354,6 +360,7 @@ if (settings.sound) {
 ui.touchRun = settings.run;
 $('#touch-run').setAttribute('aria-pressed', String(settings.run));
 applyMotion();
+applyTextSize();
 resize();
 renderHud(game.save);
 boot();

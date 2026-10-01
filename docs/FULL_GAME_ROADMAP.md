@@ -59,6 +59,8 @@ Then: #30 save export/import with preview and session-checkpoint restore ([BACKU
 
 Then: #32 art renamed by what it shows (`dist/assets/<kind>/<name>.png`), content refers to art by name, and a validator that decodes each PNG (RGBA, tight crop, bottom anchor, naming rules) ([ASSETS.md](ASSETS.md)). Not done: no editable source sheets exist in the repo, and new biome/creature batches (#51–#54, #24) are still to be made.
 
+Then: #33/#34 dialogs with an inert background and stable focus/scroll through battle re-renders, a text-size setting, 44 px touch targets, live-region cues and contrast/overflow tests ([UI.md](UI.md)). Needs your devices (#35) and eyes for what is still unclear or unnecessary.
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.

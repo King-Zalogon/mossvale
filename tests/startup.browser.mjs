@@ -336,6 +336,75 @@ for (const [seed, weakened] of [
   console.log('ok export, import and bad files');
 }
 {
+  // dialogs: background is inert, Tab stays inside, focus and scroll survive battle re-renders, large text fits
+  const {page, errors} = await open('');
+  await page.goto(url + '?debug&seed=8');
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  await page.evaluate(() => window.mossvale.encounter(1));
+  await page.waitForSelector('#attack');
+  const inModal = () => page.evaluate(() => document.querySelector('#modal').contains(document.activeElement));
+  for (let i = 0; i < 14; i++) {
+    await page.keyboard.press('Tab');
+    assert.equal(await inModal(), true, `Tab ${i} stayed inside the dialog`);
+  }
+  assert.equal(await page.evaluate(() => document.querySelector('header').inert && document.querySelector('aside').inert), true);
+  // Focus the Guard button, act, and check focus is still on a battle button after the re-render.
+  await page.focus('#guard');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(1600);
+  const focused = await page.evaluate(() => document.activeElement?.id);
+  assert.ok(['guard', 'attack', 'element', 'catch', 'potion', 'flee', 'switch'].includes(focused), `focus returned to ${focused}`);
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#modal', {state: 'hidden'});
+  assert.equal(await page.evaluate(() => document.querySelector('header').inert), false, 'background works again');
+  assert.deepEqual(errors, []);
+  console.log('ok dialog focus and background');
+}
+for (const [viewport, text] of [
+  [{width: 1280, height: 800}, 'larger'],
+  [{width: 390, height: 844}, 'large'],
+  [{width: 390, height: 844}, 'larger'],
+]) {
+  // larger text keeps the menus inside the screen; touch targets are comfortable on a phone
+  const ctx = await browser.newContext({viewport, hasTouch: viewport.width < 800, isMobile: viewport.width < 800});
+  await ctx.addInitScript(set('mossvale-settings', JSON.stringify({text})));
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto(url);
+  await page.waitForSelector('#m-primary');
+  const overflow = () =>
+    page.evaluate(() => ({
+      x: document.documentElement.scrollWidth - innerWidth,
+      modal: document.querySelector('#modal').scrollWidth - document.querySelector('#modal').clientWidth,
+    }));
+  for (const view of ['#m-primary', '#m-settings', '#m-backup']) {
+    if (view !== '#m-primary') await page.click(view);
+    const o = await overflow();
+    assert.ok(o.x <= 1 && o.modal <= 1, `${viewport.width}px ${text} ${view}: ${JSON.stringify(o)}`);
+    if (view !== '#m-primary') await page.click('#m-back');
+  }
+  if (viewport.width < 800) {
+    await page.click('#m-primary');
+    const small = await page.evaluate(() => [...document.querySelectorAll('button')].filter(b => b.offsetParent && !b.closest('[inert]') === false).length);
+    const tiny = await page.evaluate(() =>
+      [...document.querySelectorAll('button')]
+        .filter(b => {
+          const r = b.getBoundingClientRect();
+          return r.width > 0 && (r.height < 40 || r.width < 40) && !b.hidden;
+        })
+        .map(
+          b =>
+            `${b.id || b.className || b.textContent.trim().slice(0, 12)}:${Math.round(b.getBoundingClientRect().width)}x${Math.round(b.getBoundingClientRect().height)}`,
+        ),
+    );
+    assert.deepEqual(tiny, [], `touch targets under 40px on a phone (${small} buttons checked)`);
+  }
+  assert.deepEqual(errors, []);
+  await ctx.close();
+}
+console.log('ok larger text and touch targets');
+{
   // debug hook is absent without ?debug
   const {page} = await open('');
   await page.goto(url);

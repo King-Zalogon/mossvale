@@ -82,7 +82,7 @@ test('a corrupt archive is ignored, not trusted', () => {
 
 test('settings validate, clamp and fall back', () => {
   assert.deepEqual(normalizeSettings(undefined), DEFAULTS);
-  assert.deepEqual(normalizeSettings({sound: 'yes', motion: 'wild', zoom: 'big', run: 1}), DEFAULTS);
+  assert.deepEqual(normalizeSettings({sound: 'yes', motion: 'wild', zoom: 'big', run: 1, text: 'huge'}), DEFAULTS);
   assert.equal(normalizeSettings({zoom: 99}).zoom, ZOOM_MAX);
   assert.equal(normalizeSettings({zoom: -3}).zoom, ZOOM_MIN);
   assert.equal(normalizeSettings({zoom: NaN}).zoom, null);
@@ -90,9 +90,9 @@ test('settings validate, clamp and fall back', () => {
 
 test('settings persist separately from the save and survive start over', () => {
   const s = store({[KEYS.v3]: codec.serialize(played())});
-  saveSettings(s, {sound: true, motion: 'reduced', zoom: 1.8, run: true});
+  saveSettings(s, {sound: true, motion: 'reduced', zoom: 1.8, run: true, text: 'large'});
   startOver({storage: s, codec, save: played()});
-  assert.deepEqual(loadSettings(s), {sound: true, motion: 'reduced', zoom: 1.8, run: true});
+  assert.deepEqual(loadSettings(s), {sound: true, motion: 'reduced', zoom: 1.8, run: true, text: 'large'});
   assert.equal(s.m.has(SETTINGS_KEY), true);
   assert.deepEqual(loadSettings(store({[SETTINGS_KEY]: '{broken'})), DEFAULTS);
   assert.deepEqual(
