@@ -15,7 +15,9 @@ Implemented in `dist/src/save.js` (pure, tested without a browser). Issue: [#8](
 
 Species and regions are stored by ID, not array position, so content can be reordered or extended safely. Current IDs: species `fernling emberkin brooklet duskwing voltkit mushmallow frostowl pebblit`; regions `meadow amber-ridge frostveil-grove`. Never rename or reuse an ID.
 
-Fields: `version, region, x, y, active, orbs, potions, coins, seen[], caught[], team{speciesId:{xp,hp}}, badges[], chests[], visited[], met, wins, playTime`. In memory the game still uses indexes; `save.js` converts at the load/serialize boundary.
+Fields: `version, region, x, y, active, orbs, potions, coins, seen[], caught[], team{speciesId:{xp,hp}}, badges[], chests[], visited[], met, wins, playTime`. Interrupted encounters: `battle` (`{id, hp, max, level, boss, guard, turn}`, species by ID) is the checkpoint of a fight in progress, and `recap` is a one-line summary of an encounter that finished before its result screen was shown. Both are optional; older builds ignore them. See [Encounter durability](#encounter-durability).
+
+In memory the game still uses indexes; `save.js` converts at the load/serialize boundary.
 
 ## Load order and outcomes
 
@@ -36,3 +38,16 @@ Validation: every field is type-checked; numbers must be finite and are clamped 
 ## Tests
 
 `npm test` (codec fixtures in `tests/save.test.mjs`), `npm run test:browser` (needs Playwright + Chromium).
+
+## Encounter durability
+
+Issue [#11](https://github.com/King-Zalogon/mossvale/issues/11). A battle round is resolved completely in `domain/battle.js: resolveTurn` before anything is shown: the orb or potion is spent, damage and the enemy reply are applied, and any win/capture/defeat reward is granted exactly once. The save is written immediately after resolution. The animation that follows is purely cosmetic, so a refresh at any moment cannot spend an item and discard its effect.
+
+| When the page reloads | Result |
+| --- | --- |
+| Mid-fight, after a round resolved | The encounter resumes at the next player choice (`battle` checkpoint) |
+| After a capture or win resolved but before its result screen | Rewards are already saved; a toast shows `recap` instead of the result screen |
+| Checkpoint invalid (unknown species, bad HP/level) | Dropped without penalty |
+| Checkpoint is a guardian already beaten, or the whole team is down | Dropped; the team is healed if no companion can fight |
+
+Double taps and stale timers: an ended battle returns `null` from `resolveTurn` (no duplicate rewards), `battle.busy` blocks input while a round plays, and the cancellable `services/timeline.js` ignores callbacks from cancelled playbacks. Hiding the tab or leaving the page flushes the animation to its final frame and saves.

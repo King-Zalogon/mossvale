@@ -35,6 +35,8 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       met: false,
       wins: 0,
       playTime: 0,
+      recap: '',
+      battle: null,
     };
   }
 
@@ -69,11 +71,22 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
     s.wins = Math.floor(num(raw.wins, 0, MAX_COUNT, 0));
     s.playTime = num(raw.playTime, 0, MAX_TIME, 0);
     s.met = raw.met === true;
+    s.recap = typeof raw.recap === 'string' ? raw.recap.slice(0, 200) : '';
+    s.battle = normalizeBattle(raw.battle, legacy);
     const region = ref(raw.region, regions, regionIndex);
     s.region = region >= 0 && (region === 0 || s.badges.includes(region - 1)) ? region : 0;
     s.x = num(raw.x, 0, size - 1, spawn.x);
     s.y = num(raw.y, 0, size - 1, spawn.y);
     return s;
+  }
+
+  // An interrupted encounter is kept so a reload resumes it instead of discarding spent items.
+  function normalizeBattle(b, legacy) {
+    if (legacy || !isObj(b)) return null;
+    const id = typeof b.id === 'string' ? speciesIndex(b.id) : -1;
+    const intIn = (v, min, max) => Number.isInteger(v) && v >= min && v <= max;
+    if (id < 0 || !intIn(b.level, 1, 99) || !intIn(b.max, 1, 9999) || !intIn(b.hp, 1, b.max) || !intIn(b.turn, 0, 9999)) return null;
+    return {id, hp: b.hp, max: b.max, level: b.level, boss: b.boss === true, guard: b.guard === true, turn: b.turn};
   }
 
   // v1 stored only a few top-level fields; express them as a v2-shaped payload.
@@ -106,6 +119,8 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       met: save.met,
       wins: save.wins,
       playTime: save.playTime,
+      recap: save.recap || '',
+      battle: save.battle ? {...save.battle, id: sid(save.battle.id)} : null,
     });
   }
 

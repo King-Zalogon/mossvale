@@ -50,9 +50,9 @@ export function createMenus(app) {
           const caught = s.caught.includes(i);
           return `<div class="species ${s.active === i ? 'active' : ''}">${seen ? `<canvas id="spec-${i}" width="110" height="110"></canvas>` : '<div class="unseen">?</div>'}<h3>${seen ? sp.name : 'Unknown creature'}</h3><small>${caught ? 'Befriended · Lv. ' + level(s, i) : seen ? 'Seen · ' + sp.type : 'Not yet discovered'}</small><p>${seen ? sp.desc : 'A new friend is waiting along a wild trail.'}</p><small>${
             seen
-              ? regions
-                  .filter(r => r.pool.includes(i))
-                  .map(r => r.short)
+              ? app.maps
+                  .map((m, ri) => (m.zones.some(z => z.pool.includes(i)) ? regions[ri].short : null))
+                  .filter(Boolean)
                   .join(' / ')
               : 'Explore to discover'
           }</small>${caught ? `<button data-select="${i}" ${s.active === i ? 'disabled' : ''}>${s.active === i ? 'Your companion' : 'Travel together'}</button>` : ''}</div>`;
@@ -105,16 +105,16 @@ export function createMenus(app) {
     wireClose();
   }
 
-  function shrine() {
+  function shrine(g) {
     const s = save();
     const r = regions[s.region];
     open(
-      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[r.boss].name} · Level ${r.bossLevel} · ${species[r.boss].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < 2 ? ' and open the trail to ' + regions[s.region + 1].name : '. All three shrines will be awake'}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div><p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. Potions and type strengths can help.</p>`,
+      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${g.guardian.level} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < 2 ? ' and open the trail to ' + regions[s.region + 1].name : '. All three shrines will be awake'}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div><p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. Potions and type strengths can help.</p>`,
       'shrine',
       'Shrine guardian',
     );
-    drawCreature($('#guardian-preview'), r.boss, 110);
-    $('#challenge').onclick = () => actions.startBattle(r.boss, true);
+    drawCreature($('#guardian-preview'), g.guardian.id, 110);
+    $('#challenge').onclick = () => actions.startGuardian(g.guardian);
     $('#prepare-team').onclick = party;
     wireClose();
   }

@@ -1,6 +1,5 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
-import {regions} from '../data/regions.js';
 import {BASE_LEVEL, XP_PER_LEVEL} from '../config.js';
 import {companion, effectiveness, gainXP, healTeam, level, maxHP} from './rules.js';
 
@@ -15,19 +14,21 @@ export function ensureHealthyCompanion(save) {
   return true;
 }
 
-/** Starts an encounter against `id` (random region creature when undefined). Marks the creature seen. */
-export function createBattle(save, rng, id, boss = false) {
-  const r = regions[save.region];
-  if (id === undefined) {
-    const missing = r.pool.filter(i => !save.seen.includes(i));
-    const pool = missing.length && rng() < 0.6 ? missing : r.pool;
-    id = pool[Math.floor(rng() * pool.length)];
-  }
-  const enemyLevel = boss ? r.bossLevel : r.level + Math.floor(rng() * 3);
+/** Picks a wild creature and level from an encounter zone (see mapdata.js). Prefers creatures not yet seen. */
+export function rollWild(save, rng, zone) {
+  const missing = zone.pool.filter(i => !save.seen.includes(i));
+  const pool = missing.length && rng() < 0.6 ? missing : zone.pool;
+  const id = pool[Math.floor(rng() * pool.length)];
+  const level = zone.level[0] + Math.floor(rng() * (zone.level[1] - zone.level[0] + 1));
+  return {id, level};
+}
+
+/** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
+export function createBattle(save, rng, {id, level: enemyLevel, boss = false}) {
   const hp = species[id].hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? 18 : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
-  return {id, hp, max: hp, level: enemyLevel, boss, busy: false, guard: false, turn: 0, token: Symbol('encounter')};
+  return {id, hp, max: hp, level: enemyLevel, boss, busy: false, guard: false, turn: 0, over: false};
 }
 
 export function captureChance(save, battle) {
@@ -69,7 +70,6 @@ export function enemyAttack(save, battle, rng) {
   c.hp = Math.max(0, c.hp - damage);
   battle.guard = false;
   battle.turn++;
-  battle.busy = false;
   return {damage, element};
 }
 
@@ -119,4 +119,65 @@ export function resolveLoss(save) {
   const id = save.active;
   healTeam(save);
   return {id};
+}
+
+const snapshot = (save, battle) => ({active: save.active, mine: companion(save).hp, enemy: battle.hp});
+
+/** The persisted part of a battle (no UI flags). */
+export const battleCheckpoint = battle =>
+  battle && !battle.over
+    ? {id: battle.id, hp: battle.hp, max: battle.max, level: battle.level, boss: battle.boss, guard: battle.guard, turn: battle.turn}
+    : null;
+
+/**
+ * Resolves one full round atomically: the player's action, then the enemy's reply (unless the battle just ended).
+ * Everything that changes `save` (orbs, potions, HP, rewards, captures) happens here, exactly once; callers only
+ * animate the returned `events`, each carrying an `after` snapshot for display.
+ * action: {kind: 'attack'|'element'|'catch'|'potion'|'guard'|'switch', id?}
+ * Returns null when the action is not allowed (battle over, no orbs/potions, invalid switch), otherwise
+ * {events, ended: null|'win'|'caught'|'loss'}.
+ */
+export function resolveTurn(save, battle, action, rng) {
+  if (battle.over) return null;
+  const events = [];
+  const push = event => events.push({...event, after: snapshot(save, battle)});
+  let ended = null;
+  if (action.kind === 'attack' || action.kind === 'element') {
+    const strike = playerStrike(save, battle, action.kind, rng);
+    push({type: 'strike', ...strike});
+    if (strike.defeated) {
+      ended = 'win';
+      push({type: 'win', ...resolveWin(save, battle, rng)});
+    }
+  } else if (action.kind === 'catch') {
+    if (!throwOrb(save, battle)) return null;
+    push({type: 'throw'});
+    if (rng() < captureChance(save, battle)) {
+      ended = 'caught';
+      push({type: 'caught', ...resolveCapture(save, battle)});
+    } else push({type: 'break-free'});
+  } else if (action.kind === 'potion') {
+    const healed = usePotion(save);
+    if (healed === null) return null;
+    push({type: 'potion', healed});
+  } else if (action.kind === 'guard') {
+    battle.guard = true;
+    push({type: 'guard'});
+  } else if (action.kind === 'switch') {
+    if (!save.caught.includes(action.id) || action.id === save.active || companion(save, action.id).hp <= 0) return null;
+    save.active = action.id;
+    push({type: 'switch', id: action.id});
+  } else return null;
+  if (!ended) {
+    const hit = enemyAttack(save, battle, rng);
+    push({type: 'enemy', ...hit});
+    const faint = resolveFaint(save);
+    if (faint.status === 'switched') push({type: 'faint-switch', fainted: faint.fainted, replacement: faint.replacement});
+    else if (faint.status === 'lost') {
+      ended = 'loss';
+      push({type: 'loss', ...resolveLoss(save)});
+    }
+  }
+  if (ended) battle.over = true;
+  return {events, ended};
 }

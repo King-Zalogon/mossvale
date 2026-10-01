@@ -79,7 +79,11 @@ export function installInput(app) {
   });
   document.addEventListener('visibilitychange', () => {
     releaseAll();
+    if (document.hidden) actions.flushPlayback();
     persist();
   });
-  window.addEventListener('pagehide', persist);
+  window.addEventListener('pagehide', () => {
+    actions.flushPlayback();
+    persist();
+  });
 }
