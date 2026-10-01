@@ -1,6 +1,8 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
 import {BASE_LEVEL, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
+import {REWARDS} from '../data/economy.js';
+import {grant} from './economy.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
@@ -90,17 +92,17 @@ export function resolveFaint(save) {
 export function resolveWin(save, battle, rng, ctx = {}) {
   const newSeal = battle.boss && !save.badges.includes(save.region);
   const seal = ctx.sealReward ?? {coins: 60, potions: 2, xp: 65}; // from the shrine in the map data
-  const reward = newSeal ? seal.coins : battle.boss ? 12 : 8 + Math.floor(rng() * 7);
-  const xp = newSeal ? seal.xp : battle.boss ? 20 : 24;
+  const [lo, hi] = REWARDS.wild.coins;
+  const coins = newSeal ? seal.coins : battle.boss ? REWARDS.guardianRepeat.coins : lo + Math.floor(rng() * (hi - lo + 1));
+  const xp = newSeal ? seal.xp : battle.boss ? REWARDS.guardianRepeat.xp : REWARDS.wild.xp;
   save.wins++;
-  save.coins += reward;
+  const got = grant(save, {coins, potions: newSeal ? seal.potions : 0});
   const xpText = awardXP(save, xp).text;
   if (newSeal) {
     save.badges.push(save.region);
-    save.potions += seal.potions;
     healTeam(save);
   }
-  return {newSeal, reward, xp, potions: newSeal ? seal.potions : 0, xpText, id: battle.id, boss: battle.boss};
+  return {newSeal, reward: got.coins, xp, potions: got.potions, xpText, id: battle.id, boss: battle.boss};
 }
 
 /** Applies a successful capture. */
@@ -115,10 +117,10 @@ export function resolveCapture(save, battle) {
     save.team[id] = {xp: Math.max(0, battle.level - BASE_LEVEL) * XP_PER_LEVEL, hp: 0};
     save.team[id].hp = maxHP(save, id);
   }
-  const xpText = awardXP(save, 20).text;
-  save.coins += 10;
+  const xpText = awardXP(save, REWARDS.capture.xp).text;
+  const got = grant(save, {coins: REWARDS.capture.coins});
   save.wins++;
-  return {isNew, id, joined, xpText};
+  return {isNew, id, joined, xpText, coins: got.coins, xp: REWARDS.capture.xp};
 }
 
 /** A lost battle: heal everyone; the controller moves the player to camp. */

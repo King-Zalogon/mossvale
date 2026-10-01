@@ -8,6 +8,7 @@ import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
 import {buildWorld, nearestInteractive, triggersAt} from './domain/world.js';
 import {$, hideModal, toast} from './ui/dom.js';
+import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 
@@ -130,28 +131,25 @@ export function createController(app) {
   }
 
   function rest() {
-    healTeam(save());
-    save().orbs = Math.max(save().orbs, 12);
+    restAtCamp(save());
     refresh();
     tone(640);
-    openRanger('Everyone is rested, and your capture orbs are topped up. Safe travels!');
+    openRanger('Everyone is rested, and your supplies are topped up. Safe travels!');
   }
 
-  function buy(item) {
-    const s = save();
-    if (item === 'potion') {
-      if (s.coins < 10) return;
-      s.coins -= 10;
-      s.potions++;
-      refresh();
-      openRanger('One potion for the trail. Use it when your companion needs a little help.');
-    } else {
-      if (s.coins < 15) return;
-      s.coins -= 15;
-      s.orbs += 5;
-      refresh();
-      openRanger('Five fresh capture orbs. There’s always room for one more friend.');
+  function buy(offerId) {
+    const result = buyOffer(save(), offerId);
+    if (!result.ok) {
+      openRanger(
+        result.reason === 'full'
+          ? 'Your bag is already full of those. Come back when you have used some.'
+          : 'You are a little short on coins for that one. Chests and battles will fill your pockets.',
+      );
+      return;
     }
+    refresh();
+    tone(520);
+    openRanger(result.offer.thanks);
   }
 
   function returnToCamp() {
@@ -191,20 +189,17 @@ export function createController(app) {
     if (o.kind === 'ranger') openRanger();
     else if (o.kind === 'sign') toast(o.text ?? pickLine(o.lines, s, objCtx));
     else if (o.kind === 'chest') {
-      if (flagDone(s, o.flag)) {
+      const got = claimChest(s, o);
+      if (!got) {
         toast('This treasure chest is empty. The next island may have another.');
         return;
       }
-      s.chests.push(s.region);
-      s.coins += o.reward.coins;
-      s.potions += o.reward.potions;
-      s.orbs += o.reward.orbs;
       refresh();
       showResult({
         title: 'A little trail treasure',
         copy: 'Something useful for the road ahead.',
         sprite: 23,
-        rewards: [`${o.reward.coins} coins`, `${o.reward.potions} potions`, `${o.reward.orbs} capture orbs`],
+        rewards: [`${got.coins} coins`, `${got.potions} potions`, `${got.orbs} capture orbs`],
         button: 'Keep exploring',
       });
     } else if (o.kind === 'gate') {
@@ -432,7 +427,7 @@ export function createController(app) {
             : 'Choose them from your companion team to travel and battle together.'
           : `You already befriended ${species[last.id].name}. This one heads home happily.`,
         id: last.id,
-        rewards: ['10 coins', '20 XP'],
+        rewards: [`${last.coins} coins`, `${last.xp} XP`],
         note: last.xpText,
         button: 'Keep exploring',
         secondary: last.isNew ? 'Travel with ' + species[last.id].name : undefined,

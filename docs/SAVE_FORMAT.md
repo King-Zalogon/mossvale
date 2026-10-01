@@ -39,7 +39,7 @@ Candidates are tried in order: `v3`, `backup`, `v2`, `v1`.
 | `version` greater than 3 | `future` | Left untouched; session is not saved; dialog shown |
 | Storage throws on read | `unavailable` | Plays in memory ("SESSION ONLY"); dialog shown |
 
-Validation: every field is type-checked; numbers must be finite and are clamped (counts 0–9999, XP 0–450 (the level-15 cap), HP 0–max for level, position inside the map); IDs must exist; duplicates removed; `seen ⊇ caught`; every caught species has a team record; `active` must be caught; a locked region falls back to the meadow.
+Validation: every field is type-checked; numbers must be finite and are clamped (coins 0–9999, orbs and potions 0–99, other counts 0–9999, XP 0–450 (the level-15 cap), HP 0–max for level, position inside the map); IDs must exist; duplicates removed; `seen ⊇ caught`; every caught species has a team record; `active` must be caught; a locked region falls back to the meadow.
 
 ## Tests
 

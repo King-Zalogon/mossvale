@@ -45,6 +45,8 @@ Then: #15 movement, collision footprint, trail-following companion and arrival f
 
 Then: #18 objectives and short lines as data with an unlock-chain softlock check ([OBJECTIVES.md](OBJECTIVES.md)).
 
+Then: #19 shared supply/reward table with transactional shop, free rest floor and bag caps ([ECONOMY.md](ECONOMY.md)).
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.

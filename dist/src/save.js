@@ -1,6 +1,7 @@
 /* Mossvale save codec: validation, v1/v2 -> v3 migration, quarantine and checkpoints.
    Pure functions over a Storage-like object so it can be tested without a browser.
    In memory the game keeps species/region *indexes*; on disk (v3) it stores stable string IDs. */
+import {CAPS} from './data/economy.js';
 import {FOCUS_MAX, FOCUS_START, MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
 const VERSION = 3;
@@ -81,7 +82,7 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       ['potions', 3],
       ['coins', 0],
     ])
-      s[key] = Math.floor(num(raw[key], 0, MAX_COUNT, def));
+      s[key] = Math.floor(num(raw[key], 0, CAPS[key], def));
     s.wins = Math.floor(num(raw.wins, 0, MAX_COUNT, 0));
     s.playTime = num(raw.playTime, 0, MAX_TIME, 0);
     s.met = raw.met === true;

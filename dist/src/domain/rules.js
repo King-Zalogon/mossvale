@@ -25,6 +25,14 @@ export function flagDone(save, flag) {
   return kind === 'seal' ? save.badges.includes(i) : save.chests.includes(i);
 }
 
+/** Marks a milestone flag done (the inverse of flagDone). Idempotent. */
+export function setFlag(save, flag) {
+  const [regionId, kind] = flag.split('.');
+  const i = regions.findIndex(r => r.id === regionId);
+  const list = kind === 'seal' ? save.badges : save.chests;
+  if (i >= 0 && !list.includes(i)) list.push(i);
+}
+
 export const unlocked = (save, regionId) => regionId === 0 || save.badges.includes(regionId - 1);
 
 export function effectiveness(attacker, defender) {

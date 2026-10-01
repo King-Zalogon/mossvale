@@ -5,6 +5,9 @@ import {regions} from '../data/regions.js';
 import {companion, level, maxHP, moveName, reserve, unlocked} from '../domain/rules.js';
 import {PARTY_SIZE} from '../config.js';
 import {drawCreature, drawSprite} from '../render/sprites.js';
+import {REST_FLOOR, SHOP} from '../data/economy.js';
+import {canBuy} from '../domain/economy.js';
+import {POTION_HEAL} from '../domain/battle.js';
 import {hasProgress, summarize} from '../services/profile.js';
 import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
 import {$, header, openModal} from './dom.js';
@@ -114,14 +117,13 @@ export function createMenus(app) {
     if (game.battle) return;
     const s = save();
     open(
-      `${header('RANGER STATION', 'A moment with ' + name)}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free. I’ll refill your bag to 12 orbs, too.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">Rest your team</button><button id="buy-potion" ${s.coins < 10 ? 'disabled' : ''}>Potion · 10 coins</button><button id="buy-orbs" ${s.coins < 15 ? 'disabled' : ''}>5 orbs · 15 coins</button></div><p class="dialog-note">Potions restore 24 HP during battle. Earn coins from encounters and treasure chests.</p>`,
+      `${header('RANGER STATION', 'A moment with ' + name)}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free: your team is healed and your bag is topped up to ${REST_FLOOR.orbs} orbs and ${REST_FLOOR.potions} potion.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">Rest your team</button>${SHOP.map(o => `<button data-buy="${o.id}" ${canBuy(s, o) ? '' : 'disabled'}>${o.label} · ${o.price} coins</button>`).join('')}</div><p class="dialog-note">Potions restore ${POTION_HEAL} HP during battle. Coins only buy extras: you can always rest for free.</p>`,
       'ranger',
       name,
     );
     drawSprite($('#ranger-art').getContext('2d'), 8, 45, 130, 65);
     $('#rest-team').onclick = () => actions.rest();
-    $('#buy-potion').onclick = () => actions.buy('potion');
-    $('#buy-orbs').onclick = () => actions.buy('orbs');
+    for (const b of document.querySelectorAll('[data-buy]')) b.onclick = () => actions.buy(b.dataset.buy);
     wireClose();
   }
 

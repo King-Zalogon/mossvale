@@ -223,6 +223,35 @@ for (const [seed, weakened] of [
   console.log('ok zoom, walking and travel');
 }
 {
+  // the ranger: shopping is transactional, resting is free and tops supplies up
+  const {page, errors} = await open('');
+  await page.goto(url + '?debug&seed=4');
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  const state = () =>
+    page.evaluate(() => {
+      const g = window.mossvale.getState();
+      return {coins: g.save.coins, potions: g.save.potions, orbs: g.save.orbs};
+    });
+  await page.evaluate(() => {
+    const g = window.mossvale.getState();
+    Object.assign(g.player, {x: 10.3, y: 10.4});
+    Object.assign(g.save, {coins: 25, potions: 0, orbs: 0});
+  });
+  await page.waitForTimeout(100);
+  await page.evaluate(() => window.mossvale.interact());
+  await page.waitForSelector('[data-buy="potion"]');
+  await page.click('[data-buy="potion"]');
+  assert.deepEqual(await state(), {coins: 15, potions: 1, orbs: 0});
+  await page.waitForSelector('[data-buy="potion"]');
+  await page.click('[data-buy="orbs"]');
+  assert.deepEqual(await state(), {coins: 0, potions: 1, orbs: 5});
+  assert.equal(await page.locator('[data-buy="orbs"]').isDisabled(), true, 'cannot buy without coins');
+  await page.click('#rest-team');
+  assert.deepEqual(await state(), {coins: 0, potions: 1, orbs: 12});
+  assert.deepEqual(errors, []);
+  console.log('ok ranger shop and rest');
+}
+{
   // debug hook is absent without ?debug
   const {page} = await open('');
   await page.goto(url);
