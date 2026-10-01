@@ -1,4 +1,5 @@
-/* Region content. `pool`, `boss` and `preview` reference species/sprite indexes in this build. */
+/* Region presentation and progression labels. Geometry, encounters and landmarks live in dist/maps/<id>.json.
+   `id` matches the map id and is persisted in saves: never rename or reuse it. */
 export const regions = [
   {
     id: 'meadow',
@@ -7,14 +8,9 @@ export const regions = [
     subtitle: 'Tall grass, old trails, and new friends.',
     tag: 'THE MEADOW TRAIL',
     palette: ['#86ae70', '#97b76a', '#8aa55c', '#d6c08b', '#4e9c9a', '#577b48'],
-    pool: [0, 1, 2, 3],
-    level: 5,
-    boss: 5,
-    bossLevel: 7,
     seal: 'Verdant seal',
     preview: 0,
     desc: 'A sunlit meadow where every trail begins.',
-    spawn: {x: 12, y: 13},
   },
   {
     id: 'amber-ridge',
@@ -23,14 +19,9 @@ export const regions = [
     subtitle: 'Golden trails and sparks in the sandstone.',
     tag: 'THE AMBER TRAIL',
     palette: ['#c7a075', '#d6b47e', '#b19459', '#e8cc99', '#739ca4', '#986f48'],
-    pool: [1, 4, 5, 7],
-    level: 7,
-    boss: 7,
-    bossLevel: 9,
     seal: 'Amber seal',
     preview: 22,
     desc: 'Stone spires, electric friends, and a sleeping guardian.',
-    spawn: {x: 12, y: 13},
   },
   {
     id: 'frostveil-grove',
@@ -39,13 +30,8 @@ export const regions = [
     subtitle: 'Follow the snowflakes to the final shrine.',
     tag: 'THE FROSTVEIL TRAIL',
     palette: ['#a9c7c9', '#d4e3dc', '#acc2bb', '#b0c7c5', '#6d9cab', '#7c9898'],
-    pool: [2, 3, 6, 7],
-    level: 9,
-    boss: 6,
-    bossLevel: 11,
     seal: 'Frostveil seal',
     preview: 21,
     desc: 'A quiet snowy grove at the edge of the isles.',
-    spawn: {x: 12, y: 13},
   },
 ];

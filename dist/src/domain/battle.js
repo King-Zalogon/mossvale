@@ -1,6 +1,5 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
-import {regions} from '../data/regions.js';
 import {BASE_LEVEL, XP_PER_LEVEL} from '../config.js';
 import {companion, effectiveness, gainXP, healTeam, level, maxHP} from './rules.js';
 
@@ -15,15 +14,17 @@ export function ensureHealthyCompanion(save) {
   return true;
 }
 
-/** Starts an encounter against `id` (random region creature when undefined). Marks the creature seen. */
-export function createBattle(save, rng, id, boss = false) {
-  const r = regions[save.region];
-  if (id === undefined) {
-    const missing = r.pool.filter(i => !save.seen.includes(i));
-    const pool = missing.length && rng() < 0.6 ? missing : r.pool;
-    id = pool[Math.floor(rng() * pool.length)];
-  }
-  const enemyLevel = boss ? r.bossLevel : r.level + Math.floor(rng() * 3);
+/** Picks a wild creature and level from an encounter zone (see mapdata.js). Prefers creatures not yet seen. */
+export function rollWild(save, rng, zone) {
+  const missing = zone.pool.filter(i => !save.seen.includes(i));
+  const pool = missing.length && rng() < 0.6 ? missing : zone.pool;
+  const id = pool[Math.floor(rng() * pool.length)];
+  const level = zone.level[0] + Math.floor(rng() * (zone.level[1] - zone.level[0] + 1));
+  return {id, level};
+}
+
+/** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
+export function createBattle(save, rng, {id, level: enemyLevel, boss = false}) {
   const hp = species[id].hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? 18 : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);

@@ -3,14 +3,16 @@
 import {species} from './data/species.js';
 import {regions} from './data/regions.js';
 import {assets} from './data/assets.js';
-import {MAP_SIZE} from './config.js';
+import {MAX_MAP_SIZE} from './config.js';
 import * as save from './save.js';
 import {seededRng} from './domain/rng.js';
 import {effectiveness, level, maxHP, objective} from './domain/rules.js';
-import {buildWorld, grass, isWalkable, spawnOf} from './domain/world.js';
+import {isWalkable, zoneAt} from './domain/world.js';
+import {buildAdventure} from './domain/adventure.js';
 import {movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
+import {fetchMaps} from './services/maps.js';
 import {createPersistence} from './services/persistence.js';
 import {createWorldRenderer} from './render/world.js';
 import {sprites} from './render/sprites.js';
@@ -37,14 +39,15 @@ const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
 const rng = debug && params.has('seed') ? seededRng(Number(params.get('seed'))) : Math.random;
 const canvas = $('#game');
-const codec = save.create({species, regions, size: MAP_SIZE});
+const codec = save.create({species, regions, size: MAX_MAP_SIZE});
 const loaded = codec.load(getStorage());
 
 const game = {
   save: loaded.save,
   player: {x: loaded.save.x, y: loaded.save.y, dir: 8},
-  world: {tiles: [], objects: []},
+  world: {map: null, tiles: [], objects: []},
   battle: null,
+  firedTriggers: new Set(),
   pacing: {steps: 0, encounterAt: 4, encounterCooldown: 2},
 };
 const ui = {
@@ -65,6 +68,7 @@ const app = {
   rng,
   canvas,
   actions: {},
+  maps: [],
   audio: createAudio(),
   reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
   persist: createPersistence({storage: getStorage(), codec, game, writable: loaded.writable, onStatus: renderSaveStatus}),
@@ -106,6 +110,19 @@ async function boot() {
     showLoadError('This browser does not support the canvas features Mossvale needs.', 'Try a current version of Chrome, Edge, Firefox or Safari.');
     return;
   }
+  if (!app.maps.length) {
+    try {
+      const {maps, errors} = buildAdventure(await fetchMaps(), {assets, species, regions});
+      if (errors.length) {
+        showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
+        return;
+      }
+      app.maps.push(...maps);
+    } catch (e) {
+      showLoadError('Could not load the map data. Check your connection, then try again.', String(e.message || e));
+      return;
+    }
+  }
   const missing = await loadAssets({
     manifest: assets,
     sprites,
@@ -119,6 +136,11 @@ async function boot() {
     attempt++;
     showLoadError('Some required artwork did not load. Check your connection, then try again.', 'Missing: ' + missing.map(a => a.src).join(', '));
     return;
+  }
+  if (!game.world.map) {
+    actions.enterRegion(game.save.region);
+    if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, game.world.map.spawns.camp);
+    actions.resetCamera();
   }
   ui.ready = true;
   loading.hidden = true;
@@ -154,7 +176,9 @@ function loop(t) {
       game.save.playTime += dt;
       const [sx, sy] = direction(ui);
       const run = ui.keys.shift || ui.touchRun;
-      if (movePlayer({world: game.world, region: game.save.region, player: game.player, pacing}, sx, sy, run, dt)) actions.startBattle();
+      const zone = movePlayer({world: game.world, player: game.player, pacing}, sx, sy, run, dt);
+      if (zone) actions.startWild(zone);
+      actions.checkTriggers();
       const nearest = actions.nearest();
       $('#interact').style.display = nearest ? 'block' : 'none';
       if (nearest) $('#interact').textContent = 'E · ' + nearest.label;
@@ -205,9 +229,6 @@ $('#zoom-in').onclick = () => (ui.zoom = Math.min(2.5, ui.zoom + 0.2));
 $('#zoom-out').onclick = () => (ui.zoom = Math.max(0.85, ui.zoom - 0.2));
 window.addEventListener('resize', resize);
 
-actions.enterRegion(game.save.region);
-if (!isWalkable(game.world, game.save.region, game.player.x, game.player.y)) Object.assign(game.player, spawnOf(game.save.region));
-actions.resetCamera();
 resize();
 renderHud(game.save);
 boot();
@@ -217,15 +238,14 @@ setInterval(app.persist, 6000);
 if (debug) {
   window.mossvale = {
     getState: () => ({player: game.player, save: game.save, battle: game.battle, paused: ui.paused, modalMode: ui.modalMode, world: game.world, zoom: ui.zoom}),
-    encounter: actions.startBattle,
-    valid: (x, y) => isWalkable(game.world, game.save.region, x, y),
-    grass: (x, y) => grass(x, y, game.save.region),
+    encounter: id => actions.beginBattle({id, level: game.world.map.zones[0]?.level[0] ?? 5}),
+    valid: (x, y) => isWalkable(game.world, x, y),
+    grass: (x, y) => !!zoneAt(game.world, x, y),
     travel: actions.travel,
     interact: actions.interact,
     objective: () => objective(game.save),
     level: id => level(game.save, id),
     maxHP: id => maxHP(game.save, id),
     effectiveness,
-    buildWorld,
   };
 }

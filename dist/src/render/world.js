@@ -3,7 +3,7 @@ import {species} from '../data/species.js';
 import {regions} from '../data/regions.js';
 import {TILE_H, TILE_W} from '../config.js';
 import {unlocked} from '../domain/rules.js';
-import {land, rnd} from '../domain/world.js';
+import {isLand, rnd} from '../domain/world.js';
 import {drawSprite, sprites} from './sprites.js';
 
 const raw = (x, y) => ({x: ((x - y) * TILE_W) / 2, y: ((x + y) * TILE_H) / 2});
@@ -65,7 +65,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       if (s.x < -100 || s.x > canvas.width + 100 || s.y < -120 || s.y > canvas.height + 120) continue;
       const w = 28 * zoom;
       const h = 14 * zoom;
-      if (!land(t.x, t.y + 1) || !land(t.x + 1, t.y)) {
+      if (!isLand(world, t.x, t.y + 1) || !isLand(world, t.x + 1, t.y)) {
         poly(
           [
             {x: s.x - w, y: s.y},

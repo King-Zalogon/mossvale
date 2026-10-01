@@ -1,5 +1,5 @@
 /* Pure movement and encounter pacing. */
-import {grass, isWalkable} from './world.js';
+import {isWalkable, zoneAt} from './world.js';
 
 export const WALK_SPEED = 2.8;
 export const RUN_SPEED = 4.7;
@@ -11,25 +11,26 @@ export function facing(sx, sy) {
 
 /**
  * Moves the player by screen-space input (sx, sy in -1..1) and updates step counting.
- * `pacing` = {steps, encounterAt, encounterCooldown}. Returns true when a wild encounter should start.
+ * `pacing` = {steps, encounterAt, encounterCooldown}. Returns the encounter zone when a wild encounter should start.
  */
-export function movePlayer({world, region, player, pacing}, sx, sy, run, dt) {
-  if (!sx && !sy) return false;
+export function movePlayer({world, player, pacing}, sx, sy, run, dt) {
+  if (!sx && !sy) return null;
   const magnitude = Math.hypot(sx, sy);
   const v = (run ? RUN_SPEED : WALK_SPEED) * dt;
   const dx = (sx / magnitude + sy / magnitude) * v;
   const dy = (sy / magnitude - sx / magnitude) * v;
   const before = {x: player.x, y: player.y};
-  if (isWalkable(world, region, player.x + dx, player.y)) player.x += dx;
-  if (isWalkable(world, region, player.x, player.y + dy)) player.y += dy;
+  if (isWalkable(world, player.x + dx, player.y)) player.x += dx;
+  if (isWalkable(world, player.x, player.y + dy)) player.y += dy;
   player.dir = facing(sx, sy);
   const distance = Math.hypot(player.x - before.x, player.y - before.y);
-  if (grass(Math.round(player.x), Math.round(player.y), region)) {
+  const zone = zoneAt(world, Math.round(player.x), Math.round(player.y));
+  if (zone) {
     pacing.steps += distance;
     if (pacing.encounterCooldown <= 0 && pacing.steps >= pacing.encounterAt) {
       pacing.steps = 0;
-      return true;
+      return zone;
     }
   } else pacing.steps = Math.max(0, pacing.steps - distance * 0.4);
-  return false;
+  return null;
 }

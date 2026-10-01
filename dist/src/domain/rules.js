@@ -6,6 +6,13 @@ import {BASE_LEVEL, XP_PER_LEVEL} from '../config.js';
 export const level = (save, id) => BASE_LEVEL + Math.floor((save.team[id]?.xp || 0) / XP_PER_LEVEL);
 export const maxHP = (save, id) => species[id].hp + (level(save, id) - BASE_LEVEL) * 4;
 export const companion = (save, id = save.active) => save.team[id];
+/** Milestone flags used by map data: `<region-id>.seal` (shrine guardian beaten) and `<region-id>.chest` (chest opened). */
+export function flagDone(save, flag) {
+  const [regionId, kind] = flag.split('.');
+  const i = regions.findIndex(r => r.id === regionId);
+  return kind === 'seal' ? save.badges.includes(i) : save.chests.includes(i);
+}
+
 export const unlocked = (save, regionId) => regionId === 0 || save.badges.includes(regionId - 1);
 
 export function effectiveness(attacker, defender) {

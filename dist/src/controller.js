@@ -2,12 +2,13 @@
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
 import {species} from './data/species.js';
 import {regions} from './data/regions.js';
-import {clampHealth, companion, healTeam, unlocked} from './domain/rules.js';
+import {clampHealth, companion, flagDone, healTeam, unlocked} from './domain/rules.js';
 import {
   createBattle,
   ensureHealthyCompanion,
   enemyAttack,
   captureChance,
+  rollWild,
   playerStrike,
   resolveCapture,
   resolveFaint,
@@ -16,12 +17,12 @@ import {
   throwOrb,
   usePotion,
 } from './domain/battle.js';
-import {buildWorld, nearestInteractive, spawnOf} from './domain/world.js';
+import {buildWorld, nearestInteractive, triggersAt} from './domain/world.js';
 import {hideModal, toast} from './ui/dom.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 
 export function createController(app) {
-  const {game, ui, audio, rng, persist, reducedMotion, canvas, actions, menus} = app;
+  const {game, ui, audio, rng, persist, reducedMotion, canvas, actions, menus, maps} = app;
   const save = () => game.save;
   const tone = (f, d) => audio.tone(f, d);
   const renderBattle = (message, animation) => app.renderBattle(message, animation);
@@ -37,7 +38,7 @@ export function createController(app) {
   }
 
   function enterRegion(region) {
-    game.world = buildWorld(region);
+    game.world = buildWorld(maps[region]);
     renderRegion(region);
   }
 
@@ -55,7 +56,7 @@ export function createController(app) {
     persist();
   }
 
-  function travel(id) {
+  function travel(id, spawn = 'camp') {
     const s = save();
     if (game.battle || !unlocked(s, id)) {
       toast('Awaken the previous shrine to open this trail.');
@@ -63,7 +64,7 @@ export function createController(app) {
     }
     s.region = id;
     s.visited = [...new Set([...s.visited, id])];
-    Object.assign(game.player, spawnOf(id));
+    Object.assign(game.player, maps[id].spawns[spawn] || maps[id].spawns.camp);
     resetCamera();
     game.pacing.encounterCooldown = 3;
     game.pacing.steps = 0;
@@ -120,7 +121,7 @@ export function createController(app) {
       toast('Finish your encounter before returning to camp.');
       return;
     }
-    Object.assign(game.player, spawnOf(save().region));
+    Object.assign(game.player, maps[save().region].spawns.camp);
     resetCamera();
     game.pacing.encounterCooldown = 3;
     game.pacing.steps = 0;
@@ -133,44 +134,61 @@ export function createController(app) {
     return nearestInteractive(game.world, game.player);
   }
 
+  const sealOf = flag => regions.find(r => r.id === flag.split('.')[0]).seal.toLowerCase();
+
   function interact() {
     if (game.battle || ui.modalMode || ui.paused) return;
     const o = nearest();
     if (!o) {
-      toast('Follow the trail, or wander into tall grass to meet a friend.');
+      const t = triggersAt(game.world, game.player, 'interact')[0];
+      if (t) runTrigger(t);
+      else toast('Follow the trail, or wander into tall grass to meet a friend.');
       return;
     }
     const s = save();
     tone(480);
     if (o.kind === 'ranger') menus.ranger();
-    else if (o.kind === 'sign') toast('North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure');
+    else if (o.kind === 'sign') toast(o.text);
     else if (o.kind === 'chest') {
-      if (s.chests.includes(s.region)) {
+      if (flagDone(s, o.flag)) {
         toast('This treasure chest is empty. The next island may have another.');
         return;
       }
       s.chests.push(s.region);
-      s.coins += 30;
-      s.potions += 2;
-      s.orbs += 4;
+      s.coins += o.reward.coins;
+      s.potions += o.reward.potions;
+      s.orbs += o.reward.orbs;
       refresh();
       menus.result({
         title: 'A little trail treasure',
         copy: 'Something useful for the road ahead.',
         sprite: 23,
-        rewards: ['30 coins', '2 potions', '4 capture orbs'],
+        rewards: [`${o.reward.coins} coins`, `${o.reward.potions} potions`, `${o.reward.orbs} capture orbs`],
         button: 'Keep exploring',
       });
     } else if (o.kind === 'gate') {
-      if (!unlocked(s, o.target)) toast(`This trail opens when you earn the ${regions[o.target - 1].seal.toLowerCase()}. Visit the blue shrine marker.`);
-      else travel(o.target);
-    } else if (o.kind === 'shrine') shrine();
+      if (o.requires && !flagDone(s, o.requires)) toast(`This trail opens when you earn the ${sealOf(o.requires)}. Visit the blue shrine marker.`);
+      else travel(o.target, o.spawn);
+    } else if (o.kind === 'shrine') shrine(o);
   }
 
-  function shrine() {
+  function runTrigger(t) {
+    if (t.once) {
+      if (game.firedTriggers.has(`${game.world.map.id}/${t.id}`)) return;
+      game.firedTriggers.add(`${game.world.map.id}/${t.id}`);
+    }
+    for (const a of t.actions) if (a.type === 'toast') toast(a.text);
+  }
+
+  /** Called every frame from the main loop: fires 'enter' triggers the player is standing in. */
+  function checkTriggers() {
+    for (const t of triggersAt(game.world, game.player, 'enter')) runTrigger(t);
+  }
+
+  function shrine(o) {
     const s = save();
     const r = regions[s.region];
-    if (s.badges.includes(s.region)) {
+    if (flagDone(s, o.flag)) {
       toast(`The ${r.seal.toLowerCase()} glows warmly. This shrine is awake.`);
       return;
     }
@@ -178,20 +196,35 @@ export function createController(app) {
       toast('The shrine stirs… Befriend a wild creature before challenging its guardian.');
       return;
     }
-    menus.shrine();
+    menus.shrine(o);
   }
 
-  function startBattle(id, boss = false) {
+  function beginBattle(spec) {
     if (game.battle) return;
     const s = save();
     if (!ensureHealthyCompanion(s)) {
       toast('Your team needs a rest. Talk to Iris at camp.');
       return;
     }
-    game.battle = createBattle(s, rng, id, boss);
+    game.battle = createBattle(s, rng, spec);
     refresh();
-    tone(boss ? 230 : 660);
-    renderBattle(`${boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! Choose your next move.`);
+    tone(spec.boss ? 230 : 660);
+    renderBattle(`${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! Choose your next move.`);
+  }
+
+  /** Wild encounter from an encounter zone. */
+  function startWild(zone) {
+    if (game.battle) return;
+    if (!ensureHealthyCompanion(save())) {
+      toast('Your team needs a rest. Talk to Iris at camp.');
+      return;
+    }
+    beginBattle(rollWild(save(), rng, zone));
+  }
+
+  /** Shrine guardian `{id, level}` from map data. */
+  function startGuardian(guardian) {
+    beginBattle({id: guardian.id, level: guardian.level, boss: true});
   }
 
   function battleAction(kind) {
@@ -335,7 +368,7 @@ export function createController(app) {
     const {id} = resolveLoss(s);
     finishEncounter();
     healTeam(s);
-    Object.assign(game.player, spawnOf(s.region));
+    Object.assign(game.player, maps[s.region].spawns.camp);
     resetCamera();
     refresh();
     menus.result({
@@ -355,7 +388,10 @@ export function createController(app) {
     buy,
     returnToCamp,
     interact,
-    startBattle,
+    startWild,
+    startGuardian,
+    beginBattle,
+    checkTriggers,
     battleAction,
     flee,
     refresh,
