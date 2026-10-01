@@ -6,6 +6,9 @@ export function createAudio() {
     get enabled() {
       return enabled;
     },
+    set(value) {
+      enabled = !!value;
+    },
     toggle() {
       enabled = !enabled;
       return enabled;

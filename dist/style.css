@@ -1959,3 +1959,49 @@ canvas#buddy {
 .loading.failed h2 {
   color: #ffb56c;
 }
+
+.party-heading {
+  margin: 16px 0 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+  animation: none !important;
+  transition: none !important;
+}
+.menu-list {
+  display: grid;
+  gap: 10px;
+  max-width: 380px;
+  margin: 18px auto;
+}
+.menu-list button small {
+  display: block;
+  opacity: 0.7;
+  font-size: 12px;
+}
+.menu-summary {
+  text-align: center;
+  opacity: 0.85;
+}
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 12px auto;
+  max-width: 420px;
+}
+.setting-row .choices {
+  display: flex;
+  gap: 6px;
+}
+.setting-row button.selected {
+  outline: 2px solid currentColor;
+}

@@ -1,14 +1,14 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
-import {BASE_LEVEL, XP_PER_LEVEL} from '../config.js';
-import {companion, effectiveness, gainXP, healTeam, level, maxHP} from './rules.js';
+import {BASE_LEVEL, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
+import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
 
 /** Picks a different healthy companion if the active one is down. Returns false when the whole team is down. */
 export function ensureHealthyCompanion(save) {
   if (companion(save).hp > 0) return true;
-  const healthy = save.caught.find(i => companion(save, i).hp > 0);
+  const healthy = save.party.find(i => companion(save, i).hp > 0);
   if (healthy === undefined) return false;
   save.active = healthy;
   return true;
@@ -28,7 +28,7 @@ export function createBattle(save, rng, {id, level: enemyLevel, boss = false}) {
   const hp = species[id].hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? 18 : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
-  return {id, hp, max: hp, level: enemyLevel, boss, busy: false, guard: false, turn: 0, over: false};
+  return {id, hp, max: hp, level: enemyLevel, boss, busy: false, guard: false, turn: 0, focus: FOCUS_START, over: false};
 }
 
 export function captureChance(save, battle) {
@@ -39,10 +39,10 @@ export function captureChance(save, battle) {
 /** The player's attack. kind: 'attack' (quick strike) | 'element'. Mutates battle.hp. */
 export function playerStrike(save, battle, kind, rng) {
   const eff = kind === 'element' ? effectiveness(save.active, battle.id) : 1;
-  const base = kind === 'element' ? 12 : 10;
+  const base = kind === 'element' ? elementPower(save, save.active) : 10;
   const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff));
   battle.hp = Math.max(0, battle.hp - damage);
-  return {kind, damage, eff, defeated: battle.hp === 0};
+  return {kind, damage, eff, move: kind === 'element' ? moveName(save, save.active) : 'Quick strike', defeated: battle.hp === 0};
 }
 
 export function usePotion(save) {
@@ -65,7 +65,10 @@ export function throwOrb(save, battle) {
 export function enemyAttack(save, battle, rng) {
   const element = battle.turn % 2 === 1;
   const eff = element ? effectiveness(battle.id, save.active) : 1;
-  const damage = Math.max(2, Math.round((7 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) * (battle.boss ? 1.08 : 1) * eff * (battle.guard ? 0.35 : 1)));
+  const damage = Math.max(
+    2,
+    Math.round((7 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) * (battle.boss ? 1.08 : 1) * eff * (battle.guard ? GUARD_FACTOR : 1)),
+  );
   const c = companion(save);
   c.hp = Math.max(0, c.hp - damage);
   battle.guard = false;
@@ -76,7 +79,7 @@ export function enemyAttack(save, battle, rng) {
 /** After an enemy hit: swap in a healthy companion, or report that the team is out. */
 export function resolveFaint(save) {
   if (companion(save).hp > 0) return {status: 'ok'};
-  const replacement = save.caught.find(i => i !== save.active && companion(save, i).hp > 0);
+  const replacement = save.party.find(i => i !== save.active && companion(save, i).hp > 0);
   if (replacement === undefined) return {status: 'lost'};
   const fainted = save.active;
   save.active = replacement;
@@ -90,7 +93,7 @@ export function resolveWin(save, battle, rng) {
   const xp = newSeal ? 65 : battle.boss ? 20 : 24;
   save.wins++;
   save.coins += reward;
-  const xpText = gainXP(save, xp);
+  const xpText = awardXP(save, xp).text;
   if (newSeal) {
     save.badges.push(save.region);
     save.potions += 2;
@@ -103,15 +106,18 @@ export function resolveWin(save, battle, rng) {
 export function resolveCapture(save, battle) {
   const id = battle.id;
   const isNew = !save.caught.includes(id);
+  let joined = null;
   if (isNew) {
     save.caught.push(id);
+    joined = save.party.length < PARTY_SIZE ? 'team' : 'reserve'; // a full team never loses a capture: it waits in the reserve
+    if (joined === 'team') save.party.push(id);
     save.team[id] = {xp: Math.max(0, battle.level - BASE_LEVEL) * XP_PER_LEVEL, hp: 0};
     save.team[id].hp = maxHP(save, id);
   }
-  const xpText = gainXP(save, 20);
+  const xpText = awardXP(save, 20).text;
   save.coins += 10;
   save.wins++;
-  return {isNew, id, xpText};
+  return {isNew, id, joined, xpText};
 }
 
 /** A lost battle: heal everyone; the controller moves the player to camp. */
@@ -121,12 +127,13 @@ export function resolveLoss(save) {
   return {id};
 }
 
-const snapshot = (save, battle) => ({active: save.active, mine: companion(save).hp, enemy: battle.hp});
+const snapshot = (save, battle) => ({active: save.active, mine: companion(save).hp, enemy: battle.hp, focus: battle.focus});
+const gainFocus = battle => (battle.focus = Math.min(FOCUS_MAX, battle.focus + FOCUS_GAIN));
 
 /** The persisted part of a battle (no UI flags). */
 export const battleCheckpoint = battle =>
   battle && !battle.over
-    ? {id: battle.id, hp: battle.hp, max: battle.max, level: battle.level, boss: battle.boss, guard: battle.guard, turn: battle.turn}
+    ? {id: battle.id, hp: battle.hp, max: battle.max, level: battle.level, boss: battle.boss, guard: battle.guard, turn: battle.turn, focus: battle.focus}
     : null;
 
 /**
@@ -143,6 +150,10 @@ export function resolveTurn(save, battle, action, rng) {
   const push = event => events.push({...event, after: snapshot(save, battle)});
   let ended = null;
   if (action.kind === 'attack' || action.kind === 'element') {
+    if (action.kind === 'element') {
+      if (battle.focus < ELEMENT_COST) return null; // the special move needs Focus
+      battle.focus -= ELEMENT_COST;
+    } else gainFocus(battle);
     const strike = playerStrike(save, battle, action.kind, rng);
     push({type: 'strike', ...strike});
     if (strike.defeated) {
@@ -162,9 +173,10 @@ export function resolveTurn(save, battle, action, rng) {
     push({type: 'potion', healed});
   } else if (action.kind === 'guard') {
     battle.guard = true;
+    gainFocus(battle);
     push({type: 'guard'});
   } else if (action.kind === 'switch') {
-    if (!save.caught.includes(action.id) || action.id === save.active || companion(save, action.id).hp <= 0) return null;
+    if (!save.party.includes(action.id) || action.id === save.active || companion(save, action.id).hp <= 0) return null;
     save.active = action.id;
     push({type: 'switch', id: action.id});
   } else return null;

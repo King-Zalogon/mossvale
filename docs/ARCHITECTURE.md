@@ -28,7 +28,7 @@ Pure layers (`data/`, `domain/`, `save.js`, `config.js`) may not use the DOM, ti
 | `src/domain/mapdata.js`, `adventure.js` | World/data | Map JSON validation and compilation (`buildAdventure(rawMaps, content)`); format in [MAP_FORMAT.md](MAP_FORMAT.md). |
 | `src/domain/world.js` | World | `buildWorld(map), isWalkable, zoneAt, nearestInteractive, triggersAt` over a compiled map. |
 | `src/domain/exploration.js` | World | `movePlayer(state, sx, sy, run, dt)` returns `true` when a wild encounter starts. |
-| `src/services/` | Client engineering | `audio` (beeps), `loader` (image loading with retry data), `maps` (fetches map JSON), `persistence` (writes v3 save and the battle checkpoint through the codec), `timeline` (cancellable/flushable frame playback). |
+| `src/services/` | Client engineering | `audio` (beeps), `loader` (image loading with retry data), `maps` (fetches map JSON), `persistence` (writes v3 save and the battle checkpoint through the codec; can be locked), `timeline` (cancellable/flushable frame playback), `settings` (preferences, own storage key), `profile` (new game archive / restore). |
 | `src/render/` | Art/rendering | `sprites` (shared sprite array, `drawSprite`, `drawCreature`), `world` (`createWorldRenderer → drawWorld, drawMinimap`). Read-only over state. |
 | `src/ui/` | UI | `dom` (selectors, toast, modal shell), `hud`, `menus` (map, journal, party, ranger, shrine, result, help, save notice), `battle-view`. Presentation only. |
 | `src/input.js` | UI | Keyboard/touch handlers; writes `ui.keys` / `ui.touch`; `direction`, `isMoving`. |

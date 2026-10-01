@@ -18,7 +18,7 @@ function bestCompanion(save) {
 function fight(save, battle, rng) {
   for (let turns = 0; turns < 60 && !battle.over; turns++) {
     const active = save.active;
-    let action = {kind: 'element'};
+    let action = {kind: battle.focus >= 1 ? 'element' : 'attack'}; // the special move needs Focus
     if (!battle.boss && battle.hp / battle.max <= 0.45 && save.orbs > 0) action = {kind: 'catch'};
     else if (companion(save).hp / maxHP(save, active) < 0.35 && save.potions > 0) action = {kind: 'potion'};
     const turn = resolveTurn(save, battle, action, rng);

@@ -2,7 +2,7 @@
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
 import {species} from './data/species.js';
 import {regions} from './data/regions.js';
-import {clampHealth, companion, flagDone, healTeam, unlocked} from './domain/rules.js';
+import {addToParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, unlocked} from './domain/rules.js';
 import {createBattle, ensureHealthyCompanion, resolveTurn, rollWild} from './domain/battle.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
@@ -11,12 +11,12 @@ import {hideModal, toast} from './ui/dom.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 
 export function createController(app) {
-  const {game, ui, audio, rng, persist, reducedMotion, canvas, actions, menus, maps} = app;
+  const {game, ui, audio, rng, persist, canvas, actions, menus, maps} = app;
   const save = () => game.save;
   const tone = (f, d) => audio.tone(f, d);
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
   const timeline = (app.timeline = createTimeline());
-  const wait = ms => (reducedMotion ? 250 : ms);
+  const wait = ms => (app.motionReduced() ? 250 : ms);
 
   function refresh() {
     clampHealth(save());
@@ -34,7 +34,7 @@ export function createController(app) {
   }
 
   function close() {
-    if (game.battle?.busy || timeline.active) return;
+    if (game.battle?.busy || timeline.active || ui.modalMode === 'title') return; // the title screen is left with a choice, not Escape
     if (game.battle && ui.modalMode === 'battle') {
       flee();
       return;
@@ -71,14 +71,26 @@ export function createController(app) {
     const s = save();
     if (!s.caught.includes(id) || companion(s, id).hp <= 0 || game.battle?.busy) return;
     if (game.battle) {
-      if (id !== s.active) performTurn({kind: 'switch', id});
+      if (id !== s.active && inParty(s, id)) performTurn({kind: 'switch', id});
       return;
     }
-    s.active = id;
+    const previous = s.active;
+    const swapped = !inParty(s, id) && s.party.length >= 3;
+    setActive(s, id);
     refresh();
     tone(560);
     close();
-    toast(`${species[id].name} is ready to travel with you.`);
+    toast(swapped ? `${species[id].name} joined the team in place of ${species[previous].name}.` : `${species[id].name} is ready to travel with you.`);
+  }
+
+  /** Team editing outside battle: move a companion between the team and the reserve. */
+  function partyEdit(kind, id) {
+    if (game.battle) return;
+    const ok = kind === 'add' ? addToParty(save(), id) : removeFromParty(save(), id);
+    if (!ok) return;
+    refresh();
+    tone(520);
+    menus.party();
   }
 
   function rest() {
@@ -299,7 +311,7 @@ export function createController(app) {
     for (const e of turn.events) {
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
-        player = `${species[before.active].name} used ${e.kind === 'element' ? species[before.active].move : 'Quick strike'} for ${e.damage} damage.${e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
+        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
         frames.push({message: player, animation: 'attack', after: e.after, tone: [e.kind === 'element' ? 490 : 330], wait: wait(650)});
       } else if (e.type === 'throw') {
         player = 'The creature broke free of the orb.';
@@ -377,7 +389,9 @@ export function createController(app) {
       showResult({
         title: last.isNew ? species[last.id].name + ' is your new friend!' : 'Another friendly face.',
         copy: last.isNew
-          ? 'Choose them from your companion team to travel and battle together.'
+          ? last.joined === 'reserve'
+            ? 'Your team is full, so they wait in the reserve. Swap them in from the companion screen any time.'
+            : 'Choose them from your companion team to travel and battle together.'
           : `You already befriended ${species[last.id].name}. This one heads home happily.`,
         id: last.id,
         rewards: ['10 coins', '20 XP'],
@@ -424,6 +438,7 @@ export function createController(app) {
     close,
     travel,
     selectCompanion,
+    partyEdit,
     rest,
     buy,
     returnToCamp,

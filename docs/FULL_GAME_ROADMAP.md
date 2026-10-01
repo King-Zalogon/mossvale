@@ -37,6 +37,10 @@ The previous progress log keeps #8 and #12 open pending acceptance verification.
 
 Later on 2026-10-01 (branch `ccr-075e1d10-ok9hef`): #14 map data in `dist/maps/*.json` with validation ([MAP_FORMAT.md](MAP_FORMAT.md)); #11 atomic battle rounds, saved encounter checkpoints, explicit phases and a cancellable playback timeline ([SAVE_FORMAT.md](SAVE_FORMAT.md#encounter-durability)); #13 seeded domain tests, a bot playthrough of the meadow with normal actions, and browser flows for refresh-during-capture and a normal capture. These issues stay open for criteria review. Observation from the bot: with free healing at camp, the meadow guardian falls in roughly 5–6 battles with 0–1 losses, so it is easy; tune it from your play feedback (#23, #31).
 
+Then: #25 growth tuning (level cap 15, bench XP share, catch-up bonus, one elemental move upgrade at level 10; see [PROGRESSION.md](PROGRESSION.md)). It needs your play feedback; evolutions and learnsets remain out of scope.
+
+Then: #17 team of three plus reserve ([SAVE_FORMAT.md](SAVE_FORMAT.md)), #16 Focus-based battle actions ([BATTLE.md](BATTLE.md)) and #20 title/continue/new game/restore and persistent settings. All three need your play feedback; duplicate captures stay one record per species, and there is no reorder or individual-creature database.
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.

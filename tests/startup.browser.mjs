@@ -4,6 +4,7 @@ import {chromium} from 'playwright';
 import http from 'node:http';
 import {readFileSync, existsSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {codec, newSave} from './helpers.mjs';
 const root = new URL('../dist/', import.meta.url),
   types = {html: 'text/html', js: 'text/javascript', css: 'text/css', png: 'image/png', svg: 'image/svg+xml'};
 let blocked = new Set();
@@ -74,6 +75,7 @@ const set = (k, v) =>
   await page.waitForSelector('#attack');
   for (let i = 0; i < 40 && (await page.locator('#result-continue').count()) === 0; i++) {
     if (await page.locator('#element:not([disabled])').count()) await page.keyboard.press('2');
+    else if (await page.locator('#attack:not([disabled])').count()) await page.keyboard.press('1');
     await page.waitForTimeout(300);
   }
   await page.waitForSelector('#result-continue', {timeout: 15000});
@@ -133,9 +135,9 @@ for (const [seed, weakened] of [
       }
       const s = await page.evaluate(() => {
         const g = window.mossvale.getState();
-        return g.battle && {busy: g.battle.busy, ratio: g.battle.hp / g.battle.max, orbs: g.save.orbs, mode: g.modalMode};
+        return g.battle && {busy: g.battle.busy, ratio: g.battle.hp / g.battle.max, orbs: g.save.orbs, mode: g.modalMode, focus: g.battle.focus};
       });
-      if (s && !s.busy && s.mode === 'battle') await page.keyboard.press(s.ratio <= 0.45 && s.orbs > 0 ? '3' : '2');
+      if (s && !s.busy && s.mode === 'battle') await page.keyboard.press(s.ratio <= 0.45 && s.orbs > 0 ? '3' : s.focus > 0 ? '2' : '1');
       await page.waitForTimeout(250);
     }
     await page.waitForFunction(() => window.mossvale.getState().phase === 'explore');
@@ -144,6 +146,61 @@ for (const [seed, weakened] of [
   assert.ok(caught >= 2, 'captured a new friend through normal play');
   assert.deepEqual(errors, []);
   console.log('ok normal capture flow');
+}
+{
+  // title screen, settings that persist, new game that archives, restore that swaps back
+  const played = newSave();
+  played.coins = 40;
+  played.wins = 3;
+  played.badges = [0];
+  played.caught.push(1);
+  played.party.push(1);
+  played.team[1] = {xp: 0, hp: 40};
+  played.playTime = 600;
+  const ctx = await browser.newContext();
+  await ctx.addInitScript(set('mossvale-v3', codec.serialize(played)));
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  const reloading = click => Promise.all([page.waitForEvent('load'), page.click(click)]);
+  await page.goto(url);
+  await page.waitForSelector('#m-primary');
+  assert.equal(await page.textContent('#m-primary'), 'Continue');
+  assert.match(await page.textContent('#modal'), /2 of 8 friends · 1 seal · 10 min played/);
+  await page.keyboard.press('Escape');
+  assert.equal(await page.locator('#m-primary').isVisible(), true, 'the title screen is not dismissed by Escape');
+  await page.click('#m-settings');
+  await page.click('[data-set="sound"][data-value="true"]');
+  await page.click('[data-set="motion"][data-value="reduced"]');
+  await page.click('#s-zoom-in');
+  await page.click('#m-back');
+  await page.click('#m-primary');
+  assert.equal(await page.locator('#modal').isHidden(), true);
+  assert.equal(await page.evaluate(() => document.body.classList.contains('reduce-motion')), true);
+  await page.reload();
+  await page.waitForSelector('#m-primary');
+  assert.equal(await page.textContent('#sound'), 'Sound on');
+  assert.equal(await page.evaluate(() => document.body.classList.contains('reduce-motion')), true);
+  await page.click('#m-primary');
+  await page.keyboard.press('Escape'); // Escape opens the menu during play
+  await page.waitForSelector('#m-new');
+  await page.click('#m-new');
+  assert.match(await page.textContent('#modal'), /kept as a backup/);
+  await page.click('#m-cancel');
+  assert.equal(await page.evaluate(() => localStorage.getItem('mossvale-archive')), null, 'cancel changes nothing');
+  await page.click('#m-new');
+  await reloading('#m-confirm-new');
+  await page.waitForSelector('#m-primary');
+  assert.equal(await page.textContent('#m-primary'), 'Start adventure');
+  assert.equal(await page.textContent('#sound'), 'Sound on', 'settings survive a new game');
+  assert.notEqual(await page.evaluate(() => localStorage.getItem('mossvale-archive')), null);
+  await page.click('#m-restore');
+  await reloading('#m-confirm-restore');
+  await page.waitForSelector('#m-primary');
+  assert.equal(await page.textContent('#m-primary'), 'Continue');
+  assert.match(await page.textContent('#modal'), /2 of 8 friends/);
+  assert.deepEqual(errors, []);
+  console.log('ok title, settings, new game and restore');
 }
 {
   // debug hook is absent without ?debug
