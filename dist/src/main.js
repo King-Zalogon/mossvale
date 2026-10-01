@@ -10,7 +10,7 @@ import {effectiveness, level, maxHP} from './domain/rules.js';
 import {currentObjective} from './domain/objectives.js';
 import {isWalkable, nearestWalkable, zoneAt} from './domain/world.js';
 import {buildAdventure} from './domain/adventure.js';
-import {followerPoint, movePlayer} from './domain/exploration.js';
+import {FACING, followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
@@ -52,7 +52,7 @@ const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 
 const game = {
   save: loaded.save,
-  player: {x: loaded.save.x, y: loaded.save.y, dir: 8},
+  player: {x: loaded.save.x, y: loaded.save.y, dir: FACING.south},
   world: {map: null, tiles: [], objects: []},
   battle: loaded.save.battle ? {...loaded.save.battle, busy: false, over: false} : null,
   phase: 'explore',

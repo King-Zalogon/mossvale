@@ -50,10 +50,10 @@ const set = (k, v) =>
 }
 {
   // missing required sprite: error + retry; restoring the asset resumes play; input is blocked meanwhile
-  blocked = new Set(['sprite8.png']);
+  blocked = new Set(['assets/people/person-red-cap-south.png']);
   const {page} = await open('');
   await page.waitForSelector('#load-retry:not([hidden])');
-  assert.match(await page.textContent('#load-detail'), /sprite8\.png/);
+  assert.match(await page.textContent('#load-detail'), /person-red-cap-south\.png/);
   await page.keyboard.press('j');
   assert.equal(await page.locator('#modal').isHidden(), true, 'no gameplay input before ready');
   blocked = new Set();

@@ -1,3 +1,5 @@
+import {spriteId} from './assets.js';
+
 /* Region presentation and progression labels. Geometry, encounters and landmarks live in dist/maps/<id>.json.
    `id` matches the map id and is persisted in saves: never rename or reuse it. */
 export const regions = [
@@ -9,7 +11,7 @@ export const regions = [
     tag: 'THE MEADOW TRAIL',
     palette: ['#86ae70', '#97b76a', '#8aa55c', '#d6c08b', '#4e9c9a', '#577b48'],
     seal: 'Verdant seal',
-    preview: 0,
+    preview: spriteId('tree-oak'),
     desc: 'A sunlit meadow where every trail begins.',
   },
   {
@@ -20,7 +22,7 @@ export const regions = [
     tag: 'THE AMBER TRAIL',
     palette: ['#c7a075', '#d6b47e', '#b19459', '#e8cc99', '#739ca4', '#986f48'],
     seal: 'Amber seal',
-    preview: 22,
+    preview: spriteId('rock-spire-red'),
     desc: 'Stone spires, electric friends, and a sleeping guardian.',
   },
   {
@@ -31,7 +33,7 @@ export const regions = [
     tag: 'THE FROSTVEIL TRAIL',
     palette: ['#a9c7c9', '#d4e3dc', '#acc2bb', '#b0c7c5', '#6d9cab', '#7c9898'],
     seal: 'Frostveil seal',
-    preview: 21,
+    preview: spriteId('tree-pine-snow'),
     desc: 'A quiet snowy grove at the edge of the isles.',
   },
 ];

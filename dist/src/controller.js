@@ -11,6 +11,7 @@ import {buildWorld, nearestInteractive, triggersAt, zoneAt} from './domain/world
 import {GRACE_AFTER_BATTLE, GRACE_ON_ARRIVAL} from './config.js';
 import {$, hideModal, toast} from './ui/dom.js';
 import {TACTICS} from './data/tactics.js';
+import {spriteId} from './data/assets.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
@@ -209,7 +210,7 @@ export function createController(app) {
       showResult({
         title: 'A little trail treasure',
         copy: 'Something useful for the road ahead.',
-        sprite: 23,
+        sprite: spriteId('chest-wooden'),
         rewards: [`${got.coins} coins`, `${got.potions} potions`, `${got.orbs} capture orbs`],
         button: 'Keep exploring',
       });

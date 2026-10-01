@@ -1,13 +1,22 @@
 /* Pure movement and encounter pacing. */
 import {FOLLOW_GAP, MOVE_STEP} from '../config.js';
+import {spriteId} from '../data/assets.js';
 import {isWalkable, nearestWalkable, zoneAt} from './world.js';
 
 export const WALK_SPEED = 2.8;
 export const RUN_SPEED = 4.7;
 
-/** Direction index used to pick the player sprite: 8 down, 9 up, 10 left, 11 right. */
+/** Sprite ids for the player facing each way. `player.dir` holds one of these. */
+export const FACING = {
+  south: spriteId('person-red-cap-south'),
+  north: spriteId('person-red-cap-north'),
+  west: spriteId('person-red-cap-west'),
+  east: spriteId('person-red-cap-east'),
+};
+
+/** Sprite id for the player's facing from screen-space input. */
 export function facing(sx, sy) {
-  return Math.abs(sx) > 0.3 ? (sx < 0 ? 10 : 11) : sy < 0 ? 9 : 8;
+  return Math.abs(sx) > 0.3 ? (sx < 0 ? FACING.west : FACING.east) : sy < 0 ? FACING.north : FACING.south;
 }
 
 /**

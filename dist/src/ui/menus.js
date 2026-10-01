@@ -5,6 +5,7 @@ import {regions} from '../data/regions.js';
 import {companion, level, maxHP, moveName, reserve, unlocked} from '../domain/rules.js';
 import {PARTY_SIZE} from '../config.js';
 import {drawCreature, drawSprite} from '../render/sprites.js';
+import {spriteId} from '../data/assets.js';
 import {REST_FLOOR, SHOP} from '../data/economy.js';
 import {canBuy} from '../domain/economy.js';
 import {POTION_HEAL} from '../domain/battle.js';
@@ -40,7 +41,7 @@ export function createMenus(app) {
       'map',
       'Island map',
     );
-    regions.forEach((r, i) => drawSprite($(`#region-art-${i}`).getContext('2d'), r.preview, 55, 103, r.preview === 0 ? 80 : 88));
+    regions.forEach((r, i) => drawSprite($(`#region-art-${i}`).getContext('2d'), r.preview, 55, 103, r.preview === spriteId('tree-oak') ? 80 : 88));
     for (const b of document.querySelectorAll('[data-travel]')) b.onclick = () => actions.travel(+b.dataset.travel);
     wireClose();
   }
@@ -129,7 +130,7 @@ export function createMenus(app) {
       'ranger',
       name,
     );
-    drawSprite($('#ranger-art').getContext('2d'), 8, 45, 130, 65);
+    drawSprite($('#ranger-art').getContext('2d'), spriteId('person-red-cap-south'), 45, 130, 65);
     $('#rest-team').onclick = () => actions.rest();
     for (const b of document.querySelectorAll('[data-buy]')) b.onclick = () => actions.buy(b.dataset.buy);
     wireClose();

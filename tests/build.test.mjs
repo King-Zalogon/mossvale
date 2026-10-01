@@ -17,7 +17,7 @@ test('the build copies the game and stamps the commit and save schema', () => {
     const info = JSON.parse(readFileSync(join(dir, 'version.json'), 'utf8'));
     assert.deepEqual([info.short, info.branch, info.saveSchema], ['abcdef0', 'main', VERSION]);
     assert.match(info.builtAt, /^\d{4}-\d\d-\d\dT/);
-    for (const f of ['index.html', 'style.css', 'src/main.js', 'maps/index.json', 'sprite0.png']) assert.equal(existsSync(join(dir, f)), true, f);
+    for (const f of ['index.html', 'style.css', 'src/main.js', 'maps/index.json', 'assets/props/tree-oak.png']) assert.equal(existsSync(join(dir, f)), true, f);
   } finally {
     rmSync(dir, {recursive: true, force: true});
   }
