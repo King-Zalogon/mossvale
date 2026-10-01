@@ -373,6 +373,8 @@ for (const [viewport, text] of [
   page.on('pageerror', e => errors.push(e.message));
   await page.goto(url);
   await page.waitForSelector('#m-primary');
+  // Fonts differ between machines (the web font may not load); test with a deliberately wide fallback.
+  await page.addStyleTag({content: 'body, button { font-family: "DejaVu Sans", Verdana, sans-serif !important; letter-spacing: 0.02em; }'});
   const overflow = () =>
     page.evaluate(() => ({
       x: document.documentElement.scrollWidth - innerWidth,

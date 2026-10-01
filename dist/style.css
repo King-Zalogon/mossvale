@@ -1992,14 +1992,16 @@ body.reduce-motion *::after {
 }
 .setting-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 8px 12px;
   margin: 12px auto;
   max-width: 420px;
 }
 .setting-row .choices {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }
 .setting-row button.selected {
@@ -2057,4 +2059,8 @@ body.text-larger .heading {
     min-height: 44px;
     min-width: 44px;
   }
+}
+
+#modal {
+  overflow-wrap: anywhere;
 }
