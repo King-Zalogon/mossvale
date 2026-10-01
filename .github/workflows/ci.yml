@@ -26,3 +26,11 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Browser smoke tests
         run: npm run test:browser
+      - name: Package a traceable build
+        run: npm run build
+      - name: Keep the build for this commit
+        uses: actions/upload-artifact@v4
+        with:
+          name: mossvale-${{ github.sha }}
+          path: build/
+          retention-days: 90

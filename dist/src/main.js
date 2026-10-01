@@ -16,6 +16,7 @@ import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
 import {fetchAdventure} from './services/maps.js';
+import {describeBuild, fetchBuild} from './services/version.js';
 import {createPersistence} from './services/persistence.js';
 import {createWorldRenderer} from './render/world.js';
 import {sprites} from './render/sprites.js';
@@ -81,6 +82,8 @@ const app = {
   objCtx: {speciesCount: species.length, regions},
   audio: createAudio(),
   settings,
+  build: null,
+  buildLabel: () => describeBuild(app.build),
   motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,
   archive: () => readArchive(storage, codec),
   canStartOver: () => loaded.writable,
@@ -178,6 +181,7 @@ Object.assign(actions, {
 });
 
 async function boot() {
+  if (!app.build) fetchBuild().then(info => (app.build = info)); // for the menu; never blocks play
   ui.ready = false;
   setBusy(true);
   loading.hidden = false;
