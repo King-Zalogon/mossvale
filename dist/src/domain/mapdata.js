@@ -1,6 +1,7 @@
 /* Map data format (version 1): validation and compilation. Pure functions only.
    Authoring guide: docs/MAP_FORMAT.md. */
 import {PLAYER_RADIUS} from '../config.js';
+import {TACTICS} from '../data/tactics.js';
 import {validateLines} from './objectives.js';
 
 export const MAP_FORMAT = 1;
@@ -111,6 +112,10 @@ function validateOne(m, byId, ctx, errors) {
       else {
         species(where + '.guardian.species', l.guardian.species);
         if (!Number.isInteger(l.guardian.level) || l.guardian.level < 1 || l.guardian.level > 99) at(where + '.guardian.level', 'integer 1..99');
+        if (l.guardian.power !== undefined && !(l.guardian.power >= 0.5 && l.guardian.power <= 3))
+          at(where + '.guardian.power', 'damage multiplier between 0.5 and 3 (default 1)');
+        if (l.guardian.tactic !== undefined && !Object.hasOwn(TACTICS, l.guardian.tactic))
+          at(where + '.guardian.tactic', `unknown tactic "${l.guardian.tactic}" (known: ${Object.keys(TACTICS).join(', ')})`);
       }
       if (typeof l.flag !== 'string') at(where + '.flag', 'shrines need the milestone flag they complete');
       if (!isObj(l.reward) || !['coins', 'potions', 'xp'].every(k => Number.isInteger(l.reward[k]) && l.reward[k] >= 0))
@@ -193,7 +198,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
       lines: l.lines,
       tag: l.tag,
       reward: l.reward,
-      guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level},
+      guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level, tactic: l.guardian.tactic, power: l.guardian.power},
     }),
   );
   const exits = (m.exits ?? []).map(e => mk(e, 'gate', {ref: e.id, label: e.label, target: regionIndex(e.to.map), spawn: e.to.spawn, requires: e.requires}));

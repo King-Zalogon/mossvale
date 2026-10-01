@@ -8,6 +8,7 @@ import {drawCreature, drawSprite} from '../render/sprites.js';
 import {REST_FLOOR, SHOP} from '../data/economy.js';
 import {canBuy} from '../domain/economy.js';
 import {POTION_HEAL} from '../domain/battle.js';
+import {TACTICS} from '../data/tactics.js';
 import {hasProgress, summarize} from '../services/profile.js';
 import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
 import {$, header, openModal} from './dom.js';
@@ -131,7 +132,7 @@ export function createMenus(app) {
     const s = save();
     const r = regions[s.region];
     open(
-      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${g.guardian.level} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < 2 ? ' and open the trail to ' + regions[s.region + 1].name : '. All three shrines will be awake'}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div><p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. Potions and type strengths can help.</p>`,
+      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${g.guardian.level} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < 2 ? ' and open the trail to ' + regions[s.region + 1].name : '. All three shrines will be awake'}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div>${TACTICS[g.guardian.tactic] ? `<p class="dialog-note" style="text-align:center"><b>${TACTICS[g.guardian.tactic].name}.</b> ${TACTICS[g.guardian.tactic].intro}</p>` : ''}<p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. You can rest and try again any time.</p>`,
       'shrine',
       'Shrine guardian',
     );

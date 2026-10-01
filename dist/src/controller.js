@@ -8,6 +8,7 @@ import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
 import {buildWorld, nearestInteractive, triggersAt} from './domain/world.js';
 import {$, hideModal, toast} from './ui/dom.js';
+import {TACTICS} from './data/tactics.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {renderHud, renderRegion} from './ui/hud.js';
@@ -255,7 +256,9 @@ export function createController(app) {
     game.battle = createBattle(s, rng, spec);
     refresh();
     tone(spec.boss ? 230 : 660);
-    renderBattle(`${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! Choose your next move.`);
+    renderBattle(
+      `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}`,
+    );
   }
 
   /** Wild encounter from an encounter zone. */
@@ -270,7 +273,7 @@ export function createController(app) {
 
   /** Shrine guardian `{id, level}` from map data. */
   function startGuardian(guardian) {
-    beginBattle({id: guardian.id, level: guardian.level, boss: true});
+    beginBattle({id: guardian.id, level: guardian.level, boss: true, tactic: guardian.tactic, power: guardian.power});
   }
 
   /** Re-opens an encounter that was saved mid-fight. Invalid leftovers are dropped without penalty. */
@@ -337,6 +340,14 @@ export function createController(app) {
 
   let lastMessage = '';
 
+  /** One line describing the enemy's turn. */
+  function enemyText(foe, e) {
+    if (e.action === 'charge') return `${foe.name} is gathering strength…`;
+    if (e.action === 'brace') return `${foe.name} braces itself. Your next attack will glance off.`;
+    if (e.action === 'heavy') return `${foe.name} unleashes a heavy blow for ${e.damage} damage!`;
+    return `${foe.name} used ${e.element ? foe.move : 'Quick strike'} for ${e.damage} damage.`;
+  }
+
   /** Turns resolved events into display frames (presentation only; no state changes). */
   function framesFor(turn, before, b) {
     const frames = [];
@@ -344,7 +355,7 @@ export function createController(app) {
     for (const e of turn.events) {
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
-        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
+        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
         frames.push({message: player, animation: 'attack', after: e.after, tone: [e.kind === 'element' ? 490 : 330], wait: wait(650)});
       } else if (e.type === 'throw') {
         player = 'The creature broke free of the orb.';
@@ -363,8 +374,8 @@ export function createController(app) {
       } else if (e.type === 'enemy') {
         const foe = species[b.id];
         frames.push({
-          message: `${player} ${foe.name} used ${e.element ? foe.move : 'Quick strike'} for ${e.damage} damage.`,
-          animation: 'enemy',
+          message: `${player} ${enemyText(foe, e)}`,
+          animation: e.damage > 0 ? 'enemy' : '',
           after: e.after,
           tone: [210],
           wait: 0,

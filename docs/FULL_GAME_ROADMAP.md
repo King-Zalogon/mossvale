@@ -49,6 +49,8 @@ Then: #19 shared supply/reward table with transactional shop, free rest floor an
 
 Then: #21 stamped build artifact per commit, in-game build label, frozen save fixtures and a publish/rollback routine ([PUBLISHING.md](PUBLISHING.md)). Not done: no automatic upload (the host's import path is unknown to this repo), repository visibility left unchanged (public, checked).
 
+Then: #23 guardian tactics (spore guard, rolling charge, frost chorus) with a visible next-move line and a per-guardian damage multiplier ([BATTLE.md](BATTLE.md)); the fourth challenge waits for the fourth biome (#54).
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.
