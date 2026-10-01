@@ -35,17 +35,23 @@ Explore Mossvale Meadow, Amber Ridge, and Frostveil Grove. Befriend eight specie
 
 Awaken each shrine by defeating its guardian to unlock the next region. Visit Ranger Iris to heal your team and refill capture orbs, or buy extra supplies with coins earned from battles and treasure chests.
 
-Progress saves automatically in the current browser using local storage. Original meadow saves are migrated to the expanded game. Saves are specific to the browser and origin; progress on the hosted game does not automatically transfer to localhost or another host.
+Progress saves automatically in the current browser using local storage. Original meadow saves are migrated to the expanded game. If a save is damaged, the game keeps the unreadable data, restores the last checkpoint when possible and tells you what happened. Required artwork that fails to load shows an error with a retry button instead of starting a broken game. Saves are specific to the browser and origin; progress on the hosted game does not automatically transfer to localhost or another host.
 
 ## Files
 
 - `dist/index.html`: game interface and controls.
 - `dist/style.css`: responsive interface, menus, and animation styles.
+- `dist/save.js`: save validation, migration and recovery ([format](docs/SAVE_FORMAT.md)).
+- `dist/assets.js`: asset manifest (names, sizes, required status) checked by `npm run validate`.
 - `dist/game.js`: world rendering, movement, encounters, progression, and save handling.
 - `dist/sprite*.png`: original creature, character, and environment artwork.
 - `dist/favicon.svg`: site icon.
 
 The game uses vanilla JavaScript and Canvas 2D. It has no backend, account system, or multiplayer service. Fonts are loaded from Google Fonts with local fallbacks.
+
+## Tests
+
+`npm test` runs save-migration fixtures (Node 20+, no dependencies); `npm run validate` checks the asset manifest; `npm run test:browser` runs startup/recovery checks in Chromium (requires Playwright).
 
 ## Development roadmap
 

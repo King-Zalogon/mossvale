@@ -4,38 +4,24 @@ const $ = selector => document.querySelector(selector);
 const canvas = $('#game'), ctx = canvas.getContext('2d'), mini = $('#minimap').getContext('2d');
 const sprites = [], N = 25, TILE_W = 56, TILE_H = 28;
 const species = [
- {name:'Fernling',type:'Leaf',sprite:4,hp:42,color:'#bade7e',move:'Leaf burst',strong:['Water','Stone'],weak:['Fire','Ice'],desc:'A brave little fox that naps beneath the ferns.'},
- {name:'Emberkin',type:'Fire',sprite:5,hp:40,color:'#ffb56c',move:'Ember spark',strong:['Leaf','Ice'],weak:['Water','Stone'],desc:'Warm paws, bright eyes, and a fiery spirit.'},
- {name:'Brooklet',type:'Water',sprite:6,hp:46,color:'#83dbe8',move:'Ripple rush',strong:['Fire','Stone'],weak:['Leaf','Spark'],desc:'Collects smooth pebbles from the meadow pond.'},
- {name:'Duskwing',type:'Air',sprite:7,hp:38,color:'#c5a2ef',move:'Gust spiral',strong:['Leaf','Spore'],weak:['Spark','Ice'],desc:'Its wings scatter soft starlight at dusk.'},
- {name:'Voltkit',type:'Spark',sprite:16,hp:39,color:'#f0d87d',move:'Static leap',strong:['Water','Air'],weak:['Stone'],desc:'A lightning-fast rabbit with an electric personality.'},
- {name:'Mushmallow',type:'Spore',sprite:17,hp:48,color:'#c59ae5',move:'Spore cloud',strong:['Water','Spark'],weak:['Fire','Air'],desc:'A shy hedgehog carrying a tiny mushroom garden.'},
- {name:'Frostowl',type:'Ice',sprite:18,hp:43,color:'#a9d6f4',move:'Frost feather',strong:['Leaf','Air'],weak:['Fire','Stone'],desc:'A quiet owl with feathers as cool as fresh snow.'},
- {name:'Pebblit',type:'Stone',sprite:19,hp:52,color:'#e2bb75',move:'Stone tumble',strong:['Spark','Fire','Ice'],weak:['Water','Leaf'],desc:'A patient tortoise with a sun-warmed crystal shell.'}
+ {id:'fernling',name:'Fernling',type:'Leaf',sprite:4,hp:42,color:'#bade7e',move:'Leaf burst',strong:['Water','Stone'],weak:['Fire','Ice'],desc:'A brave little fox that naps beneath the ferns.'},
+ {id:'emberkin',name:'Emberkin',type:'Fire',sprite:5,hp:40,color:'#ffb56c',move:'Ember spark',strong:['Leaf','Ice'],weak:['Water','Stone'],desc:'Warm paws, bright eyes, and a fiery spirit.'},
+ {id:'brooklet',name:'Brooklet',type:'Water',sprite:6,hp:46,color:'#83dbe8',move:'Ripple rush',strong:['Fire','Stone'],weak:['Leaf','Spark'],desc:'Collects smooth pebbles from the meadow pond.'},
+ {id:'duskwing',name:'Duskwing',type:'Air',sprite:7,hp:38,color:'#c5a2ef',move:'Gust spiral',strong:['Leaf','Spore'],weak:['Spark','Ice'],desc:'Its wings scatter soft starlight at dusk.'},
+ {id:'voltkit',name:'Voltkit',type:'Spark',sprite:16,hp:39,color:'#f0d87d',move:'Static leap',strong:['Water','Air'],weak:['Stone'],desc:'A lightning-fast rabbit with an electric personality.'},
+ {id:'mushmallow',name:'Mushmallow',type:'Spore',sprite:17,hp:48,color:'#c59ae5',move:'Spore cloud',strong:['Water','Spark'],weak:['Fire','Air'],desc:'A shy hedgehog carrying a tiny mushroom garden.'},
+ {id:'frostowl',name:'Frostowl',type:'Ice',sprite:18,hp:43,color:'#a9d6f4',move:'Frost feather',strong:['Leaf','Air'],weak:['Fire','Stone'],desc:'A quiet owl with feathers as cool as fresh snow.'},
+ {id:'pebblit',name:'Pebblit',type:'Stone',sprite:19,hp:52,color:'#e2bb75',move:'Stone tumble',strong:['Spark','Fire','Ice'],weak:['Water','Leaf'],desc:'A patient tortoise with a sun-warmed crystal shell.'}
 ];
 const regions = [
- {name:'Mossvale Meadow',short:'Meadow',subtitle:'Tall grass, old trails, and new friends.',tag:'THE MEADOW TRAIL',palette:['#86ae70','#97b76a','#8aa55c','#d6c08b','#4e9c9a','#577b48'],pool:[0,1,2,3],level:5,boss:5,bossLevel:7,seal:'Verdant seal',preview:0,desc:'A sunlit meadow where every trail begins.',spawn:{x:12,y:13}},
- {name:'Amber Ridge',short:'Ridge',subtitle:'Golden trails and sparks in the sandstone.',tag:'THE AMBER TRAIL',palette:['#c7a075','#d6b47e','#b19459','#e8cc99','#739ca4','#986f48'],pool:[1,4,5,7],level:7,boss:7,bossLevel:9,seal:'Amber seal',preview:22,desc:'Stone spires, electric friends, and a sleeping guardian.',spawn:{x:12,y:13}},
- {name:'Frostveil Grove',short:'Grove',subtitle:'Follow the snowflakes to the final shrine.',tag:'THE FROSTVEIL TRAIL',palette:['#a9c7c9','#d4e3dc','#acc2bb','#b0c7c5','#6d9cab','#7c9898'],pool:[2,3,6,7],level:9,boss:6,bossLevel:11,seal:'Frostveil seal',preview:21,desc:'A quiet snowy grove at the edge of the isles.',spawn:{x:12,y:13}}
+ {id:'meadow',name:'Mossvale Meadow',short:'Meadow',subtitle:'Tall grass, old trails, and new friends.',tag:'THE MEADOW TRAIL',palette:['#86ae70','#97b76a','#8aa55c','#d6c08b','#4e9c9a','#577b48'],pool:[0,1,2,3],level:5,boss:5,bossLevel:7,seal:'Verdant seal',preview:0,desc:'A sunlit meadow where every trail begins.',spawn:{x:12,y:13}},
+ {id:'amber-ridge',name:'Amber Ridge',short:'Ridge',subtitle:'Golden trails and sparks in the sandstone.',tag:'THE AMBER TRAIL',palette:['#c7a075','#d6b47e','#b19459','#e8cc99','#739ca4','#986f48'],pool:[1,4,5,7],level:7,boss:7,bossLevel:9,seal:'Amber seal',preview:22,desc:'Stone spires, electric friends, and a sleeping guardian.',spawn:{x:12,y:13}},
+ {id:'frostveil-grove',name:'Frostveil Grove',short:'Grove',subtitle:'Follow the snowflakes to the final shrine.',tag:'THE FROSTVEIL TRAIL',palette:['#a9c7c9','#d4e3dc','#acc2bb','#b0c7c5','#6d9cab','#7c9898'],pool:[2,3,6,7],level:9,boss:6,bossLevel:11,seal:'Frostveil seal',preview:21,desc:'A quiet snowy grove at the edge of the isles.',spawn:{x:12,y:13}}
 ];
-const fresh = {version:2,region:0,x:12,y:13,active:0,orbs:12,potions:3,coins:0,seen:[0],caught:[0],team:{0:{xp:0,hp:42}},badges:[],chests:[],visited:[0],met:false,wins:0,playTime:0};
-let save = structuredClone(fresh);
-try {
- const current = JSON.parse(localStorage.getItem('mossvale-v2'));
- if (current?.version===2) {
-  Object.assign(save,current);
-  for(const key of ['seen','caught'])save[key]=[...new Set((Array.isArray(save[key])?save[key]:[0]).filter(i=>Number.isInteger(i)&&species[i]))];
-  for(const key of ['badges','chests','visited'])save[key]=[...new Set((Array.isArray(save[key])?save[key]:[]).filter(i=>Number.isInteger(i)&&regions[i]))];
-  if(!save.caught.length)save.caught=[0];
-  save.team=save.team&&typeof save.team==='object'?save.team:{};
- } else {
-  const old = JSON.parse(localStorage.getItem('mossvale-v1'));
-  if(old){save.seen=[...new Set([0,...(old.seen||[])])].filter(i=>species[i]);save.caught=[...new Set([0,...(old.caught||[])])].filter(i=>species[i]);save.orbs=Number.isFinite(old.orbs)?Math.max(0,old.orbs):12;save.wins=old.wins||0;save.met=!!old.met;save.team[0]={xp:(old.wins||0)*14,hp:old.hp??42}}
- }
-} catch {}
-for(const id of save.caught){if(!save.team[id])save.team[id]={xp:0,hp:species[id].hp};save.team[id].xp=Math.max(0,Number(save.team[id].xp)||0)}
-if(!save.caught.includes(save.active))save.active=save.caught[0];
-for(const key of ['orbs','potions','coins','wins','playTime'])save[key]=Math.max(0,Number(save[key])||0);
+const codec = MossvaleSave.create({species,regions,size:N});
+const loaded = codec.load(localStorage_());
+let save = loaded.save, saveWritable = loaded.writable;
+function localStorage_(){try{return window.localStorage}catch{return {getItem(){throw new Error('storage denied')}}}}
 if(!regions[save.region]||!unlocked(save.region))save.region=0;
 let player={x:Number.isFinite(save.x)?save.x:12,y:Number.isFinite(save.y)?save.y:13,dir:8};
 let world={tiles:[],objects:[]},keys={},touch=null,touchRun=false,paused=false,modalMode='',battle=null,now=0,last=0,steps=0,encounterAt=4,encounterCooldown=2,sound=false,audio=null,toastTimer,saveAvailable=true,zoom=1.45,camera={x:player.x,y:player.y},nearest=null,modalFocus=null,frame=0;
@@ -66,8 +52,29 @@ function buildWorld(){
  $('#region-name').textContent=regions[save.region].name;$('#region-subtitle').textContent=regions[save.region].subtitle;$('#area-number').textContent='AREA 0'+(save.region+1);$('#world-tag').textContent='✦  '+regions[save.region].tag;$('#coordinates').textContent=regions[save.region].short.toUpperCase();
 }
 function valid(x,y){return land(x,y)&&!water(x,y)&&!world.objects.some(o=>o.solid&&Math.hypot(x-o.x,y-o.y)<o.solid+.22)}
-function persist(){save.x=player.x;save.y=player.y;try{localStorage.setItem('mossvale-v2',JSON.stringify(save));$('#saved').textContent='PROGRESS SAVED';saveAvailable=true}catch{saveAvailable=false;$('#saved').textContent='SESSION ONLY';$('#save-note').textContent='Storage unavailable. Keep this tab open to retain progress.'}}
-function loadAssets(){return Promise.all(Array.from({length:24},(_,i)=>new Promise(resolve=>{const im=new Image();sprites[i]=im;im.onload=()=>resolve();im.onerror=()=>resolve();im.src=`sprite${i}.png`})))}
+function persist(){save.x=player.x;save.y=player.y;if(!saveWritable){saveAvailable=false;$('#saved').textContent='SESSION ONLY';return}try{localStorage.setItem(MossvaleSave.KEYS.v3,codec.serialize(save));$('#saved').textContent='PROGRESS SAVED';saveAvailable=true}catch{saveAvailable=false;$('#saved').textContent='SESSION ONLY';$('#save-note').textContent='Storage unavailable. Keep this tab open to retain progress.'}}
+const manifest=window.MOSSVALE_ASSETS||[],loading=$('#loading');let ready=false,attempt=0;
+function setBusy(b){document.querySelectorAll('header,main').forEach(e=>e.inert=b)}
+function loadImage(a){return new Promise(resolve=>{const im=new Image();let done=false;const finish=ok=>{if(done)return;done=true;clearTimeout(timer);resolve(ok?im:null)};const timer=setTimeout(()=>finish(false),20000);im.onload=()=>finish(im.naturalWidth>0&&im.naturalHeight>0);im.onerror=()=>finish(false);im.src=a.src+(attempt?'?retry='+attempt:'')})}
+async function loadAssets(){
+ let loadedCount=0;const total=manifest.length,missing=[];
+ const progress=()=>{$('#load-bar').value=total?loadedCount/total*100:100;$('#load-status').textContent=`Loading artwork… ${loadedCount} / ${total}`};progress();
+ await Promise.all(manifest.map((a,i)=>(sprites[i]&&sprites[i].complete&&sprites[i].naturalWidth&&!a.retry?Promise.resolve(sprites[i]):loadImage(a)).then(im=>{if(im)sprites[i]=im;else if(a.required)missing.push(a);loadedCount++;progress()})));
+ return missing;
+}
+function showLoadError(message,detail){loading.hidden=false;loading.classList.add('failed');$('#load-title').textContent='Mossvale could not start';$('#load-status').textContent=message;$('#load-detail').textContent=detail||'';$('#load-retry').hidden=false;$('#load-bar').hidden=true;setBusy(true);$('#load-retry').focus()}
+function saveNotice(){if(!['restored','recovered','future','unavailable'].includes(loaded.status))return;const title={restored:'Save restored',recovered:'Save could not be read',future:'Newer save found',unavailable:'Storage unavailable'}[loaded.status];$('#save-note').textContent=loaded.message;open(`${header('SAVE RECOVERY',title)}<p>${loaded.message}</p><button class="primary" id="notice-ok">Continue</button>`,'notice','Save recovery');wireClose();$('#notice-ok').onclick=close}
+async function boot(){
+ ready=false;setBusy(true);loading.hidden=false;loading.classList.remove('failed');$('#load-title').textContent=save.badges.length||save.caught.length>1?'Resuming your trail':'Preparing Mossvale';$('#load-retry').hidden=true;$('#load-bar').hidden=false;$('#load-detail').textContent='';
+ if(!ctx||!mini)return showLoadError('This browser does not support the canvas features Mossvale needs.','Try a current version of Chrome, Edge, Firefox or Safari.');
+ const missing=await loadAssets();
+ if(missing.length){attempt++;return showLoadError('Some required artwork did not load. Check your connection, then try again.','Missing: '+missing.map(a=>a.src).join(', '))}
+ ready=true;loading.hidden=true;setBusy(false);ui();canvas.focus({preventScroll:true});
+ toast(save.badges.length?'Your trail continues. Welcome back, explorer.':'The shrines are stirring. Find a new friend in the tall grass.');saveNotice();
+ if(!booted){booted=true;requestAnimationFrame(loop)}
+}
+let booted=false;
+$('#load-retry').onclick=boot;
 function drawSprite(c,id,x,y,w,options={}){
  const im=sprites[id];if(!im?.complete||!im.naturalWidth)return;
  const h=w*im.height/im.width;c.save();c.imageSmoothingEnabled=false;
@@ -266,6 +273,7 @@ $('#zoom-in').onclick=()=>zoom=Math.min(2.5,zoom+.2);$('#zoom-out').onclick=()=>
 $('#touch-run').onclick=()=>{touchRun=!touchRun;$('#touch-run').setAttribute('aria-pressed',String(touchRun))};
 for(const b of document.querySelectorAll('[data-dir]')){b.onpointerdown=e=>{if(modalMode||paused)return;e.preventDefault();b.setPointerCapture(e.pointerId);touch=b.dataset.dir.split(',').map(Number)};b.onpointerup=b.onpointercancel=()=>touch=null}
 window.addEventListener('keydown',e=>{
+ if(!ready)return;
  const k=e.key.toLowerCase();if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k)&&!modalMode)e.preventDefault();
  if(modalMode){
   if(k==='escape'){e.preventDefault();close();return}
@@ -277,6 +285,6 @@ window.addEventListener('keydown',e=>{
 });
 window.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 window.addEventListener('blur',()=>{keys={};touch=null;persist()});document.addEventListener('visibilitychange',()=>{keys={};touch=null;persist()});window.addEventListener('pagehide',persist);window.addEventListener('resize',resize);
-buildWorld();if(!valid(player.x,player.y))Object.assign(player,regions[save.region].spawn);camera={x:player.x,y:player.y};resize();ui();loadAssets().then(()=>{ui();toast(save.badges.length?'Your trail continues. Welcome back, explorer.':'The shrines are stirring. Find a new friend in the tall grass.');requestAnimationFrame(loop)});setInterval(persist,6000);
+buildWorld();if(!valid(player.x,player.y))Object.assign(player,regions[save.region].spawn);camera={x:player.x,y:player.y};resize();ui();boot();setInterval(persist,6000);
 window.mossvale={getState:()=>({player,save,battle,paused,modalMode,world,zoom}),encounter:startBattle,valid,grass,travel,interact,objective,level,maxHP,effectiveness};
 })();
