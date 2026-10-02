@@ -41,7 +41,7 @@ async function start({query = '?debug', init, seed} = {}) {
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
-  await page.goto(url + query);
+  await page.goto(url + query, {waitUntil: 'commit'}); // the load event may wait on deliberately stalled requests
   return {page, errors, ctx};
 }
 const ready = page => page.waitForSelector('#loading', {state: 'hidden'});
@@ -155,8 +155,11 @@ const failed = (page, text) =>
   Object.assign(played, {wins: 4, met: true, badges: [0]});
   behavior = new Map([['assets/*', 'delay:300']]);
   const resume = await start({seed: codec.serialize(played)});
+  const loadingArt = page => page.waitForFunction(() => /Loading artwork… \d+ \/ \d+/.test(document.querySelector('#load-status').textContent));
+  await loadingArt(resume.page);
   assert.equal(await resume.page.textContent('#load-title'), 'Resuming your trail');
   const cold = await start();
+  await loadingArt(cold.page);
   assert.equal(await cold.page.textContent('#load-title'), 'Preparing Mossvale');
   await ready(resume.page);
   await ready(cold.page);
