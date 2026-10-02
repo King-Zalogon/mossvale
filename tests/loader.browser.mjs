@@ -50,9 +50,9 @@ const failed = (page, text) =>
 
 {
   // Slow connection: progress is shown, input is ignored until ready, then play starts.
-  behavior = new Map([['assets/*', 'delay:700']]);
+  behavior = new Map([['assets/*', 'delay:2500']]);
   const {page, errors, ctx} = await start();
-  await page.waitForSelector('#load-bar');
+  await page.waitForFunction(() => /Loading artwork… \d+ \/ \d+/.test(document.querySelector('#load-status').textContent));
   assert.match(await page.textContent('#load-status'), /Loading artwork… \d+ \/ 24/);
   await page.keyboard.press('j');
   await page.keyboard.press('m');
