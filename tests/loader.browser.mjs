@@ -11,12 +11,15 @@ const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', png: '
 /** path -> 'missing' | 'garbage' | 'hang' | 'abort' | `delay:<ms>`; empty means serve normally. */
 let behavior = new Map();
 const hanging = new Set();
+let openGate;
+let gate = new Promise(res => (openGate = res)); // 'gate' requests wait here until the test lets them through
 const server = http
   .createServer(async (q, r) => {
     const name = q.url.split('?')[0].slice(1) || 'index.html';
     const mode = behavior.get(name) ?? [...behavior].find(([k]) => k.endsWith('*') && name.startsWith(k.slice(0, -1)))?.[1] ?? '';
     if (mode === 'abort') return q.socket.destroy();
     if (mode === 'hang') return void hanging.add(r); // never answered
+    if (mode === 'gate') await gate;
     if (mode.startsWith('delay:')) await new Promise(res => setTimeout(res, Number(mode.slice(6))));
     if (mode === 'missing' || !existsSync(new URL(name, root))) return void r.writeHead(404).end();
     const ext = name.split('.').pop();
@@ -50,7 +53,7 @@ const failed = (page, text) =>
 
 {
   // Slow connection: progress is shown, input is ignored until ready, then play starts.
-  behavior = new Map([['assets/*', 'delay:2500']]);
+  behavior = new Map([['assets/*', 'gate']]);
   const {page, errors, ctx} = await start();
   await page.waitForFunction(() => /Loading artwork… \d+ \/ \d+/.test(document.querySelector('#load-status').textContent));
   assert.match(await page.textContent('#load-status'), /Loading artwork… \d+ \/ 24/);
@@ -64,6 +67,7 @@ const failed = (page, text) =>
     true,
     'the page is inert while loading',
   );
+  openGate();
   await ready(page);
   assert.equal(await page.evaluate(() => document.querySelector('main').inert), false);
   assert.deepEqual(errors, []);
