@@ -60,6 +60,7 @@ Then: #30 save export/import with preview and session-checkpoint restore ([BACKU
 Then: #32 art renamed by what it shows (`dist/assets/<kind>/<name>.png`), content refers to art by name, and a validator that decodes each PNG (RGBA, tight crop, bottom anchor, naming rules) ([ASSETS.md](ASSETS.md)). Not done: no editable source sheets exist in the repo, and new biome/creature batches (#51–#54, #24) are still to be made.
 
 Then: #33/#34 dialogs with an inert background and stable focus/scroll through battle re-renders, a text-size setting, 44 px touch targets, live-region cues and contrast/overflow tests ([UI.md](UI.md)). Needs your devices (#35) and eyes for what is still unclear or unnecessary.
+Then: gap-closing tests for #8/#12/#13: a v2 fixture written by the original build, `tests/loader.browser.mjs` (slow/corrupt/aborted/stalled art, fonts, no canvas, bad map data; `?debug&assetTimeout=ms`), and `tests/playthrough.browser.mjs` (meadow guardian beaten through the real UI).
 
 Checklist and open items for calling it ready: [READY.md](READY.md). Not attempted because they need art, hardware or ears rather than code: #24, #27, #36, #38, #51–#54 (content/art), #35 and #37 (your devices), #22 and #31 (your play).
 

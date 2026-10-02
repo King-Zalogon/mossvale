@@ -250,6 +250,7 @@ async function boot() {
     manifest: assets,
     sprites,
     attempt,
+    timeoutMs: debug && Number(params.get('assetTimeout')) > 0 ? Number(params.get('assetTimeout')) : undefined, // tests shorten the 20 s wait
     onProgress(done, total) {
       $('#load-bar').value = total ? (done / total) * 100 : 100;
       $('#load-status').textContent = `Loading artwork… ${done} / ${total}`;
