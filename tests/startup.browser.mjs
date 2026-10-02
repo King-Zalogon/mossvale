@@ -351,9 +351,13 @@ for (const [seed, weakened] of [
   // Focus the Guard button, act, and check focus is still on a battle button after the re-render.
   await page.focus('#guard');
   await page.keyboard.press('Enter');
-  await page.waitForTimeout(1600);
-  const focused = await page.evaluate(() => document.activeElement?.id);
-  assert.ok(['guard', 'attack', 'element', 'catch', 'potion', 'flee', 'switch'].includes(focused), `focus returned to ${focused}`);
+  // Wait for the round to finish (not a fixed delay), then focus must be back on the control that was used.
+  await page.waitForFunction(() => window.mossvale.getState().battle?.busy === false, null, {timeout: 15000});
+  await page
+    .waitForFunction(() => document.activeElement?.id === 'guard', null, {timeout: 3000})
+    .catch(async () => {
+      assert.fail(`focus returned to ${await page.evaluate(() => document.activeElement?.id)}, not guard`);
+    });
   await page.keyboard.press('Escape');
   await page.waitForSelector('#modal', {state: 'hidden'});
   assert.equal(await page.evaluate(() => document.querySelector('header').inert), false, 'background works again');

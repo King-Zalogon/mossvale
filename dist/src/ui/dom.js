@@ -34,7 +34,7 @@ export function setBackgroundInert(inert) {
 
 /** A selector that finds the same control again after the dialog is re-rendered (by id or data attribute). */
 function controlSelector(el) {
-  if (!el || el === document.body) return null;
+  if (!el || el === document.body || el === $('#modal')) return null; // the dialog itself is not a control to return to
   if (el.id) return '#' + CSS.escape(el.id);
   const [key, value] = Object.entries(el.dataset)[0] ?? [];
   return key ? `[data-${key.replace(/[A-Z]/g, c => '-' + c.toLowerCase())}="${CSS.escape(value)}"]` : null;
