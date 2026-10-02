@@ -8,7 +8,7 @@ import {codec, newSave} from './helpers.mjs';
 
 const store = (init = {}) => {
   const m = new Map(Object.entries(init));
-  return {m, getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v))};
+  return {m, getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k)};
 };
 const played = () => {
   const save = newSave();

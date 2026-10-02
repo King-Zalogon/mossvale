@@ -49,6 +49,7 @@ const storage = getStorage();
 const loaded = codec.load(storage);
 const settings = loadSettings(storage);
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
 
 const game = {
   save: loaded.save,
@@ -127,7 +128,8 @@ function postStart() {
       toast(game.save.recap);
       game.save.recap = '';
     }
-    if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
+    if (['restored', 'recovered', 'future', 'unavailable', 'transaction-recovered', 'transaction-pending'].includes(loaded.status))
+      app.menus.saveNotice(loaded.status, loaded.message);
     if (!resumed) actions.checkEnding(); // a save that already earned every seal sees the ending once
   };
   if (!actions.showPremise(rest)) rest(); // the opening card comes first on a brand-new adventure
@@ -177,7 +179,7 @@ Object.assign(actions, {
   newGame() {
     const result = startOver({storage, codec, save: game.save});
     if (!result.ok) {
-      toast('Could not start over: this browser will not let Mossvale write its save.');
+      toast('Could not start over. Your current adventure is unchanged; export it from Backup & restore before trying again.');
       return;
     }
     app.persist.lock();
@@ -196,19 +198,21 @@ Object.assign(actions, {
     }
   },
   applyImport(incoming) {
-    if (!importSave({storage, codec, save: game.save, incoming}).ok) return toast('Could not import: this browser will not let Mossvale write its save.');
+    if (!importSave({storage, codec, save: game.save, incoming}).ok)
+      return toast('Could not import. Your current adventure is unchanged; export it from Backup & restore before trying again.');
     app.persist.lock();
     location.reload();
   },
   restoreCheckpoint() {
-    if (!restoreCheckpoint({storage, codec, save: game.save}).ok) return toast('Could not restore the checkpoint.');
+    if (!restoreCheckpoint({storage, codec, save: game.save}).ok)
+      return toast('Could not restore the checkpoint. Your current adventure is unchanged; export it from Backup & restore before trying again.');
     app.persist.lock();
     location.reload();
   },
   restoreAdventure() {
     const result = restoreArchive({storage, codec, save: game.save});
     if (!result.ok) {
-      toast('Could not restore the earlier adventure.');
+      toast('Could not restore the earlier adventure. Your current adventure is unchanged; export it from Backup & restore before trying again.');
       return;
     }
     app.persist.lock();

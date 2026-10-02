@@ -11,14 +11,81 @@ const KEYS = {
   v2: 'mossvale-v2',
   v1: 'mossvale-v1',
   backup: 'mossvale-backup',
+  transaction: 'mossvale-save-transaction',
   quarantine: 'mossvale-quarantine',
   archive: 'mossvale-archive',
 };
+const SAVE_TRANSACTION_VERSION = 1;
+const SAVE_TRANSACTION_KEYS = [KEYS.archive, KEYS.v3, KEYS.backup];
 const MAX_COUNT = 9999,
   MAX_TIME = 1e9,
   MAX_QUARANTINE = 3;
 const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 const num = (v, min, max, def) => (typeof v === 'number' && Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : def);
+
+function readSaveTransaction(storage) {
+  const raw = storage.getItem(KEYS.transaction);
+  if (raw == null) return null;
+  const transaction = JSON.parse(raw);
+  if (!isObj(transaction) || transaction.version !== SAVE_TRANSACTION_VERSION || !isObj(transaction.changes)) throw new Error('Invalid save transaction');
+  const changes = {};
+  for (const key of SAVE_TRANSACTION_KEYS) {
+    if (!Object.hasOwn(transaction.changes, key)) continue;
+    if (typeof transaction.changes[key] !== 'string') throw new Error('Invalid save transaction value');
+    changes[key] = transaction.changes[key];
+  }
+  if (!Object.keys(changes).length || !Object.hasOwn(changes, KEYS.v3) || !Object.hasOwn(changes, KEYS.backup)) throw new Error('Incomplete save transaction');
+  return {version: SAVE_TRANSACTION_VERSION, changes};
+}
+
+/** Reads a save-related value from the durable transaction intent while its mirror writes are pending. */
+export function readSaveItem(storage, key) {
+  const transaction = readSaveTransaction(storage);
+  return transaction && Object.hasOwn(transaction.changes, key) ? transaction.changes[key] : storage.getItem(key);
+}
+
+/** Finishes a previously committed save operation, or leaves its journal authoritative if storage still fails. */
+export function recoverSaveTransaction(storage) {
+  const transaction = readSaveTransaction(storage);
+  if (!transaction) return {pending: false, recovered: false};
+  try {
+    for (const key of SAVE_TRANSACTION_KEYS) {
+      if (Object.hasOwn(transaction.changes, key)) storage.setItem(key, transaction.changes[key]);
+    }
+    storage.removeItem(KEYS.transaction);
+    return {pending: false, recovered: true};
+  } catch {
+    return {pending: true, recovered: false};
+  }
+}
+
+/**
+ * Persists the commit intent first. Once the journal write succeeds, its changes are authoritative;
+ * failed mirror writes are repaired on load and must not make the live game disagree with storage.
+ */
+export function commitSaveTransaction(storage, changes) {
+  try {
+    const pending = recoverSaveTransaction(storage);
+    if (pending.pending) return {ok: false, recoveryPending: true, reason: 'recovery-pending'};
+    const committed = {};
+    for (const key of SAVE_TRANSACTION_KEYS) {
+      if (!Object.hasOwn(changes, key)) continue;
+      if (typeof changes[key] !== 'string') return {ok: false, recoveryPending: false, reason: 'invalid'};
+      committed[key] = changes[key];
+    }
+    if (!Object.hasOwn(committed, KEYS.v3) || !Object.hasOwn(committed, KEYS.backup)) return {ok: false, recoveryPending: false, reason: 'invalid'};
+    storage.setItem(KEYS.transaction, JSON.stringify({version: SAVE_TRANSACTION_VERSION, changes: committed}));
+  } catch {
+    return {ok: false, recoveryPending: false, reason: 'storage'};
+  }
+  try {
+    const recovered = recoverSaveTransaction(storage);
+    return {ok: true, recoveryPending: recovered.pending};
+  } catch {
+    // The journal was written, so it remains the durable authority even if a later storage read fails.
+    return {ok: true, recoveryPending: true};
+  }
+}
 
 function create({species, regions, size, spawn = {x: 12, y: 13}}) {
   const speciesIndex = id => species.findIndex(s => s.id === id);
@@ -177,13 +244,41 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
   }
 
   /* Returns {save, status, message, writable, source}.
-     status: 'new' | 'ok' | 'migrated' | 'restored' | 'recovered' | 'future' | 'unavailable'
+     status: 'new' | 'ok' | 'migrated' | 'restored' | 'recovered' | 'future' | 'unavailable' | 'transaction-recovered' | 'transaction-pending'
      - restored: primary save was invalid and the last checkpoint was loaded instead.
      - recovered: nothing usable; a fresh save is used and the bad payload is kept under KEYS.quarantine.
      - future: written by a newer game version; it is never overwritten (writable=false).
      - unavailable: storage cannot be read; play continues in memory only (writable=false). */
   function load(storage) {
     const out = {save: fresh(), status: 'new', message: '', writable: true, source: null};
+    let transactionRecovery;
+    try {
+      transactionRecovery = recoverSaveTransaction(storage);
+    } catch {
+      return {
+        ...out,
+        status: 'unavailable',
+        writable: false,
+        message: 'A saved operation could not be read. Keep this tab open and export the current adventure before clearing browser data.',
+      };
+    }
+    const finish = result => {
+      if (transactionRecovery.pending)
+        return {
+          ...result,
+          status: 'transaction-pending',
+          writable: false,
+          message:
+            'Your adventure is safely kept in a recovery record, but this browser could not finish synchronizing its save copies. Keep this tab open, export this adventure from Backup & restore, and reload after storage is available.',
+        };
+      if (transactionRecovery.recovered)
+        return {
+          ...result,
+          status: 'transaction-recovered',
+          message: 'Mossvale finished recovering an interrupted save operation. Your adventure and its recovery copies are now synchronized.',
+        };
+      return result;
+    };
     const candidates = [
       [KEYS.v3, 3],
       [KEYS.backup, 3],
@@ -194,7 +289,7 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
     for (const [key, version] of candidates) {
       let raw;
       try {
-        raw = storage.getItem(key);
+        raw = readSaveItem(storage, key);
       } catch {
         return {
           ...out,
@@ -213,13 +308,13 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
         continue;
       }
       if (isObj(parsed) && Number.isInteger(parsed.version) && parsed.version > VERSION)
-        return {
+        return finish({
           ...out,
           status: 'future',
           writable: false,
           source: key,
           message: `This save was made by a newer version of Mossvale (schema ${parsed.version}). It was left untouched; progress in this session will not be saved.`,
-        };
+        });
       const save =
         version === 1
           ? normalize(fromV1(parsed), true)
@@ -245,19 +340,21 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
         out.message = 'Your latest save could not be read, so an older save was restored. The damaged data was kept for recovery.';
       } else if (key === KEYS.v3) {
         out.status = 'ok';
-        try {
-          storage.setItem(KEYS.backup, raw);
-        } catch {
-          /* checkpoint is best effort */
+        if (!transactionRecovery.pending && !transactionRecovery.recovered) {
+          try {
+            storage.setItem(KEYS.backup, raw);
+          } catch {
+            /* checkpoint is best effort */
+          }
         }
       } else out.status = 'migrated';
-      return out;
+      return finish(out);
     }
     if (failed) {
       out.status = 'recovered';
       out.message = 'Your saved progress could not be read, so a new adventure was started. The damaged data was kept for recovery and not erased.';
     }
-    return out;
+    return finish(out);
   }
 
   return {fresh, normalize, serialize, load};
