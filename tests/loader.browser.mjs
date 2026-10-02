@@ -54,9 +54,11 @@ const failed = (page, text) =>
   const {page, errors, ctx} = await start();
   await page.waitForFunction(() => /Loading artwork… \d+ \/ \d+/.test(document.querySelector('#load-status').textContent));
   assert.match(await page.textContent('#load-status'), /Loading artwork… \d+ \/ 24/);
+  const modalState = () => page.evaluate(() => document.querySelector('#modal').outerHTML);
+  const before = await modalState();
   await page.keyboard.press('j');
   await page.keyboard.press('m');
-  assert.equal(await page.locator('#modal').isHidden(), true, 'no gameplay input before ready');
+  assert.equal(await modalState(), before, 'no gameplay input before ready');
   assert.equal(
     await page.evaluate(() => document.querySelector('header').inert && document.querySelector('main').inert),
     true,
