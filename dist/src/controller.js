@@ -2,30 +2,66 @@
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
 import {species} from './data/species.js';
 import {regions} from './data/regions.js';
-import {addToParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, unlocked} from './domain/rules.js';
-import {createBattle, ensureHealthyCompanion, resolveTurn, rollWild} from './domain/battle.js';
+import {maxHP} from './domain/rules.js';
+import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, unlocked} from './domain/rules.js';
+import {createBattle, encounterDistance, ensureHealthyCompanion, resolveTurn, rollWild} from './domain/battle.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
-import {buildWorld, nearestInteractive, triggersAt} from './domain/world.js';
-import {hideModal, toast} from './ui/dom.js';
+import {buildWorld, nearestInteractive, triggersAt, zoneAt} from './domain/world.js';
+import {GRACE_AFTER_BATTLE, GRACE_ON_ARRIVAL} from './config.js';
+import {$, hideModal, toast} from './ui/dom.js';
+import {TACTICS} from './data/tactics.js';
+import {spriteId} from './data/assets.js';
+import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
+import {currentObjective, pickLine} from './domain/objectives.js';
+import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 
 export function createController(app) {
-  const {game, ui, audio, rng, persist, canvas, actions, menus, maps} = app;
+  const {game, ui, audio, rng, persist, canvas, actions, menus, maps, objCtx} = app;
   const save = () => game.save;
   const tone = (f, d) => audio.tone(f, d);
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
   const timeline = (app.timeline = createTimeline());
   const wait = ms => (app.motionReduced() ? 250 : ms);
 
+  /** Distance to walk before the next encounter, from the zone the player stands in (or the default range). */
+  const nextDistance = () => encounterDistance(zoneAt(game.world, Math.round(game.player.x), Math.round(game.player.y)), rng);
+
   function refresh() {
     clampHealth(save());
-    renderHud(save());
+    const goal = app.objectives.length ? currentObjective(save(), app.objectives, objCtx) : null;
+    renderHud(save(), goal);
+    if (goal && goal.id !== save().goal) {
+      if (save().goal && ui.ready) toast(`New goal: ${goal.title}`); // first run and reloads stay quiet
+      save().goal = goal.id;
+    }
     persist();
   }
 
   function resetCamera() {
     ui.camera = {x: game.player.x, y: game.player.y};
+  }
+
+  /** Teleports the player (travel, camp, defeat). The companion's trail restarts so it appears beside the player. */
+  function place(point) {
+    Object.assign(game.player, point);
+    game.trail.length = 0;
+    resetCamera();
+  }
+
+  /** Brief fade-in on arrival so map changes read as a transition. Skipped for calm motion. */
+  function fadeIn() {
+    const el = $('#fade');
+    if (!el || app.motionReduced()) return;
+    el.style.transition = 'none';
+    el.style.opacity = '1';
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        el.style.transition = 'opacity .35s ease-out';
+        el.style.opacity = '0';
+      }),
+    );
   }
 
   function enterRegion(region) {
@@ -46,6 +82,9 @@ export function createController(app) {
     hideModal(ui, canvas);
     if (game.phase === 'result') transition(game, 'explore');
     persist();
+    const after = ui.afterModal;
+    ui.afterModal = null;
+    after?.(); // e.g. continue the start-up sequence after the opening card
   }
 
   function travel(id, spawn = 'camp') {
@@ -56,11 +95,11 @@ export function createController(app) {
     }
     s.region = id;
     s.visited = [...new Set([...s.visited, id])];
-    Object.assign(game.player, maps[id].spawns[spawn] || maps[id].spawns.camp);
-    resetCamera();
-    game.pacing.encounterCooldown = 3;
+    place(maps[id].spawns[spawn] || maps[id].spawns.camp);
+    game.pacing.encounterCooldown = GRACE_ON_ARRIVAL;
     game.pacing.steps = 0;
     enterRegion(id);
+    fadeIn();
     close();
     refresh();
     tone(600);
@@ -93,29 +132,36 @@ export function createController(app) {
     menus.party();
   }
 
-  function rest() {
-    healTeam(save());
-    save().orbs = Math.max(save().orbs, 12);
-    refresh();
-    tone(640);
-    menus.ranger('Everyone is rested, and your capture orbs are topped up. Safe travels!');
+  const rangerLandmark = () => game.world.objects.find(o => o.kind === 'ranger');
+  const rangerName = () => rangerLandmark()?.name ?? 'the ranger';
+
+  /** Opens the ranger menu with `message`, or the first matching line from the map data. */
+  function openRanger(message) {
+    const o = rangerLandmark();
+    const line = message ?? pickLine(o?.lines, save(), objCtx) ?? 'Welcome back. Rest here whenever you need to.';
+    menus.ranger({name: o?.name ?? 'The ranger', message: line + tip('first-ranger')});
   }
 
-  function buy(item) {
-    const s = save();
-    if (item === 'potion') {
-      if (s.coins < 10) return;
-      s.coins -= 10;
-      s.potions++;
-      refresh();
-      menus.ranger('One potion for the trail. Use it when your companion needs a little help.');
-    } else {
-      if (s.coins < 15) return;
-      s.coins -= 15;
-      s.orbs += 5;
-      refresh();
-      menus.ranger('Five fresh capture orbs. There’s always room for one more friend.');
+  function rest() {
+    restAtCamp(save());
+    refresh();
+    tone(640);
+    openRanger('Everyone is rested, and your supplies are topped up. Safe travels!');
+  }
+
+  function buy(offerId) {
+    const result = buyOffer(save(), offerId);
+    if (!result.ok) {
+      openRanger(
+        result.reason === 'full'
+          ? 'Your bag is already full of those. Come back when you have used some.'
+          : 'You are a little short on coins for that one. Chests and battles will fill your pockets.',
+      );
+      return;
     }
+    refresh();
+    tone(520);
+    openRanger(result.offer.thanks);
   }
 
   function returnToCamp() {
@@ -123,23 +169,26 @@ export function createController(app) {
       toast('Finish your encounter before returning to camp.');
       return;
     }
-    Object.assign(game.player, maps[save().region].spawns.camp);
-    resetCamera();
-    game.pacing.encounterCooldown = 3;
+    place(maps[save().region].spawns.camp);
+    game.pacing.encounterCooldown = GRACE_ON_ARRIVAL;
     game.pacing.steps = 0;
     close();
     persist();
-    toast('Back at camp. Talk to Iris just northwest of the trail to rest.');
+    toast(`Back at camp. Talk to ${rangerName()} to rest.`);
   }
 
   function nearest() {
     return nearestInteractive(game.world, game.player);
   }
 
+  let lastInteract = -Infinity;
+  const INTERACT_COOLDOWN_MS = 250;
   const sealOf = flag => regions.find(r => r.id === flag.split('.')[0]).seal.toLowerCase();
 
   function interact() {
     if (game.battle || ui.modalMode || ui.paused) return;
+    if (ui.now - lastInteract < INTERACT_COOLDOWN_MS && ui.now >= lastInteract) return; // double taps do nothing
+    lastInteract = ui.now;
     const o = nearest();
     if (!o) {
       const t = triggersAt(game.world, game.player, 'interact')[0];
@@ -149,23 +198,20 @@ export function createController(app) {
     }
     const s = save();
     tone(480);
-    if (o.kind === 'ranger') menus.ranger();
-    else if (o.kind === 'sign') toast(o.text);
+    if (o.kind === 'ranger') openRanger();
+    else if (o.kind === 'sign') toast(o.text ?? pickLine(o.lines, s, objCtx));
     else if (o.kind === 'chest') {
-      if (flagDone(s, o.flag)) {
+      const got = claimChest(s, o);
+      if (!got) {
         toast('This treasure chest is empty. The next island may have another.');
         return;
       }
-      s.chests.push(s.region);
-      s.coins += o.reward.coins;
-      s.potions += o.reward.potions;
-      s.orbs += o.reward.orbs;
       refresh();
       showResult({
         title: 'A little trail treasure',
         copy: 'Something useful for the road ahead.',
-        sprite: 23,
-        rewards: [`${o.reward.coins} coins`, `${o.reward.potions} potions`, `${o.reward.orbs} capture orbs`],
+        sprite: spriteId('chest-wooden'),
+        rewards: [`${got.coins} coins`, `${got.potions} potions`, `${got.orbs} capture orbs`],
         button: 'Keep exploring',
       });
     } else if (o.kind === 'gate') {
@@ -179,7 +225,10 @@ export function createController(app) {
       if (game.firedTriggers.has(`${game.world.map.id}/${t.id}`)) return;
       game.firedTriggers.add(`${game.world.map.id}/${t.id}`);
     }
-    for (const a of t.actions) if (a.type === 'toast') toast(a.text);
+    for (const a of t.actions) {
+      if (a.type === 'toast') toast(a.text);
+      else if (a.type === 'battle') beginBattle({id: a.id, level: a.level}); // a scripted wild encounter
+    }
   }
 
   /** Called every frame from the main loop: fires 'enter' triggers the player is standing in. */
@@ -209,26 +258,58 @@ export function createController(app) {
     menus.result(descriptor);
   }
 
+  /** The unseen tip for `event` as a sentence to append to a message, marking it seen. Empty when none. */
+  function tip(event) {
+    const hint = pendingHint(app.story, event, save());
+    if (!hint) return '';
+    markSeen(save(), hint.id);
+    return ' ' + hint.text;
+  }
+
+  /** Opening card on a brand-new adventure. Returns whether it was shown; `next` runs when it is closed. */
+  function showPremise(next) {
+    const premise = app.story?.premise;
+    const s = save();
+    if (app.skipPremise || !premise || s.hints.includes('premise') || s.met || s.wins > 0 || s.caught.length > 1 || s.badges.length) return false;
+    markSeen(s, 'premise');
+    persist();
+    ui.afterModal = next;
+    menus.story(premise);
+    return true;
+  }
+
+  /** The ending, once: marks the adventure complete (the world stays open for roaming and collecting). */
+  function checkEnding() {
+    const ending = endingDue(app.story, save(), objCtx);
+    if (!ending || ui.modalMode || game.battle) return false;
+    save().completed = true;
+    persist();
+    menus.story(ending);
+    return true;
+  }
+
   function beginBattle(spec) {
     if (game.battle || !transition(game, 'battle')) return;
     const s = save();
     if (!ensureHealthyCompanion(s)) {
       transition(game, 'explore');
-      toast('Your team needs a rest. Talk to Iris at camp.');
+      toast(`Your team needs a rest. Talk to ${rangerName()} at camp.`);
       return;
     }
     timeline.cancel();
     game.battle = createBattle(s, rng, spec);
     refresh();
     tone(spec.boss ? 230 : 660);
-    renderBattle(`${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! Choose your next move.`);
+    renderBattle(
+      `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}${spec.boss ? '' : tip('first-battle')}${healthyParty(save()).length > 1 ? tip('can-switch') : ''}`,
+    );
   }
 
   /** Wild encounter from an encounter zone. */
   function startWild(zone) {
     if (game.battle || game.phase !== 'explore') return;
     if (!ensureHealthyCompanion(save())) {
-      toast('Your team needs a rest. Talk to Iris at camp.');
+      toast(`Your team needs a rest. Talk to ${rangerName()} at camp.`);
       return;
     }
     beginBattle(rollWild(save(), rng, zone));
@@ -236,7 +317,7 @@ export function createController(app) {
 
   /** Shrine guardian `{id, level}` from map data. */
   function startGuardian(guardian) {
-    beginBattle({id: guardian.id, level: guardian.level, boss: true});
+    beginBattle({id: guardian.id, level: guardian.level, boss: true, tactic: guardian.tactic, power: guardian.power});
   }
 
   /** Re-opens an encounter that was saved mid-fight. Invalid leftovers are dropped without penalty. */
@@ -267,19 +348,19 @@ export function createController(app) {
     if (!b || b.busy || b.over || game.phase !== 'battle' || (ui.modalMode !== 'battle' && action.kind !== 'switch')) return;
     const s = save();
     const before = {active: s.active};
-    const turn = resolveTurn(s, b, action, rng);
+    const turn = resolveTurn(s, b, action, rng, {sealReward: game.world.objects.find(o => o.kind === 'shrine')?.reward});
     if (!turn) return;
     b.busy = true;
     const frames = framesFor(turn, before, b);
+    if (!turn.ended && companion(s).hp < maxHP(s, s.active) * 0.35 && frames.length) frames.at(-1).message += tip('low-health');
     if (turn.ended) {
       game.battle = null;
       game.pacing.steps = 0;
-      game.pacing.encounterAt = 4 + rng() * 3;
-      game.pacing.encounterCooldown = 4;
+      game.pacing.encounterAt = nextDistance();
+      game.pacing.encounterCooldown = GRACE_AFTER_BATTLE;
       transition(game, 'result');
       if (turn.ended === 'loss') {
-        Object.assign(game.player, maps[s.region].spawns.camp);
-        resetCamera();
+        place(maps[s.region].spawns.camp);
       }
       s.recap = recapFor(turn, b);
     }
@@ -304,6 +385,14 @@ export function createController(app) {
 
   let lastMessage = '';
 
+  /** One line describing the enemy's turn. */
+  function enemyText(foe, e) {
+    if (e.action === 'charge') return `${foe.name} is gathering strength…`;
+    if (e.action === 'brace') return `${foe.name} braces itself. Your next attack will glance off.`;
+    if (e.action === 'heavy') return `${foe.name} unleashes a heavy blow for ${e.damage} damage!`;
+    return `${foe.name} used ${e.element ? foe.move : 'Quick strike'} for ${e.damage} damage.`;
+  }
+
   /** Turns resolved events into display frames (presentation only; no state changes). */
   function framesFor(turn, before, b) {
     const frames = [];
@@ -311,7 +400,7 @@ export function createController(app) {
     for (const e of turn.events) {
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
-        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
+        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
         frames.push({message: player, animation: 'attack', after: e.after, tone: [e.kind === 'element' ? 490 : 330], wait: wait(650)});
       } else if (e.type === 'throw') {
         player = 'The creature broke free of the orb.';
@@ -330,8 +419,8 @@ export function createController(app) {
       } else if (e.type === 'enemy') {
         const foe = species[b.id];
         frames.push({
-          message: `${player} ${foe.name} used ${e.element ? foe.move : 'Quick strike'} for ${e.damage} damage.`,
-          animation: 'enemy',
+          message: `${player} ${enemyText(foe, e)}`,
+          animation: e.damage > 0 ? 'enemy' : '',
           after: e.after,
           tone: [210],
           wait: 0,
@@ -379,10 +468,10 @@ export function createController(app) {
             : 'All three shrines shine again. You’ve become a keeper of the Verdant Isles!'
           : `${species[b.id].name} retreated into the wild.`,
         id: b.id,
-        rewards: [last.reward + ' coins', last.xp + ' XP', ...(last.newSeal ? ['2 potions'] : [])],
+        rewards: [last.reward + ' coins', last.xp + ' XP', ...(last.potions ? [`${last.potions} potions`] : [])],
         note: last.xpText,
         button: next ? 'Visit ' + regions[s.region + 1].short : 'Back to the trail',
-        onContinue: next ? () => travel(s.region + 1) : undefined,
+        onContinue: next ? () => travel(s.region + 1) : () => (close(), checkEnding()),
       });
     } else if (turn.ended === 'caught') {
       tone(880, 0.35);
@@ -394,7 +483,7 @@ export function createController(app) {
             : 'Choose them from your companion team to travel and battle together.'
           : `You already befriended ${species[last.id].name}. This one heads home happily.`,
         id: last.id,
-        rewards: ['10 coins', '20 XP'],
+        rewards: [`${last.coins} coins`, `${last.xp} XP`],
         note: last.xpText,
         button: 'Keep exploring',
         secondary: last.isNew ? 'Travel with ' + species[last.id].name : undefined,
@@ -408,7 +497,7 @@ export function createController(app) {
     } else {
       showResult({
         title: 'A fresh start at camp.',
-        copy: 'Iris brought your team back safely. Everyone is rested. Try switching companions or using potions next time.',
+        copy: `${rangerName()} brought your team back safely. Everyone is rested. Try switching companions or using potions next time.`,
         id: last.id,
         rewards: ['Team fully healed'],
         button: 'Back to the trail',
@@ -421,8 +510,8 @@ export function createController(app) {
     timeline.cancel();
     game.battle = null;
     game.pacing.steps = 0;
-    game.pacing.encounterAt = 4 + rng() * 3;
-    game.pacing.encounterCooldown = 4;
+    game.pacing.encounterAt = nextDistance();
+    game.pacing.encounterCooldown = GRACE_AFTER_BATTLE;
     transition(game, 'explore');
     hideModal(ui, canvas);
     refresh();
@@ -446,6 +535,9 @@ export function createController(app) {
     startWild,
     startGuardian,
     beginBattle,
+    showPremise,
+    checkEnding,
+    openRanger,
     checkTriggers,
     battleAction,
     performTurn,

@@ -41,6 +41,28 @@ Then: #25 growth tuning (level cap 15, bench XP share, catch-up bonus, one eleme
 
 Then: #17 team of three plus reserve ([SAVE_FORMAT.md](SAVE_FORMAT.md)), #16 Focus-based battle actions ([BATTLE.md](BATTLE.md)) and #20 title/continue/new game/restore and persistent settings. All three need your play feedback; duplicate captures stay one record per species, and there is no reorder or individual-creature database.
 
+Then: #15 movement, collision footprint, trail-following companion and arrival fade ([MOVEMENT.md](MOVEMENT.md)).
+
+Then: #18 objectives and short lines as data with an unlock-chain softlock check ([OBJECTIVES.md](OBJECTIVES.md)).
+
+Then: #19 shared supply/reward table with transactional shop, free rest floor and bag caps ([ECONOMY.md](ECONOMY.md)).
+
+Then: #21 stamped build artifact per commit, in-game build label, frozen save fixtures and a publish/rollback routine ([PUBLISHING.md](PUBLISHING.md)). Not done: no automatic upload (the host's import path is unknown to this repo), repository visibility left unchanged (public, checked).
+
+Then: #23 guardian tactics (spore guard, rolling charge, frost chorus) with a visible next-move line and a per-guardian damage multiplier ([BATTLE.md](BATTLE.md)); the fourth challenge waits for the fourth biome (#54).
+
+Then: #26 weighted zones with per-zone walking distance, named grace constants, journal habitat hints, a every-species-has-a-source check and a scripted-battle trigger action ([ENCOUNTERS.md](ENCOUNTERS.md)). Not done: the 12-creature roster and four-biome tuning wait for #24 and #51–#54.
+
+Then: #28 opening card, four one-time tips and a once-only ending that sets `completed` and leaves the world open ([STORY.md](STORY.md)). The text is placeholder copy for you to rewrite; credits and a distinct final-destination map are not done.
+
+Then: #30 save export/import with preview and session-checkpoint restore ([BACKUP.md](BACKUP.md)). Verified with a download from one browser context and an import into another; not tried on your real devices.
+
+Then: #32 art renamed by what it shows (`dist/assets/<kind>/<name>.png`), content refers to art by name, and a validator that decodes each PNG (RGBA, tight crop, bottom anchor, naming rules) ([ASSETS.md](ASSETS.md)). Not done: no editable source sheets exist in the repo, and new biome/creature batches (#51–#54, #24) are still to be made.
+
+Then: #33/#34 dialogs with an inert background and stable focus/scroll through battle re-renders, a text-size setting, 44 px touch targets, live-region cues and contrast/overflow tests ([UI.md](UI.md)). Needs your devices (#35) and eyes for what is still unclear or unnecessary.
+
+Checklist and open items for calling it ready: [READY.md](READY.md). Not attempted because they need art, hardware or ears rather than code: #24, #27, #36, #38, #51–#54 (content/art), #35 and #37 (your devices), #22 and #31 (your play).
+
 ## Reusable toolkit, bounded to real needs
 
 #50 separates shared movement/battle/save systems and asset definitions from adventure data (maps, inhabitants, roles, brief text, milestones and ending references). #32 standardizes pixel scale, pivots, source sheets and manifest/export rules. #14 provides practical validated map data, not a full visual editor.

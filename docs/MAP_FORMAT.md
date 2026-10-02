@@ -39,17 +39,17 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 ## Sections
 
 **landmarks**: `{ id, kind, sprite, at, w, label?, solid?, flag?, ... }`. `kind` is one of `cottage`, `ranger`, `shrine`, `chest`, `sign`. `sprite` is a name from the asset manifest (`src/data/assets.js`), `w` its drawn width.
-- `shrine`: needs `guardian: { species, level }` and `flag` (the milestone it completes, e.g. `meadow.seal`).
+- `shrine`: needs `guardian: { species, level, tactic?, power? }` (tactics are listed in `src/data/tactics.js`, see [BATTLE.md](BATTLE.md)), `flag` (the milestone it completes, e.g. `meadow.seal`) and `reward: { coins, potions, xp }` (paid once when the seal is earned).
 - `chest`: needs `flag` (e.g. `meadow.chest`, makes opening persistent) and `reward: { coins, potions, orbs }`.
-- `sign`: needs `text`. `ranger`: `name`.
+- `sign`: needs `text` (or `lines`). `ranger`: `name`, optional `tag` (the short label drawn above it). Any landmark may have `lines` (see [OBJECTIVES.md](OBJECTIVES.md)).
 
 **exits**: `{ id, sprite, at, w, label, to: { map, spawn }, requires? }`. `to` must name an existing map and a spawn defined there. `requires` is a milestone flag that must be done first.
 
 **props**: groups of decoration: `{ sprite, kind: "scenery" | "grass" | "flower", w, solid?, at: [[x, y], ...] }`. `solid` is a collision radius.
 
-**zones** (encounters): `{ id, terrain: ["t"], rect?: [x0, y0, x1, y1], pool: [speciesId...], level: [min, max] }`. Walking in a matching tile for long enough starts a wild encounter from `pool`. The first matching zone wins, so list narrow zones first.
+**zones** (encounters): `{ id, terrain: ["t"], rect?: [x0, y0, x1, y1], pool: [speciesId | { species, weight }...], level: [min, max], distance?: [min, max] }` (see [ENCOUNTERS.md](ENCOUNTERS.md)). Walking in a matching tile for long enough starts a wild encounter from `pool`. The first matching zone wins, so list narrow zones first.
 
-**triggers**: `{ id, at, radius?, on: "enter" | "interact", once?, do: [{ type: "toast", text }] }`. Deliberately small; milestones and dialogue are tracked in [#18](https://github.com/King-Zalogon/mossvale/issues/18).
+**triggers**: `{ id, at, radius?, on: "enter" | "interact", once?, do: [{ type: "toast", text } | { type: "battle", species, level }] }`. Deliberately small; milestones and dialogue are tracked in [#18](https://github.com/King-Zalogon/mossvale/issues/18).
 
 ## Persistence is separate from geometry
 

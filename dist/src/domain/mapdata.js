@@ -1,10 +1,31 @@
 /* Map data format (version 1): validation and compilation. Pure functions only.
    Authoring guide: docs/MAP_FORMAT.md. */
+import {PLAYER_RADIUS} from '../config.js';
+import {TACTICS} from '../data/tactics.js';
+import {validateLines} from './objectives.js';
 
 export const MAP_FORMAT = 1;
 export const TERRAIN = {'.': 'void', g: 'ground', p: 'path', w: 'water', t: 'tallgrass'};
 export const LANDMARK_KINDS = ['cottage', 'ranger', 'shrine', 'chest', 'sign'];
 export const MAX_SIZE = 64;
+
+const blocksTerrain = t => t === 'void' || t === 'water';
+
+/**
+ * Can feet with a PLAYER_RADIUS footprint stand at (x, y)? Terrain is sampled at the four corners of the footprint and
+ * solid props are circles. Used by the game and by map validation, so what validates is what can be walked.
+ */
+export function walkableAt(map, x, y) {
+  const r = PLAYER_RADIUS;
+  for (const [dx, dy] of [
+    [-r, -r],
+    [r, -r],
+    [-r, r],
+    [r, r],
+  ])
+    if (blocksTerrain(map.terrainAt(Math.round(x + dx), Math.round(y + dy)))) return false;
+  return !map.objects.some(o => o.solid && Math.hypot(x - o.x, y - o.y) < o.solid + r);
+}
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const FLAG = /^([a-z0-9]+(?:-[a-z0-9]+)*)\.(seal|chest)$/;
 const isPoint = p => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite);
@@ -91,14 +112,22 @@ function validateOne(m, byId, ctx, errors) {
       else {
         species(where + '.guardian.species', l.guardian.species);
         if (!Number.isInteger(l.guardian.level) || l.guardian.level < 1 || l.guardian.level > 99) at(where + '.guardian.level', 'integer 1..99');
+        if (l.guardian.power !== undefined && !(l.guardian.power >= 0.5 && l.guardian.power <= 3))
+          at(where + '.guardian.power', 'damage multiplier between 0.5 and 3 (default 1)');
+        if (l.guardian.tactic !== undefined && !Object.hasOwn(TACTICS, l.guardian.tactic))
+          at(where + '.guardian.tactic', `unknown tactic "${l.guardian.tactic}" (known: ${Object.keys(TACTICS).join(', ')})`);
       }
       if (typeof l.flag !== 'string') at(where + '.flag', 'shrines need the milestone flag they complete');
+      if (!isObj(l.reward) || !['coins', 'potions', 'xp'].every(k => Number.isInteger(l.reward[k]) && l.reward[k] >= 0))
+        at(where + '.reward', 'shrines need { coins, potions, xp } (whole numbers) paid once when the seal is earned');
     }
     if (l.kind === 'chest') {
       if (typeof l.flag !== 'string') at(where + '.flag', 'chests need a persistence flag so opening them is remembered');
       if (!isObj(l.reward)) at(where + '.reward', 'chests need { coins, potions, orbs }');
     }
-    if (l.kind === 'sign' && typeof l.text !== 'string') at(where + '.text', 'signs need text');
+    if (l.kind === 'sign' && typeof l.text !== 'string' && !Array.isArray(l.lines)) at(where + '.text', 'signs need text (or lines)');
+    if (l.lines !== undefined) errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys())}));
+    if (l.tag !== undefined && (typeof l.tag !== 'string' || l.tag.length > 16)) at(where + '.tag', 'tag is a short label (up to 16 characters)');
   });
   (m.exits ?? []).forEach((e, i) => {
     const where = `exits[${i}] (${e?.id})`;
@@ -123,7 +152,25 @@ function validateOne(m, byId, ctx, errors) {
     const where = `zones[${i}] (${z?.id})`;
     if (!Array.isArray(z?.terrain) || !z.terrain.every(ch => ch in TERRAIN && ch !== '.')) at(where + '.terrain', 'list of terrain characters (not ".")');
     if (!Array.isArray(z?.pool) || !z.pool.length) at(where + '.pool', 'needs at least one species');
-    else z.pool.forEach(id => species(where + '.pool', id));
+    else
+      z.pool.forEach(entry => {
+        const id = typeof entry === 'string' ? entry : entry?.species;
+        species(where + '.pool', id);
+        if (typeof entry === 'object' && entry !== null && !(Number.isFinite(entry.weight) && entry.weight > 0 && entry.weight <= 100))
+          at(where + '.pool', `weight for "${id}" must be a number above 0 and at most 100`);
+      });
+    if (
+      z?.distance !== undefined &&
+      !(
+        Array.isArray(z.distance) &&
+        z.distance.length === 2 &&
+        z.distance.every(Number.isFinite) &&
+        z.distance[0] >= 1 &&
+        z.distance[1] >= z.distance[0] &&
+        z.distance[1] <= 40
+      )
+    )
+      at(where + '.distance', '[min, max] tiles of walking in this zone between encounters (1 <= min <= max <= 40, default [4, 7])');
     if (!Array.isArray(z?.level) || z.level.length !== 2 || !z.level.every(Number.isInteger) || z.level[0] < 1 || z.level[1] < z.level[0] || z.level[1] > 99)
       at(where + '.level', '[min, max] integers, 1 <= min <= max <= 99');
     if (z?.rect !== undefined && !(Array.isArray(z.rect) && z.rect.length === 4 && z.rect.every(Number.isFinite))) at(where + '.rect', '[x0, y0, x1, y1]');
@@ -132,8 +179,16 @@ function validateOne(m, byId, ctx, errors) {
     const where = `triggers[${i}] (${t?.id})`;
     if (!inside(t?.at)) at(where + '.at', 'must be [x, y] inside the map');
     if (!['enter', 'interact'].includes(t?.on)) at(where + '.on', 'enter or interact');
-    if (!Array.isArray(t?.do) || !t.do.length || !t.do.every(a => a?.type === 'toast' && typeof a.text === 'string'))
-      at(where + '.do', 'list of { type: "toast", text }');
+    if (!Array.isArray(t?.do) || !t.do.length) at(where + '.do', 'needs at least one action');
+    else
+      t.do.forEach((a, j) => {
+        if (a?.type === 'toast') {
+          if (typeof a.text !== 'string') at(`${where}.do[${j}]`, 'toast needs text');
+        } else if (a?.type === 'battle') {
+          species(`${where}.do[${j}].species`, a.species);
+          if (!Number.isInteger(a.level) || a.level < 1 || a.level > 99) at(`${where}.do[${j}].level`, 'integer 1..99');
+        } else at(`${where}.do[${j}]`, 'action type must be "toast" or "battle"');
+      });
   });
 }
 
@@ -166,26 +221,41 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
       name: l.name,
       flag: l.flag,
       text: l.text,
+      lines: l.lines,
+      tag: l.tag,
       reward: l.reward,
-      guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level},
+      guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level, tactic: l.guardian.tactic, power: l.guardian.power},
     }),
   );
   const exits = (m.exits ?? []).map(e => mk(e, 'gate', {ref: e.id, label: e.label, target: regionIndex(e.to.map), spawn: e.to.spawn, requires: e.requires}));
   objects.push(...landmarks, ...exits);
   objects.sort((a, b) => a.x + a.y - b.x - b.y);
   const spawns = Object.fromEntries(Object.entries(m.spawns).map(([k, p]) => [k, {x: p[0], y: p[1]}]));
-  const zones = (m.zones ?? []).map(z => ({id: z.id, terrain: z.terrain.map(ch => TERRAIN[ch]), rect: z.rect, pool: z.pool.map(speciesIndex), level: z.level}));
-  const triggers = (m.triggers ?? []).map(t => ({id: t.id, x: t.at[0], y: t.at[1], radius: t.radius ?? 1.5, on: t.on, once: t.once !== false, actions: t.do}));
+  const zones = (m.zones ?? []).map(z => ({
+    id: z.id,
+    terrain: z.terrain.map(ch => TERRAIN[ch]),
+    rect: z.rect,
+    pool: z.pool.map(e => speciesIndex(typeof e === 'string' ? e : e.species)),
+    weights: z.pool.map(e => (typeof e === 'string' ? 1 : e.weight)),
+    level: z.level,
+    distance: z.distance ?? [4, 7],
+  }));
+  const triggers = (m.triggers ?? []).map(t => ({
+    id: t.id,
+    x: t.at[0],
+    y: t.at[1],
+    radius: t.radius ?? 1.5,
+    on: t.on,
+    once: t.once !== false,
+    actions: t.do.map(a => (a.type === 'battle' ? {type: 'battle', id: speciesIndex(a.species), level: a.level} : a)),
+  }));
   return {id: m.id, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers};
 }
 
 /** Semantic checks that need the compiled map: spawn safety, exits on land, reachable goals. */
 function checkPlayable(map, byId, errors) {
   const at = (where, msg) => errors.push(`map ${map.id}: ${where}: ${msg}`);
-  const walkable = (x, y) => {
-    const t = map.terrainAt(Math.round(x), Math.round(y));
-    return t !== 'void' && t !== 'water' && !map.objects.some(o => o.solid && Math.hypot(x - o.x, y - o.y) < o.solid + 0.22);
-  };
+  const walkable = (x, y) => walkableAt(map, x, y);
   const camp = map.spawns.camp;
   if (!walkable(camp.x, camp.y)) return at('spawns.camp', `spawn (${camp.x}, ${camp.y}) is not walkable`);
   for (const [name, p] of Object.entries(map.spawns)) if (!walkable(p.x, p.y)) at(`spawns.${name}`, `spawn (${p.x}, ${p.y}) is not walkable`);

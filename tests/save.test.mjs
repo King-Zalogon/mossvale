@@ -88,7 +88,7 @@ test('extreme, NaN-like, duplicate and unknown values are sanitized', () => {
       }),
     }),
   ).save;
-  assert.deepEqual([r.orbs, r.coins, r.potions, r.region], [9999, 0, 0, 0]);
+  assert.deepEqual([r.orbs, r.coins, r.potions, r.region], [99, 0, 0, 0]);
   assert.deepEqual([r.x, r.y], [12, 24]);
   assert.deepEqual(r.caught, [3]);
   assert.deepEqual(r.seen, [1, 3]);

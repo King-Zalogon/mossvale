@@ -1,6 +1,9 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
-import {BASE_LEVEL, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
+import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
+import {REWARDS} from '../data/economy.js';
+import {BRACE_FACTOR, HEAVY_FACTOR, planOf} from '../data/tactics.js';
+import {grant} from './economy.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
@@ -14,21 +17,48 @@ export function ensureHealthyCompanion(save) {
   return true;
 }
 
+/** Weighted pick of one index from `ids` using the zone's weights. */
+function weightedPick(zone, ids, rng) {
+  const weights = ids.map(id => zone.weights?.[zone.pool.indexOf(id)] ?? 1);
+  let roll = rng() * weights.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < ids.length; i++) if ((roll -= weights[i]) < 0) return ids[i];
+  return ids.at(-1);
+}
+
 /** Picks a wild creature and level from an encounter zone (see mapdata.js). Prefers creatures not yet seen. */
 export function rollWild(save, rng, zone) {
   const missing = zone.pool.filter(i => !save.seen.includes(i));
-  const pool = missing.length && rng() < 0.6 ? missing : zone.pool;
-  const id = pool[Math.floor(rng() * pool.length)];
+  const candidates = missing.length && rng() < UNSEEN_PREFERENCE ? missing : zone.pool;
+  const id = weightedPick(zone, candidates, rng);
   const level = zone.level[0] + Math.floor(rng() * (zone.level[1] - zone.level[0] + 1));
   return {id, level};
 }
 
+/** How far to walk in `zone` before the next encounter. */
+export function encounterDistance(zone, rng) {
+  const [lo, hi] = zone?.distance ?? [4, 7];
+  return lo + rng() * (hi - lo);
+}
+
 /** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
-export function createBattle(save, rng, {id, level: enemyLevel, boss = false}) {
+export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1}) {
   const hp = species[id].hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? 18 : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
-  return {id, hp, max: hp, level: enemyLevel, boss, busy: false, guard: false, turn: 0, focus: FOCUS_START, over: false};
+  return {
+    id,
+    hp,
+    max: hp,
+    level: enemyLevel,
+    boss,
+    busy: false,
+    guard: false,
+    turn: 0,
+    focus: FOCUS_START,
+    tactic: boss ? tactic : undefined,
+    power: boss ? power : 1,
+    over: false,
+  };
 }
 
 export function captureChance(save, battle) {
@@ -40,9 +70,10 @@ export function captureChance(save, battle) {
 export function playerStrike(save, battle, kind, rng) {
   const eff = kind === 'element' ? effectiveness(save.active, battle.id) : 1;
   const base = kind === 'element' ? elementPower(save, save.active) : 10;
-  const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff));
+  const braced = lastEnemyAction(battle) === 'brace';
+  const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff * (braced ? BRACE_FACTOR : 1)));
   battle.hp = Math.max(0, battle.hp - damage);
-  return {kind, damage, eff, move: kind === 'element' ? moveName(save, save.active) : 'Quick strike', defeated: battle.hp === 0};
+  return {kind, damage, eff, braced, move: kind === 'element' ? moveName(save, save.active) : 'Quick strike', defeated: battle.hp === 0};
 }
 
 export function usePotion(save) {
@@ -61,19 +92,37 @@ export function throwOrb(save, battle) {
   return true;
 }
 
-/** The enemy's attack on the active companion. Advances the turn. */
+/** What the enemy will do on its next turn (from its tactic's repeating pattern). */
+export function nextEnemyAction(battle) {
+  const plan = planOf(battle.tactic);
+  return plan[battle.turn % plan.length];
+}
+
+/** What the enemy did on its previous turn, or null before it has acted. */
+export function lastEnemyAction(battle) {
+  const plan = planOf(battle.tactic);
+  return battle.turn > 0 ? plan[(battle.turn - 1) % plan.length] : null;
+}
+
+/** The enemy's turn on the active companion. Advances the turn. `action` says what it did ('charge' and 'brace' do no damage). */
 export function enemyAttack(save, battle, rng) {
-  const element = battle.turn % 2 === 1;
+  const action = nextEnemyAction(battle);
+  const element = action === 'element';
   const eff = element ? effectiveness(battle.id, save.active) : 1;
-  const damage = Math.max(
-    2,
-    Math.round((7 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) * (battle.boss ? 1.08 : 1) * eff * (battle.guard ? GUARD_FACTOR : 1)),
-  );
+  const attacks = action !== 'charge' && action !== 'brace';
+  const raw =
+    (7 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) *
+    (battle.boss ? 1.08 : 1) *
+    (battle.power ?? 1) *
+    eff *
+    (action === 'heavy' ? HEAVY_FACTOR : 1) *
+    (battle.guard ? GUARD_FACTOR : 1);
+  const damage = attacks ? Math.max(2, Math.round(raw)) : 0;
   const c = companion(save);
   c.hp = Math.max(0, c.hp - damage);
   battle.guard = false;
   battle.turn++;
-  return {damage, element};
+  return {damage, element, action};
 }
 
 /** After an enemy hit: swap in a healthy companion, or report that the team is out. */
@@ -87,19 +136,20 @@ export function resolveFaint(save) {
 }
 
 /** Applies victory rewards. Returns data for the result screen. */
-export function resolveWin(save, battle, rng) {
+export function resolveWin(save, battle, rng, ctx = {}) {
   const newSeal = battle.boss && !save.badges.includes(save.region);
-  const reward = newSeal ? 60 : battle.boss ? 12 : 8 + Math.floor(rng() * 7);
-  const xp = newSeal ? 65 : battle.boss ? 20 : 24;
+  const seal = ctx.sealReward ?? {coins: 60, potions: 2, xp: 65}; // from the shrine in the map data
+  const [lo, hi] = REWARDS.wild.coins;
+  const coins = newSeal ? seal.coins : battle.boss ? REWARDS.guardianRepeat.coins : lo + Math.floor(rng() * (hi - lo + 1));
+  const xp = newSeal ? seal.xp : battle.boss ? REWARDS.guardianRepeat.xp : REWARDS.wild.xp;
   save.wins++;
-  save.coins += reward;
+  const got = grant(save, {coins, potions: newSeal ? seal.potions : 0});
   const xpText = awardXP(save, xp).text;
   if (newSeal) {
     save.badges.push(save.region);
-    save.potions += 2;
     healTeam(save);
   }
-  return {newSeal, reward, xp, xpText, id: battle.id, boss: battle.boss};
+  return {newSeal, reward: got.coins, xp, potions: got.potions, xpText, id: battle.id, boss: battle.boss};
 }
 
 /** Applies a successful capture. */
@@ -114,10 +164,10 @@ export function resolveCapture(save, battle) {
     save.team[id] = {xp: Math.max(0, battle.level - BASE_LEVEL) * XP_PER_LEVEL, hp: 0};
     save.team[id].hp = maxHP(save, id);
   }
-  const xpText = awardXP(save, 20).text;
-  save.coins += 10;
+  const xpText = awardXP(save, REWARDS.capture.xp).text;
+  const got = grant(save, {coins: REWARDS.capture.coins});
   save.wins++;
-  return {isNew, id, joined, xpText};
+  return {isNew, id, joined, xpText, coins: got.coins, xp: REWARDS.capture.xp};
 }
 
 /** A lost battle: heal everyone; the controller moves the player to camp. */
@@ -133,18 +183,30 @@ const gainFocus = battle => (battle.focus = Math.min(FOCUS_MAX, battle.focus + F
 /** The persisted part of a battle (no UI flags). */
 export const battleCheckpoint = battle =>
   battle && !battle.over
-    ? {id: battle.id, hp: battle.hp, max: battle.max, level: battle.level, boss: battle.boss, guard: battle.guard, turn: battle.turn, focus: battle.focus}
+    ? {
+        id: battle.id,
+        hp: battle.hp,
+        max: battle.max,
+        level: battle.level,
+        boss: battle.boss,
+        guard: battle.guard,
+        turn: battle.turn,
+        focus: battle.focus,
+        tactic: battle.tactic,
+        power: battle.power,
+      }
     : null;
 
 /**
  * Resolves one full round atomically: the player's action, then the enemy's reply (unless the battle just ended).
  * Everything that changes `save` (orbs, potions, HP, rewards, captures) happens here, exactly once; callers only
  * animate the returned `events`, each carrying an `after` snapshot for display.
+ * ctx: {sealReward} from the shrine's map data (optional).
  * action: {kind: 'attack'|'element'|'catch'|'potion'|'guard'|'switch', id?}
  * Returns null when the action is not allowed (battle over, no orbs/potions, invalid switch), otherwise
  * {events, ended: null|'win'|'caught'|'loss'}.
  */
-export function resolveTurn(save, battle, action, rng) {
+export function resolveTurn(save, battle, action, rng, ctx = {}) {
   if (battle.over) return null;
   const events = [];
   const push = event => events.push({...event, after: snapshot(save, battle)});
@@ -158,7 +220,7 @@ export function resolveTurn(save, battle, action, rng) {
     push({type: 'strike', ...strike});
     if (strike.defeated) {
       ended = 'win';
-      push({type: 'win', ...resolveWin(save, battle, rng)});
+      push({type: 'win', ...resolveWin(save, battle, rng, ctx)});
     }
   } else if (action.kind === 'catch') {
     if (!throwOrb(save, battle)) return null;

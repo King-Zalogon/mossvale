@@ -47,7 +47,7 @@
     {
       "id": "shrine",
       "kind": "shrine",
-      "sprite": "sprite20",
+      "sprite": "shrine-crystal-stone",
       "at": [12, 4.6],
       "w": 99,
       "solid": 0.65,
@@ -55,13 +55,20 @@
       "flag": "meadow.seal",
       "guardian": {
         "species": "mushmallow",
-        "level": 7
+        "level": 7,
+        "tactic": "spore-guard",
+        "power": 1.5
+      },
+      "reward": {
+        "coins": 60,
+        "potions": 2,
+        "xp": 65
       }
     },
     {
       "id": "cottage",
       "kind": "cottage",
-      "sprite": "sprite2",
+      "sprite": "cottage-tiled",
       "at": [13, 8.3],
       "w": 133,
       "solid": 1.15
@@ -69,25 +76,43 @@
     {
       "id": "ranger",
       "kind": "ranger",
-      "sprite": "sprite8",
+      "sprite": "person-red-cap-south",
       "at": [10.5, 11],
       "w": 37,
       "label": "Talk to Ranger Iris",
-      "name": "Ranger Iris"
+      "name": "Ranger Iris",
+      "tag": "IRIS",
+      "lines": [
+        {
+          "when": {
+            "flag": "meadow.seal"
+          },
+          "text": "The meadow shrine is awake. Take the eastern trail whenever you're ready."
+        },
+        {
+          "when": {
+            "caught": 2
+          },
+          "text": "You've made a friend. The blue crystal north of camp is waiting for you."
+        },
+        {
+          "text": "The shrines have been quiet for years. Perhaps a new friend from the tall grass could help wake them."
+        }
+      ]
     },
     {
       "id": "sign",
       "kind": "sign",
-      "sprite": "sprite14",
+      "sprite": "signpost-wood",
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
+      "text": "North: crystal shrine \u00b7 East: the next island \u00b7 Blue minimap marker: shrine \u00b7 Gold: treasure"
     },
     {
       "id": "chest",
       "kind": "chest",
-      "sprite": "sprite23",
+      "sprite": "chest-wooden",
       "at": [17.2, 16],
       "w": 44,
       "label": "Open the treasure chest",
@@ -102,7 +127,7 @@
   "exits": [
     {
       "id": "east",
-      "sprite": "sprite14",
+      "sprite": "signpost-wood",
       "at": [22.4, 12],
       "w": 40,
       "label": "Take the eastern trail",
@@ -115,7 +140,7 @@
   ],
   "props": [
     {
-      "sprite": "sprite12",
+      "sprite": "grass-tuft",
       "kind": "grass",
       "w": 27,
       "at": [
@@ -221,7 +246,7 @@
       ]
     },
     {
-      "sprite": "sprite13",
+      "sprite": "bush-flowering",
       "kind": "flower",
       "w": 32,
       "at": [
@@ -247,7 +272,7 @@
       ]
     },
     {
-      "sprite": "sprite0",
+      "sprite": "tree-oak",
       "kind": "scenery",
       "w": 79,
       "solid": 0.52,
@@ -275,7 +300,7 @@
       ]
     },
     {
-      "sprite": "sprite1",
+      "sprite": "tree-pine",
       "kind": "scenery",
       "w": 79,
       "solid": 0.52,

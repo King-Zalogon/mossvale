@@ -5,6 +5,11 @@ import {regions} from '../data/regions.js';
 import {companion, level, maxHP, moveName, reserve, unlocked} from '../domain/rules.js';
 import {PARTY_SIZE} from '../config.js';
 import {drawCreature, drawSprite} from '../render/sprites.js';
+import {spriteId} from '../data/assets.js';
+import {REST_FLOOR, SHOP} from '../data/economy.js';
+import {canBuy} from '../domain/economy.js';
+import {POTION_HEAL} from '../domain/battle.js';
+import {TACTICS} from '../data/tactics.js';
 import {hasProgress, summarize} from '../services/profile.js';
 import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
 import {$, header, openModal} from './dom.js';
@@ -36,10 +41,18 @@ export function createMenus(app) {
       'map',
       'Island map',
     );
-    regions.forEach((r, i) => drawSprite($(`#region-art-${i}`).getContext('2d'), r.preview, 55, 103, r.preview === 0 ? 80 : 88));
+    regions.forEach((r, i) => drawSprite($(`#region-art-${i}`).getContext('2d'), r.preview, 55, 103, r.preview === spriteId('tree-oak') ? 80 : 88));
     for (const b of document.querySelectorAll('[data-travel]')) b.onclick = () => actions.travel(+b.dataset.travel);
     wireClose();
   }
+
+  /** Regions whose encounter zones can produce species `i`. */
+  const habitats = i => app.maps.map((m, ri) => (m.zones.some(z => z.pool.includes(i)) ? ri : -1)).filter(ri => ri >= 0);
+  /** A practical nudge for a creature you have not met: where to look, but only once you have been there. */
+  const hint = i => {
+    const found = habitats(i).filter(ri => save().visited.includes(ri));
+    return found.length ? 'Try the tall grass of ' + found.map(ri => regions[ri].short).join(' or ') : 'Explore to discover';
+  };
 
   function journal(filter = 'all') {
     if (game.battle) return;
@@ -53,11 +66,10 @@ export function createMenus(app) {
           const caught = s.caught.includes(i);
           return `<div class="species ${s.active === i ? 'active' : ''}">${seen ? `<canvas id="spec-${i}" width="110" height="110"></canvas>` : '<div class="unseen">?</div>'}<h3>${seen ? sp.name : 'Unknown creature'}</h3><small>${caught ? 'Befriended · Lv. ' + level(s, i) : seen ? 'Seen · ' + sp.type : 'Not yet discovered'}</small><p>${seen ? sp.desc : 'A new friend is waiting along a wild trail.'}</p><small>${
             seen
-              ? app.maps
-                  .map((m, ri) => (m.zones.some(z => z.pool.includes(i)) ? regions[ri].short : null))
-                  .filter(Boolean)
+              ? habitats(i)
+                  .map(ri => regions[ri].short)
                   .join(' / ')
-              : 'Explore to discover'
+              : hint(i)
           }</small>${caught ? `<button data-select="${i}" ${s.active === i ? 'disabled' : ''}>${s.active === i ? 'Your companion' : 'Travel together'}</button>` : ''}</div>`;
         })
         .join('')}</div>`,
@@ -110,18 +122,17 @@ export function createMenus(app) {
     if ($('#back-battle')) $('#back-battle').onclick = () => actions.renderBattle('Choose your next move.');
   }
 
-  function ranger(message = 'The shrines have been quiet for years. Perhaps your new friends can help wake them.') {
+  function ranger({name = 'The ranger', message = ''} = {}) {
     if (game.battle) return;
     const s = save();
     open(
-      `${header('RANGER STATION', 'A moment with Iris')}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free. I’ll refill your bag to 12 orbs, too.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">Rest your team</button><button id="buy-potion" ${s.coins < 10 ? 'disabled' : ''}>Potion · 10 coins</button><button id="buy-orbs" ${s.coins < 15 ? 'disabled' : ''}>5 orbs · 15 coins</button></div><p class="dialog-note">Potions restore 24 HP during battle. Earn coins from encounters and treasure chests.</p>`,
+      `${header('RANGER STATION', 'A moment with ' + name)}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free: your team is healed and your bag is topped up to ${REST_FLOOR.orbs} orbs and ${REST_FLOOR.potions} potion.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">Rest your team</button>${SHOP.map(o => `<button data-buy="${o.id}" ${canBuy(s, o) ? '' : 'disabled'}>${o.label} · ${o.price} coins</button>`).join('')}</div><p class="dialog-note">Potions restore ${POTION_HEAL} HP during battle. Coins only buy extras: you can always rest for free.</p>`,
       'ranger',
-      'Ranger Iris',
+      name,
     );
-    drawSprite($('#ranger-art').getContext('2d'), 8, 45, 130, 65);
+    drawSprite($('#ranger-art').getContext('2d'), spriteId('person-red-cap-south'), 45, 130, 65);
     $('#rest-team').onclick = () => actions.rest();
-    $('#buy-potion').onclick = () => actions.buy('potion');
-    $('#buy-orbs').onclick = () => actions.buy('orbs');
+    for (const b of document.querySelectorAll('[data-buy]')) b.onclick = () => actions.buy(b.dataset.buy);
     wireClose();
   }
 
@@ -129,7 +140,7 @@ export function createMenus(app) {
     const s = save();
     const r = regions[s.region];
     open(
-      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${g.guardian.level} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < 2 ? ' and open the trail to ' + regions[s.region + 1].name : '. All three shrines will be awake'}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div><p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. Potions and type strengths can help.</p>`,
+      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${g.guardian.level} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < 2 ? ' and open the trail to ' + regions[s.region + 1].name : '. All three shrines will be awake'}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div>${TACTICS[g.guardian.tactic] ? `<p class="dialog-note" style="text-align:center"><b>${TACTICS[g.guardian.tactic].name}.</b> ${TACTICS[g.guardian.tactic].intro}</p>` : ''}<p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. You can rest and try again any time.</p>`,
       'shrine',
       'Shrine guardian',
     );
@@ -161,6 +172,18 @@ export function createMenus(app) {
     wireClose();
   }
 
+  /** A text card (opening premise or ending). Closing it, by button or Escape, continues via `ui.afterModal`. */
+  function story(screen) {
+    open(
+      `${header('MOSSVALE', screen.title)}<div class="story-copy">${screen.paragraphs.map(p => `<p>${p}</p>`).join('')}</div><div class="menu-list"><button class="primary" id="story-ok">${screen.button}</button></div>`,
+      'story',
+      screen.title,
+    );
+    wireClose();
+    $('#story-ok').onclick = actions.close;
+    requestAnimationFrame(() => $('#story-ok')?.focus({preventScroll: true}));
+  }
+
   function saveNotice(status, message) {
     const title = {restored: 'Save restored', recovered: 'Save could not be read', future: 'Newer save found', unavailable: 'Storage unavailable'}[status];
     $('#save-note').textContent = message;
@@ -172,6 +195,8 @@ export function createMenus(app) {
   /** Title screen (`title: true`, shown after loading) and the in-game menu share one set of views. */
   function mainMenu({title = false} = {}) {
     let view = 'home';
+    let pending = null; // an import or checkpoint waiting for confirmation: {save, label, when}
+    let problem = '';
     const render = () => {
       const s = save();
       const st = app.settings;
@@ -183,13 +208,18 @@ export function createMenus(app) {
       let body;
       if (view === 'settings') {
         const zoom = (ui.zoom || 1).toFixed(2);
-        body = `${header('SETTINGS', 'Make it comfortable', !title)}<div class="setting-row"><span>Sound</span><span class="choices">${choice('sound', true, 'On')}${choice('sound', false, 'Off')}</span></div><div class="setting-row"><span>Motion</span><span class="choices">${choice('motion', 'auto', 'Match system')}${choice('motion', 'reduced', 'Calm')}</span></div><div class="setting-row"><span>Zoom ${zoom}×</span><span class="choices"><button id="s-zoom-out" class="muted-button" aria-label="Zoom out" ${ui.zoom <= ZOOM_MIN ? 'disabled' : ''}>−</button><button id="s-zoom-in" class="muted-button" aria-label="Zoom in" ${ui.zoom >= ZOOM_MAX ? 'disabled' : ''}>+</button><button id="s-zoom-auto" class="muted-button">Auto</button></span></div><div class="setting-row"><span>Touch: run by default</span><span class="choices">${choice('run', true, 'On')}${choice('run', false, 'Off')}</span></div><div class="menu-list"><button id="m-back" class="primary">Back</button></div>`;
+        body = `${header('SETTINGS', 'Make it comfortable', !title)}<div class="setting-row"><span>Sound</span><span class="choices">${choice('sound', true, 'On')}${choice('sound', false, 'Off')}</span></div><div class="setting-row"><span>Motion</span><span class="choices">${choice('motion', 'auto', 'Match system')}${choice('motion', 'reduced', 'Calm')}</span></div><div class="setting-row"><span>Text size</span><span class="choices">${choice('text', 'normal', 'Normal')}${choice('text', 'large', 'Large')}${choice('text', 'larger', 'Larger')}</span></div><div class="setting-row"><span>Zoom ${zoom}×</span><span class="choices"><button id="s-zoom-out" class="muted-button" aria-label="Zoom out" ${ui.zoom <= ZOOM_MIN ? 'disabled' : ''}>−</button><button id="s-zoom-in" class="muted-button" aria-label="Zoom in" ${ui.zoom >= ZOOM_MAX ? 'disabled' : ''}>+</button><button id="s-zoom-auto" class="muted-button">Auto</button></span></div><div class="setting-row"><span>Touch: run by default</span><span class="choices">${choice('run', true, 'On')}${choice('run', false, 'Off')}</span></div><div class="menu-list"><button id="m-back" class="primary">Back</button></div>`;
+      } else if (view === 'backup') {
+        const checkpoint = app.checkpoint();
+        body = `${header('BACKUP', 'Save backup', !title)}<p class="menu-summary">Your progress is saved in this browser, on this address only. To move it to another browser or device, export a file here and import it there. No account is needed.</p><div class="menu-list"><button id="b-export" class="primary">Export save file</button><button id="b-import" ${app.canStartOver() ? '' : 'disabled'}>Import save file…</button><input type="file" id="b-file" accept=".json,application/json" hidden>${checkpoint ? `<button id="b-checkpoint" ${app.canStartOver() ? '' : 'disabled'}>Restore the checkpoint from your last session<small>${summarize(checkpoint, species)}</small></button>` : ''}<button id="m-back">Back</button></div>${problem ? `<p class="menu-error" role="alert">${problem}</p>` : ''}`;
+      } else if (view === 'confirm-pending') {
+        body = `${header('REPLACE PROGRESS', pending.label, false)}<p class="menu-summary"><b>${pending.label}:</b> ${summarize(pending.save, species)}${pending.when ? ' · ' + new Date(pending.when).toLocaleDateString() : ''}<br><b>Your current adventure:</b> ${summarize(s, species)}<br><small>Your current adventure is kept as a backup you can restore from this menu.</small></p><div class="menu-list"><button id="b-confirm" class="primary">Replace my current adventure</button><button id="b-cancel">Keep playing</button></div>`;
       } else if (view === 'confirm-new') {
         body = `${header('NEW GAME', 'Start over?', false)}<p class="menu-summary">${progress ? `Your current adventure (${summarize(s, species)}) will be kept as a backup you can restore from this menu.` : 'You have not made progress yet.'}${archived && progress ? ' This replaces the older backup from ' + new Date(archived.at).toLocaleDateString() + ' (' + summarize(archived.save, species) + ').' : ''}</p><div class="menu-list"><button id="m-confirm-new" class="primary">Start a new adventure</button><button id="m-cancel">Keep playing</button></div>`;
       } else if (view === 'confirm-restore') {
         body = `${header('RESTORE', 'Go back to your earlier adventure?', false)}<p class="menu-summary">Restores ${summarize(archived.save, species)}, archived ${new Date(archived.at).toLocaleDateString()}. Your current adventure (${summarize(s, species)}) becomes the backup, so nothing is lost.</p><div class="menu-list"><button id="m-confirm-restore" class="primary">Restore it</button><button id="m-cancel">Cancel</button></div>`;
       } else {
-        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}</p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
+        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button><button id="m-backup">Backup & restore</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
       }
       open(body, mode, title ? 'Mossvale' : 'Game menu');
       wireClose();
@@ -202,6 +232,33 @@ export function createMenus(app) {
       };
       on('#m-primary', () => (title ? actions.startPlaying() : actions.close()));
       on('#m-settings', go('settings'));
+      on('#m-backup', () => {
+        problem = '';
+        go('backup')();
+      });
+      on('#b-export', () => actions.exportSave());
+      on('#b-import', () => $('#b-file').click());
+      if ($('#b-file')) {
+        $('#b-file').onchange = async e => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const result = await actions.readBackup(file);
+          if (result.ok) {
+            pending = {save: result.save, label: 'Imported file', when: result.exportedAt, apply: () => actions.applyImport(result.save)};
+            problem = '';
+            view = 'confirm-pending';
+          } else problem = result.reason;
+          render();
+        };
+      }
+      on('#b-checkpoint', () => {
+        const cp = app.checkpoint();
+        pending = {save: cp, label: 'Checkpoint from your last session', when: null, apply: () => actions.restoreCheckpoint()};
+        view = 'confirm-pending';
+        render();
+      });
+      on('#b-confirm', () => pending.apply());
+      on('#b-cancel', go('backup'));
       on('#m-back', go('home'));
       on('#m-cancel', go('home'));
       on('#m-new', go('confirm-new'));
@@ -224,5 +281,5 @@ export function createMenus(app) {
     render();
   }
 
-  return {mainMenu, worldMap, journal, party, ranger, shrine, result, help, saveNotice};
+  return {story, mainMenu, worldMap, journal, party, ranger, shrine, result, help, saveNotice};
 }

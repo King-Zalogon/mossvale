@@ -6,21 +6,24 @@ import {assets} from './data/assets.js';
 import {MAX_MAP_SIZE} from './config.js';
 import * as save from './save.js';
 import {seededRng} from './domain/rng.js';
-import {effectiveness, level, maxHP, objective} from './domain/rules.js';
-import {isWalkable, zoneAt} from './domain/world.js';
+import {effectiveness, level, maxHP} from './domain/rules.js';
+import {currentObjective} from './domain/objectives.js';
+import {isWalkable, nearestWalkable, zoneAt} from './domain/world.js';
 import {buildAdventure} from './domain/adventure.js';
-import {movePlayer} from './domain/exploration.js';
+import {FACING, followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
+import {exportBackup, exportFileName, importSave, parseBackup, readCheckpoint, restoreCheckpoint} from './services/backup.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
-import {fetchMaps} from './services/maps.js';
+import {fetchAdventure} from './services/maps.js';
+import {describeBuild, fetchBuild} from './services/version.js';
 import {createPersistence} from './services/persistence.js';
 import {createWorldRenderer} from './render/world.js';
 import {sprites} from './render/sprites.js';
 import {createController} from './controller.js';
 import {direction, installInput, isMoving} from './input.js';
-import {$, hideModal, toast} from './ui/dom.js';
+import {$, downloadText, hideModal, toast} from './ui/dom.js';
 import {renderHud, renderSaveStatus} from './ui/hud.js';
 import {createMenus} from './ui/menus.js';
 import {createBattleView} from './ui/battle-view.js';
@@ -49,11 +52,12 @@ const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 
 const game = {
   save: loaded.save,
-  player: {x: loaded.save.x, y: loaded.save.y, dir: 8},
+  player: {x: loaded.save.x, y: loaded.save.y, dir: FACING.south},
   world: {map: null, tiles: [], objects: []},
   battle: loaded.save.battle ? {...loaded.save.battle, busy: false, over: false} : null,
   phase: 'explore',
   firedTriggers: new Set(),
+  trail: [],
   pacing: {steps: 0, encounterAt: 4, encounterCooldown: 2},
 };
 const ui = {
@@ -75,10 +79,17 @@ const app = {
   canvas,
   actions: {},
   maps: [],
+  objectives: [],
+  story: undefined,
+  skipPremise: debug && !params.has('premise'), // tests start in play; add &premise to see the opening card
+  objCtx: {speciesCount: species.length, regions},
   audio: createAudio(),
   settings,
+  build: null,
+  buildLabel: () => describeBuild(app.build),
   motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,
   archive: () => readArchive(storage, codec),
+  checkpoint: () => readCheckpoint(storage, codec),
   canStartOver: () => loaded.writable,
   persist: createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus}),
 };
@@ -109,13 +120,22 @@ function showLoadError(message, detail) {
 /** Runs once the player has passed the title screen: welcome, resume an interrupted fight, recovery notices. */
 function postStart() {
   canvas.focus({preventScroll: true});
-  toast(game.save.badges.length ? 'Your trail continues. Welcome back, explorer.' : 'The shrines are stirring. Find a new friend in the tall grass.');
-  const resumed = actions.resumeBattle();
-  if (!resumed && game.save.recap) {
-    toast(game.save.recap);
-    game.save.recap = '';
-  }
-  if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
+  const rest = () => {
+    toast(game.save.badges.length ? 'Your trail continues. Welcome back, explorer.' : 'The shrines are stirring. Find a new friend in the tall grass.');
+    const resumed = actions.resumeBattle();
+    if (!resumed && game.save.recap) {
+      toast(game.save.recap);
+      game.save.recap = '';
+    }
+    if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
+    if (!resumed) actions.checkEnding(); // a save that already earned every seal sees the ending once
+  };
+  if (!actions.showPremise(rest)) rest(); // the opening card comes first on a brand-new adventure
+}
+
+function applyTextSize() {
+  document.body.classList.toggle('text-large', settings.text === 'large');
+  document.body.classList.toggle('text-larger', settings.text === 'larger');
 }
 
 function applyMotion() {
@@ -145,6 +165,7 @@ Object.assign(actions, {
       $('#touch-run').setAttribute('aria-pressed', String(value));
     }
     if (key === 'motion') applyMotion();
+    if (key === 'text') applyTextSize();
     saveSettings(storage, settings);
   },
   /** `null` goes back to the automatic zoom for the screen width. */
@@ -162,6 +183,28 @@ Object.assign(actions, {
     app.persist.lock();
     location.reload();
   },
+  exportSave() {
+    app.persist(); // so the file matches what is on screen
+    downloadText(exportFileName(), exportBackup(codec, game.save, app.build));
+    toast('Save file downloaded. Import it in another browser to continue there.');
+  },
+  async readBackup(file) {
+    try {
+      return parseBackup(await file.text(), codec);
+    } catch {
+      return {ok: false, reason: 'That file could not be read.'};
+    }
+  },
+  applyImport(incoming) {
+    if (!importSave({storage, codec, save: game.save, incoming}).ok) return toast('Could not import: this browser will not let Mossvale write its save.');
+    app.persist.lock();
+    location.reload();
+  },
+  restoreCheckpoint() {
+    if (!restoreCheckpoint({storage, codec, save: game.save}).ok) return toast('Could not restore the checkpoint.');
+    app.persist.lock();
+    location.reload();
+  },
   restoreAdventure() {
     const result = restoreArchive({storage, codec, save: game.save});
     if (!result.ok) {
@@ -174,6 +217,7 @@ Object.assign(actions, {
 });
 
 async function boot() {
+  if (!app.build) fetchBuild().then(info => (app.build = info)); // for the menu; never blocks play
   ui.ready = false;
   setBusy(true);
   loading.hidden = false;
@@ -188,12 +232,15 @@ async function boot() {
   }
   if (!app.maps.length) {
     try {
-      const {maps, errors} = buildAdventure(await fetchMaps(), {assets, species, regions});
+      const {maps: rawMaps, objectives: rawObjectives, story: rawStory} = await fetchAdventure();
+      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions}, rawObjectives, rawStory);
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;
       }
       app.maps.push(...maps);
+      app.objectives.push(...objectives);
+      app.story = story;
     } catch (e) {
       showLoadError('Could not load the map data. Check your connection, then try again.', String(e.message || e));
       return;
@@ -215,7 +262,7 @@ async function boot() {
   }
   if (!game.world.map) {
     actions.enterRegion(game.save.region);
-    if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, game.world.map.spawns.camp);
+    if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, nearestWalkable(game.world, game.player.x, game.player.y));
     actions.resetCamera();
   }
   ui.ready = true;
@@ -252,9 +299,10 @@ function loop(t) {
       game.save.playTime += dt;
       const [sx, sy] = direction(ui);
       const run = ui.keys.shift || ui.touchRun;
-      const zone = movePlayer({world: game.world, player: game.player, pacing}, sx, sy, run, dt);
+      const zone = movePlayer({world: game.world, player: game.player, pacing, trail: game.trail}, sx, sy, run, dt);
       if (zone) actions.startWild(zone);
       actions.checkTriggers();
+      if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, nearestWalkable(game.world, game.player.x, game.player.y)); // stuck recovery
       const nearest = actions.nearest();
       $('#interact').style.display = nearest ? 'block' : 'none';
       if (nearest) $('#interact').textContent = 'E · ' + nearest.label;
@@ -266,6 +314,7 @@ function loop(t) {
       save: game.save,
       world: game.world,
       player: game.player,
+      follower: followerPoint(game.world, game.player, game.trail),
       camera: ui.camera,
       zoom: ui.zoom,
       now: ui.now,
@@ -311,6 +360,7 @@ if (settings.sound) {
 ui.touchRun = settings.run;
 $('#touch-run').setAttribute('aria-pressed', String(settings.run));
 applyMotion();
+applyTextSize();
 resize();
 renderHud(game.save);
 boot();
@@ -334,7 +384,7 @@ if (debug) {
     grass: (x, y) => !!zoneAt(game.world, x, y),
     travel: actions.travel,
     interact: actions.interact,
-    objective: () => objective(game.save),
+    objective: () => currentObjective(game.save, app.objectives, app.objCtx),
     level: id => level(game.save, id),
     maxHP: id => maxHP(game.save, id),
     effectiveness,

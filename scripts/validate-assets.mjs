@@ -1,29 +1,16 @@
-// Build-time check: every manifest asset exists, is a PNG of the declared size, and no sprite file is unlisted.
-import {readFileSync, readdirSync} from 'node:fs';
+// Build-time check of the asset manifest and the PNGs behind it (rules in scripts/lib/assets-check.mjs, docs/ASSETS.md).
+import {readFileSync, readdirSync, statSync} from 'node:fs';
+import {join} from 'node:path';
 import {assets} from '../dist/src/data/assets.js';
-const dist = new URL('../dist/', import.meta.url);
-const manifest = assets,
-  errors = [];
-for (const a of manifest) {
-  let buf;
-  try {
-    buf = readFileSync(new URL(a.src, dist));
-  } catch {
-    errors.push(`${a.src}: missing`);
-    continue;
-  }
-  if (buf.toString('latin1', 1, 4) !== 'PNG') {
-    errors.push(`${a.src}: not a PNG`);
-    continue;
-  }
-  const w = buf.readUInt32BE(16),
-    h = buf.readUInt32BE(20);
-  if (w !== a.w || h !== a.h) errors.push(`${a.src}: is ${w}x${h}, manifest says ${a.w}x${a.h}`);
-}
-const listed = new Set(manifest.map(a => a.src));
-for (const f of readdirSync(dist)) if (/^sprite\d+\.png$/.test(f) && !listed.has(f)) errors.push(`${f}: not in manifest`);
+import {checkAssets} from './lib/assets-check.mjs';
+
+const dist = new URL('../dist/', import.meta.url).pathname;
+const walk = dir => readdirSync(dir).flatMap(f => (statSync(join(dir, f)).isDirectory() ? walk(join(dir, f)) : [join(dir, f)]));
+const sources = [...walk(join(dist, 'src')), ...walk(join(dist, 'maps'))].filter(f => /\.(js|json)$/.test(f) && !f.endsWith('data/assets.js'));
+const {errors, warnings} = checkAssets(assets, dist, {referenceText: sources.map(f => readFileSync(f, 'utf8')).join('\n')});
+for (const w of warnings) console.warn('warning: ' + w);
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`${manifest.length} assets OK`);
+console.log(`${assets.length} assets OK`);

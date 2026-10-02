@@ -49,7 +49,7 @@ Pure layers (`data/`, `domain/`, `save.js`, `config.js`) may not use the DOM, ti
 
 ## Working in parallel
 
-Content (`data/`), art (`dist/sprite*.png` + manifest), UI (`ui/`, `style.css`), gameplay rules (`domain/`) and flow (`controller.js`) live in separate files. Changes to a domain function signature must update `controller.js` and the matching test in `tests/gameplay.test.mjs` in the same commit.
+Content (`data/`), art (`dist/assets/` + manifest, see [ASSETS.md](ASSETS.md)), UI (`ui/`, `style.css`), gameplay rules (`domain/`) and flow (`controller.js`) live in separate files. Changes to a domain function signature must update `controller.js` and the matching test in `tests/gameplay.test.mjs` in the same commit.
 
 ## Known limits (follow-ups)
 

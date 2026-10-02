@@ -4,7 +4,7 @@ import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {buildWorld, isWalkable, triggersAt, zoneAt} from '../dist/src/domain/world.js';
 import {rollWild} from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
-import {content, newSave, rawMaps} from './helpers.mjs';
+import {content, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
 const edit = fn => {
   const raw = rawMaps();
@@ -104,12 +104,17 @@ test('a missing map file or an orphan map is reported', () => {
 
 test('an author can change an encounter zone without touching code', () => {
   const raw = rawMaps();
-  meadow(raw).zones[0].pool = ['pebblit'];
+  meadow(raw).zones[0].pool = ['pebblit', 'fernling', 'emberkin', 'brooklet', 'duskwing'];
   meadow(raw).zones[0].level = [9, 9];
-  const {maps, errors} = buildAdventure(raw, content);
+  const {maps, errors} = buildAdventure(raw, content, rawObjectives());
   assert.deepEqual(errors, []);
-  const wild = rollWild(newSave(), seededRng(1), maps[0].zones[0]);
-  assert.deepEqual(wild, {id: 7, level: 9});
+  const rng = seededRng(1);
+  const wild = Array.from({length: 40}, () => rollWild(newSave(), rng, maps[0].zones[0]));
+  assert.ok(wild.every(w => w.level === 9));
+  assert.ok(
+    wild.some(w => w.id === 7),
+    'pebblit now lives in the meadow',
+  );
 });
 
 test('zones can be limited to a rectangle', () => {

@@ -1,0 +1,83 @@
+// Checks the asset manifest against the PNGs behind it (conventions: docs/ASSETS.md).
+import {readFileSync, readdirSync, statSync} from 'node:fs';
+import {join, relative} from 'node:path';
+import {decodePng, opaqueBounds} from './png.mjs';
+
+export const KINDS = {prop: 'props', creature: 'creatures', person: 'people', item: 'items'};
+const PREFIXED = ['creature', 'person', 'item']; // these kinds put their kind in the name: creature-fernling
+const STORY_WORDS = /(^|-)(iris|ranger|hero|player|boss|guardian|npc|quest|villain|mentor)(-|$)/;
+const MAX_PAD = {side: 8, top: 8, bottom: 6}; // sprites are cropped tight; feet sit on the bottom edge (anchor: bottom-center)
+
+const walk = dir => readdirSync(dir).flatMap(f => (statSync(join(dir, f)).isDirectory() ? walk(join(dir, f)) : [join(dir, f)]));
+
+/**
+ * @param {object[]} assets manifest entries
+ * @param {string} distDir absolute path of the folder the `src` paths are relative to
+ * @param {{referenceText?: string}} options text of everything that may refer to asset names (maps, code)
+ * @returns {{errors: string[], warnings: string[]}}
+ */
+export function checkAssets(assets, distDir, {referenceText = null} = {}) {
+  const errors = [];
+  const warnings = [];
+  const names = new Set();
+  for (const a of assets) {
+    const where = a.name;
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(a.name)) errors.push(`${where}: name must be lowercase kebab-case`);
+    if (names.has(a.name)) errors.push(`${where}: duplicate name`);
+    names.add(a.name);
+    if (STORY_WORDS.test(a.name)) errors.push(`${where}: name describes a story role; name assets by what they look like`);
+    if (!(a.kind in KINDS)) errors.push(`${where}: kind must be one of ${Object.keys(KINDS).join(', ')}`);
+    else {
+      if (a.src !== `assets/${KINDS[a.kind]}/${a.name}.png`) errors.push(`${where}: src must be assets/${KINDS[a.kind]}/${a.name}.png, got ${a.src}`);
+      if (PREFIXED.includes(a.kind) && !a.name.startsWith(a.kind + '-')) errors.push(`${where}: ${a.kind} names start with "${a.kind}-"`);
+      if (!PREFIXED.includes(a.kind) && PREFIXED.some(k => a.name.startsWith(k + '-')))
+        errors.push(`${where}: only creature/person/item assets use those name prefixes`);
+    }
+    if (a.anchor !== 'bottom-center') errors.push(`${where}: anchor must be bottom-center`);
+    let buf;
+    try {
+      buf = readFileSync(join(distDir, a.src));
+    } catch {
+      errors.push(`${where}: file ${a.src} is missing`);
+      continue;
+    }
+    let im;
+    try {
+      im = decodePng(buf);
+    } catch (e) {
+      errors.push(`${where}: ${e.message}`);
+      continue;
+    }
+    if (im.width !== a.w || im.height !== a.h) errors.push(`${where}: is ${im.width}x${im.height}, manifest says ${a.w}x${a.h}`);
+    if (im.color !== 6) {
+      errors.push(`${where}: must be 8-bit RGBA (colour type 6) so it has real transparency, got type ${im.color}`);
+      continue;
+    }
+    const pad = opaqueBounds(im);
+    if (!pad) errors.push(`${where}: image is fully transparent`);
+    else {
+      if (pad.left > MAX_PAD.side || pad.right > MAX_PAD.side)
+        errors.push(`${where}: side padding ${pad.left}/${pad.right}px; crop tighter (max ${MAX_PAD.side})`);
+      if (pad.top > MAX_PAD.top) errors.push(`${where}: top padding ${pad.top}px; crop tighter (max ${MAX_PAD.top})`);
+      if (pad.bottom > MAX_PAD.bottom)
+        errors.push(`${where}: ${pad.bottom}px of empty space under the feet; the anchor is bottom-centre (max ${MAX_PAD.bottom})`);
+    }
+  }
+  // Every PNG under assets/ must be in the manifest.
+  const listed = new Set(assets.map(a => a.src));
+  try {
+    for (const file of walk(join(distDir, 'assets'))) {
+      const rel = relative(distDir, file);
+      if (file.endsWith('.png') && !listed.has(rel)) errors.push(`${rel}: not in the manifest`);
+    }
+  } catch {
+    /* no assets folder: every entry already reported as missing */
+  }
+  // Names nothing refers to (maps, species, code) are reported, not fatal: they may be reserved for upcoming work.
+  if (referenceText !== null) {
+    for (const a of assets)
+      if (a.required !== false && !referenceText.includes(`'${a.name}'`) && !referenceText.includes(`"${a.name}"`))
+        warnings.push(`${a.name}: required but not referenced by any map or code; mark it required:false or remove it`);
+  }
+  return {errors, warnings};
+}

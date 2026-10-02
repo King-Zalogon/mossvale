@@ -1,6 +1,8 @@
 /* Mossvale save codec: validation, v1/v2 -> v3 migration, quarantine and checkpoints.
    Pure functions over a Storage-like object so it can be tested without a browser.
    In memory the game keeps species/region *indexes*; on disk (v3) it stores stable string IDs. */
+import {CAPS} from './data/economy.js';
+import {TACTICS} from './data/tactics.js';
 import {FOCUS_MAX, FOCUS_START, MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
 const VERSION = 3;
@@ -43,6 +45,9 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       wins: 0,
       playTime: 0,
       recap: '',
+      goal: '',
+      hints: [],
+      completed: false,
       battle: null,
       party: [0],
     };
@@ -80,11 +85,14 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       ['potions', 3],
       ['coins', 0],
     ])
-      s[key] = Math.floor(num(raw[key], 0, MAX_COUNT, def));
+      s[key] = Math.floor(num(raw[key], 0, CAPS[key], def));
     s.wins = Math.floor(num(raw.wins, 0, MAX_COUNT, 0));
     s.playTime = num(raw.playTime, 0, MAX_TIME, 0);
     s.met = raw.met === true;
     s.recap = typeof raw.recap === 'string' ? raw.recap.slice(0, 200) : '';
+    s.goal = typeof raw.goal === 'string' && /^[a-z0-9-]{1,40}$/.test(raw.goal) ? raw.goal : ''; // last objective shown; unknown ids are harmless
+    s.hints = Array.isArray(raw.hints) ? [...new Set(raw.hints.filter(h => typeof h === 'string' && /^[a-z0-9-]{1,30}$/.test(h)))].slice(0, 30) : [];
+    s.completed = raw.completed === true;
     s.battle = normalizeBattle(raw.battle, legacy);
     const region = ref(raw.region, regions, regionIndex);
     s.region = region >= 0 && (region === 0 || s.badges.includes(region - 1)) ? region : 0;
@@ -108,6 +116,8 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       guard: b.guard === true,
       turn: b.turn,
       focus: intIn(b.focus, 0, FOCUS_MAX) ? b.focus : FOCUS_START,
+      tactic: b.boss === true && Object.hasOwn(TACTICS, b.tactic) ? b.tactic : undefined,
+      power: b.boss === true && typeof b.power === 'number' && b.power >= 0.5 && b.power <= 3 ? b.power : 1,
     };
   }
 
@@ -142,6 +152,9 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       wins: save.wins,
       playTime: save.playTime,
       recap: save.recap || '',
+      goal: save.goal || '',
+      hints: save.hints || [],
+      completed: save.completed === true,
       party: save.party.map(sid),
       battle: save.battle ? {...save.battle, id: sid(save.battle.id)} : null,
     });

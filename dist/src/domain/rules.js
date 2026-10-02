@@ -25,6 +25,14 @@ export function flagDone(save, flag) {
   return kind === 'seal' ? save.badges.includes(i) : save.chests.includes(i);
 }
 
+/** Marks a milestone flag done (the inverse of flagDone). Idempotent. */
+export function setFlag(save, flag) {
+  const [regionId, kind] = flag.split('.');
+  const i = regions.findIndex(r => r.id === regionId);
+  const list = kind === 'seal' ? save.badges : save.chests;
+  if (i >= 0 && !list.includes(i)) list.push(i);
+}
+
 export const unlocked = (save, regionId) => regionId === 0 || save.badges.includes(regionId - 1);
 
 export function effectiveness(attacker, defender) {
@@ -127,50 +135,4 @@ export function awardXP(save, amount) {
   if (active.upgraded) lines.push(`${moveName(save, save.active)} grew stronger!`);
   for (const b of bench) if (b.leveled) lines.push(`${species[b.id].name} reached level ${b.level}!`);
   return {text: lines.join(' '), active, bench};
-}
-
-/** Current story objective as plain data for the HUD. */
-export function objective(save) {
-  if (save.caught.length < 2) {
-    return {
-      title: 'A friend in the grass',
-      copy: 'Find a wild creature, weaken it, then throw a capture orb.',
-      lines: [
-        [save.met, 'Meet a wild creature'],
-        [save.caught.length > 1, 'Catch your first new friend'],
-      ],
-      pin: 'Explore the tall grass',
-      step: '01',
-    };
-  }
-  for (let i = 0; i < 3; i++) {
-    if (save.badges.includes(i)) continue;
-    return {
-      title: i === 0 ? 'Awaken the meadow' : i === 1 ? 'The heart of Amber Ridge' : 'A light in the snow',
-      copy:
-        i === 0
-          ? 'Visit the blue crystal shrine north of camp and challenge its guardian.'
-          : `Travel to ${regions[i].name} and awaken its shrine. A strong team helps.`,
-      lines: [
-        [save.badges.includes(i), `Earn the ${regions[i].seal.toLowerCase()}`],
-        [save.visited.includes(i), `Explore ${regions[i].short.toLowerCase()}`],
-      ],
-      pin: save.region === i ? 'Follow the blue shrine marker north' : `Take the eastern trail to ${regions[i].short}`,
-      step: '0' + (i + 2),
-      region: i,
-    };
-  }
-  const all = save.caught.length === 8;
-  return {
-    title: all ? 'Keeper of the isles' : 'Every friend has a story',
-    copy: all
-      ? 'All three shrines are awake, and every creature has a place in your journal. Keep exploring.'
-      : 'The shrines are awake. Explore all three regions to befriend the remaining creatures.',
-    lines: [
-      [true, 'Awaken all three shrines'],
-      [all, `Befriend every species (${save.caught.length} / 8)`],
-    ],
-    pin: all ? 'All shrines awakened · Keep exploring' : 'Find the remaining creatures',
-    step: '05',
-  };
 }

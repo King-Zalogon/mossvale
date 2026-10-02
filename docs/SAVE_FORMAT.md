@@ -17,7 +17,11 @@ Implemented in `dist/src/save.js` (pure, tested without a browser). Issue: [#8](
 
 Species and regions are stored by ID, not array position, so content can be reordered or extended safely. Current IDs: species `fernling emberkin brooklet duskwing voltkit mushmallow frostowl pebblit`; regions `meadow amber-ridge frostveil-grove`. Never rename or reuse an ID.
 
-Fields: `version, region, x, y, active, orbs, potions, coins, seen[], caught[], team{speciesId:{xp,hp}}, badges[], chests[], visited[], met, wins, playTime`. Team: `party` lists the (at most 3) companions who can fight, by species ID; the active companion is always on it and everyone else captured waits in the reserve. Saves without `party` get the active companion plus the first captures.
+Fields: `version, region, x, y, active, orbs, potions, coins, seen[], caught[], team{speciesId:{xp,hp}}, badges[], chests[], visited[], met, wins, playTime`. Goal: `goal` is the id of the last objective shown (see [OBJECTIVES.md](OBJECTIVES.md)); it only drives the "New goal" toast, and progress itself is derived from the save.
+
+Story: `hints` lists the one-time tips and cards already shown (at most 30 ids) and `completed` marks the ending as seen; both optional ([STORY.md](STORY.md)).
+
+Team: `party` lists the (at most 3) companions who can fight, by species ID; the active companion is always on it and everyone else captured waits in the reserve. Saves without `party` get the active companion plus the first captures.
 
 Interrupted encounters: `battle` (`{id, hp, max, level, boss, guard, turn, focus}`, species by ID) is the checkpoint of a fight in progress, and `recap` is a one-line summary of an encounter that finished before its result screen was shown. Both are optional; older builds ignore them. See [Encounter durability](#encounter-durability).
 
@@ -37,7 +41,7 @@ Candidates are tried in order: `v3`, `backup`, `v2`, `v1`.
 | `version` greater than 3 | `future` | Left untouched; session is not saved; dialog shown |
 | Storage throws on read | `unavailable` | Plays in memory ("SESSION ONLY"); dialog shown |
 
-Validation: every field is type-checked; numbers must be finite and are clamped (counts 0–9999, XP 0–450 (the level-15 cap), HP 0–max for level, position inside the map); IDs must exist; duplicates removed; `seen ⊇ caught`; every caught species has a team record; `active` must be caught; a locked region falls back to the meadow.
+Validation: every field is type-checked; numbers must be finite and are clamped (coins 0–9999, orbs and potions 0–99, other counts 0–9999, XP 0–450 (the level-15 cap), HP 0–max for level, position inside the map); IDs must exist; duplicates removed; `seen ⊇ caught`; every caught species has a team record; `active` must be caught; a locked region falls back to the meadow.
 
 ## Tests
 
@@ -59,3 +63,7 @@ Double taps and stale timers: an ended battle returns `null` from `resolveTurn` 
 ## Starting over and restoring
 
 Issue [#20](https://github.com/King-Zalogon/mossvale/issues/20). **New game** copies the current adventure into `mossvale-archive` (only if it has progress), then writes a fresh save and resets the checkpoint so corruption recovery cannot resurrect the old one. If a different adventure was already archived, the confirmation says it will be replaced. **Restore previous adventure** swaps the archive and the current save, so nothing is lost either way. Both are disabled when the save is read-only (newer schema or storage unavailable), write nothing if the archive write fails, and reload the page afterwards.
+
+## Export and import
+
+Issue [#30](https://github.com/King-Zalogon/mossvale/issues/30). A backup file is `{ kind: "mossvale-save-backup", format: 1, exportedAt, build, save: <v3 save> }`; a bare save payload is also accepted on import. See [BACKUP.md](BACKUP.md).

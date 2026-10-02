@@ -51,7 +51,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     return Math.abs(s.x - p.x) < o.w * view.zoom * 0.48 && p.y > s.y - spriteHeight(o) && p.y - 30 * view.zoom < s.y;
   };
 
-  /** `v` = {save, world, player, camera, zoom, now, paused, moving}. */
+  /** `v` = {save, world, player, follower, camera, zoom, now, paused, moving}. */
   function drawWorld(v) {
     view = v;
     const {save, world, player, zoom, now} = v;
@@ -90,7 +90,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         }
       }
     }
-    const follow = {x: player.x - 0.75, y: player.y + 0.8, id: species[save.active].sprite, w: 37, kind: 'companion'};
+    const follow = {x: v.follower.x, y: v.follower.y, id: species[save.active].sprite, w: 37, kind: 'companion'};
     const all = [...world.objects, follow, {x: player.x, y: player.y, id: player.dir, w: 36, kind: 'player'}].sort((a, b) => a.x + a.y - b.x - b.y);
     const bobbing = v.moving;
     for (const o of all) {
@@ -123,7 +123,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         ctx.textAlign = 'center';
         const label =
           o.kind === 'ranger'
-            ? 'IRIS'
+            ? (o.tag ?? 'RANGER')
             : o.kind === 'shrine'
               ? save.badges.includes(region)
                 ? 'AWAKENED'
