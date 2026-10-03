@@ -1,0 +1,48 @@
+{
+  "format": 1,
+  "id": "lantern-crossing",
+  "name": "Lantern Crossing",
+  "brief": "Open the lantern chest and follow the clues home.",
+  "maps": [
+    "start"
+  ],
+  "species": [
+    "fernling",
+    "emberkin"
+  ],
+  "milestones": [
+    "start.chest"
+  ],
+  "ending": "story",
+  "registries": "registries.json",
+  "mapDirectory": "maps/",
+  "objectives": "objectives.json",
+  "story": "story.json",
+  "contentVersion": 1,
+  "requires": {
+    "engineVersion": 1,
+    "saveSchema": 4
+  },
+  "integrity": [
+    {
+      "id": "registry:main",
+      "path": "registries.json",
+      "sha256": "c5ef8f1ccaaafd48bb1f42aaeef3c527c7c00d4d4dd33ecc3f0c3b72b12c325d"
+    },
+    {
+      "id": "map:start",
+      "path": "maps/start.json",
+      "sha256": "9d9ff5da17de51a80ee121173da6e94257648f41235c804bdf63417f178cdc71"
+    },
+    {
+      "id": "objectives:main",
+      "path": "objectives.json",
+      "sha256": "cf5c3d9e45d692ba5b14c60566f3844ffb4948f282c0d3fc34c698f1263d6b8d"
+    },
+    {
+      "id": "story:main",
+      "path": "story.json",
+      "sha256": "337cf6e8d663798941c6911140d5fe8fb5ce781c189e12a944c198df04f0728e"
+    }
+  ]
+}

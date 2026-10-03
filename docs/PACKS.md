@@ -44,7 +44,9 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
 
 Maps refer to art by name through the asset manifest (`src/data/assets.js`, [ASSETS.md](ASSETS.md)). A name says what the picture shows, never its role, so the same cottage can be a healer's home in one pack and a bakery in another by changing the landmark's `kind`, `name` and text. Nothing is copied: no new artwork and no new rules code.
 
-`tests/fixtures/packs/hearth` and `bakery` are the two reuse fixtures. Both use `cottage-tiled`, `person-red-cap-south` and `chest-wooden`; in `hearth` the cottage is a healer's ranger post and the villager a sign, in `bakery` the cottage is a shop sign and the villager the shopkeeper. `tests/packs.test.mjs` checks they compile against the one manifest with identical sprites and different roles.
+`tests/fixtures/packs/hearth` and `bakery` are compilation/reuse fixtures. Both use `cottage-tiled`, `person-red-cap-south` and `chest-wooden`; in `hearth` the cottage is a healer's ranger post and the villager a sign, in `bakery` the cottage is a shop sign and the villager the shopkeeper. `tests/packs.test.mjs` checks they compile against the one manifest with identical sprites and different roles.
+
+`tests/fixtures/packs/lantern-crossing` is a tiny playable data-only scenario. Its browser regression builds it as a standalone pack, walks from camp to the lantern chest, checks the one-time reward and completion story, then reloads to confirm persistence. The fixture reuses shared creature, ranger, sign and chest assets; it adds no runtime art. The first browser run found that chest rewards did not check whether they completed a pack's story; the shared interaction now checks completion after the result panel closes.
 
 Their separate `registries.json` files also exercise different creature lists, regions, progression, shops and move power through the same mutable data bindings used by the engine. Species and region string IDs are written to saves; array order is only an in-memory lookup and cannot change a saved identity. Registry `sprite` and `preview` values name shared manifest entries, so a pack does not copy images.
 

@@ -47,6 +47,19 @@ test('each region hub has different encounters', () => {
   ); // later regions are higher level
 });
 
+test('all twelve species have a readable hint and a reachable source in their home biome', () => {
+  assert.equal(species.length, 12);
+  for (const creature of species) {
+    assert.ok(creature.encounterHint?.trim(), `${creature.id} needs a field hint`);
+    const home = maps.find(map => map.biome === creature.biome);
+    assert.ok(home, `${creature.id} has a home map for ${creature.biome}`);
+    assert.ok(
+      home.zones.some(zone => zone.pool.includes(species.indexOf(creature))),
+      `${creature.id} has a source in ${home.name}`,
+    );
+  }
+});
+
 test('weights bias the pick, and unseen creatures are favoured', () => {
   const zone = {pool: [0, 1, 2], weights: [1, 1, 8], level: [5, 5], distance: [4, 7]};
   const save = newSave();
