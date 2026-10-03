@@ -1,8 +1,10 @@
 # Personal-ready checklist (#42, #39)
 
-A working checklist for calling the first adventure "ready to play for fun", with honest status. Passing checks support reliability; **whether it is fun is your call**. Updated as work lands; issues stay open until you agree.
+A working checklist for calling the first adventure "ready to play for fun", with honest status. Passing checks support reliability; **whether it is fun is your call**. The personal-ready marker stays open until you have played the integrated build and accepted it.
 
-## Automated, and passing on every push (`npm run verify`, CI)
+## Automated evidence (`npm run verify`, CI on every push)
+
+The workflow runs on Ubuntu and Windows for pushes and pull requests. Treat a check as passing only when its run is green for the exact commit being considered.
 
 | Area | Evidence |
 | --- | --- |
@@ -22,25 +24,31 @@ A working checklist for calling the first adventure "ready to play for fun", wit
 | Explored ground and found places on the minimap and a pan/zoom area map; secrets hidden until found; saved with the adventure; quiet corridors | `tests/discovery.test.mjs`, `tests/discovery.browser.mjs` |
 | Assets: naming, format, crop, manifest | `tests/assets.test.mjs`, `npm run validate` |
 | Menus stay inside the screen at large text, stable focus, 44 px touch targets, contrast | browser flows, `tests/contrast.test.mjs` |
-| Builds are stamped and traceable to a commit | `tests/build.test.mjs`, CI artifact |
+| Builds are stamped and traceable to a commit | `tests/build.test.mjs`, CI artifacts `mossvale-<full-sha>-ubuntu-latest` and `mossvale-<full-sha>-windows-latest` (90-day retention) |
 | A clean checkout runs the same checks CI runs (`npm ci && npm run verify`); missing art, broken maps and bad saves are caught; checks show on every push and never block one | `.github/workflows/ci.yml`, README "Development and checks" |
+
+## Content present in the current pack
+
+- Four biomes, eight maps, twelve species, four shrine milestones, and a one-time ending are declared in `dist/maps/index.json`, `dist/maps/registries.json`, and `dist/maps/story.json`.
+- `npm run validate`, pack/story tests, and the normal browser playthrough cover data links and progression. This confirms the shipped content and tested path; it does not establish that the adventure is fun for you.
+- The ending follows all four seals, marks the save complete once, and leaves the world open for collecting and exploration. Credits and a separate final-destination map are optional follow-up work, not required to reach the ending.
 
 ## Needs you (cannot be judged from here)
 
 - **Play the meadow.** First capture, the first guardian, a refresh in a fight. Does Focus feel like a decision? Is a team of three right? Is the pace of levels and coins right? (#22, #31, #16, #17, #25, #19)
-- **Your devices and browsers.** Controls on your screens, touch layout, text size, export/import between your browsers. (#35, #30, #34)
+- **Your devices and browsers.** Controls on your screens, touch layout, text size, and export/import between your browsers. Automated coverage cannot confirm your real devices (#35).
 - **Taste.** The opening and ending text is placeholder; the tips and the title screen on every load may be too much. (#28, #20)
 - **Rewrite or delete anything you do not enjoy.** The roadmap prefers removing UI to adding dashboards.
 
-## Not built yet (waiting on art, content or your decisions)
+## Remaining owner feedback and optional work
 
-- Four biomes, eight maps and twelve creatures: four biome maps and the 12-species roster now exist; the remaining four map variants are tracked by #27 and #51–#54.
-- Eight-direction walking animation and creature animation: only four facing images exist (#36).
-- Sound palette and ambience (#38): current audio is single synthesized beeps, off by default.
-- Performance on your devices (#37): in headless Chromium the game holds 60 fps (about 16.7 ms per frame on a software renderer); nothing has been measured on real hardware.
-- Publishing: builds are stamped and kept per commit, but uploading to the hosted site is manual because this repository does not know how that host imports files (#21). Repository visibility is unchanged (public); deciding on private is yours.
-- Credits and a rights review are deferred in the roadmap.
+- **Fun and pacing.** Try captures, the guardians, refresh recovery, team size, and the pace of levels and coins; tune only from your notes (#31, #39 and related play-feedback issues).
+- **Motion polish.** Issue #36 remains open for the agreed eight-direction player idle/walk set and a small reusable creature animation set. This does not block starting or completing the current adventure.
+- **Your hardware.** Performance has a headless-browser measurement, but no measurement on your devices yet (#37).
+- **Presentation.** The premise and ending copy are short placeholders; credits and a separate final destination are deferred (#28, [story notes](STORY.md)).
+- **Hosting.** CI artifacts make each checked commit recoverable. Publishing to the existing hosted site remains a manual step because its import mechanism is outside this repository (#21); no deployment or audience setting is changed here.
+- Credits and a rights review remain deferred in the roadmap.
 
 ## Recoverable
 
-Every push builds a stamped copy of the game (CI artifact `mossvale-<sha>`); `docs/PUBLISHING.md` explains publishing and rolling back, and saves are protected by migration fixtures, an archive of your previous adventure and the session checkpoint.
+Every CI push/PR packages `build/` from that exact commit and uploads separate Linux/Windows artifacts for 90 days. `docs/PUBLISHING.md` explains how to identify, play, keep, and roll back a stamped build. Save migrations have frozen fixtures; the game also keeps an adventure archive and session checkpoint. A rollback to code older than a save schema leaves that save untouched and read-only rather than overwriting it.

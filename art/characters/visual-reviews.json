@@ -1,11 +1,7 @@
 {
   "schemaVersion": 1,
   "technicalAndVisualGatesAreSeparate": true,
-  "decisions": [
-    "accept",
-    "rework",
-    "quarantine"
-  ],
+  "decisions": ["accept", "rework", "quarantine"],
   "method": "Technical checks decode and validate pixels/frames/anchors. Visual decisions are recorded by a human with a reason; neither gate infers the other.",
   "evidence": {
     "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png",
@@ -38,9 +34,7 @@
         "reason": "Eight facing rows retain the red cap, blue clothing and compact scale; NE/NW silhouette changes are expected for turned views, not identity failures.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "dist/character-preview.html"
-      ],
+      "evidence": ["dist/character-preview.html"],
       "reviewedFiles": [
         {
           "path": "dist/assets/people/person-red-cap-east.png",
@@ -64,7 +58,7 @@
         },
         {
           "path": "dist/character-preview.html",
-          "sha256": "98e26583fdb1d59c040c16a580ac3a9c52385c9ecbb4e3f82789181cfe219c1b"
+          "sha256": "0946906b268ec0999484661c0f7637679b90e6651b00f47957dfadafbd4e1cf5"
         }
       ]
     },
@@ -81,9 +75,7 @@
         "reason": "The small actual-scale contact sheet shows detached leaf/spark pixels below multiple faint-row poses; keep the source, revise those cells before calling this species art complete.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -120,9 +112,7 @@
         "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -154,9 +144,7 @@
         "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
@@ -185,9 +173,7 @@
         "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -225,9 +211,7 @@
         "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -260,9 +244,7 @@
         "reason": "At the 115 px gameplay width, Hushram keeps its pale ram and crystalline ice-horn identity across all five readable combat states.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -326,22 +308,14 @@
     {
       "issue": "#85",
       "status": "reviewed-at-scale",
-      "visualIds": [
-        "creature-fernling",
-        "creature-duskwing",
-        "creature-brooklet",
-        "creature-hushram"
-      ],
+      "visualIds": ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"],
       "creaturePortraitWidth": 115,
       "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png"
     },
     {
       "issue": "#90",
       "status": "initial-batch-reviewed-at-scale",
-      "visualIds": [
-        "creature-emberkin",
-        "creature-fernling"
-      ],
+      "visualIds": ["creature-emberkin", "creature-fernling"],
       "followerWidth": 37,
       "contactSheet": "art/characters/reviews/creature-follower-contact-sheet.png"
     }
