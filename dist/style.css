@@ -989,7 +989,16 @@ canvas#buddy {
   animation: attack 0.4s;
 }
 .fighter canvas.catching {
-  animation: wobble 0.7s infinite;
+  animation: creature-capture 0.72s steps(4, end) both;
+}
+.creature-idle {
+  transform-origin: center 82%;
+  animation: creature-breathe 1.8s steps(2, end) infinite;
+}
+.fighter canvas.attack,
+.fighter canvas.hit,
+.fighter canvas.catching {
+  animation-iteration-count: 1;
 }
 .battle-actions {
   grid-template-columns: repeat(3, 1fr);
@@ -1306,18 +1315,48 @@ canvas#buddy {
 @keyframes hit {
   0%,
   100% {
+    filter: none;
     opacity: 1;
     transform: translateX(0);
   }
   25%,
   75% {
-    opacity: 0.3;
-    transform: translateX(6px);
+    filter: brightness(1.8);
+    opacity: 0.45;
+    transform: translateX(6px) scale(0.96);
   }
 }
 @keyframes attack {
+  0%,
+  100% {
+    transform: translateX(0) scale(1);
+  }
+  45%,
+  65% {
+    transform: translateX(18px) scale(1.04);
+  }
+}
+@keyframes creature-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
   50% {
-    transform: translateX(18px);
+    transform: translateY(-2px);
+  }
+}
+@keyframes creature-capture {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  45% {
+    opacity: 0.55;
+    transform: scale(0.83);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale(0.9);
   }
 }
 @keyframes wobble {
