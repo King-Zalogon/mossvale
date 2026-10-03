@@ -44,7 +44,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/discovery.js` | domain | `CELL`, `MAX_SEEN`, `SECRET_RANGE`, `VISION`, `cellGrid`, `compass`, `decodeEntry`, `discover`, `encodeEntry`, `entryFor`, `exploredShare`, `isKnown`, `isRevealed`, `landmarkLabel`, `reveal`, `toHex` |
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
 | `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
-| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
+| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `directionPose`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
 | `domain/inventory.js` | domain | `createInventory`, `moveInventory`, `sellInventory`, `validateInventoryRules` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
 | `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents` |
@@ -65,6 +65,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
 | `render/world.js` | render | `createWorldRenderer` |
 | `save.js` | root | `KEYS`, `LEGACY_PACK`, `VERSION`, `commitSaveTransaction`, `create`, `keysFor`, `packOf`, `readSaveItem`, `recoverSaveTransaction` |
+| `services/account.js` | services | `createAccountClient` |
 | `services/adventures.js` | services | `ADVENTURE_KEY`, `CATALOG_FORMAT`, `DEFAULT_CATALOG`, `chooseAdventure`, `describeProgress`, `parseCatalog`, `peekProgress`, `readSelection`, `relocateLegacyPacks`, `writeSelection` |
 | `services/audio.js` | services | `createAudio` |
 | `services/backup.js` | services | `BACKUP_FORMAT`, `BACKUP_KIND`, `MAX_BACKUP_BYTES`, `exportBackup`, `exportFileName`, `importSave`, `parseBackup`, `readCheckpoint`, `restoreCheckpoint` |
@@ -75,6 +76,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/settings.js` | services | `DEFAULTS`, `MOTION`, `SETTINGS_KEY`, `TEXT_SIZES`, `VOLUME_STEPS`, `ZOOM_MAX`, `ZOOM_MIN`, `loadSettings`, `normalizeSettings`, `saveSettings` |
 | `services/timeline.js` | services | `createTimeline` |
 | `services/version.js` | services | `describeBuild`, `fetchBuild` |
+| `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |

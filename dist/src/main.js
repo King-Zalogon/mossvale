@@ -256,6 +256,13 @@ Object.assign(actions, {
     app.persist.lock();
     location.reload();
   },
+  accountBackup() {
+    app.persist();
+    return JSON.parse(exportBackup(codec, game.save, app.build));
+  },
+  checkAccountBackup(backup) {
+    return parseBackup(JSON.stringify(backup), codec, app.adventures.list);
+  },
   exportSave() {
     if (loaded.status === 'incompatible' && loaded.raw) {
       downloadText(exportFileName(), loaded.raw.endsWith('\n') ? loaded.raw : `${loaded.raw}\n`);

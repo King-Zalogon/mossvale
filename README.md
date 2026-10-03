@@ -33,7 +33,7 @@ On touch screens, use the directional pad, Run button, and interaction prompt.
 
 ## Adventure
 
-Explore Mossvale Meadow, Amber Ridge, and Frostveil Grove. Befriend eight species. Up to three companions form your team and the rest wait in the reserve. Battles include elemental strengths, a Focus resource for the elemental move, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
+Explore four biomes across eight maps: Mossvale Meadow, Amber Ridge, Frostveil Grove, and Reedfen Wetlands. Befriend twelve species. Up to three companions form your team and the rest wait in the reserve. Battles include elemental strengths, a Focus resource for the elemental move, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
 
 A title screen offers Continue (or Start adventure), Settings, New game and, after a restart, Restore previous adventure. New game keeps your old adventure as a backup; sound, volume, ambient music, motion and zoom preferences persist.
 
@@ -68,7 +68,7 @@ In Vercel, import this repository as a Next.js project and add these environment
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | That project's publishable/anon key (never a secret/service-role key)               |
 | `MOSSVALE_GATE_SECRET`          | A private random value of at least 32 characters, such as `openssl rand -base64 32` |
 
-Deploy, then upsert the project URL into `public.applications` with slug `mossvale`. Sign in with an existing Zalonline user; access follows the portal's per-user and group app grants. No Supabase service-role key belongs in Vercel. Browser saves remain local to that browser and deployment origin; they do not sync to the old hosted game or other devices.
+Deploy, then upsert the project URL into `public.applications` with slug `mossvale`. Sign in with an existing Zalonline user; access follows the portal's per-user and group app grants. No Supabase service-role key belongs in Vercel. Local autosaves remain in this browser. The Esc menu also provides explicit per-account/per-adventure Supabase checkpoints and feedback; apply the storage migration described in [account feedback and checkpoints](docs/FEEDBACK.md). The older hosted copy does not share these APIs.
 
 For local development of the portal wrapper, copy `.env.example` to `.env.local`, fill in the values, then run `npm run dev`. The original local game server remains `npm start`.
 
@@ -87,6 +87,6 @@ CI (`.github/workflows/ci.yml`) runs `verify` on every push and pull request. It
 
 ## Development roadmap
 
-The [personal-adventure roadmap](https://github.com/King-Zalogon/mossvale/issues/1) targets four varied biomes, eight compact maps and 12 creatures, with reusable assets and a light progression story. These are planned additions; the current playable feature list above describes the existing game.
+The first-adventure content target is present: four biomes, eight maps, twelve species, and a short ending after the four shrine seals. Remaining work is the linked integration checks and your play feedback; later packs and presentation extras are optional. See the [personal-ready checklist](docs/READY.md) and [roadmap](https://github.com/King-Zalogon/mossvale/issues/1).
 
 See [the detailed plan](docs/FULL_GAME_ROADMAP.md) and [machine-readable backlog](docs/ROADMAP_BACKLOG.json). The superseded larger plan is retained in [the archive](docs/archive/2026-09-30/FULL_GAME_ROADMAP.md).

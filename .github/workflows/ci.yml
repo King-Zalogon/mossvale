@@ -36,6 +36,8 @@ jobs:
         run: npm run test:browser
       - name: Package a traceable build
         run: npm run build
+      - name: Verify authenticated account APIs with a local Supabase fixture
+        run: npm run test:account-api
       - name: Keep the build for this commit
         uses: actions/upload-artifact@v4
         with:

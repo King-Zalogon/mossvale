@@ -7,7 +7,7 @@ export default [
   {languageOptions: {ecmaVersion: 'latest', sourceType: 'module'}, rules: {'no-unused-vars': ['error', {argsIgnorePattern: '^_'}]}},
   // Presentation, input and service layers run in the browser.
   {files: ['dist/src/**/*.js'], languageOptions: {globals: globals.browser}},
-  {files: ['app/**/*.{js,jsx}', 'lib/supabase/**/*.js', 'proxy.js'], languageOptions: {globals: globals.node}},
+  {files: ['app/**/*.{js,jsx}', 'lib/supabase/**/*.js', 'lib/account/**/*.js', 'proxy.js'], languageOptions: {globals: globals.node}},
   {files: ['components/**/*.{js,jsx}'], languageOptions: {globals: {...globals.node, ...globals.browser}}},
   {files: ['lib/gate-ticket.js'], languageOptions: {globals: {...globals.node, ...globals.browser}}},
   {files: ['app/**/*.jsx', 'components/**/*.jsx'], languageOptions: {parserOptions: {ecmaFeatures: {jsx: true}}}},
