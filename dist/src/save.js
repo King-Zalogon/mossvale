@@ -17,7 +17,26 @@ const KEYS = {
   archive: 'mossvale-archive',
 };
 const SAVE_TRANSACTION_VERSION = 1;
-const SAVE_TRANSACTION_KEYS = [KEYS.archive, KEYS.v3, KEYS.backup];
+
+/**
+ * The storage keys of one adventure's progress (docs/PACKS.md, "Independent adventure saves"). The first adventure
+ * keeps the original key names, so its saves never move and older builds still find them; every other pack gets
+ * its own set. A save, its checkpoint, its archive, its quarantine and its recovery journal always share a pack.
+ */
+function keysFor(pack = LEGACY_PACK) {
+  if (pack === LEGACY_PACK) return KEYS;
+  const base = `mossvale-pack-${pack}`;
+  return {
+    v3: `${base}-v3`,
+    v2: null,
+    v1: null,
+    backup: `${base}-backup`,
+    transaction: `${base}-save-transaction`,
+    quarantine: `${base}-quarantine`,
+    archive: `${base}-archive`,
+  };
+}
+const transactionKeys = keys => [keys.archive, keys.v3, keys.backup];
 const MAX_COUNT = 9999,
   MAX_TIME = 1e9,
   MAX_QUARANTINE = 3;
@@ -27,36 +46,36 @@ const num = (v, min, max, def) => (typeof v === 'number' && Number.isFinite(v) ?
 /** The adventure a raw save belongs to: saves written before packs existed are the first adventure. */
 const packOf = raw => (isObj(raw) && typeof raw.pack === 'string' ? raw.pack : LEGACY_PACK);
 
-function readSaveTransaction(storage) {
-  const raw = storage.getItem(KEYS.transaction);
+function readSaveTransaction(storage, keys = KEYS) {
+  const raw = storage.getItem(keys.transaction);
   if (raw == null) return null;
   const transaction = JSON.parse(raw);
   if (!isObj(transaction) || transaction.version !== SAVE_TRANSACTION_VERSION || !isObj(transaction.changes)) throw new Error('Invalid save transaction');
   const changes = {};
-  for (const key of SAVE_TRANSACTION_KEYS) {
+  for (const key of transactionKeys(keys)) {
     if (!Object.hasOwn(transaction.changes, key)) continue;
     if (typeof transaction.changes[key] !== 'string') throw new Error('Invalid save transaction value');
     changes[key] = transaction.changes[key];
   }
-  if (!Object.keys(changes).length || !Object.hasOwn(changes, KEYS.v3) || !Object.hasOwn(changes, KEYS.backup)) throw new Error('Incomplete save transaction');
+  if (!Object.keys(changes).length || !Object.hasOwn(changes, keys.v3) || !Object.hasOwn(changes, keys.backup)) throw new Error('Incomplete save transaction');
   return {version: SAVE_TRANSACTION_VERSION, changes};
 }
 
 /** Reads a save-related value from the durable transaction intent while its mirror writes are pending. */
-export function readSaveItem(storage, key) {
-  const transaction = readSaveTransaction(storage);
+export function readSaveItem(storage, key, keys = KEYS) {
+  const transaction = readSaveTransaction(storage, keys);
   return transaction && Object.hasOwn(transaction.changes, key) ? transaction.changes[key] : storage.getItem(key);
 }
 
 /** Finishes a previously committed save operation, or leaves its journal authoritative if storage still fails. */
-export function recoverSaveTransaction(storage) {
-  const transaction = readSaveTransaction(storage);
+export function recoverSaveTransaction(storage, keys = KEYS) {
+  const transaction = readSaveTransaction(storage, keys);
   if (!transaction) return {pending: false, recovered: false};
   try {
-    for (const key of SAVE_TRANSACTION_KEYS) {
+    for (const key of transactionKeys(keys)) {
       if (Object.hasOwn(transaction.changes, key)) storage.setItem(key, transaction.changes[key]);
     }
-    storage.removeItem(KEYS.transaction);
+    storage.removeItem(keys.transaction);
     return {pending: false, recovered: true};
   } catch {
     return {pending: true, recovered: false};
@@ -67,23 +86,23 @@ export function recoverSaveTransaction(storage) {
  * Persists the commit intent first. Once the journal write succeeds, its changes are authoritative;
  * failed mirror writes are repaired on load and must not make the live game disagree with storage.
  */
-export function commitSaveTransaction(storage, changes) {
+export function commitSaveTransaction(storage, changes, keys = KEYS) {
   try {
-    const pending = recoverSaveTransaction(storage);
+    const pending = recoverSaveTransaction(storage, keys);
     if (pending.pending) return {ok: false, recoveryPending: true, reason: 'recovery-pending'};
     const committed = {};
-    for (const key of SAVE_TRANSACTION_KEYS) {
+    for (const key of transactionKeys(keys)) {
       if (!Object.hasOwn(changes, key)) continue;
       if (typeof changes[key] !== 'string') return {ok: false, recoveryPending: false, reason: 'invalid'};
       committed[key] = changes[key];
     }
-    if (!Object.hasOwn(committed, KEYS.v3) || !Object.hasOwn(committed, KEYS.backup)) return {ok: false, recoveryPending: false, reason: 'invalid'};
-    storage.setItem(KEYS.transaction, JSON.stringify({version: SAVE_TRANSACTION_VERSION, changes: committed}));
+    if (!Object.hasOwn(committed, keys.v3) || !Object.hasOwn(committed, keys.backup)) return {ok: false, recoveryPending: false, reason: 'invalid'};
+    storage.setItem(keys.transaction, JSON.stringify({version: SAVE_TRANSACTION_VERSION, changes: committed}));
   } catch {
     return {ok: false, recoveryPending: false, reason: 'storage'};
   }
   try {
-    const recovered = recoverSaveTransaction(storage);
+    const recovered = recoverSaveTransaction(storage, keys);
     return {ok: true, recoveryPending: recovered.pending};
   } catch {
     // The journal was written, so it remains the durable authority even if a later storage read fails.
@@ -92,6 +111,7 @@ export function commitSaveTransaction(storage, changes) {
 }
 
 function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pack = LEGACY_PACK}) {
+  const keys = keysFor(pack);
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = id => regions.findIndex(r => r.id === id);
   const maxHP = (idx, xp) => species[idx].hp + Math.floor(xp / XP_PER_LEVEL) * 4;
@@ -242,13 +262,13 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     try {
       let list = [];
       try {
-        const prev = JSON.parse(storage.getItem(KEYS.quarantine));
+        const prev = JSON.parse(storage.getItem(keys.quarantine));
         if (Array.isArray(prev)) list = prev;
       } catch {
         /* no previous quarantine list */
       }
       list.push({key, reason, at: new Date().toISOString(), raw: String(raw).slice(0, 200000)});
-      storage.setItem(KEYS.quarantine, JSON.stringify(list.slice(-MAX_QUARANTINE)));
+      storage.setItem(keys.quarantine, JSON.stringify(list.slice(-MAX_QUARANTINE)));
     } catch {
       /* quarantine is best effort */
     }
@@ -257,7 +277,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
   /* Returns {save, status, message, writable, source}.
      status: 'new' | 'ok' | 'migrated' | 'restored' | 'recovered' | 'future' | 'foreign' | 'unavailable' | 'transaction-recovered' | 'transaction-pending'
      - restored: primary save was invalid and the last checkpoint was loaded instead.
-     - recovered: nothing usable; a fresh save is used and the bad payload is kept under KEYS.quarantine.
+     - recovered: nothing usable; a fresh save is used and the bad payload is kept under keys.quarantine.
      - future: written by a newer game version; it is never overwritten (writable=false).
      - foreign: written for a different adventure pack; never overwritten (writable=false), like a future save.
      - unavailable: storage cannot be read; play continues in memory only (writable=false). */
@@ -265,7 +285,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     const out = {save: fresh(), status: 'new', message: '', writable: true, source: null};
     let transactionRecovery;
     try {
-      transactionRecovery = recoverSaveTransaction(storage);
+      transactionRecovery = recoverSaveTransaction(storage, keys);
     } catch {
       return {
         ...out,
@@ -292,16 +312,16 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       return result;
     };
     const candidates = [
-      [KEYS.v3, 3],
-      [KEYS.backup, 3],
-      [KEYS.v2, 2],
-      [KEYS.v1, 1],
-    ];
+      [keys.v3, 3],
+      [keys.backup, 3],
+      [keys.v2, 2],
+      [keys.v1, 1],
+    ].filter(([key]) => key); // only the first adventure has older save generations
     let failed = null;
     for (const [key, version] of candidates) {
       let raw;
       try {
-        raw = readSaveItem(storage, key);
+        raw = readSaveItem(storage, key, keys);
       } catch {
         return {
           ...out,
@@ -352,17 +372,17 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       }
       out.save = save;
       out.source = key;
-      if (key === KEYS.backup) {
+      if (key === keys.backup) {
         out.status = 'restored';
         out.message = 'Your latest save could not be read, so the previous checkpoint was restored. The damaged data was kept for recovery.';
       } else if (failed) {
         out.status = 'restored';
         out.message = 'Your latest save could not be read, so an older save was restored. The damaged data was kept for recovery.';
-      } else if (key === KEYS.v3) {
+      } else if (key === keys.v3) {
         out.status = 'ok';
         if (!transactionRecovery.pending && !transactionRecovery.recovered) {
           try {
-            storage.setItem(KEYS.backup, raw);
+            storage.setItem(keys.backup, raw);
           } catch {
             /* checkpoint is best effort */
           }
@@ -377,7 +397,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     return finish(out);
   }
 
-  return {fresh, normalize, serialize, load, pack};
+  return {fresh, normalize, serialize, load, pack, keys};
 }
 
-export {VERSION, KEYS, create, packOf};
+export {VERSION, KEYS, create, keysFor, packOf, LEGACY_PACK};

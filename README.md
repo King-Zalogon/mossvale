@@ -43,6 +43,7 @@ Progress saves automatically in the current browser using local storage. Origina
 
 - `dist/index.html`, `dist/style.css`: interface and styles.
 - `dist/src/`: game code as ES modules (data, pure domain rules, save codec, services, rendering, UI, controller). See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+- `dist/adventures.json`: the adventures this build offers (chooser, see [docs/PACKS.md](docs/PACKS.md)).
 - `dist/maps/index.json`: the adventure pack manifest ([docs/PACKS.md](docs/PACKS.md)).
 - `dist/maps/*.json`: map data (terrain, landmarks, exits, encounter zones), see [docs/MAP_FORMAT.md](docs/MAP_FORMAT.md); `npm run map:preview -- meadow` shows one.
 - `dist/maps/registries.json`: pack-owned species, regions, moves and tuning; see [docs/PACKS.md](docs/PACKS.md) for `npm run pack -- create-pack`, `add-map`, `validate-pack` and `preview-pack`.

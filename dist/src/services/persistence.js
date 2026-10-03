@@ -1,5 +1,5 @@
 /* Writes the runtime save through the save codec. Storage is injected so it can be faked in tests. */
-import {KEYS, recoverSaveTransaction} from '../save.js';
+import {recoverSaveTransaction} from '../save.js';
 import {battleCheckpoint} from '../domain/battle.js';
 
 export function createPersistence({storage, codec, game, writable, onStatus}) {
@@ -14,11 +14,11 @@ export function createPersistence({storage, codec, game, writable, onStatus}) {
       return false;
     }
     try {
-      if (recoverSaveTransaction(storage).pending) {
+      if (recoverSaveTransaction(storage, codec.keys).pending) {
         onStatus('unavailable');
         return false;
       }
-      storage.setItem(KEYS.v3, codec.serialize(game.save));
+      storage.setItem(codec.keys.v3, codec.serialize(game.save));
       onStatus('saved');
       return true;
     } catch {

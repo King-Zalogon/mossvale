@@ -4,6 +4,8 @@
 import {readFileSync} from 'node:fs';
 import {assets} from '../dist/src/data/assets.js';
 import defaultRegistries from '../dist/maps/registries.json' with {type: 'json'};
+import {parseCatalog} from '../dist/src/services/adventures.js';
+import {existsSync} from 'node:fs';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {resolveRegistries, validateRegistries} from '../dist/src/domain/registries.js';
 
@@ -25,6 +27,14 @@ const {maps, errors} = buildAdventure(
   index.story ? read(index.story) : undefined,
   index,
 );
+const catalog = parseCatalog(JSON.parse(readFileSync(new URL('../dist/adventures.json', import.meta.url), 'utf8')));
+errors.push(...catalog.errors);
+for (const a of catalog.adventures) {
+  const manifest = new URL(`../dist/${a.path}index.json`, import.meta.url);
+  if (!existsSync(manifest)) errors.push(`catalog: adventure "${a.id}" has no ${a.path}index.json`);
+  else if (JSON.parse(readFileSync(manifest, 'utf8')).id !== a.id)
+    errors.push(`catalog: adventure "${a.id}" does not match the pack id in ${a.path}index.json`);
+}
 if (errors.length) {
   console.error(`${errors.length} map error(s):\n` + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);

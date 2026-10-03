@@ -138,15 +138,17 @@ test('a save from another adventure is never loaded, overwritten or imported', (
   assert.equal(s1.getItem(KEYS.v3), theirsRaw, 'left untouched');
   assert.equal(s1.m.has(KEYS.quarantine), false, 'and not treated as damage');
 
-  const s2 = store({[KEYS.v3]: mineRaw});
+  // Each adventure reads only its own keys, so a payload that lands in the wrong place is still refused, untouched.
+  const s2 = store({[other.keys.v3]: mineRaw});
   const r2 = other.load(s2);
   assert.equal(r2.status, 'foreign', 'a first-adventure save is foreign to another pack');
-  assert.equal(s2.getItem(KEYS.v3), mineRaw);
+  assert.equal(s2.getItem(other.keys.v3), mineRaw);
 
   assert.equal(first.load(store({[KEYS.v3]: mineRaw})).status, 'ok');
   const imported = parseBackup(theirsRaw, first);
   assert.equal(imported.ok, false);
-  assert.match(imported.reason, /another adventure/);
+  assert.match(imported.reason, /adventure \("hearth-hamlet"\) that is not available/);
+  assert.match(parseBackup(theirsRaw, first, [{id: 'hearth-hamlet', name: 'Hearth Hamlet'}]).reason, /Switch to it/);
   assert.equal(parseBackup(mineRaw, first).ok, true);
   assert.ok(newSave());
 });

@@ -14,6 +14,14 @@ Implemented in `dist/src/save.js` (pure, tested without a browser). Issue: [#8](
 | `mossvale-settings` | Preferences (`sound`, `motion` auto/reduced, `zoom`, touch `run`), separate from the save so New game and Restore keep them. |
 | `mossvale-v2`, `mossvale-v1` | Legacy saves. Read for migration only and left untouched. |
 
+### One set of keys per adventure (#67)
+
+Every adventure keeps its progress, checkpoint, archive, quarantine and recovery journal under its own keys, so adventures never mix. The first adventure (`mossvale`) keeps the names above, which means its saves never move and older builds still find them. Any other pack `<id>` uses `mossvale-pack-<id>-v3`, `-backup`, `-archive`, `-quarantine` and `-save-transaction` (and has no `v2`/`v1` generations). `save.js: keysFor(pack)` is the one place these names are built, and `codec.keys` carries them to the services.
+
+Two keys are shared by all adventures on purpose: `mossvale-settings` (sound, text size and zoom are about the player) and `mossvale-adventure` (the adventure to open next, written by the chooser or `?adventure=<id>`).
+
+**Relocation.** A build of a single pack made before the chooser stored that pack's saves under the first adventure's keys (marked with `pack`). On start, if `mossvale-v3` holds another pack's save, it is copied together with its checkpoint and archive to that pack's keys through that pack's recovery journal, and only then removed. An interrupted copy leaves the original in place and is finished by the journal; a repeated run finds nothing to move; progress already present for that pack is never overwritten (the other copy stays and is reported). It waits while a first-adventure journal is pending so the normal load can finish and report it.
+
 ## Schema 3
 
 Species and regions are stored by ID, not array position, so content can be reordered or extended safely. Current IDs: species `fernling emberkin brooklet duskwing voltkit mushmallow frostowl pebblit`; regions `meadow amber-ridge frostveil-grove`. Never rename or reuse an ID.

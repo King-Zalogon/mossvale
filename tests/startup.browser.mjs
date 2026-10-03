@@ -12,6 +12,13 @@ let fixturePack = null;
 const server = http
   .createServer((q, r) => {
     const name = q.url.split('?')[0].slice(1) || 'index.html';
+    if (fixturePack && name === 'adventures.json') {
+      // A standalone build of the pack ships a catalog naming it (scripts/build.mjs --pack writes the same).
+      const index = JSON.parse(readFileSync(new URL(`../tests/fixtures/packs/${fixturePack}/index.json`, import.meta.url), 'utf8'));
+      const catalog = {format: 1, adventures: [{id: index.id, name: index.name, path: 'maps/'}]};
+      r.writeHead(200, {'content-type': 'application/json'}).end(JSON.stringify(catalog));
+      return;
+    }
     const fixtureFile = fixturePack && name.startsWith('maps/') ? new URL(`../tests/fixtures/packs/${fixturePack}/${name.slice(5)}`, import.meta.url) : null;
     const file = fixtureFile ?? new URL(name, root);
     if (blocked.has(name) || !existsSync(file)) {
