@@ -43,6 +43,13 @@ export function installInput(app) {
     }
     if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(k) && !ui.modalMode) e.preventDefault();
     if (ui.modalMode) {
+      if (ui.modalMode === 'ranger' && ['1', '2', '3'].includes(k)) {
+        e.preventDefault();
+        const buttons = [...document.querySelectorAll('#modal .ranger-actions button')];
+        const button = buttons[Number(k) - 1];
+        if (!e.repeat && button && !button.disabled) button.click();
+        return;
+      }
       if (ui.modalMode === 'result' && ['enter', ' ', 'e', 'escape'].includes(k)) {
         e.preventDefault();
         if (!e.repeat) $('#result-continue')?.click();

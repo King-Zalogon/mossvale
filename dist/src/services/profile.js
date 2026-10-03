@@ -30,12 +30,12 @@ const stamp = () => new Date().toISOString();
  * Archives the current adventure (if it has progress) and writes a fresh save.
  * Returns {ok, replacedArchive}. When `ok` is false nothing was changed.
  */
-export function startOver({storage, codec, save}) {
+export function startOver({storage, codec, save, rng}) {
   try {
     const replacedArchive = !!readSaveItem(storage, codec.keys.archive, codec.keys);
     const changes = {};
     if (hasProgress(save)) changes[codec.keys.archive] = JSON.stringify({at: stamp(), raw: codec.serialize(save)});
-    const fresh = codec.serialize(codec.fresh());
+    const fresh = codec.serialize(codec.fresh(rng));
     changes[codec.keys.v3] = fresh;
     changes[codec.keys.backup] = fresh; // otherwise corruption recovery would resurrect the old adventure
     const result = commitSaveTransaction(storage, changes, codec.keys);
