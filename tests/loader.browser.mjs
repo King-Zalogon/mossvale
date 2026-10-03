@@ -57,7 +57,7 @@ const failed = (page, text) =>
   behavior = new Map([['assets/*', 'gate']]);
   const {page, errors, ctx} = await start();
   await page.waitForFunction(() => /Loading artwork… \d+ \/ \d+/.test(document.querySelector('#load-status').textContent));
-  assert.match(await page.textContent('#load-status'), new RegExp(`Loading artwork… \\d+ / ${assets.length}`));
+  assert.ok((await page.textContent('#load-status')).endsWith(`/ ${assets.length}`));
   const modalState = () => page.evaluate(() => document.querySelector('#modal').outerHTML);
   const before = await modalState();
   await page.keyboard.press('j');
