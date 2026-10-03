@@ -31,7 +31,7 @@ On touch screens, use the directional pad, Run button, and interaction prompt.
 
 ## Adventure
 
-Explore Mossvale Meadow, Amber Ridge, Frostveil Grove, and Reedfen Wetlands. Befriend 12 species, with three primary residents in each biome. Up to three companions form your team and the rest wait in the reserve. Battles use creature-specific health, attack, defense, elemental strengths, and moves, alongside Focus, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
+Explore the Sunlit Trail and Ruined Orchard in the Meadow biome, plus Amber Ridge, Frostveil Grove, and Reedfen Wetlands. Befriend 12 species, with three primary residents in each biome. Up to three companions form your team and the rest wait in the reserve. Battles use creature-specific health, attack, defense, elemental strengths, and moves, alongside Focus, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
 
 A title screen offers Continue (or Start adventure), Settings, New game and, after a restart, Restore previous adventure. New game keeps your old adventure as a backup; sound, volume, ambient music, motion and zoom preferences persist.
 

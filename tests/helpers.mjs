@@ -17,6 +17,7 @@ export const content = {assets, species, regions};
 export const packContent = {...content, packId: PACK_ID};
 export const adventure = buildAdventure(rawMaps(), packContent, rawObjectives(), rawStory(), rawPack());
 export const maps = adventure.maps;
+export const mapsById = adventure.mapsById;
 export const objectives = adventure.objectives;
 export const objCtx = {speciesCount: species.length, regions};
 export const codec = create({species, regions, size: 64, pack: PACK_ID});

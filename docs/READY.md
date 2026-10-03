@@ -6,7 +6,7 @@ A working checklist for calling the first adventure "ready to play for fun", wit
 
 | Area | Evidence |
 | --- | --- |
-| Saves: validation, v1/v2/v3 migration, corruption recovery, frozen fixtures per schema (the v2 fixture was written by the original build; no v1 writer survives in git history, so v1 stays synthetic) | `tests/save.test.mjs`, `tests/saves-compat.test.mjs`, browser recovery tests |
+| Saves: validation, v1/v2/v3 migration to v4, map-location persistence, corruption recovery, frozen fixtures per schema (the v2 fixture was written by the original build; no v1 writer survives in git history, so v1 stays synthetic) | `tests/save.test.mjs`, `tests/saves-compat.test.mjs`, browser recovery tests |
 | Slow, corrupt, aborted or stalled art, blocked fonts, no canvas, bad map data | `tests/loader.browser.mjs` |
 | The first guardian is beatable through the real UI, no debug damage | `tests/playthrough.browser.mjs` |
 | Refresh or interruption mid-battle never loses an item or reward | `tests/turns.test.mjs`, browser "refresh during capture" |

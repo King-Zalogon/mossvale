@@ -9,7 +9,7 @@ Issue [#14](https://github.com/King-Zalogon/mossvale/issues/14). Maps are JSON f
 3. `npm run map:preview -- meadow` prints an ASCII preview (terrain, solid objects, spawns, landmarks, exits, encounter pool).
 4. Open the game with `python3 -m http.server 8080 --directory dist` (or `npm start`) and walk it. A visual editor is optional and not planned.
 
-Map files and `src/data/regions.js` are linked by `id`: each region needs a map with the same id (and vice versa). Region ids are saved and must never change.
+Each biome needs a hub map whose `id` matches its entry in `src/data/regions.js`. Additional maps may share that biome and use their own stable map ids; exits name map ids and spawn points. Region ids are saved and must never change.
 
 ## File shape
 
@@ -53,7 +53,7 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 
 ## Persistence is separate from geometry
 
-Maps are immutable. Progress lives in the save under stable flags of the form `<map-id>.seal` (the shrine guardian was beaten) and `<map-id>.chest` (the chest was opened). Today these resolve to the existing `badges` / `chests` lists in the v3 save (`domain/rules.js: flagDone`), so existing saves keep working. Editing a map never changes what the player has completed. Flags are unique within an adventure pack and a save records which pack it belongs to, see [PACKS.md](PACKS.md).
+Maps are immutable. Progress lives in the save under stable flags of the form `<map-id>.seal` (the shrine guardian was beaten) and `<map-id>.chest` (the chest was opened). These resolve to the existing `badges` / `chests` lists in the v4 save (`domain/rules.js: flagDone`), so v3 saves keep their progress when migrated. Editing a map never changes what the player has completed. Flags are unique within an adventure pack and a save records which pack it belongs to, see [PACKS.md](PACKS.md).
 
 ## What validation checks
 
@@ -61,6 +61,6 @@ Format version, unique ids, grid size and characters, known sprites and species,
 
 ## Limits
 
-- Eight authored maps are supported (`MAX_SIZE` 64 per side, any number of files); four representative maps currently cover the four biomes. The second distinct map for each biome remains tracked by #51–#54.
+- Eight authored maps are supported (`MAX_SIZE` 64 per side, any number of files); five maps currently cover four biomes, with the Meadow pair playable. The other second maps remain tracked by #52–#54.
 - Reachability uses tile-level flood fill, an approximation of continuous movement.
 - Layers beyond terrain + props, and per-tile event scripting, are intentionally out of scope.

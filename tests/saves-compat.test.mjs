@@ -29,21 +29,51 @@ test('v2 fixture: progress, inventory, team records and region survive', () => {
   assert.deepEqual(s.party, [1, 0, 4]); // saves from before teams: companion first, then the first captures
 });
 
-test('older v3 fixture loads with every saved field intact (new optional fields may appear)', () => {
+test('older v3 fixture migrates with every saved field intact and defaults to its biome hub', () => {
   const raw = fixture('v3-2026-10');
   const r = load(KEYS.v3, raw);
-  assert.equal(r.status, 'ok');
+  assert.equal(r.status, 'migrated');
   const resaved = JSON.parse(codec.serialize(r.save));
-  for (const [key, value] of Object.entries(JSON.parse(raw))) assert.deepEqual(resaved[key], value, key);
+  assert.equal(resaved.version, 4);
+  for (const [key, value] of Object.entries(JSON.parse(raw))) if (key !== 'version') assert.deepEqual(resaved[key], value, key);
+  assert.equal(r.save.mapId, 'amber-ridge');
   assert.deepEqual([r.save.party, r.save.goal, r.save.badges, r.save.playTime], [[3, 0, 1], 'amber-seal', [0], 2400]);
 });
 
-test('latest v3 fixture loads unchanged and re-saves byte for byte', () => {
+test('latest v3 fixture migrates without changing its location or progress', () => {
   const raw = fixture('v3-latest');
   const r = load(KEYS.v3, raw);
-  assert.equal(r.status, 'ok');
-  assert.equal(codec.serialize(r.save), raw);
+  assert.equal(r.status, 'migrated');
+  assert.equal(JSON.parse(codec.serialize(r.save)).version, 4);
+  assert.equal(r.save.mapId, 'amber-ridge');
+  assert.deepEqual(r.save.visitedMaps, ['meadow', 'amber-ridge', 'frostveil-grove']);
   assert.deepEqual([r.save.hints, r.save.completed, r.save.goal], [['premise', 'capture'], true, 'keeper']);
+});
+
+test('v4 fixture preserves a side-map location and map visits byte for byte', () => {
+  const raw = fixture('v4-orchard');
+  const r = load(KEYS.v3, raw);
+  assert.equal(r.status, 'ok');
+  assert.equal(r.save.mapId, 'orchard-ruins');
+  assert.deepEqual(r.save.visitedMaps, ['meadow', 'orchard-ruins']);
+  assert.equal(codec.serialize(r.save), raw);
+});
+
+test('an interrupted v3 transaction is recovered with the existing journal keys, then migrates', () => {
+  const raw = fixture('v3-latest');
+  const transaction = JSON.stringify({version: 1, changes: {[KEYS.v3]: raw, [KEYS.backup]: raw}});
+  const values = new Map([[KEYS.transaction, transaction]]);
+  const storage = {
+    getItem: key => values.get(key) ?? null,
+    setItem: (key, value) => values.set(key, String(value)),
+    removeItem: key => values.delete(key),
+  };
+  const r = codec.load(storage);
+  assert.equal(r.status, 'transaction-recovered');
+  assert.equal(r.save.mapId, 'amber-ridge');
+  assert.equal(values.has(KEYS.transaction), false);
+  assert.equal(values.get(KEYS.v3), raw, 'the recovery journal still synchronizes the existing save key');
+  assert.equal(JSON.parse(codec.serialize(r.save)).version, 4);
 });
 
 test('a save written by the original build (commit 8fc2c7b, played through its own UI) migrates faithfully', () => {

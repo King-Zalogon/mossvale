@@ -127,7 +127,8 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       if (openedChest) drawSprite(ctx, o.id, s.x, s.y, o.w * zoom, {alpha: 0.45});
       else {
         const bob = bobbing && o.kind === 'companion' ? Math.sin(now / 95) * 1.5 * zoom : 0;
-        const tint = biome === 'snowy-forest' && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : biome === 'badlands' && o.kind === 'grass' ? 'sepia(.5)' : 'none';
+        const tint =
+          biome === 'snowy-forest' && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : biome === 'badlands' && o.kind === 'grass' ? 'sepia(.5)' : 'none';
         const options = {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1};
         if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, options);
         else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
@@ -145,7 +146,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
                 : 'SHRINE'
               : o.kind === 'chest'
                 ? 'TREASURE'
-                : regions[o.target].short.toUpperCase() + (unlocked(save, o.target) ? '' : ' · LOCKED');
+                : o.targetName.toUpperCase() + (unlocked(save, o.targetRegion) ? '' : ' · LOCKED');
         ctx.fillText(label, s.x, s.y - spriteHeight(o) - 7 * zoom);
       }
     }
