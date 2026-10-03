@@ -6,6 +6,8 @@ import {assets} from './data/assets.js';
 import {MAX_MAP_SIZE} from './config.js';
 import * as save from './save.js';
 import {seededRng} from './domain/rng.js';
+import {createEventLog} from './domain/events.js';
+import {createTestClock} from './domain/clock.js';
 import {effectiveness, level, maxHP} from './domain/rules.js';
 import {currentObjective} from './domain/objectives.js';
 import {isWalkable, nearestWalkable, zoneAt} from './domain/world.js';
@@ -54,6 +56,12 @@ function getStorage() {
 
 const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
+const testClock = debug && params.has('clock') ? createTestClock(Number(params.get('clock')) || 0) : null;
+let uiClock = 0;
+const eventLog = createEventLog({
+  seed: Number(params.get('seed')) || 0,
+  now: () => (testClock ? testClock.now() : uiClock),
+});
 const editorPreviewId = params.get('editorPreview');
 let editorPreviewMap = null;
 if (editorPreviewId) {
@@ -127,6 +135,8 @@ const app = {
   checkpoint: () => readCheckpoint(storage, codec),
   canStartOver: () => loaded.writable,
   persist,
+  events: eventLog,
+  testClock,
 };
 app.menus = createMenus(app);
 app.renderBattle = createBattleView(app);
@@ -170,7 +180,7 @@ function postStart() {
       game.save.recap = '';
     }
     if (app.adventures.note) toast(app.adventures.note); // last, so the explanation is the message left on screen
-    if (['restored', 'recovered', 'future', 'foreign', 'unavailable', 'transaction-recovered', 'transaction-pending'].includes(loaded.status))
+    if (['restored', 'recovered', 'future', 'foreign', 'incompatible', 'unavailable', 'transaction-recovered', 'transaction-pending'].includes(loaded.status))
       app.menus.saveNotice(loaded.status, loaded.message);
     if (!resumed) actions.checkEnding(); // a save that already earned every seal sees the ending once
   };
@@ -244,6 +254,11 @@ Object.assign(actions, {
     location.reload();
   },
   exportSave() {
+    if (loaded.status === 'incompatible' && loaded.raw) {
+      downloadText(exportFileName(), loaded.raw.endsWith('\n') ? loaded.raw : `${loaded.raw}\n`);
+      toast('Unmodified save copy downloaded. Restore the matching complete game build to continue this adventure.');
+      return;
+    }
     app.persist(); // so the file matches what is on screen
     downloadText(exportFileName(new Date(), codec.pack), exportBackup(codec, game.save, app.build));
     toast('Save file downloaded. Import it in another browser to continue there.');
@@ -334,7 +349,7 @@ async function boot() {
           ]),
         ),
       );
-      codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id});
+      codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id, contentVersion: rawPack.contentVersion ?? 1});
       if (editorPreviewMap) {
         const region = rawMaps.findIndex(map => map.id === editorPreviewId);
         const fresh = codec.fresh();
@@ -355,7 +370,14 @@ async function boot() {
       game.battle = loaded.save.battle ? {...loaded.save.battle, busy: false, over: false} : null;
       ui.camera.x = game.player.x;
       ui.camera.y = game.player.y;
-      persistence = createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus});
+      persistence = createPersistence({
+        storage,
+        codec,
+        game,
+        writable: loaded.writable,
+        onStatus: renderSaveStatus,
+        onEvent: (type, data) => eventLog.emit(type, data),
+      });
       if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
       const {maps, mapsById, objectives, story, errors} = buildAdventure(
         rawMaps,
@@ -429,7 +451,8 @@ const sample = (list, ms) => (list.push(ms), list.length > 600 && list.shift());
 function loop(t) {
   const dt = Math.min((t - last) / 1000, 0.04) || 0;
   last = t;
-  ui.now = t;
+  uiClock = testClock ? testClock.now() : t;
+  ui.now = uiClock;
   frame++;
   if (!document.hidden) {
     const {pacing} = game;
@@ -535,6 +558,7 @@ if (debug) {
       paused: ui.paused,
       phase: game.phase,
       modalMode: ui.modalMode,
+      now: ui.now,
       world: game.world,
       zoom: ui.zoom,
     }),
@@ -550,5 +574,7 @@ if (debug) {
     effectiveness,
     perf: () => perf,
     areaMap: () => app.areaMap.state,
+    events: () => eventLog.read(),
+    advanceClock: milliseconds => testClock?.advance(milliseconds) ?? null,
   };
 }

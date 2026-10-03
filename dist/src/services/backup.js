@@ -55,6 +55,8 @@ export function parseBackup(text, codec, adventures = []) {
         : `That file is a save for an adventure ("${owner}") that is not available in this version. Your current progress was not touched.`,
     };
   }
+  const contentProblem = codec.contentIssue(payload);
+  if (contentProblem) return {ok: false, reason: contentProblem};
   const save = codec.normalize(payload, payload.version === 2);
   if (!save) return {ok: false, reason: 'That file does not look like a Mossvale save.'};
   return {
@@ -88,7 +90,9 @@ export function importSave({storage, codec, save, incoming}) {
 /** The checkpoint kept from the start of the last session, as a validated save, or null. */
 export function readCheckpoint(storage, codec) {
   try {
-    const save = codec.normalize(JSON.parse(readSaveItem(storage, codec.keys.backup, codec.keys)), false);
+    const raw = JSON.parse(readSaveItem(storage, codec.keys.backup, codec.keys));
+    if (codec.contentIssue(raw)) return null;
+    const save = codec.normalize(raw, false);
     return save ?? null;
   } catch {
     return null;

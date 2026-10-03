@@ -229,6 +229,7 @@ export function createMenus(app) {
       recovered: 'Save could not be read',
       future: 'Newer save found',
       foreign: 'Another adventure’s save',
+      incompatible: 'Adventure update needs an older build',
       unavailable: 'Storage unavailable',
       'transaction-recovered': 'Save recovery finished',
       'transaction-pending': 'Save recovery pending',

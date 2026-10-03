@@ -4,11 +4,14 @@
 //   BUILD_DIR=/tmp/x node scripts/build.mjs
 //   node scripts/build.mjs --pack ./content/x        -> a build whose main adventure is the pack in ./content/x
 //   node scripts/build.mjs --include ./content/x     -> also offer ./content/x in the adventure chooser (repeatable)
+import {createHash} from 'node:crypto';
 import {cpSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {VERSION} from '../dist/src/save.js';
+import {ENGINE_VERSION, SAVE_SCHEMA_VERSION} from '../dist/src/compatibility.js';
+import {packFileEntries} from '../dist/src/domain/pack.js';
 
 const repoRoot = fileURLToPath(new URL('../', import.meta.url));
 const dist = join(repoRoot, 'dist');
@@ -34,11 +37,18 @@ const git = (...args) => {
 };
 
 const commit = process.env.GITHUB_SHA || git('rev-parse', 'HEAD') || 'unknown';
-let pack;
-if (selectedPack || includes.length) execFileSync(process.execPath, [join(repoRoot, 'scripts/validate-assets.mjs')], {stdio: 'inherit'});
-if (selectedPack) {
-  pack = validatePackFolder(selectedPack);
+function validatePackFolder(root) {
+  execFileSync(process.execPath, [join(repoRoot, 'scripts/pack.mjs'), 'validate-pack', root], {stdio: 'inherit'});
+  const index = JSON.parse(readFileSync(join(root, 'index.json'), 'utf8'));
+  if (index.mapDirectory !== undefined && !/^[a-z0-9-]+\/$/.test(index.mapDirectory))
+    throw new Error('pack mapDirectory: must be a relative folder ending with /');
+  return index;
 }
+let pack;
+execFileSync(process.execPath, [join(repoRoot, 'scripts/validate-assets.mjs')], {stdio: 'inherit'});
+if (selectedPack) pack = validatePackFolder(selectedPack);
+else execFileSync(process.execPath, [join(repoRoot, 'scripts/validate-maps.mjs')], {stdio: 'inherit'});
+const included = includes.map(validatePackFolder);
 const info = {
   commit,
   short: commit.slice(0, 7),
@@ -46,11 +56,12 @@ const info = {
   dirty: git('status', '--porcelain') !== '',
   builtAt: new Date().toISOString(),
   saveSchema: VERSION,
-  engineVersion: 1,
+  engineVersion: ENGINE_VERSION,
   pack: {
     id: pack?.id ?? 'mossvale',
     contentVersion: Number.isInteger(pack?.contentVersion) && pack.contentVersion > 0 ? pack.contentVersion : 1,
     format: pack?.format ?? 1,
+    requires: {engineVersion: ENGINE_VERSION, saveSchema: SAVE_SCHEMA_VERSION},
   },
 };
 
@@ -70,23 +81,31 @@ function copyPack(root, index, destination) {
   const mapDir = index.mapDirectory ?? '';
   for (const id of index.maps) copyPackFile(join(mapDir, id + '.json'));
 }
-function validatePackFolder(root) {
-  execFileSync(process.execPath, [join(repoRoot, 'scripts/pack.mjs'), 'validate-pack', root], {stdio: 'inherit'});
-  const index = JSON.parse(readFileSync(join(root, 'index.json'), 'utf8'));
-  if (index.mapDirectory !== undefined && !/^[a-z0-9-]+\/$/.test(index.mapDirectory))
-    throw new Error('pack mapDirectory: must be a relative folder ending with /');
-  return index;
+/** Stamps the content version, compatibility and SHA-256 of every file into the copied pack's manifest (the game verifies it on load). */
+function stampPack(directory) {
+  const indexPath = join(directory, 'index.json');
+  const stamped = JSON.parse(readFileSync(indexPath, 'utf8'));
+  stamped.contentVersion = Number.isInteger(stamped.contentVersion) && stamped.contentVersion > 0 ? stamped.contentVersion : 1;
+  stamped.requires = {engineVersion: ENGINE_VERSION, saveSchema: SAVE_SCHEMA_VERSION};
+  stamped.integrity = packFileEntries(stamped).map(({id, path}) => {
+    const bytes = readFileSync(join(directory, path));
+    return {id, path, sha256: createHash('sha256').update(bytes).digest('hex')};
+  });
+  writeFileSync(indexPath, JSON.stringify(stamped, null, 2) + '\n');
+  return stamped;
 }
-const main = pack ?? JSON.parse(readFileSync(join(dist, 'maps/index.json'), 'utf8'));
 if (selectedPack) copyPack(selectedPack, pack, join(out, 'maps'));
+const outputPack = stampPack(join(out, 'maps'));
 // The adventure chooser's catalog: the main adventure in maps/, then every --include under adventures/<id>/.
-const catalog = {format: 1, adventures: [{id: main.id, name: main.name, brief: main.brief, path: 'maps/'}]};
-for (const root of includes) {
-  const index = validatePackFolder(root);
+const catalog = {format: 1, adventures: [{id: outputPack.id, name: outputPack.name, brief: outputPack.brief, path: 'maps/'}]};
+included.forEach((index, i) => {
   if (catalog.adventures.some(a => a.id === index.id)) throw new Error(`adventure "${index.id}" is listed twice (--pack/--include)`);
-  copyPack(root, index, join(out, 'adventures', index.id));
+  const destination = join(out, 'adventures', index.id);
+  copyPack(includes[i], index, destination);
+  stampPack(destination);
   catalog.adventures.push({id: index.id, name: index.name, brief: index.brief, path: `adventures/${index.id}/`});
-}
+});
 if (selectedPack || includes.length) writeFileSync(join(out, 'adventures.json'), JSON.stringify(catalog, null, 2) + '\n');
+info.pack = {...info.pack, id: outputPack.id, contentVersion: outputPack.contentVersion, format: outputPack.format, integrity: outputPack.integrity};
 writeFileSync(join(out, 'version.json'), JSON.stringify(info, null, 2) + '\n');
 console.log(`built ${info.short}${info.dirty ? ' (uncommitted changes)' : ''} on ${info.branch} (${info.pack.id}) -> ${out}`);

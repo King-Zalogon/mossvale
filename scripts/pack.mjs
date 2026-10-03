@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 /* Small local content-authoring commands for versioned adventure packs. See docs/PACKS.md. */
+import {createHash} from 'node:crypto';
 import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {resolve, join} from 'node:path';
 import defaultRegistries from '../dist/maps/registries.json' with {type: 'json'};
 import {assets} from '../dist/src/data/assets.js';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {resolveRegistries, validateRegistries} from '../dist/src/domain/registries.js';
-import {validatePack} from '../dist/src/domain/pack.js';
+import {packFileEntries, validatePack, validatePackMetadata} from '../dist/src/domain/pack.js';
+import {ENGINE_VERSION, SAVE_SCHEMA_VERSION} from '../dist/src/compatibility.js';
 
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const assetNames = new Set(assets.map(asset => asset.name));
@@ -16,9 +18,54 @@ const fail = message => {
   throw new Error(message);
 };
 
+function fileIntegrity(index, root) {
+  return packFileEntries(index).map(({id, path}) => {
+    let bytes;
+    try {
+      bytes = readFileSync(join(root, path));
+    } catch {
+      fail(`pack integrity ${id}: required file ${path} is missing; restore the complete pack before building`);
+    }
+    return {id, path, sha256: createHash('sha256').update(bytes).digest('hex')};
+  });
+}
+
+function refreshManifest(folder) {
+  const root = resolve(folder);
+  const indexPath = join(root, 'index.json');
+  const index = json(indexPath);
+  if (!Number.isInteger(index.contentVersion) || index.contentVersion < 1) index.contentVersion = 1;
+  index.requires = {engineVersion: ENGINE_VERSION, saveSchema: SAVE_SCHEMA_VERSION};
+  index.integrity = fileIntegrity(index, root);
+  writeJson(indexPath, index, true);
+  return index;
+}
+
+function verifyFileIntegrity(index, root) {
+  const errors = validatePackMetadata(index);
+  for (const error of errors) console.error(error);
+  if (errors.length) return errors;
+  if (!Array.isArray(index.integrity)) return [];
+  for (const entry of index.integrity) {
+    let actual;
+    try {
+      actual = createHash('sha256')
+        .update(readFileSync(join(root, entry.path)))
+        .digest('hex');
+    } catch {
+      errors.push(`pack integrity ${entry.id}: required file ${entry.path} is missing; restore the complete pack before building`);
+      continue;
+    }
+    if (actual !== entry.sha256) errors.push(`pack integrity ${entry.id}: SHA-256 mismatch for ${entry.path}; refresh the manifest after reviewing the file`);
+  }
+  return errors;
+}
+
 function loadPack(folder) {
   const root = resolve(folder);
   const index = json(join(root, 'index.json'));
+  const integrityErrors = verifyFileIntegrity(index, root);
+  if (integrityErrors.length) fail(integrityErrors.map(error => ` - ${error}`).join('\n'));
   if (index.registries !== undefined && !/^[a-z0-9-]+\.json$/.test(index.registries)) fail('pack registries: must name a JSON file in the pack folder');
   const registries = json(join(root, index.registries ?? 'registries.json'));
   const errors = validateRegistries(registries, {assetNames});
@@ -93,6 +140,7 @@ function createPack(folder, id, name, force) {
   writeJson(join(root, 'index.json'), index, force);
   writeJson(join(root, 'registries.json'), registry, force);
   writeJson(join(root, 'maps', 'start.json'), starterMap('start', name, speciesIds), force);
+  refreshManifest(root);
   loadPack(root);
   console.log(`Created ${id} in ${root}. Run validate-pack and preview-pack before editing the maps.`);
 }
@@ -141,6 +189,7 @@ function addMap(folder, id) {
   writeJson(join(pack.root, pack.index.mapDirectory ?? '', sourceId + '.json'), source, true);
   writeJson(join(pack.root, 'registries.json'), pack.registries, true);
   writeJson(join(pack.root, 'index.json'), pack.index, true);
+  refreshManifest(pack.root);
   loadPack(pack.root);
   console.log(`Added ${id} and linked it to ${sourceId}.`);
 }
@@ -176,6 +225,12 @@ try {
     if (args.length !== 1) fail('usage: node scripts/pack.mjs validate-pack <folder>');
     const pack = loadPack(args[0]);
     console.log(`${pack.index.name}: ${pack.index.maps.length} map(s), ${pack.registries.species.length} species; all pack references are valid.`);
+  } else if (command === 'refresh-manifest') {
+    if (args.length !== 1) fail('usage: node scripts/pack.mjs refresh-manifest <folder>');
+    const index = refreshManifest(args[0]);
+    console.log(
+      `Refreshed ${index.id} content version ${index.contentVersion} (${index.integrity.length} files). Review the pack changes, then run validate-pack.`,
+    );
   } else if (command === 'preview-pack') {
     if (args.length !== 2) fail('usage: node scripts/pack.mjs preview-pack <folder> <map-id>');
     previewPack(args[0], args[1]);

@@ -112,7 +112,7 @@ export function commitSaveTransaction(storage, changes, keys = KEYS) {
   }
 }
 
-function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pack = LEGACY_PACK}) {
+function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pack = LEGACY_PACK, contentVersion = 1}) {
   const keys = keysFor(pack);
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = id => regions.findIndex(r => r.id === id);
@@ -149,7 +149,62 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       completed: false,
       battle: null,
       party: [starter],
+      ...(pack === LEGACY_PACK ? {} : {contentVersion}),
     };
+  }
+
+  /**
+   * A data update may add content freely, but removing or renaming an ID already used by a save is unsafe.
+   * Refuse to normalize such a save so its original bytes and checkpoint remain available for recovery.
+   */
+  function contentIssue(raw) {
+    if (!isObj(raw)) return null;
+    if (raw.contentVersion !== undefined && (!Number.isInteger(raw.contentVersion) || raw.contentVersion < 1))
+      return 'The save has an invalid adventure content version.';
+    const savedContentVersion = raw.contentVersion ?? 1;
+    if (savedContentVersion > contentVersion)
+      return `This save uses adventure content version ${savedContentVersion}, newer than the installed version ${contentVersion}. Its save and checkpoint were left untouched; restore the matching complete game build to continue.`;
+    if (savedContentVersion === contentVersion) return null;
+    const schema = Number.isInteger(raw.version) ? raw.version : 0;
+    if (schema < 3) return null; // Older saves contain array indexes; their existing schema migration remains authoritative.
+    const unsupported = (value, find, field) => {
+      if (!Array.isArray(value)) return null;
+      const missing = value.find(id => typeof id === 'string' && find(id) < 0);
+      return missing ? `This save refers to ${field} ID "${missing}", which the installed adventure content no longer has.` : null;
+    };
+    const regionIds = new Set(regions.map(region => region.id));
+    const mapIds = new Set([...regionIds, ...Object.keys(bounds)]);
+    const speciesIds = new Set(species.map(entry => entry.id));
+    const missingRegion = value =>
+      typeof value === 'string' && !regionIds.has(value)
+        ? `This save refers to region ID "${value}", which the installed adventure content no longer has.`
+        : null;
+    const missingMap = value =>
+      typeof value === 'string' && !mapIds.has(value) ? `This save refers to map ID "${value}", which the installed adventure content no longer has.` : null;
+    const missingSpecies = value =>
+      typeof value === 'string' && !speciesIds.has(value)
+        ? `This save refers to creature ID "${value}", which the installed adventure content no longer has.`
+        : null;
+    const missingEventMap = Array.isArray(raw.events)
+      ? raw.events.find(key => typeof key === 'string' && /^[a-z0-9-]+\/[a-z0-9-]+$/.test(key) && !mapIds.has(key.split('/')[0]))
+      : null;
+    const issue =
+      missingRegion(raw.region) ||
+      missingMap(raw.mapId) ||
+      missingSpecies(raw.active) ||
+      unsupported(raw.visited, id => (regionIds.has(id) ? 1 : -1), 'visited region') ||
+      unsupported(raw.badges, id => (regionIds.has(id) ? 1 : -1), 'region') ||
+      unsupported(raw.chests, id => (regionIds.has(id) ? 1 : -1), 'region') ||
+      unsupported(raw.visitedMaps, id => (mapIds.has(id) ? 1 : -1), 'visited map') ||
+      unsupported(raw.caught, id => (speciesIds.has(id) ? 1 : -1), 'caught creature') ||
+      unsupported(raw.seen, id => (speciesIds.has(id) ? 1 : -1), 'seen creature') ||
+      unsupported(raw.party, id => (speciesIds.has(id) ? 1 : -1), 'party creature') ||
+      missingSpecies(raw.battle?.id) ||
+      (missingEventMap
+        ? `This save refers to story event "${missingEventMap}", which belongs to a map the installed adventure content no longer has.`
+        : null) ||
+      (isObj(raw.team) ? Object.keys(raw.team).map(missingSpecies).find(Boolean) : null);
+    return issue ? `${issue} The save and checkpoint were left untouched; restore the matching complete game build to continue.` : null;
   }
 
   // Convert a raw payload (v3/v4 IDs, or legacy indexes when `legacy`) into a fully valid in-memory save, or null.
@@ -290,6 +345,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       completed: save.completed === true,
       party: save.party.map(sid),
       battle: save.battle ? {...save.battle, id: sid(save.battle.id)} : null,
+      ...(pack === LEGACY_PACK ? {} : {contentVersion}),
     });
   }
 
@@ -310,7 +366,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
   }
 
   /* Returns {save, status, message, writable, source}.
-     status: 'new' | 'ok' | 'migrated' | 'restored' | 'recovered' | 'future' | 'foreign' | 'unavailable' | 'transaction-recovered' | 'transaction-pending'
+     status: 'new' | 'ok' | 'migrated' | 'restored' | 'recovered' | 'future' | 'foreign' | 'incompatible' | 'unavailable' | 'transaction-recovered' | 'transaction-pending'
      - restored: primary save was invalid and the last checkpoint was loaded instead.
      - recovered: nothing usable; a fresh save is used and the bad payload is kept under keys.quarantine.
      - future: written by a newer game version; it is never overwritten (writable=false).
@@ -390,6 +446,16 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
           source: key,
           message: `This save belongs to another adventure ("${packOf(parsed)}"), not "${pack}". It was left untouched; progress in this session will not be saved.`,
         });
+      const contentProblem = contentIssue(parsed);
+      if (contentProblem)
+        return finish({
+          ...out,
+          status: 'incompatible',
+          writable: false,
+          source: key,
+          raw,
+          message: contentProblem,
+        });
       const schema = Number.isInteger(parsed?.version) ? parsed.version : version;
       const save =
         schema === 1
@@ -433,7 +499,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     return finish(out);
   }
 
-  return {fresh, normalize, serialize, load, pack, keys};
+  return {fresh, normalize, serialize, load, pack, keys, contentVersion, contentIssue};
 }
 
 export {VERSION, KEYS, create, keysFor, packOf, LEGACY_PACK};

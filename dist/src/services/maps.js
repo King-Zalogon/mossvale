@@ -1,29 +1,50 @@
-/* Fetches map JSON listed in maps/index.json (the adventure pack, docs/PACKS.md), plus the objectives and story files it names.
-   Parsing/validation happens in domain/adventure.js. */
+/* Fetches one coherent, verified snapshot of the adventure pack before save loading can begin. */
+import {validatePackMetadata, packFileEntries} from '../domain/pack.js';
+import {ENGINE_VERSION, SAVE_SCHEMA_VERSION} from '../compatibility.js';
+
 export async function fetchAdventure(base = 'maps/') {
-  const get = async name => {
-    const response = await fetch(base + name);
-    if (!response.ok) throw new Error(`${base + name}: HTTP ${response.status}`);
-    return response.json();
+  const bytesFor = async (id, path) => {
+    let response;
+    try {
+      response = await fetch(base + path, {cache: 'no-store'});
+    } catch (error) {
+      throw new Error(`Pack file ${id} (${path}) could not be fetched: ${error.message || error}. Check the connection, then retry.`, {cause: error});
+    }
+    if (!response.ok) throw new Error(`Pack file ${id} (${path}) is missing or unavailable: HTTP ${response.status}. Restore the complete build, then retry.`);
+    return new Uint8Array(await response.arrayBuffer());
   };
-  const index = await get('index.json');
-  const id = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-  if (!Array.isArray(index.maps) || !index.maps.length || !index.maps.every(mapId => typeof mapId === 'string' && id.test(mapId)))
-    throw new Error('pack maps: expected a list of map IDs');
-  if (index.registries !== undefined && (typeof index.registries !== 'string' || !/^[a-z0-9-]+\.json$/.test(index.registries)))
-    throw new Error('pack registries: must name a JSON file in the pack folder');
-  if (index.mapDirectory !== undefined && (typeof index.mapDirectory !== 'string' || !/^[a-z0-9-]+\/$/.test(index.mapDirectory)))
-    throw new Error('pack mapDirectory: must be a relative folder name ending with /');
-  for (const key of ['objectives', 'story'])
-    if (index[key] !== undefined && (typeof index[key] !== 'string' || !/^[a-z0-9-]+\.json$/.test(index[key])))
-      throw new Error(`pack ${key}: must name a JSON file in the pack folder`);
-  const directory = index.mapDirectory ?? '';
-  const [maps, objectives, story, registries] = await Promise.all([
-    Promise.all(index.maps.map(id => get(directory + id + '.json'))),
-    index.objectives ? get(index.objectives) : undefined,
-    index.story ? get(index.story) : undefined,
-    index.registries ? get(index.registries) : undefined,
-  ]);
+  const parse = (bytes, label) => {
+    try {
+      return JSON.parse(new TextDecoder().decode(bytes));
+    } catch {
+      throw new Error(`Pack file ${label} is not valid JSON. Restore the complete build, then retry.`);
+    }
+  };
+  const index = parse(await bytesFor('manifest:index', 'index.json'), 'manifest:index');
+  const errors = validatePackMetadata(index, {required: true, engineVersion: ENGINE_VERSION, saveSchema: SAVE_SCHEMA_VERSION});
+  if (errors.length)
+    throw new Error(`Pack compatibility check failed: ${errors.join(' · ')}. Update the game or restore a complete compatible build, then retry.`);
+  if (!globalThis.crypto?.subtle)
+    throw new Error('This browser cannot verify the adventure pack integrity hashes. Open Mossvale in a current browser, then retry.');
+  const entries = packFileEntries(index);
+  const verified = await Promise.all(
+    entries.map(async entry => {
+      const bytes = await bytesFor(entry.id, entry.path);
+      const digest = await crypto.subtle.digest('SHA-256', bytes);
+      const actual = [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2, '0')).join('');
+      const expected = index.integrity.find(file => file.id === entry.id)?.sha256;
+      if (actual !== expected)
+        throw new Error(
+          `Pack file ${entry.id} (${entry.path}) failed its SHA-256 integrity check. The pack files do not belong to one build; restore the complete build, then retry.`,
+        );
+      return [entry.id, parse(bytes, `${entry.id} (${entry.path})`)];
+    }),
+  );
+  const files = Object.fromEntries(verified);
+  const maps = index.maps.map(id => files[`map:${id}`]);
+  const objectives = files['objectives:main'];
+  const story = files['story:main'];
+  const registries = files['registry:main'];
   return {maps, objectives, story, registries, pack: index};
 }
 

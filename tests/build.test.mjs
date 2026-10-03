@@ -1,11 +1,25 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {existsSync, mkdtempSync, readFileSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {VERSION} from '../dist/src/save.js';
 import {describeBuild} from '../dist/src/services/version.js';
+import {ENGINE_VERSION, SAVE_SCHEMA_VERSION} from '../dist/src/compatibility.js';
+
+const assertPackIntegrity = (dir, index, info) => {
+  assert.deepEqual(index.requires, {engineVersion: ENGINE_VERSION, saveSchema: SAVE_SCHEMA_VERSION});
+  assert.deepEqual(info.pack.integrity, index.integrity);
+  for (const file of index.integrity) {
+    assert.equal(file.sha256.length, 64);
+    const digest = createHash('sha256')
+      .update(readFileSync(join(dir, 'maps', file.path)))
+      .digest('hex');
+    assert.equal(digest, file.sha256, file.id);
+  }
+};
 
 test('the build copies the game and stamps the commit and save schema', () => {
   const dir = mkdtempSync(join(tmpdir(), 'mossvale build é-'));
@@ -15,7 +29,9 @@ test('the build copies the game and stamps the commit and save schema', () => {
       stdio: 'pipe',
     });
     const info = JSON.parse(readFileSync(join(dir, 'version.json'), 'utf8'));
+    const index = JSON.parse(readFileSync(join(dir, 'maps/index.json'), 'utf8'));
     assert.deepEqual([info.short, info.branch, info.saveSchema, info.engineVersion, info.pack.id], ['abcdef0', 'main', VERSION, 1, 'mossvale']);
+    assertPackIntegrity(dir, index, info);
     assert.match(info.builtAt, /^\d{4}-\d\d-\d\dT/);
     for (const f of ['index.html', 'style.css', 'src/main.js', 'maps/index.json', 'assets/props/tree-oak.png']) assert.equal(existsSync(join(dir, f)), true, f);
   } finally {
@@ -34,6 +50,7 @@ test('a selected data pack builds as a validated standalone artifact with compat
     const info = JSON.parse(readFileSync(join(dir, 'version.json'), 'utf8'));
     const index = JSON.parse(readFileSync(join(dir, 'maps/index.json'), 'utf8'));
     assert.deepEqual([info.pack.id, info.pack.contentVersion, info.saveSchema], ['hearth-hamlet', 1, VERSION]);
+    assertPackIntegrity(dir, index, info);
     assert.deepEqual(index.maps, ['hearth-yard']);
     assert.equal(existsSync(join(dir, 'maps/hearth-yard.json')), true);
     assert.equal(existsSync(join(dir, 'maps/registries.json')), true);

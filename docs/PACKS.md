@@ -10,6 +10,8 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
 {
   "format": 1,
   "id": "mossvale", // saves record it; never changes
+  "contentVersion": 1, // raise when saved identities or progress semantics change
+  "requires": { "engineVersion": 1, "saveSchema": 4 },
   "name": "Mossvale",
   "brief": "Three islands, eight friends and a seal at every shrine.",
   "maps": ["meadow", "amber-ridge", "frostveil-grove"], // the map files, dist/maps/<id>.json
@@ -20,6 +22,10 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
   "ending": "story", // the ending is the one in the story file
   "objectives": "objectives.json",
   "story": "story.json",
+  "integrity": [
+    { "id": "registry:main", "path": "registries.json", "sha256": "…64 lowercase hex characters…" },
+    { "id": "map:meadow", "path": "meadow.json", "sha256": "…64 lowercase hex characters…" }
+  ],
   "prefabs": { "waystation": { "footprint": {"w": 5, "h": 4}, "slots": [] } } // optional; see PREFABS.md
 }
 ```
@@ -50,9 +56,15 @@ Progress flags stay `<map-id>.seal` and `<map-id>.chest`, unique inside a pack. 
 - A save from a different pack is **never loaded, overwritten or imported**. Loading reports the status `foreign` (like a newer-version save: untouched, not writable, plain explanation, nothing quarantined) and a backup file from another adventure is refused with the same reason.
 - The pack id in `index.json` must equal the id the build was compiled for (`src/data/pack.js`), so a pack made for another adventure fails validation instead of being played against the wrong registries.
 
+## Pack integrity and save compatibility
+
+The `integrity` list has exactly one entry for each selected registry, map, objective file and story file. Its canonical IDs (`registry:main`, `map:<map-id>`, `objectives:main`, and `story:main`) stay stable if a file is moved; `path` is the pack-relative filename and `sha256` hashes its exact bytes. The browser checks the engine and save schema requirements, then verifies every file before it reads or updates a save. A missing file, mixed build, hash mismatch, or unsupported requirement leaves saves alone and shows a retryable startup error. These hashes catch accidental mixing or corruption; they are not signatures and do not establish who published a pack.
+
+`contentVersion` starts at 1 and is increased by the pack maintainer when a change affects saved identities or progression semantics. Compatible updates keep stable map, region, and species IDs, so added content and presentation changes can load existing progress and its checkpoint. If an update removes or renames an ID already used by an older save, the game stops writes, leaves both copies untouched, and offers an unmodified save export. Restore the matching complete earlier build to keep playing; never reuse a retired ID for different meaning. Engine or save-schema requirements must match this game exactly. A future schema change needs an explicit save migration before the new engine ships.
+
 ## Validation and authoring commands
 
-`npm run validate` checks the checked-in Mossvale pack. The same checks run when the game loads a pack: registry version/fields, shared asset references, pack ID/name/brief, map links, species availability, encounter/guardian references, milestones and story ending.
+`npm run validate` checks the checked-in Mossvale pack, including its byte hashes and compatibility requirements. The same checks run when the game loads a pack: registry version/fields, shared asset references, pack ID/name/brief, map links, species availability, encounter/guardian references, milestones and story ending.
 
 For a separate content folder, use the local authoring CLI:
 
@@ -61,6 +73,7 @@ npm run pack -- create-pack ./content/bright-hollow --id bright-hollow --name "B
 npm run pack -- add-map ./content/bright-hollow willow-crossing
 npm run pack -- validate-pack ./content/bright-hollow
 npm run pack -- preview-pack ./content/bright-hollow start
+npm run pack -- refresh-manifest ./content/bright-hollow
 ```
 
 `create-pack` refuses to replace an existing scaffold unless `--force` is supplied for the same pack ID. It creates a small playable map and starter species/region/rule tables. `add-map` clones the first map, adds a returnable exit, and updates the region table. Review the generated map and tune registries before building a game. Invalid IDs and missing references are reported with pack file/field context on Windows and Linux.
@@ -95,4 +108,4 @@ A build offers its adventures through `adventures.json` next to `index.html`:
    npm run build -- --pack ./content/bright-hollow
    ```
 
-   Set `BUILD_DIR` to choose an output folder. The artifact's `version.json` records engine version, pack ID/content version, save schema and source commit. Referenced assets are checked against the manifest and all checked-in image files are validated before output is replaced. Keep the previous complete build folder as the rollback copy; restore it as a unit so the engine and its map data stay paired. Saves remain isolated by pack ID, and any future save schema change needs an explicit migration before that engine version ships.
+   Set `BUILD_DIR` to choose an output folder. The artifact's `version.json` records engine version, pack ID/content version, save schema and source commit. The build stamps canonical file IDs and byte hashes into `maps/index.json`; at runtime all selected files must match before the save codec opens. After editing pack files, run `refresh-manifest`, review the generated changes, then run `validate-pack`. Referenced assets are checked against the manifest and all checked-in image files are validated before output is replaced. Keep the previous complete build folder as the rollback copy; restore it as a unit so the engine and its map data stay paired. Saves remain isolated by pack ID.

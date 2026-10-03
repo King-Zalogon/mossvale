@@ -13,5 +13,22 @@
   "milestones": [
     "hearth-yard.chest"
   ],
-  "registries": "registries.json"
+  "registries": "registries.json",
+  "contentVersion": 1,
+  "requires": {
+    "engineVersion": 1,
+    "saveSchema": 4
+  },
+  "integrity": [
+    {
+      "id": "registry:main",
+      "path": "registries.json",
+      "sha256": "e27e334b8556000b36d1db770f2bf490a1a7ea6c20ef029cf936bbd4e3b3675e"
+    },
+    {
+      "id": "map:hearth-yard",
+      "path": "hearth-yard.json",
+      "sha256": "71c216dcd91e101402ad6ed98efbc5685802ae9b5d1b02b6a4c3c07468b3f93e"
+    }
+  ]
 }

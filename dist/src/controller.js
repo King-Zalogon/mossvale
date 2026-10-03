@@ -25,10 +25,14 @@ import {createSpeech} from './ui/speech.js';
 export function createController(app) {
   const {game, ui, audio, rng, persist, canvas, actions, menus, maps, mapsById, objCtx} = app;
   const save = () => game.save;
-  const sfx = name => audio.play(name);
+  const emit = (type, data) => app.events?.emit(type, data);
+  const sfx = name => {
+    emit('audio.cue', {cue: name});
+    audio.play(name);
+  };
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
   const timeline = (app.timeline = createTimeline());
-  const speech = createSpeech({ui, canvas});
+  const speech = createSpeech({ui, canvas, onEvent: emit});
   const wait = ms => (app.motionReduced() ? 250 : ms);
 
   /** Distance to walk before the next encounter, from the zone the player stands in (or the default range). */
@@ -41,6 +45,7 @@ export function createController(app) {
     if (goal && goal.id !== save().goal) {
       if (save().goal && ui.ready) toast(`New goal: ${goal.title}`); // first run and reloads stay quiet
       save().goal = goal.id;
+      emit('objective.changed', {id: goal.id, step: goal.step, mapId: save().mapId});
     }
     persist();
   }
@@ -101,6 +106,7 @@ export function createController(app) {
 
   function travel(id, spawn = 'camp') {
     const s = save();
+    const fromMap = s.mapId;
     const map = typeof id === 'number' ? maps[id] : mapsById[id];
     const region = map ? regions.findIndex(r => r.biome === map.biome) : -1;
     if (!map || region < 0 || game.battle || (region !== s.region && !unlocked(s, region))) {
@@ -115,6 +121,7 @@ export function createController(app) {
     game.pacing.encounterCooldown = GRACE_ON_ARRIVAL;
     game.pacing.steps = 0;
     enterRegion(region);
+    emit('portal.traveled', {fromMap, toMap: map.id, spawn});
     fadeIn();
     close();
     refresh();
@@ -237,6 +244,7 @@ export function createController(app) {
       else toast('Follow the trail, or wander into tall grass to meet a friend.');
       return;
     }
+    emit('interaction.used', {mapId: game.world.map.id, target: o.ref ?? o.id ?? o.kind, kind: o.kind});
     const s = save();
     sfx('tap');
     if (o.kind === 'ranger') openRanger();
@@ -248,6 +256,7 @@ export function createController(app) {
         return;
       }
       refresh();
+      emit('reward.granted', {source: 'chest', target: o.ref ?? o.id, coins: got.coins, potions: got.potions, orbs: got.orbs});
       sfx('chest');
       showResult({
         title: 'A little trail treasure',
@@ -263,6 +272,7 @@ export function createController(app) {
   }
 
   function runTrigger(t) {
+    emit('interaction.triggered', {mapId: game.world.map.id, target: t.id, trigger: t.on});
     if (t.once) {
       if (game.firedTriggers.has(`${game.world.map.id}/${t.id}`)) return;
       game.firedTriggers.add(`${game.world.map.id}/${t.id}`);
@@ -363,6 +373,12 @@ export function createController(app) {
     }
     timeline.cancel();
     game.battle = createBattle(s, rng, spec);
+    emit(spec.boss ? 'challenge.started' : 'battle.started', {
+      mapId: game.world.map.id,
+      species: species[game.battle.id].id,
+      level: game.battle.level,
+      boss: !!spec.boss,
+    });
     refresh();
     sfx(spec.boss ? 'guardian' : 'encounter');
     renderBattle(
@@ -399,6 +415,7 @@ export function createController(app) {
       return false;
     }
     b.busy = false;
+    emit('battle.resumed', {mapId: s.mapId, species: species[b.id].id, turn: b.turn, boss: b.boss});
     renderBattle('Your encounter was waiting for you. Choose your next move.');
     return true;
   }
@@ -415,6 +432,29 @@ export function createController(app) {
     const before = {active: s.active};
     const turn = resolveTurn(s, b, action, rng, {sealReward: game.world.objects.find(o => o.kind === 'shrine')?.reward});
     if (!turn) return;
+    emit('turn.resolved', {
+      mapId: game.world.map.id,
+      species: species[b.id].id,
+      turn: b.turn,
+      action: action.kind,
+      ended: turn.ended,
+      events: turn.events.map(event => ({type: event.type, damage: event.damage, healed: event.healed, reward: event.reward, xp: event.xp})),
+    });
+    if (action.kind === 'catch') emit('capture.attempted', {mapId: game.world.map.id, species: species[b.id].id, ended: turn.ended});
+    if (turn.ended === 'caught') {
+      const capture = turn.events.find(event => event.type === 'caught');
+      emit('capture.completed', {species: species[b.id].id, isNew: capture.isNew, joined: capture.joined});
+      emit('reward.granted', {source: 'capture', species: species[b.id].id, coins: capture.coins, xp: capture.xp});
+    } else if (turn.ended === 'win') {
+      const reward = turn.events.find(event => event.type === 'win');
+      emit('reward.granted', {
+        source: reward.newSeal ? 'shrine' : 'battle',
+        species: species[b.id].id,
+        coins: reward.reward,
+        xp: reward.xp,
+        newSeal: reward.newSeal,
+      });
+    }
     b.busy = true;
     const frames = framesFor(turn, before, b);
     if (!turn.ended && companion(s).hp < maxHP(s, s.active) * 0.35 && frames.length) frames.at(-1).message += tip('low-health');
@@ -578,6 +618,7 @@ export function createController(app) {
     game.pacing.encounterAt = nextDistance();
     game.pacing.encounterCooldown = GRACE_AFTER_BATTLE;
     transition(game, 'explore');
+    emit('battle.interrupted', {mapId: game.world.map.id, turn: game.save.battle?.turn ?? 0});
     hideModal(ui, canvas);
     refresh();
     toast('You returned safely to the trail.');

@@ -17,7 +17,9 @@ export function summarize(save, species) {
 export function readArchive(storage, codec) {
   try {
     const entry = JSON.parse(readSaveItem(storage, codec.keys.archive, codec.keys));
-    const save = codec.normalize(JSON.parse(entry.raw), false);
+    const raw = JSON.parse(entry.raw);
+    if (codec.contentIssue(raw)) return null;
+    const save = codec.normalize(raw, false);
     return save ? {save, at: String(entry.at)} : null;
   } catch {
     return null;
