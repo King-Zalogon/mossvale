@@ -255,15 +255,15 @@ for (const [seed, weakened] of [
   await page.evaluate(() => window.mossvale.interact());
   await page.click('#speech-next');
   await page.waitForSelector('[data-buy="potion"]');
-  await page.click('[data-buy="potion"]');
+  await page.keyboard.press('2');
   await page.click('#speech-next');
   assert.deepEqual(await state(), {coins: 15, potions: 1, orbs: 0});
   await page.waitForSelector('[data-buy="potion"]');
-  await page.click('[data-buy="orbs"]');
+  await page.keyboard.press('3');
   await page.click('#speech-next');
   assert.deepEqual(await state(), {coins: 0, potions: 1, orbs: 5});
   assert.equal(await page.locator('[data-buy="orbs"]').isDisabled(), true, 'cannot buy without coins');
-  await page.click('#rest-team');
+  await page.keyboard.press('1');
   await page.click('#speech-next');
   assert.deepEqual(await state(), {coins: 0, potions: 1, orbs: 12});
   assert.deepEqual(errors, []);
@@ -439,11 +439,18 @@ console.log('ok larger text and touch targets');
   fixturePack = 'hearth';
   const {page, errors} = await open('');
   await page.waitForFunction(() => window.mossvale?.getState().world.map?.id === 'hearth-yard');
-  await page.evaluate(() => {
+  const {starter, baseHp} = await page.evaluate(() => {
     const state = window.mossvale.getState();
-    state.save.team[0].xp = 40;
+    const starter = state.save.active;
+    const baseHp = state.save.team[starter].hp;
+    state.save.team[starter].xp = 40;
+    return {starter, baseHp};
   });
-  assert.equal(await page.evaluate(() => window.mossvale.maxHP(0)), 46, 'the hearth progression registry changes level tuning at the configured XP boundary');
+  assert.equal(
+    await page.evaluate(starter => window.mossvale.maxHP(starter), starter),
+    baseHp + 4,
+    'the hearth progression registry changes level tuning at the configured XP boundary',
+  );
   assert.deepEqual(errors, []);
   fixturePack = null;
   console.log('ok alternate pack registry boot');

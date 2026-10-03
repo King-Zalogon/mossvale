@@ -152,3 +152,14 @@ test('unavailable storage plays in memory', () => {
 test('non-object payloads are recovered', () => {
   for (const bad of ['null', '[]', '7', '"x"']) assert.equal(codec.load(store({[KEYS.v3]: bad})).status, 'recovered');
 });
+
+test('random starter uses injected RNG and stays consistent through save/load', () => {
+  for (const roll of [0, 0.4, 0.99]) {
+    const s = codec.fresh(() => roll);
+    assert.deepEqual(s.caught, [s.active]);
+    assert.deepEqual(s.party, [s.active]);
+    assert.deepEqual(s.seen, [s.active]);
+    assert.ok(s.team[s.active].hp > 0);
+    assert.equal(codec.normalize(JSON.parse(codec.serialize(s))).active, s.active);
+  }
+});

@@ -95,22 +95,24 @@ export function commitSaveTransaction(storage, changes) {
 function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pack = LEGACY_PACK}) {
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = id => regions.findIndex(r => r.id === id);
-  const maxHP = (idx, xp) => species[idx].stats.hp + Math.floor(xp / XP_PER_LEVEL) * 4;
+  const baseHP = idx => species[idx].stats?.hp ?? species[idx].hp;
+  const maxHP = (idx, xp) => baseHP(idx) + Math.floor(xp / XP_PER_LEVEL) * 4;
 
-  function fresh() {
+  function fresh(rng = () => 0) {
+    const starter = Math.min(species.length - 1, Math.max(0, Math.floor(rng() * species.length)));
     return {
       version: VERSION,
       region: 0,
       mapId: regions[0].id,
       x: spawn.x,
       y: spawn.y,
-      active: 0,
+      active: starter,
       orbs: 12,
       potions: 3,
       coins: 0,
-      seen: [0],
-      caught: [0],
-      team: {0: {xp: 0, hp: species[0].stats.hp}},
+      seen: [starter],
+      caught: [starter],
+      team: {[starter]: {xp: 0, hp: baseHP(starter)}},
       badges: [],
       chests: [],
       visited: [0],
@@ -124,7 +126,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       events: [],
       completed: false,
       battle: null,
-      party: [0],
+      party: [starter],
     };
   }
 
