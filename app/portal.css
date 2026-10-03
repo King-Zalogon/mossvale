@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+:root {
+  color-scheme: light;
+  --ink: #1f2c25;
+  --muted: #66756c;
+  --green: #315c48;
+  --line: #dce5de;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: radial-gradient(circle at 50% 12%, #f9fbf7, #edf2ec 66%);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+}
+button,
+input {
+  font: inherit;
+}
+.shell {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+}
+.card {
+  width: min(100%, 460px);
+  padding: 40px;
+  border: 1px solid #e0e8e1;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 80px rgba(28, 49, 36, 0.09);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Manrope, sans-serif;
+  font-weight: 800;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  color: white;
+  background: var(--green);
+}
+.eyebrow {
+  margin: 32px 0 10px;
+  color: #65796d;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+h1 {
+  margin: 0;
+  font:
+    800 32px/1.15 Manrope,
+    sans-serif;
+  letter-spacing: -0.045em;
+}
+.intro {
+  margin: 12px 0 28px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.form,
+.actions {
+  display: grid;
+  gap: 12px;
+}
+label {
+  margin: 2px 0 -7px;
+  font-size: 12px;
+  font-weight: 700;
+}
+input {
+  width: 100%;
+  height: 46px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  outline: 0;
+  background: #fcfdfb;
+}
+input:focus {
+  border-color: #6c947d;
+  box-shadow: 0 0 0 3px #e8f0ea;
+}
+button {
+  min-height: 46px;
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 700;
+}
+button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+.primary {
+  margin-top: 5px;
+  color: white;
+  background: var(--green);
+}
+.primary:hover:not(:disabled) {
+  background: #284b3a;
+}
+.secondary {
+  color: var(--green);
+  background: #edf3ee;
+}
+.status {
+  margin: 2px 0 0;
+  color: #8a4a38;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.privacy-note {
+  margin: 25px 0 0;
+  padding-top: 17px;
+  border-top: 1px solid #edf1ed;
+  color: #7d8981;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+@media (max-width: 520px) {
+  .card {
+    padding: 30px 24px;
+  }
+  h1 {
+    font-size: 28px;
+  }
+}
