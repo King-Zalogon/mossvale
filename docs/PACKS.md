@@ -10,7 +10,7 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
 {
   "format": 1,
   "id": "mossvale", // saves record it; never changes
-  "contentVersion": 1, // raise for reviewed data changes; keep IDs stable across versions
+  "contentVersion": 1, // raise when saved identities or progress semantics change
   "requires": { "engineVersion": 1, "saveSchema": 4 },
   "name": "Mossvale",
   "brief": "Three islands, eight friends and a seal at every shrine.",
@@ -60,7 +60,7 @@ Progress flags stay `<map-id>.seal` and `<map-id>.chest`, unique inside a pack. 
 
 The `integrity` list has exactly one entry for each selected registry, map, objective file and story file. Its canonical IDs (`registry:main`, `map:<map-id>`, `objectives:main`, and `story:main`) stay stable if a file is moved; `path` is the pack-relative filename and `sha256` hashes its exact bytes. The browser checks the engine and save schema requirements, then verifies every file before it reads or updates a save. A missing file, mixed build, hash mismatch, or unsupported requirement leaves saves alone and shows a retryable startup error. These hashes catch accidental mixing or corruption; they are not signatures and do not establish who published a pack.
 
-`contentVersion` starts at 1 and is increased by the pack maintainer when changing data. Compatible updates keep stable map, region, and species IDs, so added or revised data can load the existing save and its checkpoint. If an update removes or renames an ID already used by a save, the game stops writes, leaves both copies untouched, and offers an unmodified save export. Restore the matching complete earlier build to keep playing; never reuse a retired ID for different meaning. Engine or save-schema requirements must match this game exactly. A future schema change needs an explicit save migration before the new engine ships.
+`contentVersion` starts at 1 and is increased by the pack maintainer when a change affects saved identities or progression semantics. Compatible updates keep stable map, region, and species IDs, so added content and presentation changes can load existing progress and its checkpoint. If an update removes or renames an ID already used by an older save, the game stops writes, leaves both copies untouched, and offers an unmodified save export. Restore the matching complete earlier build to keep playing; never reuse a retired ID for different meaning. Engine or save-schema requirements must match this game exactly. A future schema change needs an explicit save migration before the new engine ships.
 
 ## Validation and authoring commands
 
