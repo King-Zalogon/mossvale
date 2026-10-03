@@ -24,7 +24,7 @@ const played = () => {
 test('a fresh save has no progress; playing creates it', () => {
   assert.equal(hasProgress(newSave()), false);
   assert.equal(hasProgress(played()), true);
-  assert.match(summarize(played(), species), /2 of 8 friends · 1 seal · 10 min played/);
+  assert.match(summarize(played(), species), new RegExp(`2 of ${species.length} friends · 1 seal · 10 min played`));
 });
 
 test('starting over archives the adventure first and resets the save and checkpoint', () => {

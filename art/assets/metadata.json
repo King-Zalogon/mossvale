@@ -5,8 +5,8 @@
   "gutter": 16,
   "sheets": {
     "source/creatures-atlas.png": {
-      "width": 1793,
-      "height": 690,
+      "width": 1948,
+      "height": 980,
       "mode": "RGBA"
     },
     "source/items-atlas.png": {
@@ -36,7 +36,7 @@
       "anchor": "bottom-center",
       "sheet": "source/props-atlas.png",
       "cell": {
-        "x": 894,
+        "x": 1211,
         "y": 443
       },
       "frames": null,
@@ -56,7 +56,27 @@
       "anchor": "bottom-center",
       "sheet": "source/props-atlas.png",
       "cell": {
-        "x": 583,
+        "x": 900,
+        "y": 443
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "cattail-clump",
+      "src": "assets/props/cattail-clump.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 301,
+      "height": 300,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 359,
         "y": 443
       },
       "frames": null,
@@ -107,6 +127,26 @@
       }
     },
     {
+      "name": "creature-bramblebuck",
+      "src": "assets/creatures/creature-bramblebuck.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 302,
+      "height": 340,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 1449,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
       "name": "creature-brooklet",
       "src": "assets/creatures/creature-brooklet.png",
       "folder": "creatures",
@@ -116,8 +156,8 @@
       "anchor": "bottom-center",
       "sheet": "source/creatures-atlas.png",
       "cell": {
-        "x": 584,
-        "y": 416
+        "x": 0,
+        "y": 772
       },
       "frames": null,
       "provenance": {
@@ -136,7 +176,7 @@
       "anchor": "bottom-center",
       "sheet": "source/creatures-atlas.png",
       "cell": {
-        "x": 286,
+        "x": 1666,
         "y": 416
       },
       "frames": null,
@@ -156,7 +196,7 @@
       "anchor": "bottom-center",
       "sheet": "source/creatures-atlas.png",
       "cell": {
-        "x": 0,
+        "x": 1380,
         "y": 416
       },
       "frames": null,
@@ -176,8 +216,8 @@
       "anchor": "bottom-center",
       "sheet": "source/creatures-atlas.png",
       "cell": {
-        "x": 1512,
-        "y": 0
+        "x": 1083,
+        "y": 416
       },
       "frames": null,
       "provenance": {
@@ -207,6 +247,26 @@
       }
     },
     {
+      "name": "creature-hushram",
+      "src": "assets/creatures/creature-hushram.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 289,
+      "height": 340,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 416
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
       "name": "creature-mushmallow",
       "src": "assets/creatures/creature-mushmallow.png",
       "folder": "creatures",
@@ -216,8 +276,8 @@
       "anchor": "bottom-center",
       "sheet": "source/creatures-atlas.png",
       "cell": {
-        "x": 734,
-        "y": 0
+        "x": 305,
+        "y": 416
       },
       "frames": null,
       "provenance": {
@@ -236,7 +296,47 @@
       "anchor": "bottom-center",
       "sheet": "source/creatures-atlas.png",
       "cell": {
-        "x": 1111,
+        "x": 682,
+        "y": 416
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-siltkip",
+      "src": "assets/creatures/creature-siltkip.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 344,
+      "height": 340,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 734,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-sunskitter",
+      "src": "assets/creatures/creature-sunskitter.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 339,
+      "height": 340,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 1094,
         "y": 0
       },
       "frames": null,
@@ -276,7 +376,7 @@
       "anchor": "bottom-center",
       "sheet": "source/props-atlas.png",
       "cell": {
-        "x": 1171,
+        "x": 1488,
         "y": 443
       },
       "frames": null,
@@ -515,7 +615,7 @@
       "anchor": "bottom-center",
       "sheet": "source/props-atlas.png",
       "cell": {
-        "x": 359,
+        "x": 676,
         "y": 443
       },
       "frames": null,

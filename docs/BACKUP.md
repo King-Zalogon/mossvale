@@ -4,7 +4,7 @@ Issue [#30](https://github.com/King-Zalogon/mossvale/issues/30). Code: `dist/src
 
 Saves live in this browser, on this address, only: the hosted game and `localhost` do not share progress. To move progress:
 
-1. **Export**: Menu → Backup & restore → *Export save file*. You get `mossvale-save-YYYY-MM-DD.json` (`mossvale-save-<adventure>-YYYY-MM-DD.json` for any other adventure): a small envelope (`kind`, `exportedAt`, `build`) around the normal v3 save.
+1. **Export**: Menu → Backup & restore → *Export save file*. You get `mossvale-save-YYYY-MM-DD.json` (`mossvale-save-<adventure>-YYYY-MM-DD.json` for any other adventure): a small envelope (`kind`, `exportedAt`, `build`) around the normal v4 save.
 2. **Import**: in the other browser, Menu → Backup & restore → *Import save file…*, pick the file. You see a preview of the file and of your current adventure (friends, seals, playtime) and confirm with *Replace my current adventure*. The page reloads on the imported progress.
 
 Safety:

@@ -1,7 +1,8 @@
 {
   "format": 1,
   "id": "meadow",
-  "name": "Mossvale Meadow",
+  "biome": "meadow",
+  "name": "Sunlit Trail",
   "size": {
     "w": 25,
     "h": 25
@@ -41,7 +42,8 @@
     ".........ttppptt........."
   ],
   "spawns": {
-    "camp": [12, 13]
+    "camp": [12, 13],
+    "orchard-return": [20, 12]
   },
   "landmarks": [
     {
@@ -57,7 +59,7 @@
         "species": "mushmallow",
         "level": 7,
         "tactic": "spore-guard",
-        "power": 1.5
+        "power": 1.8
       },
       "reward": {
         "coins": 60,
@@ -87,7 +89,7 @@
           "when": {
             "flag": "meadow.seal"
           },
-          "text": "The meadow shrine is awake. Take the eastern trail whenever you're ready."
+          "text": "The meadow shrine is awake. Follow the orchard trail to reach Amber Ridge."
         },
         {
           "when": {
@@ -107,7 +109,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine \u00b7 East: the next island \u00b7 Blue minimap marker: shrine \u00b7 Gold: treasure"
+      "text": "North: crystal shrine \u00b7 East: the ruined orchard \u00b7 Blue minimap marker: shrine"
     },
     {
       "id": "chest",
@@ -117,11 +119,7 @@
       "w": 44,
       "label": "Open the treasure chest",
       "flag": "meadow.chest",
-      "reward": {
-        "coins": 30,
-        "potions": 2,
-        "orbs": 4
-      }
+      "reward": {"coins": 30, "potions": 2, "orbs": 4}
     }
   ],
   "exits": [
@@ -130,12 +128,11 @@
       "sprite": "signpost-wood",
       "at": [22.4, 12],
       "w": 40,
-      "label": "Take the eastern trail",
+      "label": "Follow the eastern trail to the orchard",
       "to": {
-        "map": "amber-ridge",
+        "map": "orchard-ruins",
         "spawn": "camp"
-      },
-      "requires": "meadow.seal"
+      }
     }
   ],
   "props": [
@@ -335,7 +332,7 @@
     {
       "id": "tall-grass",
       "terrain": ["t"],
-      "pool": ["fernling", "emberkin", "brooklet", "duskwing"],
+      "pool": ["fernling", "emberkin", "bramblebuck", "duskwing"],
       "level": [5, 7]
     }
   ],

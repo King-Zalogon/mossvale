@@ -1,5 +1,6 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
+import {moves} from '../data/moves.js';
 import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, HEAVY_FACTOR, planOf} from '../data/tactics.js';
@@ -42,7 +43,7 @@ export function encounterDistance(zone, rng) {
 
 /** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
 export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1}) {
-  const hp = species[id].hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? 18 : 0);
+  const hp = species[id].stats.hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? 18 : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
   return {
@@ -69,7 +70,7 @@ export function captureChance(save, battle) {
 /** The player's attack. kind: 'attack' (quick strike) | 'element'. Mutates battle.hp. */
 export function playerStrike(save, battle, kind, rng) {
   const eff = kind === 'element' ? effectiveness(save.active, battle.id) : 1;
-  const base = kind === 'element' ? elementPower(save, save.active) : 10;
+  const base = kind === 'element' ? elementPower(save, save.active) : species[save.active].stats.attack;
   const braced = lastEnemyAction(battle) === 'brace';
   const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff * (braced ? BRACE_FACTOR : 1)));
   battle.hp = Math.max(0, battle.hp - damage);
@@ -110,13 +111,17 @@ export function enemyAttack(save, battle, rng) {
   const element = action === 'element';
   const eff = element ? effectiveness(battle.id, save.active) : 1;
   const attacks = action !== 'charge' && action !== 'brace';
+  const foe = species[battle.id];
+  const defender = species[save.active];
   const raw =
-    (7 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) *
+    (7 + (foe.stats.attack - 10) * 0.4 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) *
+    (element ? (moves[foe.move]?.power ?? 1) : 1) *
     (battle.boss ? 1.08 : 1) *
     (battle.power ?? 1) *
     eff *
     (action === 'heavy' ? HEAVY_FACTOR : 1) *
-    (battle.guard ? GUARD_FACTOR : 1);
+    (battle.guard ? GUARD_FACTOR : 1) *
+    (1 - (defender.stats.defense - 10) / 100);
   const damage = attacks ? Math.max(2, Math.round(raw)) : 0;
   const c = companion(save);
   c.hp = Math.max(0, c.hp - damage);

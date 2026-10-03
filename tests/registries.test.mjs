@@ -48,6 +48,7 @@ test('two packs install different species, region, economy and battle rules thro
       assert.equal(SHOP, shopRef);
       assert.equal(regions[0].name, regionName);
       assert.equal(XP_PER_LEVEL, xpPerLevel);
+      assert.equal(species[0].stats.hp, species[0].hp, 'legacy hp values normalize to the shared engine stat table');
       assert.equal(elementPower({team: {0: {xp: xpPerLevel}}}, 0), power);
       assert.equal(maxHP({team: {0: {xp: xpPerLevel}}}, 0), species[0].hp + 4);
 

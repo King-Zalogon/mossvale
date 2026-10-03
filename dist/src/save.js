@@ -1,12 +1,12 @@
-/* Mossvale save codec: validation, v1/v2 -> v3 migration, quarantine and checkpoints.
+/* Mossvale save codec: validation, v1-v3 -> v4 migration, quarantine and checkpoints.
    Pure functions over a Storage-like object so it can be tested without a browser.
-   In memory the game keeps species/region *indexes*; on disk (v3) it stores stable string IDs. */
+   In memory the game keeps species/region *indexes*; on disk it stores stable string IDs. */
 import {CAPS} from './data/economy.js';
 import {TACTICS} from './data/tactics.js';
 import {decodeEntry, encodeEntry} from './domain/discovery.js';
 import {FOCUS_MAX, FOCUS_START, MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
-const VERSION = 3;
+const VERSION = 4;
 const LEGACY_PACK = 'mossvale';
 const KEYS = {
   v3: 'mossvale-v3',
@@ -41,6 +41,7 @@ const transactionKeys = keys => [keys.archive, keys.v3, keys.backup];
 const MAX_COUNT = 9999,
   MAX_TIME = 1e9,
   MAX_QUARANTINE = 3;
+const MAP_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 const num = (v, min, max, def) => (typeof v === 'number' && Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : def);
 
@@ -115,13 +116,15 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
   const keys = keysFor(pack);
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = id => regions.findIndex(r => r.id === id);
-  const maxHP = (idx, xp) => species[idx].hp + Math.floor(xp / XP_PER_LEVEL) * 4;
+  const baseHP = idx => species[idx].stats?.hp ?? species[idx].hp;
+  const maxHP = (idx, xp) => baseHP(idx) + Math.floor(xp / XP_PER_LEVEL) * 4;
 
   function fresh(rng = () => 0) {
     const starter = Math.min(species.length - 1, Math.max(0, Math.floor(rng() * species.length)));
     return {
       version: VERSION,
       region: 0,
+      mapId: regions[0].id,
       x: spawn.x,
       y: spawn.y,
       active: starter,
@@ -130,10 +133,11 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       coins: 0,
       seen: [starter],
       caught: [starter],
-      team: {[starter]: {xp: 0, hp: species[starter].hp}},
+      team: {[starter]: {xp: 0, hp: baseHP(starter)}},
       badges: [],
       chests: [],
       visited: [0],
+      visitedMaps: [regions[0].id],
       met: false,
       wins: 0,
       playTime: 0,
@@ -148,7 +152,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     };
   }
 
-  // Convert a raw payload (v3 IDs, or legacy indexes when `legacy`) into a fully valid in-memory save, or null.
+  // Convert a raw payload (v3/v4 IDs, or legacy indexes when `legacy`) into a fully valid in-memory save, or null.
   function normalize(raw, legacy) {
     if (!isObj(raw)) return null;
     const ref = (v, list, find) => (legacy ? (Number.isInteger(v) && v >= 0 && v < list.length ? v : -1) : typeof v === 'string' ? find(v) : -1);
@@ -204,7 +208,13 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     s.battle = normalizeBattle(raw.battle, legacy);
     const region = ref(raw.region, regions, regionIndex);
     s.region = region >= 0 && (region === 0 || s.badges.includes(region - 1)) ? region : 0;
-    const map = bounds[regions[s.region].id] ?? {w: size, h: size, spawn};
+    const requestedMapId = typeof raw.mapId === 'string' && MAP_ID.test(raw.mapId) ? raw.mapId : '';
+    const requestedMap = requestedMapId ? bounds[requestedMapId] : null;
+    s.mapId = requestedMap && (requestedMap.region === undefined || requestedMap.region === s.region) ? requestedMapId : regions[s.region].id;
+    const knownMapIds = new Set([...regions.map(r => r.id), ...Object.keys(bounds)]);
+    const visitedMapIds = Array.isArray(raw.visitedMaps) ? raw.visitedMaps.filter(id => typeof id === 'string' && MAP_ID.test(id) && knownMapIds.has(id)) : [];
+    s.visitedMaps = [...new Set([...s.visited.map(i => regions[i].id), ...visitedMapIds, s.mapId])];
+    const map = bounds[s.mapId] ?? bounds[regions[s.region].id] ?? {w: size, h: size, spawn};
     s.x = num(raw.x, 0, map.w - 1, map.spawn?.x ?? spawn.x);
     s.y = num(raw.y, 0, map.h - 1, map.spawn?.y ?? spawn.y);
     return s;
@@ -254,6 +264,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     return JSON.stringify({
       version: VERSION,
       region: rid(save.region),
+      mapId: save.mapId,
       x: save.x,
       y: save.y,
       active: sid(save.active),
@@ -266,6 +277,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       badges: save.badges.map(rid),
       chests: save.chests.map(rid),
       visited: save.visited.map(rid),
+      visitedMaps: save.visitedMaps,
       met: save.met,
       wins: save.wins,
       playTime: save.playTime,
@@ -335,8 +347,8 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       return result;
     };
     const candidates = [
-      [keys.v3, 3],
-      [keys.backup, 3],
+      [keys.v3, null],
+      [keys.backup, null],
       [keys.v2, 2],
       [keys.v1, 1],
     ].filter(([key]) => key); // only the first adventure has older save generations
@@ -378,14 +390,15 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
           source: key,
           message: `This save belongs to another adventure ("${packOf(parsed)}"), not "${pack}". It was left untouched; progress in this session will not be saved.`,
         });
+      const schema = Number.isInteger(parsed?.version) ? parsed.version : version;
       const save =
-        version === 1
+        schema === 1
           ? normalize(fromV1(parsed), true)
-          : version === 2
+          : schema === 2
             ? isObj(parsed) && parsed.version === 2
               ? normalize(parsed, true)
               : null
-            : isObj(parsed) && parsed.version === 3
+            : (schema === 3 || schema === VERSION) && isObj(parsed) && parsed.version === schema
               ? normalize(parsed, false)
               : null;
       if (!save) {
@@ -401,7 +414,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       } else if (failed) {
         out.status = 'restored';
         out.message = 'Your latest save could not be read, so an older save was restored. The damaged data was kept for recovery.';
-      } else if (key === keys.v3) {
+      } else if (key === keys.v3 && schema === VERSION) {
         out.status = 'ok';
         if (!transactionRecovery.pending && !transactionRecovery.recovered) {
           try {

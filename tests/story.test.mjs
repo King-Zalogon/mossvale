@@ -19,13 +19,15 @@ const has = (errors, text) =>
 
 test('the shipped story validates', () => assert.deepEqual(build().errors, []));
 
-test('the ending needs every seal, and flags the maps cannot award are rejected', () => {
+test('the ending needs all four seals, and flags the maps cannot award are rejected', () => {
   const s = story();
   const save = newSave();
   assert.equal(endingDue(s, save, objCtx), null);
   save.badges = [0, 1];
   assert.equal(endingDue(s, save, objCtx), null);
   save.badges = [0, 1, 2];
+  assert.equal(endingDue(s, save, objCtx), null);
+  save.badges = [0, 1, 2, 3];
   assert.equal(endingDue(s, save, objCtx).title, s.ending.title);
   save.completed = true;
   assert.equal(endingDue(s, save, objCtx), null); // once

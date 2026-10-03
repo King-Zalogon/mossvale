@@ -6,7 +6,7 @@ A working checklist for calling the first adventure "ready to play for fun", wit
 
 | Area | Evidence |
 | --- | --- |
-| Saves: validation, v1/v2/v3 migration, corruption recovery, frozen fixtures per schema (the v2 fixture was written by the original build; no v1 writer survives in git history, so v1 stays synthetic) | `tests/save.test.mjs`, `tests/saves-compat.test.mjs`, browser recovery tests |
+| Saves: validation, v1/v2/v3 migration to v4, map-location persistence, corruption recovery, frozen fixtures per schema (the v2 fixture was written by the original build; no v1 writer survives in git history, so v1 stays synthetic) | `tests/save.test.mjs`, `tests/saves-compat.test.mjs`, browser recovery tests |
 | Slow, corrupt, aborted or stalled art, blocked fonts, no canvas, bad map data | `tests/loader.browser.mjs` |
 | The first guardian is beatable through the real UI, no debug damage | `tests/playthrough.browser.mjs` |
 | Refresh or interruption mid-battle never loses an item or reward | `tests/turns.test.mjs`, browser "refresh during capture" |
@@ -34,7 +34,7 @@ A working checklist for calling the first adventure "ready to play for fun", wit
 
 ## Not built yet (waiting on art, content or your decisions)
 
-- Four biomes, eight maps and twelve creatures: today there are three maps and eight creatures (#24, #27, #51–#54). New species and terrain need original art; the data formats and validators are ready for them.
+- Four biomes, eight maps and twelve creatures: four biome maps and the 12-species roster now exist; the remaining four map variants are tracked by #27 and #51–#54.
 - Eight-direction walking animation and creature animation: only four facing images exist (#36).
 - Sound palette and ambience (#38): current audio is single synthesized beeps, off by default.
 - Performance on your devices (#37): in headless Chromium the game holds 60 fps (about 16.7 ms per frame on a software renderer); nothing has been measured on real hardware.

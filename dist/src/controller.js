@@ -1,6 +1,7 @@
 /* Game flow: connects domain rules, menus and services. Owns timers (battle pacing) and screen transitions.
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
 import {species} from './data/species.js';
+import {moves} from './data/moves.js';
 import {regions} from './data/regions.js';
 import {maxHP} from './domain/rules.js';
 import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, setFlag, unlocked} from './domain/rules.js';
@@ -22,7 +23,7 @@ import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
 
 export function createController(app) {
-  const {game, ui, audio, rng, persist, canvas, actions, menus, maps, objCtx} = app;
+  const {game, ui, audio, rng, persist, canvas, actions, menus, maps, mapsById, objCtx} = app;
   const save = () => game.save;
   const sfx = name => audio.play(name);
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
@@ -70,8 +71,13 @@ export function createController(app) {
   }
 
   function enterRegion(region) {
-    game.world = buildWorld(maps[region]);
-    renderRegion(region);
+    let map = mapsById[save().mapId];
+    if (!map || map.biome !== regions[region].biome) {
+      map = maps[region];
+      save().mapId = map.id;
+    }
+    game.world = buildWorld(map);
+    renderRegion(region, map);
     audio.setRegion(regions[region].id);
   }
 
@@ -95,21 +101,25 @@ export function createController(app) {
 
   function travel(id, spawn = 'camp') {
     const s = save();
-    if (game.battle || !unlocked(s, id)) {
+    const map = typeof id === 'number' ? maps[id] : mapsById[id];
+    const region = map ? regions.findIndex(r => r.biome === map.biome) : -1;
+    if (!map || region < 0 || game.battle || (region !== s.region && !unlocked(s, region))) {
       toast('Awaken the previous shrine to open this trail.');
       return;
     }
-    s.region = id;
-    s.visited = [...new Set([...s.visited, id])];
-    place(maps[id].spawns[spawn] || maps[id].spawns.camp);
+    s.region = region;
+    s.mapId = map.id;
+    s.visited = [...new Set([...s.visited, region])];
+    s.visitedMaps = [...new Set([...s.visitedMaps, map.id])];
+    place(map.spawns[spawn] || map.spawns.camp);
     game.pacing.encounterCooldown = GRACE_ON_ARRIVAL;
     game.pacing.steps = 0;
-    enterRegion(id);
+    enterRegion(region);
     fadeIn();
     close();
     refresh();
     sfx('welcome');
-    toast(`Welcome to ${regions[id].name}. The next chapter is yours.`);
+    toast(`Welcome to ${map.name}. The next trail is yours.`);
   }
 
   function selectCompanion(id) {
@@ -181,7 +191,7 @@ export function createController(app) {
       toast('Finish your encounter before returning to camp.');
       return;
     }
-    place(maps[save().region].spawns.camp);
+    place((mapsById[save().mapId] ?? maps[save().region]).spawns.camp);
     game.pacing.encounterCooldown = GRACE_ON_ARRIVAL;
     game.pacing.steps = 0;
     close();
@@ -415,7 +425,7 @@ export function createController(app) {
       game.pacing.encounterCooldown = GRACE_AFTER_BATTLE;
       transition(game, 'result');
       if (turn.ended === 'loss') {
-        place(maps[s.region].spawns.camp);
+        place((mapsById[s.mapId] ?? maps[s.region]).spawns.camp);
       }
       s.recap = recapFor(turn, b);
     }
@@ -445,7 +455,7 @@ export function createController(app) {
     if (e.action === 'charge') return `${foe.name} is gathering strength…`;
     if (e.action === 'brace') return `${foe.name} braces itself. Your next attack will glance off.`;
     if (e.action === 'heavy') return `${foe.name} unleashes a heavy blow for ${e.damage} damage!`;
-    return `${foe.name} used ${e.element ? foe.move : 'Quick strike'} for ${e.damage} damage.`;
+    return `${foe.name} used ${e.element ? (moves[foe.move]?.name ?? foe.move) : 'Quick strike'} for ${e.damage} damage.`;
   }
 
   /** Turns resolved events into display frames (presentation only; no state changes). */
@@ -514,13 +524,13 @@ export function createController(app) {
     const r = regions[s.region];
     if (turn.ended === 'win') {
       sfx(last.newSeal ? 'seal' : 'win');
-      const next = last.newSeal && s.region < 2;
+      const next = last.newSeal && s.region < regions.length - 1;
       showResult({
         title: last.newSeal ? r.seal + ' awakened!' : 'A little stronger.',
         copy: last.newSeal
-          ? s.region < 2
+          ? s.region < regions.length - 1
             ? `The eastern trail to ${regions[s.region + 1].name} is open. Your team is rested and ready.`
-            : 'All three shrines shine again. You’ve become a keeper of the Verdant Isles!'
+            : `All ${regions.length} shrines shine again. You’ve become a keeper of the Verdant Isles!`
           : `${species[b.id].name} retreated into the wild.`,
         id: b.id,
         rewards: [last.reward + ' coins', last.xp + ' XP', ...(last.potions ? [`${last.potions} potions`] : [])],

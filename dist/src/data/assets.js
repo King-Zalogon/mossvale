@@ -66,6 +66,11 @@ export const assets = [
   {name: 'tree-pine-snow', kind: 'prop', src: 'assets/props/tree-pine-snow.png', w: 321, h: 427, anchor: 'bottom-center', required: true},
   {name: 'rock-spire-red', kind: 'prop', src: 'assets/props/rock-spire-red.png', w: 381, h: 410, anchor: 'bottom-center', required: true},
   {name: 'chest-wooden', kind: 'prop', src: 'assets/props/chest-wooden.png', w: 343, h: 319, anchor: 'bottom-center', required: true},
+  {name: 'creature-bramblebuck', kind: 'creature', src: 'assets/creatures/creature-bramblebuck.png', w: 302, h: 340, anchor: 'bottom-center', required: true},
+  {name: 'creature-siltkip', kind: 'creature', src: 'assets/creatures/creature-siltkip.png', w: 344, h: 340, anchor: 'bottom-center', required: true},
+  {name: 'creature-sunskitter', kind: 'creature', src: 'assets/creatures/creature-sunskitter.png', w: 339, h: 340, anchor: 'bottom-center', required: true},
+  {name: 'creature-hushram', kind: 'creature', src: 'assets/creatures/creature-hushram.png', w: 289, h: 340, anchor: 'bottom-center', required: true},
+  {name: 'cattail-clump', kind: 'prop', src: 'assets/props/cattail-clump.png', w: 301, h: 300, anchor: 'bottom-center', required: true},
 ];
 
 /** Index of an asset by name; used by content that refers to art (species, regions, direction sprites). Throws on a typo. */

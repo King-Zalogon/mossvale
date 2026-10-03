@@ -109,6 +109,7 @@ const app = {
   canvas,
   actions: {},
   maps: [],
+  mapsById: {},
   objectives: [],
   story: undefined,
   skipPremise: (debug && !params.has('premise')) || !!editorPreviewId, // tests start in play; add &premise to see the opening card
@@ -324,6 +325,15 @@ async function boot() {
         showLoadError('The adventure registries are invalid.', registryErrors.slice(0, 5).join(' · '));
         return;
       }
+      Object.assign(
+        mapBounds,
+        Object.fromEntries(
+          rawMaps.map(m => [
+            m.id,
+            {w: m.size?.w, h: m.size?.h, spawn: {x: m.spawns?.camp?.[0], y: m.spawns?.camp?.[1]}, region: regions.findIndex(r => r.biome === m.biome)},
+          ]),
+        ),
+      );
       codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id});
       if (editorPreviewMap) {
         const region = rawMaps.findIndex(map => map.id === editorPreviewId);
@@ -347,16 +357,19 @@ async function boot() {
       ui.camera.y = game.player.y;
       persistence = createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus});
       if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
-      Object.assign(
-        mapBounds,
-        Object.fromEntries(rawMaps.map(m => [m.id, {w: m.size?.w, h: m.size?.h, spawn: {x: m.spawns?.camp?.[0], y: m.spawns?.camp?.[1]}}])),
+      const {maps, mapsById, objectives, story, errors} = buildAdventure(
+        rawMaps,
+        {assets, species, regions, packId: rawPack.id},
+        rawObjectives,
+        rawStory,
+        rawPack,
       );
-      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: rawPack.id}, rawObjectives, rawStory, rawPack);
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;
       }
       app.maps.push(...maps);
+      Object.assign(app.mapsById, mapsById);
       app.objectives.push(...objectives);
       app.story = story;
       const boundedSave = codec.normalize(JSON.parse(codec.serialize(game.save)), false);

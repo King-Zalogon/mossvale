@@ -61,7 +61,7 @@ const switchTo = async id => {
 try {
   // --- two adventures, separate progress -----------------------------------------------------------
   await boot();
-  assert.equal(await regionName(), 'Mossvale Meadow');
+  assert.equal(await regionName(), 'Sunlit Trail');
   await setCoins(111);
   await openAdventures();
   const rows = await page.locator('[data-adventure]').allTextContents();
@@ -85,7 +85,7 @@ try {
   assert.equal(await coins(), 222, 'reload stays in the chosen adventure');
 
   await switchTo('mossvale');
-  assert.equal(await regionName(), 'Mossvale Meadow');
+  assert.equal(await regionName(), 'Sunlit Trail');
   assert.equal(await coins(), 111, 'and the first adventure is exactly as it was left');
   assert.equal((await stored('mossvale-pack-hearth-hamlet-v3')).coins, 222);
 
@@ -116,7 +116,7 @@ try {
   // --- an adventure that is missing or broken never traps the player -------------------------------------
   await page.evaluate(() => localStorage.setItem('mossvale-adventure', 'ghost-pack'));
   await boot();
-  assert.equal(await regionName(), 'Mossvale Meadow');
+  assert.equal(await regionName(), 'Sunlit Trail');
   assert.match(await page.locator('#toast').textContent(), /"ghost-pack" is not available/);
   assert.equal((await stored('mossvale-pack-hearth-hamlet-v3')).coins, 222, 'its progress was left alone');
 

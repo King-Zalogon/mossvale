@@ -1,6 +1,8 @@
 /* Modal menus: map, journal, party, ranger, shrine, help, result and save-recovery notices.
    Each menu reads state, renders HTML and wires buttons to controller `actions`. No game rules live here. */
 import {species} from '../data/species.js';
+import {biomes} from '../data/biomes.js';
+import {moves} from '../data/moves.js';
 import {regions} from '../data/regions.js';
 import {companion, level, maxHP, moveName, reserve, unlocked} from '../domain/rules.js';
 import {PARTY_SIZE} from '../config.js';
@@ -49,7 +51,7 @@ export function createMenus(app) {
     }
     const s = save();
     open(
-      `${header('THREE ISLANDS. ONE ADVENTURE.', 'The Verdant Isles')}${tabs}<p>Follow the eastern trails, or travel directly to any unlocked region.</p><div class="map-cards">${regions
+      `${header('FOUR BIOMES. ONE ADVENTURE.', 'The Verdant Isles')}${tabs}<p>Follow the eastern trails, or travel directly to any unlocked region.</p><div class="map-cards">${regions
         .map(
           (r, i) =>
             `<div class="region-card ${s.region === i ? 'current' : ''} ${!unlocked(s, i) ? 'locked' : ''}"><div class="region-preview"><canvas id="region-art-${i}" width="110" height="110"></canvas></div><h3>${r.name}</h3><p>${unlocked(s, i) ? r.desc : `Earn the ${regions[i - 1].seal.toLowerCase()} to open this trail.`}</p><button data-travel="${i}" ${!unlocked(s, i) ? 'disabled' : ''}>${!unlocked(s, i) ? 'Trail locked' : s.region === i ? 'Return to this camp' : 'Travel to ' + r.short}</button></div>`,
@@ -70,8 +72,15 @@ export function createMenus(app) {
   const habitats = i => app.maps.map((m, ri) => (m.zones.some(z => z.pool.includes(i)) ? ri : -1)).filter(ri => ri >= 0);
   /** A practical nudge for a creature you have not met: where to look, but only once you have been there. */
   const hint = i => {
+    const homeRegion = regions.find(r => r.biome === species[i].biome);
+    const homeIndex = regions.indexOf(homeRegion);
+    if (homeRegion && save().visited.includes(homeIndex)) return species[i].encounterHint;
     const found = habitats(i).filter(ri => save().visited.includes(ri));
-    return found.length ? 'Try the tall grass of ' + found.map(ri => regions[ri].short).join(' or ') : 'Explore to discover';
+    return found.length
+      ? 'Try the tall grass of ' + found.map(ri => regions[ri].short).join(' or ')
+      : homeRegion
+        ? `A field clue will appear in ${homeRegion.short}.`
+        : 'Explore to discover';
   };
 
   function journal(filter = 'all') {
@@ -79,18 +88,20 @@ export function createMenus(app) {
     const s = save();
     const ids = species.map((_, i) => i).filter(i => filter === 'all' || s.caught.includes(i));
     open(
-      `${header('NOTES FROM THE MEADOW', 'Your field journal')}<p>${s.caught.length} species befriended · ${s.seen.length} discovered · ${8 - s.seen.length} yet to discover</p><div class="tab-buttons"><button id="all-species" class="${filter === 'all' ? 'selected' : ''}">All species</button><button id="caught-species" class="${filter === 'caught' ? 'selected' : ''}">Befriended</button></div><div class="journal-grid">${ids
+      `${header('FIELD NOTES FROM THE ISLES', 'Your field journal')}<p>${s.caught.length} of ${species.length} species befriended · ${s.seen.length} discovered · ${species.length - s.seen.length} yet to discover</p><div class="tab-buttons"><button id="all-species" class="${filter === 'all' ? 'selected' : ''}">All species</button><button id="caught-species" class="${filter === 'caught' ? 'selected' : ''}">Befriended</button></div><div class="journal-grid">${ids
         .map(i => {
           const sp = species[i];
           const seen = s.seen.includes(i);
           const caught = s.caught.includes(i);
-          return `<div class="species ${s.active === i ? 'active' : ''}">${seen ? `<canvas id="spec-${i}" width="110" height="110"></canvas>` : '<div class="unseen">?</div>'}<h3>${seen ? sp.name : 'Unknown creature'}</h3><small>${caught ? 'Befriended · Lv. ' + level(s, i) : seen ? 'Seen · ' + sp.type : 'Not yet discovered'}</small><p>${seen ? sp.desc : 'A new friend is waiting along a wild trail.'}</p><small>${
+          const home = biomes.find(b => b.id === sp.biome)?.name ?? 'Unknown biome';
+          const found = habitats(i)
+            .map(ri => regions[ri].short)
+            .join(' / ');
+          return `<div class="species ${s.active === i ? 'active' : ''}">${seen ? `<canvas id="spec-${i}" width="110" height="110"></canvas>` : '<div class="unseen">?</div>'}<h3>${seen ? sp.name : 'Unknown creature'}</h3><small>${caught ? 'Befriended · Lv. ' + level(s, i) : seen ? 'Seen · ' + sp.type : 'Not yet discovered'}</small><p>${seen ? sp.desc : 'A new friend is waiting along a wild trail.'}</p>${
             seen
-              ? habitats(i)
-                  .map(ri => regions[ri].short)
-                  .join(' / ')
-              : hint(i)
-          }</small>${caught ? `<button data-select="${i}" ${s.active === i ? 'disabled' : ''}>${s.active === i ? 'Your companion' : 'Travel together'}</button>` : ''}</div>`;
+              ? `<small>Home: ${home} · ${sp.role}</small><small>Base battle stats · HP ${sp.stats.hp} · ATK ${sp.stats.attack} · DEF ${sp.stats.defense}</small><small>${sp.personality}</small><small>${moves[sp.move]?.name ?? sp.move} · ${moves[sp.move]?.description ?? sp.desc}</small><small>Field clue: ${sp.encounterHint}</small><small>Seen near: ${found || home}</small>`
+              : `<small>${hint(i)}</small>`
+          }${caught ? `<button data-select="${i}" ${s.active === i ? 'disabled' : ''}>${s.active === i ? 'Your companion' : 'Travel together'}</button>` : ''}</div>`;
         })
         .join('')}</div>`,
       'journal',
@@ -113,8 +124,8 @@ export function createMenus(app) {
     const card = (i, inTeam) => {
       const hp = companion(s, i).hp;
       const choose = s.active === i ? 'Active companion' : hp === 0 ? 'Needs a rest' : 'Choose companion';
-      const moves = `${moveName(s, i)} · ${species[i].type}`;
-      return `<div class="species ${s.active === i ? 'active' : ''}"><canvas id="party-${i}" width="110" height="110"></canvas><h3>${species[i].name}</h3><small>Lv. ${level(s, i)} · ${moves}</small><div class="bar"><i style="width:${(hp / maxHP(s, i)) * 100}%;background:${species[i].color}"></i></div><small>${hp} / ${maxHP(s, i)} HP</small><button data-select="${i}" ${s.active === i || hp === 0 ? 'disabled' : ''}>${choose}</button>${
+      const move = `${moveName(s, i)} · ${species[i].type}`;
+      return `<div class="species ${s.active === i ? 'active' : ''}"><canvas id="party-${i}" width="110" height="110"></canvas><h3>${species[i].name}</h3><small>Lv. ${level(s, i)} · ${move}</small><small>${species[i].role}</small><div class="bar"><i style="width:${(hp / maxHP(s, i)) * 100}%;background:${species[i].color}"></i></div><small>${hp} / ${maxHP(s, i)} HP</small><button data-select="${i}" ${s.active === i || hp === 0 ? 'disabled' : ''}>${choose}</button>${
         battle
           ? ''
           : inTeam
@@ -160,7 +171,7 @@ export function createMenus(app) {
     const s = save();
     const r = regions[s.region];
     open(
-      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${g.guardian.level} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < 2 ? ' and open the trail to ' + regions[s.region + 1].name : '. All three shrines will be awake'}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div>${TACTICS[g.guardian.tactic] ? `<p class="dialog-note" style="text-align:center"><b>${TACTICS[g.guardian.tactic].name}.</b> ${TACTICS[g.guardian.tactic].intro}</p>` : ''}<p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. You can rest and try again any time.</p>`,
+      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${g.guardian.level} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < regions.length - 1 ? ' and open the trail to ' + regions[s.region + 1].name : `. All ${regions.length} shrines will be awake`}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div>${TACTICS[g.guardian.tactic] ? `<p class="dialog-note" style="text-align:center"><b>${TACTICS[g.guardian.tactic].name}.</b> ${TACTICS[g.guardian.tactic].intro}</p>` : ''}<p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. You can rest and try again any time.</p>`,
       'shrine',
       'Shrine guardian',
     );
@@ -185,7 +196,7 @@ export function createMenus(app) {
   function help() {
     if (game.battle) return;
     open(
-      `${header('A FIELD GUIDE', 'Make yourself at home.')}<div class="help-copy"><p>Explore the isles with your companion. Befriend wild creatures and awaken all three shrines.</p><div class="shortcut-grid"><span><kbd>WASD</kbd> / arrows · Move in 8 directions</span><span><kbd>Shift</kbd> · Run</span><span><kbd>E</kbd> · Talk, open, or travel</span><span><kbd>M</kbd> · Island map</span><span><kbd>J</kbd> · Field journal</span><span><kbd>Q</kbd> · Companion team</span></div><ul><li>Walk through tall grass to meet creatures. Weaken them, then use a capture orb. The chance improves as their health drops.</li><li>Elemental attacks have strengths and weaknesses. The battle panel shows the current matchup.</li><li>Every friend you catch can become your companion. They gain XP, levels, and more health.</li><li>Find the blue shrine north of each camp. Win against its guardian to earn a seal and unlock the next region.</li><li>Talk to Iris to heal everyone and refill your orbs. Spend coins on extra orbs and potions.</li><li>On touch screens, use the eight-direction pad and tap Run. Tap the interaction prompt near a landmark.</li></ul><p>Your original meadow progress has been preserved. The game saves automatically on this device.</p></div>`,
+      `${header('A FIELD GUIDE', 'Make yourself at home.')}<div class="help-copy"><p>Explore four biomes with your companion. Awaken the four shrines to finish the adventure; finding every creature is optional.</p><div class="shortcut-grid"><span><kbd>WASD</kbd> / arrows · Move in 8 directions</span><span><kbd>Shift</kbd> · Run</span><span><kbd>E</kbd> · Talk, open, or travel</span><span><kbd>M</kbd> · Island map</span><span><kbd>J</kbd> · Field journal</span><span><kbd>Q</kbd> · Companion team</span></div><ul><li>Walk through tall grass to meet creatures. Weaken them, then use a capture orb. The chance improves as their health drops.</li><li>Each friend has its own strengths, toughness, and elemental move. The journal gives you clues about where to look.</li><li>Every friend you catch can become your companion. They gain XP, levels, and more health.</li><li>Find the blue shrine north of each camp. Win against its guardian to earn a seal and unlock the next region.</li><li>Talk to Iris to heal everyone and refill your orbs. Spend coins on extra orbs and potions.</li><li>On touch screens, use the eight-direction pad and tap Run. Tap the interaction prompt near a landmark.</li></ul><p>Your original meadow progress has been preserved. The game saves automatically on this device.</p></div>`,
       'help',
       'How to play',
     );
