@@ -18,6 +18,12 @@ export function validatePack(raw, {packId, speciesIds}) {
   else if (packId !== undefined && raw.id !== packId) at('id', `"${raw.id}" is not the adventure this game's content and saves are built for ("${packId}")`);
   if (typeof raw.name !== 'string' || !raw.name) at('name', 'required');
   if (typeof raw.brief !== 'string' || !raw.brief) at('brief', 'a one-line description is required');
+  if (raw.registries !== undefined && (typeof raw.registries !== 'string' || !/^[a-z0-9-]+\.json$/.test(raw.registries)))
+    at('registries', 'must name a JSON file in the pack folder');
+  if (raw.mapDirectory !== undefined && (typeof raw.mapDirectory !== 'string' || !/^[a-z0-9-]+\/$/.test(raw.mapDirectory)))
+    at('mapDirectory', 'must be a relative folder name ending with /');
+  for (const key of ['objectives', 'story'])
+    if (raw[key] !== undefined && (typeof raw[key] !== 'string' || !/^[a-z0-9-]+\.json$/.test(raw[key]))) at(key, 'must name a JSON file in the pack folder');
   if (!Array.isArray(raw.maps) || !raw.maps.length || !raw.maps.every(id => typeof id === 'string' && ID.test(id))) at('maps', 'a non-empty list of map ids');
   else if (new Set(raw.maps).size !== raw.maps.length) at('maps', 'duplicate map id');
   if (!Array.isArray(raw.species) || !raw.species.length) at('species', 'list the creature ids that can be found in this adventure');

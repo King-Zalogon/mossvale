@@ -4,7 +4,7 @@ import globals from 'globals';
 export default [
   {ignores: ['node_modules/**', 'test-results/**', 'build/**']},
   js.configs.recommended,
-  {languageOptions: {ecmaVersion: 2023, sourceType: 'module'}, rules: {'no-unused-vars': ['error', {argsIgnorePattern: '^_'}]}},
+  {languageOptions: {ecmaVersion: 'latest', sourceType: 'module'}, rules: {'no-unused-vars': ['error', {argsIgnorePattern: '^_'}]}},
   // Presentation, input and service layers run in the browser.
   {files: ['dist/src/**/*.js'], languageOptions: {globals: globals.browser}},
   // Pure layers get no browser globals: using `document`, `window`, etc. there is a lint error.

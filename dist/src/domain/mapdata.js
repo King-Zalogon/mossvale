@@ -17,7 +17,7 @@ const blocksTerrain = t => t === 'void' || t === 'water';
  * Can feet with a PLAYER_RADIUS footprint stand at (x, y)? Terrain is sampled at the four corners of the footprint and
  * solid props are circles. Used by the game and by map validation, so what validates is what can be walked.
  */
-export function walkableAt(map, x, y) {
+export function walkableAt(map, x, y, objectsByCell, maxSolid = 0) {
   const r = PLAYER_RADIUS;
   for (const [dx, dy] of [
     [-r, -r],
@@ -26,7 +26,14 @@ export function walkableAt(map, x, y) {
     [r, r],
   ])
     if (blocksTerrain(map.terrainAt(Math.round(x + dx), Math.round(y + dy)))) return false;
-  return !map.objects.some(o => o.solid && Math.hypot(x - o.x, y - o.y) < o.solid + r);
+  if (!objectsByCell) return !map.objects.some(o => o.solid && Math.hypot(x - o.x, y - o.y) < o.solid + r);
+  const extent = maxSolid + r;
+  for (let cy = Math.max(0, Math.floor(y - extent)); cy <= Math.min(map.size.h - 1, Math.floor(y + extent)); cy++) {
+    for (let cx = Math.max(0, Math.floor(x - extent)); cx <= Math.min(map.size.w - 1, Math.floor(x + extent)); cx++) {
+      if ((objectsByCell.get(`${cx},${cy}`) ?? []).some(o => o.solid && Math.hypot(x - o.x, y - o.y) < o.solid + r)) return false;
+    }
+  }
+  return true;
 }
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const FLAG = /^([a-z0-9]+(?:-[a-z0-9]+)*)\.(seal|chest)$/;
@@ -113,6 +120,8 @@ function validateOne(m, byId, ctx, errors) {
     sprite(where + '.sprite', l.sprite);
     if (!inside(l.at)) at(where + '.at', 'must be [x, y] inside the map');
     if (!(l.w > 0)) at(where + '.w', 'sprite width must be positive');
+    if (l.solid !== undefined && !(Number.isFinite(l.solid) && l.solid > 0 && l.solid <= 16))
+      at(where + '.solid', 'collision radius must be greater than 0 and at most 16 tiles');
     if (l.flag !== undefined) flag(where + '.flag', l.flag);
     if (l.kind === 'shrine') {
       if (!isObj(l.guardian)) at(where + '.guardian', 'shrines need { species, level }');
@@ -153,6 +162,8 @@ function validateOne(m, byId, ctx, errors) {
     sprite(where + '.sprite', g?.sprite);
     if (!Array.isArray(g?.at) || !g.at.every(inside)) at(where + '.at', 'must be a list of [x, y] points inside the map');
     if (!(g?.w > 0)) at(where + '.w', 'sprite width must be positive');
+    if (g?.solid !== undefined && !(Number.isFinite(g.solid) && g.solid > 0 && g.solid <= 16))
+      at(where + '.solid', 'collision radius must be greater than 0 and at most 16 tiles');
     if (!['scenery', 'grass', 'flower'].includes(g?.kind)) at(where + '.kind', 'must be scenery, grass or flower');
   });
   (m.zones ?? []).forEach((z, i) => {
@@ -262,7 +273,16 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
 /** Semantic checks that need the compiled map: spawn safety, exits on land, reachable goals. */
 function checkPlayable(map, byId, errors) {
   const at = (where, msg) => errors.push(`map ${map.id}: ${where}: ${msg}`);
-  const walkable = (x, y) => walkableAt(map, x, y);
+  const solidsByCell = new Map();
+  let maxSolid = 0;
+  for (const object of map.objects) {
+    const key = `${Math.floor(object.x)},${Math.floor(object.y)}`;
+    const cell = solidsByCell.get(key) ?? [];
+    cell.push(object);
+    solidsByCell.set(key, cell);
+    maxSolid = Math.max(maxSolid, object.solid ?? 0);
+  }
+  const walkable = (x, y) => walkableAt(map, x, y, solidsByCell, maxSolid);
   const camp = map.spawns.camp;
   if (!walkable(camp.x, camp.y)) return at('spawns.camp', `spawn (${camp.x}, ${camp.y}) is not walkable`);
   for (const [name, p] of Object.entries(map.spawns)) if (!walkable(p.x, p.y)) at(`spawns.${name}`, `spawn (${p.x}, ${p.y}) is not walkable`);

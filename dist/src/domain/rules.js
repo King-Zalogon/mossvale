@@ -13,6 +13,8 @@ import {
   PARTY_SIZE,
   UPGRADED_ELEMENT_POWER,
   XP_PER_LEVEL,
+  TYPE_ADVANTAGE,
+  TYPE_DISADVANTAGE,
 } from '../config.js';
 
 export const level = (save, id) => Math.min(MAX_LEVEL, BASE_LEVEL + Math.floor((save.team[id]?.xp || 0) / XP_PER_LEVEL));
@@ -38,7 +40,7 @@ export const unlocked = (save, regionId) => regionId === 0 || save.badges.includ
 export function effectiveness(attacker, defender) {
   const a = species[attacker];
   const type = species[defender].type;
-  return a.strong.includes(type) ? 1.6 : a.weak.includes(type) ? 0.65 : 1;
+  return a.strong.includes(type) ? TYPE_ADVANTAGE : a.weak.includes(type) ? TYPE_DISADVANTAGE : 1;
 }
 
 export function clampHealth(save) {

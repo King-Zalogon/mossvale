@@ -1,0 +1,198 @@
+{
+  "format": 1,
+  "species": [
+    {
+      "id": "fernling",
+      "name": "Fernling",
+      "type": "Leaf",
+      "hp": 42,
+      "color": "#bade7e",
+      "move": "Leaf burst",
+      "strong": [
+        "Water",
+        "Stone"
+      ],
+      "weak": [
+        "Fire",
+        "Ice"
+      ],
+      "desc": "A brave little fox that naps beneath the ferns.",
+      "sprite": "creature-fernling"
+    },
+    {
+      "id": "emberkin",
+      "name": "Emberkin",
+      "type": "Fire",
+      "hp": 40,
+      "color": "#ffb56c",
+      "move": "Ember spark",
+      "strong": [
+        "Leaf",
+        "Ice"
+      ],
+      "weak": [
+        "Water",
+        "Stone"
+      ],
+      "desc": "Warm paws, bright eyes, and a fiery spirit.",
+      "sprite": "creature-emberkin"
+    }
+  ],
+  "regions": [
+    {
+      "id": "bakery-lane",
+      "name": "Bakery Lane",
+      "short": "Bakery",
+      "subtitle": "A small bakery adventure.",
+      "tag": "BAKERY",
+      "palette": [
+        "#86ae70",
+        "#97b76a",
+        "#8aa55c",
+        "#d6c08b",
+        "#4e9c9a",
+        "#577b48"
+      ],
+      "seal": "Bakery Lane seal",
+      "desc": "Visit Bakery Lane.",
+      "preview": "tree-oak"
+    }
+  ],
+  "economy": {
+    "caps": {
+      "coins": 9999,
+      "potions": 99,
+      "orbs": 99
+    },
+    "restFloor": {
+      "orbs": 12,
+      "potions": 1
+    },
+    "shop": [
+      {
+        "id": "potion",
+        "item": "potions",
+        "qty": 1,
+        "price": 10,
+        "label": "Bakery Lane Potion",
+        "thanks": "One potion for the trail. Use it when your companion needs a little help."
+      },
+      {
+        "id": "orbs",
+        "item": "orbs",
+        "qty": 5,
+        "price": 15,
+        "label": "Bakery Lane 5 orbs",
+        "thanks": "Five fresh capture orbs. There’s always room for one more friend."
+      }
+    ],
+    "rewards": {
+      "wild": {
+        "coins": [
+          8,
+          14
+        ],
+        "xp": 24
+      },
+      "guardianRepeat": {
+        "coins": 12,
+        "xp": 20
+      },
+      "capture": {
+        "coins": 10,
+        "xp": 20
+      }
+    }
+  },
+  "tactics": {
+    "defaultPattern": [
+      "strike",
+      "element"
+    ],
+    "heavyFactor": 1.8,
+    "braceFactor": 0.5,
+    "patterns": {
+      "spore-guard": {
+        "name": "Spore guard",
+        "pattern": [
+          "strike",
+          "brace"
+        ],
+        "intro": "It curls behind a cloud of spores. Right after it braces, your attack is halved, so use that turn to Guard or heal and save your elemental move for when it opens up."
+      },
+      "rolling-charge": {
+        "name": "Rolling charge",
+        "pattern": [
+          "strike",
+          "charge",
+          "heavy"
+        ],
+        "intro": "It gathers strength, then lands a heavy blow. Watch the line under the log and Guard when the heavy blow is next."
+      },
+      "frost-chorus": {
+        "name": "Frost chorus",
+        "pattern": [
+          "element",
+          "element",
+          "strike"
+        ],
+        "intro": "It keeps using its elemental move. A teammate that resists it, or healing between volleys, makes the difference."
+      }
+    },
+    "intentText": {
+      "strike": "a quick strike",
+      "element": "its elemental move",
+      "heavy": "a heavy blow (Guard softens it)",
+      "charge": "gathering strength",
+      "brace": "bracing (your next attack will be halved)"
+    }
+  },
+  "progression": {
+    "xpPerLevel": 55,
+    "baseLevel": 5,
+    "maxLevel": 15,
+    "moveUpgradeLevel": 10,
+    "maxXp": 550,
+    "catchUpGap": 2,
+    "catchUpBonus": 1.5,
+    "benchShare": 0.5,
+    "partySize": 3
+  },
+  "battle": {
+    "focusMax": 3,
+    "focusStart": 2,
+    "guardFactor": 0.35
+  },
+  "moves": {
+    "elemental": {
+      "power": 16,
+      "upgradedPower": 20,
+      "focusCost": 1,
+      "focusGain": 1
+    },
+    "strongMultiplier": 1.6,
+    "weakMultiplier": 0.65
+  },
+  "types": [
+    {
+      "id": "leaf",
+      "name": "Leaf"
+    },
+    {
+      "id": "water",
+      "name": "Water"
+    },
+    {
+      "id": "stone",
+      "name": "Stone"
+    },
+    {
+      "id": "fire",
+      "name": "Fire"
+    },
+    {
+      "id": "ice",
+      "name": "Ice"
+    }
+  ]
+}

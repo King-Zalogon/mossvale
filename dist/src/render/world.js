@@ -5,7 +5,7 @@ import {regions} from '../data/regions.js';
 import {TILE_H, TILE_W} from '../config.js';
 import {FACING, playerFrame} from '../domain/exploration.js';
 import {unlocked} from '../domain/rules.js';
-import {isLand, rnd} from '../domain/world.js';
+import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
 import {drawSprite, drawSpriteFrame, sprites} from './sprites.js';
 
 const raw = (x, y) => ({x: ((x - y) * TILE_W) / 2, y: ((x + y) * TILE_H) / 2});
@@ -14,6 +14,27 @@ export function createWorldRenderer({canvas, miniCanvas}) {
   const ctx = canvas.getContext('2d');
   const mini = miniCanvas.getContext('2d');
   let view;
+  let stats = {visibleTiles: 0, worldTiles: 0, visibleObjects: 0, worldObjects: 0};
+
+  const visibleBounds = () => {
+    const centerY = canvas.height * 0.49;
+    const corners = [
+      [0, 0],
+      [canvas.width, 0],
+      [0, canvas.height],
+      [canvas.width, canvas.height],
+    ].map(([sx, sy]) => {
+      const u = (sx - canvas.width / 2) / (14 * view.zoom);
+      const v = (sy - centerY) / (7 * view.zoom);
+      return {x: view.camera.x + (u + v) / 2, y: view.camera.y + (v - u) / 2};
+    });
+    return {
+      minX: Math.min(...corners.map(p => p.x)) - 12,
+      maxX: Math.max(...corners.map(p => p.x)) + 12,
+      minY: Math.min(...corners.map(p => p.y)) - 12,
+      maxY: Math.max(...corners.map(p => p.y)) + 12,
+    };
+  };
 
   const point = (x, y) => {
     const a = raw(x, y);
@@ -66,7 +87,9 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     ctx.imageSmoothingEnabled = false;
     ctx.fillStyle = palette[0];
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    for (const t of world.tiles) {
+    const bounds = visibleBounds();
+    const tiles = tilesInBounds(world, {...bounds, minX: bounds.minX + 8, maxX: bounds.maxX - 8, minY: bounds.minY + 8, maxY: bounds.maxY - 8});
+    for (const t of tiles) {
       const s = point(t.x, t.y);
       if (s.x < -100 || s.x > canvas.width + 100 || s.y < -120 || s.y > canvas.height + 120) continue;
       const w = 28 * zoom;
@@ -101,7 +124,9 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       column: playerFrame(player.walkDistance, v.moving, v.reducedMotion),
       row: Number.isInteger(player.dir) ? player.dir : FACING.south,
     };
-    const all = [...world.objects, follow, {x: player.x, y: player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player', frame: playerPose}].sort(
+    const visibleObjects = objectsInBounds(world, bounds);
+    stats = {visibleTiles: tiles.length, worldTiles: world.tiles.length, visibleObjects: visibleObjects.length, worldObjects: world.objects.length};
+    const all = [...visibleObjects, follow, {x: player.x, y: player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player', frame: playerPose}].sort(
       (a, b) => a.x + a.y - b.x - b.y,
     );
     const bobbing = v.moving && !v.reducedMotion;
@@ -194,5 +219,13 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     mini.stroke();
   }
 
-  return {drawWorld, drawMinimap, context: ctx, miniContext: mini};
+  return {
+    drawWorld,
+    drawMinimap,
+    context: ctx,
+    miniContext: mini,
+    get stats() {
+      return {...stats};
+    },
+  };
 }

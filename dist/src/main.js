@@ -11,6 +11,7 @@ import {currentObjective} from './domain/objectives.js';
 import {isWalkable, nearestWalkable, zoneAt} from './domain/world.js';
 import {buildAdventure} from './domain/adventure.js';
 import {PACK_ID} from './data/pack.js';
+import {configureRegistry} from './data/registry.js';
 import {FACING, followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
@@ -46,9 +47,12 @@ const debug = params.has('debug');
 const rng = debug && params.has('seed') ? seededRng(Number(params.get('seed'))) : Math.random;
 const canvas = $('#game');
 const mapBounds = {};
-const codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: PACK_ID});
+let codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: PACK_ID});
 const storage = getStorage();
-const loaded = codec.load(storage);
+let loaded = {save: codec.fresh(), status: 'new', message: '', writable: true, source: null};
+let persistence;
+const persist = (...args) => persistence(...args);
+persist.lock = () => persistence.lock();
 const settings = loadSettings(storage);
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
@@ -63,6 +67,7 @@ const game = {
   trail: [],
   pacing: {steps: 0, encounterAt: 4, encounterCooldown: 2},
 };
+persistence = createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus});
 const ui = {
   modalMode: '',
   modalFocus: null,
@@ -94,7 +99,7 @@ const app = {
   archive: () => readArchive(storage, codec),
   checkpoint: () => readCheckpoint(storage, codec),
   canStartOver: () => loaded.writable,
-  persist: createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus}),
+  persist,
 };
 app.menus = createMenus(app);
 app.renderBattle = createBattleView(app);
@@ -234,7 +239,6 @@ async function boot() {
   setBusy(true);
   loading.hidden = false;
   loading.classList.remove('failed');
-  $('#load-title').textContent = game.save.badges.length || game.save.caught.length > 1 ? 'Resuming your trail' : 'Preparing Mossvale';
   $('#load-retry').hidden = true;
   $('#load-bar').hidden = false;
   $('#load-detail').textContent = '';
@@ -244,7 +248,23 @@ async function boot() {
   }
   if (!app.maps.length) {
     try {
-      const {maps: rawMaps, objectives: rawObjectives, story: rawStory, pack: rawPack} = await fetchAdventure();
+      const {maps: rawMaps, objectives: rawObjectives, story: rawStory, registries, pack: rawPack} = await fetchAdventure();
+      const registryErrors = configureRegistry({registries, packId: rawPack.id});
+      if (registryErrors.length) {
+        showLoadError('The adventure registries are invalid.', registryErrors.slice(0, 5).join(' · '));
+        return;
+      }
+      codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id});
+      loaded = codec.load(storage);
+      $('#load-title').textContent = loaded.save.badges.length || loaded.save.caught.length > 1 ? 'Resuming your trail' : `Preparing ${rawPack.name}`;
+      game.save = loaded.save;
+      game.player.x = loaded.save.x;
+      game.player.y = loaded.save.y;
+      game.battle = loaded.save.battle ? {...loaded.save.battle, busy: false, over: false} : null;
+      ui.camera.x = game.player.x;
+      ui.camera.y = game.player.y;
+      persistence = createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus});
+      if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
       Object.assign(
         mapBounds,
         Object.fromEntries(rawMaps.map(m => [m.id, {w: m.size?.w, h: m.size?.h, spawn: {x: m.spawns?.camp?.[0], y: m.spawns?.camp?.[1]}}])),
@@ -309,7 +329,7 @@ function resize() {
 let last = 0;
 let frame = 0;
 // Frame timings for scripts/measure-perf.mjs; collected only with ?debug (the sample is a ring of the last 600 frames).
-const perf = debug ? {draw: [], mini: [], frames: 0, started: performance.now()} : null;
+const perf = debug ? {draw: [], mini: [], visibleTiles: [], worldTiles: [], visibleObjects: [], worldObjects: [], frames: 0, started: performance.now()} : null;
 const sample = (list, ms) => (list.push(ms), list.length > 600 && list.shift());
 function loop(t) {
   const dt = Math.min((t - last) / 1000, 0.04) || 0;
@@ -353,6 +373,10 @@ function loop(t) {
     if (frame % 4 === 0) renderer.drawMinimap(view);
     if (perf) {
       sample(perf.draw, t1 - t0);
+      sample(perf.visibleTiles, renderer.stats.visibleTiles);
+      sample(perf.worldTiles, renderer.stats.worldTiles);
+      sample(perf.visibleObjects, renderer.stats.visibleObjects);
+      sample(perf.worldObjects, renderer.stats.worldObjects);
       if (frame % 4 === 0) sample(perf.mini, performance.now() - t1);
       perf.frames++;
     }
