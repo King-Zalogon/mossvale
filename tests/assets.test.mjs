@@ -85,6 +85,56 @@ test('content refers to art by name: species, directions and the manifest agree'
   assert.throws(() => spriteId('no-such-sprite'), /unknown asset/);
 });
 
+test('editable source atlases cover every runtime sprite and export the exact manifest crops', () => {
+  const sourceRoot = new URL('../art/assets/', import.meta.url);
+  const metadata = JSON.parse(readFileSync(new URL('metadata.json', sourceRoot), 'utf8'));
+  assert.equal(metadata.pixelPreserving, true);
+  assert.equal(metadata.anchor, 'bottom-center');
+  assert.equal(metadata.assets.length, assets.length);
+  assert.deepEqual(metadata.assets.map(a => a.name).toSorted(), assets.map(a => a.name).toSorted());
+
+  const sheets = new Map();
+  for (const [name, dimensions] of Object.entries(metadata.sheets)) {
+    const decoded = decodePng(readFileSync(new URL(name, sourceRoot)));
+    assert.equal(decoded.color, 6, name);
+    assert.deepEqual([decoded.width, decoded.height], [dimensions.width, dimensions.height], name);
+    sheets.set(name, decoded);
+  }
+
+  for (const source of metadata.assets) {
+    const asset = assets.find(a => a.name === source.name);
+    assert.ok(asset, source.name);
+    assert.equal(source.width, asset.w, source.name);
+    assert.equal(source.height, asset.h, source.name);
+    assert.equal(source.anchor, asset.anchor, source.name);
+    assert.equal(source.kind, asset.kind, source.name);
+    assert.ok(sheets.has(source.sheet), `${source.name} source sheet exists`);
+    assert.ok(source.provenance.editablePixelSource, source.name);
+    for (const ref of source.provenance.originalGeneratedReferences) assert.ok(readFileSync(new URL(`../../${ref}`, sourceRoot)), ref);
+    if (asset.frames) {
+      assert.equal(source.frames.columns, asset.frames.columns, source.name);
+      assert.equal(source.frames.rows, asset.frames.rows, source.name);
+      assert.deepEqual(source.frames.columnOrder, asset.frames.columnOrder, source.name);
+      assert.deepEqual(source.frames.rowOrder, asset.frames.rowOrder, source.name);
+    } else assert.equal(source.frames, null, source.name);
+
+    const sheet = sheets.get(source.sheet);
+    const {x, y} = source.cell;
+    assert.ok(x >= 0 && y >= 0 && x + source.width <= sheet.width && y + source.height <= sheet.height, source.name);
+    const runtime = decodePng(readFileSync(new URL(asset.src, new URL('../dist/', import.meta.url))));
+    assert.equal(runtime.color, 6, asset.name);
+    for (let row = 0; row < source.height; row++) {
+      const sheetStart = (y + row) * sheet.stride + x * 4;
+      const runtimeStart = row * runtime.stride;
+      assert.deepEqual(
+        sheet.data.subarray(sheetStart, sheetStart + source.width * 4),
+        runtime.data.subarray(runtimeStart, runtimeStart + source.width * 4),
+        `${source.name} source pixels match dist`,
+      );
+    }
+  }
+});
+
 test('a well-formed sprite passes; the decoder reports padding', () => {
   const png = makePng(20, 20, (x, y) => (x >= 2 && x < 18 && y >= 3 && y < 19 ? [1, 2, 3, 255] : [0, 0, 0, 0]));
   assert.deepEqual(opaqueBounds(decodePng(png)), {left: 2, top: 3, right: 2, bottom: 1});

@@ -1,0 +1,589 @@
+{
+  "version": 1,
+  "pixelPreserving": true,
+  "anchor": "bottom-center",
+  "gutter": 16,
+  "sheets": {
+    "source/creatures-atlas.png": {
+      "width": 1793,
+      "height": 690,
+      "mode": "RGBA"
+    },
+    "source/items-atlas.png": {
+      "width": 177,
+      "height": 177,
+      "mode": "RGBA"
+    },
+    "source/people-atlas.png": {
+      "width": 1456,
+      "height": 2320,
+      "mode": "RGBA"
+    },
+    "source/props-atlas.png": {
+      "width": 2000,
+      "height": 762,
+      "mode": "RGBA"
+    }
+  },
+  "assets": [
+    {
+      "name": "boulder-mossy",
+      "src": "assets/props/boulder-mossy.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 261,
+      "height": 228,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 894,
+        "y": 443
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "bush-flowering",
+      "src": "assets/props/bush-flowering.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 295,
+      "height": 253,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 583,
+        "y": 443
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "chest-wooden",
+      "src": "assets/props/chest-wooden.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 319,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 443
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "cottage-tiled",
+      "src": "assets/props/cottage-tiled.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 312,
+      "height": 359,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 1103,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-brooklet",
+      "src": "assets/creatures/creature-brooklet.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 279,
+      "height": 208,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 584,
+        "y": 416
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-duskwing",
+      "src": "assets/creatures/creature-duskwing.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 282,
+      "height": 260,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 286,
+        "y": 416
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-emberkin",
+      "src": "assets/creatures/creature-emberkin.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 270,
+      "height": 274,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 416
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-fernling",
+      "src": "assets/creatures/creature-fernling.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 281,
+      "height": 281,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 1512,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-frostowl",
+      "src": "assets/creatures/creature-frostowl.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 336,
+      "height": 400,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-mushmallow",
+      "src": "assets/creatures/creature-mushmallow.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 361,
+      "height": 330,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 734,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-pebblit",
+      "src": "assets/creatures/creature-pebblit.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 385,
+      "height": 329,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 1111,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-voltkit",
+      "src": "assets/creatures/creature-voltkit.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 366,
+      "height": 395,
+      "anchor": "bottom-center",
+      "sheet": "source/creatures-atlas.png",
+      "cell": {
+        "x": 352,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "grass-tuft",
+      "src": "assets/props/grass-tuft.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 267,
+      "height": 214,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 1171,
+        "y": 443
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "item-capture-orb",
+      "src": "assets/items/item-capture-orb.png",
+      "folder": "items",
+      "kind": "item",
+      "width": 177,
+      "height": 177,
+      "anchor": "bottom-center",
+      "sheet": "source/items-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "person-gardener",
+      "src": "assets/people/person-gardener.png",
+      "folder": "people",
+      "kind": "person",
+      "width": 640,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/people-atlas.png",
+      "cell": {
+        "x": 816,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 1,
+        "frameWidth": 160,
+        "frameHeight": 256,
+        "columnOrder": ["north", "east", "south", "west"]
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": ["art/characters/SOURCES.md"],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "person-red-cap-east",
+      "src": "assets/people/person-red-cap-east.png",
+      "folder": "people",
+      "kind": "person",
+      "width": 162,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/people-atlas.png",
+      "cell": {
+        "x": 656,
+        "y": 2064
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "person-red-cap-motion",
+      "src": "assets/people/person-red-cap-motion.png",
+      "folder": "people",
+      "kind": "person",
+      "width": 800,
+      "height": 2048,
+      "anchor": "bottom-center",
+      "sheet": "source/people-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 160,
+        "frameHeight": 256,
+        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": ["art/characters/SOURCES.md"],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "person-red-cap-north",
+      "src": "assets/people/person-red-cap-north.png",
+      "folder": "people",
+      "kind": "person",
+      "width": 142,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/people-atlas.png",
+      "cell": {
+        "x": 1168,
+        "y": 2064
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "person-red-cap-south",
+      "src": "assets/people/person-red-cap-south.png",
+      "folder": "people",
+      "kind": "person",
+      "width": 144,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/people-atlas.png",
+      "cell": {
+        "x": 1008,
+        "y": 2064
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "person-red-cap-west",
+      "src": "assets/people/person-red-cap-west.png",
+      "folder": "people",
+      "kind": "person",
+      "width": 158,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/people-atlas.png",
+      "cell": {
+        "x": 834,
+        "y": 2064
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "person-traveler",
+      "src": "assets/people/person-traveler.png",
+      "folder": "people",
+      "kind": "person",
+      "width": 640,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/people-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 2064
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 1,
+        "frameWidth": 160,
+        "frameHeight": 256,
+        "columnOrder": ["north", "east", "south", "west"]
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": ["art/characters/SOURCES.md"],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "rock-spire-red",
+      "src": "assets/props/rock-spire-red.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 381,
+      "height": 410,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 706,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "shrine-crystal-stone",
+      "src": "assets/props/shrine-crystal-stone.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 353,
+      "height": 418,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 337,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "signpost-wood",
+      "src": "assets/props/signpost-wood.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 208,
+      "height": 269,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 359,
+        "y": 443
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "tree-oak",
+      "src": "assets/props/tree-oak.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 307,
+      "height": 348,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 1693,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "tree-pine",
+      "src": "assets/props/tree-pine.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 246,
+      "height": 355,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 1431,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "tree-pine-snow",
+      "src": "assets/props/tree-pine-snow.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 321,
+      "height": 427,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false
+      }
+    }
+  ]
+}
