@@ -42,13 +42,13 @@ test('v2 progress is preserved when migrated to stable IDs', () => {
     r = codec.load(s);
   assert.deepEqual([r.save.caught, r.save.badges, r.save.region, r.save.orbs, r.save.coins, r.save.team[0].xp], [[0, 1], [0], 1, 7, 50, 90]);
   const out = JSON.parse(codec.serialize(r.save));
-  assert.equal(out.version, 3);
+  assert.equal(out.version, 4);
   assert.deepEqual(out.caught, ['fernling', 'emberkin']);
   assert.deepEqual(out.badges, ['meadow']);
   assert.equal(out.region, 'amber-ridge');
   assert.equal(s.m.get(KEYS.v2), v2(), 'legacy payload is left untouched');
 });
-test('v3 identities survive reordering of definitions', () => {
+test('stable identities survive reordering of definitions', () => {
   const r = codec.load(store({[KEYS.v2]: v2()}));
   const raw = codec.serialize(r.save),
     reordered = create({species: [...species].reverse(), regions, size: 25});
@@ -56,7 +56,7 @@ test('v3 identities survive reordering of definitions', () => {
   assert.deepEqual(back.caught.map(i => [...species].reverse()[i].id).sort(), ['emberkin', 'fernling']);
   assert.equal([...species].reverse()[back.active].id, 'emberkin');
 });
-test('v3 round trip is unchanged and checkpoints a backup', () => {
+test('v4 round trip is unchanged and checkpoints a backup', () => {
   const raw = codec.serialize(codec.fresh()),
     s = store({[KEYS.v3]: raw}),
     r = codec.load(s);

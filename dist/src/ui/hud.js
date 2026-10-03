@@ -5,13 +5,14 @@ import {companion, level, maxHP, xpProgress} from '../domain/rules.js';
 import {drawCreature} from '../render/sprites.js';
 import {$} from './dom.js';
 
-export function renderRegion(region) {
+export function renderRegion(region, map = null) {
   const r = regions[region];
-  $('#region-name').textContent = r.name;
-  $('#region-subtitle').textContent = r.subtitle;
+  const mapName = map?.name ?? r.name;
+  $('#region-name').textContent = mapName;
+  $('#region-subtitle').textContent = mapName === r.name ? r.subtitle : `${r.name} · ${r.subtitle}`;
   $('#area-number').textContent = 'AREA 0' + (region + 1);
   $('#world-tag').textContent = '✦  ' + r.tag;
-  $('#coordinates').textContent = r.short.toUpperCase();
+  $('#coordinates').textContent = mapName.toUpperCase();
 }
 
 /** `q` = current objective (see domain/objectives.js), or null before the adventure data has loaded. */

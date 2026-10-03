@@ -44,7 +44,7 @@ const set = (k, v) =>
   console.log('ok malformed team save');
 }
 {
-  // corrupt v3 shows the recovery dialog and keeps the payload
+  // corrupt current-key data shows the recovery dialog and keeps the payload
   const {page} = await open(set('mossvale-v3', '{"version":3,'));
   await page.waitForSelector('#modal:not([hidden])');
   assert.match(await page.textContent('#modal'), /could not be read/);
@@ -65,7 +65,7 @@ const set = (k, v) =>
   console.log('ok missing sprite retry');
 }
 {
-  // smoke: menus, seeded battle to a result, capture, travel, v3 save written, no page errors
+  // smoke: menus, seeded battle to a result, capture, travel, v4 save written, no page errors
   const {page, errors} = await open('');
   await page.goto(url + '?debug&seed=5');
   await page.waitForSelector('#loading', {state: 'hidden'});
@@ -90,7 +90,7 @@ const set = (k, v) =>
   assert.equal(await page.evaluate(() => window.mossvale.getState().save.region), 1);
   await page.waitForTimeout(100);
   const stored = JSON.parse(await page.evaluate(() => localStorage.getItem('mossvale-v3')));
-  assert.equal(stored.version, 3);
+  assert.equal(stored.version, 4);
   assert.equal(stored.region, 'amber-ridge');
   assert.deepEqual(errors, []);
   assert.equal(await page.evaluate(() => typeof window.mossvale), 'object');

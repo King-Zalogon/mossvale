@@ -10,7 +10,7 @@ export const MAX_BACKUP_BYTES = 1_000_000;
 
 export const exportFileName = (date = new Date()) => `mossvale-save-${date.toISOString().slice(0, 10)}.json`;
 
-/** The text of a backup file: a small envelope around the normal v3 save. */
+/** The text of a backup file: a small envelope around the current save schema. */
 export function exportBackup(codec, save, build = null, now = new Date()) {
   return (
     JSON.stringify(
@@ -42,7 +42,7 @@ export function parseBackup(text, codec) {
       ok: false,
       reason: `That save was made by a newer version of Mossvale (schema ${payload.version}). Update the game first; your current progress was not touched.`,
     };
-  if (payload.version !== VERSION && payload.version !== 2) return {ok: false, reason: `Saves of schema ${payload.version} are not supported.`};
+  if (![VERSION, 3, 2].includes(payload.version)) return {ok: false, reason: `Saves of schema ${payload.version} are not supported.`};
   if (packOf(payload) !== codec.pack)
     return {ok: false, reason: `That save belongs to another adventure ("${packOf(payload)}"), not "${codec.pack}". Your current progress was not touched.`};
   const save = codec.normalize(payload, payload.version === 2);

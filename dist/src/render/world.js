@@ -173,7 +173,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
                 : 'SHRINE'
               : o.kind === 'chest'
                 ? 'TREASURE'
-                : regions[o.target].short.toUpperCase() + (unlocked(save, o.target) ? '' : ' · LOCKED');
+                : o.targetName.toUpperCase() + (unlocked(save, o.targetRegion) ? '' : ' · LOCKED');
         ctx.fillText(label, s.x, s.y - spriteHeight(o) - 7 * zoom);
       }
     }

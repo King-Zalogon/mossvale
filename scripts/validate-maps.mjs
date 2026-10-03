@@ -18,7 +18,7 @@ if (registryErrors.length) {
 }
 const content = resolveRegistries(registries, assets);
 const raw = index.maps.map(id => read(id + '.json'));
-const {maps, errors} = buildAdventure(
+const {mapsById, errors} = buildAdventure(
   raw,
   {assets, ...content, packId: index.id},
   index.objectives ? read(index.objectives) : undefined,
@@ -31,9 +31,9 @@ if (errors.length) {
 }
 const [command, id] = process.argv.slice(2);
 if (command === 'preview') {
-  const map = maps.find(m => m.id === id);
+  const map = mapsById[id];
   if (!map) {
-    console.error(`unknown map "${id}"; maps: ${maps.map(m => m.id).join(', ')}`);
+    console.error(`unknown map "${id}"; maps: ${Object.keys(mapsById).join(', ')}`);
     process.exit(1);
   }
   const sym = {void: ' ', ground: '.', path: '=', water: '~', tallgrass: '"'};
@@ -47,4 +47,4 @@ if (command === 'preview') {
   console.log(`${map.name} (${map.id})  . ground  = path  ~ water  " tall grass  # solid  @ spawn  R ranger  S shrine  C chest  ? sign  G exit  H cottage`);
   console.log(grid.map(r => r.join('')).join('\n'));
   for (const z of map.zones) console.log(`zone ${z.id}: ${z.pool.map(i => content.species[i].id).join(', ')} at level ${z.level.join('-')}`);
-} else console.log(`${maps.length} maps OK`);
+} else console.log(`${Object.keys(mapsById).length} maps OK`);
