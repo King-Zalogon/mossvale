@@ -25,7 +25,8 @@ test('every species can be found, and a species with no source is rejected', () 
   const found = new Set(maps.flatMap(m => m.zones.flatMap(z => z.pool)));
   assert.equal(found.size, species.length);
   const {errors} = edit(m => {
-    for (const map of m) for (const zone of map.zones) zone.pool = zone.pool.filter(entry => (typeof entry === 'string' ? entry : entry.species) !== 'fernling');
+    for (const map of m)
+      for (const zone of map.zones) zone.pool = zone.pool.filter(entry => (typeof entry === 'string' ? entry : entry.species) !== 'fernling');
     m.find(x => x.id === 'reedfen-wetlands').zones[0].pool = ['brooklet', 'mushmallow', 'siltkip'];
   });
   has(errors, 'species: "fernling" has no encounter zone');
