@@ -5,6 +5,7 @@ import http from 'node:http';
 import {readFileSync, existsSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {codec, newSave} from './helpers.mjs';
+import {species} from '../dist/src/data/species.js';
 const root = new URL('../dist/', import.meta.url),
   types = {html: 'text/html', js: 'text/javascript', css: 'text/css', png: 'image/png', json: 'application/json', svg: 'image/svg+xml'};
 let blocked = new Set();
@@ -103,6 +104,7 @@ const set = (k, v) =>
   assert.equal(await page.evaluate(() => typeof window.mossvale), 'object');
   console.log('ok gameplay smoke');
 }
+const captureRecoveryOutcomes = [];
 for (const [seed, weakened] of [
   [11, false],
   [12, true],
@@ -113,7 +115,10 @@ for (const [seed, weakened] of [
   const {page} = await open('');
   await page.goto(url + `?debug&seed=${seed}`);
   await page.waitForSelector('#loading', {state: 'hidden'});
-  await page.evaluate(() => window.mossvale.encounter(1));
+  await page.evaluate(count => {
+    const active = window.mossvale.getState().save.active;
+    window.mossvale.encounter((active + 1) % count);
+  }, species.length);
   await page.waitForSelector('#catch:not([disabled])');
   if (weakened) await page.evaluate(() => (window.mossvale.getState().battle.hp = 1)); // makes capture likely so both outcomes get exercised
   const orbs = await page.evaluate(() => window.mossvale.getState().save.orbs);
@@ -126,11 +131,17 @@ for (const [seed, weakened] of [
     return {orbs: s.save.orbs, resumed: !!s.battle, wins: s.save.wins, caught: s.save.caught.length, modal: s.modalMode, phase: s.phase};
   });
   assert.equal(st.orbs, orbs - 1, 'exactly one orb spent');
-  if (st.resumed)
+  if (st.resumed) {
     assert.deepEqual([st.modal, st.phase, st.wins], ['battle', 'battle', 0]); // broke free: encounter resumes
-  else assert.deepEqual([st.wins, st.caught, st.phase], [1, 2, 'explore']); // captured: reward applied once
+    captureRecoveryOutcomes.push('resumed');
+  } else {
+    assert.deepEqual([st.wins, st.caught, st.phase], [1, 2, 'explore']); // captured: reward applied once
+    captureRecoveryOutcomes.push('captured');
+  }
   console.log('ok refresh during capture (' + (st.resumed ? 'encounter resumed' : 'capture kept') + ')');
 }
+assert.ok(captureRecoveryOutcomes.includes('resumed'), 'a failed capture resumes the encounter');
+assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture survives refresh');
 {
   // a normal capture path with ordinary actions, no debug damage
   const {page, errors} = await open('');

@@ -8,3 +8,11 @@ tests/fixtures
 build
 .next
 public/game
+
+# Raw SHA-256 targets and the authored registry that records their provenance.
+art/assets/metadata.json
+art/assets/subjects.json
+art/characters/creature-combat-metadata.json
+
+# Byte-hashed preview evidence; reformatting it would make the visual review stale.
+dist/character-preview.html

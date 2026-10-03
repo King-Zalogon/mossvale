@@ -1,13 +1,14 @@
-# Traceable private updates
+# Traceable builds and rollback
 
 Issue [#21](https://github.com/King-Zalogon/mossvale/issues/21). What this repository can do on its own, and what it cannot know.
 
 ## What is established
 
 - The game is static files (`dist/`). Anything that serves that folder plays it.
-- Every push and pull request runs CI (`.github/workflows/ci.yml`). It also runs `npm run build` and keeps the result as a GitHub Actions artifact named `mossvale-<commit sha>` for 90 days: a complete, stamped copy of the game for exactly that commit.
+- Every push and pull request runs CI on Ubuntu and Windows (`.github/workflows/ci.yml`). Each run builds the game and keeps a GitHub Actions artifact named `mossvale-<full commit sha>-ubuntu-latest` or `mossvale-<full commit sha>-windows-latest` for 90 days. The artifact contains a complete, stamped copy for exactly that commit; use one only when its run is green.
 - `npm run build` writes `build/` (a copy of `dist/` plus `version.json`: commit, short commit, branch, whether the tree was dirty, build time and the save schema). The in-game menu shows `build abcdef0 · 2026-10-01`, or "development build" when no stamp exists, so you can tell which commit you are playing.
-- Saves are compatible across updates: frozen saves from every schema generation live in `tests/fixtures/saves/` and `npm test` fails if one stops loading or changes meaning ([SAVE_FORMAT.md](SAVE_FORMAT.md)). Preferences and the "new game" backup are separate keys that updates never touch.
+- For a stamped local copy of the static game without building the portal wrapper, run `npm run build:game` and serve `build/` (for example, `py -m http.server 8080 --directory build` on Windows or `python3 -m http.server 8080 --directory build` elsewhere). Open `http://localhost:8080`; the in-game menu shows the short commit. `npm start` continues to serve the unstamped working `dist/` files for quick development.
+- Frozen saves from supported schema generations live in `tests/fixtures/saves/` and tests fail if one stops loading or changes meaning ([SAVE_FORMAT.md](SAVE_FORMAT.md)). Forward migrations preserve older saves. If a rollback build is older than a save's schema, it leaves the save untouched and read-only; export a backup before trying a downgrade.
 - Checked 2026-10-03 through the GitHub API: the repository **is public** (`visibility: public`). Nothing here changed that.
 - The owner’s current instruction is to leave both repository visibility and the hosted game audience unchanged. This repository does not push or deploy the site, so a merged commit is not represented as a published playable update.
 
@@ -19,11 +20,11 @@ Issue [#21](https://github.com/King-Zalogon/mossvale/issues/21). What this repos
 
 ## A simple publish and rollback routine
 
-1. Merge to `main` (or push) and wait for the **CI** check to go green. A red check is visible on the commit but does not block anything.
-2. Download the `mossvale-<sha>` artifact of the commit you want from the run's page, or run `npm ci && npm run build` on that commit locally. Check `build/version.json` shows the commit you expect.
-3. Upload the contents of `build/` to the hosting you use (the audience stays whatever it already is). Play for a minute: the menu should show the new build label, and an existing save should show Continue with its progress.
-4. Optional: tag what you published, e.g. `git tag play-2026-10-01 <sha> && git push origin play-2026-10-01`, so the exact version has a name.
-5. **Roll back** by repeating steps 2–3 with the artifact (or tag) of the last good commit. Saves keep working because newer builds only add optional fields; if a rollback goes to a build that is older than your save's schema, the game keeps the save untouched and plays read-only rather than overwrite it ("Newer save found").
+1. Choose the exact commit to play. Wait for its CI run to finish green on both platforms.
+2. Download an artifact named `mossvale-<full sha>-<runner>` from that run, or check out the exact commit and run `npm ci && npm run build`. Check `build/version.json` shows the commit you chose and `dirty: false`.
+3. Serve `build/` locally to try the stamped snapshot. If you publish it to a static host, upload the contents of `build/`; this repository does not publish to the existing hosted site automatically.
+4. Record the full commit SHA and the Actions run/artifact name with the play notes. Artifacts expire after 90 days; an optional Git tag on an accepted build preserves a durable name and lets CI rebuild the same source later.
+5. **Roll back** by serving or deploying the artifact of the last known-good commit. Before a rollback, export a save backup. If the older code cannot read the newer save schema, the game keeps the save untouched and read-only ("Newer save found") until a compatible build is restored.
 
 ## Optional later
 

@@ -33,7 +33,7 @@ On touch screens, use the directional pad, Run button, and interaction prompt.
 
 ## Adventure
 
-Explore Mossvale Meadow, Amber Ridge, and Frostveil Grove. Befriend eight species. Up to three companions form your team and the rest wait in the reserve. Battles include elemental strengths, a Focus resource for the elemental move, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
+Explore four biomes across eight maps: Mossvale Meadow, Amber Ridge, Frostveil Grove, and Reedfen Wetlands. Befriend twelve species. Up to three companions form your team and the rest wait in the reserve. Battles include elemental strengths, a Focus resource for the elemental move, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
 
 A title screen offers Continue (or Start adventure), Settings, New game and, after a restart, Restore previous adventure. New game keeps your old adventure as a backup; sound, volume, ambient music, motion and zoom preferences persist.
 
@@ -87,6 +87,6 @@ CI (`.github/workflows/ci.yml`) runs `verify` on every push and pull request. It
 
 ## Development roadmap
 
-The [personal-adventure roadmap](https://github.com/King-Zalogon/mossvale/issues/1) targets four varied biomes, eight compact maps and 12 creatures, with reusable assets and a light progression story. These are planned additions; the current playable feature list above describes the existing game.
+The first-adventure content target is present: four biomes, eight maps, twelve species, and a short ending after the four shrine seals. Remaining work is the linked integration checks and your play feedback; later packs and presentation extras are optional. See the [personal-ready checklist](docs/READY.md) and [roadmap](https://github.com/King-Zalogon/mossvale/issues/1).
 
 See [the detailed plan](docs/FULL_GAME_ROADMAP.md) and [machine-readable backlog](docs/ROADMAP_BACKLOG.json). The superseded larger plan is retained in [the archive](docs/archive/2026-09-30/FULL_GAME_ROADMAP.md).

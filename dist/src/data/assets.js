@@ -60,6 +60,7 @@ export const assets = [
       frameWidth: 200,
       frameHeight: 200,
       rowOrder: ['south', 'southwest', 'east', 'northeast', 'north', 'west', 'northwest', 'southeast'],
+      mirror: {southeast: 'southwest'}, // the southeast row repeats the southwest pose; draw the southwest row flipped
       columnOrder: ['idle', 'walk-1', 'walk-2', 'walk-3', 'walk-4'],
       cadence: 'advance each walk frame per 0.42 world units traveled by the follower',
     },
