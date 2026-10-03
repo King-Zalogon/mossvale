@@ -1,22 +1,28 @@
 /* Pure movement and encounter pacing. */
 import {FOLLOW_GAP, MOVE_STEP} from '../config.js';
-import {spriteId} from '../data/assets.js';
 import {isWalkable, nearestWalkable, zoneAt} from './world.js';
 
 export const WALK_SPEED = 2.8;
 export const RUN_SPEED = 4.7;
 
-/** Sprite ids for the player facing each way. `player.dir` holds one of these. */
-export const FACING = {
-  south: spriteId('person-red-cap-south'),
-  north: spriteId('person-red-cap-north'),
-  west: spriteId('person-red-cap-west'),
-  east: spriteId('person-red-cap-east'),
-};
+/** Row indices in the red-cap animation atlas. */
+export const DIRECTIONS = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
+export const FACING = Object.freeze(Object.fromEntries(DIRECTIONS.map((name, index) => [name, index])));
+export const WALK_FRAME_DISTANCE = 0.42;
 
-/** Sprite id for the player's facing from screen-space input. */
+/** Sprite-sheet column for the current animation state; running advances faster through its greater travel. */
+export function playerFrame(distance, moving, reducedMotion = false) {
+  if (!moving || reducedMotion) return 0;
+  return 1 + (Math.floor(Math.max(0, distance) / WALK_FRAME_DISTANCE) % 4);
+}
+
+/** Row in the animation atlas for screen-space input (-1..1 on each axis). */
 export function facing(sx, sy) {
-  return Math.abs(sx) > 0.3 ? (sx < 0 ? FACING.west : FACING.east) : sy < 0 ? FACING.north : FACING.south;
+  const x = Math.abs(sx) > 0.3 ? Math.sign(sx) : 0;
+  const y = Math.abs(sy) > 0.3 ? Math.sign(sy) : 0;
+  if (x > 0) return y < 0 ? FACING.northeast : y > 0 ? FACING.southeast : FACING.east;
+  if (x < 0) return y < 0 ? FACING.northwest : y > 0 ? FACING.southwest : FACING.west;
+  return y < 0 ? FACING.north : FACING.south;
 }
 
 /**
@@ -25,7 +31,10 @@ export function facing(sx, sy) {
  * `pacing` = {steps, encounterAt, encounterCooldown}. Returns the encounter zone when a wild encounter should start.
  */
 export function movePlayer(state, sx, sy, run, dt) {
-  if (!sx && !sy) return null;
+  if (!sx && !sy) {
+    state.player.walkDistance = 0;
+    return null;
+  }
   const slices = Math.max(1, Math.ceil(dt / MOVE_STEP));
   for (let i = 0; i < slices; i++) {
     const zone = moveSlice(state, sx, sy, run, dt / slices);
@@ -46,7 +55,10 @@ function moveSlice(state, sx, sy, run, dt) {
   if (isWalkable(world, player.x, player.y + dy)) player.y += dy;
   player.dir = facing(sx, sy);
   const distance = Math.hypot(player.x - before.x, player.y - before.y);
-  if (distance > 0) pushTrail(state.trail, player);
+  if (distance > 0) {
+    player.walkDistance = (player.walkDistance || 0) + distance;
+    pushTrail(state.trail, player);
+  }
   const zone = zoneAt(world, Math.round(player.x), Math.round(player.y));
   if (zone) {
     pacing.steps += distance;

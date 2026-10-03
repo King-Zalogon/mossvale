@@ -322,6 +322,7 @@ function loop(t) {
       paused: ui.paused,
       phase: game.phase,
       moving: isMoving(ui) && !ui.modalMode && !ui.paused,
+      reducedMotion: app.motionReduced(),
     };
     renderer.drawWorld(view);
     if (frame % 4 === 0) renderer.drawMinimap(view);
