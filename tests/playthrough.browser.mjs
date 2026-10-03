@@ -84,7 +84,9 @@ const rest = async () => {
   await page.evaluate(() => Object.assign(window.mossvale.getState().player, {x: 10.3, y: 10.4}));
   await page.waitForTimeout(400);
   await page.evaluate(() => window.mossvale.interact());
+  await page.click('#speech-next');
   await page.click('#rest-team');
+  await page.click('#speech-next');
   await page.keyboard.press('Escape');
 };
 
