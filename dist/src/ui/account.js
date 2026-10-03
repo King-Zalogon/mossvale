@@ -11,7 +11,11 @@ export function createAccountMenus(app, open) {
   let requestInFlight = null;
 
   async function feedback(back) {
-    open(`${header('FEEDBACK', 'Help improve this adventure')}<p>Loading your account…</p><button id="f-back">Back</button>`, 'menu', 'Game feedback');
+    open(
+      `${header('FEEDBACK', 'Help improve this adventure')}<p id="feedback-loading">Loading your account…</p><button id="f-back">Back</button>`,
+      'menu',
+      'Game feedback',
+    );
     $('#f-back').onclick = back;
     $('#modal .close').onclick = app.actions.close;
     const loadingBack = $('#f-back');
@@ -20,7 +24,11 @@ export function createAccountMenus(app, open) {
     const status = await client.feedbackStatus();
     if (!loadingBack.isConnected || $('#modal').hidden) return; // the user left while the request was in flight
     if (!status.ok) {
-      $('#f-back').insertAdjacentHTML('beforebegin', `<p role="alert">${esc(status.error)} Feedback needs a signed-in account and the hosted game.</p>`);
+      $('#feedback-loading').textContent = 'Feedback is unavailable right now.';
+      $('#f-back').insertAdjacentHTML(
+        'beforebegin',
+        `<p role="alert">${esc(status.error)}${status.status === 401 ? ' Sign in again on this site to send feedback.' : ''}</p>`,
+      );
       return;
     }
     open(

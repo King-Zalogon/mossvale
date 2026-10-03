@@ -64,6 +64,12 @@ test('cookie writes require same-origin and request JSON has a streaming size bo
 });
 
 test('quota, revision and backend failures produce actionable errors without SQL leakage', () => {
+  for (const code of ['PGRST202', 'PGRST205', '42P01', '42883']) {
+    assert.throws(
+      () => databaseError({code, message: 'internal secret'}),
+      e => e.status === 503 && e.message.includes('database setup') && !e.message.includes('secret'),
+    );
+  }
   assert.throws(
     () => databaseError({message: 'daily_limit'}),
     e => e.status === 429,

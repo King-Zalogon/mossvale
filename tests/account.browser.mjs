@@ -22,7 +22,9 @@ try {
   let offline = true;
   let exhausted = false;
   let rejectAuth = false;
+  let setupFailure = false;
   await page.route('**/api/feedback', async route => {
+    if (setupFailure) return route.fulfill({status: 503, json: {error: 'The site owner needs to finish database setup.'}});
     if (rejectAuth) return route.fulfill({status: 401, json: {error: 'Please sign in again.'}});
     if (route.request().method() === 'GET') return route.fulfill({json: {...account, remaining: exhausted ? 0 : 10, dailyLimit: 10, maxCharacters: 2000}});
     sends.push(route.request().postDataJSON());
@@ -112,6 +114,13 @@ try {
   assert.equal(await page.evaluate(() => window.mossvale.getState().save.coins), save.backup.save.coins);
   assert.notEqual(await page.evaluate(() => localStorage.getItem('mossvale-archive')), null, 'restoring keeps a local archive');
   await page.keyboard.press('Escape');
+  setupFailure = true;
+  await page.click('#m-feedback');
+  await page.waitForSelector('[role="alert"]');
+  assert.match(await page.textContent('#modal'), /database setup/);
+  assert.doesNotMatch(await page.textContent('#modal'), /Loading your account|signed-in account|Sign in again/);
+  await page.click('#f-back');
+  setupFailure = false;
   rejectAuth = true;
   await page.click('#m-feedback');
   await page.waitForSelector('[role="alert"]');
