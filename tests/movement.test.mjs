@@ -1,10 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PLAYER_RADIUS} from '../dist/src/config.js';
+import {assets, spriteId} from '../dist/src/data/assets.js';
 import {
   DIRECTIONS,
   FACING,
   WALK_FRAME_DISTANCE,
+  directionPose,
   facing,
   playerSpritePose,
   followerPoint,
@@ -180,4 +182,15 @@ test('walking up-left draws the up-right pose mirrored; every other direction us
   for (const name of ['north', 'east', 'southeast', 'south', 'southwest', 'west'])
     assert.deepEqual(playerSpritePose(FACING[name]), {row: FACING[name], flip: false});
   assert.deepEqual(playerSpritePose(undefined), {row: FACING.south, flip: false});
+});
+
+test('directionPose reads the sheet row order and draws mirrored directions from their source row (#36/#90)', () => {
+  const ember = assets[spriteId('creature-emberkin-follower')].frames;
+  assert.deepEqual(directionPose(ember, FACING.south), {row: 0, flip: false});
+  assert.deepEqual(directionPose(ember, FACING.southwest), {row: 1, flip: false});
+  // Emberkin's own southeast row repeats the southwest pose, so southeast draws the southwest row flipped
+  assert.deepEqual(directionPose(ember, FACING.southeast), {row: 1, flip: true});
+  // sheets without a mirror map or a custom row order fall back to the canonical order
+  assert.deepEqual(directionPose(undefined, FACING.west), {row: FACING.west, flip: false});
+  assert.deepEqual(directionPose({rowOrder: ['east', 'west']}, FACING.west), {row: 1, flip: false});
 });
