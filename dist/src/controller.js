@@ -159,7 +159,7 @@ export function createController(app) {
     speech.show(
       [{text: line + tip('first-ranger'), speaker: speakerId, name: o?.name ?? 'Mossvale'}],
       () => actor && app.projectWorld(actor.x, actor.y),
-      () => menus.ranger({name: o?.name ?? 'The ranger', message: ''}),
+      () => menus.ranger({name: o?.name ?? 'The ranger', sprite: o?.id, message: ''}),
     );
   }
 

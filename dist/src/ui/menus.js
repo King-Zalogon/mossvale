@@ -31,12 +31,19 @@ export function createMenus(app) {
   function worldMap() {
     if (game.battle) return;
     const s = save();
+    const sideMaps = Object.values(app.mapsById).filter(m => !app.maps.some(hub => hub.id === m.id));
     open(
       `${header('FOUR BIOMES. ONE ADVENTURE.', 'The Verdant Isles')}<p>Follow the eastern trails, or travel directly to any unlocked region.</p><div class="map-cards">${regions
         .map(
           (r, i) =>
             `<div class="region-card ${s.region === i ? 'current' : ''} ${!unlocked(s, i) ? 'locked' : ''}"><div class="region-preview"><canvas id="region-art-${i}" width="110" height="110"></canvas></div><h3>${r.name}</h3><p>${unlocked(s, i) ? r.desc : `Earn the ${regions[i - 1].seal.toLowerCase()} to open this trail.`}</p><button data-travel="${i}" ${!unlocked(s, i) ? 'disabled' : ''}>${!unlocked(s, i) ? 'Trail locked' : s.region === i ? 'Return to this camp' : 'Travel to ' + r.short}</button></div>`,
         )
+        .join('')}${sideMaps
+        .map(m => {
+          const ri = regions.findIndex(r => r.biome === m.biome);
+          const accessible = ri >= 0 && unlocked(s, ri);
+          return `<div class="region-card ${s.mapId === m.id ? 'current' : ''} ${accessible ? '' : 'locked'}"><h3>${m.name}</h3><p>A trail in ${regions[ri]?.name ?? m.biome}.</p><button data-map-travel="${m.id}" ${accessible ? '' : 'disabled'}>${accessible ? 'Travel to ' + m.name : 'Trail locked'}</button></div>`;
+        })
         .join(
           '',
         )}</div><div class="map-progress">${s.badges.length ? s.badges.map(i => '✦ ' + regions[i].seal).join(' &nbsp; · &nbsp; ') : 'Your first seal awaits at the meadow shrine. Befriend a wild creature, then visit the blue crystal north of camp.'}</div><div class="map-legend"><span><i class="legend-dot"></i> Camp / trail</span><span><i class="legend-dot blue"></i> Shrine</span><span><i class="legend-dot gold"></i> Treasure</span><span style="color:#e59b85">● You</span></div>`,
@@ -45,6 +52,7 @@ export function createMenus(app) {
     );
     regions.forEach((r, i) => drawSprite($(`#region-art-${i}`).getContext('2d'), r.preview, 55, 103, r.preview === spriteId('tree-oak') ? 80 : 88));
     for (const b of document.querySelectorAll('[data-travel]')) b.onclick = () => actions.travel(+b.dataset.travel);
+    for (const b of document.querySelectorAll('[data-map-travel]')) b.onclick = () => actions.travel(b.dataset.mapTravel);
     wireClose();
   }
 
@@ -133,7 +141,7 @@ export function createMenus(app) {
     if ($('#back-battle')) $('#back-battle').onclick = () => actions.renderBattle('Choose your next move.');
   }
 
-  function ranger({name = 'The ranger', message = ''} = {}) {
+  function ranger({name = 'The ranger', sprite = spriteId('person-gardener'), message = ''} = {}) {
     if (game.battle) return;
     const s = save();
     open(
@@ -141,7 +149,7 @@ export function createMenus(app) {
       'ranger',
       name,
     );
-    drawSprite($('#ranger-art').getContext('2d'), spriteId('person-gardener'), 45, 130, 65);
+    drawSprite($('#ranger-art').getContext('2d'), sprite, 45, 130, 65);
     $('#rest-team').onclick = () => actions.rest();
     for (const b of document.querySelectorAll('[data-buy]')) b.onclick = () => actions.buy(b.dataset.buy);
     wireClose();
@@ -176,7 +184,7 @@ export function createMenus(app) {
   function help() {
     if (game.battle) return;
     open(
-      `${header('A FIELD GUIDE', 'Make yourself at home.')}<div class="help-copy"><p>Explore four biomes with your companion. Awaken the four shrines to finish the adventure; finding every creature is optional.</p><div class="shortcut-grid"><span><kbd>WASD</kbd> / arrows · Move in 8 directions</span><span><kbd>Shift</kbd> · Run</span><span><kbd>E</kbd> · Talk, open, or travel</span><span><kbd>M</kbd> · Island map</span><span><kbd>J</kbd> · Field journal</span><span><kbd>Q</kbd> · Companion team</span></div><ul><li>Walk through tall grass to meet creatures. Weaken them, then use a capture orb. The chance improves as their health drops.</li><li>Each friend has its own strengths, toughness, and elemental move. The journal gives you clues about where to look.</li><li>Every friend you catch can become your companion. They gain XP, levels, and more health.</li><li>Find the blue shrine north of each camp. Win against its guardian to earn a seal and unlock the next region.</li><li>Talk to Iris to heal everyone and refill your orbs. Spend coins on extra orbs and potions.</li><li>On touch screens, use the eight-direction pad and tap Run. Tap the interaction prompt near a landmark.</li></ul><p>Your original meadow progress has been preserved. The game saves automatically on this device.</p></div>`,
+      `${header('A FIELD GUIDE', 'Make yourself at home.')}<div class="help-copy"><p>Explore four biomes with your companion. Awaken the four shrines to finish the adventure; finding every creature is optional.</p><div class="shortcut-grid"><span><kbd>WASD</kbd> / arrows · Move in 8 directions</span><span><kbd>Shift</kbd> · Run</span><span><kbd>E</kbd> · Talk, open, or travel</span><span><kbd>M</kbd> · Island map</span><span><kbd>J</kbd> · Field journal</span><span><kbd>Q</kbd> · Companion team</span></div><ul><li>Walk through tall grass to meet creatures. Weaken them, then use a capture orb. The chance improves as their health drops.</li><li>Each friend has its own strengths, toughness, and elemental move. The journal gives you clues about where to look.</li><li>Every friend you catch can become your companion. They gain XP, levels, and more health.</li><li>Find the blue shrine north of each camp. Win against its guardian to earn a seal and unlock the next region.</li><li>Talk to a local ranger to heal everyone and refill your orbs. Spend coins on extra orbs and potions.</li><li>On touch screens, use the eight-direction pad and tap Run. Tap the interaction prompt near a landmark.</li></ul><p>Your original meadow progress has been preserved. The game saves automatically on this device.</p></div>`,
       'help',
       'How to play',
     );
