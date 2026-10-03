@@ -23,6 +23,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `character-preview.js` | root | — |
 | `config.js` | root | `BASE_LEVEL`, `BENCH_SHARE`, `CATCH_UP_BONUS`, `CATCH_UP_GAP`, `ELEMENT_COST`, `ELEMENT_POWER`, `FOCUS_GAIN`, `FOCUS_MAX`, `FOCUS_START`, `FOLLOW_GAP`, `GRACE_AFTER_BATTLE`, `GRACE_ON_ARRIVAL`, `GUARD_FACTOR`, `MAX_LEVEL`, `MAX_MAP_SIZE`, `MAX_XP`, `MOVE_STEP`, `MOVE_UPGRADE_LEVEL`, `PARTY_SIZE`, `PLAYER_RADIUS`, `TILE_H`, `TILE_W`, `TYPE_ADVANTAGE`, `TYPE_DISADVANTAGE`, `UNSEEN_PREFERENCE`, `UPGRADED_ELEMENT_POWER`, `XP_PER_LEVEL`, `configurePackRules` |
 | `controller.js` | root | `createController` |
+| `creature-combat-preview.js` | root | — |
 | `data/assets.js` | data | `assets`, `spriteId` |
 | `data/biomes.js` | data | `biomes` |
 | `data/economy.js` | data | `CAPS`, `REST_FLOOR`, `REWARDS`, `SHOP`, `replaceEconomy` |
@@ -51,7 +52,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `input.js` | root | `direction`, `installInput`, `isMoving` |
 | `main.js` | root | — |
 | `map-editor.js` | root | — |
-| `render/sprites.js` | render | `drawCreature`, `drawSprite`, `drawSpriteFrame`, `sprites` |
+| `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
 | `render/world.js` | render | `createWorldRenderer` |
 | `save.js` | root | `KEYS`, `VERSION`, `commitSaveTransaction`, `create`, `packOf`, `readSaveItem`, `recoverSaveTransaction` |
 | `services/audio.js` | services | `createAudio` |
