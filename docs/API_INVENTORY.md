@@ -44,7 +44,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/discovery.js` | domain | `CELL`, `MAX_SEEN`, `SECRET_RANGE`, `VISION`, `cellGrid`, `compass`, `decodeEntry`, `discover`, `encodeEntry`, `entryFor`, `exploredShare`, `isKnown`, `isRevealed`, `landmarkLabel`, `reveal`, `toHex` |
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
 | `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
-| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `pushTrail` |
+| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
 | `domain/inventory.js` | domain | `createInventory`, `moveInventory`, `sellInventory`, `validateInventoryRules` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
 | `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents` |

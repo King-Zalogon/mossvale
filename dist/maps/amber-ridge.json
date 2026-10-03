@@ -75,7 +75,8 @@
   "spawns": {
     "camp": [4, 28],
     "east-return": [57.5, 28],
-    "basin-landing": [49.5, 9.6]
+    "basin-landing": [49.5, 9.6],
+    "basin-return": [32, 50]
   },
   "landmarks": [
     {
@@ -176,8 +177,8 @@
       "w": 40,
       "label": "Take the western trail",
       "to": {
-        "map": "meadow",
-        "spawn": "camp"
+        "map": "orchard-ruins",
+        "spawn": "ridge-return"
       }
     },
     {

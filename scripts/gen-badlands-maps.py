@@ -66,7 +66,7 @@ def ridge():
     data = {
         'format': 1, 'id': 'amber-ridge', 'biome': 'badlands', 'name': 'Amber Ridge',
         'size': {'w': g.w, 'h': g.h}, 'legend': LEGEND, 'terrain': g.rows(),
-        'spawns': {'camp': [4, 28], 'east-return': [57.5, 28], 'basin-landing': [49.5, 9.6]},
+        'spawns': {'camp': [4, 28], 'east-return': [57.5, 28], 'basin-landing': [49.5, 9.6], 'basin-return': [32, 50]},
         'landmarks': [
             {'id': 'shrine', 'kind': 'shrine', 'sprite': 'shrine-crystal-stone', 'at': list(L['shrine']), 'w': 99, 'solid': 0.65, 'label': 'Visit the shrine', 'flag': 'amber-ridge.seal', 'mapLabel': 'Crystal shrine', 'guardian': {'species': 'pebblit', 'level': 10, 'tactic': 'rolling-charge', 'power': 1.5}, 'reward': {'coins': 60, 'potions': 2, 'xp': 65}},
             {'id': 'cottage', 'kind': 'cottage', 'sprite': 'cottage-tiled', 'at': list(L['cottage']), 'w': 133, 'solid': 1.15, 'mapLabel': "Rowan's lodge"},
@@ -78,7 +78,7 @@ def ridge():
             {'id': 'lookout-note', 'kind': 'sign', 'sprite': 'signpost-wood', 'at': list(L['lookout']), 'w': 38, 'label': 'Read the sun-bleached note', 'secret': True, 'mapLabel': 'Sunstone lookout', 'text': 'A lookout carved into the cliff. Voltkit love the bright trail; Pebblit prefer to bask where the grass is warm.'},
         ],
         'exits': [
-            {'id': 'west', 'sprite': 'signpost-wood', 'at': list(L['west']), 'w': 40, 'label': 'Take the western trail', 'to': {'map': 'meadow', 'spawn': 'camp'}},
+            {'id': 'west', 'sprite': 'signpost-wood', 'at': list(L['west']), 'w': 40, 'label': 'Take the western trail', 'to': {'map': 'orchard-ruins', 'spawn': 'ridge-return'}},
             {'id': 'east', 'sprite': 'signpost-wood', 'at': list(L['east']), 'w': 40, 'label': 'Take the eastern trail', 'to': {'map': 'frostveil-grove', 'spawn': 'camp'}, 'requires': 'amber-ridge.seal'},
             {'id': 'down-to-basin', 'sprite': 'signpost-wood', 'at': list(L['basin']), 'w': 40, 'label': 'Take the south trail into the Stone Basin', 'to': {'map': 'stone-basin', 'spawn': 'camp'}},
         ],
@@ -142,7 +142,7 @@ def basin():
             {'id': 'vista-note', 'kind': 'sign', 'sprite': 'signpost-wood', 'at': list(L['vista']), 'w': 38, 'label': 'Read the vista marker', 'secret': True, 'mapLabel': 'Rim vista', 'text': 'From the rim you can see the whole basin and the long road up to the shrine.'},
         ],
         'exits': [
-            {'id': 'back-to-ridge', 'sprite': 'signpost-wood', 'at': list(L['north']), 'w': 40, 'label': 'Return to Amber Ridge', 'to': {'map': 'amber-ridge', 'spawn': 'basin-landing'}},
+            {'id': 'back-to-ridge', 'sprite': 'signpost-wood', 'at': list(L['north']), 'w': 40, 'label': 'Return to Amber Ridge', 'to': {'map': 'amber-ridge', 'spawn': 'basin-return'}},
             {'id': 'east-gate', 'sprite': 'signpost-wood', 'at': list(L['east']), 'w': 40, 'label': 'Take the east gate up to the ridge overlook', 'to': {'map': 'amber-ridge', 'spawn': 'basin-landing'}},
         ],
         'props': props,
