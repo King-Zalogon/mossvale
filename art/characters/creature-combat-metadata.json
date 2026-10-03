@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "sourceReferences": {
+    "generatedOn": "2026-10-03",
+    "fernling": {
+      "generatedSource": "art/characters/source/creature-fernling-combat-generated.png",
+      "referenceAsset": "creature-fernling",
+      "promptBrief": "Preserve leaf fox identity and green/cream/brown palette; add idle, leafy attack, hit recovery, faint and capture reactions."
+    },
+    "duskwing": {
+      "generatedSource": "art/characters/source/creature-duskwing-combat-generated.png",
+      "referenceAsset": "creature-duskwing",
+      "promptBrief": "Preserve purple moth identity, patterned lavender wings, cream collar and magenta eyes; create five clean rows with complete contained poses for idle, gust attack, hit recovery, faint and capture reactions."
+    }
+  },
+  "frameOrder": ["idle", "attack", "hit", "faint", "capture"],
+  "columnOrder": [0, 1, 2, 3],
+  "sprites": {
+    "creature-fernling-combat": {
+      "sourceSize": [1122, 1402],
+      "output": "dist/assets/creatures/creature-fernling-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [288, 288],
+      "anchor": "bottom-center"
+    },
+    "creature-duskwing-combat": {
+      "sourceSize": [1122, 1402],
+      "output": "dist/assets/creatures/creature-duskwing-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [281, 281],
+      "anchor": "bottom-center"
+    }
+  },
+  "cadence": {
+    "idle": "loop four columns at 220 ms per frame",
+    "attack": "play once at 105 ms per frame",
+    "hit": "play once at 80 ms per frame",
+    "faint": "play once at 160 ms per frame",
+    "capture": "play once at 130 ms per frame"
+  },
+  "reducedMotion": "Show a stable readable pose for the active state; other species use their existing static portrait.",
+  "fallback": "Combat sheets are optional manifest assets. Missing sheets retain the original portrait and event-only CSS reaction."
+}
