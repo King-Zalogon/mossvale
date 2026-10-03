@@ -1,15 +1,34 @@
 // Validates dist/maps/*.json against the map format, asset manifest and species list.
 //   node scripts/validate-maps.mjs            validate every map
 //   node scripts/validate-maps.mjs preview meadow   print an ASCII preview with landmarks, exits, spawns and zones
+import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {assets} from '../dist/src/data/assets.js';
 import defaultRegistries from '../dist/maps/registries.json' with {type: 'json'};
 import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {resolveRegistries, validateRegistries} from '../dist/src/domain/registries.js';
+import {packFileEntries, validatePackMetadata} from '../dist/src/domain/pack.js';
+import {ENGINE_VERSION, SAVE_SCHEMA_VERSION} from '../dist/src/compatibility.js';
 
 const dir = new URL('../dist/maps/', import.meta.url);
 const read = name => JSON.parse(readFileSync(new URL(name, dir), 'utf8'));
 const index = read('index.json');
+const integrityErrors = validatePackMetadata(index, {required: true, engineVersion: ENGINE_VERSION, saveSchema: SAVE_SCHEMA_VERSION});
+for (const file of packFileEntries(index)) {
+  const expected = index.integrity?.find(item => item.id === file.id)?.sha256;
+  try {
+    const actual = createHash('sha256')
+      .update(readFileSync(new URL(file.path, dir)))
+      .digest('hex');
+    if (actual !== expected) integrityErrors.push(`pack integrity ${file.id}: SHA-256 mismatch for ${file.path}`);
+  } catch {
+    integrityErrors.push(`pack integrity ${file.id}: required file ${file.path} is missing`);
+  }
+}
+if (integrityErrors.length) {
+  console.error(`${integrityErrors.length} pack compatibility error(s):\n` + integrityErrors.map(e => ' - ' + e).join('\n'));
+  process.exit(1);
+}
 const registries = index.registries ? read(index.registries) : defaultRegistries;
 const registryErrors = validateRegistries(registries, {assetNames: new Set(assets.map(a => a.name))});
 if (registryErrors.length) {
