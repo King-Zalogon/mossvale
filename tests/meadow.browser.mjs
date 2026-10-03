@@ -42,6 +42,12 @@ try {
   await page.locator('#interact').click();
   await page.waitForFunction(() => window.mossvale.getState().save.mapId === 'orchard-ruins');
   assert.equal(await page.textContent('#region-name'), 'The Ruined Orchard');
+  assert.ok(
+    (await page.evaluate(() => window.mossvale.events())).some(
+      event => event.type === 'portal.traveled' && event.fromMap === 'meadow' && event.toMap === 'orchard-ruins',
+    ),
+    'crossing the portal records its source and destination',
+  );
   const orchardRaw = await page.evaluate(() => JSON.parse(localStorage.getItem('mossvale-v3')));
   assert.deepEqual([orchardRaw.version, orchardRaw.mapId], [4, 'orchard-ruins']);
   assert.deepEqual(orchardRaw.visitedMaps, ['meadow', 'orchard-ruins']);

@@ -6,6 +6,8 @@ import {assets} from './data/assets.js';
 import {MAX_MAP_SIZE} from './config.js';
 import * as save from './save.js';
 import {seededRng} from './domain/rng.js';
+import {createEventLog} from './domain/events.js';
+import {createTestClock} from './domain/clock.js';
 import {effectiveness, level, maxHP} from './domain/rules.js';
 import {currentObjective} from './domain/objectives.js';
 import {isWalkable, nearestWalkable, zoneAt} from './domain/world.js';
@@ -44,6 +46,12 @@ function getStorage() {
 
 const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
+const testClock = debug && params.has('clock') ? createTestClock(Number(params.get('clock')) || 0) : null;
+let uiClock = 0;
+const eventLog = createEventLog({
+  seed: Number(params.get('seed')) || 0,
+  now: () => (testClock ? testClock.now() : uiClock),
+});
 const editorPreviewId = params.get('editorPreview');
 let editorPreviewMap = null;
 if (editorPreviewId) {
@@ -78,7 +86,14 @@ const game = {
   trail: [],
   pacing: {steps: 0, encounterAt: 4, encounterCooldown: 2},
 };
-persistence = createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus});
+persistence = createPersistence({
+  storage,
+  codec,
+  game,
+  writable: loaded.writable,
+  onStatus: renderSaveStatus,
+  onEvent: (type, data) => eventLog.emit(type, data),
+});
 const ui = {
   modalMode: '',
   modalFocus: null,
@@ -113,6 +128,8 @@ const app = {
   checkpoint: () => readCheckpoint(storage, codec),
   canStartOver: () => loaded.writable,
   persist,
+  events: eventLog,
+  testClock,
 };
 app.menus = createMenus(app);
 app.renderBattle = createBattleView(app);
@@ -304,7 +321,14 @@ async function boot() {
       game.battle = loaded.save.battle ? {...loaded.save.battle, busy: false, over: false} : null;
       ui.camera.x = game.player.x;
       ui.camera.y = game.player.y;
-      persistence = createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus});
+      persistence = createPersistence({
+        storage,
+        codec,
+        game,
+        writable: loaded.writable,
+        onStatus: renderSaveStatus,
+        onEvent: (type, data) => eventLog.emit(type, data),
+      });
       if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
       const {maps, mapsById, objectives, story, errors} = buildAdventure(
         rawMaps,
@@ -378,7 +402,8 @@ const sample = (list, ms) => (list.push(ms), list.length > 600 && list.shift());
 function loop(t) {
   const dt = Math.min((t - last) / 1000, 0.04) || 0;
   last = t;
-  ui.now = t;
+  uiClock = testClock ? testClock.now() : t;
+  ui.now = uiClock;
   frame++;
   if (!document.hidden) {
     const {pacing} = game;
@@ -483,6 +508,7 @@ if (debug) {
       paused: ui.paused,
       phase: game.phase,
       modalMode: ui.modalMode,
+      now: ui.now,
       world: game.world,
       zoom: ui.zoom,
     }),
@@ -497,5 +523,7 @@ if (debug) {
     maxHP: id => maxHP(game.save, id),
     effectiveness,
     perf: () => perf,
+    events: () => eventLog.read(),
+    advanceClock: milliseconds => testClock?.advance(milliseconds) ?? null,
   };
 }

@@ -6,6 +6,7 @@ import {createBattle, resolveTurn, rollWild} from '../dist/src/domain/battle.js'
 import {seededRng} from '../dist/src/domain/rng.js';
 import {companion, healTeam, level, maxHP} from '../dist/src/domain/rules.js';
 import {maps, newSave} from './helpers.mjs';
+import {runDomainActionScript} from './action-script-domain.mjs';
 
 const zone = maps[0].zones[0];
 const guardian = maps[0].objects.find(o => o.kind === 'shrine').guardian;
@@ -54,4 +55,21 @@ test('the meadow guardian is beatable with normal actions from a fresh save', ()
   console.log('playthrough results (battles incl. guardian tries, losses):', results.map(r => `${r.battles}/${r.losses}${r.won ? '' : ' UNWON'}`).join('  '));
   for (const r of results) assert.ok(r.won, `seed did not clear the guardian: ${JSON.stringify(r)}`);
   assert.ok(results.every(r => r.caught >= 2));
+});
+
+test('shared ranger-to-shrine actions produce versioned events and restore an interrupted guardian battle', () => {
+  const {events, restored, nearest} = runDomainActionScript();
+  assert.equal(nearest, 'shrine');
+  assert.equal(restored.battle.turn, 1);
+  assert.ok(events.find(event => event.type === 'turn.resolved')?.events.some(event => event.type === 'enemy'));
+  assert.deepEqual(
+    events
+      .filter(event =>
+        ['interaction.used', 'dialogue.started', 'dialogue.line', 'dialogue.finished', 'challenge.started', 'turn.resolved'].includes(event.type),
+      )
+      .map(event => event.type),
+    ['interaction.used', 'dialogue.started', 'dialogue.line', 'dialogue.finished', 'interaction.used', 'challenge.started', 'turn.resolved'],
+  );
+  assert.ok(events.every(event => event.schema === 'mossvale.game-event' && event.version === 1 && event.id && Number.isFinite(event.tick)));
+  assert.ok(events.find(event => event.type === 'interaction.used' && event.target === 'shrine').tick >= 251);
 });
