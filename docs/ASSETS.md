@@ -56,4 +56,6 @@ The original generation sheets and briefs are retained for the red-cap motion, t
 
 All assets use `bottom-center` anchors. World objects set their deliberate apparent size in map data, the player uses a 36 px world width, and creature portraits share the 85–110 px UI widths in `render/sprites.js` and the menu/battle callers. Frames with multiple poses declare the fixed cell size and direction order in the manifest and source metadata. The browser preview at `dist/character-preview.html` shows the generated character batch at gameplay scale. `dist/creature-combat-preview.html` shows the initial Fernling and Duskwing combat atlases at gameplay scale; the optional `*-combat` manifest IDs fall back to each creature’s static portrait until a sheet exists. Frame timing and source briefs are in `art/characters/creature-combat-metadata.json` and `art/characters/SOURCES.md`.
 
+See [ART_REVIEW.md](ART_REVIEW.md) for stable identity records, source hashes, versioned category export profiles, contact sheets, and separate technical and visual review. Dedicated follower and terrain-transition export profiles remain pending their art batches.
+
 Rights and attribution for distribution are tracked separately (deferred in the roadmap).
