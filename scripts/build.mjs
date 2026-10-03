@@ -2,7 +2,7 @@
 // and an earlier copy can be put back. No bundling: the game is static files.
 //   node scripts/build.mjs            -> build/
 //   BUILD_DIR=/tmp/x node scripts/build.mjs
-import {cpSync, mkdirSync, rmSync, writeFileSync} from 'node:fs';
+import {cpSync, mkdirSync, readdirSync, rmSync, writeFileSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -31,6 +31,6 @@ const info = {
 
 rmSync(out, {recursive: true, force: true});
 mkdirSync(out, {recursive: true});
-cpSync(dist, out, {recursive: true});
+for (const name of readdirSync(dist)) cpSync(join(dist, name), join(out, name), {recursive: true});
 writeFileSync(join(out, 'version.json'), JSON.stringify(info, null, 2) + '\n');
 console.log(`built ${info.short}${info.dirty ? ' (uncommitted changes)' : ''} on ${info.branch} -> ${out}`);
