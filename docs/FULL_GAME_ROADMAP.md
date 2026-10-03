@@ -159,7 +159,7 @@ The GitHub repository is currently **public**, as checked during this revision. 
 - [ ] #35 — **P1**, Verify the browsers and devices the owner actually uses (S)
 - [ ] #36 — **P1**, Add readable eight-direction player motion and a modest creature set (M)
 - [x] #52 — **P1**, Build the wetland biome pack with two distinct compact maps (M)
-- [ ] #53 — **P1**, Build the rocky badlands biome pack with two distinct compact maps (M)
+- [x] #53 — **P1**, Build the rocky badlands biome pack with two distinct compact maps (M)
 - [ ] #54 — **P1**, Build the snowy forest biome pack with two distinct compact maps (M)
 
 ### 3 · owner-feedback polish

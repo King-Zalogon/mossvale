@@ -28,7 +28,7 @@ test('the shipped maps validate', () => {
     maps.map(m => m.id),
     content.regions.map(r => r.id),
   );
-  assert.deepEqual(Object.keys(mapsById), ['meadow', 'amber-ridge', 'frostveil-grove', 'reedfen-wetlands', 'orchard-ruins', 'stilt-isles']);
+  assert.deepEqual(Object.keys(mapsById), ['meadow', 'amber-ridge', 'frostveil-grove', 'reedfen-wetlands', 'orchard-ruins', 'stilt-isles', 'stone-basin']);
 });
 
 test('the meadow pair has a safe loop, a shortcut discovery and a gated onward trail', () => {
@@ -251,6 +251,47 @@ test('the wetland pair is two large connected maps with a safe loop of exits (#5
       `${m.id} has an optional discovery`,
     );
     assert.ok(m.quiet.length >= 3, `${m.id} has quiet corridors`);
+    assert.ok(
+      m.zones.every(z => z.distance),
+      `${m.id} sets encounter pacing explicitly`,
+    );
+  }
+});
+
+test('the badlands pair is two large maps with a loop of safe exits and alternate routes (#53)', () => {
+  const raw = rawMaps();
+  const ridge = raw.find(m => m.id === 'amber-ridge');
+  const basin = raw.find(m => m.id === 'stone-basin');
+  const walkable = m => m.terrain.join('').replace(/[.w]/g, '').length;
+  assert.ok(walkable(ridge) >= 4 * 440, 'Amber Ridge is several times its original ~440 walkable tiles');
+  assert.ok(walkable(basin) >= 1500);
+  assert.equal(mapsById['stone-basin'].biome, 'badlands');
+  const to = (map, id) => map.exits.find(e => e.id === id).to;
+  assert.deepEqual(to(ridge, 'down-to-basin'), {map: 'stone-basin', spawn: 'camp'});
+  assert.equal(to(basin, 'back-to-ridge').spawn, 'basin-landing');
+  assert.equal(to(basin, 'east-gate').spawn, 'basin-landing');
+  assert.ok(ridge.spawns['basin-landing'] && ridge.spawns['east-return']);
+  assert.equal(
+    to(
+      raw.find(m => m.id === 'frostveil-grove'),
+      'west',
+    ).spawn,
+    'east-return',
+  );
+  assert.equal(ridge.exits.find(e => e.id === 'east').requires, 'amber-ridge.seal');
+  const species = new Set([ridge, basin].flatMap(m => m.zones).flatMap(z => z.pool.map(p => p.species ?? p)));
+  assert.deepEqual([...species].sort(), ['pebblit', 'sunskitter', 'voltkit']);
+  assert.equal([ridge, basin].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);
+  for (const m of [ridge, basin]) {
+    assert.ok(
+      m.landmarks.some(l => l.kind === 'ranger'),
+      `${m.id} has a supply/recovery point`,
+    );
+    assert.ok(
+      m.landmarks.some(l => l.secret),
+      `${m.id} has an optional discovery`,
+    );
+    assert.ok(m.quiet.length >= 4, `${m.id} has quiet corridors`);
     assert.ok(
       m.zones.every(z => z.distance),
       `${m.id} sets encounter pacing explicitly`,

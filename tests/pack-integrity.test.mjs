@@ -22,6 +22,7 @@ test('the shipped pack declares one canonical SHA-256 for every selected data fi
       'map:reedfen-wetlands',
       'map:orchard-ruins',
       'map:stilt-isles',
+      'map:stone-basin',
       'objectives:main',
       'story:main',
     ],
