@@ -148,6 +148,9 @@ function validateOne(m, byId, ctx, errors) {
     if (l.lines !== undefined)
       errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys()), speakerProblem: ref => speakerProblem(ref, landmarkIds)}));
     if (l.tag !== undefined && (typeof l.tag !== 'string' || l.tag.length > 16)) at(where + '.tag', 'tag is a short label (up to 16 characters)');
+    if (l.secret !== undefined && typeof l.secret !== 'boolean') at(where + '.secret', 'true (hidden from the maps until found nearby) or false');
+    if (l.mapLabel !== undefined && (typeof l.mapLabel !== 'string' || !l.mapLabel || l.mapLabel.length > 24))
+      at(where + '.mapLabel', 'the name shown on maps (1-24 characters)');
   });
   (m.exits ?? []).forEach((e, i) => {
     const where = `exits[${i}] (${e?.id})`;
@@ -196,6 +199,17 @@ function validateOne(m, byId, ctx, errors) {
     if (!Array.isArray(z?.level) || z.level.length !== 2 || !z.level.every(Number.isInteger) || z.level[0] < 1 || z.level[1] < z.level[0] || z.level[1] > 99)
       at(where + '.level', '[min, max] integers, 1 <= min <= max <= 99');
     if (z?.rect !== undefined && !(Array.isArray(z.rect) && z.rect.length === 4 && z.rect.every(Number.isFinite))) at(where + '.rect', '[x0, y0, x1, y1]');
+  });
+  const quietIds = new Set();
+  (m.quiet ?? []).forEach((q, i) => {
+    const where = `quiet[${i}] (${q?.id})`;
+    if (typeof q?.id !== 'string' || !ID.test(q.id)) at(where, 'id required (lowercase-kebab-case)');
+    else if (quietIds.has(q.id)) at(where, 'duplicate quiet area id');
+    else quietIds.add(q.id);
+    const r = q?.rect;
+    if (!Array.isArray(r) || r.length !== 4 || !r.every(Number.isFinite) || r[0] > r[2] || r[1] > r[3] || r[0] < 0 || r[1] < 0 || r[2] > w || r[3] > h)
+      at(where + '.rect', `[x0, y0, x1, y1] inside the map (0..${w}, 0..${h}) with x0 <= x1 and y0 <= y1`);
+    if (q?.label !== undefined && (typeof q.label !== 'string' || q.label.length > 24)) at(where + '.label', 'a short name (up to 24 characters)');
   });
   const sceneEventIds = new Set();
   (m.triggers ?? []).forEach((t, i) => {
@@ -258,6 +272,8 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
       text: l.text,
       lines: l.lines,
       tag: l.tag,
+      secret: l.secret === true,
+      mapLabel: l.mapLabel,
       reward: l.reward,
       guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level, tactic: l.guardian.tactic, power: l.guardian.power},
     }),
@@ -288,7 +304,8 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
       actions: event.actions.map(action => (action.type === 'challenge' ? {...action, species: speciesIndex(action.species)} : action)),
     })),
   }));
-  return {id: m.id, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers};
+  const quiet = (m.quiet ?? []).map(q => ({id: q.id, rect: q.rect, label: q.label}));
+  return {id: m.id, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers, quiet};
 }
 
 /** Semantic checks that need the compiled map: spawn safety, exits on land, reachable goals. */

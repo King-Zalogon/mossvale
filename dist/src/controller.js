@@ -16,6 +16,7 @@ import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLineEntry} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
+import {discover, entryFor, landmarkLabel, reveal} from './domain/discovery.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
 import {grant as grantReward} from './domain/economy.js';
 
@@ -217,6 +218,21 @@ export function createController(app) {
 
   function nearest() {
     return nearestInteractive(game.world, game.player);
+  }
+
+  /** Marks what the player can see as explored and notes landmarks they have come across (domain/discovery.js). */
+  let exploredAt = '';
+  function explore() {
+    const map = game.world.map;
+    if (!map?.size) return;
+    const key = `${map.id}:${Math.floor(game.player.x / 2)},${Math.floor(game.player.y / 2)}`; // every couple of tiles, not every frame
+    if (key === exploredAt) return;
+    exploredAt = key;
+    const {w, h} = map.size;
+    const explored = (save().explored ??= {});
+    const entry = entryFor(explored, map.id, w, h);
+    reveal(entry, w, h, game.player.x, game.player.y);
+    for (const o of discover(entry, game.world.objects, game.player.x, game.player.y)) if (o.secret) toast(`You found something hidden: ${landmarkLabel(o)}.`);
   }
 
   let lastInteract = -Infinity;
@@ -593,6 +609,7 @@ export function createController(app) {
     checkEnding,
     openRanger,
     checkTriggers,
+    explore,
     dismissSpeech: () => app.bubbles.dismiss(),
     battleAction,
     performTurn,

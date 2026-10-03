@@ -10,3 +10,7 @@ Issue [#26](https://github.com/King-Zalogon/mossvale/issues/26). Zones live in e
 - **Scripted encounters.** A trigger may contain `{ "type": "battle", "species": "brooklet", "level": 6 }`, for example an `interact` trigger on a rustling bush. It starts an ordinary wild battle (capturable, flee allowed) and fires once per visit. No scripted encounters ship yet; add them where exploring needs a nudge.
 
 Not done: trainers, encounter-protection items, and per-biome tuning of the 12-creature roster (#24, #52–#54).
+
+## Quiet corridors
+
+A map's `quiet` rectangles switch encounters off inside them (see [NAVIGATION.md](NAVIGATION.md)); density elsewhere is still each zone's `distance`.

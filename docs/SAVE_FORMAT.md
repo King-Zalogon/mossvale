@@ -30,6 +30,8 @@ Fields: `version, region, x, y, active, orbs, potions, coins, seen[], caught[], 
 
 Story: `hints` lists the one-time tips and cards already shown (at most 30 ids) and `completed` marks the ending as seen; both optional ([STORY.md](STORY.md)).
 
+Exploration: `explored` is an optional map of `<map-id>: {c: hex bit mask of explored 4x4-tile cells, d: [found landmark ids]}`, at most 32 maps and 64 found places each; masks that do not match the map's size are dropped ([NAVIGATION.md](NAVIGATION.md)). It is omitted while nothing is explored.
+
 Team: `party` lists the (at most 3) companions who can fight, by species ID; the active companion is always on it and everyone else captured waits in the reserve. Saves without `party` get the active companion plus the first captures.
 
 Interrupted encounters: `battle` (`{id, hp, max, level, boss, guard, turn, focus}`, species by ID) is the checkpoint of a fight in progress, and `recap` is a one-line summary of an encounter that finished before its result screen was shown. Both are optional; older builds ignore them. See [Encounter durability](#encounter-durability).

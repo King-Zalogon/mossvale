@@ -407,6 +407,7 @@ function loop(t) {
       const zone = movePlayer({world: game.world, player: game.player, pacing, trail: game.trail}, sx, sy, run, dt);
       if (zone) actions.startWild(zone);
       actions.checkTriggers();
+      actions.explore();
       if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, nearestWalkable(game.world, game.player.x, game.player.y)); // stuck recovery
       const nearest = actions.nearest();
       $('#interact').style.display = nearest ? 'block' : 'none';
@@ -515,5 +516,6 @@ if (debug) {
     effectiveness,
     perf: () => perf,
     speechAnchor: ref => app.bubbles.anchorOf(ref),
+    areaMap: () => app.areaMap.state,
   };
 }

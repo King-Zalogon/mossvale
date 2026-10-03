@@ -43,6 +43,8 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 - `chest`: needs `flag` (e.g. `meadow.chest`, makes opening persistent) and `reward: { coins, potions, orbs }`.
 - `sign`: needs `text` (or `lines`). `ranger`: `name`, optional `tag` (the short label drawn above it). Any landmark may have `lines` (see [OBJECTIVES.md](OBJECTIVES.md)).
 
+**secrets and map names** ([NAVIGATION.md](NAVIGATION.md)): any landmark may set `secret: true` (it stays off every map until the player walks within 2.5 tiles) and `mapLabel` (the name maps show). **quiet**: `[{ id, rect: [x0, y0, x1, y1], label? }]` marks corridors where no wild encounter starts, whatever the encounter zones say.
+
 **exits**: `{ id, sprite, at, w, label, to: { map, spawn }, requires? }`. `to` must name an existing map and a spawn defined there. `requires` is a milestone flag that must be done first.
 
 **props**: groups of decoration: `{ sprite, kind: "scenery" | "grass" | "flower", w, solid?, at: [[x, y], ...] }`. `solid` is a collision radius.

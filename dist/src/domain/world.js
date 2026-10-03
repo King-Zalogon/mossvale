@@ -73,8 +73,14 @@ export function nearestWalkable(world, x, y, maxRadius = 12) {
   return {...world.map.spawns.camp};
 }
 
+/** True inside a map's `quiet` corridors, where wandering never starts an encounter. */
+export function isQuiet(map, x, y) {
+  return (map.quiet ?? []).some(q => x >= q.rect[0] && x <= q.rect[2] && y >= q.rect[1] && y <= q.rect[3]);
+}
+
 /** The encounter zone covering a tile, or null. First matching zone wins. */
 export function zoneAt(world, x, y) {
+  if (isQuiet(world.map, x, y)) return null; // quiet corridors: no wild encounters
   const t = terrainAt(world, x, y);
   return world.map.zones.find(z => zoneMatches(z, t, x, y)) || null;
 }

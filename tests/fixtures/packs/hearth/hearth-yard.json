@@ -77,6 +77,20 @@
     "potions": 1,
     "orbs": 1
    }
+  },
+  {
+   "id": "carved-stone",
+   "kind": "sign",
+   "sprite": "signpost-wood",
+   "at": [
+    5.3,
+    2.3
+   ],
+   "w": 38,
+   "secret": true,
+   "mapLabel": "Carved stone",
+   "label": "Read the carved stone",
+   "text": "Someone carved a tiny kettle here."
   }
  ],
  "exits": [],
@@ -135,6 +149,18 @@
     }
    ],
    "once": false
+  }
+ ],
+ "quiet": [
+  {
+   "id": "tea-path",
+   "rect": [
+    3.5,
+    1.5,
+    5.5,
+    2.5
+   ],
+   "label": "Tea path"
   }
  ]
 }

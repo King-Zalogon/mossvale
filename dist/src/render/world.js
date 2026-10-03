@@ -6,6 +6,7 @@ import {TILE_H, TILE_W} from '../config.js';
 import {FACING, playerFrame} from '../domain/exploration.js';
 import {unlocked} from '../domain/rules.js';
 import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
+import {isKnown, isRevealed} from '../domain/discovery.js';
 import {drawSprite, drawSpriteFrame, sprites} from './sprites.js';
 
 const raw = (x, y) => ({x: ((x - y) * TILE_W) / 2, y: ((x + y) * TILE_H) / 2});
@@ -199,16 +200,44 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     }
   }
 
+  // The minimap shows only what has been explored (domain/discovery.js) and only landmarks that have been found. The
+  // explored terrain is drawn into a cached layer that is rebuilt only when new ground is revealed.
+  const miniLayer = document.createElement('canvas');
+  miniLayer.width = 120;
+  miniLayer.height = 100;
+  let miniKey = '';
+  const MINI_U = 2.2;
+  const MINI_V = 1.55;
+
+  /** Minimap projection fitted to the map: the 25x25 maps keep their original scale; larger maps shrink to fit. */
+  function miniProjection(w, h) {
+    const f = Math.min(1, 56 / (Math.max(w, h) * MINI_U), 82 / ((w + h) * MINI_V));
+    const top = (100 - (w + h) * MINI_V * f) / 2;
+    return {f, point: (x, y) => ({x: 60 + (x - y - (w - h) / 2) * MINI_U * f, y: top + (x + y) * MINI_V * f})};
+  }
+
   function drawMinimap({save, world, player}) {
-    mini.clearRect(0, 0, 120, 100);
-    const mp = (x, y) => ({x: 60 + (x - y) * 2.2, y: 11 + (x + y) * 1.55});
-    for (const t of world.tiles) {
-      const s = mp(t.x, t.y);
-      mini.fillStyle = t.water ? '#70b6c3' : t.path ? '#e7d79e' : t.grass ? '#5e8549' : save.region === 2 ? '#aec7c7' : '#8caf6b';
-      mini.fillRect(s.x - 2, s.y - 1, 4, 2.4);
+    const {w, h} = world.map.size;
+    const entry = save.explored?.[world.map.id];
+    const {f, point: mp} = miniProjection(w, h);
+    const key = `${world.map.id}|${save.region}|${entry?.rev ?? 0}`;
+    if (key !== miniKey) {
+      miniKey = key;
+      const layer = miniLayer.getContext('2d');
+      layer.clearRect(0, 0, 120, 100);
+      const tw = Math.max(1.2, 4 * f);
+      const th = Math.max(1, 2.4 * f);
+      for (const t of world.tiles) {
+        if (!isRevealed(entry, w, h, t.x, t.y)) continue;
+        const s = mp(t.x, t.y);
+        layer.fillStyle = t.water ? '#70b6c3' : t.path ? '#e7d79e' : t.grass ? '#5e8549' : save.region === 2 ? '#aec7c7' : '#8caf6b';
+        layer.fillRect(s.x - tw / 2, s.y - th / 2, tw, th);
+      }
     }
+    mini.clearRect(0, 0, 120, 100);
+    mini.drawImage(miniLayer, 0, 0);
     for (const o of world.objects) {
-      if (!['shrine', 'ranger', 'chest', 'gate'].includes(o.kind) || (o.kind === 'chest' && save.chests.includes(save.region))) continue;
+      if (!['shrine', 'ranger', 'chest', 'gate'].includes(o.kind) || !isKnown(entry, o) || (o.kind === 'chest' && save.chests.includes(save.region))) continue;
       const s = mp(o.x, o.y);
       mini.fillStyle = o.kind === 'shrine' ? '#80dcff' : o.kind === 'chest' ? '#f6c25b' : '#eff3d5';
       mini.fillRect(s.x - 2, s.y - 2, 4, 4);

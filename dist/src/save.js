@@ -3,6 +3,7 @@
    In memory the game keeps species/region *indexes*; on disk (v3) it stores stable string IDs. */
 import {CAPS} from './data/economy.js';
 import {TACTICS} from './data/tactics.js';
+import {decodeEntry, encodeEntry} from './domain/discovery.js';
 import {FOCUS_MAX, FOCUS_START, MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
 const VERSION = 3;
@@ -139,6 +140,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       goal: '',
       hints: [],
       events: [],
+      explored: {},
       completed: false,
       battle: null,
       party: [0],
@@ -188,6 +190,16 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       ? [...new Set(raw.events.filter(id => typeof id === 'string' && /^[a-z0-9-]+\/[a-z0-9-]+$/.test(id)))].slice(0, 256)
       : [];
     s.completed = raw.completed === true;
+    s.explored = {}; // what the map screens show: optional, bounded, and checked against each map's size (domain/discovery.js)
+    if (isObj(raw.explored) && !legacy) {
+      for (const [id, entry] of Object.entries(raw.explored).slice(0, 32)) {
+        if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) continue;
+        const dims = bounds[id];
+        if (!dims && Object.keys(bounds).length) continue; // a map this adventure no longer has
+        const decoded = decodeEntry(entry, dims && Number.isInteger(dims.w) && Number.isInteger(dims.h) ? dims : null);
+        if (decoded) s.explored[id] = decoded;
+      }
+    }
     s.battle = normalizeBattle(raw.battle, legacy);
     const region = ref(raw.region, regions, regionIndex);
     s.region = region >= 0 && (region === 0 || s.badges.includes(region - 1)) ? region : 0;
@@ -224,6 +236,15 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     return {seen: old.seen, caught: old.caught, orbs: old.orbs, wins, met: old.met, active: 0, team: {0: {xp: wins * 14, hp: old.hp}}};
   }
 
+  function exploredField(save) {
+    const out = {};
+    for (const [id, entry] of Object.entries(save.explored ?? {})) {
+      const encoded = encodeEntry(entry);
+      if (encoded) out[id] = encoded;
+    }
+    return Object.keys(out).length ? {explored: out} : {};
+  }
+
   function serialize(save) {
     const sid = i => species[i].id,
       rid = i => regions[i].id;
@@ -252,6 +273,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       goal: save.goal || '',
       hints: save.hints || [],
       ...(save.events?.length ? {events: save.events} : {}),
+      ...exploredField(save),
       completed: save.completed === true,
       party: save.party.map(sid),
       battle: save.battle ? {...save.battle, id: sid(save.battle.id)} : null,

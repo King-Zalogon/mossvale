@@ -12,6 +12,7 @@ import {POTION_HEAL} from '../domain/battle.js';
 import {TACTICS} from '../data/tactics.js';
 import {hasProgress, summarize} from '../services/profile.js';
 import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
+import {createAreaMap} from './areamap.js';
 import {$, header, openModal} from './dom.js';
 
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'})[c]);
@@ -28,11 +29,27 @@ export function createMenus(app) {
     for (const b of document.querySelectorAll('[data-select]')) b.onclick = () => actions.selectCompanion(+b.dataset.select);
   };
 
-  function worldMap() {
+  const areaMap = createAreaMap(app);
+  app.areaMap = areaMap;
+
+  /** The map screen: the islands (regions) or the explored part of the current area, with pan and zoom. */
+  function worldMap(view = ui.mapView ?? 'islands') {
     if (game.battle) return;
+    ui.mapView = view;
+    const tabs = `<div class="tab-buttons" role="group" aria-label="Map view"><button id="map-islands" class="${view === 'islands' ? 'selected' : ''}" aria-pressed="${view === 'islands'}">Islands</button><button id="map-area" class="${view === 'area' ? 'selected' : ''}" aria-pressed="${view === 'area'}">This area</button></div>`;
+    if (view === 'area') {
+      areaMap.reset();
+      open(`${header('EXPLORED SO FAR', game.world.map.name)}${tabs}${areaMap.html()}`, 'map', 'Area map');
+      wireClose();
+      $('#map-islands').onclick = () => worldMap('islands');
+      areaMap.mount();
+      // openModal restores focus on the next frame; take it after that so the map's keys work at once
+      requestAnimationFrame(() => requestAnimationFrame(() => $('#area-canvas')?.focus({preventScroll: true})));
+      return;
+    }
     const s = save();
     open(
-      `${header('THREE ISLANDS. ONE ADVENTURE.', 'The Verdant Isles')}<p>Follow the eastern trails, or travel directly to any unlocked region.</p><div class="map-cards">${regions
+      `${header('THREE ISLANDS. ONE ADVENTURE.', 'The Verdant Isles')}${tabs}<p>Follow the eastern trails, or travel directly to any unlocked region.</p><div class="map-cards">${regions
         .map(
           (r, i) =>
             `<div class="region-card ${s.region === i ? 'current' : ''} ${!unlocked(s, i) ? 'locked' : ''}"><div class="region-preview"><canvas id="region-art-${i}" width="110" height="110"></canvas></div><h3>${r.name}</h3><p>${unlocked(s, i) ? r.desc : `Earn the ${regions[i - 1].seal.toLowerCase()} to open this trail.`}</p><button data-travel="${i}" ${!unlocked(s, i) ? 'disabled' : ''}>${!unlocked(s, i) ? 'Trail locked' : s.region === i ? 'Return to this camp' : 'Travel to ' + r.short}</button></div>`,
@@ -46,6 +63,7 @@ export function createMenus(app) {
     regions.forEach((r, i) => drawSprite($(`#region-art-${i}`).getContext('2d'), r.preview, 55, 103, r.preview === spriteId('tree-oak') ? 80 : 88));
     for (const b of document.querySelectorAll('[data-travel]')) b.onclick = () => actions.travel(+b.dataset.travel);
     wireClose();
+    $('#map-area').onclick = () => worldMap('area');
   }
 
   /** Regions whose encounter zones can produce species `i`. */
