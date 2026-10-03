@@ -87,6 +87,6 @@ CI (`.github/workflows/ci.yml`) runs `verify` on every push and pull request. It
 
 ## Development roadmap
 
-The first-adventure content target is present: four biomes, eight maps, twelve species, and a short ending after the four shrine seals. Remaining work is owner play feedback and optional polish; see the [personal-ready checklist](docs/READY.md) and [roadmap](https://github.com/King-Zalogon/mossvale/issues/1).
+The first-adventure content target is present: four biomes, eight maps, twelve species, and a short ending after the four shrine seals. Remaining work is the linked integration checks and your play feedback; later packs and presentation extras are optional. See the [personal-ready checklist](docs/READY.md) and [roadmap](https://github.com/King-Zalogon/mossvale/issues/1).
 
 See [the detailed plan](docs/FULL_GAME_ROADMAP.md) and [machine-readable backlog](docs/ROADMAP_BACKLOG.json). The superseded larger plan is retained in [the archive](docs/archive/2026-09-30/FULL_GAME_ROADMAP.md).

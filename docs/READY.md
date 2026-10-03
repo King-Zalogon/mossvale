@@ -1,6 +1,6 @@
 # Personal-ready checklist (#42, #39)
 
-A working checklist for calling the first adventure "ready to play for fun", with honest status. Passing checks support reliability; **whether it is fun is your call**. The personal-ready marker stays open until you have played the integrated build and accepted it.
+A working checklist for calling the first adventure "ready to play for fun", with honest status. Passing checks support reliability; **whether it is fun is your call**. The personal-ready marker stays open until the linked integration checks are resolved and you have played the integrated build and accepted it.
 
 ## Automated evidence (`npm run verify`, CI on every push)
 
@@ -40,14 +40,15 @@ The workflow runs on Ubuntu and Windows for pushes and pull requests. Treat a ch
 - **Taste.** The opening and ending text is placeholder; the tips and the title screen on every load may be too much. (#28, #20)
 - **Rewrite or delete anything you do not enjoy.** The roadmap prefers removing UI to adding dashboards.
 
-## Remaining owner feedback and optional work
+## Remaining integration checks and owner feedback
 
-- **Fun and pacing.** Try captures, the guardians, refresh recovery, team size, and the pace of levels and coins; tune only from your notes (#31, #39 and related play-feedback issues).
-- **Motion polish.** Issue #36 remains open for the agreed eight-direction player idle/walk set and a small reusable creature animation set. This does not block starting or completing the current adventure.
+- **Motion integration dependency.** Issue #36 remains open. The current build has an eight-direction player preview and initial reusable creature animations, but the agreed creature set is not complete across the roster. You can play this build now; keep #42's ready marker open until #36 is integrated or its scope is explicitly adjusted.
+- **Fun and pacing.** Try captures, the guardians, refresh recovery, team size, and the pace of levels and coins; tune only from your notes (#31, #39 and related play-feedback issues). Passing regressions do not replace your play feedback.
 - **Your hardware.** Performance has a headless-browser measurement, but no measurement on your devices yet (#37).
 - **Presentation.** The premise and ending copy are short placeholders; credits and a separate final destination are deferred (#28, [story notes](STORY.md)).
 - **Hosting.** CI artifacts make each checked commit recoverable. Publishing to the existing hosted site remains a manual step because its import mechanism is outside this repository (#21); no deployment or audience setting is changed here.
-- Credits and a rights review remain deferred in the roadmap.
+
+Credits and a rights review remain optional follow-up work in the roadmap.
 
 ## Recoverable
 
