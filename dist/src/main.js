@@ -336,6 +336,7 @@ function loop(t) {
       paused: ui.paused,
       phase: game.phase,
       moving: isMoving(ui) && !ui.modalMode && !ui.paused,
+      reducedMotion: app.motionReduced(),
     };
     const t0 = perf ? performance.now() : 0;
     renderer.drawWorld(view);

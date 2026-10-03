@@ -29,7 +29,7 @@ const server = http
   .listen(0);
 const url = `http://localhost:${server.address().port}/`;
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
-const SOUTH = 'assets/people/person-red-cap-south.png';
+const MOTION = 'assets/people/person-red-cap-motion.png';
 
 async function start({query = '?debug', init, seed} = {}) {
   const ctx = await browser.newContext();
@@ -56,7 +56,7 @@ const failed = (page, text) =>
   behavior = new Map([['assets/*', 'gate']]);
   const {page, errors, ctx} = await start();
   await page.waitForFunction(() => /Loading artwork… \d+ \/ \d+/.test(document.querySelector('#load-status').textContent));
-  assert.match(await page.textContent('#load-status'), /Loading artwork… \d+ \/ 24/);
+  assert.match(await page.textContent('#load-status'), /Loading artwork… \d+ \/ 27/);
   const modalState = () => page.evaluate(() => document.querySelector('#modal').outerHTML);
   const before = await modalState();
   await page.keyboard.press('j');
@@ -82,10 +82,10 @@ const failed = (page, text) =>
     ['abort', '?debug'],
     ['hang', '?debug&assetTimeout=800'],
   ]) {
-    behavior = new Map([[SOUTH, mode]]);
+    behavior = new Map([[MOTION, mode]]);
     const {page, ctx} = await start({query});
     await failed(page, 'required artwork did not load');
-    assert.match(await page.textContent('#load-detail'), /person-red-cap-south\.png/);
+    assert.match(await page.textContent('#load-detail'), /person-red-cap-motion\.png/);
     assert.equal(await page.locator('#load-retry').isVisible(), true);
     await page.keyboard.press('j');
     assert.equal(await page.locator('#modal').isHidden(), true, `${mode}: no input while failed`);

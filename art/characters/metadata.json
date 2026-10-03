@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "anchor": "bottom-center",
+  "exportFrame": {"width": 160, "height": 256, "feetY": 250},
+  "player": {
+    "asset": "person-red-cap-motion",
+    "sourceSheets": [
+      "art/characters/source/person-red-cap-motion-north-northeast.png",
+      "art/characters/source/person-red-cap-motion-east-southeast.png",
+      "art/characters/source/person-red-cap-motion-south-southwest.png",
+      "art/characters/source/person-red-cap-motion-west-northwest.png"
+    ],
+    "sourceGrid": {"columns": 5, "rows": 8},
+    "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+    "walkCadence": {"unit": "world-distance", "distancePerFrame": 0.42, "running": "reuse walk; faster cadence follows increased travel speed"},
+    "reducedMotion": "hold the idle cell while movement and direction remain readable"
+  },
+  "npcs": [
+    {
+      "asset": "person-traveler",
+      "sourceSheet": "art/characters/source/person-traveler-gardener-turnaround-source.png",
+      "sourceGrid": {"columns": 4, "rows": 2, "sourceRow": 0},
+      "directions": ["north", "east", "south", "west"],
+      "defaultFacing": "south",
+      "cadence": "static pose"
+    },
+    {
+      "asset": "person-gardener",
+      "sourceSheet": "art/characters/source/person-traveler-gardener-turnaround-source.png",
+      "sourceGrid": {"columns": 4, "rows": 2, "sourceRow": 1},
+      "directions": ["north", "east", "south", "west"],
+      "defaultFacing": "south",
+      "cadence": "static pose"
+    }
+  ]
+}

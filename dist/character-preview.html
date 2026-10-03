@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mossvale character artwork preview</title>
+    <link rel="stylesheet" href="character-preview.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <a href="./">← Mossvale</a>
+        <p class="eyebrow">ART REVIEW · ISSUE #36 / #61</p>
+        <h1>People of Mossvale</h1>
+        <p>Generated source sheets, exported at the game's person scale with a shared bottom-center foot anchor.</p>
+      </header>
+      <section aria-labelledby="walk-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">PLAYER · RED CAP</p>
+            <h2 id="walk-title">Eight directions and the walk loop</h2>
+          </div>
+          <span>52 × 83 px at game zoom 1.45</span>
+        </div>
+        <p class="hint">
+          Each row shows idle, all four walk frames, then a looping preview. Frames advance every 0.42 world units; faster travel naturally speeds up the same
+          loop.
+        </p>
+        <div id="player-grid" class="player-grid" aria-live="off"></div>
+      </section>
+      <section aria-labelledby="cast-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">REUSABLE APPEARANCES</p>
+            <h2 id="cast-title">Traveler and gardener beside the player</h2>
+          </div>
+          <span>Actual game scale</span>
+        </div>
+        <div class="cast-scene">
+          <canvas
+            id="renderer-scene"
+            width="960"
+            height="360"
+            aria-label="The player and two NPCs depth sorted in an isometric scene, with a tree in front of the player"
+          ></canvas>
+          <div class="scene-labels"><span>Player · red cap</span><span>Traveler · backpack</span><span>Gardener · apron</span></div>
+        </div>
+        <div class="scene-controls">
+          <button id="toggle-walk" type="button" aria-pressed="true">Pause walk loop</button>
+          <label><input id="reduced-motion" type="checkbox" /> Reduced motion</label>
+          <span>The foreground oak tests world depth sorting and translucent actor occlusion.</span>
+        </div>
+      </section>
+      <section aria-labelledby="npc-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">FOUR FACINGS EACH</p>
+            <h2 id="npc-title">Independent NPC poses</h2>
+          </div>
+        </div>
+        <div id="npc-grid" class="npc-grid"></div>
+      </section>
+      <footer>PNG source sheets and frame metadata: <code>art/characters/</code>. Runtime exports: <code>dist/assets/people/</code>.</footer>
+    </main>
+    <script type="module" src="src/character-preview.js"></script>
+  </body>
+</html>

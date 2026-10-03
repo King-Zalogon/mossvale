@@ -130,7 +130,7 @@ export function createMenus(app) {
       'ranger',
       name,
     );
-    drawSprite($('#ranger-art').getContext('2d'), spriteId('person-red-cap-south'), 45, 130, 65);
+    drawSprite($('#ranger-art').getContext('2d'), spriteId('person-gardener'), 45, 130, 65);
     $('#rest-team').onclick = () => actions.rest();
     for (const b of document.querySelectorAll('[data-buy]')) b.onclick = () => actions.buy(b.dataset.buy);
     wireClose();
