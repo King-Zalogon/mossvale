@@ -3,7 +3,7 @@
 import {species} from './data/species.js';
 import {regions} from './data/regions.js';
 import {maxHP} from './domain/rules.js';
-import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, unlocked} from './domain/rules.js';
+import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, setFlag, unlocked} from './domain/rules.js';
 import {createBattle, encounterDistance, ensureHealthyCompanion, resolveTurn, rollWild} from './domain/battle.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
@@ -16,6 +16,8 @@ import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
+import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
+import {grant as grantReward} from './domain/economy.js';
 
 export function createController(app) {
   const {game, ui, audio, rng, persist, canvas, actions, menus, maps, objCtx} = app;
@@ -230,6 +232,19 @@ export function createController(app) {
     for (const a of t.actions) {
       if (a.type === 'toast') toast(a.text);
       else if (a.type === 'battle') beginBattle({id: a.id, level: a.level}); // a scripted wild encounter
+    }
+    for (const event of t.events ?? []) {
+      if (!event.repeatable && sceneHasRun(save(), game.world.map.id, event.id)) continue;
+      if (!sceneConditionHolds(event, save(), objCtx)) continue;
+      if (!event.repeatable && !markSceneRun(save(), game.world.map.id, event.id)) {
+        toast('This adventure has reached its saved event limit.');
+        continue;
+      }
+      const result = applySceneActions(save(), event, {setFlag: flag => setFlag(save(), flag)});
+      if (result.reward) grantReward(save(), result.reward);
+      if (result.dialogue.length) toast(result.dialogue.join(' '));
+      if (result.challenge) beginBattle(result.challenge);
+      persist();
     }
   }
 

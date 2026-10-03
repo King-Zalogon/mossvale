@@ -15,9 +15,30 @@ test('the build copies the game and stamps the commit and save schema', () => {
       stdio: 'pipe',
     });
     const info = JSON.parse(readFileSync(join(dir, 'version.json'), 'utf8'));
-    assert.deepEqual([info.short, info.branch, info.saveSchema], ['abcdef0', 'main', VERSION]);
+    assert.deepEqual([info.short, info.branch, info.saveSchema, info.engineVersion, info.pack.id], ['abcdef0', 'main', VERSION, 1, 'mossvale']);
     assert.match(info.builtAt, /^\d{4}-\d\d-\d\dT/);
     for (const f of ['index.html', 'style.css', 'src/main.js', 'maps/index.json', 'assets/props/tree-oak.png']) assert.equal(existsSync(join(dir, f)), true, f);
+  } finally {
+    rmSync(dir, {recursive: true, force: true});
+  }
+});
+
+test('a selected data pack builds as a validated standalone artifact with compatibility metadata', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'mossvale selected pack '));
+  try {
+    const pack = join(process.cwd(), 'tests/fixtures/packs/hearth');
+    execFileSync('node', ['scripts/build.mjs', '--pack', pack], {
+      env: {...process.env, BUILD_DIR: dir, GITHUB_SHA: '0123456789abcdef0123456789abcdef01234567'},
+      stdio: 'pipe',
+    });
+    const info = JSON.parse(readFileSync(join(dir, 'version.json'), 'utf8'));
+    const index = JSON.parse(readFileSync(join(dir, 'maps/index.json'), 'utf8'));
+    assert.deepEqual([info.pack.id, info.pack.contentVersion, info.saveSchema], ['hearth-hamlet', 1, VERSION]);
+    assert.deepEqual(index.maps, ['hearth-yard']);
+    assert.equal(existsSync(join(dir, 'maps/hearth-yard.json')), true);
+    assert.equal(existsSync(join(dir, 'maps/registries.json')), true);
+    assert.equal(existsSync(join(dir, 'assets/people/person-red-cap-south.png')), true);
+    assert.equal(existsSync(join(dir, 'maps/meadow.json')), false);
   } finally {
     rmSync(dir, {recursive: true, force: true});
   }

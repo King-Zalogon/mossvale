@@ -55,6 +55,17 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
   };
 }
 
+const flagsAwarded = map =>
+  [
+    ...(map.landmarks ?? []).map(landmark => landmark.flag),
+    ...(map.triggers ?? []).flatMap(trigger =>
+      (trigger.events ?? [])
+        .flatMap(event => event.actions ?? [])
+        .filter(action => action.type === 'flag')
+        .map(action => action.flag),
+    ),
+  ].filter(Boolean);
+
 /**
  * Softlock check on the unlock graph: starting from the first region, repeatedly collect the milestone flags of the
  * maps you can reach (their shrines and chests are reachable: maps are validated first) and open the exits whose
@@ -69,7 +80,7 @@ function checkProgression(ordered, regions, objectives, story) {
     changed = false;
     for (const id of [...reached]) {
       const m = byId.get(id);
-      for (const l of m.landmarks ?? []) if (l.flag && !flags.has(l.flag)) (flags.add(l.flag), (changed = true));
+      for (const flag of flagsAwarded(m)) if (!flags.has(flag)) (flags.add(flag), (changed = true));
       for (const e of m.exits ?? []) if (!reached.has(e.to.map) && (!e.requires || flags.has(e.requires))) (reached.add(e.to.map), (changed = true));
     }
   }
@@ -122,7 +133,7 @@ function checkMilestoneOrder(ordered, regions, milestones) {
       changed = false;
       for (const id of [...reached]) {
         const m = byId.get(id);
-        for (const l of m.landmarks ?? []) if (l.flag) earnable.add(l.flag);
+        for (const f of flagsAwarded(m)) earnable.add(f);
         for (const e of m.exits ?? []) if (!reached.has(e.to.map) && (!e.requires || held.has(e.requires))) (reached.add(e.to.map), (changed = true));
       }
     }
