@@ -6,7 +6,7 @@ GitHub issues and pull requests are authoritative for current status. Use this l
 
 | Date | Issue / scope | Owner lane | Branch | Head / base | Evidence | Blockers / next step |
 | --- | --- | --- | --- | --- | --- | --- |
-| 2026-10-03 | #103 API inventory and agent handoff docs | Core engineering / agent workflow | `codex/issue-103-api-handoff` | Base `5a420ba`; implementation head `f6d7e6c` | Final `npm run verify` passed (206 unit tests and all browser checks); the first run had one transient creature-browser failure that passed on retry | No blocker; root task coordinates integration |
+| 2026-10-03 | #103 API inventory and agent handoff docs | Core engineering / agent workflow | `codex/issue-103-api-handoff` | Base `origin/main` `a62db72` (merged at `138c6cb`); inventory refresh `77d8d98` | `npm run verify` passed on the merged head: 210 unit tests and all browser checks, including creature combat | No blocker; root task coordinates PR #107 integration |
 
 ## Entry format
 
