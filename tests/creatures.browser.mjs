@@ -33,10 +33,17 @@ try {
   await page.emulateMedia({reducedMotion: 'reduce'});
   assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('#fight-buddy')).animationName), 'none');
   await page.emulateMedia({reducedMotion: 'no-preference'});
+  await page.waitForFunction(
+    () =>
+      !matchMedia('(prefers-reduced-motion: reduce)').matches && getComputedStyle(document.querySelector('#fight-buddy')).animationName === 'creature-breathe',
+  );
 
   await page.click('#attack');
-  await page.waitForFunction(() => document.querySelector('#fight-buddy')?.classList.contains('attack'));
-  assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('#fight-buddy')).animationName), 'attack');
+  await page.waitForFunction(
+    () =>
+      document.querySelector('#fight-buddy')?.classList.contains('attack') &&
+      getComputedStyle(document.querySelector('#fight-buddy')).animationName === 'attack',
+  );
   await page.waitForFunction(() => document.querySelector('#fight-wild')?.classList.contains('hit'));
   assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('#fight-wild')).animationName), 'hit');
 

@@ -59,6 +59,25 @@ main > p {
 .creature h2 {
   margin: 0 0 10px;
 }
+.reference {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 8px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  background: #0e2924;
+}
+.reference img {
+  width: 115px;
+  height: 115px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.reference figcaption {
+  color: #cad9b1;
+  font-size: 0.78rem;
+}
 .states {
   display: grid;
   gap: 10px;
@@ -80,6 +99,15 @@ main > p {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 4px;
+}
+.frame {
+  margin: 0;
+  text-align: center;
+}
+.frame figcaption {
+  color: #b9caa4;
+  font-size: 0.66rem;
+  line-height: 1.2;
 }
 canvas {
   width: min(100%, 112px);

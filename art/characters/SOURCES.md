@@ -37,3 +37,7 @@ The eight current creature portraits remain the generated source images in `art/
 - Each sheet has four columns and five state rows: idle, attack, hit, faint and capture. The exporter crops equal grid cells, pads transparent pixels without resampling, and writes fixed frame sizes with bottom-center anchors: Fernling 288 × 288; Duskwing 328 × 304.
 - Run `python3 art/characters/export-creature-combat.py` to recreate the runtime PNGs. `creature-combat-metadata.json` records source IDs, frame order, dimensions, anchor and cadence.
 - The initial two-species batch proves the atlas contract; the other six current creatures still use their static portraits.
+
+## Identity and quality records
+
+`art/assets/subjects.json` assigns stable visual IDs and hashes canonical references, generated source sheets, and runtime outputs for the player, Fernling, and Duskwing; `npm run validate` verifies those links and digests. `export-profiles.json` records category-specific, versioned export settings. `visual-reviews.json` separates byte/frame checks from visual accept/rework/quarantine decisions; the captured creature contact sheet is under `reviews/`. See [`docs/ART_REVIEW.md`](../../docs/ART_REVIEW.md) for commands and the known pending visual/owner reviews.

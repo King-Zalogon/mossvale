@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "technicalAndVisualGatesAreSeparate": true,
+  "decisions": ["accept", "rework", "quarantine"],
+  "method": "Technical checks decode and validate pixels/frames/anchors. Visual decisions are recorded by a human with a reason; neither gate infers the other.",
+  "evidence": {
+    "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png",
+    "gameplayScale": {
+      "creaturePortraitWidth": 115,
+      "renderer": "dist/src/render/sprites.js"
+    },
+    "beforeAfter": "Each species card shows its canonical portrait beside the generated combat states."
+  },
+  "subjects": [
+    {
+      "visualId": "person-red-cap-adventurer",
+      "asset": "person-red-cap-motion",
+      "technical": {
+        "status": "pass",
+        "source": "npm run verify / asset source atlas pixel checks"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "Eight facing rows retain the red cap, blue clothing and compact scale; NE/NW silhouette changes are expected for turned views, not identity failures.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["dist/character-preview.html"]
+    },
+    {
+      "visualId": "creature-fernling",
+      "asset": "creature-fernling-combat",
+      "technical": {
+        "status": "pass",
+        "source": "npm run validate; 4x5 RGBA frame grid and common foot-line validator"
+      },
+      "visual": {
+        "decision": "rework",
+        "reviewer": "implementation visual QA",
+        "reason": "The small actual-scale contact sheet shows detached leaf/spark pixels below multiple faint-row poses; keep the source, revise those cells before calling this species art complete.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"]
+    },
+    {
+      "visualId": "creature-duskwing",
+      "asset": "creature-duskwing-combat",
+      "technical": {
+        "status": "pass",
+        "source": "npm run validate; 4x5 RGBA frame grid and common foot-line validator"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"]
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "wrong-anatomy",
+      "path": "art/characters/reviews/fixtures/wrong-anatomy.png",
+      "technical": {
+        "status": "pass",
+        "expected": "valid RGBA PNG with visible alpha"
+      },
+      "visual": {
+        "decision": "quarantine",
+        "reason": "Deliberate extra limbs and paws make the anatomy incompatible with the canonical four-paw subject."
+      }
+    },
+    {
+      "id": "identity-drift",
+      "path": "art/characters/reviews/fixtures/identity-drift.png",
+      "technical": {
+        "status": "pass",
+        "expected": "valid RGBA PNG with visible alpha"
+      },
+      "visual": {
+        "decision": "quarantine",
+        "reason": "Deliberate hue shift destroys Fernling\u2019s defining leaf-green palette despite a valid PNG."
+      }
+    },
+    {
+      "id": "valid-turned-pose",
+      "path": "art/characters/reviews/fixtures/valid-turned-pose.png",
+      "technical": {
+        "status": "pass",
+        "expected": "valid RGBA PNG with visible alpha"
+      },
+      "visual": {
+        "decision": "accept",
+        "silhouetteChanged": true,
+        "reason": "The NE facing pose changes the outline while retaining the red cap, clothing and subject identity."
+      }
+    }
+  ]
+}

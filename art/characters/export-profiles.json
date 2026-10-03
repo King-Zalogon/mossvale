@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "profiles": {
+    "red-cap-motion-v1": {
+      "category": "player-motion",
+      "sourceGrid": {
+        "sheets": 4,
+        "columns": 5,
+        "rowsPerSheet": 2
+      },
+      "frame": [160, 256],
+      "maxSprite": [152, 224],
+      "resampling": "nearest-neighbor",
+      "alphaThreshold": 8,
+      "footY": 250,
+      "palette": "preserve source RGBA; no quantization"
+    },
+    "npc-turnaround-v1": {
+      "category": "npc-turnaround",
+      "sourceGrid": {
+        "columns": 4,
+        "rows": 2
+      },
+      "frame": [160, 256],
+      "maxSpriteHeight": 220,
+      "resampling": "nearest-neighbor",
+      "alphaThreshold": 8,
+      "footY": 250,
+      "palette": "preserve source RGBA; no quantization"
+    },
+    "creature-combat-v1": {
+      "category": "creature-combat",
+      "sourceGrid": {
+        "columns": 4,
+        "rows": 5
+      },
+      "frameSizes": {
+        "fernling": [288, 288],
+        "duskwing": [281, 281]
+      },
+      "resampling": "none",
+      "alphaThreshold": 8,
+      "footInset": 4,
+      "palette": "preserve source RGBA; no quantization",
+      "reviewStages": ["generated-source", "segmented-cells", "anchored-runtime"]
+    },
+    "creature-portrait-v1": {
+      "category": "creature-portrait",
+      "source": "art/assets/metadata.json source atlas cells",
+      "resampling": "none",
+      "palette": "preserve source RGBA; no quantization"
+    },
+    "creature-follower-v1": {
+      "category": "creature-follower",
+      "status": "pending-dedicated-direction-art",
+      "implementation": "Existing single creature portrait with path-based follower motion; #90 owns directional frame production.",
+      "resampling": "none until dedicated frames exist"
+    },
+    "prop-static-v1": {
+      "category": "prop",
+      "status": "implemented",
+      "implementation": "art/assets/export.py pixel-preserving source atlas cells",
+      "resampling": "none",
+      "palette": "preserve RGBA"
+    },
+    "terrain-transition-v1": {
+      "category": "terrain-transition",
+      "status": "pending-terrain-art",
+      "implementation": "No terrain sprite family is currently exported; map terrain remains authored as data.",
+      "resampling": "none until art is introduced"
+    }
+  }
+}
