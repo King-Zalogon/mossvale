@@ -33,28 +33,52 @@
         }
       ],
       "generation": {
-        "tool": {"status": "summary-only", "value": "image generation tool", "evidence": "art/characters/SOURCES.md#Player"},
-        "provider": {"status": "unavailable", "reason": "The retained source notes do not name the provider."},
-        "modelVersion": {"status": "unavailable", "reason": "The retained source notes do not name a model or version."},
+        "tool": {
+          "status": "summary-only",
+          "value": "image generation tool",
+          "evidence": "art/characters/SOURCES.md#Player"
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The retained source notes do not name the provider."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The retained source notes do not name a model or version."
+        },
         "prompt": {
           "status": "summary-only",
           "summary": "A transparent 5-column by 2-row directional sprite sheet for the existing red-cap adventurer, matching its isometric view, palette, pixel scale, clothing and lighting, with idle and four compact walk poses per direction.",
           "evidence": "art/characters/SOURCES.md#Player",
           "exactPromptStatus": "unavailable"
         },
-        "seed": {"status": "unavailable", "reason": "No generation seed was retained."},
+        "seed": {
+          "status": "unavailable",
+          "reason": "No generation seed was retained."
+        },
         "generationReference": {
           "status": "available",
           "assetIds": ["person-red-cap-north", "person-red-cap-east", "person-red-cap-south", "person-red-cap-west"]
         },
-        "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No generation masks were retained."
+        }
       },
-      "sourceNotes": {"path": "art/characters/SOURCES.md", "sha256": "dfa289d656880469e6e922275f3c7ba2e49c0e2db19fdeb4e4879a89efbb048c"},
-      "sourceMetadata": {"path": "art/characters/metadata.json", "sha256": "993d4294eed1c27f2bd01f6769914b444e8b98cd7085e3da47eb26a27c703be2"},
+      "sourceNotes": {
+        "path": "art/characters/SOURCES.md",
+        "sha256": "dfa289d656880469e6e922275f3c7ba2e49c0e2db19fdeb4e4879a89efbb048c"
+      },
+      "sourceMetadata": {
+        "path": "art/characters/metadata.json",
+        "sha256": "993d4294eed1c27f2bd01f6769914b444e8b98cd7085e3da47eb26a27c703be2"
+      },
       "exportWorkflow": {
         "path": "art/characters/export.py",
         "sha256": "6d470b0e88ae8f3e65903d55014d9b2225d8b4441635315f36231095fe0646fa",
-        "settings": "RGBA 160x256 cells; crop source cells, scale with nearest-neighbor to 224 px high and at most 152 px wide, center horizontally, align feet to y=250; compose a 5x8 atlas in the recorded direction order."
+        "settings": "RGBA 160x256 cells; crop source cells, scale with nearest-neighbor to 224 px high and at most 152 px wide, center horizontally, align feet to y=250; compose a 5x8 atlas in the recorded direction order.",
+        "profileId": "red-cap-motion-v1",
+        "profileSha256": "d00b3aa7df631b1a29c7f050d757c4993fed2fdb3a3fe285567d0b921e1f469a"
       },
       "sourceBatches": [
         {
@@ -94,7 +118,9 @@
         {
           "assetId": "person-red-cap-motion",
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "sha256": "9a8c5376affa0b538964041baff4c0618780de1324dee6c815298f6ce9a61e57"
+          "sha256": "9a8c5376affa0b538964041baff4c0618780de1324dee6c815298f6ce9a61e57",
+          "profileId": "red-cap-motion-v1",
+          "profileSha256": "d00b3aa7df631b1a29c7f050d757c4993fed2fdb3a3fe285567d0b921e1f469a"
         }
       ]
     },
@@ -111,27 +137,55 @@
           "assetId": "creature-fernling",
           "path": "art/assets/source/creatures-atlas.png",
           "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636",
-          "cell": {"x": 1083, "y": 416, "width": 281, "height": 281},
+          "cell": {
+            "x": 1083,
+            "y": 416,
+            "width": 281,
+            "height": 281
+          },
           "basis": "Current checked-in source cell is the canonical visual reference; original generation reference is unavailable."
         }
       ],
       "generation": {
-        "tool": {"status": "unavailable", "reason": "The retained source metadata does not identify the generation tool."},
-        "provider": {"status": "unavailable", "reason": "The retained source metadata does not identify the provider."},
-        "modelVersion": {"status": "unavailable", "reason": "The retained source metadata does not identify a model or version."},
-        "prompt": {"status": "unavailable", "reason": "The original generation prompt was not retained."},
-        "seed": {"status": "unavailable", "reason": "No generation seed was retained."},
+        "tool": {
+          "status": "unavailable",
+          "reason": "The retained source metadata does not identify the generation tool."
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The retained source metadata does not identify the provider."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The retained source metadata does not identify a model or version."
+        },
+        "prompt": {
+          "status": "unavailable",
+          "reason": "The original generation prompt was not retained."
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "No generation seed was retained."
+        },
         "generationReference": {
           "status": "unavailable",
           "reason": "The original generation reference was not retained; the source cell above is only the current canonical visual reference."
         },
-        "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No generation masks were retained."
+        }
       },
-      "sourceNotes": {"path": "art/assets/metadata.json", "sha256": "dfe6f84e91c71b0ea4c3c318f68c431e5a7f6153a2f8e7f716b0107333fbe162"},
+      "sourceNotes": {
+        "path": "art/assets/metadata.json",
+        "sha256": "b1d8ca492275915a4b246c2ff79869a46170e697e380fe0ee2af6846f088ea7e"
+      },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "3afa52883bf0fd0b91cf525c8d8aabee006b0a9a499f964c183f9334cb8d1986",
-        "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change."
+        "sha256": "f1538fc373d074ab2321e0715ce289913460b7686036e54a0106e44f4f76510b",
+        "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
+        "profileId": "creature-portrait-v1",
+        "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
       },
       "sourceBatches": [
         {
@@ -143,17 +197,36 @@
           "referenceAssetIds": ["creature-fernling"],
           "exportAssetIds": ["creature-fernling-combat"],
           "generation": {
-            "tool": {"status": "summary-only", "value": "image generation tool", "evidence": "art/characters/SOURCES.md#creature-combat-frame-milestone"},
-            "provider": {"status": "unavailable", "reason": "The retained combat-art notes do not identify the provider."},
-            "modelVersion": {"status": "unavailable", "reason": "The retained combat-art notes do not identify a model or version."},
+            "tool": {
+              "status": "summary-only",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#creature-combat-frame-milestone"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The retained combat-art notes do not identify the provider."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The retained combat-art notes do not identify a model or version."
+            },
             "prompt": {
               "status": "summary-only",
               "summary": "Preserve leaf fox identity and green/cream/brown palette; add idle, leafy attack, hit recovery, faint and capture reactions.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.fernling"
             },
-            "seed": {"status": "unavailable", "reason": "No generation seed was retained."},
-            "generationReference": {"status": "available", "assetIds": ["creature-fernling"]},
-            "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": ["creature-fernling"]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
           }
         }
       ],
@@ -161,12 +234,16 @@
         {
           "assetId": "creature-fernling",
           "path": "dist/assets/creatures/creature-fernling.png",
-          "sha256": "426046feb5c9b34cd134af383f054ef325a3153a827f81065388b28a35884d84"
+          "sha256": "426046feb5c9b34cd134af383f054ef325a3153a827f81065388b28a35884d84",
+          "profileId": "creature-portrait-v1",
+          "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
         },
         {
           "assetId": "creature-fernling-combat",
           "path": "dist/assets/creatures/creature-fernling-combat.png",
-          "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64"
+          "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "b295d09d7788e628e679c812299e4aba79f8080e3134425a47e28cf4e7cbda74"
         }
       ],
       "runtimeTreatments": {
@@ -185,8 +262,10 @@
         "contractSha256": "c8efb137d6d6342b761f5db76b65dfeb1de785c9d1caf277d9652a1555112240",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "652b11652c11b862fd4d844a77b4a78d7ef9c7a2a0a025b7294699fb5562ed6a",
-          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling."
+          "sha256": "ffed3cf731fbd3c6180eadc841f9b2d8d49d5c6d077c2213ae01db33a17d9f8c",
+          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "b295d09d7788e628e679c812299e4aba79f8080e3134425a47e28cf4e7cbda74"
         },
         "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
         "states": ["idle", "attack", "hit", "faint", "capture"],
@@ -206,27 +285,55 @@
           "assetId": "creature-duskwing",
           "path": "art/assets/source/creatures-atlas.png",
           "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636",
-          "cell": {"x": 1666, "y": 416, "width": 282, "height": 260},
+          "cell": {
+            "x": 1666,
+            "y": 416,
+            "width": 282,
+            "height": 260
+          },
           "basis": "Current checked-in source cell is the canonical visual reference; original generation reference is unavailable."
         }
       ],
       "generation": {
-        "tool": {"status": "unavailable", "reason": "The retained source metadata does not identify the generation tool."},
-        "provider": {"status": "unavailable", "reason": "The retained source metadata does not identify the provider."},
-        "modelVersion": {"status": "unavailable", "reason": "The retained source metadata does not identify a model or version."},
-        "prompt": {"status": "unavailable", "reason": "The original generation prompt was not retained."},
-        "seed": {"status": "unavailable", "reason": "No generation seed was retained."},
+        "tool": {
+          "status": "unavailable",
+          "reason": "The retained source metadata does not identify the generation tool."
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The retained source metadata does not identify the provider."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The retained source metadata does not identify a model or version."
+        },
+        "prompt": {
+          "status": "unavailable",
+          "reason": "The original generation prompt was not retained."
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "No generation seed was retained."
+        },
         "generationReference": {
           "status": "unavailable",
           "reason": "The original generation reference was not retained; the source cell above is only the current canonical visual reference."
         },
-        "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No generation masks were retained."
+        }
       },
-      "sourceNotes": {"path": "art/assets/metadata.json", "sha256": "dfe6f84e91c71b0ea4c3c318f68c431e5a7f6153a2f8e7f716b0107333fbe162"},
+      "sourceNotes": {
+        "path": "art/assets/metadata.json",
+        "sha256": "b1d8ca492275915a4b246c2ff79869a46170e697e380fe0ee2af6846f088ea7e"
+      },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "3afa52883bf0fd0b91cf525c8d8aabee006b0a9a499f964c183f9334cb8d1986",
-        "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change."
+        "sha256": "f1538fc373d074ab2321e0715ce289913460b7686036e54a0106e44f4f76510b",
+        "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
+        "profileId": "creature-portrait-v1",
+        "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
       },
       "sourceBatches": [
         {
@@ -238,17 +345,36 @@
           "referenceAssetIds": ["creature-duskwing"],
           "exportAssetIds": ["creature-duskwing-combat"],
           "generation": {
-            "tool": {"status": "summary-only", "value": "image generation tool", "evidence": "art/characters/SOURCES.md#creature-combat-frame-milestone"},
-            "provider": {"status": "unavailable", "reason": "The retained combat-art notes do not identify the provider."},
-            "modelVersion": {"status": "unavailable", "reason": "The retained combat-art notes do not identify a model or version."},
+            "tool": {
+              "status": "summary-only",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#creature-combat-frame-milestone"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The retained combat-art notes do not identify the provider."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The retained combat-art notes do not identify a model or version."
+            },
             "prompt": {
               "status": "summary-only",
               "summary": "Preserve purple moth identity, patterned lavender wings, cream collar and magenta eyes; create five clean rows with complete contained poses for idle, gust attack, hit recovery, faint and capture reactions.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.duskwing"
             },
-            "seed": {"status": "unavailable", "reason": "No generation seed was retained."},
-            "generationReference": {"status": "available", "assetIds": ["creature-duskwing"]},
-            "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": ["creature-duskwing"]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
           }
         }
       ],
@@ -256,12 +382,16 @@
         {
           "assetId": "creature-duskwing",
           "path": "dist/assets/creatures/creature-duskwing.png",
-          "sha256": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1"
+          "sha256": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1",
+          "profileId": "creature-portrait-v1",
+          "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
         },
         {
           "assetId": "creature-duskwing-combat",
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
-          "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02"
+          "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "b295d09d7788e628e679c812299e4aba79f8080e3134425a47e28cf4e7cbda74"
         }
       ],
       "runtimeTreatments": {
@@ -280,8 +410,10 @@
         "contractSha256": "c8efb137d6d6342b761f5db76b65dfeb1de785c9d1caf277d9652a1555112240",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "652b11652c11b862fd4d844a77b4a78d7ef9c7a2a0a025b7294699fb5562ed6a",
-          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling."
+          "sha256": "ffed3cf731fbd3c6180eadc841f9b2d8d49d5c6d077c2213ae01db33a17d9f8c",
+          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "b295d09d7788e628e679c812299e4aba79f8080e3134425a47e28cf4e7cbda74"
         },
         "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
         "states": ["idle", "attack", "hit", "faint", "capture"],

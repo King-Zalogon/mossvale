@@ -11,6 +11,7 @@ import {checkSubjectProvenance} from '../scripts/lib/provenance-check.mjs';
 import {decodePng, opaqueBounds} from '../scripts/lib/png.mjs';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
 
 /** A tiny PNG writer for fixtures. `pixel(x, y)` returns [r, g, b, a] (type 6) or [r, g, b] (type 2). */
 function makePng(w, h, pixel, colorType = 6) {
@@ -115,6 +116,34 @@ test('visual-subject validation catches a stale output digest and an unrecorded 
   has(errors, 'required direction north has no source batch');
 });
 
+test('visual-subject exports pin a compatible, versioned profile and its settings digest', () => {
+  const root = fileURLToPath(new URL('../', import.meta.url));
+  const registry = JSON.parse(readFileSync(new URL('../art/assets/subjects.json', import.meta.url), 'utf8'));
+  const sourceMetadata = JSON.parse(readFileSync(new URL('../art/assets/metadata.json', import.meta.url), 'utf8'));
+  const combatMetadata = JSON.parse(readFileSync(new URL('../art/characters/creature-combat-metadata.json', import.meta.url), 'utf8'));
+  const profiles = JSON.parse(readFileSync(new URL('../art/characters/export-profiles.json', import.meta.url), 'utf8')).profiles;
+  const digest = id => createHash('sha256').update(JSON.stringify(profiles[id])).digest('hex');
+
+  registry.subjects[0].exports[0].profileSha256 = '0'.repeat(64);
+  let result = checkSubjectProvenance(registry, {root, assets, sourceMetadata, combatMetadata});
+  has(result.errors, 'export profile red-cap-motion-v1 settings hash is stale');
+
+  registry.subjects[0].exports[0].profileId = 'creature-portrait-v1';
+  registry.subjects[0].exports[0].profileSha256 = digest('creature-portrait-v1');
+  result = checkSubjectProvenance(registry, {root, assets, sourceMetadata, combatMetadata});
+  has(result.errors, 'profile category creature-portrait does not match person-red-cap-motion');
+});
+
+test('a prop source atlas record cannot omit its export profile', () => {
+  const root = fileURLToPath(new URL('../', import.meta.url));
+  const registry = JSON.parse(readFileSync(new URL('../art/assets/subjects.json', import.meta.url), 'utf8'));
+  const sourceMetadata = JSON.parse(readFileSync(new URL('../art/assets/metadata.json', import.meta.url), 'utf8'));
+  const combatMetadata = JSON.parse(readFileSync(new URL('../art/characters/creature-combat-metadata.json', import.meta.url), 'utf8'));
+  delete sourceMetadata.assets.find(asset => asset.kind === 'prop').exportProfile;
+  const {errors} = checkSubjectProvenance(registry, {root, assets, sourceMetadata, combatMetadata});
+  has(errors, 'a versioned export profile ID is required');
+});
+
 test('combat provenance rejects frame-order drift and unlinked generated sources', () => {
   const root = fileURLToPath(new URL('../', import.meta.url));
   const registry = JSON.parse(readFileSync(new URL('../art/assets/subjects.json', import.meta.url), 'utf8'));
@@ -149,6 +178,8 @@ test('content refers to art by name: species, directions and the manifest agree'
 test('editable source atlases cover every runtime sprite and export the exact manifest crops', () => {
   const sourceRoot = new URL('../art/assets/', import.meta.url);
   const metadata = JSON.parse(readFileSync(new URL('metadata.json', sourceRoot), 'utf8'));
+  const profiles = JSON.parse(readFileSync(new URL('../characters/export-profiles.json', sourceRoot), 'utf8')).profiles;
+  const propProfileSha256 = createHash('sha256').update(JSON.stringify(profiles['prop-static-v1'])).digest('hex');
   assert.equal(metadata.pixelPreserving, true);
   assert.equal(metadata.anchor, 'bottom-center');
   assert.equal(metadata.assets.length, assets.length);
@@ -169,6 +200,7 @@ test('editable source atlases cover every runtime sprite and export the exact ma
     assert.equal(source.height, asset.h, source.name);
     assert.equal(source.anchor, asset.anchor, source.name);
     assert.equal(source.kind, asset.kind, source.name);
+    if (source.kind === 'prop') assert.deepEqual(source.exportProfile, {id: 'prop-static-v1', settingsSha256: propProfileSha256}, source.name);
     assert.ok(sheets.has(source.sheet), `${source.name} source sheet exists`);
     assert.ok(source.provenance.editablePixelSource, source.name);
     for (const ref of source.provenance.originalGeneratedReferences) assert.ok(readFileSync(new URL(`../../${ref}`, sourceRoot)), ref);

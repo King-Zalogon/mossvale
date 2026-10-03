@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -13,8 +14,28 @@ ROOT = Path(__file__).resolve().parents[2]
 ASSET_ROOT = ROOT / "dist" / "assets"
 SOURCE_ROOT = ROOT / "art" / "assets" / "source"
 METADATA = ROOT / "art" / "assets" / "metadata.json"
+PROFILE_PATH = ROOT / "art" / "characters" / "export-profiles.json"
 GUTTER = 16
 SHEET_WIDTH = 2048
+PROP_PROFILE_ID = "prop-static-v1"
+EXPORT_PROFILES = json.loads(PROFILE_PATH.read_text())["profiles"]
+PROP_PROFILE = EXPORT_PROFILES[PROP_PROFILE_ID]
+
+
+def profile_digest(profile: dict) -> str:
+    serialized = json.dumps(profile, separators=(",", ":"), ensure_ascii=False).encode()
+    return hashlib.sha256(serialized).hexdigest()
+
+
+def validate_prop_profile() -> dict:
+    if (
+        PROP_PROFILE.get("category") != "prop"
+        or PROP_PROFILE.get("status") != "implemented"
+        or PROP_PROFILE.get("resampling") != "none"
+        or PROP_PROFILE.get("palette") != "preserve RGBA"
+    ):
+        raise ValueError(f"{PROP_PROFILE_ID} must preserve prop pixels without resampling")
+    return {"id": PROP_PROFILE_ID, "settingsSha256": profile_digest(PROP_PROFILE)}
 
 FRAMES = {
     "person-red-cap-motion": {
@@ -57,25 +78,26 @@ def list_assets() -> list[dict]:
             width, height = source.size
         name = path.stem
         generated = GENERATED_SOURCES.get(name, [])
-        entries.append(
-            {
-                "name": name,
-                "src": path.relative_to(ROOT / "dist").as_posix(),
-                "folder": path.parent.name,
-                "kind": {"props": "prop", "creatures": "creature", "people": "person", "items": "item"}[path.parent.name],
-                "width": width,
-                "height": height,
-                "anchor": "bottom-center",
-                "sheet": f"source/{path.parent.name}-atlas.png",
-                "cell": {"x": 0, "y": 0},
-                "frames": FRAMES.get(name),
-                "provenance": {
-                    "editablePixelSource": "art/assets/source atlas cell",
-                    "originalGeneratedReferences": generated,
-                    "originalGenerationSourceAvailable": bool(generated),
-                },
-            }
-        )
+        entry = {
+            "name": name,
+            "src": path.relative_to(ROOT / "dist").as_posix(),
+            "folder": path.parent.name,
+            "kind": {"props": "prop", "creatures": "creature", "people": "person", "items": "item"}[path.parent.name],
+            "width": width,
+            "height": height,
+            "anchor": "bottom-center",
+            "sheet": f"source/{path.parent.name}-atlas.png",
+            "cell": {"x": 0, "y": 0},
+            "frames": FRAMES.get(name),
+            "provenance": {
+                "editablePixelSource": "art/assets/source atlas cell",
+                "originalGeneratedReferences": generated,
+                "originalGenerationSourceAvailable": bool(generated),
+            },
+        }
+        if entry["kind"] == "prop":
+            entry["exportProfile"] = validate_prop_profile()
+        entries.append(entry)
     return entries
 
 
@@ -125,12 +147,17 @@ def export(check_only: bool = False) -> None:
         raise ValueError("unsupported source atlas metadata")
     if not metadata.get("assets") or not metadata.get("sheets"):
         raise ValueError("source atlas metadata has no assets or sheets")
+    prop_profile_record = validate_prop_profile()
+    for item in metadata["assets"]:
+        if item.get("kind") == "prop" and item.get("exportProfile") != prop_profile_record:
+            raise ValueError(f"{item['name']} has missing or stale {PROP_PROFILE_ID} provenance")
     for sheet_name, dimensions in metadata["sheets"].items():
         with Image.open(ROOT / "art" / "assets" / sheet_name) as sheet:
             if sheet.mode != dimensions["mode"] or sheet.mode != "RGBA":
                 raise ValueError(f"{sheet_name} must be RGBA")
             if list(sheet.size) != [dimensions["width"], dimensions["height"]]:
                 raise ValueError(f"{sheet_name} dimensions do not match metadata")
+    prepared = []
     for item in metadata["assets"]:
         x, y = item["cell"]["x"], item["cell"]["y"]
         width, height = item["width"], item["height"]
@@ -145,8 +172,22 @@ def export(check_only: bool = False) -> None:
                 same_pixels = current.mode == "RGBA" and current.size == crop.size and current.tobytes() == crop.tobytes()
         if check_only and not same_pixels:
             raise ValueError(f"{item['name']} differs from its source atlas cell; run export.py to update dist")
-        if not check_only and not same_pixels:
-            crop.save(destination, optimize=True)
+        prepared.append((item, destination, crop, same_pixels))
+    if not check_only:
+        staged = []
+        try:
+            for _item, destination, crop, same_pixels in prepared:
+                if same_pixels:
+                    continue
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                temporary = destination.with_suffix(".png.tmp")
+                crop.save(temporary, format="PNG", optimize=True)
+                staged.append((temporary, destination))
+            for temporary, destination in staged:
+                temporary.replace(destination)
+        finally:
+            for temporary, _destination in staged:
+                temporary.unlink(missing_ok=True)
     action = "verified" if check_only else "exported"
     print(f"{action} {len(metadata['assets'])} asset crops from editable source atlases")
 
