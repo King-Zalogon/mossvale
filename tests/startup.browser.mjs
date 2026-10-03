@@ -255,15 +255,15 @@ for (const [seed, weakened] of [
   await page.evaluate(() => window.mossvale.interact());
   await page.click('#speech-next');
   await page.waitForSelector('[data-buy="potion"]');
-  await page.click('[data-buy="potion"]');
+  await page.keyboard.press('2');
   await page.click('#speech-next');
   assert.deepEqual(await state(), {coins: 15, potions: 1, orbs: 0});
   await page.waitForSelector('[data-buy="potion"]');
-  await page.click('[data-buy="orbs"]');
+  await page.keyboard.press('3');
   await page.click('#speech-next');
   assert.deepEqual(await state(), {coins: 0, potions: 1, orbs: 5});
   assert.equal(await page.locator('[data-buy="orbs"]').isDisabled(), true, 'cannot buy without coins');
-  await page.click('#rest-team');
+  await page.keyboard.press('1');
   await page.click('#speech-next');
   assert.deepEqual(await state(), {coins: 0, potions: 1, orbs: 12});
   assert.deepEqual(errors, []);

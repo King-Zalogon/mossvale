@@ -202,7 +202,7 @@ Object.assign(actions, {
     saveSettings(storage, settings);
   },
   newGame() {
-    const result = startOver({storage, codec, save: game.save});
+    const result = startOver({storage, codec, save: game.save, rng});
     if (!result.ok) {
       toast('Could not start over. Your current adventure is unchanged; export it from Backup & restore before trying again.');
       return;
@@ -278,7 +278,10 @@ async function boot() {
         fresh.x = rawMaps[region].spawns.camp[0];
         fresh.y = rawMaps[region].spawns.camp[1];
         loaded = {save: fresh, status: 'new', message: '', writable: false, source: null};
-      } else loaded = codec.load(storage);
+      } else {
+        loaded = codec.load(storage);
+        if (loaded.status === 'new') loaded.save = codec.fresh(rng);
+      }
       $('#load-title').textContent = loaded.save.badges.length || loaded.save.caught.length > 1 ? 'Resuming your trail' : `Preparing ${rawPack.name}`;
       game.save = loaded.save;
       game.player.x = loaded.save.x;

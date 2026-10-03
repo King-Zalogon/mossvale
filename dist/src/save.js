@@ -96,19 +96,20 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
   const regionIndex = id => regions.findIndex(r => r.id === id);
   const maxHP = (idx, xp) => species[idx].hp + Math.floor(xp / XP_PER_LEVEL) * 4;
 
-  function fresh() {
+  function fresh(rng = () => 0) {
+    const starter = Math.min(species.length - 1, Math.max(0, Math.floor(rng() * species.length)));
     return {
       version: VERSION,
       region: 0,
       x: spawn.x,
       y: spawn.y,
-      active: 0,
+      active: starter,
       orbs: 12,
       potions: 3,
       coins: 0,
-      seen: [0],
-      caught: [0],
-      team: {0: {xp: 0, hp: species[0].hp}},
+      seen: [starter],
+      caught: [starter],
+      team: {[starter]: {xp: 0, hp: species[starter].hp}},
       badges: [],
       chests: [],
       visited: [0],
@@ -121,7 +122,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       events: [],
       completed: false,
       battle: null,
-      party: [0],
+      party: [starter],
     };
   }
 
