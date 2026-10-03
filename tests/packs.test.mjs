@@ -11,7 +11,7 @@ import {validatePack} from '../dist/src/domain/pack.js';
 import {resolveRegistries} from '../dist/src/domain/registries.js';
 import {create, KEYS, packOf} from '../dist/src/save.js';
 import {parseBackup} from '../dist/src/services/backup.js';
-import {content, newSave, packContent, rawMaps, rawObjectives, rawPack, rawStory} from './helpers.mjs';
+import {content, mapBounds, newSave, packContent, rawMaps, rawObjectives, rawPack, rawStory} from './helpers.mjs';
 
 const has = (errors, text) =>
   assert.ok(
@@ -149,4 +149,72 @@ test('a save from another adventure is never loaded, overwritten or imported', (
   assert.match(imported.reason, /another adventure/);
   assert.equal(parseBackup(mineRaw, first).ok, true);
   assert.ok(newSave());
+});
+
+test('a compatible content-version update keeps stable IDs and progress', () => {
+  const older = create({species, regions: content.regions, size: 64, bounds: mapBounds, pack: 'hearth-hamlet', contentVersion: 1});
+  const newer = create({species, regions: content.regions, size: 64, bounds: mapBounds, pack: 'hearth-hamlet', contentVersion: 2});
+  const save = older.fresh();
+  Object.assign(save, {coins: 73, wins: 4, met: true});
+  const raw = older.serialize(save);
+  const storage = store({[KEYS.v3]: raw, [KEYS.backup]: raw});
+  const loaded = newer.load(storage);
+  assert.equal(loaded.status, 'ok');
+  assert.deepEqual([loaded.save.coins, loaded.save.wins, loaded.save.contentVersion], [73, 4, 2]);
+  assert.equal(storage.getItem(KEYS.v3), raw, 'loading a compatible update does not rewrite the last save');
+  assert.equal(storage.getItem(KEYS.backup), raw, 'the previous checkpoint remains available');
+  assert.equal(JSON.parse(newer.serialize(loaded.save)).contentVersion, 2);
+});
+
+test('removing a map or creature used by a save blocks normalization and preserves both save copies', () => {
+  const fullBounds = {...mapBounds};
+  const older = create({species, regions: content.regions, size: 64, bounds: fullBounds, pack: 'hearth-hamlet', contentVersion: 1});
+  const save = older.fresh();
+  save.mapId = 'orchard-ruins';
+  save.visitedMaps.push('orchard-ruins');
+  save.caught.push(1);
+  save.seen.push(1);
+  save.party.push(1);
+  save.team[1] = {xp: 25, hp: species[1].stats.hp};
+  const raw = older.serialize(save);
+  const reducedBounds = {...mapBounds};
+  delete reducedBounds['orchard-ruins'];
+  const reducedSpecies = create({
+    species: species.slice(0, 1),
+    regions: content.regions,
+    size: 64,
+    bounds: reducedBounds,
+    pack: 'hearth-hamlet',
+    contentVersion: 2,
+  });
+  const storage = store({[KEYS.v3]: raw, [KEYS.backup]: raw});
+  const loaded = reducedSpecies.load(storage);
+  assert.equal(loaded.status, 'incompatible');
+  assert.equal(loaded.writable, false);
+  assert.match(loaded.message, /map ID "orchard-ruins"/);
+  assert.equal(loaded.raw, raw);
+  assert.equal(storage.getItem(KEYS.v3), raw);
+  assert.equal(storage.getItem(KEYS.backup), raw);
+
+  const creatureOnly = JSON.parse(raw);
+  creatureOnly.mapId = 'meadow';
+  creatureOnly.visitedMaps = ['meadow'];
+  const creatureStorage = store({[KEYS.v3]: JSON.stringify(creatureOnly), [KEYS.backup]: JSON.stringify(creatureOnly)});
+  const missingFriend = reducedSpecies.load(creatureStorage);
+  assert.equal(missingFriend.status, 'incompatible');
+  assert.match(missingFriend.message, /creature ID "emberkin"/);
+  assert.equal(creatureStorage.getItem(KEYS.v3), JSON.stringify(creatureOnly));
+});
+
+test('a save from a newer content version stays untouched and cannot enter through a backup', () => {
+  const newer = create({species, regions: content.regions, size: 64, bounds: mapBounds, pack: 'hearth-hamlet', contentVersion: 2});
+  const later = {...newer.fresh(), contentVersion: 3};
+  const raw = JSON.stringify({...JSON.parse(newer.serialize(later)), contentVersion: 3});
+  const storage = store({[KEYS.v3]: raw, [KEYS.backup]: raw});
+  const loaded = newer.load(storage);
+  assert.equal(loaded.status, 'incompatible');
+  assert.match(loaded.message, /newer than the installed version 2/);
+  assert.equal(storage.getItem(KEYS.v3), raw);
+  assert.equal(parseBackup(raw, newer).ok, false);
+  assert.match(parseBackup(raw, newer).reason, /newer than the installed version 2/);
 });

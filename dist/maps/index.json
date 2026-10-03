@@ -22,5 +22,52 @@
   "ending": "story",
   "objectives": "objectives.json",
   "story": "story.json",
-  "registries": "registries.json"
+  "registries": "registries.json",
+  "contentVersion": 1,
+  "requires": {
+    "engineVersion": 1,
+    "saveSchema": 4
+  },
+  "integrity": [
+    {
+      "id": "registry:main",
+      "path": "registries.json",
+      "sha256": "0b7381acb5650df084a0d6464eeb58c90f8dec425d659da3c05d8deba0c7d0b2"
+    },
+    {
+      "id": "map:meadow",
+      "path": "meadow.json",
+      "sha256": "3459d2914e3a5bb43fa138262b69e183d9fd46510a56ae9e71ef5e632c4f4bb9"
+    },
+    {
+      "id": "map:amber-ridge",
+      "path": "amber-ridge.json",
+      "sha256": "a3be6d37aaeef1f3002a4403eb0c713b57f33960a0db3571ff6994fca8b5113f"
+    },
+    {
+      "id": "map:frostveil-grove",
+      "path": "frostveil-grove.json",
+      "sha256": "935a6456c43d3fd5974cb0750a9831e3885f72dab72da96d65f46541a1465fa8"
+    },
+    {
+      "id": "map:reedfen-wetlands",
+      "path": "reedfen-wetlands.json",
+      "sha256": "34fe1ad9f50714ec0f1e68f5717ca1aa99488da59a1e6c08b3b4eb08dc86ca7a"
+    },
+    {
+      "id": "map:orchard-ruins",
+      "path": "orchard-ruins.json",
+      "sha256": "af2a898dfc4355750d59023e350b3da20abba7651fca1197457b168ef0d58e38"
+    },
+    {
+      "id": "objectives:main",
+      "path": "objectives.json",
+      "sha256": "7453a4058f759636469186b03e9c11a2890240d2f79adb2ac1cfdc1ac81a462f"
+    },
+    {
+      "id": "story:main",
+      "path": "story.json",
+      "sha256": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927"
+    }
+  ]
 }

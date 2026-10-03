@@ -20,6 +20,11 @@ test('pack CLI scaffolds, extends, validates and previews a data-only pack in pa
     assert.match(run('validate-pack', pack), /2 map\(s\), 2 species/);
     const index = JSON.parse(readFileSync(join(pack, 'index.json'), 'utf8'));
     assert.deepEqual(index.maps, ['start', 'orchard']);
+    assert.deepEqual(index.requires, {engineVersion: 1, saveSchema: 4});
+    assert.deepEqual(
+      index.integrity.map(file => file.id),
+      ['registry:main', 'map:start', 'map:orchard'],
+    );
     assert.match(run('preview-pack', pack, 'orchard'), /Orchard \(orchard\)/);
 
     const refused = spawnSync(process.execPath, [script, 'create-pack', pack, '--id', 'tiny-adventure', '--name', 'Changed'], {encoding: 'utf8'});
@@ -32,7 +37,11 @@ test('pack CLI scaffolds, extends, validates and previews a data-only pack in pa
     writeFileSync(mapPath, JSON.stringify(map));
     const invalid = spawnSync(process.execPath, [script, 'validate-pack', pack], {encoding: 'utf8'});
     assert.notEqual(invalid.status, 0);
-    assert.match(invalid.stderr, /unknown species "missing-species"/);
+    assert.match(invalid.stderr, /SHA-256 mismatch for maps\/orchard\.json/);
+    assert.match(run('refresh-manifest', pack), /Refreshed tiny-adventure content version 1/);
+    const invalidAfterRefresh = spawnSync(process.execPath, [script, 'validate-pack', pack], {encoding: 'utf8'});
+    assert.notEqual(invalidAfterRefresh.status, 0);
+    assert.match(invalidAfterRefresh.stderr, /unknown species "missing-species"/);
   } finally {
     rmSync(root, {recursive: true, force: true});
   }

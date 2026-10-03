@@ -148,7 +148,7 @@ function postStart() {
       toast(game.save.recap);
       game.save.recap = '';
     }
-    if (['restored', 'recovered', 'future', 'foreign', 'unavailable', 'transaction-recovered', 'transaction-pending'].includes(loaded.status))
+    if (['restored', 'recovered', 'future', 'foreign', 'incompatible', 'unavailable', 'transaction-recovered', 'transaction-pending'].includes(loaded.status))
       app.menus.saveNotice(loaded.status, loaded.message);
     if (!resumed) actions.checkEnding(); // a save that already earned every seal sees the ending once
   };
@@ -212,6 +212,11 @@ Object.assign(actions, {
     location.reload();
   },
   exportSave() {
+    if (loaded.status === 'incompatible' && loaded.raw) {
+      downloadText(exportFileName(), loaded.raw.endsWith('\n') ? loaded.raw : `${loaded.raw}\n`);
+      toast('Unmodified save copy downloaded. Restore the matching complete game build to continue this adventure.');
+      return;
+    }
     app.persist(); // so the file matches what is on screen
     downloadText(exportFileName(), exportBackup(codec, game.save, app.build));
     toast('Save file downloaded. Import it in another browser to continue there.');
@@ -280,7 +285,7 @@ async function boot() {
           ]),
         ),
       );
-      codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id});
+      codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id, contentVersion: rawPack.contentVersion ?? 1});
       if (editorPreviewMap) {
         const region = rawMaps.findIndex(map => map.id === editorPreviewId);
         const fresh = codec.fresh();

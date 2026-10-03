@@ -45,6 +45,8 @@ export function parseBackup(text, codec) {
   if (![VERSION, 3, 2].includes(payload.version)) return {ok: false, reason: `Saves of schema ${payload.version} are not supported.`};
   if (packOf(payload) !== codec.pack)
     return {ok: false, reason: `That save belongs to another adventure ("${packOf(payload)}"), not "${codec.pack}". Your current progress was not touched.`};
+  const contentProblem = codec.contentIssue(payload);
+  if (contentProblem) return {ok: false, reason: contentProblem};
   const save = codec.normalize(payload, payload.version === 2);
   if (!save) return {ok: false, reason: 'That file does not look like a Mossvale save.'};
   return {
@@ -78,7 +80,9 @@ export function importSave({storage, codec, save, incoming}) {
 /** The checkpoint kept from the start of the last session, as a validated save, or null. */
 export function readCheckpoint(storage, codec) {
   try {
-    const save = codec.normalize(JSON.parse(readSaveItem(storage, KEYS.backup)), false);
+    const raw = JSON.parse(readSaveItem(storage, KEYS.backup));
+    if (codec.contentIssue(raw)) return null;
+    const save = codec.normalize(raw, false);
     return save ?? null;
   } catch {
     return null;
