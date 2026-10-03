@@ -8,7 +8,8 @@ Issue [#21](https://github.com/King-Zalogon/mossvale/issues/21). What this repos
 - Every push and pull request runs CI (`.github/workflows/ci.yml`). It also runs `npm run build` and keeps the result as a GitHub Actions artifact named `mossvale-<commit sha>` for 90 days: a complete, stamped copy of the game for exactly that commit.
 - `npm run build` writes `build/` (a copy of `dist/` plus `version.json`: commit, short commit, branch, whether the tree was dirty, build time and the save schema). The in-game menu shows `build abcdef0 · 2026-10-01`, or "development build" when no stamp exists, so you can tell which commit you are playing.
 - Saves are compatible across updates: frozen saves from every schema generation live in `tests/fixtures/saves/` and `npm test` fails if one stops loading or changes meaning ([SAVE_FORMAT.md](SAVE_FORMAT.md)). Preferences and the "new game" backup are separate keys that updates never touch.
-- Checked 2026-10-01 through the GitHub API: the repository **is public** (`visibility: public`). Nothing here changed that.
+- Checked 2026-10-03 through the GitHub API: the repository **is public** (`visibility: public`). Nothing here changed that.
+- The owner’s current instruction is to leave both repository visibility and the hosted game audience unchanged. This repository does not push or deploy the site, so a merged commit is not represented as a published playable update.
 
 ## What this repository does not know
 

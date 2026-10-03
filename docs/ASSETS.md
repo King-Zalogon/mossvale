@@ -34,4 +34,18 @@ Names never describe a story role. A ranger is a map landmark (`kind: ranger`, `
 
 ## Source and provenance
 
-The older PNGs are crops exported from generated sprite sheets. Character artwork added for #36/#61 retains generated source sheets and prompts in `art/characters/source/`, with fixed-cell exports produced by `art/characters/export.py`; frame order, source references and walk cadence are in `art/characters/metadata.json` and `art/characters/SOURCES.md`. Open `dist/character-preview.html` to inspect every player pose and NPC facing at gameplay scale, including the production renderer fixture. Pillow is needed to re-export the generated sheets. Rights and attribution for distribution are tracked separately (deferred in the roadmap).
+Every runtime PNG now has a pixel-preserving editable cell in an RGBA source atlas under `art/assets/source/`. `art/assets/metadata.json` maps each named asset to its sheet, cell rectangle, dimensions, anchor and animation frame order. `art/assets/export.py` crops those cells back into `dist/assets/` without resizing or changing their pixels:
+
+```sh
+python3 art/assets/export.py --check # confirm source cells exactly match the runtime files
+python3 art/assets/export.py        # export source cells after editing an atlas
+npm run validate
+```
+
+The optional `--pack` command bootstraps atlases from the current runtime PNGs and refuses to overwrite existing source work. Use `--pack --force` only when intentionally rebuilding all source atlases from `dist/`.
+
+The original generation sheets and briefs are retained for the red-cap motion, traveler and gardener art in `art/characters/source/`; those original references are linked from `art/characters/metadata.json` and `art/characters/SOURCES.md`. The older prop, creature and legacy-person atlases are reconstructed from the exact existing runtime crops, so their original generation prompts were not recovered. This distinction is recorded per asset in the source metadata.
+
+All assets use `bottom-center` anchors. World objects set their deliberate apparent size in map data, the player uses a 36 px world width, and creature portraits share the 85–110 px UI widths in `render/sprites.js` and the menu/battle callers. Frames with multiple poses declare the fixed cell size and direction order in the manifest and source metadata. The browser preview at `dist/character-preview.html` shows the generated character batch at gameplay scale.
+
+Rights and attribution for distribution are tracked separately (deferred in the roadmap).
