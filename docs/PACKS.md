@@ -19,13 +19,14 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
   "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal"], // the order it is meant to be completed in
   "ending": "story", // the ending is the one in the story file
   "objectives": "objectives.json",
-  "story": "story.json"
+  "story": "story.json",
+  "prefabs": { "waystation": { "footprint": {"w": 5, "h": 4}, "slots": [] } } // optional; see PREFABS.md
 }
 ```
 
 | Part of the issue | Where it lives |
 | --- | --- |
-| Maps | `maps` + `dist/maps/<id>.json` ([MAP_FORMAT.md](MAP_FORMAT.md)) |
+| Maps | `maps` + `dist/maps/<id>.json` ([MAP_FORMAT.md](MAP_FORMAT.md)); optional reusable `prefabs` and `instances` ([PREFABS.md](PREFABS.md)) |
 | Species availability | `species`; zones and guardians may use only these, and each must be findable |
 | Species, type, region, move, economy, tactic and growth rules | `registries`; versioned pack data references art by shared asset ID |
 | Object and NPC roles | each landmark's `kind` (`ranger`, `cottage`, `sign`, `chest`, `shrine`), `name`, `tag`, `label`, `text`/`lines` |

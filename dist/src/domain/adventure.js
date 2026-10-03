@@ -1,5 +1,6 @@
 /* Turns raw map JSON plus the content registries into validated, compiled maps indexed by region. Pure. */
 import {compileMap, validateMaps} from './mapdata.js';
+import {expandMapPrefabs} from './prefabs.js';
 import {collectFlags, validateObjectives} from './objectives.js';
 import {validateStory} from './story.js';
 import {validatePack} from './pack.js';
@@ -16,21 +17,23 @@ import {validatePack} from './pack.js';
 export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawObjectives, rawStory, rawPack) {
   const spriteNames = new Set(assets.map(a => a.name));
   const speciesIds = new Set(species.map(s => s.id));
-  const errors = validateMaps(rawMaps, {spriteNames, speciesIds});
-  const ordered = regions.map(r => rawMaps.find(m => m?.id === r.id));
+  const expansion = expandMapPrefabs(rawMaps, rawPack?.prefabs);
+  const maps = expansion.maps;
+  const errors = [...expansion.errors, ...validateMaps(maps, {spriteNames, speciesIds})];
+  const ordered = regions.map(r => maps.find(m => m?.id === r.id));
   regions.forEach((r, i) => {
     if (!ordered[i]) errors.push(`region "${r.id}": no map file with this id`);
   });
-  for (const m of rawMaps) if (m?.id && !regions.some(r => r.id === m.id)) errors.push(`map ${m.id}: no region with this id in the pack registry`);
+  for (const m of maps) if (m?.id && !regions.some(r => r.id === m.id)) errors.push(`map ${m.id}: no region with this id in the pack registry`);
   if (rawObjectives !== undefined) {
-    errors.push(...validateObjectives(rawObjectives, {mapIds: new Set(rawMaps.map(m => m?.id))}));
+    errors.push(...validateObjectives(rawObjectives, {mapIds: new Set(maps.map(m => m?.id))}));
   }
-  if (rawStory !== undefined) errors.push(...validateStory(rawStory, {mapIds: new Set(rawMaps.map(m => m?.id))}));
+  if (rawStory !== undefined) errors.push(...validateStory(rawStory, {mapIds: new Set(maps.map(m => m?.id))}));
   if (rawPack !== undefined) {
     errors.push(...validatePack(rawPack, {packId, speciesIds}));
     if (Array.isArray(rawPack?.maps)) {
-      for (const id of rawPack.maps) if (!rawMaps.some(m => m?.id === id)) errors.push(`pack maps: "${id}" is listed but no such map was loaded`);
-      for (const m of rawMaps) if (m?.id && !rawPack.maps.includes(m.id)) errors.push(`pack maps: map "${m.id}" is loaded but not listed in the pack`);
+      for (const id of rawPack.maps) if (!maps.some(m => m?.id === id)) errors.push(`pack maps: "${id}" is listed but no such map was loaded`);
+      for (const m of maps) if (m?.id && !rawPack.maps.includes(m.id)) errors.push(`pack maps: map "${m.id}" is loaded but not listed in the pack`);
     }
     if (rawPack?.ending === 'story' && !rawStory?.ending) errors.push('pack ending: the pack refers to the story ending, but the story file defines none');
   }
