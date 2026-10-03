@@ -446,11 +446,13 @@ console.log('ok larger text and touch targets');
   fixturePack = 'hearth';
   const {page, errors} = await open('');
   await page.waitForFunction(() => window.mossvale?.getState().world.map?.id === 'hearth-yard');
+  const hp = () => page.evaluate(() => window.mossvale.maxHP(window.mossvale.getState().save.active));
+  const before = await hp();
   await page.evaluate(() => {
     const state = window.mossvale.getState();
-    state.save.team[0].xp = 40;
+    state.save.team[state.save.active].xp = 40; // the starter is random, so use whichever one this run got
   });
-  assert.equal(await page.evaluate(() => window.mossvale.maxHP(0)), 46, 'the hearth progression registry changes level tuning at the configured XP boundary');
+  assert.equal((await hp()) - before, 4, 'the hearth progression registry changes level tuning at the configured XP boundary');
   assert.deepEqual(errors, []);
   fixturePack = null;
   console.log('ok alternate pack registry boot');
