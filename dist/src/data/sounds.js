@@ -63,4 +63,5 @@ export const AMBIENCE = {
   meadow: {drone: [196, 294], noise: {f: 700, q: 0.7, g: 0.05}, swell: 0.12},
   'amber-ridge': {drone: [110, 165], noise: {f: 1100, q: 0.5, g: 0.06}, swell: 0.08},
   'frostveil-grove': {drone: [262, 392], noise: {f: 2200, q: 1.1, g: 0.045}, swell: 0.1},
+  'reedfen-wetlands': {drone: [174, 220], noise: {f: 420, q: 1.2, g: 0.055}, swell: 0.14},
 };

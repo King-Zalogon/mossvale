@@ -4,6 +4,7 @@ import {expandMapPrefabs} from './prefabs.js';
 import {collectFlags, validateObjectives} from './objectives.js';
 import {validateStory} from './story.js';
 import {validatePack} from './pack.js';
+import {biomes} from '../data/biomes.js';
 
 /**
  * @param {object[]} rawMaps parsed map files
@@ -41,7 +42,7 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
     const available = rawPack?.species ? species.filter(s => rawPack.species.includes(s.id)) : species;
     errors.push(
       ...checkProgression(ordered, regions, rawObjectives?.objectives ?? [], rawStory),
-      ...checkSources(ordered, available),
+      ...checkSources(ordered, available, available.length === species.length ? biomes : []),
       ...checkPoolsStayInPack(ordered, available),
       ...checkMilestoneOrder(ordered, regions, rawPack?.milestones),
     );
@@ -100,10 +101,19 @@ function checkProgression(ordered, regions, objectives, story) {
 }
 
 /** Every creature must be findable: it has to appear in at least one encounter zone (zones are validated as reachable). */
-function checkSources(ordered, species) {
+function checkSources(ordered, species, expectedBiomes = []) {
   const sourced = new Set();
   for (const m of ordered) for (const z of m.zones ?? []) for (const e of z.pool) sourced.add(typeof e === 'string' ? e : e.species);
-  return species.filter(s => !sourced.has(s.id)).map(s => `species: "${s.id}" has no encounter zone in any map, so it could never be found`);
+  const errors = species.filter(s => !sourced.has(s.id)).map(s => `species: "${s.id}" has no encounter zone in any map, so it could never be found`);
+  for (const biome of expectedBiomes) {
+    const primary = species.filter(s => s.biome === biome.id);
+    if (primary.length !== 3) errors.push(`biome "${biome.id}" needs exactly three primary species, found ${primary.length}`);
+    const biomeMaps = ordered.filter(m => m.biome === biome.id);
+    if (!biomeMaps.length) errors.push(`biome "${biome.id}" needs at least one playable map`);
+    const pool = new Set(biomeMaps.flatMap(m => (m.zones ?? []).flatMap(z => z.pool.map(e => (typeof e === 'string' ? e : e.species)))));
+    for (const s of primary) if (!pool.has(s.id)) errors.push(`species: primary ${biome.id} resident "${s.id}" is missing from ${biome.name} encounters`);
+  }
+  return errors;
 }
 
 /** A pack's creature list is the source of truth: encounter zones and shrine guardians may only use those creatures. */
