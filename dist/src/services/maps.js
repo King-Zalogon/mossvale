@@ -1,4 +1,4 @@
-/* Fetches map JSON listed in maps/index.json, plus the objectives file it names.
+/* Fetches map JSON listed in maps/index.json (the adventure pack, docs/PACKS.md), plus the objectives and story files it names.
    Parsing/validation happens in domain/adventure.js. */
 export async function fetchAdventure(base = 'maps/') {
   const get = async name => {
@@ -12,5 +12,5 @@ export async function fetchAdventure(base = 'maps/') {
     index.objectives ? get(index.objectives) : undefined,
     index.story ? get(index.story) : undefined,
   ]);
-  return {maps, objectives, story};
+  return {maps, objectives, story, pack: index};
 }

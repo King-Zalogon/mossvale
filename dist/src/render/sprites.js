@@ -4,22 +4,41 @@ import {assets} from '../data/assets.js';
 
 export const sprites = [];
 
+const tinted = new Map();
+
+/** A copy of sprite `id` with the canvas `filter` baked in once. Applying `ctx.filter` per draw is re-rasterised every frame. */
+function tintedSprite(id, tint) {
+  const key = id + '|' + tint;
+  let copy = tinted.get(key);
+  if (!copy) {
+    const im = sprites[id];
+    copy = document.createElement('canvas');
+    copy.width = im.naturalWidth;
+    copy.height = im.naturalHeight;
+    const c = copy.getContext('2d');
+    c.filter = tint;
+    c.drawImage(im, 0, 0);
+    tinted.set(key, copy);
+  }
+  return copy;
+}
+
 export function drawSprite(c, id, x, y, w, options = {}) {
-  const im = sprites[id];
-  if (!im?.complete || !im.naturalWidth) return;
+  const source = sprites[id];
+  if (!source?.complete || !source.naturalWidth) return;
+  const im = options.tint && options.tint !== 'none' ? tintedSprite(id, options.tint) : source; // same pixel size as `source`
   const meta = assets[id];
   const frame = options.frame || meta?.frames?.defaultFrame || {column: 0, row: 0};
   const columns = meta?.frames?.columns || 1;
   const rows = meta?.frames?.rows || 1;
-  const sourceWidth = im.naturalWidth / columns;
-  const sourceHeight = im.naturalHeight / rows;
+  const sourceWidth = source.naturalWidth / columns;
+  const sourceHeight = source.naturalHeight / rows;
   const frameWidth = meta?.frames?.frameWidth || sourceWidth;
   const frameHeight = meta?.frames?.frameHeight || sourceHeight;
   const h = (w * frameHeight) / frameWidth;
   c.save();
   c.imageSmoothingEnabled = false;
   if (options.alpha !== undefined) c.globalAlpha = options.alpha;
-  if (options.tint) c.filter = options.tint;
   if (options.flip) {
     c.translate(Math.round(x), Math.round(y));
     c.scale(-1, 1);

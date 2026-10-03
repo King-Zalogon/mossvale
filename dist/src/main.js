@@ -10,6 +10,7 @@ import {effectiveness, level, maxHP} from './domain/rules.js';
 import {currentObjective} from './domain/objectives.js';
 import {isWalkable, nearestWalkable, zoneAt} from './domain/world.js';
 import {buildAdventure} from './domain/adventure.js';
+import {PACK_ID} from './data/pack.js';
 import {FACING, followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
@@ -44,11 +45,12 @@ const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
 const rng = debug && params.has('seed') ? seededRng(Number(params.get('seed'))) : Math.random;
 const canvas = $('#game');
-const codec = save.create({species, regions, size: MAX_MAP_SIZE});
+const codec = save.create({species, regions, size: MAX_MAP_SIZE, pack: PACK_ID});
 const storage = getStorage();
 const loaded = codec.load(storage);
 const settings = loadSettings(storage);
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
 
 const game = {
   save: loaded.save,
@@ -127,7 +129,8 @@ function postStart() {
       toast(game.save.recap);
       game.save.recap = '';
     }
-    if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
+    if (['restored', 'recovered', 'future', 'foreign', 'unavailable', 'transaction-recovered', 'transaction-pending'].includes(loaded.status))
+      app.menus.saveNotice(loaded.status, loaded.message);
     if (!resumed) actions.checkEnding(); // a save that already earned every seal sees the ending once
   };
   if (!actions.showPremise(rest)) rest(); // the opening card comes first on a brand-new adventure
@@ -156,10 +159,16 @@ Object.assign(actions, {
     settings[key] = value;
     if (key === 'sound') {
       app.audio.set(value);
+      app.audio.unlock();
       $('#sound').textContent = value ? 'Sound on' : 'Sound off';
       $('#sound').setAttribute('aria-pressed', String(value));
-      app.audio.tone(620);
+      app.audio.play('confirm');
     }
+    if (key === 'volume') {
+      app.audio.setVolume(value);
+      app.audio.play('confirm');
+    }
+    if (key === 'ambience') app.audio.setAmbienceEnabled(value);
     if (key === 'run') {
       ui.touchRun = value;
       $('#touch-run').setAttribute('aria-pressed', String(value));
@@ -177,7 +186,7 @@ Object.assign(actions, {
   newGame() {
     const result = startOver({storage, codec, save: game.save});
     if (!result.ok) {
-      toast('Could not start over: this browser will not let Mossvale write its save.');
+      toast('Could not start over. Your current adventure is unchanged; export it from Backup & restore before trying again.');
       return;
     }
     app.persist.lock();
@@ -196,19 +205,21 @@ Object.assign(actions, {
     }
   },
   applyImport(incoming) {
-    if (!importSave({storage, codec, save: game.save, incoming}).ok) return toast('Could not import: this browser will not let Mossvale write its save.');
+    if (!importSave({storage, codec, save: game.save, incoming}).ok)
+      return toast('Could not import. Your current adventure is unchanged; export it from Backup & restore before trying again.');
     app.persist.lock();
     location.reload();
   },
   restoreCheckpoint() {
-    if (!restoreCheckpoint({storage, codec, save: game.save}).ok) return toast('Could not restore the checkpoint.');
+    if (!restoreCheckpoint({storage, codec, save: game.save}).ok)
+      return toast('Could not restore the checkpoint. Your current adventure is unchanged; export it from Backup & restore before trying again.');
     app.persist.lock();
     location.reload();
   },
   restoreAdventure() {
     const result = restoreArchive({storage, codec, save: game.save});
     if (!result.ok) {
-      toast('Could not restore the earlier adventure.');
+      toast('Could not restore the earlier adventure. Your current adventure is unchanged; export it from Backup & restore before trying again.');
       return;
     }
     app.persist.lock();
@@ -232,8 +243,8 @@ async function boot() {
   }
   if (!app.maps.length) {
     try {
-      const {maps: rawMaps, objectives: rawObjectives, story: rawStory} = await fetchAdventure();
-      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions}, rawObjectives, rawStory);
+      const {maps: rawMaps, objectives: rawObjectives, story: rawStory, pack: rawPack} = await fetchAdventure();
+      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: PACK_ID}, rawObjectives, rawStory, rawPack);
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;
@@ -288,6 +299,9 @@ function resize() {
 
 let last = 0;
 let frame = 0;
+// Frame timings for scripts/measure-perf.mjs; collected only with ?debug (the sample is a ring of the last 600 frames).
+const perf = debug ? {draw: [], mini: [], frames: 0, started: performance.now()} : null;
+const sample = (list, ms) => (list.push(ms), list.length > 600 && list.shift());
 function loop(t) {
   const dt = Math.min((t - last) / 1000, 0.04) || 0;
   last = t;
@@ -324,8 +338,15 @@ function loop(t) {
       moving: isMoving(ui) && !ui.modalMode && !ui.paused,
       reducedMotion: app.motionReduced(),
     };
+    const t0 = perf ? performance.now() : 0;
     renderer.drawWorld(view);
+    const t1 = perf ? performance.now() : 0;
     if (frame % 4 === 0) renderer.drawMinimap(view);
+    if (perf) {
+      sample(perf.draw, t1 - t0);
+      if (frame % 4 === 0) sample(perf.mini, performance.now() - t1);
+      perf.frames++;
+    }
   }
   requestAnimationFrame(loop);
 }
@@ -344,6 +365,7 @@ $('#menu').onclick = () => actions.menu();
 $('#pause').onclick = () => {
   if (game.battle || ui.modalMode) return;
   ui.paused = !ui.paused;
+  app.audio.hold(ui.paused);
   $('#pause').textContent = ui.paused ? 'Resume' : 'Pause';
   ui.keys = {};
   ui.touch = null;
@@ -355,6 +377,11 @@ window.addEventListener('resize', resize);
 motionQuery.addEventListener?.('change', applyMotion);
 
 app.audio.set(settings.sound);
+app.audio.setVolume(settings.volume);
+app.audio.setAmbienceEnabled(settings.ambience);
+// Browsers keep audio locked until a gesture: unlock on every one (cheap), which also resumes after an interruption.
+for (const type of ['pointerdown', 'keydown']) window.addEventListener(type, () => app.audio.unlock(), {capture: true});
+document.addEventListener('visibilitychange', () => app.audio.hold(document.hidden || ui.paused));
 if (settings.sound) {
   $('#sound').textContent = 'Sound on';
   $('#sound').setAttribute('aria-pressed', 'true');
@@ -390,5 +417,6 @@ if (debug) {
     level: id => level(game.save, id),
     maxHP: id => maxHP(game.save, id),
     effectiveness,
+    perf: () => perf,
   };
 }

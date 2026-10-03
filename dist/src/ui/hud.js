@@ -46,11 +46,12 @@ export function renderHud(save, q = null) {
 }
 
 /** @param {'saved'|'session-only'|'unavailable'} status */
-export function renderSaveStatus(status) {
+export function renderSaveStatus(status, message = '') {
   if (status === 'saved') {
     $('#saved').textContent = 'PROGRESS SAVED';
+    $('#save-note').textContent = 'Progress saves on this device.';
   } else {
     $('#saved').textContent = 'SESSION ONLY';
-    if (status === 'unavailable') $('#save-note').textContent = 'Storage unavailable. Keep this tab open to retain progress.';
+    if (status === 'unavailable') $('#save-note').textContent = message || 'Storage unavailable. Keep this tab open to retain progress.';
   }
 }

@@ -5,13 +5,20 @@ import {readFileSync} from 'node:fs';
 import {assets} from '../dist/src/data/assets.js';
 import {species} from '../dist/src/data/species.js';
 import {regions} from '../dist/src/data/regions.js';
+import {PACK_ID} from '../dist/src/data/pack.js';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
 
 const dir = new URL('../dist/maps/', import.meta.url);
 const read = name => JSON.parse(readFileSync(new URL(name, dir), 'utf8'));
 const index = read('index.json');
 const raw = index.maps.map(id => read(id + '.json'));
-const {maps, errors} = buildAdventure(raw, {assets, species, regions}, index.objectives ? read(index.objectives) : undefined);
+const {maps, errors} = buildAdventure(
+  raw,
+  {assets, species, regions, packId: PACK_ID},
+  index.objectives ? read(index.objectives) : undefined,
+  index.story ? read(index.story) : undefined,
+  index,
+);
 if (errors.length) {
   console.error(`${errors.length} map error(s):\n` + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);

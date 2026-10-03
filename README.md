@@ -33,7 +33,7 @@ On touch screens, use the directional pad, Run button, and interaction prompt.
 
 Explore Mossvale Meadow, Amber Ridge, and Frostveil Grove. Befriend eight species. Up to three companions form your team and the rest wait in the reserve. Battles include elemental strengths, a Focus resource for the elemental move, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
 
-A title screen offers Continue (or Start adventure), Settings, New game and, after a restart, Restore previous adventure. New game keeps your old adventure as a backup; sound, motion and zoom preferences persist.
+A title screen offers Continue (or Start adventure), Settings, New game and, after a restart, Restore previous adventure. New game keeps your old adventure as a backup; sound, volume, ambient music, motion and zoom preferences persist.
 
 Awaken each shrine by defeating its guardian to unlock the next region. Visit Ranger Iris to heal your team and refill capture orbs, or buy extra supplies with coins earned from battles and treasure chests.
 
@@ -43,10 +43,11 @@ Progress saves automatically in the current browser using local storage. Origina
 
 - `dist/index.html`, `dist/style.css`: interface and styles.
 - `dist/src/`: game code as ES modules (data, pure domain rules, save codec, services, rendering, UI, controller). See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+- `dist/maps/index.json`: the adventure pack manifest ([docs/PACKS.md](docs/PACKS.md)).
 - `dist/maps/*.json`: map data (terrain, landmarks, exits, encounter zones), see [docs/MAP_FORMAT.md](docs/MAP_FORMAT.md); `npm run map:preview -- meadow` shows one.
 - `dist/src/data/assets.js`: asset manifest (names, sizes, required status).
 - `dist/assets/`: original creature, character, and environment artwork, named by what it shows ([docs/ASSETS.md](docs/ASSETS.md)). `dist/favicon.svg`: site icon.
-- `docs/`: [game design](docs/GAME_DESIGN.md), [architecture](docs/ARCHITECTURE.md), [map format](docs/MAP_FORMAT.md), [save format](docs/SAVE_FORMAT.md), [roadmap](docs/FULL_GAME_ROADMAP.md), [assets](docs/ASSETS.md).
+- `docs/`: [game design](docs/GAME_DESIGN.md), [architecture](docs/ARCHITECTURE.md), [map format](docs/MAP_FORMAT.md), [save format](docs/SAVE_FORMAT.md), [roadmap](docs/FULL_GAME_ROADMAP.md), [assets](docs/ASSETS.md), [performance](docs/PERFORMANCE.md), [audio](docs/AUDIO.md).
 - `tests/`, `scripts/`, `.github/workflows/ci.yml`: automated checks.
 
 The game uses vanilla JavaScript and Canvas 2D. It has no backend, account system, or multiplayer service. Fonts are loaded from Google Fonts with local fallbacks.

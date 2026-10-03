@@ -8,7 +8,7 @@ import {codec, newSave} from './helpers.mjs';
 
 const store = (init = {}) => {
   const m = new Map(Object.entries(init));
-  return {m, getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v))};
+  return {m, getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k)};
 };
 const played = () => {
   const save = newSave();
@@ -92,7 +92,7 @@ test('settings persist separately from the save and survive start over', () => {
   const s = store({[KEYS.v3]: codec.serialize(played())});
   saveSettings(s, {sound: true, motion: 'reduced', zoom: 1.8, run: true, text: 'large'});
   startOver({storage: s, codec, save: played()});
-  assert.deepEqual(loadSettings(s), {sound: true, motion: 'reduced', zoom: 1.8, run: true, text: 'large'});
+  assert.deepEqual(loadSettings(s), {sound: true, volume: 'medium', ambience: true, motion: 'reduced', zoom: 1.8, run: true, text: 'large'});
   assert.equal(s.m.has(SETTINGS_KEY), true);
   assert.deepEqual(loadSettings(store({[SETTINGS_KEY]: '{broken'})), DEFAULTS);
   assert.deepEqual(

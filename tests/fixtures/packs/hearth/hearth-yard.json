@@ -1,0 +1,101 @@
+{
+ "format": 1,
+ "id": "hearth-yard",
+ "name": "Hearth Hamlet",
+ "size": {
+  "w": 8,
+  "h": 8
+ },
+ "legend": {
+  ".": "void",
+  "g": "ground",
+  "p": "path",
+  "w": "water",
+  "t": "tallgrass"
+ },
+ "terrain": [
+  "........",
+  "..gggg..",
+  "..ggtt..",
+  "..gggg..",
+  "..gggg..",
+  "..gggg..",
+  "..gggg..",
+  "........"
+ ],
+ "spawns": {
+  "camp": [
+   3,
+   5
+  ]
+ },
+ "landmarks": [
+  {
+   "id": "building",
+   "sprite": "cottage-tiled",
+   "at": [
+    3,
+    2.2
+   ],
+   "w": 133,
+   "solid": 0.8,
+   "kind": "ranger",
+   "label": "Talk to Healer Wren",
+   "name": "Healer Wren",
+   "tag": "HEALER",
+   "lines": [
+    {
+     "text": "The kettle is always on. Rest as long as you like."
+    }
+   ]
+  },
+  {
+   "id": "villager",
+   "sprite": "person-red-cap-south",
+   "at": [
+    5,
+    4
+   ],
+   "w": 37,
+   "kind": "sign",
+   "label": "Chat with the villager",
+   "text": "Wren never turns anyone away from her door."
+  },
+  {
+   "id": "box",
+   "kind": "chest",
+   "sprite": "chest-wooden",
+   "at": [
+    2,
+    6
+   ],
+   "w": 50,
+   "label": "Open the box",
+   "flag": "hearth-yard.chest",
+   "reward": {
+    "coins": 5,
+    "potions": 1,
+    "orbs": 1
+   }
+  }
+ ],
+ "exits": [],
+ "props": [],
+ "zones": [
+  {
+   "id": "patch",
+   "terrain": [
+    "t"
+   ],
+   "pool": [
+    "fernling",
+    "emberkin"
+   ],
+   "level": [
+    2,
+    3
+   ]
+  }
+ ],
+ "triggers": []
+}

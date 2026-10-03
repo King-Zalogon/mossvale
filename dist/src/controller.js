@@ -20,7 +20,7 @@ import {renderHud, renderRegion} from './ui/hud.js';
 export function createController(app) {
   const {game, ui, audio, rng, persist, canvas, actions, menus, maps, objCtx} = app;
   const save = () => game.save;
-  const tone = (f, d) => audio.tone(f, d);
+  const sfx = name => audio.play(name);
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
   const timeline = (app.timeline = createTimeline());
   const wait = ms => (app.motionReduced() ? 250 : ms);
@@ -67,6 +67,7 @@ export function createController(app) {
   function enterRegion(region) {
     game.world = buildWorld(maps[region]);
     renderRegion(region);
+    audio.setRegion(regions[region].id);
   }
 
   function close() {
@@ -102,7 +103,7 @@ export function createController(app) {
     fadeIn();
     close();
     refresh();
-    tone(600);
+    sfx('welcome');
     toast(`Welcome to ${regions[id].name}. The next chapter is yours.`);
   }
 
@@ -117,7 +118,7 @@ export function createController(app) {
     const swapped = !inParty(s, id) && s.party.length >= 3;
     setActive(s, id);
     refresh();
-    tone(560);
+    sfx('ready');
     close();
     toast(swapped ? `${species[id].name} joined the team in place of ${species[previous].name}.` : `${species[id].name} is ready to travel with you.`);
   }
@@ -128,7 +129,7 @@ export function createController(app) {
     const ok = kind === 'add' ? addToParty(save(), id) : removeFromParty(save(), id);
     if (!ok) return;
     refresh();
-    tone(520);
+    sfx('confirm');
     menus.party();
   }
 
@@ -145,7 +146,7 @@ export function createController(app) {
   function rest() {
     restAtCamp(save());
     refresh();
-    tone(640);
+    sfx('rest');
     openRanger('Everyone is rested, and your supplies are topped up. Safe travels!');
   }
 
@@ -160,7 +161,7 @@ export function createController(app) {
       return;
     }
     refresh();
-    tone(520);
+    sfx('buy');
     openRanger(result.offer.thanks);
   }
 
@@ -197,7 +198,7 @@ export function createController(app) {
       return;
     }
     const s = save();
-    tone(480);
+    sfx('tap');
     if (o.kind === 'ranger') openRanger();
     else if (o.kind === 'sign') toast(o.text ?? pickLine(o.lines, s, objCtx));
     else if (o.kind === 'chest') {
@@ -207,6 +208,7 @@ export function createController(app) {
         return;
       }
       refresh();
+      sfx('chest');
       showResult({
         title: 'A little trail treasure',
         copy: 'Something useful for the road ahead.',
@@ -299,7 +301,7 @@ export function createController(app) {
     timeline.cancel();
     game.battle = createBattle(s, rng, spec);
     refresh();
-    tone(spec.boss ? 230 : 660);
+    sfx(spec.boss ? 'guardian' : 'encounter');
     renderBattle(
       `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}${spec.boss ? '' : tip('first-battle')}${healthyParty(save()).length > 1 ? tip('can-switch') : ''}`,
     );
@@ -367,7 +369,7 @@ export function createController(app) {
     refresh();
     timeline.play(frames, {
       render: f => {
-        if (f.tone) tone(...f.tone);
+        if (f.sfx) sfx(f.sfx);
         renderBattle(f.message, f.animation, f.after, b);
       },
       done: () => finishPlayback(turn, b),
@@ -401,28 +403,28 @@ export function createController(app) {
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
         player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
-        frames.push({message: player, animation: 'attack', after: e.after, tone: [e.kind === 'element' ? 490 : 330], wait: wait(650)});
+        frames.push({message: player, animation: 'attack', after: e.after, sfx: e.kind === 'element' ? 'element' : 'strike', wait: wait(650)});
       } else if (e.type === 'throw') {
         player = 'The creature broke free of the orb.';
-        frames.push({message: 'The orb glows… will your new friend stay?', animation: 'capture', after: e.after, tone: [760], wait: wait(850)});
+        frames.push({message: 'The orb glows… will your new friend stay?', animation: 'capture', after: e.after, sfx: 'throw', wait: wait(850)});
       } else if (e.type === 'break-free') {
-        frames.push({message: 'The creature broke free of the orb!', animation: '', after: e.after, wait: wait(650)});
+        frames.push({message: 'The creature broke free of the orb!', animation: '', after: e.after, sfx: 'broke', wait: wait(650)});
       } else if (e.type === 'potion') {
         player = `${species[before.active].name} recovered ${e.healed} HP.`;
-        frames.push({message: player, animation: '', after: e.after, tone: [610], wait: wait(650)});
+        frames.push({message: player, animation: '', after: e.after, sfx: 'heal', wait: wait(650)});
       } else if (e.type === 'guard') {
         player = `${species[before.active].name} braced for the next hit.`;
-        frames.push({message: player, animation: '', after: e.after, tone: [400], wait: wait(650)});
+        frames.push({message: player, animation: '', after: e.after, sfx: 'guard', wait: wait(650)});
       } else if (e.type === 'switch') {
         player = `${a.name} joined the encounter.`;
-        frames.push({message: `${a.name} joined the encounter!`, animation: '', after: e.after, tone: [560], wait: wait(650)});
+        frames.push({message: `${a.name} joined the encounter!`, animation: '', after: e.after, sfx: 'join', wait: wait(650)});
       } else if (e.type === 'enemy') {
         const foe = species[b.id];
         frames.push({
           message: `${player} ${enemyText(foe, e)}`,
           animation: e.damage > 0 ? 'enemy' : '',
           after: e.after,
-          tone: [210],
+          sfx: 'hurt',
           wait: 0,
         });
       } else if (e.type === 'faint-switch') {
@@ -430,7 +432,7 @@ export function createController(app) {
           message: `${species[e.fainted].name} needs a rest. ${species[e.replacement].name} stepped in!`,
           animation: 'enemy',
           after: e.after,
-          tone: [210],
+          sfx: 'hurt',
           wait: 0,
         };
       }
@@ -458,7 +460,7 @@ export function createController(app) {
     const last = turn.events.at(-1);
     const r = regions[s.region];
     if (turn.ended === 'win') {
-      tone(840, 0.3);
+      sfx(last.newSeal ? 'seal' : 'win');
       const next = last.newSeal && s.region < 2;
       showResult({
         title: last.newSeal ? r.seal + ' awakened!' : 'A little stronger.',
@@ -474,7 +476,7 @@ export function createController(app) {
         onContinue: next ? () => travel(s.region + 1) : () => (close(), checkEnding()),
       });
     } else if (turn.ended === 'caught') {
-      tone(880, 0.35);
+      sfx('caught');
       showResult({
         title: last.isNew ? species[last.id].name + ' is your new friend!' : 'Another friendly face.',
         copy: last.isNew

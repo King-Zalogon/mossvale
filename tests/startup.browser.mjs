@@ -171,6 +171,8 @@ for (const [seed, weakened] of [
   assert.equal(await page.locator('#m-primary').isVisible(), true, 'the title screen is not dismissed by Escape');
   await page.click('#m-settings');
   await page.click('[data-set="sound"][data-value="true"]');
+  await page.click('[data-set="volume"][data-value="low"]');
+  await page.click('[data-set="ambience"][data-value="false"]');
   await page.click('[data-set="motion"][data-value="reduced"]');
   await page.click('#s-zoom-in');
   await page.click('#m-back');
@@ -180,6 +182,14 @@ for (const [seed, weakened] of [
   await page.reload();
   await page.waitForSelector('#m-primary');
   assert.equal(await page.textContent('#sound'), 'Sound on');
+  assert.deepEqual(
+    await page.evaluate(() => {
+      const s = JSON.parse(localStorage.getItem('mossvale-settings'));
+      return [s.sound, s.volume, s.ambience];
+    }),
+    [true, 'low', false],
+    'volume and ambience persist',
+  );
   assert.equal(await page.evaluate(() => document.body.classList.contains('reduce-motion')), true);
   await page.click('#m-primary');
   await page.keyboard.press('Escape'); // Escape opens the menu during play
@@ -351,9 +361,13 @@ for (const [seed, weakened] of [
   // Focus the Guard button, act, and check focus is still on a battle button after the re-render.
   await page.focus('#guard');
   await page.keyboard.press('Enter');
-  await page.waitForTimeout(1600);
-  const focused = await page.evaluate(() => document.activeElement?.id);
-  assert.ok(['guard', 'attack', 'element', 'catch', 'potion', 'flee', 'switch'].includes(focused), `focus returned to ${focused}`);
+  // Wait for the round to finish (not a fixed delay), then focus must be back on the control that was used.
+  await page.waitForFunction(() => window.mossvale.getState().battle?.busy === false, null, {timeout: 15000});
+  await page
+    .waitForFunction(() => document.activeElement?.id === 'guard', null, {timeout: 3000})
+    .catch(async () => {
+      assert.fail(`focus returned to ${await page.evaluate(() => document.activeElement?.id)}, not guard`);
+    });
   await page.keyboard.press('Escape');
   await page.waitForSelector('#modal', {state: 'hidden'});
   assert.equal(await page.evaluate(() => document.querySelector('header').inert), false, 'background works again');

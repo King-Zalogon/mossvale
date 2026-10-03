@@ -1,0 +1,101 @@
+{
+ "format": 1,
+ "id": "bakery-lane",
+ "name": "Bakery Row",
+ "size": {
+  "w": 8,
+  "h": 8
+ },
+ "legend": {
+  ".": "void",
+  "g": "ground",
+  "p": "path",
+  "w": "water",
+  "t": "tallgrass"
+ },
+ "terrain": [
+  "........",
+  "..gggg..",
+  "..ggtt..",
+  "..gggg..",
+  "..gggg..",
+  "..gggg..",
+  "..gggg..",
+  "........"
+ ],
+ "spawns": {
+  "camp": [
+   3,
+   5
+  ]
+ },
+ "landmarks": [
+  {
+   "id": "building",
+   "sprite": "cottage-tiled",
+   "at": [
+    3,
+    2.2
+   ],
+   "w": 133,
+   "solid": 0.8,
+   "kind": "sign",
+   "label": "Read the shop sign",
+   "text": "Fresh moss-bread daily. Closed on Mondays."
+  },
+  {
+   "id": "villager",
+   "sprite": "person-red-cap-south",
+   "at": [
+    5,
+    4
+   ],
+   "w": 37,
+   "kind": "ranger",
+   "label": "Talk to Baker Pim",
+   "name": "Baker Pim",
+   "tag": "PIM",
+   "lines": [
+    {
+     "text": "Take a loaf for the road."
+    }
+   ]
+  },
+  {
+   "id": "box",
+   "kind": "chest",
+   "sprite": "chest-wooden",
+   "at": [
+    2,
+    6
+   ],
+   "w": 50,
+   "label": "Open the box",
+   "flag": "bakery-lane.chest",
+   "reward": {
+    "coins": 5,
+    "potions": 1,
+    "orbs": 1
+   }
+  }
+ ],
+ "exits": [],
+ "props": [],
+ "zones": [
+  {
+   "id": "patch",
+   "terrain": [
+    "t"
+   ],
+   "pool": [
+    "fernling",
+    "emberkin"
+   ],
+   "level": [
+    2,
+    3
+   ]
+  }
+ ],
+ "triggers": []
+}

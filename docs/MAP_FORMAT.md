@@ -1,6 +1,6 @@
 # Map and event data format (version 1)
 
-Issue [#14](https://github.com/King-Zalogon/mossvale/issues/14). Maps are JSON files in `dist/maps/`, listed in `dist/maps/index.json`. The runtime reads them at startup (`services/maps.js`), validates them (`domain/mapdata.js`) and compiles them (`domain/adventure.js`). No rule code names a specific map: change the data, not the engine.
+Issue [#14](https://github.com/King-Zalogon/mossvale/issues/14). Maps are JSON files in `dist/maps/`, listed in `dist/maps/index.json` (the adventure pack manifest, see [PACKS.md](PACKS.md)). The runtime reads them at startup (`services/maps.js`), validates them (`domain/mapdata.js`) and compiles them (`domain/adventure.js`). No rule code names a specific map: change the data, not the engine.
 
 ## Workflow
 
@@ -53,7 +53,7 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 
 ## Persistence is separate from geometry
 
-Maps are immutable. Progress lives in the save under stable flags of the form `<map-id>.seal` (the shrine guardian was beaten) and `<map-id>.chest` (the chest was opened). Today these resolve to the existing `badges` / `chests` lists in the v3 save (`domain/rules.js: flagDone`), so existing saves keep working. Editing a map never changes what the player has completed. Pack-level namespacing of flags arrives with [#50](https://github.com/King-Zalogon/mossvale/issues/50).
+Maps are immutable. Progress lives in the save under stable flags of the form `<map-id>.seal` (the shrine guardian was beaten) and `<map-id>.chest` (the chest was opened). Today these resolve to the existing `badges` / `chests` lists in the v3 save (`domain/rules.js: flagDone`), so existing saves keep working. Editing a map never changes what the player has completed. Flags are unique within an adventure pack and a save records which pack it belongs to, see [PACKS.md](PACKS.md).
 
 ## What validation checks
 
