@@ -264,6 +264,7 @@ export function createController(app) {
         sprite: spriteId('chest-wooden'),
         rewards: [`${got.coins} coins`, `${got.potions} potions`, `${got.orbs} capture orbs`],
         button: 'Keep exploring',
+        onContinue: () => (close(), checkEnding()),
       });
     } else if (o.kind === 'gate') {
       if (o.requires && !flagDone(s, o.requires)) toast(`This trail opens when you earn the ${sealOf(o.requires)}. Visit the blue shrine marker.`);

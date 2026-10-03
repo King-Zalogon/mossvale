@@ -1,0 +1,54 @@
+{
+  "format": 1,
+  "id": "start",
+  "name": "Lantern Crossing",
+  "size": {"w": 12, "h": 8},
+  "legend": {
+    ".": "void",
+    "g": "ground",
+    "p": "path",
+    "w": "water",
+    "t": "tallgrass"
+  },
+  "terrain": [
+    "............",
+    "..ggggtt....",
+    "..ggggtt....",
+    "..gggggg....",
+    "..gggggg....",
+    "..gggggg....",
+    "..gggggg....",
+    "............"
+  ],
+  "spawns": {
+    "camp": [
+      3,
+      5
+    ]
+  },
+  "landmarks": [
+    {"id": "ranger", "kind": "ranger", "sprite": "person-red-cap-south", "at": [3, 4], "w": 35, "name": "Mira", "tag": "WAYFINDER", "label": "Speak with Mira", "lines": [{"text": "The lantern chest marks the end of this little crossing. Take the eastern trail through the grass."}]},
+    {"id": "waymark", "kind": "sign", "sprite": "signpost-wood", "at": [5, 4], "w": 34, "label": "Read the waymark", "text": "Follow the warm lights east. A small reward waits by the end of the path."},
+    {"id": "chest", "kind": "chest", "sprite": "chest-wooden", "at": [6, 2], "w": 42, "label": "Open the lantern chest", "flag": "start.chest", "reward": {"coins": 8, "potions": 1, "orbs": 2}}
+  ],
+  "exits": [],
+  "props": [],
+  "zones": [
+    {
+      "id": "start-meadow",
+      "terrain": [
+        "t"
+      ],
+      "pool": [
+        "fernling",
+        "emberkin"
+      ],
+      "level": [2, 3],
+      "distance": [
+        4,
+        7
+      ]
+    }
+  ],
+  "triggers": []
+}
