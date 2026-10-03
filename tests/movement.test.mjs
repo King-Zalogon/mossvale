@@ -1,7 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PLAYER_RADIUS} from '../dist/src/config.js';
-import {DIRECTIONS, FACING, WALK_FRAME_DISTANCE, facing, followerPoint, movePlayer, playerFrame, pushTrail} from '../dist/src/domain/exploration.js';
+import {
+  DIRECTIONS,
+  FACING,
+  WALK_FRAME_DISTANCE,
+  facing,
+  followerPoint,
+  movementFacing,
+  movePlayer,
+  playerFrame,
+  pushTrail,
+} from '../dist/src/domain/exploration.js';
 import {seededRng} from '../dist/src/domain/rng.js';
 import {buildWorld, isWalkable, nearestWalkable} from '../dist/src/domain/world.js';
 import {maps} from './helpers.mjs';
@@ -32,6 +42,24 @@ test('screen-space input selects each of the eight sprite rows', () => {
     inputs.map(([x, y]) => facing(x, y)),
     [0, 1, 2, 3, 4, 5, 6, 7],
   );
+});
+
+test('follower facing is derived from its own world-space path, including diagonals and stationary idle', () => {
+  assert.deepEqual(
+    [
+      movementFacing(-1, -1),
+      movementFacing(0, -1),
+      movementFacing(1, -1),
+      movementFacing(1, 0),
+      movementFacing(1, 1),
+      movementFacing(0, 1),
+      movementFacing(-1, 1),
+      movementFacing(-1, 0),
+      movementFacing(-1, -1),
+    ],
+    [FACING.north, FACING.northeast, FACING.east, FACING.southeast, FACING.south, FACING.southwest, FACING.west, FACING.northwest, FACING.north],
+  );
+  assert.equal(movementFacing(0, 0), null);
 });
 
 test('idle and reduced motion hold the idle cell; walking advances by distance and wraps', () => {

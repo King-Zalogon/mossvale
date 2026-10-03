@@ -5,7 +5,7 @@ export const rangerToShrineScript = [
   {type: 'finish-dialogue'},
   {type: 'advance-clock', milliseconds: 251},
   {type: 'walk-to', label: 'cottage-pass', target: {x: 11.1, y: 10}},
-  {type: 'walk-to', label: 'shrine-approach', target: {x: 11.1, y: 6.2}},
+  {type: 'walk-to', label: 'shrine-approach', target: {x: 11.1, y: 5.8}},
   {type: 'interact', target: 'shrine'},
   {type: 'challenge'},
   {type: 'battle-action', action: 'guard'},

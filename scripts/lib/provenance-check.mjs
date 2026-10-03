@@ -62,8 +62,10 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata, 
   const manifest = new Map(assets.map(asset => [asset.name, asset]));
   const sourceByName = new Map(sourceMetadata.assets.map(asset => [asset.name, asset]));
   let profileRegistry;
+  let followerMetadata;
   try {
     profileRegistry = JSON.parse(readFileSync(resolve(root, 'art/characters/export-profiles.json'), 'utf8'));
+    followerMetadata = JSON.parse(readFileSync(resolve(root, 'art/characters/creature-follower-metadata.json'), 'utf8'));
   } catch {
     return {errors: ['export-profiles.json: profile registry is missing or malformed']};
   }
@@ -88,6 +90,7 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata, 
         'player-motion': asset.kind === 'person' && asset.name === 'person-red-cap-motion',
         'npc-turnaround': asset.kind === 'person' && ['person-traveler', 'person-gardener'].includes(asset.name),
         'creature-combat': asset.kind === 'creature' && asset.name.endsWith('-combat'),
+        'creature-follower': asset.kind === 'creature' && asset.name.endsWith('-follower'),
         'creature-portrait': asset.kind === 'creature' && !asset.name.endsWith('-combat'),
         prop: asset.kind === 'prop',
       }[profile.category];
@@ -275,6 +278,32 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata, 
         }
       }
       if (combat.artPixelsChanged !== true) errors.push(`${where}: generated combat art must disclose that its pixels changed`);
+    }
+
+    if (subject?.runtimeFollower) {
+      const follower = subject.runtimeFollower;
+      const followerAsset = manifest.get(follower.assetId);
+      const fallbackAsset = manifest.get(follower.fallbackAssetId);
+      if (!exportIds.has(follower.assetId)) errors.push(`${where}: follower asset must resolve to a recorded export`);
+      if (!exportIds.has(follower.fallbackAssetId)) errors.push(`${where}: follower fallback must resolve to a recorded export`);
+      if (followerAsset?.frames?.columns !== 5 || followerAsset?.frames?.rows !== 8) errors.push(`${where}: follower atlas must declare a 5x8 frame grid`);
+      if (!fallbackAsset || fallbackAsset.name !== subject.id) errors.push(`${where}: follower fallback must be the canonical portrait`);
+      checkHash(root, {path: follower.contractPath, sha256: follower.contractSha256}, errors, `${where}: follower metadata`);
+      checkHash(root, follower.exportWorkflow, errors, `${where}: follower export workflow`);
+      checkProfile(follower.exportWorkflow?.profileId, follower.exportWorkflow?.profileSha256, followerAsset, `${where}: follower export workflow`);
+      const speciesKey = subject.id?.replace(/^creature-/, '');
+      const source = followerMetadata?.sourceReferences?.[speciesKey];
+      const output = exports?.find(record => record.assetId === follower.assetId);
+      const rowOrder = followerMetadata?.sheetRows?.[follower.assetId];
+      if (!source || source.referenceAsset !== subject.id) errors.push(`${where}: follower source must reference the same creature identity`);
+      if (!sourceBatches?.some(batch => batch.path === source?.generatedSource && batch.referenceAssetIds?.includes(subject.id)))
+        errors.push(`${where}: generated follower source must be recorded as a referenced source batch`);
+      if (output?.profileId !== follower.exportWorkflow?.profileId) errors.push(`${where}: follower export profile must match its output record`);
+      if (!rowOrder || JSON.stringify(rowOrder) !== JSON.stringify(followerAsset?.frames?.rowOrder))
+        errors.push(`${where}: follower row order must match the manifest and source metadata`);
+      if (JSON.stringify(follower.directions) !== JSON.stringify([...DIRECTIONS])) errors.push(`${where}: follower contract must cover all eight directions`);
+      if (JSON.stringify(follower.frameOrder) !== JSON.stringify(['idle', 'walk-1', 'walk-2', 'walk-3', 'walk-4']))
+        errors.push(`${where}: follower contract must include idle and four walk frames`);
     }
   }
   return {errors};

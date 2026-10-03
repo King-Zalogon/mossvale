@@ -86,7 +86,7 @@ def validate_reviews(root):
         not follower_gap
         or follower_gap.get("status") != "pending-art"
         or not follower_gap.get("reason")
-        or profiles.get(follower_gap.get("profileId"), {}).get("status") != "pending-dedicated-direction-art"
+        or profiles.get(follower_gap.get("profileId"), {}).get("status") not in {"pending-dedicated-direction-art", "implemented-initial-batch"}
     ):
         raise SystemExit("#90 must remain an explicit pending-art review gap until dedicated follower frames exist")
     reviewed_ids = {record.get("visualId") for record in data.get("subjects", [])}

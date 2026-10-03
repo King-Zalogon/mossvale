@@ -3,7 +3,7 @@ import {species} from '../data/species.js';
 import {assets, spriteId} from '../data/assets.js';
 import {regions} from '../data/regions.js';
 import {TILE_H, TILE_W} from '../config.js';
-import {FACING, playerFrame} from '../domain/exploration.js';
+import {DIRECTIONS, FACING, movementFacing, playerFrame} from '../domain/exploration.js';
 import {unlocked} from '../domain/rules.js';
 import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
 import {isKnown, isRevealed} from '../domain/discovery.js';
@@ -16,6 +16,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
   const mini = miniCanvas.getContext('2d');
   let view;
   let stats = {visibleTiles: 0, worldTiles: 0, visibleObjects: 0, worldObjects: 0};
+  let followerMotion = null;
 
   const visibleBounds = () => {
     const centerY = canvas.height * 0.49;
@@ -80,9 +81,13 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     return o.w * view.zoom * (ratio || 1);
   };
   const occludesPlayer = (o, s) => {
-    if (!['scenery', 'cottage'].includes(o.kind) || o.x + o.y <= view.player.x + view.player.y) return false;
-    const p = point(view.player.x, view.player.y);
-    return Math.abs(s.x - p.x) < o.w * view.zoom * 0.48 && p.y > s.y - spriteHeight(o) && p.y - 30 * view.zoom < s.y;
+    if (!['scenery', 'cottage'].includes(o.kind)) return false;
+    const characters = [view.player, ...(view.follower ? [view.follower] : [])];
+    return characters.some(character => {
+      if (o.x + o.y <= character.x + character.y) return false;
+      const p = point(character.x, character.y);
+      return Math.abs(s.x - p.x) < o.w * view.zoom * 0.48 && p.y > s.y - spriteHeight(o) && p.y - 30 * view.zoom < s.y;
+    });
   };
 
   /** `v` = {save, world, player, follower, camera, zoom, now, paused, moving}. */
@@ -126,7 +131,31 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         }
       }
     }
-    const follow = {x: v.follower.x, y: v.follower.y, id: species[save.active].sprite, w: 37, kind: 'companion'};
+    const baseId = species[save.active].sprite;
+    const followerName = `${assets[baseId].name}-follower`;
+    const followerSheetId = assets.findIndex(asset => asset.name === followerName);
+    const followerImage = sprites[followerSheetId];
+    const followerId = followerSheetId >= 0 && followerImage?.complete && followerImage.naturalWidth ? followerSheetId : baseId;
+    if (!followerMotion || followerMotion.id !== followerId)
+      followerMotion = {id: followerId, x: v.follower.x, y: v.follower.y, distance: 0, dir: FACING.south};
+    const dx = v.follower.x - followerMotion.x;
+    const dy = v.follower.y - followerMotion.y;
+    const moved = Math.hypot(dx, dy);
+    if (moved > 1e-4) {
+      // A map/spawn discontinuity is a reset; real follower steps are short, discrete trail samples.
+      if (moved > 4) followerMotion.distance = 0;
+      else {
+        followerMotion.distance += moved;
+        followerMotion.dir = movementFacing(dx, dy) ?? followerMotion.dir;
+      }
+    }
+    followerMotion.x = v.follower.x;
+    followerMotion.y = v.follower.y;
+    const followerPose = {
+      row: (assets[followerId]?.frames?.rowOrder ?? DIRECTIONS).indexOf(DIRECTIONS[followerMotion.dir]),
+      column: playerFrame(followerMotion.distance, moved > 1e-4, v.reducedMotion),
+    };
+    const follow = {x: v.follower.x, y: v.follower.y, id: followerId, w: 37, kind: 'companion', frame: followerPose, moving: moved > 1e-4};
     const playerPose = {
       column: playerFrame(player.walkDistance, v.moving, v.reducedMotion),
       row: Number.isInteger(player.dir) ? player.dir : FACING.south,
@@ -158,13 +187,14 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       else {
         const bob =
           o.kind === 'companion' && !v.reducedMotion
-            ? v.moving
-              ? Math.sin((player.walkDistance * Math.PI * 2) / 0.84) * 1.25 * zoom
+            ? o.moving
+              ? Math.sin((followerMotion.distance * Math.PI * 2) / 0.84) * 1.25 * zoom
               : Math.sin(now / 950) * 0.45 * zoom
             : 0;
         const tint = region === 2 && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : region === 1 && o.kind === 'grass' ? 'sepia(.5)' : 'none';
         const options = {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1};
         if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, options);
+        else if (o.kind === 'companion' && assets[o.id]?.frames) drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, options);
         else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
       }
       if (['ranger', 'shrine', 'chest', 'gate'].includes(o.kind) && !openedChest) {
