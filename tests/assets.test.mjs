@@ -108,9 +108,13 @@ test('sample visual subjects have hashed canonical references, exports and linke
     assert.equal(creature.runtimeCombat.artPixelsChanged, true);
     assert.ok(creature.sourceBatches.some(batch => batch.states?.length === 5 && batch.referenceAssetIds.includes(creature.id)));
   }
-  const emberkin = registry.subjects.find(subject => subject.id === 'creature-emberkin');
-  assert.equal(emberkin.runtimeFollower.assetId, 'creature-emberkin-follower');
-  assert.equal(emberkin.runtimeFollower.fallbackAssetId, 'creature-emberkin');
+  const followers = registry.subjects.filter(subject => subject.runtimeFollower);
+  assert.deepEqual(followers.map(subject => subject.id).toSorted(), ['creature-brooklet', 'creature-duskwing', 'creature-emberkin', 'creature-fernling']);
+  for (const creature of followers) {
+    assert.equal(creature.runtimeFollower.assetId, `${creature.id}-follower`);
+    assert.equal(creature.runtimeFollower.fallbackAssetId, creature.id);
+    assert.deepEqual(creature.runtimeFollower.directions, ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest']);
+  }
 });
 
 test('visual-subject validation catches a stale output digest and an unrecorded batch reference', () => {
