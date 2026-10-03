@@ -1,6 +1,6 @@
 // Checks the asset manifest against the PNGs behind it (conventions: docs/ASSETS.md).
 import {readFileSync, readdirSync, statSync} from 'node:fs';
-import {join, relative} from 'node:path';
+import {join, relative, sep} from 'node:path';
 import {decodePng, opaqueBounds} from './png.mjs';
 
 export const KINDS = {prop: 'props', creature: 'creatures', person: 'people', item: 'items'};
@@ -86,7 +86,7 @@ export function checkAssets(assets, distDir, {referenceText = null} = {}) {
   const listed = new Set(assets.map(a => a.src));
   try {
     for (const file of walk(join(distDir, 'assets'))) {
-      const rel = relative(distDir, file);
+      const rel = relative(distDir, file).split(sep).join('/');
       if (file.endsWith('.png') && !listed.has(rel)) errors.push(`${rel}: not in the manifest`);
     }
   } catch {
