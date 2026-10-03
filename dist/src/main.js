@@ -44,6 +44,17 @@ function getStorage() {
 
 const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
+const editorPreviewId = params.get('editorPreview');
+let editorPreviewMap = null;
+if (editorPreviewId) {
+  try {
+    const value = JSON.parse(sessionStorage.getItem(`mossvale-editor-preview:${editorPreviewId}`) || 'null');
+    if (value?.id === editorPreviewId) editorPreviewMap = value;
+    sessionStorage.removeItem(`mossvale-editor-preview:${editorPreviewId}`);
+  } catch {
+    editorPreviewMap = null;
+  }
+}
 const rng = debug && params.has('seed') ? seededRng(Number(params.get('seed'))) : Math.random;
 const canvas = $('#game');
 const mapBounds = {};
@@ -89,7 +100,7 @@ const app = {
   maps: [],
   objectives: [],
   story: undefined,
-  skipPremise: debug && !params.has('premise'), // tests start in play; add &premise to see the opening card
+  skipPremise: (debug && !params.has('premise')) || !!editorPreviewId, // tests start in play; add &premise to see the opening card
   objCtx: {speciesCount: species.length, regions},
   audio: createAudio(),
   settings,
@@ -250,13 +261,24 @@ async function boot() {
   if (!app.maps.length) {
     try {
       const {maps: rawMaps, objectives: rawObjectives, story: rawStory, registries, pack: rawPack} = await fetchAdventure();
+      if (editorPreviewMap) {
+        const index = rawMaps.findIndex(map => map.id === editorPreviewId);
+        if (index >= 0) rawMaps[index] = editorPreviewMap;
+      }
       const registryErrors = configureRegistry({registries, packId: rawPack.id});
       if (registryErrors.length) {
         showLoadError('The adventure registries are invalid.', registryErrors.slice(0, 5).join(' · '));
         return;
       }
       codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id});
-      loaded = codec.load(storage);
+      if (editorPreviewMap) {
+        const region = rawMaps.findIndex(map => map.id === editorPreviewId);
+        const fresh = codec.fresh();
+        fresh.region = region;
+        fresh.x = rawMaps[region].spawns.camp[0];
+        fresh.y = rawMaps[region].spawns.camp[1];
+        loaded = {save: fresh, status: 'new', message: '', writable: false, source: null};
+      } else loaded = codec.load(storage);
       $('#load-title').textContent = loaded.save.badges.length || loaded.save.caught.length > 1 ? 'Resuming your trail' : `Preparing ${rawPack.name}`;
       game.save = loaded.save;
       game.player.x = loaded.save.x;

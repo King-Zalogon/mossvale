@@ -266,6 +266,14 @@ $('#export').onclick = () => {
   cleanSnapshot = snapshot();
   updateStatus();
 };
+$('#play-preview').onclick = () => {
+  try {
+    sessionStorage.setItem(`mossvale-editor-preview:${selectedMap.id}`, JSON.stringify(selectedMap));
+    window.open(`./?debug&editorPreview=${encodeURIComponent(selectedMap.id)}`, '_blank');
+  } catch {
+    $('#add-help').textContent = 'This browser blocked a preview tab. Allow pop-ups for this local page, then try again.';
+  }
+};
 $('#import').onclick = () => $('#file').click();
 $('#file').onchange = async event => {
   const file = event.target.files[0];
