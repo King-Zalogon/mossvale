@@ -32,7 +32,7 @@ A working checklist for calling the first adventure "ready to play for fun", wit
 
 ## Not built yet (waiting on art, content or your decisions)
 
-- Four biomes, eight maps and twelve creatures: today there are three maps and eight creatures (#24, #27, #51–#54). New species and terrain need original art; the data formats and validators are ready for them.
+- Four biomes, eight maps and twelve creatures: four biome maps and the 12-species roster now exist; the remaining four map variants are tracked by #27 and #51–#54.
 - Eight-direction walking animation and creature animation: only four facing images exist (#36).
 - Sound palette and ambience (#38): current audio is single synthesized beeps, off by default.
 - Performance on your devices (#37): in headless Chromium the game holds 60 fps (about 16.7 ms per frame on a software renderer); nothing has been measured on real hardware.

@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {create, KEYS} from '../dist/src/save.js';
 
-const species = ['fernling', 'emberkin', 'brooklet', 'duskwing', 'voltkit', 'mushmallow', 'frostowl', 'pebblit'].map((id, i) => ({id, hp: 40 + i}));
-const regions = ['meadow', 'amber-ridge', 'frostveil-grove'].map(id => ({id}));
+const species = ['fernling', 'emberkin', 'brooklet', 'duskwing', 'voltkit', 'mushmallow', 'frostowl', 'pebblit'].map((id, i) => ({id, stats: {hp: 40 + i}}));
+const regions = ['meadow', 'amber-ridge', 'frostveil-grove', 'reedfen-wetlands'].map(id => ({id}));
 const codec = create({species, regions, size: 25});
 const store = (init = {}) => {
   const m = new Map(Object.entries(init));
@@ -93,7 +93,7 @@ test('extreme, NaN-like, duplicate and unknown values are sanitized', () => {
   assert.deepEqual(r.caught, [3]);
   assert.deepEqual(r.seen, [1, 3]);
   assert.equal(r.active, 3);
-  assert.equal(r.team[3].hp, species[3].hp);
+  assert.equal(r.team[3].hp, species[3].stats.hp);
   assert.equal(r.team[3].xp, 0);
 });
 test('locked region falls back to the meadow', () => assert.equal(codec.load(store({[KEYS.v2]: v2({badges: [], region: 2})})).save.region, 0));

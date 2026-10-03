@@ -16,7 +16,7 @@ Implemented in `dist/src/save.js` (pure, tested without a browser). Issue: [#8](
 
 ## Schema 3
 
-Species and regions are stored by ID, not array position, so content can be reordered or extended safely. Current IDs: species `fernling emberkin brooklet duskwing voltkit mushmallow frostowl pebblit`; regions `meadow amber-ridge frostveil-grove`. Never rename or reuse an ID.
+Species and regions are stored by ID, not array position, so content can be reordered or extended safely. Current IDs: species `fernling emberkin brooklet duskwing voltkit mushmallow frostowl pebblit bramblebuck siltkip sunskitter hushram`; regions `meadow amber-ridge frostveil-grove reedfen-wetlands`. Never rename or reuse an ID.
 
 Fields: `version, region, x, y, active, orbs, potions, coins, seen[], caught[], team{speciesId:{xp,hp}}, badges[], chests[], visited[], met, wins, playTime`. Goal: `goal` is the id of the last objective shown (see [OBJECTIVES.md](OBJECTIVES.md)); it only drives the "New goal" toast, and progress itself is derived from the save.
 

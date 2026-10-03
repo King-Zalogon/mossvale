@@ -53,6 +53,6 @@ Content (`data/`), art (`dist/assets/` + manifest, see [ASSETS.md](ASSETS.md)), 
 
 ## Known limits (follow-ups)
 
-- Only three maps exist; flags `<map>.seal`/`.chest` still resolve to `badges`/`chests` (pack namespacing is #50).
+- Four representative maps exist, one per biome; flags `<map>.seal`/`.chest` still resolve to `badges`/`chests` (pack namespacing is #50).
 - `style.css` is formatted but not yet split by component.
 - Menu HTML is built with template strings; a component layer is not planned for 1.0.

@@ -5,6 +5,7 @@ import {spriteId} from './assets.js';
 export const regions = [
   {
     id: 'meadow',
+    biome: 'meadow',
     name: 'Mossvale Meadow',
     short: 'Meadow',
     subtitle: 'Tall grass, old trails, and new friends.',
@@ -16,6 +17,7 @@ export const regions = [
   },
   {
     id: 'amber-ridge',
+    biome: 'badlands',
     name: 'Amber Ridge',
     short: 'Ridge',
     subtitle: 'Golden trails and sparks in the sandstone.',
@@ -27,13 +29,26 @@ export const regions = [
   },
   {
     id: 'frostveil-grove',
+    biome: 'snowy-forest',
     name: 'Frostveil Grove',
     short: 'Grove',
-    subtitle: 'Follow the snowflakes to the final shrine.',
+    subtitle: 'Follow the snowflakes to a quiet shrine.',
     tag: 'THE FROSTVEIL TRAIL',
     palette: ['#a9c7c9', '#d4e3dc', '#acc2bb', '#b0c7c5', '#6d9cab', '#7c9898'],
     seal: 'Frostveil seal',
     preview: spriteId('tree-pine-snow'),
     desc: 'A quiet snowy grove at the edge of the isles.',
+  },
+  {
+    id: 'reedfen-wetlands',
+    biome: 'wetland',
+    name: 'Reedfen Wetlands',
+    short: 'Reedfen',
+    subtitle: 'Quiet pools, reed paths, and ripples in the grass.',
+    tag: 'THE REEDFEN TRAIL',
+    palette: ['#799a82', '#91aa7a', '#7e9c69', '#d1bf86', '#4c9297', '#536d55'],
+    seal: 'Reedfen seal',
+    preview: spriteId('cattail-clump'),
+    desc: 'A sheltered wetland where paths wind between pools and tall reeds.',
   },
 ];

@@ -3,6 +3,7 @@ import {compileMap, validateMaps} from './mapdata.js';
 import {collectFlags, validateObjectives} from './objectives.js';
 import {validateStory} from './story.js';
 import {validatePack} from './pack.js';
+import {biomes} from '../data/biomes.js';
 
 /**
  * @param {object[]} rawMaps parsed map files
@@ -16,10 +17,14 @@ import {validatePack} from './pack.js';
 export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawObjectives, rawStory, rawPack) {
   const spriteNames = new Set(assets.map(a => a.name));
   const speciesIds = new Set(species.map(s => s.id));
+  const biomeIds = new Set(biomes.map(b => b.id));
   const errors = validateMaps(rawMaps, {spriteNames, speciesIds});
+  for (const s of species) if (!biomeIds.has(s.biome)) errors.push(`species "${s.id}": unknown biome "${s.biome}"`);
+  for (const r of regions) if (!biomeIds.has(r.biome)) errors.push(`region "${r.id}": unknown biome "${r.biome}"`);
   const ordered = regions.map(r => rawMaps.find(m => m?.id === r.id));
   regions.forEach((r, i) => {
     if (!ordered[i]) errors.push(`region "${r.id}": no map file with this id`);
+    else if (ordered[i].biome !== r.biome) errors.push(`region "${r.id}": map biome "${ordered[i].biome}" does not match region biome "${r.biome}"`);
   });
   for (const m of rawMaps) if (m?.id && !regions.some(r => r.id === m.id)) errors.push(`map ${m.id}: no region with this id in data/regions.js`);
   if (rawObjectives !== undefined) {
@@ -38,7 +43,7 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
     const available = rawPack?.species ? species.filter(s => rawPack.species.includes(s.id)) : species;
     errors.push(
       ...checkProgression(ordered, regions, rawObjectives?.objectives ?? [], rawStory),
-      ...checkSources(ordered, available),
+      ...checkSources(ordered, available, biomes),
       ...checkPoolsStayInPack(ordered, available),
       ...checkMilestoneOrder(ordered, regions, rawPack?.milestones),
     );
@@ -86,10 +91,19 @@ function checkProgression(ordered, regions, objectives, story) {
 }
 
 /** Every creature must be findable: it has to appear in at least one encounter zone (zones are validated as reachable). */
-function checkSources(ordered, species) {
+function checkSources(ordered, species, biomes) {
   const sourced = new Set();
   for (const m of ordered) for (const z of m.zones ?? []) for (const e of z.pool) sourced.add(typeof e === 'string' ? e : e.species);
-  return species.filter(s => !sourced.has(s.id)).map(s => `species: "${s.id}" has no encounter zone in any map, so it could never be found`);
+  const errors = species.filter(s => !sourced.has(s.id)).map(s => `species: "${s.id}" has no encounter zone in any map, so it could never be found`);
+  for (const biome of biomes) {
+    const primary = species.filter(s => s.biome === biome.id);
+    if (primary.length !== 3) errors.push(`biome "${biome.id}" needs exactly three primary species, found ${primary.length}`);
+    const biomeMaps = ordered.filter(m => m.biome === biome.id);
+    if (!biomeMaps.length) errors.push(`biome "${biome.id}" needs at least one playable map`);
+    const pool = new Set(biomeMaps.flatMap(m => m.zones.flatMap(z => z.pool.map(e => (typeof e === 'string' ? e : e.species)))));
+    for (const s of primary) if (!pool.has(s.id)) errors.push(`species: primary ${biome.id} resident "${s.id}" is missing from ${biome.name} encounters`);
+  }
+  return errors;
 }
 
 /** A pack's creature list is the source of truth: encounter zones and shrine guardians may only use those creatures. */

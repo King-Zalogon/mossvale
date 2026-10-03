@@ -1,6 +1,6 @@
 # Mossvale
 
-An original browser-playable creature-catching game with a 2D isometric world, pixel art, and eight-direction movement.
+An original browser-playable creature-catching game with a 2D isometric world, pixel art, and eight-direction movement. The current roster has 12 species across four biomes.
 
 [Play the hosted game](https://mossvale-pixel-adventure.gonzaloreydelcastill.chatgpt.site)
 
@@ -31,11 +31,11 @@ On touch screens, use the directional pad, Run button, and interaction prompt.
 
 ## Adventure
 
-Explore Mossvale Meadow, Amber Ridge, and Frostveil Grove. Befriend eight species. Up to three companions form your team and the rest wait in the reserve. Battles include elemental strengths, a Focus resource for the elemental move, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
+Explore Mossvale Meadow, Amber Ridge, Frostveil Grove, and Reedfen Wetlands. Befriend 12 species, with three primary residents in each biome. Up to three companions form your team and the rest wait in the reserve. Battles use creature-specific health, attack, defense, elemental strengths, and moves, alongside Focus, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
 
 A title screen offers Continue (or Start adventure), Settings, New game and, after a restart, Restore previous adventure. New game keeps your old adventure as a backup; sound, volume, ambient music, motion and zoom preferences persist.
 
-Awaken each shrine by defeating its guardian to unlock the next region. Visit Ranger Iris to heal your team and refill capture orbs, or buy extra supplies with coins earned from battles and treasure chests.
+Awaken each shrine by defeating its guardian to unlock the next region; all four seals complete the story, and collecting every species is optional. Visit Ranger Iris to heal your team and refill capture orbs, or buy extra supplies with coins earned from battles and treasure chests.
 
 Progress saves automatically in the current browser using local storage. Original meadow saves are migrated to the expanded game. If a save is damaged, the game keeps the unreadable data, restores the last checkpoint when possible and tells you what happened. Required artwork that fails to load shows an error with a retry button instead of starting a broken game. Saves are specific to the browser and origin; progress on the hosted game does not automatically transfer to localhost or another host.
 
@@ -47,7 +47,7 @@ Progress saves automatically in the current browser using local storage. Origina
 - `dist/maps/*.json`: map data (terrain, landmarks, exits, encounter zones), see [docs/MAP_FORMAT.md](docs/MAP_FORMAT.md); `npm run map:preview -- meadow` shows one.
 - `dist/src/data/assets.js`: asset manifest (names, sizes, required status).
 - `dist/assets/`: original creature, character, and environment artwork, named by what it shows ([docs/ASSETS.md](docs/ASSETS.md)). `dist/favicon.svg`: site icon.
-- `docs/`: [game design](docs/GAME_DESIGN.md), [architecture](docs/ARCHITECTURE.md), [map format](docs/MAP_FORMAT.md), [save format](docs/SAVE_FORMAT.md), [roadmap](docs/FULL_GAME_ROADMAP.md), [assets](docs/ASSETS.md), [performance](docs/PERFORMANCE.md), [audio](docs/AUDIO.md).
+- `docs/`: [game design](docs/GAME_DESIGN.md), [architecture](docs/ARCHITECTURE.md), [map format](docs/MAP_FORMAT.md), [save format](docs/SAVE_FORMAT.md), [creature roster](docs/CREATURE_ROSTER.md), [roadmap](docs/FULL_GAME_ROADMAP.md), [assets](docs/ASSETS.md), [performance](docs/PERFORMANCE.md), [audio](docs/AUDIO.md).
 - `tests/`, `scripts/`, `.github/workflows/ci.yml`: automated checks.
 
 The game uses vanilla JavaScript and Canvas 2D. It has no backend, account system, or multiplayer service. Fonts are loaded from Google Fonts with local fallbacks.
@@ -67,6 +67,6 @@ CI (`.github/workflows/ci.yml`) runs `verify` on every push and pull request. It
 
 ## Development roadmap
 
-The [personal-adventure roadmap](https://github.com/King-Zalogon/mossvale/issues/1) targets four varied biomes, eight compact maps and 12 creatures, with reusable assets and a light progression story. These are planned additions; the current playable feature list above describes the existing game.
+The [personal-adventure roadmap](https://github.com/King-Zalogon/mossvale/issues/1) targets four varied biomes, eight compact maps and 12 creatures, with reusable assets and a light progression story. The four biomes and 12-species roster are now playable; the remaining map variants and adventure work are still on the roadmap.
 
 See [the detailed plan](docs/FULL_GAME_ROADMAP.md) and [machine-readable backlog](docs/ROADMAP_BACKLOG.json). The superseded larger plan is retained in [the archive](docs/archive/2026-09-30/FULL_GAME_ROADMAP.md).

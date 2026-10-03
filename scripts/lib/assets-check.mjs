@@ -86,7 +86,7 @@ export function checkAssets(assets, distDir, {referenceText = null} = {}) {
   const listed = new Set(assets.map(a => a.src));
   try {
     for (const file of walk(join(distDir, 'assets'))) {
-      const rel = relative(distDir, file);
+      const rel = relative(distDir, file).replaceAll('\\', '/');
       if (file.endsWith('.png') && !listed.has(rel)) errors.push(`${rel}: not in the manifest`);
     }
   } catch {

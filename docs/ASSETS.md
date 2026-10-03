@@ -4,12 +4,12 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-27 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+32 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
 | prop | `props/` | `<thing>-<detail>` | `tree-oak`, `tree-pine-snow`, `cottage-tiled`, `boulder-mossy`, `rock-spire-red`, `shrine-crystal-stone`, `signpost-wood`, `chest-wooden`, `grass-tuft`, `bush-flowering` |
-| creature | `creatures/` | `creature-<species>` | `creature-fernling` … `creature-pebblit` (eight) |
+| creature | `creatures/` | `creature-<species>` | `creature-fernling` … `creature-pebblit` (12, including four new biome residents) |
 | person | `people/` | `person-<look>` (with frame metadata for atlases) | `person-red-cap-motion`, `person-traveler`, `person-gardener`; legacy `person-red-cap-south/north/west/east` |
 | item | `items/` | `item-<thing>` | `item-capture-orb` (reserved, optional) |
 
@@ -35,3 +35,7 @@ Names never describe a story role. A ranger is a map landmark (`kind: ranger`, `
 ## Source and provenance
 
 The older PNGs are crops exported from generated sprite sheets. Character artwork added for #36/#61 retains generated source sheets and prompts in `art/characters/source/`, with fixed-cell exports produced by `art/characters/export.py`; frame order, source references and walk cadence are in `art/characters/metadata.json` and `art/characters/SOURCES.md`. Open `dist/character-preview.html` to inspect every player pose and NPC facing at gameplay scale, including the production renderer fixture. Pillow is needed to re-export the generated sheets. Rights and attribution for distribution are tracked separately (deferred in the roadmap).
+
+### Issue #24 additions
+
+Four transparent creature sprites and a cattail prop were generated for this roster and cropped to tight RGBA PNGs. The sprite prompts used the existing Fernling art as a style reference and asked for an original creature design on a transparent background: a compact green meadow deer with leaf antlers and a seed-pod chest (Bramblebuck); a teal web-footed mudskipper with side gills and a ribbon tail (Siltkip); a sharp orange desert lizard with a glass-like crest (Sunskitter); and a round pale-blue snowy ram with curled frost horns (Hushram). The cattail prompt used the grass-tuft prop as its style reference and requested a small cluster of marsh reeds with seed heads on transparency. See [CREATURE_ROSTER.md](CREATURE_ROSTER.md) for roster and prompt provenance.

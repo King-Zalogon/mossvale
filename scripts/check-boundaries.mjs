@@ -2,8 +2,9 @@
 // and must not import from presentation/service layers.
 import {readdirSync, readFileSync} from 'node:fs';
 import {join, relative} from 'node:path';
+import {fileURLToPath} from 'node:url';
 
-const root = new URL('../dist/src/', import.meta.url).pathname;
+const root = fileURLToPath(new URL('../dist/src/', import.meta.url));
 const pure = ['data', 'domain', 'save.js', 'config.js'];
 const forbidden =
   /\b(document|window|navigator|localStorage|sessionStorage|querySelector\w*|requestAnimationFrame|setTimeout|setInterval|Math\.random|Date\.now|performance\.now|alert|fetch)\b/;

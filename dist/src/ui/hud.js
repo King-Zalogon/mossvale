@@ -34,8 +34,8 @@ export function renderHud(save, q = null) {
   $('#orbs').textContent = save.orbs;
   $('#potions').textContent = save.potions;
   $('#coins').textContent = save.coins;
-  $('#count').textContent = `${save.caught.length} befriended · ${save.seen.length} / 8 seen`;
-  $('#badge-count').textContent = `${save.badges.length} / 3 shrine seals`;
+  $('#count').textContent = `${save.caught.length} befriended · ${save.seen.length} / ${species.length} seen`;
+  $('#badge-count').textContent = `${save.badges.length} / ${regions.length} shrine seals`;
   if (!q) return drawCreature($('#buddy'), save.active, 106);
   $('#quest-title').textContent = q.title;
   $('#quest-copy').textContent = q.copy;

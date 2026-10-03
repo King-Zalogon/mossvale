@@ -9,6 +9,7 @@ import {species} from '../dist/src/data/species.js';
 import {checkAssets} from '../scripts/lib/assets-check.mjs';
 import {decodePng, opaqueBounds} from '../scripts/lib/png.mjs';
 import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
 
 /** A tiny PNG writer for fixtures. `pixel(x, y)` returns [r, g, b, a] (type 6) or [r, g, b] (type 2). */
 function makePng(w, h, pixel, colorType = 6) {
@@ -61,7 +62,7 @@ const has = (errors, text) =>
   );
 
 test('the shipped manifest, names and PNGs pass the checks', () => {
-  const dist = new URL('../dist/', import.meta.url).pathname;
+  const dist = fileURLToPath(new URL('../dist/', import.meta.url));
   const {errors} = checkAssets(assets, dist);
   assert.deepEqual(errors, []);
 });

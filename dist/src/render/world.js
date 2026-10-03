@@ -62,6 +62,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     view = v;
     const {save, world, player, zoom, now} = v;
     const region = save.region;
+    const biome = regions[region].biome;
     const palette = regions[region].palette;
     ctx.imageSmoothingEnabled = false;
     ctx.fillStyle = palette[0];
@@ -91,7 +92,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         ctx.fillRect(s.x + 7 * zoom, s.y + 5 * zoom, 8 * zoom, zoom);
       } else {
         for (let i = 0; i < 2; i++) {
-          ctx.fillStyle = t.path ? '#6a643c35' : region === 2 ? '#829fa755' : '#54783c55';
+          ctx.fillStyle = t.path ? '#6a643c35' : biome === 'snowy-forest' ? '#829fa755' : '#54783c55';
           ctx.fillRect(s.x + (-17 + rnd(t.x + i, t.y, region) * 34) * zoom, s.y + (-6 + rnd(t.y + i, t.x, region) * 12) * zoom, 2 * zoom, zoom);
         }
       }
@@ -126,7 +127,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       if (openedChest) drawSprite(ctx, o.id, s.x, s.y, o.w * zoom, {alpha: 0.45});
       else {
         const bob = bobbing && o.kind === 'companion' ? Math.sin(now / 95) * 1.5 * zoom : 0;
-        const tint = region === 2 && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : region === 1 && o.kind === 'grass' ? 'sepia(.5)' : 'none';
+        const tint = biome === 'snowy-forest' && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : biome === 'badlands' && o.kind === 'grass' ? 'sepia(.5)' : 'none';
         const options = {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1};
         if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, options);
         else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
@@ -148,12 +149,19 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         ctx.fillText(label, s.x, s.y - spriteHeight(o) - 7 * zoom);
       }
     }
-    if (region === 2) {
+    if (biome === 'snowy-forest') {
       ctx.fillStyle = '#edf6f0aa';
       for (let i = 0; i < 34; i++) {
         const x = (rnd(i, 92, region) * canvas.width + now * 0.014 * (i % 2 ? 1 : -1) + canvas.width * 10) % canvas.width;
         const y = (rnd(i, 48, region) * canvas.height + now * 0.022) % canvas.height;
         ctx.fillRect(x, y, 2.5, 2.5);
+      }
+    } else if (biome === 'wetland') {
+      ctx.fillStyle = '#d6efb655';
+      for (let i = 0; i < 16; i++) {
+        const x = (rnd(i, 73, region) * canvas.width + now * 0.008 * (i % 2 ? 1 : -1) + canvas.width * 10) % canvas.width;
+        const y = (rnd(i, 26, region) * canvas.height + Math.sin(now / 900 + i) * 5) % canvas.height;
+        ctx.fillRect(x, y, 2, 3);
       }
     } else {
       ctx.fillStyle = '#f7ecb488';
@@ -175,7 +183,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     const mp = (x, y) => ({x: 60 + (x - y) * 2.2, y: 11 + (x + y) * 1.55});
     for (const t of world.tiles) {
       const s = mp(t.x, t.y);
-      mini.fillStyle = t.water ? '#70b6c3' : t.path ? '#e7d79e' : t.grass ? '#5e8549' : save.region === 2 ? '#aec7c7' : '#8caf6b';
+      mini.fillStyle = t.water ? '#70b6c3' : t.path ? '#e7d79e' : t.grass ? '#5e8549' : regions[save.region].biome === 'snowy-forest' ? '#aec7c7' : '#8caf6b';
       mini.fillRect(s.x - 2, s.y - 1, 4, 2.4);
     }
     for (const o of world.objects) {

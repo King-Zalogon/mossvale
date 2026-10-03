@@ -24,6 +24,11 @@ export const TACTICS = {
     pattern: ['element', 'element', 'strike'],
     intro: 'It keeps using its elemental move. A teammate that resists it, or healing between volleys, makes the difference.',
   },
+  'tidal-current': {
+    name: 'Tidal current',
+    pattern: ['element', 'charge', 'heavy'],
+    intro: 'A wave builds before the crash. Use the quiet turn to heal or prepare, then Guard when the line calls out the heavy blow.',
+  },
 };
 
 /** What the player sees under the battle log for a guardian's next move. */

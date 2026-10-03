@@ -61,6 +61,6 @@ Format version, unique ids, grid size and characters, known sprites and species,
 
 ## Limits
 
-- Eight authored maps are supported (`MAX_SIZE` 64 per side, any number of files), but only three exist today; the new biome maps arrive with #51–#54.
+- Eight authored maps are supported (`MAX_SIZE` 64 per side, any number of files); four representative maps currently cover the four biomes. The second distinct map for each biome remains tracked by #51–#54.
 - Reachability uses tile-level flood fill, an approximation of continuous movement.
 - Layers beyond terrain + props, and per-tile event scripting, are intentionally out of scope.

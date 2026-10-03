@@ -136,6 +136,7 @@ test('every guardian can be beaten more than one sensible way, and mindless stri
   const tries = 30;
   const report = [];
   let mindlessFailures = 0;
+  const trivialGuardians = [];
   for (let region = 0; region < maps.length; region++) {
     const arrivalLevel = guardian(region).level - 1; // typically one level under when you first arrive; retries are free
     const rates = {};
@@ -147,11 +148,12 @@ test('every guardian can be beaten more than one sensible way, and mindless stri
     }
     const sensible = [rates.burst, rates.careful].filter(r => r >= 0.4).length;
     assert.ok(sensible >= 2, `${maps[region].id}: burst ${rates.burst}, careful ${rates.careful} at level ${arrivalLevel}`);
-    assert.ok(Math.min(...Object.values(rates)) < 1, `${maps[region].id} is trivial: every policy always wins`);
+    if (Math.min(...Object.values(rates)) === 1) trivialGuardians.push(maps[region].id);
     if (rates.steady < 0.4) mindlessFailures++;
   }
-  assert.ok(mindlessFailures >= 2, 'at least two challenges must demand more than plain striking');
   console.log(`guardian win rates (30 tries each, level = guardian level - 1): ${report.join('  ')}`);
+  assert.deepEqual(trivialGuardians, [], `every policy always wins against ${trivialGuardians.join(', ')}`);
+  assert.ok(mindlessFailures >= 2, 'at least two challenges must demand more than plain striking');
 });
 
 test('losing a guardian fight neither blocks progress nor pays a reward', () => {

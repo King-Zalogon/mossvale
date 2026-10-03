@@ -505,7 +505,7 @@
       ],
       "parallel": "Creature briefs/data and art can be batched by biome after shared style/IDs; one gameplay owner reviews the role matrix for overlap.",
       "verify": "Run relevant gameplay/save regressions and try the changed experience in a normal playable build.",
-      "evidence": "dist/game.js:6\u201315 defines eight species that mainly differ by HP, type, sprite and one move. Species and region pools are embedded in code.",
+      "evidence": "The issue #24 branch defines 12 stable-ID species with three primary residents in each of four biomes, individual battle stats/moves, documented personalities and field hints, and four new transparent sprites. One representative map per biome exposes its primary residents; the second map per biome remains tracked separately.",
       "required": true
     },
     {
