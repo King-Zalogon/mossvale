@@ -83,7 +83,9 @@ async function fightOut(wantCapture) {
 const rest = async () => {
   await page.evaluate(() => Object.assign(window.mossvale.getState().player, {x: 10.3, y: 10.4}));
   await page.waitForTimeout(400);
-  await page.evaluate(() => window.mossvale.interact());
+  await page.evaluate(() => window.mossvale.interact()); // the ranger speaks first...
+  await page.waitForSelector('#speech:not([hidden])');
+  await page.evaluate(() => window.mossvale.interact()); // ...then the choices appear
   await page.click('#rest-team');
   await page.keyboard.press('Escape');
 };

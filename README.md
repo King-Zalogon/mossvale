@@ -16,16 +16,16 @@ Open <http://localhost:8080> in a browser. Any static web server can serve the `
 
 ## Controls
 
-| Control           | Action                                                       |
-| ----------------- | ------------------------------------------------------------ |
-| WASD / arrow keys | Move in eight directions                                     |
-| Shift             | Run                                                          |
-| E                 | Interact with a nearby ranger, shrine, chest, sign, or trail |
-| M                 | Island map                                                   |
-| J                 | Field journal                                                |
-| Q                 | Companion team                                               |
-| 1–6 during battle | Select a battle action                                       |
-| Escape            | Close a menu or leave an encounter                           |
+| Control           | Action                                                                                                      |
+| ----------------- | ----------------------------------------------------------------------------------------------------------- |
+| WASD / arrow keys | Move in eight directions                                                                                    |
+| Shift             | Run                                                                                                         |
+| E                 | Interact with a nearby ranger, shrine, chest, sign, or trail; during a conversation, next line (Esc closes) |
+| M                 | Island map                                                                                                  |
+| J                 | Field journal                                                                                               |
+| Q                 | Companion team                                                                                              |
+| 1–6 during battle | Select a battle action                                                                                      |
+| Escape            | Close a menu or leave an encounter                                                                          |
 
 On touch screens, use the directional pad, Run button, and interaction prompt.
 
@@ -49,7 +49,7 @@ Progress saves automatically in the current browser using local storage. Origina
 - `dist/maps/registries.json`: pack-owned species, regions, moves and tuning; see [docs/PACKS.md](docs/PACKS.md) for `npm run pack -- create-pack`, `add-map`, `validate-pack` and `preview-pack`.
 - `dist/src/data/assets.js`: asset manifest (names, sizes, required status).
 - `dist/assets/`: original creature, character, and environment artwork, named by what it shows ([docs/ASSETS.md](docs/ASSETS.md)). `dist/favicon.svg`: site icon.
-- `docs/`: [game design](docs/GAME_DESIGN.md), [architecture](docs/ARCHITECTURE.md), [map format](docs/MAP_FORMAT.md), [save format](docs/SAVE_FORMAT.md), [content branch integration](docs/CONTENT_INTEGRATION.md), [backup and restore](docs/BACKUP.md), [publishing and rollback](docs/PUBLISHING.md), [roadmap](docs/FULL_GAME_ROADMAP.md), [assets](docs/ASSETS.md), [performance](docs/PERFORMANCE.md), [audio](docs/AUDIO.md).
+- `docs/`: [game design](docs/GAME_DESIGN.md), [architecture](docs/ARCHITECTURE.md), [map format](docs/MAP_FORMAT.md), [save format](docs/SAVE_FORMAT.md), [content branch integration](docs/CONTENT_INTEGRATION.md), [backup and restore](docs/BACKUP.md), [publishing and rollback](docs/PUBLISHING.md), [roadmap](docs/FULL_GAME_ROADMAP.md), [assets](docs/ASSETS.md), [performance](docs/PERFORMANCE.md), [audio](docs/AUDIO.md), [speech bubbles](docs/DIALOGUE.md).
 - `tests/`, `scripts/`, `.github/workflows/ci.yml`: automated checks.
 
 The game uses vanilla JavaScript and Canvas 2D. It has no backend, account system, or multiplayer service. Fonts are loaded from Google Fonts with local fallbacks.

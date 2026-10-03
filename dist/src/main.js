@@ -38,6 +38,7 @@ import {direction, installInput, isMoving} from './input.js';
 import {$, downloadText, hideModal, toast} from './ui/dom.js';
 import {renderHud, renderSaveStatus} from './ui/hud.js';
 import {createMenus} from './ui/menus.js';
+import {createBubbles} from './ui/bubbles.js';
 import {createBattleView} from './ui/battle-view.js';
 
 function getStorage() {
@@ -116,10 +117,13 @@ const app = {
   persist,
 };
 app.menus = createMenus(app);
+app.bubbles = createBubbles(app);
+ui.onModalOpen = () => app.bubbles.clear();
 app.renderBattle = createBattleView(app);
 const actions = createController(app);
 installInput(app);
 const renderer = createWorldRenderer({canvas, miniCanvas: $('#minimap')});
+app.renderer = renderer;
 
 // --- startup: world, loader, loop ---------------------------------------------------------------
 const loading = $('#loading');
@@ -215,6 +219,7 @@ Object.assign(actions, {
   switchAdventure(id) {
     if (!app.adventures.list.some(a => a.id === id)) return toast('That adventure is not available.');
     if (id === app.adventures.current.id) return actions.close();
+    app.bubbles.clear();
     app.persist(); // the adventure being left is saved first, under its own keys
     if (!writeSelection(storage, id))
       return toast('Could not switch adventures: this browser will not let Mossvale remember the choice. Your progress is unchanged.');
@@ -395,7 +400,7 @@ function loop(t) {
   if (!document.hidden) {
     const {pacing} = game;
     pacing.encounterCooldown = Math.max(0, pacing.encounterCooldown - dt);
-    if (!ui.paused && !ui.modalMode) {
+    if (!ui.paused && !ui.modalMode && !ui.speech) {
       game.save.playTime += dt;
       const [sx, sy] = direction(ui);
       const run = ui.keys.shift || ui.touchRun;
@@ -424,7 +429,9 @@ function loop(t) {
       reducedMotion: app.motionReduced(),
     };
     const t0 = perf ? performance.now() : 0;
+    ui.follower = view.follower;
     renderer.drawWorld(view);
+    if (ui.speech) app.bubbles.update();
     const t1 = perf ? performance.now() : 0;
     if (frame % 4 === 0) renderer.drawMinimap(view);
     if (perf) {
@@ -507,5 +514,6 @@ if (debug) {
     maxHP: id => maxHP(game.save, id),
     effectiveness,
     perf: () => perf,
+    speechAnchor: ref => app.bubbles.anchorOf(ref),
   };
 }

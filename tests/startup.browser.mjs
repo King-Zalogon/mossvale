@@ -260,6 +260,9 @@ for (const [seed, weakened] of [
   });
   await page.waitForTimeout(100);
   await page.evaluate(() => window.mossvale.interact());
+  await page.waitForSelector('#speech:not([hidden])');
+  assert.match(await page.textContent('#speech'), /Ranger Iris/);
+  await page.evaluate(() => window.mossvale.interact()); // next: the shop choices
   await page.waitForSelector('[data-buy="potion"]');
   await page.click('[data-buy="potion"]');
   assert.deepEqual(await state(), {coins: 15, potions: 1, orbs: 0});

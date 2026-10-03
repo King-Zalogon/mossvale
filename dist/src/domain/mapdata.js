@@ -3,6 +3,7 @@
 import {PLAYER_RADIUS} from '../config.js';
 import {TACTICS} from '../data/tactics.js';
 import {validateLines} from './objectives.js';
+import {speakerProblem} from './speech.js';
 import {validateSceneEvent} from './scenes.js';
 
 export const MAP_FORMAT = 1;
@@ -112,6 +113,7 @@ function validateOne(m, byId, ctx, errors) {
   else for (const [name, p] of Object.entries(m.spawns)) if (!inside(p)) at(`spawns.${name}`, 'must be [x, y] inside the map');
 
   const ids = new Set();
+  const landmarkIds = new Set((m.landmarks ?? []).map(l => l?.id).filter(id => typeof id === 'string'));
   (m.landmarks ?? []).forEach((l, i) => {
     const where = `landmarks[${i}] (${l?.id})`;
     if (!isObj(l) || typeof l.id !== 'string') return at(`landmarks[${i}]`, 'id required');
@@ -143,7 +145,8 @@ function validateOne(m, byId, ctx, errors) {
       if (!isObj(l.reward)) at(where + '.reward', 'chests need { coins, potions, orbs }');
     }
     if (l.kind === 'sign' && typeof l.text !== 'string' && !Array.isArray(l.lines)) at(where + '.text', 'signs need text (or lines)');
-    if (l.lines !== undefined) errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys())}));
+    if (l.lines !== undefined)
+      errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys()), speakerProblem: ref => speakerProblem(ref, landmarkIds)}));
     if (l.tag !== undefined && (typeof l.tag !== 'string' || l.tag.length > 16)) at(where + '.tag', 'tag is a short label (up to 16 characters)');
   });
   (m.exits ?? []).forEach((e, i) => {
@@ -199,7 +202,10 @@ function validateOne(m, byId, ctx, errors) {
     const where = `triggers[${i}] (${t?.id})`;
     if (!inside(t?.at)) at(where + '.at', 'must be [x, y] inside the map');
     if (!['enter', 'interact'].includes(t?.on)) at(where + '.on', 'enter or interact');
-    if (!Array.isArray(t?.do) || !t.do.length) at(where + '.do', 'needs at least one action');
+    const hasEvents = Array.isArray(t?.events) && t.events.length > 0;
+    if (t?.do === undefined && hasEvents) {
+      /* a trigger may consist only of scene events */
+    } else if (!Array.isArray(t?.do) || !t.do.length) at(where + '.do', 'needs at least one action (or scene events)');
     else
       t.do.forEach((a, j) => {
         if (a?.type === 'toast') {
@@ -210,7 +216,9 @@ function validateOne(m, byId, ctx, errors) {
         } else at(`${where}.do[${j}]`, 'action type must be "toast" or "battle"');
       });
     (t.events ?? []).forEach((event, j) => {
-      errors.push(...validateSceneEvent(event, {speciesIds: ctx.speciesIds, mapId: m.id, mapIds: new Set(byId.keys()), where: `${where}.events[${j}]`}));
+      errors.push(
+        ...validateSceneEvent(event, {speciesIds: ctx.speciesIds, mapId: m.id, mapIds: new Set(byId.keys()), landmarkIds, where: `${where}.events[${j}]`}),
+      );
       if (sceneEventIds.has(event?.id)) errors.push(`${where}.events[${j}].id: duplicate scene event id "${event.id}" in map ${m.id}`);
       sceneEventIds.add(event?.id);
       if (event?.actions?.some(action => action.type === 'challenge') && t.on !== 'interact')
@@ -274,7 +282,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
     radius: t.radius ?? 1.5,
     on: t.on,
     once: t.once !== false,
-    actions: t.do.map(a => (a.type === 'battle' ? {type: 'battle', id: speciesIndex(a.species), level: a.level} : a)),
+    actions: (t.do ?? []).map(a => (a.type === 'battle' ? {type: 'battle', id: speciesIndex(a.species), level: a.level} : a)),
     events: t.events?.map(event => ({
       ...event,
       actions: event.actions.map(action => (action.type === 'challenge' ? {...action, species: speciesIndex(action.species)} : action)),

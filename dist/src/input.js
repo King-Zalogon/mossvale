@@ -24,7 +24,7 @@ export function installInput(app) {
   };
   for (const b of document.querySelectorAll('[data-dir]')) {
     b.onpointerdown = e => {
-      if (ui.modalMode || ui.paused) return;
+      if (ui.modalMode || ui.paused || ui.speech) return;
       e.preventDefault();
       b.setPointerCapture(e.pointerId);
       ui.touch = b.dataset.dir.split(',').map(Number);
@@ -35,6 +35,14 @@ export function installInput(app) {
   window.addEventListener('keydown', e => {
     if (!ui.ready) return;
     const k = e.key.toLowerCase();
+    if (ui.speech) {
+      // Someone is talking: E, Enter and Space go to the next line, Escape closes. Nothing else moves the game on.
+      if (['e', 'enter', ' ', 'escape', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(k)) e.preventDefault();
+      if (e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (k === 'escape') actions.dismissSpeech();
+      else if (['e', 'enter', ' '].includes(k)) actions.interact();
+      return;
+    }
     if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(k) && !ui.modalMode) e.preventDefault();
     if (ui.modalMode) {
       if (ui.modalMode === 'result' && ['enter', ' ', 'e', 'escape'].includes(k)) {
