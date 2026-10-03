@@ -49,11 +49,11 @@
         },
         "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
       },
-      "sourceNotes": {"path": "art/characters/SOURCES.md", "sha256": "875538a0389c66c86f29ab520a6d7a0b00937d0d573ac3489abda8904a0463eb"},
+      "sourceNotes": {"path": "art/characters/SOURCES.md", "sha256": "dfa289d656880469e6e922275f3c7ba2e49c0e2db19fdeb4e4879a89efbb048c"},
       "sourceMetadata": {"path": "art/characters/metadata.json", "sha256": "993d4294eed1c27f2bd01f6769914b444e8b98cd7085e3da47eb26a27c703be2"},
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "dfb58f6c3e60d731dd53bec45b1f6605f93e9f7ae2f52023983718db8486416c",
+        "sha256": "6d470b0e88ae8f3e65903d55014d9b2225d8b4441635315f36231095fe0646fa",
         "settings": "RGBA 160x256 cells; crop source cells, scale with nearest-neighbor to 224 px high and at most 152 px wide, center horizontally, align feet to y=250; compose a 5x8 atlas in the recorded direction order."
       },
       "sourceBatches": [
@@ -185,7 +185,7 @@
         "contractSha256": "c8efb137d6d6342b761f5db76b65dfeb1de785c9d1caf277d9652a1555112240",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "49710fbb088d4891fd3e60b29a2ebc35d39ccef06867388c9265daf00f107389",
+          "sha256": "652b11652c11b862fd4d844a77b4a78d7ef9c7a2a0a025b7294699fb5562ed6a",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling."
         },
         "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
@@ -280,7 +280,7 @@
         "contractSha256": "c8efb137d6d6342b761f5db76b65dfeb1de785c9d1caf277d9652a1555112240",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "49710fbb088d4891fd3e60b29a2ebc35d39ccef06867388c9265daf00f107389",
+          "sha256": "652b11652c11b862fd4d844a77b4a78d7ef9c7a2a0a025b7294699fb5562ed6a",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling."
         },
         "requiredStates": ["idle", "attack", "hit", "faint", "capture"],

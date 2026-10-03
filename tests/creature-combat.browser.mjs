@@ -29,6 +29,7 @@ try {
       ),
   );
   assert.deepEqual(await page.locator('.creature h2').allTextContents(), ['Fernling', 'Duskwing']);
+  assert.equal(await page.locator('.reference img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), true);
   assert.deepEqual(
     await page.evaluate(() =>
       [...document.querySelectorAll('.creature canvas')].reduce((counts, canvas) => {
@@ -39,6 +40,7 @@ try {
     ),
     {idle: 8, attack: 8, hit: 8, faint: 8, capture: 8},
   );
+  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 10}, () => ['1', '2', '3', '4']).flat());
   assert.equal(
     await page.evaluate(() =>
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
