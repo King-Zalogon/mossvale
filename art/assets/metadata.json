@@ -31,7 +31,7 @@
     },
     "source/creature-follower-atlas.png": {
       "width": 2016,
-      "height": 1600,
+      "height": 3216,
       "mode": "RGBA"
     }
   },
@@ -222,6 +222,31 @@
       }
     },
     {
+      "name": "creature-brooklet-follower",
+      "src": "assets/creatures/creature-brooklet-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-follower-atlas.png",
+      "cell": {
+        "x": 1016,
+        "y": 1616
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+        "rowOrder": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"]
+      },
+      "provenance": {
+        "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
+        "originalGeneratedReferences": ["art/characters/source/creature-brooklet-follower-generated.png"],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
       "name": "creature-duskwing",
       "src": "assets/creatures/creature-duskwing.png",
       "folder": "creatures",
@@ -263,6 +288,31 @@
       "provenance": {
         "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
         "originalGeneratedReferences": ["art/characters/source/creature-duskwing-combat-generated.png"],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-duskwing-follower",
+      "src": "assets/creatures/creature-duskwing-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-follower-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 1616
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+      },
+      "provenance": {
+        "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
+        "originalGeneratedReferences": ["art/characters/source/creature-duskwing-follower-generated.png"],
         "originalGenerationSourceAvailable": true
       }
     },

@@ -4,12 +4,12 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-36 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+40 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
 | prop | `props/` | `<thing>-<detail>` | `tree-oak`, `tree-pine-snow`, `cottage-tiled`, `boulder-mossy`, `rock-spire-red`, `shrine-crystal-stone`, `signpost-wood`, `chest-wooden`, `grass-tuft`, `bush-flowering` |
-| creature | `creatures/` | `creature-<species>` (portraits, `-combat`, and `-follower` atlases) | `creature-fernling` … `creature-pebblit` (eight); initial follower sheets for Fernling and Emberkin |
+| creature | `creatures/` | `creature-<species>` (portraits, `-combat`, and `-follower` atlases) | `creature-fernling` … `creature-pebblit` (eight); follower sheets for Fernling, Emberkin, Duskwing and Brooklet |
 | person | `people/` | `person-<look>` (with frame metadata for atlases) | `person-red-cap-motion`, `person-traveler`, `person-gardener`; legacy `person-red-cap-south/north/west/east` |
 | item | `items/` | `item-<thing>` | `item-capture-orb` (reserved, optional) |
 
@@ -54,8 +54,8 @@ The optional `--pack` command bootstraps atlases from the current runtime PNGs a
 
 The original generation sheets and briefs are retained for the red-cap motion, traveler and gardener art in `art/characters/source/`; those original references are linked from `art/characters/metadata.json` and `art/characters/SOURCES.md`. Fernling and Duskwing combat source sheets are also retained there with brief prompt summaries and their canonical portrait references; provider, model, seed and mask history were not retained. The older prop, creature and legacy-person atlases are reconstructed from the exact existing runtime crops, so their original generation prompts were not recovered. This distinction is recorded per asset in the source metadata and subject provenance registry.
 
-All assets use `bottom-center` anchors. World objects set their deliberate apparent size in map data, the player uses a 36 px world width, and creature portraits share the 85–110 px UI widths in `render/sprites.js` and the menu/battle callers. Frames with multiple poses declare the fixed cell size and direction order in the manifest and source metadata. The browser preview at `dist/character-preview.html` shows the generated character batch at gameplay scale. `dist/creature-combat-preview.html` shows the initial Fernling and Duskwing combat atlases at gameplay scale; the optional `*-combat` manifest IDs fall back to each creature’s static portrait until a sheet exists. `dist/creature-follower-preview.html` shows the initial Fernling and Emberkin 5×8 direction/walk atlases and follower-path motion at gameplay scale; other species retain the static fallback. Frame timing and source briefs are in `art/characters/creature-combat-metadata.json`, `art/characters/creature-follower-metadata.json`, and `art/characters/SOURCES.md`.
+All assets use `bottom-center` anchors. World objects set their deliberate apparent size in map data, the player uses a 36 px world width, and creature portraits share the 85–110 px UI widths in `render/sprites.js` and the menu/battle callers. Frames with multiple poses declare the fixed cell size and direction order in the manifest and source metadata. The browser preview at `dist/character-preview.html` shows the generated character batch at gameplay scale. `dist/creature-combat-preview.html` shows the Fernling and Duskwing combat atlases at gameplay scale; the optional `*-combat` manifest IDs fall back to each creature’s static portrait until a sheet exists. `dist/creature-follower-preview.html` shows four 5×8 direction/walk atlases and follower-path motion at gameplay scale; the remaining species retain the static fallback. Frame timing and source briefs are in `art/characters/creature-combat-metadata.json`, `art/characters/creature-follower-metadata.json`, and `art/characters/SOURCES.md`.
 
-See [ART_REVIEW.md](ART_REVIEW.md) for stable identity records, source hashes, versioned category export profiles, contact sheets, and separate technical and visual review. The follower profile now covers an initial Emberkin/Fernling batch; #90 remains open for the other active species and follow-up visual review. Terrain-transition art remains pending.
+See [ART_REVIEW.md](ART_REVIEW.md) for stable identity records, source hashes, versioned category export profiles, contact sheets, and separate technical and visual review. The follower profile now covers Emberkin, Fernling, Duskwing and Brooklet; #90 remains open for the eight remaining active species and owner gameplay review. Terrain-transition art remains pending.
 
 Rights and attribution for distribution are tracked separately (deferred in the roadmap).
