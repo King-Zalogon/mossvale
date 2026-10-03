@@ -56,6 +56,22 @@ Progress saves automatically in the current browser using local storage. Origina
 
 The game uses vanilla JavaScript and Canvas 2D. It has no backend, account system, or multiplayer service. Fonts are loaded from Google Fonts with local fallbacks.
 
+## Private Vercel deployment
+
+The portal-hosted copy is a separate deployment from the existing hosted game. It uses the Zalonline Supabase Auth project and only serves `/game/` after the signed-in user can read the enabled `mossvale` row in `public.applications` under row-level security. Add the production Vercel URL to that row from the Zalonline owner account. The public GitHub repository and existing hosted game are unchanged.
+
+In Vercel, import this repository as a Next.js project and add these environment variables for Production:
+
+| Variable                        | Value                                                                               |
+| ------------------------------- | ----------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | The Zalonline Supabase project URL                                                  |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | That project's publishable/anon key (never a secret/service-role key)               |
+| `MOSSVALE_GATE_SECRET`          | A private random value of at least 32 characters, such as `openssl rand -base64 32` |
+
+Deploy, then upsert the project URL into `public.applications` with slug `mossvale`. Sign in with an existing Zalonline user; access follows the portal's per-user and group app grants. No Supabase service-role key belongs in Vercel. Browser saves remain local to that browser and deployment origin; they do not sync to the old hosted game or other devices.
+
+For local development of the portal wrapper, copy `.env.example` to `.env.local`, fill in the values, then run `npm run dev`. The original local game server remains `npm start`.
+
 ## Development and checks
 
 Node 20+ (CI uses 22). Install once with `npm ci`; serving the game needs no build (`npm start` or the command above).
