@@ -77,6 +77,24 @@ test('snowy maps form a distinct, traversable pair with a safe return and option
   assert.equal(pass.landmarks.find(l => l.kind === 'cottage').label, 'Rest at the pine shelter');
   assert.equal(pass.landmarks.find(l => l.kind === 'chest').secret, true);
   assert.equal(pass.zones[0].pool.length, 3);
+  assert.equal(grove.landmarks.find(l => l.id === 'icefall-note').secret, true);
+  assert.equal(grove.landmarks.find(l => l.id === 'icefall-note').mapLabel, 'Icefall ledge');
+  assert.deepEqual(new Set([...grove.zones[1].pool, ...pass.zones[0].pool]), new Set(['duskwing', 'frostowl', 'hushram']));
+  for (const map of [grove, pass]) {
+    assert.ok(
+      map.landmarks.some(l => l.kind === 'ranger'),
+      `${map.id} has a recovery point`,
+    );
+    assert.ok(
+      map.landmarks.some(l => l.secret),
+      `${map.id} has an optional discovery`,
+    );
+    assert.ok(map.quiet.length >= 3, `${map.id} has quiet return corridors`);
+    assert.ok(
+      map.zones.every(zone => zone.distance),
+      `${map.id} paces encounters explicitly`,
+    );
+  }
 });
 
 test('a bounded large rectangular map validates and compiles through its far coordinates', () => {

@@ -248,7 +248,8 @@
       "terrain": ["t"],
       "rect": [12, 8, 51, 40],
       "pool": ["duskwing", "frostowl", "hushram"],
-      "level": [11, 13]
+      "level": [11, 13],
+      "distance": [5, 9]
     }
   ],
   "quiet": [
@@ -261,6 +262,11 @@
       "id": "marked-north-trail",
       "rect": [15, 8, 26, 14],
       "label": "Snow markers"
+    },
+    {
+      "id": "south-lake-return",
+      "rect": [30, 31, 44, 38],
+      "label": "Southern lake trail"
     }
   ]
 }
