@@ -47,3 +47,16 @@ export async function fetchAdventure(base = 'maps/') {
   const registries = files['registry:main'];
   return {maps, objectives, story, registries, pack: index};
 }
+
+/** The adventure catalog next to the page. A build without one offers just the adventure in `maps/`. */
+export async function fetchCatalog(url = 'adventures.json') {
+  let response;
+  try {
+    response = await fetch(url);
+  } catch (error) {
+    throw new Error(`${url}: ${error.message || 'network error'}`, {cause: error});
+  }
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
+  return response.json();
+}

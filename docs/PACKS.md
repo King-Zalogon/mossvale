@@ -78,6 +78,25 @@ npm run pack -- refresh-manifest ./content/bright-hollow
 
 `create-pack` refuses to replace an existing scaffold unless `--force` is supplied for the same pack ID. It creates a small playable map and starter species/region/rule tables. `add-map` clones the first map, adds a returnable exit, and updates the region table. Review the generated map and tune registries before building a game. Invalid IDs and missing references are reported with pack file/field context on Windows and Linux.
 
+## Choosing an adventure (#67)
+
+A build offers its adventures through `adventures.json` next to `index.html`:
+
+```jsonc
+{ "format": 1, "adventures": [
+  { "id": "mossvale", "name": "Mossvale", "brief": "…", "path": "maps/" },
+  { "id": "hearth-hamlet", "name": "Hearth Hamlet", "path": "adventures/hearth-hamlet/" }
+] }
+```
+
+`path` is the folder holding that pack's `index.json`, and the manifest's `id` must match the entry. With more than one entry the title screen and the in-game menu show **Adventures**: each adventure with its brief and progress (friends, seals, minutes, read without loading it). Choosing one saves the adventure you leave, remembers the choice (`mossvale-adventure`) and reloads, so one page never holds two adventures' registries or progress. `?adventure=<id>` opens a specific one.
+
+- **Isolation.** Each adventure has its own save, checkpoint, archive, quarantine and recovery journal; see [SAVE_FORMAT.md](SAVE_FORMAT.md). Settings are shared.
+- **Missing or broken.** A remembered adventure that is no longer offered falls back to the first one with a message, leaving its progress untouched. An adventure whose files fail to load or whose manifest disagrees with the catalog shows the error with *Open “…” instead*; nothing is written while loading fails.
+- **Backups** are per adventure and cannot be imported into another ([BACKUP.md](BACKUP.md)).
+- **Building.** `npm run build -- --include ./content/x` (repeatable) adds a pack to the chooser under `adventures/<id>/` and writes the catalog. `--pack` makes a pack the main adventure of a standalone build and writes a catalog naming only it. A build without `adventures.json` (older) opens whatever pack is in `maps/`.
+- **Testing.** `tests/adventures.test.mjs` (catalog, keys, relocation incl. interruptions, backups) and `tests/adventures.browser.mjs` (two adventures in one browser, switching, reload, wrong-pack import, missing/broken adventure, relocation, no save overwritten while loading).
+
 ## Adding another adventure
 
 1. Run `create-pack`, then use `add-map` or edit the generated map files. A pack folder contains `index.json`, `registries.json`, optional objective/story files and maps.
@@ -89,4 +108,4 @@ npm run pack -- refresh-manifest ./content/bright-hollow
    npm run build -- --pack ./content/bright-hollow
    ```
 
-   Set `BUILD_DIR` to choose an output folder. The artifact's `version.json` records engine version, pack ID/content version, save schema and source commit. The build stamps canonical file IDs and byte hashes into `maps/index.json`; at runtime all selected files must match before the save codec opens. After editing pack files, run `refresh-manifest`, review the generated changes, then run `validate-pack`. Referenced assets are checked against the manifest and all checked-in image files are validated before output is replaced. Keep the previous complete build folder as the rollback copy; restore it as a unit so the engine and its map data stay paired. Saves remain isolated by pack ID. A title-screen multi-pack chooser is tracked separately by #67.
+   Set `BUILD_DIR` to choose an output folder. The artifact's `version.json` records engine version, pack ID/content version, save schema and source commit. The build stamps canonical file IDs and byte hashes into `maps/index.json`; at runtime all selected files must match before the save codec opens. After editing pack files, run `refresh-manifest`, review the generated changes, then run `validate-pack`. Referenced assets are checked against the manifest and all checked-in image files are validated before output is replaced. Keep the previous complete build folder as the rollback copy; restore it as a unit so the engine and its map data stay paired. Saves remain isolated by pack ID.

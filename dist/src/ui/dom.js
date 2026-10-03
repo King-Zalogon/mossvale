@@ -47,6 +47,7 @@ function controlSelector(el) {
  */
 export function openModal(ui, content, mode, label = 'Game menu') {
   const m = $('#modal');
+  ui.onModalOpen?.(); // a menu replaces any open speech bubble
   const rerender = !m.hidden && ui.modalMode === mode;
   const scroll = rerender ? m.scrollTop : 0;
   // Remember the control with focus across renders, even while it is briefly disabled (e.g. during a battle round).

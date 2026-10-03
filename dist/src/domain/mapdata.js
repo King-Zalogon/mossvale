@@ -146,6 +146,9 @@ function validateOne(m, byId, ctx, errors) {
     if (l.kind === 'sign' && typeof l.text !== 'string' && !Array.isArray(l.lines)) at(where + '.text', 'signs need text (or lines)');
     if (l.lines !== undefined) errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys())}));
     if (l.tag !== undefined && (typeof l.tag !== 'string' || l.tag.length > 16)) at(where + '.tag', 'tag is a short label (up to 16 characters)');
+    if (l.secret !== undefined && typeof l.secret !== 'boolean') at(where + '.secret', 'true (hidden from the maps until found nearby) or false');
+    if (l.mapLabel !== undefined && (typeof l.mapLabel !== 'string' || !l.mapLabel || l.mapLabel.length > 24))
+      at(where + '.mapLabel', 'the name shown on maps (1-24 characters)');
   });
   (m.exits ?? []).forEach((e, i) => {
     const where = `exits[${i}] (${e?.id})`;
@@ -195,12 +198,26 @@ function validateOne(m, byId, ctx, errors) {
       at(where + '.level', '[min, max] integers, 1 <= min <= max <= 99');
     if (z?.rect !== undefined && !(Array.isArray(z.rect) && z.rect.length === 4 && z.rect.every(Number.isFinite))) at(where + '.rect', '[x0, y0, x1, y1]');
   });
+  const quietIds = new Set();
+  (m.quiet ?? []).forEach((q, i) => {
+    const where = `quiet[${i}] (${q?.id})`;
+    if (typeof q?.id !== 'string' || !ID.test(q.id)) at(where, 'id required (lowercase-kebab-case)');
+    else if (quietIds.has(q.id)) at(where, 'duplicate quiet area id');
+    else quietIds.add(q.id);
+    const r = q?.rect;
+    if (!Array.isArray(r) || r.length !== 4 || !r.every(Number.isFinite) || r[0] > r[2] || r[1] > r[3] || r[0] < 0 || r[1] < 0 || r[2] > w || r[3] > h)
+      at(where + '.rect', `[x0, y0, x1, y1] inside the map (0..${w}, 0..${h}) with x0 <= x1 and y0 <= y1`);
+    if (q?.label !== undefined && (typeof q.label !== 'string' || q.label.length > 24)) at(where + '.label', 'a short name (up to 24 characters)');
+  });
   const sceneEventIds = new Set();
   (m.triggers ?? []).forEach((t, i) => {
     const where = `triggers[${i}] (${t?.id})`;
     if (!inside(t?.at)) at(where + '.at', 'must be [x, y] inside the map');
     if (!['enter', 'interact'].includes(t?.on)) at(where + '.on', 'enter or interact');
-    if (!Array.isArray(t?.do) || !t.do.length) at(where + '.do', 'needs at least one action');
+    const hasEvents = Array.isArray(t?.events) && t.events.length > 0;
+    if (t?.do === undefined && hasEvents) {
+      /* a trigger may consist only of scene events */
+    } else if (!Array.isArray(t?.do) || !t.do.length) at(where + '.do', 'needs at least one action (or scene events)');
     else
       t.do.forEach((a, j) => {
         if (a?.type === 'toast') {
@@ -259,6 +276,8 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
       text: l.text,
       lines: l.lines,
       tag: l.tag,
+      secret: l.secret === true,
+      mapLabel: l.mapLabel,
       reward: l.reward,
       guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level, tactic: l.guardian.tactic, power: l.guardian.power},
     }),
@@ -294,13 +313,14 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     radius: t.radius ?? 1.5,
     on: t.on,
     once: t.once !== false,
-    actions: t.do.map(a => (a.type === 'battle' ? {type: 'battle', id: speciesIndex(a.species), level: a.level} : a)),
+    actions: (t.do ?? []).map(a => (a.type === 'battle' ? {type: 'battle', id: speciesIndex(a.species), level: a.level} : a)),
     events: t.events?.map(event => ({
       ...event,
       actions: event.actions.map(action => (action.type === 'challenge' ? {...action, species: speciesIndex(action.species)} : action)),
     })),
   }));
-  return {id: m.id, biome: m.biome, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers};
+  const quiet = (m.quiet ?? []).map(q => ({id: q.id, rect: q.rect, label: q.label}));
+  return {id: m.id, biome: m.biome, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers, quiet};
 }
 
 /** Semantic checks that need the compiled map: spawn safety, exits on land, reachable goals. */

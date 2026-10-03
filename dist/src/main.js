@@ -20,7 +20,17 @@ import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
 import {exportBackup, exportFileName, importSave, parseBackup, readCheckpoint, restoreCheckpoint} from './services/backup.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
-import {fetchAdventure} from './services/maps.js';
+import {fetchAdventure, fetchCatalog} from './services/maps.js';
+import {
+  chooseAdventure,
+  DEFAULT_CATALOG,
+  describeProgress,
+  parseCatalog,
+  peekProgress,
+  readSelection,
+  relocateLegacyPacks,
+  writeSelection,
+} from './services/adventures.js';
 import {describeBuild, fetchBuild} from './services/version.js';
 import {createPersistence} from './services/persistence.js';
 import {createWorldRenderer} from './render/world.js';
@@ -69,9 +79,11 @@ const mapBounds = {};
 let codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: PACK_ID});
 const storage = getStorage();
 let loaded = {save: codec.fresh(), status: 'new', message: '', writable: true, source: null};
-let persistence;
-const persist = (...args) => persistence(...args);
-persist.lock = () => persistence.lock();
+// Nothing is written until the adventure's own save has been loaded in boot(): before that, `game.save` is only a
+// placeholder, and saving it (the 6 s timer, a blur) would overwrite the real progress.
+let persistence = null;
+const persist = (...args) => (persistence ? persistence(...args) : false);
+persist.lock = () => persistence?.lock();
 const settings = loadSettings(storage);
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
@@ -86,14 +98,6 @@ const game = {
   trail: [],
   pacing: {steps: 0, encounterAt: 4, encounterCooldown: 2},
 };
-persistence = createPersistence({
-  storage,
-  codec,
-  game,
-  writable: loaded.writable,
-  onStatus: renderSaveStatus,
-  onEvent: (type, data) => eventLog.emit(type, data),
-});
 const ui = {
   modalMode: '',
   modalFocus: null,
@@ -124,6 +128,9 @@ const app = {
   buildLabel: () => describeBuild(app.build),
   motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,
   projectWorld: (x, y) => renderer.worldToScreen(x, y),
+  adventures: {list: parseCatalog(DEFAULT_CATALOG).adventures, current: parseCatalog(DEFAULT_CATALOG).adventures[0], note: ''},
+  peekAdventure: id => ({...peekProgress(storage, id)}),
+  describeProgress,
   archive: () => readArchive(storage, codec),
   checkpoint: () => readCheckpoint(storage, codec),
   canStartOver: () => loaded.writable,
@@ -151,6 +158,13 @@ function showLoadError(message, detail) {
   $('#load-detail').textContent = detail || '';
   $('#load-retry').hidden = false;
   $('#load-bar').hidden = true;
+  // If another adventure is available, offer it: a broken or missing adventure never traps the player.
+  const other = app.adventures.list.find(a => a.id !== app.adventures.current.id);
+  $('#load-switch').hidden = !other;
+  if (other) {
+    $('#load-switch').textContent = `Open “${other.name}” instead`;
+    $('#load-switch').onclick = () => actions.switchAdventure(other.id);
+  }
   setBusy(true);
   $('#load-retry').focus();
 }
@@ -165,6 +179,7 @@ function postStart() {
       toast(game.save.recap);
       game.save.recap = '';
     }
+    if (app.adventures.note) toast(app.adventures.note); // last, so the explanation is the message left on screen
     if (['restored', 'recovered', 'future', 'foreign', 'incompatible', 'unavailable', 'transaction-recovered', 'transaction-pending'].includes(loaded.status))
       app.menus.saveNotice(loaded.status, loaded.message);
     if (!resumed) actions.checkEnding(); // a save that already earned every seal sees the ending once
@@ -219,6 +234,16 @@ Object.assign(actions, {
     resize();
     saveSettings(storage, settings);
   },
+  /** Remembers the chosen adventure and reloads, so one page never holds two adventures' registries or progress. */
+  switchAdventure(id) {
+    if (!app.adventures.list.some(a => a.id === id)) return toast('That adventure is not available.');
+    if (id === app.adventures.current.id) return actions.close();
+    app.persist(); // the adventure being left is saved first, under its own keys
+    if (!writeSelection(storage, id))
+      return toast('Could not switch adventures: this browser will not let Mossvale remember the choice. Your progress is unchanged.');
+    app.persist.lock();
+    location.reload();
+  },
   newGame() {
     const result = startOver({storage, codec, save: game.save, rng});
     if (!result.ok) {
@@ -235,12 +260,12 @@ Object.assign(actions, {
       return;
     }
     app.persist(); // so the file matches what is on screen
-    downloadText(exportFileName(), exportBackup(codec, game.save, app.build));
+    downloadText(exportFileName(new Date(), codec.pack), exportBackup(codec, game.save, app.build));
     toast('Save file downloaded. Import it in another browser to continue there.');
   },
   async readBackup(file) {
     try {
-      return parseBackup(await file.text(), codec);
+      return parseBackup(await file.text(), codec, app.adventures.list);
     } catch {
       return {ok: false, reason: 'That file could not be read.'};
     }
@@ -283,7 +308,29 @@ async function boot() {
   }
   if (!app.maps.length) {
     try {
-      const {maps: rawMaps, objectives: rawObjectives, story: rawStory, registries, pack: rawPack} = await fetchAdventure();
+      const rawCatalog = await fetchCatalog();
+      const parsed = parseCatalog(rawCatalog ?? DEFAULT_CATALOG);
+      if (parsed.errors.length) {
+        showLoadError('The list of adventures is invalid.', parsed.errors.slice(0, 5).join(' · '));
+        return;
+      }
+      relocateLegacyPacks(storage); // saves a pack-specific build left under the first adventure's keys move to their own
+      const {entry, note} = chooseAdventure(parsed.adventures, {requested: params.get('adventure'), stored: readSelection(storage)});
+      app.adventures.list = parsed.adventures;
+      app.adventures.current = entry;
+      app.adventures.note = note;
+      const {maps: rawMaps, objectives: rawObjectives, story: rawStory, registries, pack: rawPack} = await fetchAdventure(entry.path);
+      if (rawCatalog === null && rawPack.id !== entry.id) {
+        // No catalog (a build from before the chooser): whatever pack is in maps/ is the one adventure.
+        Object.assign(entry, {id: rawPack.id, name: rawPack.name ?? entry.name, brief: rawPack.brief ?? ''});
+      }
+      if (rawPack.id !== entry.id) {
+        showLoadError(
+          `The adventure “${entry.name}” does not match its catalog entry.`,
+          `The catalog says "${entry.id}", the adventure folder says "${rawPack.id}".`,
+        );
+        return;
+      }
       if (editorPreviewMap) {
         const index = rawMaps.findIndex(map => map.id === editorPreviewId);
         if (index >= 0) rawMaps[index] = editorPreviewMap;
@@ -313,8 +360,10 @@ async function boot() {
       } else {
         loaded = codec.load(storage);
         if (loaded.status === 'new') loaded.save = codec.fresh(rng);
+        if (readSelection(storage) !== entry.id) writeSelection(storage, entry.id); // an explicit ?adventure= or a fallback becomes the choice
       }
       $('#load-title').textContent = loaded.save.badges.length || loaded.save.caught.length > 1 ? 'Resuming your trail' : `Preparing ${rawPack.name}`;
+      $('#load-switch').hidden = true;
       game.save = loaded.save;
       game.player.x = loaded.save.x;
       game.player.y = loaded.save.y;
@@ -415,6 +464,7 @@ function loop(t) {
       const zone = movePlayer({world: game.world, player: game.player, pacing, trail: game.trail}, sx, sy, run, dt);
       if (zone) actions.startWild(zone);
       actions.checkTriggers();
+      actions.explore();
       if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, nearestWalkable(game.world, game.player.x, game.player.y)); // stuck recovery
       const nearest = actions.nearest();
       $('#interact').style.display = nearest ? 'block' : 'none';
@@ -523,6 +573,7 @@ if (debug) {
     maxHP: id => maxHP(game.save, id),
     effectiveness,
     perf: () => perf,
+    areaMap: () => app.areaMap.state,
     events: () => eventLog.read(),
     advanceClock: milliseconds => testClock?.advance(milliseconds) ?? null,
   };

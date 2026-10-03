@@ -55,7 +55,7 @@
    "sprite": "person-red-cap-south",
    "at": [
     5,
-    4
+    3.4
    ],
    "w": 37,
    "kind": "sign",
@@ -78,6 +78,20 @@
     "potions": 1,
     "orbs": 1
    }
+  },
+  {
+   "id": "carved-stone",
+   "kind": "sign",
+   "sprite": "signpost-wood",
+   "at": [
+    5.3,
+    2.3
+   ],
+   "w": 38,
+   "secret": true,
+   "mapLabel": "Carved stone",
+   "label": "Read the carved stone",
+   "text": "Someone carved a tiny kettle here."
   }
  ],
  "exits": [],
@@ -98,5 +112,56 @@
    ]
   }
  ],
- "triggers": []
+ "triggers": [
+  {
+   "id": "gossip",
+   "at": [
+    4.3,
+    5.7
+   ],
+   "radius": 1.0,
+   "on": "interact",
+   "events": [
+    {
+     "id": "gossip",
+     "repeatable": true,
+     "actions": [
+      {
+       "type": "dialogue",
+       "speaker": "villager",
+       "text": "Did you hear? Wren put the kettle on again."
+      },
+      {
+       "type": "dialogue",
+       "speaker": "building",
+       "text": "Come in, come in. There is plenty of tea."
+      },
+      {
+       "type": "dialogue",
+       "speaker": "player",
+       "text": "Thank you, I will!"
+      },
+      {
+       "type": "dialogue",
+       "speaker": "narrator",
+       "text": "The kettle whistles happily."
+      }
+     ]
+    }
+   ],
+   "once": false
+  }
+ ],
+ "quiet": [
+  {
+   "id": "tea-path",
+   "rect": [
+    3.5,
+    1.5,
+    5.5,
+    2.5
+   ],
+   "label": "Tea path"
+  }
+ ]
 }

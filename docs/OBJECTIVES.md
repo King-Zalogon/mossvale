@@ -33,6 +33,7 @@ A milestone is a flag (`<map>.seal`, `<map>.chest`) that is stored once and neve
 
 ## Short lines and roles
 
+
 `lines: [{ "when": cond, "text": "…" }, { "text": "fallback" }]` on a `ranger` or `sign` landmark picks the first line whose condition holds. The on-screen name tag (`tag`) and the name (`name`) are map data, so the same ranger asset can carry a different name, tag and text in another adventure; `kind` stays the functional role (rest and shop). There are no branching dialogue trees or scripts by design; later story roles can add more `kind`s or `lines`.
 
 ## No softlocks

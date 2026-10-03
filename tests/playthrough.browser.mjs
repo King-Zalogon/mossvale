@@ -131,13 +131,16 @@ for (const type of ['capture.attempted', 'capture.completed', 'reward.granted', 
   );
 
 // Fill the three-member battle team and place another captured creature in reserve through real battle actions.
-for (const id of [3, 4]) {
+// The starter is random, so capture whichever creatures are still missing until both are true.
+let stocked = await state();
+for (const id of [3, 4, 5, 6, 7, 1, 2]) {
+  if (stocked.party.length === 3 && stocked.reserve.length > 0) break;
+  if (stocked.caughtIds.includes(id)) continue;
   await page.evaluate(id => window.mossvale.encounter(id), id);
   await fightOut(true);
   await dismissResults();
+  stocked = await state();
 }
-const stocked = await state();
-assert.ok(stocked.caughtIds.includes(3) && stocked.caughtIds.includes(4));
 assert.equal(stocked.party.length, 3);
 assert.ok(stocked.reserve.length > 0);
 

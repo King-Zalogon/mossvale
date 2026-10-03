@@ -14,7 +14,10 @@ import {POTION_HEAL} from '../domain/battle.js';
 import {TACTICS} from '../data/tactics.js';
 import {hasProgress, summarize} from '../services/profile.js';
 import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
+import {createAreaMap} from './areamap.js';
 import {$, header, openModal} from './dom.js';
+
+const esc = text => String(text).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'})[c]);
 
 export function createMenus(app) {
   const {game, ui, actions} = app;
@@ -28,12 +31,28 @@ export function createMenus(app) {
     for (const b of document.querySelectorAll('[data-select]')) b.onclick = () => actions.selectCompanion(+b.dataset.select);
   };
 
-  function worldMap() {
+  const areaMap = createAreaMap(app);
+  app.areaMap = areaMap;
+
+  /** The map screen: the islands (regions) or the explored part of the current area, with pan and zoom. */
+  function worldMap(view = ui.mapView ?? 'islands') {
     if (game.battle) return;
+    ui.mapView = view;
+    const tabs = `<div class="tab-buttons" role="group" aria-label="Map view"><button id="map-islands" class="${view === 'islands' ? 'selected' : ''}" aria-pressed="${view === 'islands'}">Islands</button><button id="map-area" class="${view === 'area' ? 'selected' : ''}" aria-pressed="${view === 'area'}">This area</button></div>`;
+    if (view === 'area') {
+      areaMap.reset();
+      open(`${header('EXPLORED SO FAR', game.world.map.name)}${tabs}${areaMap.html()}`, 'map', 'Area map');
+      wireClose();
+      $('#map-islands').onclick = () => worldMap('islands');
+      areaMap.mount();
+      // openModal restores focus on the next frame; take it after that so the map's keys work at once
+      requestAnimationFrame(() => requestAnimationFrame(() => $('#area-canvas')?.focus({preventScroll: true})));
+      return;
+    }
     const s = save();
     const sideMaps = Object.values(app.mapsById).filter(m => !app.maps.some(hub => hub.id === m.id));
     open(
-      `${header('FOUR BIOMES. ONE ADVENTURE.', 'The Verdant Isles')}<p>Follow the eastern trails, or travel directly to any unlocked region.</p><div class="map-cards">${regions
+      `${header('FOUR BIOMES. ONE ADVENTURE.', 'The Verdant Isles')}${tabs}<p>Follow the eastern trails, or travel directly to any unlocked region.</p><div class="map-cards">${regions
         .map(
           (r, i) =>
             `<div class="region-card ${s.region === i ? 'current' : ''} ${!unlocked(s, i) ? 'locked' : ''}"><div class="region-preview"><canvas id="region-art-${i}" width="110" height="110"></canvas></div><h3>${r.name}</h3><p>${unlocked(s, i) ? r.desc : `Earn the ${regions[i - 1].seal.toLowerCase()} to open this trail.`}</p><button data-travel="${i}" ${!unlocked(s, i) ? 'disabled' : ''}>${!unlocked(s, i) ? 'Trail locked' : s.region === i ? 'Return to this camp' : 'Travel to ' + r.short}</button></div>`,
@@ -54,6 +73,7 @@ export function createMenus(app) {
     for (const b of document.querySelectorAll('[data-travel]')) b.onclick = () => actions.travel(+b.dataset.travel);
     for (const b of document.querySelectorAll('[data-map-travel]')) b.onclick = () => actions.travel(b.dataset.mapTravel);
     wireClose();
+    $('#map-area').onclick = () => worldMap('area');
   }
 
   /** Regions whose encounter zones can produce species `i`. */
@@ -237,6 +257,15 @@ export function createMenus(app) {
       if (view === 'settings') {
         const zoom = (ui.zoom || 1).toFixed(2);
         body = `${header('SETTINGS', 'Make it comfortable', !title)}<div class="setting-row"><span>Sound (all audio)</span><span class="choices">${choice('sound', true, 'On')}${choice('sound', false, 'Off')}</span></div><div class="setting-row"><span>Volume</span><span class="choices">${choice('volume', 'low', 'Low')}${choice('volume', 'medium', 'Medium')}${choice('volume', 'high', 'High')}</span></div><div class="setting-row"><span>Ambient music</span><span class="choices">${choice('ambience', true, 'On')}${choice('ambience', false, 'Off')}</span></div><div class="setting-row"><span>Motion</span><span class="choices">${choice('motion', 'auto', 'Match system')}${choice('motion', 'reduced', 'Calm')}</span></div><div class="setting-row"><span>Text size</span><span class="choices">${choice('text', 'normal', 'Normal')}${choice('text', 'large', 'Large')}${choice('text', 'larger', 'Larger')}</span></div><div class="setting-row"><span>Zoom ${zoom}×</span><span class="choices"><button id="s-zoom-out" class="muted-button" aria-label="Zoom out" ${ui.zoom <= ZOOM_MIN ? 'disabled' : ''}>−</button><button id="s-zoom-in" class="muted-button" aria-label="Zoom in" ${ui.zoom >= ZOOM_MAX ? 'disabled' : ''}>+</button><button id="s-zoom-auto" class="muted-button">Auto</button></span></div><div class="setting-row"><span>Touch: run by default</span><span class="choices">${choice('run', true, 'On')}${choice('run', false, 'Off')}</span></div><div class="menu-list"><button id="m-back" class="primary">Back</button></div>`;
+      } else if (view === 'adventures') {
+        const {list, current} = app.adventures;
+        const rows = list
+          .map(a => {
+            const here = a.id === current.id;
+            return `<button data-adventure="${esc(a.id)}" ${here ? 'aria-current="true"' : ''}><b>${esc(a.name)}</b>${here ? ' · playing now' : ''}${a.brief ? `<small>${esc(a.brief)}</small>` : ''}<small>${app.describeProgress(app.peekAdventure(a.id))}</small></button>`;
+          })
+          .join('');
+        body = `${header('ADVENTURES', 'Choose an adventure', !title)}<p class="menu-summary">Each adventure keeps its own progress, backups and recovery copy in this browser. Switching saves the one you leave and reloads. Settings are shared.</p><div class="menu-list">${rows}<button id="m-back" class="primary">Back</button></div>`;
       } else if (view === 'backup') {
         const checkpoint = app.checkpoint();
         body = `${header('BACKUP', 'Save backup', !title)}<p class="menu-summary">Your progress is saved in this browser, on this address only. To move it to another browser or device, export a file here and import it there. No account is needed.</p><div class="menu-list"><button id="b-export" class="primary">Export save file</button><button id="b-import" ${app.canStartOver() ? '' : 'disabled'}>Import save file…</button><input type="file" id="b-file" accept=".json,application/json" hidden>${checkpoint ? `<button id="b-checkpoint" ${app.canStartOver() ? '' : 'disabled'}>Restore the checkpoint from your last session<small>${summarize(checkpoint, species)}</small></button>` : ''}<button id="m-back">Back</button></div>${problem ? `<p class="menu-error" role="alert">${problem}</p>` : ''}`;
@@ -247,7 +276,7 @@ export function createMenus(app) {
       } else if (view === 'confirm-restore') {
         body = `${header('RESTORE', 'Go back to your earlier adventure?', false)}<p class="menu-summary">Restores ${summarize(archived.save, species)}, archived ${new Date(archived.at).toLocaleDateString()}. Your current adventure (${summarize(s, species)}) becomes the backup, so nothing is lost.</p><div class="menu-list"><button id="m-confirm-restore" class="primary">Restore it</button><button id="m-cancel">Cancel</button></div>`;
       } else {
-        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button><button id="m-backup">Backup & restore</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
+        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${app.adventures.list.length > 1 ? '<button id="m-adventures">Adventures<small>' + esc(app.adventures.current.name) + '</small></button>' : ''}<button id="m-backup">Backup & restore</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
       }
       open(body, mode, title ? 'Mossvale' : 'Game menu');
       wireClose();
@@ -260,6 +289,8 @@ export function createMenus(app) {
       };
       on('#m-primary', () => (title ? actions.startPlaying() : actions.close()));
       on('#m-settings', go('settings'));
+      on('#m-adventures', go('adventures'));
+      for (const b of document.querySelectorAll('[data-adventure]')) b.onclick = () => actions.switchAdventure(b.dataset.adventure);
       on('#m-backup', () => {
         problem = '';
         go('backup')();

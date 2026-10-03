@@ -2174,3 +2174,62 @@ body.text-larger .heading {
     transition: none;
   }
 }
+
+/* "This area" map (#73) */
+.area-map {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+#area-canvas {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  aspect-ratio: 560 / 340;
+  border: 2px solid #3f5f48;
+  border-radius: 10px;
+  background: #0b1a14;
+  touch-action: none;
+  cursor: grab;
+}
+.area-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+.area-controls button {
+  min-width: 44px;
+  min-height: 40px;
+}
+.area-note,
+.area-actions small {
+  margin: 0;
+  max-width: 560px;
+  font-size: 13px;
+  opacity: 0.8;
+  text-align: center;
+}
+.area-actions {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+}
+.area-places {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 6px;
+  width: 100%;
+  max-width: 560px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.area-place {
+  display: grid;
+  width: 100%;
+  text-align: left;
+}
+.area-place small {
+  opacity: 0.7;
+}

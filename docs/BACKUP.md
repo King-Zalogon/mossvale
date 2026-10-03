@@ -4,7 +4,7 @@ Issue [#30](https://github.com/King-Zalogon/mossvale/issues/30). Code: `dist/src
 
 Saves live in this browser, on this address, only: the hosted game and `localhost` do not share progress. To move progress:
 
-1. **Export**: Menu → Backup & restore → *Export save file*. You get `mossvale-save-YYYY-MM-DD.json`: a small envelope (`kind`, `exportedAt`, `build`) around the normal v4 save.
+1. **Export**: Menu → Backup & restore → *Export save file*. You get `mossvale-save-YYYY-MM-DD.json` (`mossvale-save-<adventure>-YYYY-MM-DD.json` for any other adventure): a small envelope (`kind`, `exportedAt`, `build`) around the normal v4 save.
 2. **Import**: in the other browser, Menu → Backup & restore → *Import save file…*, pick the file. You see a preview of the file and of your current adventure (friends, seals, playtime) and confirm with *Replace my current adventure*. The page reloads on the imported progress.
 
 Safety:
@@ -13,5 +13,7 @@ Safety:
 - Before replacing, the current adventure is kept in the single backup slot (the same one *New game* uses; the menu warns when a different backup would be replaced) and can be brought back with *Restore previous adventure*.
 - *Restore the checkpoint from your last session* puts back the copy taken when the game last started successfully (useful after a bad session); the current save is archived first.
 - Import and checkpoint restore are disabled when the save is read-only (newer schema, or storage unavailable); export always works.
+
+Adventures (#67): backups, checkpoints and archives belong to one adventure. Importing a file made for another adventure is refused before anything is changed, and the message names the adventure and says to switch to it first (Menu → Adventures), then import there. Checkpoint restore and *Restore previous adventure* only ever use the current adventure's own copies.
 
 Not included, by design: named slots, cloud sync, accounts.

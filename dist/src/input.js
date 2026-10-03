@@ -55,6 +55,10 @@ export function installInput(app) {
         if (!e.repeat) $('#result-continue')?.click();
         return;
       }
+      if (ui.modalMode === 'map' && !e.ctrlKey && !e.metaKey && !e.altKey && app.areaMap?.key(k)) {
+        e.preventDefault(); // the area map pans and zooms with the keys
+        return;
+      }
       if (k === 'escape') {
         e.preventDefault();
         actions.close();

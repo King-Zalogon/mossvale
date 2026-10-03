@@ -9,7 +9,7 @@ import {PACK_ID} from '../dist/src/data/pack.js';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {validatePack} from '../dist/src/domain/pack.js';
 import {resolveRegistries} from '../dist/src/domain/registries.js';
-import {create, KEYS, packOf} from '../dist/src/save.js';
+import {create, KEYS, packOf, keysFor} from '../dist/src/save.js';
 import {parseBackup} from '../dist/src/services/backup.js';
 import {content, mapBounds, newSave, packContent, rawMaps, rawObjectives, rawPack, rawStory} from './helpers.mjs';
 
@@ -138,18 +138,22 @@ test('a save from another adventure is never loaded, overwritten or imported', (
   assert.equal(s1.getItem(KEYS.v3), theirsRaw, 'left untouched');
   assert.equal(s1.m.has(KEYS.quarantine), false, 'and not treated as damage');
 
-  const s2 = store({[KEYS.v3]: mineRaw});
+  // Each adventure reads only its own keys, so a payload that lands in the wrong place is still refused, untouched.
+  const s2 = store({[other.keys.v3]: mineRaw});
   const r2 = other.load(s2);
   assert.equal(r2.status, 'foreign', 'a first-adventure save is foreign to another pack');
-  assert.equal(s2.getItem(KEYS.v3), mineRaw);
+  assert.equal(s2.getItem(other.keys.v3), mineRaw);
 
   assert.equal(first.load(store({[KEYS.v3]: mineRaw})).status, 'ok');
   const imported = parseBackup(theirsRaw, first);
   assert.equal(imported.ok, false);
-  assert.match(imported.reason, /another adventure/);
+  assert.match(imported.reason, /adventure \("hearth-hamlet"\) that is not available/);
+  assert.match(parseBackup(theirsRaw, first, [{id: 'hearth-hamlet', name: 'Hearth Hamlet'}]).reason, /Switch to it/);
   assert.equal(parseBackup(mineRaw, first).ok, true);
   assert.ok(newSave());
 });
+
+const hearthKeys = keysFor('hearth-hamlet'); // a non-first adventure keeps its progress under its own keys
 
 test('a compatible content-version update keeps stable IDs and progress', () => {
   const older = create({species, regions: content.regions, size: 64, bounds: mapBounds, pack: 'hearth-hamlet', contentVersion: 1});
@@ -157,12 +161,12 @@ test('a compatible content-version update keeps stable IDs and progress', () => 
   const save = older.fresh();
   Object.assign(save, {coins: 73, wins: 4, met: true});
   const raw = older.serialize(save);
-  const storage = store({[KEYS.v3]: raw, [KEYS.backup]: raw});
+  const storage = store({[hearthKeys.v3]: raw, [hearthKeys.backup]: raw});
   const loaded = newer.load(storage);
   assert.equal(loaded.status, 'ok');
   assert.deepEqual([loaded.save.coins, loaded.save.wins, loaded.save.contentVersion], [73, 4, 2]);
-  assert.equal(storage.getItem(KEYS.v3), raw, 'loading a compatible update does not rewrite the last save');
-  assert.equal(storage.getItem(KEYS.backup), raw, 'the previous checkpoint remains available');
+  assert.equal(storage.getItem(hearthKeys.v3), raw, 'loading a compatible update does not rewrite the last save');
+  assert.equal(storage.getItem(hearthKeys.backup), raw, 'the previous checkpoint remains available');
   assert.equal(JSON.parse(newer.serialize(loaded.save)).contentVersion, 2);
 });
 
@@ -187,34 +191,34 @@ test('removing a map or creature used by a save blocks normalization and preserv
     pack: 'hearth-hamlet',
     contentVersion: 2,
   });
-  const storage = store({[KEYS.v3]: raw, [KEYS.backup]: raw});
+  const storage = store({[hearthKeys.v3]: raw, [hearthKeys.backup]: raw});
   const loaded = reducedSpecies.load(storage);
   assert.equal(loaded.status, 'incompatible');
   assert.equal(loaded.writable, false);
   assert.match(loaded.message, /map ID "orchard-ruins"/);
   assert.equal(loaded.raw, raw);
-  assert.equal(storage.getItem(KEYS.v3), raw);
-  assert.equal(storage.getItem(KEYS.backup), raw);
+  assert.equal(storage.getItem(hearthKeys.v3), raw);
+  assert.equal(storage.getItem(hearthKeys.backup), raw);
 
   const creatureOnly = JSON.parse(raw);
   creatureOnly.mapId = 'meadow';
   creatureOnly.visitedMaps = ['meadow'];
-  const creatureStorage = store({[KEYS.v3]: JSON.stringify(creatureOnly), [KEYS.backup]: JSON.stringify(creatureOnly)});
+  const creatureStorage = store({[hearthKeys.v3]: JSON.stringify(creatureOnly), [hearthKeys.backup]: JSON.stringify(creatureOnly)});
   const missingFriend = reducedSpecies.load(creatureStorage);
   assert.equal(missingFriend.status, 'incompatible');
   assert.match(missingFriend.message, /creature ID "emberkin"/);
-  assert.equal(creatureStorage.getItem(KEYS.v3), JSON.stringify(creatureOnly));
+  assert.equal(creatureStorage.getItem(hearthKeys.v3), JSON.stringify(creatureOnly));
 });
 
 test('a save from a newer content version stays untouched and cannot enter through a backup', () => {
   const newer = create({species, regions: content.regions, size: 64, bounds: mapBounds, pack: 'hearth-hamlet', contentVersion: 2});
   const later = {...newer.fresh(), contentVersion: 3};
   const raw = JSON.stringify({...JSON.parse(newer.serialize(later)), contentVersion: 3});
-  const storage = store({[KEYS.v3]: raw, [KEYS.backup]: raw});
+  const storage = store({[hearthKeys.v3]: raw, [hearthKeys.backup]: raw});
   const loaded = newer.load(storage);
   assert.equal(loaded.status, 'incompatible');
   assert.match(loaded.message, /newer than the installed version 2/);
-  assert.equal(storage.getItem(KEYS.v3), raw);
+  assert.equal(storage.getItem(hearthKeys.v3), raw);
   assert.equal(parseBackup(raw, newer).ok, false);
   assert.match(parseBackup(raw, newer).reason, /newer than the installed version 2/);
 });
