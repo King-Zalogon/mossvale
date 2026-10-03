@@ -258,7 +258,10 @@ async function boot() {
       Object.assign(
         mapBounds,
         Object.fromEntries(
-          rawMaps.map(m => [m.id, {w: m.size?.w, h: m.size?.h, spawn: {x: m.spawns?.camp?.[0], y: m.spawns?.camp?.[1]}, region: regions.findIndex(r => r.biome === m.biome)}]),
+          rawMaps.map(m => [
+            m.id,
+            {w: m.size?.w, h: m.size?.h, spawn: {x: m.spawns?.camp?.[0], y: m.spawns?.camp?.[1]}, region: regions.findIndex(r => r.biome === m.biome)},
+          ]),
         ),
       );
       codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id});
@@ -272,7 +275,13 @@ async function boot() {
       ui.camera.y = game.player.y;
       persistence = createPersistence({storage, codec, game, writable: loaded.writable, onStatus: renderSaveStatus});
       if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
-      const {maps, mapsById, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: rawPack.id}, rawObjectives, rawStory, rawPack);
+      const {maps, mapsById, objectives, story, errors} = buildAdventure(
+        rawMaps,
+        {assets, species, regions, packId: rawPack.id},
+        rawObjectives,
+        rawStory,
+        rawPack,
+      );
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;

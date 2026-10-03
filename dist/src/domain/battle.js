@@ -115,7 +115,7 @@ export function enemyAttack(save, battle, rng) {
   const defender = species[save.active];
   const raw =
     (7 + (foe.stats.attack - 10) * 0.4 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) *
-    (element ? moves[foe.move].power : 1) *
+    (element ? (moves[foe.move]?.power ?? 1) : 1) *
     (battle.boss ? 1.08 : 1) *
     (battle.power ?? 1) *
     eff *

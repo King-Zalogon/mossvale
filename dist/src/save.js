@@ -178,9 +178,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     const requestedMap = requestedMapId ? bounds[requestedMapId] : null;
     s.mapId = requestedMap && (requestedMap.region === undefined || requestedMap.region === s.region) ? requestedMapId : regions[s.region].id;
     const knownMapIds = new Set([...regions.map(r => r.id), ...Object.keys(bounds)]);
-    const visitedMapIds = Array.isArray(raw.visitedMaps)
-      ? raw.visitedMaps.filter(id => typeof id === 'string' && MAP_ID.test(id) && knownMapIds.has(id))
-      : [];
+    const visitedMapIds = Array.isArray(raw.visitedMaps) ? raw.visitedMaps.filter(id => typeof id === 'string' && MAP_ID.test(id) && knownMapIds.has(id)) : [];
     s.visitedMaps = [...new Set([...s.visited.map(i => regions[i].id), ...visitedMapIds, s.mapId])];
     const map = bounds[s.mapId] ?? bounds[regions[s.region].id] ?? {w: size, h: size, spawn};
     s.x = num(raw.x, 0, map.w - 1, map.spawn?.x ?? spawn.x);

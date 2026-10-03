@@ -71,11 +71,13 @@ test('positions near the far edge of the large-map coordinate range survive relo
     size: 128,
     bounds: {
       meadow: {w: 25, h: 25, spawn: {x: 12, y: 13}},
-      'amber-ridge': {w: 120, h: 80, spawn: {x: 2, y: 3}},
+      'amber-ridge': {w: 120, h: 80, spawn: {x: 2, y: 3}, region: 1},
     },
   });
   const save = largeMapCodec.fresh();
   save.region = 1;
+  save.mapId = 'amber-ridge';
+  save.visitedMaps = [...new Set([...save.visitedMaps, 'amber-ridge'])];
   save.badges = [0];
   save.x = 119;
   save.y = 79;

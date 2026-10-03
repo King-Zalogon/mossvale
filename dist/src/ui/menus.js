@@ -79,7 +79,7 @@ export function createMenus(app) {
             .join(' / ');
           return `<div class="species ${s.active === i ? 'active' : ''}">${seen ? `<canvas id="spec-${i}" width="110" height="110"></canvas>` : '<div class="unseen">?</div>'}<h3>${seen ? sp.name : 'Unknown creature'}</h3><small>${caught ? 'Befriended · Lv. ' + level(s, i) : seen ? 'Seen · ' + sp.type : 'Not yet discovered'}</small><p>${seen ? sp.desc : 'A new friend is waiting along a wild trail.'}</p>${
             seen
-              ? `<small>Home: ${home} · ${sp.role}</small><small>Base battle stats · HP ${sp.stats.hp} · ATK ${sp.stats.attack} · DEF ${sp.stats.defense}</small><small>${sp.personality}</small><small>${moves[sp.move].name} · ${moves[sp.move].description}</small><small>Field clue: ${sp.encounterHint}</small><small>Seen near: ${found || home}</small>`
+              ? `<small>Home: ${home} · ${sp.role}</small><small>Base battle stats · HP ${sp.stats.hp} · ATK ${sp.stats.attack} · DEF ${sp.stats.defense}</small><small>${sp.personality}</small><small>${moves[sp.move]?.name ?? sp.move} · ${moves[sp.move]?.description ?? sp.desc}</small><small>Field clue: ${sp.encounterHint}</small><small>Seen near: ${found || home}</small>`
               : `<small>${hint(i)}</small>`
           }${caught ? `<button data-select="${i}" ${s.active === i ? 'disabled' : ''}>${s.active === i ? 'Your companion' : 'Travel together'}</button>` : ''}</div>`;
         })

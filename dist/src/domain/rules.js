@@ -103,8 +103,9 @@ export function xpProgress(save, id) {
 
 /** Elemental move name and power; the move grows stronger at MOVE_UPGRADE_LEVEL. */
 export const moveUpgraded = (save, id) => level(save, id) >= MOVE_UPGRADE_LEVEL;
-export const moveName = (save, id) => moves[species[id].move].name + (moveUpgraded(save, id) ? '+' : '');
-export const elementPower = (save, id) => (moveUpgraded(save, id) ? UPGRADED_ELEMENT_POWER : ELEMENT_POWER) * moves[species[id].move].power;
+const elementalMove = id => moves[species[id].move] ?? {name: species[id].move, power: 1};
+export const moveName = (save, id) => elementalMove(id).name + (moveUpgraded(save, id) ? '+' : '');
+export const elementPower = (save, id) => (moveUpgraded(save, id) ? UPGRADED_ELEMENT_POWER : ELEMENT_POWER) * elementalMove(id).power;
 
 /** Adds XP to one companion (clamped to the cap). Returns what changed. */
 export function addXP(save, id, amount) {

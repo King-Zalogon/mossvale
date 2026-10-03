@@ -13,7 +13,7 @@ const outputs = new Map();
 const types = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.json': 'application/json', '.svg': 'image/svg+xml'};
 for (const [pack, expected] of [
   ['hearth', 'Hearth Hamlet'],
-  ['bakery', 'Bakery Lane'],
+  ['bakery', 'Bakery Row'],
 ]) {
   const output = join(scratch, pack);
   const source = join(root, 'tests/fixtures/packs', pack);

@@ -27,7 +27,8 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
   const ordered = regions.map(r => maps.find(m => m?.id === r.id));
   regions.forEach((r, i) => {
     if (!ordered[i]) errors.push(`region "${r.id}": no map file with this id`);
-    else if (r.biome && ordered[i].biome !== r.biome) errors.push(`region "${r.id}": map biome "${ordered[i].biome}" does not match region biome "${r.biome}"`);
+    else if (r.biome && ordered[i].biome && ordered[i].biome !== r.biome)
+      errors.push(`region "${r.id}": map biome "${ordered[i].biome}" does not match region biome "${r.biome}"`);
   });
   for (const m of maps) {
     if (!m?.id) continue;
@@ -48,11 +49,12 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
   }
   if (!errors.length) {
     const available = rawPack?.species ? species.filter(s => rawPack.species.includes(s.id)) : species;
+    const completeRoster = species.length === 12 && available.length === species.length;
     errors.push(
-      ...checkProgression(rawMaps, regions, rawObjectives?.objectives ?? [], rawStory),
-      ...checkSources(rawMaps, available, available.length === species.length ? biomes : []),
-      ...checkPoolsStayInPack(rawMaps, available),
-      ...checkMilestoneOrder(rawMaps, regions, rawPack?.milestones),
+      ...checkProgression(maps, regions, rawObjectives?.objectives ?? [], rawStory),
+      ...checkSources(maps, available, completeRoster ? biomes : []),
+      ...checkPoolsStayInPack(maps, available),
+      ...checkMilestoneOrder(maps, regions, rawPack?.milestones),
     );
   }
   if (errors.length) return {maps: [], objectives: [], story: undefined, errors};
@@ -62,11 +64,11 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
     const index = regions.findIndex(r => r.biome === biome);
     return index >= 0 ? index : regions.findIndex(r => r.id === biome);
   };
-  const mapById = new Map(rawMaps.map(m => [m.id, m]));
+  const mapById = new Map(maps.map(m => [m.id, m]));
   const compile = m => compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex});
   return {
     maps: ordered.map(compile),
-    mapsById: Object.fromEntries(rawMaps.map(m => [m.id, compile(m)])),
+    mapsById: Object.fromEntries(maps.map(m => [m.id, compile(m)])),
     objectives: rawObjectives?.objectives ?? [],
     story: rawStory,
     errors: [],

@@ -417,7 +417,7 @@ export function createController(app) {
     if (e.action === 'charge') return `${foe.name} is gathering strength…`;
     if (e.action === 'brace') return `${foe.name} braces itself. Your next attack will glance off.`;
     if (e.action === 'heavy') return `${foe.name} unleashes a heavy blow for ${e.damage} damage!`;
-    return `${foe.name} used ${e.element ? moves[foe.move].name : 'Quick strike'} for ${e.damage} damage.`;
+    return `${foe.name} used ${e.element ? (moves[foe.move]?.name ?? foe.move) : 'Quick strike'} for ${e.damage} damage.`;
   }
 
   /** Turns resolved events into display frames (presentation only; no state changes). */
