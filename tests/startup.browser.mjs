@@ -234,6 +234,11 @@ for (const [seed, weakened] of [
   await page.evaluate(() => (window.mossvale.getState().save.badges.push(0), window.mossvale.travel(1)));
   await page.waitForTimeout(500);
   assert.deepEqual(errors, []);
+  await page.keyboard.press('m');
+  await page.waitForSelector('[data-map-travel="orchard-ruins"]');
+  await page.click('[data-map-travel="orchard-ruins"]');
+  assert.equal(await page.evaluate(() => window.mossvale.getState().save.mapId), 'orchard-ruins');
+  assert.deepEqual(errors, []);
   console.log('ok zoom, walking and travel');
 }
 {
