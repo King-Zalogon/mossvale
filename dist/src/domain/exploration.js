@@ -16,6 +16,15 @@ export function playerFrame(distance, moving, reducedMotion = false) {
   return 1 + (Math.floor(Math.max(0, distance) / WALK_FRAME_DISTANCE) % 4);
 }
 
+/**
+ * Atlas row and mirroring for the player sprite. The atlas's northwest row repeats the northeast pose (bill to the right),
+ * so up-left walking draws the northeast row mirrored instead.
+ */
+export function playerSpritePose(dir) {
+  const row = Number.isInteger(dir) ? dir : FACING.south;
+  return row === FACING.northwest ? {row: FACING.northeast, flip: true} : {row, flip: false};
+}
+
 /** Sprite direction from the creature's own movement in world space (the inverse of movePlayer's screen mapping). */
 export function movementFacing(dx, dy) {
   if (Math.hypot(dx, dy) < 1e-6) return null;
