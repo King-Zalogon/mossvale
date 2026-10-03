@@ -11,6 +11,15 @@ import {VERSION} from '../dist/src/save.js';
 const repoRoot = fileURLToPath(new URL('../', import.meta.url));
 const dist = join(repoRoot, 'dist');
 const out = process.env.BUILD_DIR ? resolve(process.env.BUILD_DIR) : join(repoRoot, 'build');
+function copyDirectory(source, destination) {
+  mkdirSync(destination, {recursive: true});
+  for (const entry of readdirSync(source, {withFileTypes: true})) {
+    const from = join(source, entry.name);
+    const to = join(destination, entry.name);
+    if (entry.isDirectory()) copyDirectory(from, to);
+    else cpSync(from, to);
+  }
+}
 const git = (...args) => {
   try {
     return execFileSync('git', args, {encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore']}).trim();
@@ -30,7 +39,6 @@ const info = {
 };
 
 rmSync(out, {recursive: true, force: true});
-mkdirSync(out, {recursive: true});
-for (const name of readdirSync(dist)) cpSync(join(dist, name), join(out, name), {recursive: true});
+copyDirectory(dist, out);
 writeFileSync(join(out, 'version.json'), JSON.stringify(info, null, 2) + '\n');
 console.log(`built ${info.short}${info.dirty ? ' (uncommitted changes)' : ''} on ${info.branch} -> ${out}`);
