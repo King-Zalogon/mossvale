@@ -42,6 +42,14 @@ python3 art/assets/export.py        # export source cells after editing an atlas
 npm run validate
 ```
 
+## Subject identity and provenance
+
+`art/assets/subjects.json` gives stable visual IDs and explicit revisions to the current player, Fernling and Duskwing sample. Each record describes the visible silhouette, palette and distinguishing features; hashes the canonical reference and exported runtime file; and records the source batches, references and export workflow. The validator checks these hashes and verifies that asset IDs, source-atlas cells, directions and batch outputs still resolve to the manifest. A changed identity needs a reviewed new revision; a retry or sibling frame must keep the existing subject ID and revision.
+
+Generation history distinguishes retained evidence from missing history. The red-cap source notes retain a brief summary and the directional reference assets, but not an exact prompt, provider, model version, seed or masks. The current Fernling and Duskwing source atlas cells are their canonical visual references; their original generation prompts, references, provider, model version, seed and masks were not retained. Those gaps are marked unavailable rather than reconstructed. Their idle, travel, hit and capture appearances use the same pixel art; the runtime treatment contract is linked and hashed instead of inventing separate combat exports.
+
+Run `npm run validate` to check identity records and the SHA-256 digests alongside the normal asset checks. These hashes detect accidental mismatch and are not signatures or proof of origin.
+
 The optional `--pack` command bootstraps atlases from the current runtime PNGs and refuses to overwrite existing source work. Use `--pack --force` only when intentionally rebuilding all source atlases from `dist/`.
 
 The original generation sheets and briefs are retained for the red-cap motion, traveler and gardener art in `art/characters/source/`; those original references are linked from `art/characters/metadata.json` and `art/characters/SOURCES.md`. The older prop, creature and legacy-person atlases are reconstructed from the exact existing runtime crops, so their original generation prompts were not recovered. This distinction is recorded per asset in the source metadata.

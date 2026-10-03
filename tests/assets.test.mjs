@@ -7,6 +7,7 @@ import {join} from 'node:path';
 import {assets, spriteId} from '../dist/src/data/assets.js';
 import {species} from '../dist/src/data/species.js';
 import {checkAssets} from '../scripts/lib/assets-check.mjs';
+import {checkSubjectProvenance} from '../scripts/lib/provenance-check.mjs';
 import {decodePng, opaqueBounds} from '../scripts/lib/png.mjs';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
@@ -65,6 +66,47 @@ test('the shipped manifest, names and PNGs pass the checks', () => {
   const dist = fileURLToPath(new URL('../dist/', import.meta.url));
   const {errors} = checkAssets(assets, dist);
   assert.deepEqual(errors, []);
+});
+
+test('sample visual subjects have hashed canonical references, exports and linked batches', () => {
+  const root = fileURLToPath(new URL('../', import.meta.url));
+  const registry = JSON.parse(readFileSync(new URL('../art/assets/subjects.json', import.meta.url), 'utf8'));
+  const sourceMetadata = JSON.parse(readFileSync(new URL('../art/assets/metadata.json', import.meta.url), 'utf8'));
+  const {errors} = checkSubjectProvenance(registry, {root, assets, sourceMetadata});
+  assert.deepEqual(errors, []);
+  assert.deepEqual(
+    registry.subjects.map(subject => subject.id),
+    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing'],
+  );
+  const player = registry.subjects[0];
+  assert.deepEqual(player.sourceBatches.flatMap(batch => batch.directions).toSorted(), [
+    'east',
+    'north',
+    'northeast',
+    'northwest',
+    'south',
+    'southeast',
+    'southwest',
+    'west',
+  ]);
+  assert.ok(player.sourceBatches.every(batch => batch.referenceAssetIds.length && batch.exportAssetIds.includes('person-red-cap-motion')));
+  for (const creature of registry.subjects.slice(1)) {
+    assert.deepEqual(creature.runtimeTreatments.states, ['idle', 'travel', 'hit', 'capture']);
+    assert.equal(creature.runtimeTreatments.artPixelsChanged, false);
+  }
+});
+
+test('visual-subject validation catches a stale output digest and an unrecorded batch reference', () => {
+  const root = fileURLToPath(new URL('../', import.meta.url));
+  const registry = JSON.parse(readFileSync(new URL('../art/assets/subjects.json', import.meta.url), 'utf8'));
+  const sourceMetadata = JSON.parse(readFileSync(new URL('../art/assets/metadata.json', import.meta.url), 'utf8'));
+  registry.subjects[0].exports[0].sha256 = '0'.repeat(64);
+  registry.subjects[0].sourceBatches[0].referenceAssetIds = ['missing-reference'];
+  registry.subjects[0].sourceBatches[0].directions = ['northeast'];
+  const {errors} = checkSubjectProvenance(registry, {root, assets, sourceMetadata});
+  has(errors, 'SHA-256 mismatch');
+  has(errors, 'is not a canonical reference');
+  has(errors, 'required direction north has no source batch');
 });
 
 test('content refers to art by name: species, directions and the manifest agree', () => {
