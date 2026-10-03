@@ -3,18 +3,24 @@
 //   node scripts/validate-maps.mjs preview meadow   print an ASCII preview with landmarks, exits, spawns and zones
 import {readFileSync} from 'node:fs';
 import {assets} from '../dist/src/data/assets.js';
-import {species} from '../dist/src/data/species.js';
-import {regions} from '../dist/src/data/regions.js';
-import {PACK_ID} from '../dist/src/data/pack.js';
+import defaultRegistries from '../dist/maps/registries.json' with {type: 'json'};
 import {buildAdventure} from '../dist/src/domain/adventure.js';
+import {resolveRegistries, validateRegistries} from '../dist/src/domain/registries.js';
 
 const dir = new URL('../dist/maps/', import.meta.url);
 const read = name => JSON.parse(readFileSync(new URL(name, dir), 'utf8'));
 const index = read('index.json');
+const registries = index.registries ? read(index.registries) : defaultRegistries;
+const registryErrors = validateRegistries(registries, {assetNames: new Set(assets.map(a => a.name))});
+if (registryErrors.length) {
+  console.error(`${registryErrors.length} registry error(s):\n` + registryErrors.map(e => ' - ' + e).join('\n'));
+  process.exit(1);
+}
+const content = resolveRegistries(registries, assets);
 const raw = index.maps.map(id => read(id + '.json'));
 const {maps, errors} = buildAdventure(
   raw,
-  {assets, species, regions, packId: PACK_ID},
+  {assets, ...content, packId: index.id},
   index.objectives ? read(index.objectives) : undefined,
   index.story ? read(index.story) : undefined,
   index,
@@ -40,5 +46,5 @@ if (command === 'preview') {
   for (const p of Object.values(map.spawns)) put(p, '@');
   console.log(`${map.name} (${map.id})  . ground  = path  ~ water  " tall grass  # solid  @ spawn  R ranger  S shrine  C chest  ? sign  G exit  H cottage`);
   console.log(grid.map(r => r.join('')).join('\n'));
-  for (const z of map.zones) console.log(`zone ${z.id}: ${z.pool.map(i => species[i].id).join(', ')} at level ${z.level.join('-')}`);
+  for (const z of map.zones) console.log(`zone ${z.id}: ${z.pool.map(i => content.species[i].id).join(', ')} at level ${z.level.join('-')}`);
 } else console.log(`${maps.length} maps OK`);

@@ -70,6 +70,10 @@ for (const region of [0, 1, 2]) {
     return {
       draw: p.draw,
       mini: p.mini,
+      visibleTiles: p.visibleTiles,
+      worldTiles: p.worldTiles,
+      visibleObjects: p.visibleObjects,
+      worldObjects: p.worldObjects,
       frames: p.frames,
       ms: performance.now() - p.started,
       heap: performance.memory?.usedJSHeapSize ?? 0,
@@ -81,6 +85,10 @@ for (const region of [0, 1, 2]) {
     objects: r.objects,
     nearby: dense,
     fps: Math.round((r.frames / r.ms) * 1000),
+    visibleTiles: r.visibleTiles,
+    worldTiles: r.worldTiles,
+    visibleObjects: r.visibleObjects,
+    worldObjects: r.worldObjects,
     draw: stats(r.draw),
     mini: stats(r.mini),
     heapMB: Math.round(r.heap / 1e5) / 10,
@@ -88,9 +96,9 @@ for (const region of [0, 1, 2]) {
   await browser.close();
 }
 const f = n => n.toFixed(2).padStart(6);
-console.log('map              objects near   fps | drawWorld ms: avg   p95   max | minimap avg | heap MB');
+console.log('map              objects near   fps | visible tiles | visible objects | drawWorld ms: avg   p95   max | minimap avg | heap MB');
 for (const r of rows)
   console.log(
-    `${r.map.padEnd(16)} ${String(r.objects).padStart(7)} ${String(r.nearby).padStart(4)} ${String(r.fps).padStart(5)} |               ${f(r.draw.avg)} ${f(r.draw.p95)} ${f(r.draw.max)} | ${f(r.mini.avg)}        | ${r.heapMB}`,
+    `${r.map.padEnd(16)} ${String(r.objects).padStart(7)} ${String(r.nearby).padStart(4)} ${String(r.fps).padStart(5)} | ${String(Math.round(stats(r.visibleTiles).avg)).padStart(5)} / ${String(Math.round(stats(r.worldTiles).avg)).padStart(5)} | ${String(Math.round(stats(r.visibleObjects).avg)).padStart(5)} / ${String(Math.round(stats(r.worldObjects).avg)).padStart(5)} | ${f(r.draw.avg)} ${f(r.draw.p95)} ${f(r.draw.max)} | ${f(r.mini.avg)}        | ${r.heapMB}`,
   );
 server.close();

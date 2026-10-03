@@ -21,7 +21,7 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
   regions.forEach((r, i) => {
     if (!ordered[i]) errors.push(`region "${r.id}": no map file with this id`);
   });
-  for (const m of rawMaps) if (m?.id && !regions.some(r => r.id === m.id)) errors.push(`map ${m.id}: no region with this id in data/regions.js`);
+  for (const m of rawMaps) if (m?.id && !regions.some(r => r.id === m.id)) errors.push(`map ${m.id}: no region with this id in the pack registry`);
   if (rawObjectives !== undefined) {
     errors.push(...validateObjectives(rawObjectives, {mapIds: new Set(rawMaps.map(m => m?.id))}));
   }

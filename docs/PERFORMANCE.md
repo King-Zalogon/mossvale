@@ -1,28 +1,13 @@
-# Performance
+# Rendering measurements
 
-Issue [#37](https://github.com/King-Zalogon/mossvale/issues/37). Measure first, fix what the numbers show, stop.
+`node scripts/measure-perf.mjs 3` samples the same three built-in maps in software Chromium while the player walks. It reports frame rate, visible/world tile and object counts, `drawWorld` average/p95/max, minimap time and heap. The environment is intentionally labelled local/headless; these values are not a claim about a particular phone or desktop.
 
-## How to measure
+| Map | Baseline draw avg / p95 (ms) | Indexed draw avg / p95 (ms) | Baseline → indexed FPS | Visible tiles / map tiles | Visible objects / map objects |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Meadow | 0.87 / 1.40 | 0.79 / 1.20 | 58 → 57 | 497 / 497 | 167 / 167 |
+| Amber Ridge | 0.81 / 1.30 | 0.90 / 1.30 | 57 → 57 | 497 / 497 | 155 / 155 |
+| Frostveil Grove | 0.87 / 1.20 | 0.99 / 1.50 | 57 → 56 | 497 / 497 | 146 / 146 |
 
-- `node scripts/measure-perf.mjs [seconds]` loads each region in headless Chromium, walks back and forth through the densest part of the map and prints frames per second, `drawWorld` and minimap time (average, 95th percentile, worst), and heap size. It is not part of CI: timings depend on the machine.
-- On your own device open the game with `?debug`, play for a while and run `mossvale.perf()` in the console: the last 600 `drawWorld` and 150 minimap times plus the frame count. Headless Chromium uses **software** rendering, so its absolute numbers are pessimistic; compare before/after, and trust your device for "smooth enough".
+The current maps fit almost entirely inside the camera, so culling does not reduce their draw counts and timing stays within headless noise. The deterministic large-map regression uses a 120×80 grid with 9,600 tiles and confirms an 11×11 visible query returns 121 tiles; the cell index keeps both map drawing and interaction queries bounded to the viewed or nearby area as maps and object counts grow.
 
-## Findings (headless, 1280x800, 4 s walk)
-
-| Map | Before: fps / drawWorld avg | After: fps / drawWorld avg |
-| --- | --- | --- |
-| Meadow | 57 / 1.4 ms | 57 / 1.0 ms |
-| Amber Ridge | **4** / 2.1 ms | 57 / 1.1 ms |
-| Frostveil Grove | **2** / 2.7 ms | 57 / 1.1 ms |
-
-The JavaScript time was small everywhere; the slowdown was in rasterising. Amber Ridge and Frostveil draw their grass with a Canvas `filter` (`sepia`, `saturate`/`brightness`), and a filter on every `drawImage` is re-applied every frame. Sprite tints are now baked once into a cached copy (`render/sprites.js: tintedSprite`) and drawn without a filter. `tests/render-budget.test.mjs` fails if a per-frame filter comes back.
-
-Not changed, deliberately: the per-frame object sort, terrain details, minimap redraw (every 4th frame) and asset sizes. Each costs about a millisecond or less, so there is nothing measured to fix. Revisit if `mossvale.perf()` on your device says otherwise.
-
-## Long sessions
-
-A 25 s run per map showed flat `drawWorld` times and a flat heap (headless Chromium rounds heap figures coarsely, so this only rules out fast leaks). Nothing runs in the background except the 6 s save timer and the frame loop, and the loop does no drawing while the tab is hidden.
-
-## Still needs you
-
-The acceptance asks for your report of smooth exploration and battles and no slowdown in a long session on your devices. Run `mossvale.perf()` after a session and tell me the numbers if anything feels slow.
+Nearby interaction and solid-collision checks use the same spatial cells. The renderer continues sorting visible objects by isometric depth and applies the existing foreground fade when a tree or cottage covers the player. `tests/render-budget.test.mjs` compares indexed collision behavior with the full-map rule and guards the culling/depth/occlusion path.

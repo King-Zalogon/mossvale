@@ -3,6 +3,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {buildWorld, isWalkable, nearestInteractive, objectsInBounds, tilesInBounds} from '../dist/src/domain/world.js';
+import {walkableAt} from '../dist/src/domain/mapdata.js';
 
 const read = f => readFileSync(new URL('../dist/src/' + f, import.meta.url), 'utf8');
 
@@ -12,4 +14,37 @@ test('no per-frame canvas filters: tints are baked into cached sprite copies', (
   assert.ok(sprites.indexOf('.filter =') > sprites.indexOf('function tintedSprite'), 'and it is inside tintedSprite');
   assert.ok(sprites.includes('tinted.set('), 'tinted copies are cached');
   assert.equal(/\.filter\s*=/.test(read('render/world.js')), false);
+});
+
+test('large-map render and interaction queries visit only nearby indexed cells', () => {
+  const tiles = Array.from({length: 120 * 80}, (_, i) => ({x: i % 120, y: Math.floor(i / 120)}));
+  const objects = Array.from({length: 900}, (_, i) => ({id: `prop-${i}`, kind: 'grass', x: i % 120, y: Math.floor(i / 120)}));
+  objects.push({id: 'near-sign', kind: 'sign', x: 55, y: 35});
+  objects.push({id: 'tree', kind: 'scenery', x: 21, y: 20, solid: 1});
+  const map = {size: {w: 120, h: 80}, tiles, objects, terrainAt: () => 'ground'};
+  const world = buildWorld(map);
+  const bounds = {minX: 50, maxX: 60, minY: 30, maxY: 40};
+  const visibleTiles = tilesInBounds(world, bounds);
+  const visibleObjects = objectsInBounds(world, bounds);
+
+  assert.equal(visibleTiles.length, 121);
+  assert.ok(visibleTiles.length < tiles.length / 4);
+  assert.ok(visibleObjects.length < objects.length / 4);
+  assert.equal(nearestInteractive(world, {x: 54, y: 35})?.id, 'near-sign');
+  assert.equal(nearestInteractive(world, {x: 20, y: 20}), null);
+  assert.equal(isWalkable(world, 21, 20), false);
+  assert.equal(isWalkable(world, 23, 20), walkableAt(map, 23, 20), 'indexed collision checks preserve the full-map rule');
+});
+
+test('the world renderer culls before sorting and preserves explicit depth order', () => {
+  const renderer = read('render/world.js');
+  assert.ok(renderer.includes('tilesInBounds(world'));
+  assert.ok(renderer.includes('objectsInBounds(world'));
+  assert.ok(renderer.includes('visibleObjects, follow'));
+  assert.equal(
+    renderer.slice(renderer.indexOf('function drawWorld'), renderer.indexOf('function drawMinimap')).includes('for (const t of world.tiles)'),
+    false,
+  );
+  assert.match(renderer, /\.sort\(\s*\(a, b\) => a\.x \+ a\.y - b\.x - b\.y/);
+  assert.match(renderer, /occludesPlayer\s*=\s*\(o, s\)/, 'foreground sprite occlusion remains active after culling');
 });

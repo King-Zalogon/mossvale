@@ -4,7 +4,7 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
 
 ## What is a pack
 
-`dist/maps/index.json` is the pack manifest:
+`dist/maps/index.json` is the pack manifest. It selects the pack-owned rules in `registries.json` and the maps loaded by this build:
 
 ```jsonc
 {
@@ -14,6 +14,8 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
   "brief": "Three islands, eight friends and a seal at every shrine.",
   "maps": ["meadow", "amber-ridge", "frostveil-grove"], // the map files, dist/maps/<id>.json
   "species": ["fernling", "..."], // creatures this adventure may use
+  "registries": "registries.json", // species/region definitions and game tuning
+  "mapDirectory": "maps/", // optional relative directory for map JSON files
   "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal"], // the order it is meant to be completed in
   "ending": "story", // the ending is the one in the story file
   "objectives": "objectives.json",
@@ -25,6 +27,7 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
 | --- | --- |
 | Maps | `maps` + `dist/maps/<id>.json` ([MAP_FORMAT.md](MAP_FORMAT.md)) |
 | Species availability | `species`; zones and guardians may use only these, and each must be findable |
+| Species, type, region, move, economy, tactic and growth rules | `registries`; versioned pack data references art by shared asset ID |
 | Object and NPC roles | each landmark's `kind` (`ranger`, `cottage`, `sign`, `chest`, `shrine`), `name`, `tag`, `label`, `text`/`lines` |
 | Brief text | `brief` (and `name`) |
 | Milestone order | `milestones`; each must be earnable once the ones before it are done |
@@ -36,6 +39,8 @@ Maps refer to art by name through the asset manifest (`src/data/assets.js`, [ASS
 
 `tests/fixtures/packs/hearth` and `bakery` are the two reuse fixtures. Both use `cottage-tiled`, `person-red-cap-south` and `chest-wooden`; in `hearth` the cottage is a healer's ranger post and the villager a sign, in `bakery` the cottage is a shop sign and the villager the shopkeeper. `tests/packs.test.mjs` checks they compile against the one manifest with identical sprites and different roles.
 
+Their separate `registries.json` files also exercise different creature lists, regions, progression, shops and move power through the same mutable data bindings used by the engine. Species and region string IDs are written to saves; array order is only an in-memory lookup and cannot change a saved identity. Registry `sprite` and `preview` values name shared manifest entries, so a pack does not copy images.
+
 ## Flags and saves
 
 Progress flags stay `<map-id>.seal` and `<map-id>.chest`, unique inside a pack. A save belongs to one pack:
@@ -44,12 +49,24 @@ Progress flags stay `<map-id>.seal` and `<map-id>.chest`, unique inside a pack. 
 - A save from a different pack is **never loaded, overwritten or imported**. Loading reports the status `foreign` (like a newer-version save: untouched, not writable, plain explanation, nothing quarantined) and a backup file from another adventure is refused with the same reason.
 - The pack id in `index.json` must equal the id the build was compiled for (`src/data/pack.js`), so a pack made for another adventure fails validation instead of being played against the wrong registries.
 
-## Validation
+## Validation and authoring commands
 
-`npm run validate` (and the game at startup) checks, in addition to the map rules: pack id, name and brief; every listed map exists and every loaded map is listed; species ids are known, zone pools and guardians use only listed species and every listed species can be found; milestone flags are well formed, unique and playable in the listed order; and the story ending exists when the pack points at it. Errors start with `pack` and name the field.
+`npm run validate` checks the checked-in Mossvale pack. The same checks run when the game loads a pack: registry version/fields, shared asset references, pack ID/name/brief, map links, species availability, encounter/guardian references, milestones and story ending.
+
+For a separate content folder, use the local authoring CLI:
+
+```sh
+npm run pack -- create-pack ./content/bright-hollow --id bright-hollow --name "Bright Hollow"
+npm run pack -- add-map ./content/bright-hollow willow-crossing
+npm run pack -- validate-pack ./content/bright-hollow
+npm run pack -- preview-pack ./content/bright-hollow start
+```
+
+`create-pack` refuses to replace an existing scaffold unless `--force` is supplied for the same pack ID. It creates a small playable map and starter species/region/rule tables. `add-map` clones the first map, adds a returnable exit, and updates the region table. Review the generated map and tune registries before building a game. Invalid IDs and missing references are reported with pack file/field context on Windows and Linux.
 
 ## Adding another adventure
 
-1. Make a folder of maps, a pack `index.json`, objectives and a story (copy a fixture).
-2. Give it its own unique pack id and its own regions and species registries when it needs different ones. Selecting between packs on the title screen is not built yet, so for now a build holds one pack.
-3. Run the validator; reuse existing art by name before commissioning new art.
+1. Run `create-pack`, then use `add-map` or edit the generated map files. A pack folder contains `index.json`, `registries.json`, optional objective/story files and maps.
+2. Give it a unique pack id. Changing registered species IDs remains safe for persisted identities as long as an existing ID is not renamed or reused.
+3. Run `validate-pack` and `preview-pack`; reuse existing art by name before commissioning new art.
+4. Copy the selected pack's manifest, registry and maps into the game's `dist/maps/` layout to make it the one loaded by this build. A title-screen multi-pack chooser is tracked separately by #67.

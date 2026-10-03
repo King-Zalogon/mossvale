@@ -1,0 +1,268 @@
+{
+  "format": 1,
+  "species": [
+    {
+      "id": "fernling",
+      "name": "Fernling",
+      "type": "Leaf",
+      "hp": 42,
+      "color": "#bade7e",
+      "move": "Leaf burst",
+      "strong": ["Water", "Stone"],
+      "weak": ["Fire", "Ice"],
+      "desc": "A brave little fox that naps beneath the ferns.",
+      "sprite": "creature-fernling"
+    },
+    {
+      "id": "emberkin",
+      "name": "Emberkin",
+      "type": "Fire",
+      "hp": 40,
+      "color": "#ffb56c",
+      "move": "Ember spark",
+      "strong": ["Leaf", "Ice"],
+      "weak": ["Water", "Stone"],
+      "desc": "Warm paws, bright eyes, and a fiery spirit.",
+      "sprite": "creature-emberkin"
+    },
+    {
+      "id": "brooklet",
+      "name": "Brooklet",
+      "type": "Water",
+      "hp": 46,
+      "color": "#83dbe8",
+      "move": "Ripple rush",
+      "strong": ["Fire", "Stone"],
+      "weak": ["Leaf", "Spark"],
+      "desc": "Collects smooth pebbles from the meadow pond.",
+      "sprite": "creature-brooklet"
+    },
+    {
+      "id": "duskwing",
+      "name": "Duskwing",
+      "type": "Air",
+      "hp": 38,
+      "color": "#c5a2ef",
+      "move": "Gust spiral",
+      "strong": ["Leaf", "Spore"],
+      "weak": ["Spark", "Ice"],
+      "desc": "Its wings scatter soft starlight at dusk.",
+      "sprite": "creature-duskwing"
+    },
+    {
+      "id": "voltkit",
+      "name": "Voltkit",
+      "type": "Spark",
+      "hp": 39,
+      "color": "#f0d87d",
+      "move": "Static leap",
+      "strong": ["Water", "Air"],
+      "weak": ["Stone"],
+      "desc": "A lightning-fast rabbit with an electric personality.",
+      "sprite": "creature-voltkit"
+    },
+    {
+      "id": "mushmallow",
+      "name": "Mushmallow",
+      "type": "Spore",
+      "hp": 48,
+      "color": "#c59ae5",
+      "move": "Spore cloud",
+      "strong": ["Water", "Spark"],
+      "weak": ["Fire", "Air"],
+      "desc": "A shy hedgehog carrying a tiny mushroom garden.",
+      "sprite": "creature-mushmallow"
+    },
+    {
+      "id": "frostowl",
+      "name": "Frostowl",
+      "type": "Ice",
+      "hp": 43,
+      "color": "#a9d6f4",
+      "move": "Frost feather",
+      "strong": ["Leaf", "Air"],
+      "weak": ["Fire", "Stone"],
+      "desc": "A quiet owl with feathers as cool as fresh snow.",
+      "sprite": "creature-frostowl"
+    },
+    {
+      "id": "pebblit",
+      "name": "Pebblit",
+      "type": "Stone",
+      "hp": 52,
+      "color": "#e2bb75",
+      "move": "Stone tumble",
+      "strong": ["Spark", "Fire", "Ice"],
+      "weak": ["Water", "Leaf"],
+      "desc": "A patient tortoise with a sun-warmed crystal shell.",
+      "sprite": "creature-pebblit"
+    }
+  ],
+  "regions": [
+    {
+      "id": "meadow",
+      "name": "Mossvale Meadow",
+      "short": "Meadow",
+      "subtitle": "Tall grass, old trails, and new friends.",
+      "tag": "THE MEADOW TRAIL",
+      "palette": ["#86ae70", "#97b76a", "#8aa55c", "#d6c08b", "#4e9c9a", "#577b48"],
+      "seal": "Verdant seal",
+      "desc": "A sunlit meadow where every trail begins.",
+      "preview": "tree-oak"
+    },
+    {
+      "id": "amber-ridge",
+      "name": "Amber Ridge",
+      "short": "Ridge",
+      "subtitle": "Golden trails and sparks in the sandstone.",
+      "tag": "THE AMBER TRAIL",
+      "palette": ["#c7a075", "#d6b47e", "#b19459", "#e8cc99", "#739ca4", "#986f48"],
+      "seal": "Amber seal",
+      "desc": "Stone spires, electric friends, and a sleeping guardian.",
+      "preview": "rock-spire-red"
+    },
+    {
+      "id": "frostveil-grove",
+      "name": "Frostveil Grove",
+      "short": "Grove",
+      "subtitle": "Follow the snowflakes to the final shrine.",
+      "tag": "THE FROSTVEIL TRAIL",
+      "palette": ["#a9c7c9", "#d4e3dc", "#acc2bb", "#b0c7c5", "#6d9cab", "#7c9898"],
+      "seal": "Frostveil seal",
+      "desc": "A quiet snowy grove at the edge of the isles.",
+      "preview": "tree-pine-snow"
+    }
+  ],
+  "economy": {
+    "caps": {
+      "coins": 9999,
+      "potions": 99,
+      "orbs": 99
+    },
+    "restFloor": {
+      "orbs": 12,
+      "potions": 1
+    },
+    "shop": [
+      {
+        "id": "potion",
+        "item": "potions",
+        "qty": 1,
+        "price": 10,
+        "label": "Potion",
+        "thanks": "One potion for the trail. Use it when your companion needs a little help."
+      },
+      {
+        "id": "orbs",
+        "item": "orbs",
+        "qty": 5,
+        "price": 15,
+        "label": "5 orbs",
+        "thanks": "Five fresh capture orbs. There’s always room for one more friend."
+      }
+    ],
+    "rewards": {
+      "wild": {
+        "coins": [8, 14],
+        "xp": 24
+      },
+      "guardianRepeat": {
+        "coins": 12,
+        "xp": 20
+      },
+      "capture": {
+        "coins": 10,
+        "xp": 20
+      }
+    }
+  },
+  "tactics": {
+    "defaultPattern": ["strike", "element"],
+    "heavyFactor": 1.8,
+    "braceFactor": 0.5,
+    "patterns": {
+      "spore-guard": {
+        "name": "Spore guard",
+        "pattern": ["strike", "brace"],
+        "intro": "It curls behind a cloud of spores. Right after it braces, your attack is halved, so use that turn to Guard or heal and save your elemental move for when it opens up."
+      },
+      "rolling-charge": {
+        "name": "Rolling charge",
+        "pattern": ["strike", "charge", "heavy"],
+        "intro": "It gathers strength, then lands a heavy blow. Watch the line under the log and Guard when the heavy blow is next."
+      },
+      "frost-chorus": {
+        "name": "Frost chorus",
+        "pattern": ["element", "element", "strike"],
+        "intro": "It keeps using its elemental move. A teammate that resists it, or healing between volleys, makes the difference."
+      }
+    },
+    "intentText": {
+      "strike": "a quick strike",
+      "element": "its elemental move",
+      "heavy": "a heavy blow (Guard softens it)",
+      "charge": "gathering strength",
+      "brace": "bracing (your next attack will be halved)"
+    }
+  },
+  "progression": {
+    "xpPerLevel": 45,
+    "baseLevel": 5,
+    "maxLevel": 15,
+    "moveUpgradeLevel": 10,
+    "maxXp": 450,
+    "catchUpGap": 2,
+    "catchUpBonus": 1.5,
+    "benchShare": 0.5,
+    "partySize": 3
+  },
+  "battle": {
+    "focusMax": 3,
+    "focusStart": 2,
+    "guardFactor": 0.35
+  },
+  "moves": {
+    "elemental": {
+      "power": 16,
+      "upgradedPower": 20,
+      "focusCost": 1,
+      "focusGain": 1
+    },
+    "strongMultiplier": 1.6,
+    "weakMultiplier": 0.65
+  },
+  "types": [
+    {
+      "id": "leaf",
+      "name": "Leaf"
+    },
+    {
+      "id": "water",
+      "name": "Water"
+    },
+    {
+      "id": "stone",
+      "name": "Stone"
+    },
+    {
+      "id": "fire",
+      "name": "Fire"
+    },
+    {
+      "id": "ice",
+      "name": "Ice"
+    },
+    {
+      "id": "spark",
+      "name": "Spark"
+    },
+    {
+      "id": "air",
+      "name": "Air"
+    },
+    {
+      "id": "spore",
+      "name": "Spore"
+    }
+  ]
+}

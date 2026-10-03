@@ -6,16 +6,19 @@ import {readFileSync, existsSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {codec, newSave} from './helpers.mjs';
 const root = new URL('../dist/', import.meta.url),
-  types = {html: 'text/html', js: 'text/javascript', css: 'text/css', png: 'image/png', svg: 'image/svg+xml'};
+  types = {html: 'text/html', js: 'text/javascript', css: 'text/css', png: 'image/png', json: 'application/json', svg: 'image/svg+xml'};
 let blocked = new Set();
+let fixturePack = null;
 const server = http
   .createServer((q, r) => {
     const name = q.url.split('?')[0].slice(1) || 'index.html';
-    if (blocked.has(name) || !existsSync(new URL(name, root))) {
+    const fixtureFile = fixturePack && name.startsWith('maps/') ? new URL(`../tests/fixtures/packs/${fixturePack}/${name.slice(5)}`, import.meta.url) : null;
+    const file = fixtureFile ?? new URL(name, root);
+    if (blocked.has(name) || !existsSync(file)) {
       r.writeHead(404).end();
       return;
     }
-    r.writeHead(200, {'content-type': types[name.split('.').pop()] || 'application/octet-stream'}).end(readFileSync(new URL(name, root)));
+    r.writeHead(200, {'content-type': types[name.split('.').pop()] || 'application/octet-stream'}).end(readFileSync(file));
   })
   .listen(0);
 const url = `http://localhost:${server.address().port}/`;
@@ -426,6 +429,20 @@ for (const [viewport, text] of [
   await ctx.close();
 }
 console.log('ok larger text and touch targets');
+{
+  // A different pack registry and map boot in the same client/runtime modules without editing engine code.
+  fixturePack = 'hearth';
+  const {page, errors} = await open('');
+  await page.waitForFunction(() => window.mossvale?.getState().world.map?.id === 'hearth-yard');
+  await page.evaluate(() => {
+    const state = window.mossvale.getState();
+    state.save.team[0].xp = 40;
+  });
+  assert.equal(await page.evaluate(() => window.mossvale.maxHP(0)), 46, 'the hearth progression registry changes level tuning at the configured XP boundary');
+  assert.deepEqual(errors, []);
+  fixturePack = null;
+  console.log('ok alternate pack registry boot');
+}
 {
   // debug hook is absent without ?debug
   const {page} = await open('');

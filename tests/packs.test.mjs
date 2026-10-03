@@ -8,6 +8,7 @@ import {species} from '../dist/src/data/species.js';
 import {PACK_ID} from '../dist/src/data/pack.js';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {validatePack} from '../dist/src/domain/pack.js';
+import {resolveRegistries} from '../dist/src/domain/registries.js';
 import {create, KEYS, packOf} from '../dist/src/save.js';
 import {parseBackup} from '../dist/src/services/backup.js';
 import {content, newSave, packContent, rawMaps, rawObjectives, rawPack, rawStory} from './helpers.mjs';
@@ -21,12 +22,13 @@ const fixture = name => {
   const dir = new URL(`./fixtures/packs/${name}/`, import.meta.url);
   const read = f => JSON.parse(readFileSync(new URL(f, dir), 'utf8'));
   const pack = read('index.json');
-  return {pack, maps: pack.maps.map(id => read(id + '.json')), regions: pack.maps.map(id => ({id}))};
+  return {pack, registries: read(pack.registries), maps: pack.maps.map(id => read(id + '.json'))};
 };
 const buildFixture = (name, tweak) => {
   const f = fixture(name);
   tweak?.(f);
-  return buildAdventure(f.maps, {assets, species, regions: f.regions, packId: f.pack.id}, undefined, undefined, f.pack);
+  const content = resolveRegistries(f.registries, assets);
+  return buildAdventure(f.maps, {assets, ...content, packId: f.pack.id}, undefined, undefined, f.pack);
 };
 const store = (init = {}) => {
   const m = new Map(Object.entries(init));
@@ -76,7 +78,7 @@ test('two fixture scenes give the same art and mechanics different roles', () =>
 
 test('a pack may use only the creatures it lists', () => {
   has(buildFixture('hearth', f => (f.pack.species = ['fernling']), true).errors, 'zone "patch" uses "emberkin", which the pack does not list');
-  has(buildFixture('hearth', f => f.pack.species.push('pebblit')).errors, '"pebblit" has no encounter zone in any map');
+  has(buildFixture('hearth', f => f.pack.species.push('pebblit')).errors, 'unknown species "pebblit"');
   has(buildFixture('hearth', f => f.pack.species.push('nope')).errors, 'unknown species "nope"');
   has(
     build(({pack}) => (pack.species = pack.species.filter(id => id !== 'pebblit'))),
@@ -97,7 +99,13 @@ test('broken pack references fail validation', () => {
 
 test('a pack made for another adventure is refused by this game', () => {
   const f = fixture('hearth');
-  const errors = buildAdventure(f.maps, {...content, regions: f.regions, packId: PACK_ID}, undefined, undefined, f.pack).errors;
+  const errors = buildAdventure(
+    f.maps,
+    {...content, regions: resolveRegistries(f.registries, assets).regions, packId: PACK_ID},
+    undefined,
+    undefined,
+    f.pack,
+  ).errors;
   has(errors, `is not the adventure this game's content and saves are built for ("${PACK_ID}")`);
 });
 
