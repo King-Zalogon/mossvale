@@ -156,6 +156,17 @@
       "w": 38,
       "label": "Read the snowy waymark",
       "text": "The grove shrine rests north of camp. A sheltered pass winds south through the pines."
+    },
+    {
+      "id": "icefall-note",
+      "kind": "sign",
+      "sprite": "signpost-wood",
+      "at": [50.4, 38.2],
+      "w": 38,
+      "label": "Read the icefall carving",
+      "secret": true,
+      "mapLabel": "Icefall ledge",
+      "text": "The lake path bends back to the pass. Frostowl keep watch above; Hushram shelter under the lower pines."
     }
   ],
   "exits": [
@@ -447,14 +458,16 @@
       "terrain": ["t"],
       "rect": [0, 0, 24, 24],
       "pool": ["duskwing", "frostowl", "hushram", "pebblit"],
-      "level": [9, 11]
+      "level": [9, 11],
+      "distance": [7, 11]
     },
     {
       "id": "outer-grove-grass",
       "terrain": ["t"],
       "rect": [25, 4, 63, 46],
       "pool": ["duskwing", "frostowl", "hushram"],
-      "level": [10, 12]
+      "level": [10, 12],
+      "distance": [5, 9]
     }
   ],
   "triggers": [],
@@ -468,6 +481,11 @@
       "id": "pine-pass-trail",
       "rect": [25, 15, 36, 25],
       "label": "Pine trail"
+    },
+    {
+      "id": "outer-lake-return",
+      "rect": [43, 34, 57, 40],
+      "label": "Lake return path"
     }
   ]
 }

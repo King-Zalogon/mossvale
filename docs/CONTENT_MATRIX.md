@@ -1,6 +1,6 @@
 # First adventure content matrix
 
-Issue [#7](https://github.com/King-Zalogon/mossvale/issues/7). This is the content budget and set of working map briefs for the first personal adventure. All eight maps and the four new creature slots below are **planned**; the table does not imply that their art, data or routes are implemented. Names and layouts may change after the meadow trial.
+Issue [#7](https://github.com/King-Zalogon/mossvale/issues/7). This is the content budget and set of working map briefs for the first personal adventure. The map names began as working briefs; all four biome pairs are now shipped in the first adventure. The four `NEW-*` creature slots below are historical planning labels, not roster IDs or implementation status.
 
 ## Content budget
 
@@ -10,7 +10,7 @@ Issue [#7](https://github.com/King-Zalogon/mossvale/issues/7). This is the conte
 | Wetland | Reed Marsh; Stilt-Island Route | 3 | Mire seal |
 | Rocky badlands | Sandstone Route; Rocky Basin | 3 | Amber seal |
 | Snowy forest | Snow-Pine Grove; Icy Pass | 3 | Frost seal and ending |
-| **Total** | **Eight distinct compact maps** | **12** | **Four challenges** |
+| **Total** | **Eight distinct large maps** | **12** | **Four challenges** |
 
 The eight existing species are reused, one primary home each. Four slots remain design briefs, not species IDs or final concepts; #24 owns the creature designs and roster integration.
 
@@ -35,8 +35,8 @@ The route order is a starting sequence. Keep a clear return path and a nearby re
 | 4 | **Stilt-Island Route** · wetland | Cross two short boardwalks and a broad safe island. The route should teach the water boundary and provide a clear retreat to the marsh. | Stilt shelter and boardwalk pieces are a new reusable art batch; reuse the shared cottage, sign, chest and shrine where they fit. | Same three wetland species. Clear the mire guardian and earn the Mire seal. | **#52:** shipped as `stilt-isles` (72 × 44, seven isles joined by boardwalks); it uses existing art plus cattail/bush props until the stilt batch lands.
 | 5 | **Sandstone Route** · badlands | Follow a narrow cliff-side path with rock cover and one open alternate path. Keep occlusion from hiding the walkable route. | Reuse `rock-spire-red`, `boulder-mossy`, `signpost-wood` and `chest-wooden`; add only distinct route pieces if existing rocks cannot communicate the edge. | Emberkin, Pebblit and NEW-BADLANDS-1. Reach the basin overlook and a safe rest point. | **#53:** shipped as `amber-ridge` (64 × 56, about 2,000 walkable tiles, was ~440): a narrow cut and a long open trail to the shrine, cliff bands and rock cover.
 | 6 | **Rocky Basin** · badlands | A compact loop around the basin floor with a readable entrance and exit; avoid repeated dead-end corridors. | Reuse red spires, mossy boulders and the shrine; a badlands landmark can reuse the same shrine art with a new role and text. | Same three badlands species. Clear the basin guardian and earn the Amber seal. | **#53:** shipped as `stone-basin` (60 × 50): a ring path around a central chasm with a quarry hut, a nook chest and two secrets; the Amber seal guardian stays at the Amber Ridge shrine.
-| 7 | **Snow-Pine Grove** · snowy forest | Snow banks and pine cover create two visible routes: a direct safe trail and an optional discovery loop. Preserve contrast at forks. | Reuse `tree-pine-snow`, `rock-spire-red`, `signpost-wood` and `chest-wooden`; use the current snow palette and add ice details only if they clarify traversal. | Frostowl, NEW-SNOW-1 and NEW-SNOW-2. Follow the marked pass and prepare for the last regional challenge. |
-| 8 | **Icy Pass** · snowy forest | Switchback climb with broad turns, a safe checkpoint/rest point before the guardian and a clear way back afterward. | Snow pines, shrine and a reused route sign; add a small pass marker if needed to make the final destination visible. | Same three snow species. Clear the Frost guardian, earn the Frost seal and reach the light ending. |
+| 7 | **Frostveil Grove** · snowy forest | A broad pine-and-lake crossing branches from the shrine approach into a southern forest loop, with a sheltered return route. | Shared snow pines and signs mark the route; the Icefall ledge carving rewards a close look around the outer lake. | Frostowl, Duskwing and Hushram. The Frostowl shrine is the regional challenge; a seal opens the eastern route. | **#54:** Grove is 64 × 48 (1,735 walkable tiles), with two encounter regions, a hidden Icefall ledge, quiet paths and paced grass. |
+| 8 | **Blueglass Pass** · snowy forest | Wind around a broad frozen lake, then take the southern pine return loop to the Grove. A shelter and ranger make the pass safe to explore. | Snow pines, lake edge, trail markers and a hidden cache reuse the shared asset pack. | The same three snow visitors appear at higher levels; the pass adds an optional cache and loops back to the Grove. | **#54:** Pass is 64 × 48 (1,515 walkable tiles), with a shelter, hidden cache and a calmer lakeside return route.
 
 ## First playable target and ending
 
@@ -53,4 +53,4 @@ After feedback on that pair, repeat the route/challenge pattern with different g
 
 ## Status boundary
 
-The current playable adventure has three regions and eight species. This matrix defines the later four-biome, eight-map, twelve-species target; it is not evidence that the remaining maps or species have shipped. The meadow pair is the first content feedback checkpoint before the other map pairs are integrated.
+The playable adventure has four biomes and eight maps. The large wetland, badlands and snowy-forest pairs ship with safe returns, optional discoveries, local recovery and encounter pacing; the meadow pair remains the smaller opening route. Creature availability uses the twelve stable roster IDs in `dist/maps/registries.json`.
