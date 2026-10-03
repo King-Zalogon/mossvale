@@ -82,7 +82,8 @@ const set = (k, v) =>
     await page.waitForTimeout(300);
   }
   await page.waitForSelector('#result-continue', {timeout: 15000});
-  await page.click('#result-continue');
+  await page.keyboard.press('Enter');
+  await page.waitForSelector('#modal', {state: 'hidden'});
   assert.equal(await page.locator('#modal').isHidden(), true);
   await page.evaluate(() => window.mossvale.getState().save.badges.push(0));
   await page.evaluate(() => window.mossvale.travel(1));

@@ -152,7 +152,7 @@ export function createMenus(app) {
 
   function result({title, copy, id, sprite, rewards = [], note = '', button = 'Keep exploring', onContinue, secondary, onSecondary}) {
     open(
-      `${header('A MOMENT FOR YOUR JOURNAL', title, false)}<div class="result-content"><canvas id="result-art" class="result-art" width="160" height="145"></canvas><p>${copy}</p><div class="reward-row">${rewards.map(r => `<span class="reward-chip">${r}</span>`).join('')}</div>${note ? `<p class="xp-gain">${note}</p>` : ''}<button id="result-continue" class="primary">${button}</button>${secondary ? `<button id="result-secondary" class="muted-button" style="display:block;margin:9px auto 0">${secondary}</button>` : ''}</div>`,
+      `${header('A MOMENT FOR YOUR JOURNAL', title, false)}<div class="result-content"><canvas id="result-art" class="result-art" width="160" height="145"></canvas><p>${copy}</p><div class="reward-row">${rewards.map(r => `<span class="reward-chip">${r}</span>`).join('')}</div>${note ? `<p class="xp-gain">${note}</p>` : ''}<button id="result-continue" class="primary">${button} <kbd>Enter / Esc</kbd></button>${secondary ? `<button id="result-secondary" class="muted-button" style="display:block;margin:9px auto 0">${secondary}</button>` : ''}</div>`,
       'result',
       'Encounter result',
     );

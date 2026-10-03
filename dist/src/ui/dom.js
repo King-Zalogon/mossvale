@@ -68,7 +68,7 @@ export function openModal(ui, content, mode, label = 'Game menu') {
     const target = selector && m.querySelector(selector);
     if (target && !target.disabled) target.focus({preventScroll: true});
     else if (rerender && selector) (m.querySelector('button:not(:disabled)') ?? m).focus({preventScroll: true});
-    else if (!rerender) m.focus({preventScroll: true});
+    else if (!rerender) (mode === 'result' ? (m.querySelector('#result-continue') ?? m) : m).focus({preventScroll: true});
   });
 }
 

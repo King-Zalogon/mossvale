@@ -37,6 +37,11 @@ export function installInput(app) {
     const k = e.key.toLowerCase();
     if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(k) && !ui.modalMode) e.preventDefault();
     if (ui.modalMode) {
+      if (ui.modalMode === 'result' && ['enter', ' ', 'e', 'escape'].includes(k)) {
+        e.preventDefault();
+        if (!e.repeat) $('#result-continue')?.click();
+        return;
+      }
       if (k === 'escape') {
         e.preventDefault();
         actions.close();
