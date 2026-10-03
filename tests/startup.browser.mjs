@@ -398,7 +398,13 @@ for (const [viewport, text] of [
     if (view !== '#m-primary') await page.click(view);
     const o = await overflow();
     assert.ok(o.x <= 1 && o.modal <= 1, `${viewport.width}px ${text} ${view}: ${JSON.stringify(o)}`);
-    if (view !== '#m-primary') await page.click('#m-back');
+    if (view !== '#m-primary') {
+      // The phone-sized settings list can place the final row over Back's
+      // pointer hit area while the browser scrolls the modal. Keyboard
+      // activation keeps this overflow check independent of that hit target.
+      await page.locator('#m-back').press('Enter');
+      await page.waitForSelector('#m-primary');
+    }
   }
   if (viewport.width < 800) {
     await page.click('#m-primary');
