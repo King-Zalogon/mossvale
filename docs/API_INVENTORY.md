@@ -25,6 +25,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `config.js` | root | `BASE_LEVEL`, `BENCH_SHARE`, `CATCH_UP_BONUS`, `CATCH_UP_GAP`, `ELEMENT_COST`, `ELEMENT_POWER`, `FOCUS_GAIN`, `FOCUS_MAX`, `FOCUS_START`, `FOLLOW_GAP`, `GRACE_AFTER_BATTLE`, `GRACE_ON_ARRIVAL`, `GUARD_FACTOR`, `MAX_LEVEL`, `MAX_MAP_SIZE`, `MAX_XP`, `MOVE_STEP`, `MOVE_UPGRADE_LEVEL`, `PARTY_SIZE`, `PLAYER_RADIUS`, `TILE_H`, `TILE_W`, `TYPE_ADVANTAGE`, `TYPE_DISADVANTAGE`, `UNSEEN_PREFERENCE`, `UPGRADED_ELEMENT_POWER`, `XP_PER_LEVEL`, `configurePackRules` |
 | `controller.js` | root | `createController` |
 | `creature-combat-preview.js` | root | — |
+| `creature-follower-preview.js` | root | — |
 | `data/assets.js` | data | `assets`, `spriteId` |
 | `data/biomes.js` | data | `biomes` |
 | `data/economy.js` | data | `CAPS`, `REST_FLOOR`, `REWARDS`, `SHOP`, `replaceEconomy` |
@@ -43,7 +44,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/discovery.js` | domain | `CELL`, `MAX_SEEN`, `SECRET_RANGE`, `VISION`, `cellGrid`, `compass`, `decodeEntry`, `discover`, `encodeEntry`, `entryFor`, `exploredShare`, `isKnown`, `isRevealed`, `landmarkLabel`, `reveal`, `toHex` |
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
 | `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
-| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `facing`, `followerPoint`, `movePlayer`, `playerFrame`, `pushTrail` |
+| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `pushTrail` |
 | `domain/inventory.js` | domain | `createInventory`, `moveInventory`, `sellInventory`, `validateInventoryRules` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
 | `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents` |

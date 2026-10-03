@@ -16,6 +16,12 @@ export function playerFrame(distance, moving, reducedMotion = false) {
   return 1 + (Math.floor(Math.max(0, distance) / WALK_FRAME_DISTANCE) % 4);
 }
 
+/** Sprite direction from the creature's own movement in world space (the inverse of movePlayer's screen mapping). */
+export function movementFacing(dx, dy) {
+  if (Math.hypot(dx, dy) < 1e-6) return null;
+  return facing(dx - dy, dx + dy);
+}
+
 /** Row in the animation atlas for screen-space input (-1..1 on each axis). */
 export function facing(sx, sy) {
   const x = Math.abs(sx) > 0.3 ? Math.sign(sx) : 0;

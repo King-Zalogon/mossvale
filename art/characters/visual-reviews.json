@@ -13,6 +13,11 @@
     "contactSheetDigest": {
       "path": "art/characters/reviews/creature-combat-contact-sheet.png",
       "sha256": "c3ae5b9d774f5af9e59d731a6f61ebac80ea0ff6cef3a13b07bf3bca6065a6f5"
+    },
+    "followerContactSheet": "art/characters/reviews/creature-follower-contact-sheet.png",
+    "followerContactSheetDigest": {
+      "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+      "sha256": "09f1a911aed53b1bfbc5039ff3c5dfd32c95890e2b5a7b10f99fa3f828bdd693"
     }
   },
   "subjects": [
@@ -85,6 +90,10 @@
           "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64"
         },
         {
+          "path": "dist/assets/creatures/creature-fernling-follower.png",
+          "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7"
+        },
+        {
           "path": "dist/assets/creatures/creature-fernling.png",
           "sha256": "426046feb5c9b34cd134af383f054ef325a3153a827f81065388b28a35884d84"
         }
@@ -122,6 +131,72 @@
           "sha256": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1"
         }
       ]
+    },
+    {
+      "visualId": "creature-emberkin",
+      "technical": {
+        "status": "pass",
+        "source": "npm run verify / fixed 5x8 RGBA sheet, transparent cells and y=196 visible-foot anchor check"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "09f1a911aed53b1bfbc5039ff3c5dfd32c95890e2b5a7b10f99fa3f828bdd693"
+        },
+        {
+          "path": "dist/assets/creatures/creature-emberkin-follower.png",
+          "sha256": "eb58e50eee961389052c0a12cf6138faf824f7a83b4f1c2063d9269f8405de0f"
+        },
+        {
+          "path": "dist/assets/creatures/creature-emberkin.png",
+          "sha256": "f7bd5e6dd44bf8fe44a7d708f48c8f8ef6946c4ea7e20f989f46266b92c97350"
+        }
+      ],
+      "assetVariant": "creature-emberkin-follower"
+    },
+    {
+      "visualId": "creature-fernling",
+      "technical": {
+        "status": "pass",
+        "source": "npm run verify / fixed 5x8 RGBA sheet, transparent cells and y=196 visible-foot anchor check"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "09f1a911aed53b1bfbc5039ff3c5dfd32c95890e2b5a7b10f99fa3f828bdd693"
+        },
+        {
+          "path": "dist/assets/creatures/creature-fernling-combat.png",
+          "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64"
+        },
+        {
+          "path": "dist/assets/creatures/creature-fernling-follower.png",
+          "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7"
+        },
+        {
+          "path": "dist/assets/creatures/creature-fernling.png",
+          "sha256": "426046feb5c9b34cd134af383f054ef325a3153a827f81065388b28a35884d84"
+        }
+      ],
+      "assetVariant": "creature-fernling-follower"
     }
   ],
   "fixtures": [
@@ -146,7 +221,7 @@
       },
       "visual": {
         "decision": "quarantine",
-        "reason": "Deliberate hue shift destroys Fernling’s defining leaf-green palette despite a valid PNG."
+        "reason": "Deliberate hue shift destroys Fernling\u2019s defining leaf-green palette despite a valid PNG."
       }
     },
     {
@@ -170,6 +245,13 @@
       "visualIds": ["creature-fernling", "creature-duskwing"],
       "creaturePortraitWidth": 115,
       "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png"
+    },
+    {
+      "issue": "#90",
+      "status": "initial-batch-reviewed-at-scale",
+      "visualIds": ["creature-emberkin", "creature-fernling"],
+      "followerWidth": 37,
+      "contactSheet": "art/characters/reviews/creature-follower-contact-sheet.png"
     }
   ],
   "coverageGaps": [
@@ -177,7 +259,7 @@
       "issue": "#90",
       "profileId": "creature-follower-v1",
       "status": "pending-art",
-      "reason": "No dedicated follower direction source frames are available; the current single portrait uses path-based follower motion. Review the #90 batch when its source art exists."
+      "reason": "Initial Emberkin and Fernling directional atlases are integrated; other active roster species still use static fallback, so #90 remains open."
     }
   ]
 }

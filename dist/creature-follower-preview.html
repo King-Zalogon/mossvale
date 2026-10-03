@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#102d28" />
+    <title>Mossvale Follower Sprite Preview</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font:
+          15px system-ui,
+          sans-serif;
+        background: #102d28;
+        color: #edf2d1;
+      }
+      body {
+        margin: 0;
+        padding: 24px;
+      }
+      header,
+      main {
+        max-width: 1100px;
+        margin: auto;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      a {
+        color: #d4e598;
+      }
+      h1 {
+        margin: 0.2rem 0;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+      button,
+      select {
+        background: #37564a;
+        color: inherit;
+        border: 1px solid #829e74;
+        border-radius: 5px;
+        padding: 0.55rem 0.8rem;
+      }
+      canvas {
+        image-rendering: pixelated;
+      }
+      #stage {
+        display: block;
+        width: 100%;
+        max-width: 900px;
+        background: #31543e;
+        border: 1px solid #829e74;
+      }
+      .frames {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(75px, 1fr));
+        gap: 4px;
+      }
+      .direction {
+        margin: 1rem 0;
+      }
+      .direction h3 {
+        margin: 0.35rem 0;
+        text-transform: capitalize;
+      }
+      .frame {
+        text-align: center;
+        font-size: 12px;
+      }
+      .frame canvas {
+        display: block;
+        width: min(100%, 80px);
+        height: auto;
+        margin: auto;
+        background: repeating-conic-gradient(#293a32 0% 25%, #415649 0% 50%) 50%/12px 12px;
+      }
+      .summary {
+        color: #c6d4af;
+      }
+      @media (max-width: 560px) {
+        body {
+          padding: 12px;
+        }
+        .frames {
+          grid-template-columns: repeat(5, minmax(50px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./">← Mossvale</a>
+      <div>
+        <small>ART REVIEW · ISSUE #90</small>
+        <h1>Creature follower sprites</h1>
+      </div>
+    </header>
+    <main>
+      <p class="summary">
+        Initial overworld follower batch: Emberkin and Fernling. Each frame uses the production 200 × 200 cell cropped to the in-game 37 px width, beside the
+        red-cap player at its 36 px gameplay width.
+      </p>
+      <div class="controls">
+        <label
+          >Creature
+          <select id="species">
+            <option value="emberkin">Emberkin</option>
+            <option value="fernling">Fernling</option>
+          </select></label
+        >
+        <button id="play">Pause path demo</button>
+        <button id="reset">Restart path demo</button>
+        <label><input id="calm" type="checkbox" /> Reduced motion</label>
+        <span id="state" aria-live="polite"></span>
+      </div>
+      <canvas
+        id="stage"
+        width="900"
+        height="300"
+        aria-label="Follower path, diagonal turns, stopping, backtracking, depth sorting, and foreground tree occlusion"
+      ></canvas>
+      <p class="summary">
+        The loop walks all eight directions, pauses to show retained facing, and backtracks. The tree and both characters are depth-sorted; foreground tree
+        overlap fades for readability.
+      </p>
+      <h2>All direction and animation frames</h2>
+      <div id="atlas"></div>
+    </main>
+    <script type="module" src="src/creature-follower-preview.js"></script>
+  </body>
+</html>

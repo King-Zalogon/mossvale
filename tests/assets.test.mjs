@@ -78,7 +78,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
   assert.deepEqual(errors, []);
   assert.deepEqual(
     registry.subjects.map(subject => subject.id),
-    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing'],
+    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing', 'creature-emberkin'],
   );
   const player = registry.subjects[0];
   assert.deepEqual(player.sourceBatches.flatMap(batch => batch.directions).toSorted(), [
@@ -92,7 +92,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
     'west',
   ]);
   assert.ok(player.sourceBatches.every(batch => batch.referenceAssetIds.length && batch.exportAssetIds.includes('person-red-cap-motion')));
-  for (const creature of registry.subjects.slice(1)) {
+  for (const creature of registry.subjects.filter(subject => subject.runtimeCombat)) {
     assert.deepEqual(creature.runtimeTreatments.states, ['idle', 'travel', 'hit', 'capture']);
     assert.equal(creature.runtimeTreatments.artPixelsChanged, false);
     assert.equal(creature.runtimeTreatments.scope, 'static portrait fallback only');
@@ -100,6 +100,9 @@ test('sample visual subjects have hashed canonical references, exports and linke
     assert.equal(creature.runtimeCombat.artPixelsChanged, true);
     assert.ok(creature.sourceBatches.some(batch => batch.states?.length === 5 && batch.referenceAssetIds.includes(creature.id)));
   }
+  const emberkin = registry.subjects.find(subject => subject.id === 'creature-emberkin');
+  assert.equal(emberkin.runtimeFollower.assetId, 'creature-emberkin-follower');
+  assert.equal(emberkin.runtimeFollower.fallbackAssetId, 'creature-emberkin');
 });
 
 test('visual-subject validation catches a stale output digest and an unrecorded batch reference', () => {

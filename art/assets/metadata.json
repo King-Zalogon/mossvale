@@ -28,6 +28,11 @@
       "width": 2292,
       "height": 1440,
       "mode": "RGBA"
+    },
+    "source/creature-follower-atlas.png": {
+      "width": 2016,
+      "height": 1600,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -257,6 +262,34 @@
       }
     },
     {
+      "name": "creature-emberkin-follower",
+      "src": "assets/creatures/creature-emberkin-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-follower-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+        "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"]
+      },
+      "provenance": {
+        "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-emberkin-follower-generated.png",
+          "art/characters/source/creature-emberkin-follower-initial.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
       "name": "creature-fernling",
       "src": "assets/creatures/creature-fernling.png",
       "folder": "creatures",
@@ -298,6 +331,34 @@
       "provenance": {
         "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
         "originalGeneratedReferences": ["art/characters/source/creature-fernling-combat-generated.png"],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-fernling-follower",
+      "src": "assets/creatures/creature-fernling-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-follower-atlas.png",
+      "cell": {
+        "x": 1016,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+      },
+      "provenance": {
+        "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-fernling-follower-generated.png",
+          "art/characters/source/creature-fernling-follower-initial.png"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
