@@ -3,6 +3,9 @@
   "private": true,
   "scripts": {
     "start": "python3 -m http.server 8080 --directory dist",
+    "dev": "next dev",
+    "build:game": "node scripts/build.mjs",
+    "build": "npm run build:game && node scripts/prepare-vercel-game.mjs && next build",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -16,8 +19,15 @@
     "pack": "node scripts/pack.mjs",
     "art:jobs": "node scripts/art-jobs.mjs",
     "brief:compile": "node scripts/compile-brief.mjs",
-    "build": "node scripts/build.mjs",
+    "build": "npm run build:game && node scripts/prepare-vercel-game.mjs && next build",
     "art:check": "python3 art/characters/export.py --check && python3 art/characters/export-creature-combat.py --check && python3 art/assets/export.py --check && python3 art/characters/review.py"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.2",
+    "next": "^16.3.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -28,6 +38,6 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.9"
   }
 }
