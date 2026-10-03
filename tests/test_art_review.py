@@ -40,7 +40,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
         preview_hash = hashlib.sha256(b"<!doctype html>\n<main>review preview</main>\n").hexdigest()
         subjects = []
         reviews = []
-        for species in ["creature-fernling", "creature-duskwing"]:
+        for species in ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"]:
             ref = f"art/references/{species}.png"
             output = f"dist/assets/creatures/{species}-combat.png"
             for path in [ref, output]:
@@ -92,7 +92,13 @@ class VisualReviewEvidenceTests(unittest.TestCase):
             "subjects": reviews,
             "fixtures": fixtures,
             "coverage": [
-                {"issue": "#85", "status": "reviewed-at-scale", "creaturePortraitWidth": 115, "contactSheet": self.contact, "visualIds": ["creature-fernling", "creature-duskwing"]}
+                {
+                    "issue": "#85",
+                    "status": "reviewed-at-scale",
+                    "creaturePortraitWidth": 115,
+                    "contactSheet": self.contact,
+                    "visualIds": ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"],
+                }
             ],
             "coverageGaps": [
                 {"issue": "#90", "profileId": "creature-follower-v1", "status": "pending-art", "reason": "Dedicated frames are not available."}

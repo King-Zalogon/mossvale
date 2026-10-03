@@ -81,6 +81,7 @@ try {
   // --- walking reveals the map, the minimap follows, it survives a reload ---------------------------------
   {
     const {page, errors, ctx} = await open();
+    await page.waitForFunction(() => window.mossvale.getState().save.explored?.meadow?.cells?.some(byte => byte !== 0), null, {timeout: 5000});
     const start = await share(page, 'meadow');
     assert.ok(start > 0, 'the ground around the camp is explored from the first moment');
     const lit0 = await litPixels(page);

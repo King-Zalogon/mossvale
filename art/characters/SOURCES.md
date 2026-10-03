@@ -33,10 +33,10 @@ The eight current creature portraits remain the generated source images in `art/
 
 ## Creature combat frame milestone
 
-- Fernling and Duskwing combat sheets were generated on 2026-10-03 with the current transparent creature PNGs as references. Raw generated images are retained in `source/creature-fernling-combat-generated.png` and `source/creature-duskwing-combat-generated.png`.
-- Each sheet has four columns and five state rows: idle, attack, hit, faint and capture. The exporter crops equal grid cells, pads transparent pixels without resampling, and writes fixed frame sizes with bottom-center anchors: Fernling 288 × 288; Duskwing 328 × 304.
+- Fernling and Duskwing were generated on 2026-10-03 as the first combat-sheet milestone. Brooklet and Hushram were added on 2026-10-03 as the next art batch. All four raw generated images are retained under `source/creature-*-combat-generated.png` and use their current transparent portrait as the identity reference.
+- Each sheet has four columns and five state rows: idle, attack, hit, faint and capture. The exporter crops equal grid cells, pads transparent pixels without resampling, and writes fixed frame sizes with bottom-center anchors: Fernling, Brooklet and Hushram 288 × 288; Duskwing 281 × 281.
 - Run `python3 art/characters/export-creature-combat.py` to recreate the runtime PNGs. `creature-combat-metadata.json` records source IDs, frame order, dimensions, anchor and cadence.
-- The initial two-species batch proves the atlas contract; the other six current creatures still use their static portraits.
+- The first four species now have animated combat frames; the remaining four current creatures still use their static portraits.
 
 ## Creature follower direction milestone (#90)
 
@@ -47,4 +47,4 @@ The eight current creature portraits remain the generated source images in `art/
 
 ## Identity and quality records
 
-`art/assets/subjects.json` assigns stable visual IDs and hashes canonical references, generated source sheets, and runtime outputs for the player, Fernling, and Duskwing; `npm run validate` verifies those links and digests. `export-profiles.json` records category-specific, versioned export settings. `visual-reviews.json` separates byte/frame checks from visual accept/rework/quarantine decisions; the captured creature contact sheet is under `reviews/`. See [`docs/ART_REVIEW.md`](../../docs/ART_REVIEW.md) for commands and the known pending visual/owner reviews.
+`art/assets/subjects.json` assigns stable visual IDs and hashes canonical references, generated source sheets, and runtime outputs for the player, Fernling, Duskwing, Brooklet and Hushram; `npm run validate` verifies those links and digests. `export-profiles.json` records category-specific, versioned export settings. `visual-reviews.json` separates byte/frame checks from visual accept/rework/quarantine decisions; the captured four-species creature contact sheet is under `reviews/`. See [`docs/ART_REVIEW.md`](../../docs/ART_REVIEW.md) for commands and the known pending visual/owner reviews.

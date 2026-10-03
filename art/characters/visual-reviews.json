@@ -1,7 +1,11 @@
 {
   "schemaVersion": 1,
   "technicalAndVisualGatesAreSeparate": true,
-  "decisions": ["accept", "rework", "quarantine"],
+  "decisions": [
+    "accept",
+    "rework",
+    "quarantine"
+  ],
   "method": "Technical checks decode and validate pixels/frames/anchors. Visual decisions are recorded by a human with a reason; neither gate infers the other.",
   "evidence": {
     "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png",
@@ -12,7 +16,7 @@
     "beforeAfter": "Each species card shows its canonical portrait beside the generated combat states.",
     "contactSheetDigest": {
       "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-      "sha256": "c3ae5b9d774f5af9e59d731a6f61ebac80ea0ff6cef3a13b07bf3bca6065a6f5"
+      "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
     },
     "followerContactSheet": "art/characters/reviews/creature-follower-contact-sheet.png",
     "followerContactSheetDigest": {
@@ -34,7 +38,9 @@
         "reason": "Eight facing rows retain the red cap, blue clothing and compact scale; NE/NW silhouette changes are expected for turned views, not identity failures.",
         "ownerTaste": "pending"
       },
-      "evidence": ["dist/character-preview.html"],
+      "evidence": [
+        "dist/character-preview.html"
+      ],
       "reviewedFiles": [
         {
           "path": "dist/assets/people/person-red-cap-east.png",
@@ -58,7 +64,7 @@
         },
         {
           "path": "dist/character-preview.html",
-          "sha256": "0946906b268ec0999484661c0f7637679b90e6651b00f47957dfadafbd4e1cf5"
+          "sha256": "98e26583fdb1d59c040c16a580ac3a9c52385c9ecbb4e3f82789181cfe219c1b"
         }
       ]
     },
@@ -75,7 +81,9 @@
         "reason": "The small actual-scale contact sheet shows detached leaf/spark pixels below multiple faint-row poses; keep the source, revise those cells before calling this species art complete.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -83,7 +91,7 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "c3ae5b9d774f5af9e59d731a6f61ebac80ea0ff6cef3a13b07bf3bca6065a6f5"
+          "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-combat.png",
@@ -112,7 +120,9 @@
         "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -120,7 +130,7 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "c3ae5b9d774f5af9e59d731a6f61ebac80ea0ff6cef3a13b07bf3bca6065a6f5"
+          "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
         },
         {
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
@@ -144,7 +154,9 @@
         "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
@@ -173,7 +185,9 @@
         "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -197,6 +211,76 @@
         }
       ],
       "assetVariant": "creature-fernling-follower"
+    },
+    {
+      "visualId": "creature-brooklet",
+      "asset": "creature-brooklet-combat",
+      "technical": {
+        "status": "pass",
+        "source": "npm run validate; transparent 4x5 RGBA frame grid and common foot-anchor checks"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states.",
+        "ownerTaste": "pending"
+      },
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png"
+      ],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
+        },
+        {
+          "path": "dist/assets/creatures/creature-brooklet-combat.png",
+          "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242"
+        },
+        {
+          "path": "dist/assets/creatures/creature-brooklet.png",
+          "sha256": "ba91ded862d7cc2cbe0096d9681d4942012cefabb9becb49974e1f89ce4676c5"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-hushram",
+      "asset": "creature-hushram-combat",
+      "technical": {
+        "status": "pass",
+        "source": "npm run validate; transparent 4x5 RGBA frame grid and common foot-anchor checks"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "At the 115 px gameplay width, Hushram keeps its pale ram and crystalline ice-horn identity across all five readable combat states.",
+        "ownerTaste": "pending"
+      },
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png"
+      ],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
+        },
+        {
+          "path": "dist/assets/creatures/creature-hushram-combat.png",
+          "sha256": "32a1817ed1f63bb330f4bd59f32355f9517f09a903e22dfd02d60a9e1d41bae4"
+        },
+        {
+          "path": "dist/assets/creatures/creature-hushram.png",
+          "sha256": "1a4b0d299fd31e2fc4d76e39d2c22b94a6e1db85ccfd357eb89ce8052cb61023"
+        }
+      ]
     }
   ],
   "fixtures": [
@@ -221,7 +305,7 @@
       },
       "visual": {
         "decision": "quarantine",
-        "reason": "Deliberate hue shift destroys Fernling\u2019s defining leaf-green palette despite a valid PNG."
+        "reason": "Deliberate hue shift destroys Fernling’s defining leaf-green palette despite a valid PNG."
       }
     },
     {
@@ -242,14 +326,22 @@
     {
       "issue": "#85",
       "status": "reviewed-at-scale",
-      "visualIds": ["creature-fernling", "creature-duskwing"],
+      "visualIds": [
+        "creature-fernling",
+        "creature-duskwing",
+        "creature-brooklet",
+        "creature-hushram"
+      ],
       "creaturePortraitWidth": 115,
       "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png"
     },
     {
       "issue": "#90",
       "status": "initial-batch-reviewed-at-scale",
-      "visualIds": ["creature-emberkin", "creature-fernling"],
+      "visualIds": [
+        "creature-emberkin",
+        "creature-fernling"
+      ],
       "followerWidth": 37,
       "contactSheet": "art/characters/reviews/creature-follower-contact-sheet.png"
     }
@@ -259,7 +351,7 @@
       "issue": "#90",
       "profileId": "creature-follower-v1",
       "status": "pending-art",
-      "reason": "Initial Emberkin and Fernling directional atlases are integrated; other active roster species still use static fallback, so #90 remains open."
+      "reason": "No dedicated follower direction source frames are available; the current single portrait uses path-based follower motion. Review the #90 batch when its source art exists."
     }
   ]
 }

@@ -49,7 +49,7 @@ class CombatExportTests(unittest.TestCase):
             "profiles": {
                 "creature-combat-v1": {
                     "sourceGrid": {"columns": 4, "rows": 5},
-                    "frameSizes": {"fernling": [12, 10], "duskwing": [12, 10]},
+                    "frameSizes": {"fernling": [12, 10], "duskwing": [12, 10], "brooklet": [12, 10], "hushram": [12, 10]},
                     "resampling": "none",
                     "alphaThreshold": 8,
                     "footInset": 1,
@@ -65,17 +65,22 @@ class CombatExportTests(unittest.TestCase):
         self.sources = [
             self.source_dir / "creature-fernling-combat-generated.png",
             self.source_dir / "creature-duskwing-combat-generated.png",
+            self.source_dir / "creature-brooklet-combat-generated.png",
+            self.source_dir / "creature-hushram-combat-generated.png",
         ]
         self.targets = [
             self.target_dir / "creature-fernling-combat.png",
             self.target_dir / "creature-duskwing-combat.png",
+            self.target_dir / "creature-brooklet-combat.png",
+            self.target_dir / "creature-hushram-combat.png",
         ]
 
     def tearDown(self):
         self.temp.cleanup()
 
-    def write_sources(self, count=2):
-        for path in self.sources[:count]:
+    def write_sources(self, count=None):
+        paths = self.sources if count is None else self.sources[:count]
+        for path in paths:
             path.write_bytes(source_png())
 
     def run_export(self, *args):
@@ -90,7 +95,7 @@ class CombatExportTests(unittest.TestCase):
     def test_source_failure_does_not_partially_replace_runtime_outputs(self):
         self.write_sources(count=1)
         self.target_dir.mkdir(parents=True)
-        originals = [b"existing-fernling", b"existing-duskwing"]
+        originals = [b"existing-fernling", b"existing-duskwing", b"existing-brooklet", b"existing-hushram"]
         for target, contents in zip(self.targets, originals):
             target.write_bytes(contents)
 
@@ -138,8 +143,9 @@ class CombatExportTests(unittest.TestCase):
         self.assertEqual(checked.returncode, 0, checked.stderr)
         self.assertEqual((preview / "fernling-raw.png").read_bytes(), self.sources[0].read_bytes())
         self.assertEqual((preview / "fernling-runtime.png").read_bytes(), self.targets[0].read_bytes())
-        for stage in ["raw", "segmented", "anchored", "runtime"]:
-            self.assertTrue((preview / f"duskwing-{stage}.png").is_file())
+        for species in ["fernling", "duskwing", "brooklet", "hushram"]:
+            for stage in ["raw", "segmented", "anchored", "runtime"]:
+                self.assertTrue((preview / f"{species}-{stage}.png").is_file())
         page = (preview / "index.html").read_text()
         for stage in ["Raw source", "Segmented cells", "Anchored candidate", "Runtime output"]:
             self.assertIn(stage, page)

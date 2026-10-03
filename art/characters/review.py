@@ -104,9 +104,11 @@ def validate_reviews(root):
         or combat_coverage.get("status") != "reviewed-at-scale"
         or combat_coverage.get("creaturePortraitWidth") != 115
         or combat_coverage.get("contactSheet") != contact_sheet
-        or not {"creature-fernling", "creature-duskwing"}.issubset(set(combat_coverage.get("visualIds", [])) & reviewed_ids)
+        or not {"creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"}.issubset(
+            set(combat_coverage.get("visualIds", [])) & reviewed_ids
+        )
     ):
-        raise SystemExit("#85 combat review must cover both recorded species at 115 px using the pinned contact sheet")
+        raise SystemExit("#85 combat review must cover every recorded species at 115 px using the pinned contact sheet")
     pending_gaps = [item for item in gaps if item.get("status") == "pending-art"]
     return data, len(pending_gaps)
 

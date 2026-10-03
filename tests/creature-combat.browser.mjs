@@ -2,6 +2,8 @@
 import {chromium} from 'playwright';
 import http from 'node:http';
 import {existsSync, readFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 import assert from 'node:assert/strict';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -25,12 +27,12 @@ try {
   await page.goto(`http://localhost:${server.address().port}/creature-combat-preview.html`);
   await page.waitForFunction(
     () =>
-      document.querySelectorAll('.creature canvas').length === 40 &&
+      document.querySelectorAll('.creature canvas').length === 80 &&
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
         [...canvas.getContext('2d').getImageData(0, 0, 160, 160).data].some((value, index) => index % 4 === 3 && value > 0),
       ),
   );
-  assert.deepEqual(await page.locator('.creature h2').allTextContents(), ['Fernling', 'Duskwing']);
+  assert.deepEqual(await page.locator('.creature h2').allTextContents(), ['Fernling', 'Duskwing', 'Brooklet', 'Hushram']);
   assert.equal(await page.locator('.reference img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), true);
   assert.deepEqual(
     await page.evaluate(() =>
@@ -40,9 +42,9 @@ try {
         return counts;
       }, {}),
     ),
-    {idle: 8, attack: 8, hit: 8, faint: 8, capture: 8},
+    {idle: 16, attack: 16, hit: 16, faint: 16, capture: 16},
   );
-  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 10}, () => ['1', '2', '3', '4']).flat());
+  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 20}, () => ['1', '2', '3', '4']).flat());
   assert.equal(
     await page.evaluate(() =>
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
@@ -59,10 +61,10 @@ try {
   battle.on('pageerror', error => errors.push(error.message));
   await battle.goto(`http://localhost:${server.address().port}/?debug&seed=3`);
   await battle.waitForSelector('#loading', {state: 'hidden'});
-  const fernling = species.findIndex(entry => entry.id === 'fernling');
-  const duskwing = species.findIndex(entry => entry.id === 'duskwing');
-  assert.notEqual(fernling, -1);
-  assert.notEqual(duskwing, -1);
+  const brooklet = species.findIndex(entry => entry.id === 'brooklet');
+  const hushram = species.findIndex(entry => entry.id === 'hushram');
+  assert.notEqual(brooklet, -1);
+  assert.notEqual(hushram, -1);
   await battle.evaluate(
     ({starter, foe}) => {
       const save = window.mossvale.getState().save;
@@ -72,7 +74,7 @@ try {
       save.team = {[starter]: {xp: 0, hp: 100}};
       window.mossvale.encounter(foe);
     },
-    {starter: fernling, foe: duskwing},
+    {starter: brooklet, foe: hushram},
   );
   await battle.waitForSelector('#fight-wild');
   assert.equal(await battle.locator('#fight-buddy').getAttribute('data-combat-state'), 'idle');

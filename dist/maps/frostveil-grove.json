@@ -4,8 +4,8 @@
   "biome": "snowy-forest",
   "name": "Frostveil Grove",
   "size": {
-    "w": 25,
-    "h": 25
+    "w": 64,
+    "h": 48
   },
   "legend": {
     ".": "void",
@@ -15,34 +15,58 @@
     "t": "tallgrass"
   },
   "terrain": [
-    ".........tgpppgg.........",
-    ".......tttgpppgggg.......",
-    ".....tttttgpppgggggg.....",
-    "....ttttttgpppggggggg....",
-    "...tttttttgpppgggggggg...",
-    "..ttttttttgpppggggggggg..",
-    ".tttttttttgpppgggggggggg.",
-    ".tttttttttgpppgggggggggg.",
-    "ttttttttttppppgtttttttttt",
-    "ggggggggggppppgtttttttttt",
-    "ggggggggggppppgtttttttttt",
-    "ppppppppppppppppppppppppp",
-    "ppppppwpppppppppppppppppp",
-    "ppppwwwwwpppppppppppppppp",
-    "ggggwwwwwggpppgtttttttttt",
-    "ggggwwwwwggpppgtttttttttt",
-    "ggggwwwwwggpppgtttttttttt",
-    ".gggwwwwwttppptttttttttt.",
-    ".gggwwwwwttppptttttttttt.",
-    "..ggggwggttpppttttggggg..",
-    "...ggggggttpppttttgggg...",
-    "....gggggttpppttttggg....",
-    ".....ggggttpppttttgg.....",
-    ".......ggttppptttt.......",
-    ".........ttppptt........."
+    ".........tgpppgg................................................",
+    ".......tttgpppgggg..............................................",
+    ".....tttttgpppgggggg............................................",
+    "....ttttttgpppggggggg...........................................",
+    "...tttttttgpppgggggggg..........................................",
+    "..ttttttttgpppggggggggg.........gggggggggg......................",
+    ".tttttttttgpppgggggggggg.....gggggggggggggggggggg...............",
+    ".tttttttttgpppgggggggggg...ggggggggtttttggggggggggg.............",
+    "ttttttttttppppgttttttttttggggggggggtttpppppgggggggggg...........",
+    "ggggggggggppppgttttttttttgggggggggppppppppppppggggggggg.........",
+    "ggggggggggppppgttttttttttggggggppppppppppppppppppgggggggg.......",
+    "pppppppppppppppppppppppppgggggppppppppppgpppppppppppppppppppppp.",
+    "ppppppwppppppppppppppppppgggggppppppggggggggppppppppppppppppppp.",
+    "ppppwwwwwppppppppppppppppggggpppppgggggggggggggpppppppppppppppp.",
+    "ggggwwwwwggpppppppppppppppggpppppgggggggggggggggggggggggggppppp.",
+    "ggggwwwwwggpppgttttpppppppppppppggggggggggggggggggggggggggpppp..",
+    "ggggwwwwwggpppgttttttpppppppppppgggggggggggggggggggggggggppppp..",
+    ".gggwwwwwttpppttttttttttppppppppggggggggggtttttggggggggggppppgg.",
+    ".gggwwwwwttppptttttttttt.gpppppppgggggggggtttttgggggggggpppppgg.",
+    "..ggggwggttpppttttggggg..gggppppppggggggggtttttgggggggggppppggg.",
+    "...ggggggttpppttttgggg...ggggppppppgggggggtttttggggggggppppgggg.",
+    "....gggggttpppttttggg....gggggpppppppgggggggggggggggggpppppgggg.",
+    ".....ggggttpppttttgg.....gggggggppppppgggggggggggggggpppppggggg.",
+    ".......ggttppptttt.......gggggggpppppppggggggggggggppppppgggggg.",
+    ".........ttppptt.........gggggggpppppppppgggggggggppppppggggggg.",
+    ".........................gggggggppppppppppgggggggppppppgggggggg.",
+    ".........................gggggggpppggpppppppppppppppppggggggggg.",
+    ".........................ggggggppppgggpppppppppppppppgggggggggg.",
+    ".........................ggggggppppgggggppppppppppppppggggggggg.",
+    ".........................ggggggppppgggggggwwwwwwwppppptttttgggg.",
+    ".........................gggtttppppggggggwwwwwwwwwwppptttttgggg.",
+    "..........................ggtttpppppggggggwwwwwwwwwppptttttggg..",
+    "..........................ggttttppppgggggggwwwwwwwpppptttttggg..",
+    "..........................ggttttpppppgggggggggwgggpppptttttgg...",
+    "..........................gggggggppppgggggggggggggppppgggggg....",
+    "..........................ggggggggpppppgggggggggggpppggggggg....",
+    "...........................gggggggpppppppgggggggpppppgggggg.....",
+    "............................gggggggppppppppgggpppppppggggg......",
+    ".............................ggggggpppppppppppppppppgggggg......",
+    "..............................ggggppppppppppppppppggggggg.......",
+    "...............................gggppppggpppppppppggggggg........",
+    "................................ggpppgggggpppppgggggggg.........",
+    "................................pppppgggggggggggggggg...........",
+    "..............................pppppppggggggggggggg..............",
+    "..............................pppppp...ggggggggg................",
+    "..............................pppp..............................",
+    "................................................................",
+    "................................................................"
   ],
   "spawns": {
-    "camp": [12, 13]
+    "camp": [12, 13],
+    "pass-return": [31, 44]
   },
   "landmarks": [
     {
@@ -107,7 +131,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine \u00b7 East: the next island \u00b7 Blue minimap marker: shrine \u00b7 Gold: treasure"
+      "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
     },
     {
       "id": "chest",
@@ -122,6 +146,15 @@
         "potions": 2,
         "orbs": 4
       }
+    },
+    {
+      "id": "pass-waymark",
+      "kind": "sign",
+      "sprite": "signpost-wood",
+      "at": [25.6, 17],
+      "w": 38,
+      "label": "Read the snowy waymark",
+      "text": "The grove shrine rests north of camp. A sheltered pass winds south through the pines."
     }
   ],
   "exits": [
@@ -139,14 +172,25 @@
     {
       "id": "east",
       "sprite": "signpost-wood",
-      "at": [22.4, 12],
+      "at": [61.7, 12],
       "w": 40,
-      "label": "Take the eastern trail",
+      "label": "Follow the eastern trail to Reedfen Wetlands",
       "to": {
         "map": "reedfen-wetlands",
         "spawn": "camp"
       },
       "requires": "frostveil-grove.seal"
+    },
+    {
+      "id": "to-frostveil-pass",
+      "sprite": "signpost-wood",
+      "at": [28.4, 17],
+      "w": 40,
+      "label": "Climb into the blueglass pass",
+      "to": {
+        "map": "frostveil-pass",
+        "spawn": "camp"
+      }
     }
   ],
   "props": [
@@ -303,15 +347,126 @@
         [19.1, 21.1],
         [22.1, 19.1]
       ]
+    },
+    {
+      "sprite": "tree-pine-snow",
+      "kind": "scenery",
+      "w": 79,
+      "solid": 0.42,
+      "at": [
+        [42.2, 34.8],
+        [42.3, 14.1],
+        [46.2, 7.5],
+        [57.3, 26.7],
+        [54, 41.5],
+        [28.3, 26.5],
+        [39.9, 15.9],
+        [40.5, 21.2],
+        [31.7, 8.1],
+        [31, 23.2],
+        [48, 33.2],
+        [59.4, 33.8],
+        [39.2, 13],
+        [41.5, 32.2],
+        [54.7, 36.6],
+        [34.4, 16.8],
+        [46.7, 34.9],
+        [60.3, 31.4],
+        [46.1, 15.7],
+        [29.9, 29.7],
+        [30.8, 39.1],
+        [36.1, 28.4],
+        [46.2, 22.9],
+        [28.2, 11.7],
+        [47.5, 19.3],
+        [55.5, 16.3],
+        [28.6, 24.4],
+        [49.9, 19.2]
+      ]
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [
+        [27.3, 30.4],
+        [41, 31.9],
+        [36.1, 14.3],
+        [48.9, 21],
+        [28.6, 27.1],
+        [28.5, 36.2],
+        [48.7, 15.4],
+        [42.7, 13.5],
+        [36.8, 18.4],
+        [52.7, 16.8],
+        [50.4, 9.5],
+        [45.6, 16.5],
+        [56.8, 35],
+        [31.3, 39.7],
+        [55.1, 38.9],
+        [29.8, 29.3],
+        [31.6, 37.1],
+        [39, 14]
+      ]
+    },
+    {
+      "sprite": "grass-tuft",
+      "kind": "grass",
+      "w": 27,
+      "at": [
+        [37.7, 31.2],
+        [50, 21.2],
+        [55.7, 28.7],
+        [53.4, 15.5],
+        [60.9, 30.1],
+        [42.6, 35.1],
+        [55.7, 40.4],
+        [49, 18.5],
+        [39.3, 17.8],
+        [50.1, 41.4],
+        [50.3, 8.7],
+        [52.9, 20.9],
+        [29, 22.8],
+        [44.1, 16.2],
+        [35.2, 17.7],
+        [37.5, 14.2],
+        [45.2, 7.5],
+        [59.9, 23.3],
+        [47.9, 16.4],
+        [29.3, 38.8],
+        [30.1, 7.1],
+        [28.2, 27.8]
+      ]
     }
   ],
   "zones": [
     {
-      "id": "tall-grass",
+      "id": "grove-grass",
       "terrain": ["t"],
+      "rect": [0, 0, 24, 24],
       "pool": ["duskwing", "frostowl", "hushram", "pebblit"],
       "level": [9, 11]
+    },
+    {
+      "id": "outer-grove-grass",
+      "terrain": ["t"],
+      "rect": [25, 4, 63, 46],
+      "pool": ["duskwing", "frostowl", "hushram"],
+      "level": [10, 12]
     }
   ],
-  "triggers": []
+  "triggers": [],
+  "quiet": [
+    {
+      "id": "grove-camp-route",
+      "rect": [8, 9, 22, 17],
+      "label": "Sheltered grove"
+    },
+    {
+      "id": "pine-pass-trail",
+      "rect": [25, 15, 36, 25],
+      "label": "Pine trail"
+    }
+  ]
 }

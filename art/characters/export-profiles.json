@@ -8,8 +8,14 @@
         "columns": 5,
         "rowsPerSheet": 2
       },
-      "frame": [160, 256],
-      "maxSprite": [152, 224],
+      "frame": [
+        160,
+        256
+      ],
+      "maxSprite": [
+        152,
+        224
+      ],
       "resampling": "nearest-neighbor",
       "alphaThreshold": 8,
       "footY": 250,
@@ -21,7 +27,10 @@
         "columns": 4,
         "rows": 2
       },
-      "frame": [160, 256],
+      "frame": [
+        160,
+        256
+      ],
       "maxSpriteHeight": 220,
       "resampling": "nearest-neighbor",
       "alphaThreshold": 8,
@@ -35,14 +44,32 @@
         "rows": 5
       },
       "frameSizes": {
-        "fernling": [288, 288],
-        "duskwing": [281, 281]
+        "fernling": [
+          288,
+          288
+        ],
+        "duskwing": [
+          281,
+          281
+        ],
+        "brooklet": [
+          288,
+          288
+        ],
+        "hushram": [
+          288,
+          288
+        ]
       },
       "resampling": "none",
       "alphaThreshold": 8,
       "footInset": 4,
       "palette": "preserve source RGBA; no quantization",
-      "reviewStages": ["generated-source", "segmented-cells", "anchored-runtime"]
+      "reviewStages": [
+        "generated-source",
+        "segmented-cells",
+        "anchored-runtime"
+      ]
     },
     "creature-portrait-v1": {
       "category": "creature-portrait",
