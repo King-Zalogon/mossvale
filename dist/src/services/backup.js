@@ -1,7 +1,7 @@
 /* Portable save backup: export to a JSON file, import with validation, and restore the session checkpoint.
    Saves live in one browser on one address; this is how progress moves between browsers or devices.
    Nothing here talks to a server. */
-import {KEYS, VERSION} from '../save.js';
+import {KEYS, VERSION, packOf} from '../save.js';
 import {hasProgress} from './profile.js';
 
 export const BACKUP_KIND = 'mossvale-save-backup';
@@ -43,6 +43,8 @@ export function parseBackup(text, codec) {
       reason: `That save was made by a newer version of Mossvale (schema ${payload.version}). Update the game first; your current progress was not touched.`,
     };
   if (payload.version !== VERSION && payload.version !== 2) return {ok: false, reason: `Saves of schema ${payload.version} are not supported.`};
+  if (packOf(payload) !== codec.pack)
+    return {ok: false, reason: `That save belongs to another adventure ("${packOf(payload)}"), not "${codec.pack}". Your current progress was not touched.`};
   const save = codec.normalize(payload, payload.version === 2);
   if (!save) return {ok: false, reason: 'That file does not look like a Mossvale save.'};
   return {

@@ -6,6 +6,7 @@ import {TACTICS} from './data/tactics.js';
 import {FOCUS_MAX, FOCUS_START, MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
 const VERSION = 3;
+const LEGACY_PACK = 'mossvale';
 const KEYS = {
   v3: 'mossvale-v3',
   v2: 'mossvale-v2',
@@ -20,7 +21,10 @@ const MAX_COUNT = 9999,
 const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 const num = (v, min, max, def) => (typeof v === 'number' && Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : def);
 
-function create({species, regions, size, spawn = {x: 12, y: 13}}) {
+/** The adventure a raw save belongs to: saves written before packs existed are the first adventure. */
+const packOf = raw => (isObj(raw) && typeof raw.pack === 'string' ? raw.pack : LEGACY_PACK);
+
+function create({species, regions, size, spawn = {x: 12, y: 13}, pack = LEGACY_PACK}) {
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = id => regions.findIndex(r => r.id === id);
   const maxHP = (idx, xp) => species[idx].hp + Math.floor(xp / XP_PER_LEVEL) * 4;
@@ -151,6 +155,7 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
       met: save.met,
       wins: save.wins,
       playTime: save.playTime,
+      ...(pack === LEGACY_PACK ? {} : {pack}), // the first adventure stays byte-identical to pre-pack saves
       recap: save.recap || '',
       goal: save.goal || '',
       hints: save.hints || [],
@@ -177,10 +182,11 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
   }
 
   /* Returns {save, status, message, writable, source}.
-     status: 'new' | 'ok' | 'migrated' | 'restored' | 'recovered' | 'future' | 'unavailable'
+     status: 'new' | 'ok' | 'migrated' | 'restored' | 'recovered' | 'future' | 'foreign' | 'unavailable'
      - restored: primary save was invalid and the last checkpoint was loaded instead.
      - recovered: nothing usable; a fresh save is used and the bad payload is kept under KEYS.quarantine.
      - future: written by a newer game version; it is never overwritten (writable=false).
+     - foreign: written for a different adventure pack; never overwritten (writable=false), like a future save.
      - unavailable: storage cannot be read; play continues in memory only (writable=false). */
   function load(storage) {
     const out = {save: fresh(), status: 'new', message: '', writable: true, source: null};
@@ -219,6 +225,14 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
           writable: false,
           source: key,
           message: `This save was made by a newer version of Mossvale (schema ${parsed.version}). It was left untouched; progress in this session will not be saved.`,
+        };
+      if (isObj(parsed) && packOf(parsed) !== pack)
+        return {
+          ...out,
+          status: 'foreign',
+          writable: false,
+          source: key,
+          message: `This save belongs to another adventure ("${packOf(parsed)}"), not "${pack}". It was left untouched; progress in this session will not be saved.`,
         };
       const save =
         version === 1
@@ -260,7 +274,7 @@ function create({species, regions, size, spawn = {x: 12, y: 13}}) {
     return out;
   }
 
-  return {fresh, normalize, serialize, load};
+  return {fresh, normalize, serialize, load, pack};
 }
 
-export {VERSION, KEYS, create};
+export {VERSION, KEYS, create, packOf};

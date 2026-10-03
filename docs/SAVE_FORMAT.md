@@ -25,6 +25,8 @@ Team: `party` lists the (at most 3) companions who can fight, by species ID; the
 
 Interrupted encounters: `battle` (`{id, hp, max, level, boss, guard, turn, focus}`, species by ID) is the checkpoint of a fight in progress, and `recap` is a one-line summary of an encounter that finished before its result screen was shown. Both are optional; older builds ignore them. See [Encounter durability](#encounter-durability).
 
+Adventure pack: `pack` names the adventure the save belongs to ([PACKS.md](PACKS.md)). The first adventure (`mossvale`) omits it, which keeps its saves identical to older ones; a save from another pack is reported as `foreign`, never loaded, overwritten or imported.
+
 In memory the game still uses indexes; `save.js` converts at the load/serialize boundary.
 
 ## Load order and outcomes
@@ -34,6 +36,7 @@ Candidates are tried in order: `v3`, `backup`, `v2`, `v1`.
 | Situation | Status | Behavior |
 | --- | --- | --- |
 | No save | `new` | Fresh game |
+| Save written for a different adventure pack | `foreign` | Left untouched, not writable, explained; not treated as damage |
 | Valid v3 | `ok` | Loaded; backup refreshed |
 | Valid v1/v2 | `migrated` | Converted; legacy key untouched; v3 written on first save |
 | Invalid JSON/structure, older candidate valid | `restored` | Bad payload quarantined, older save loaded, recovery dialog shown |

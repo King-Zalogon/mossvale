@@ -10,6 +10,7 @@ import {effectiveness, level, maxHP} from './domain/rules.js';
 import {currentObjective} from './domain/objectives.js';
 import {isWalkable, nearestWalkable, zoneAt} from './domain/world.js';
 import {buildAdventure} from './domain/adventure.js';
+import {PACK_ID} from './data/pack.js';
 import {FACING, followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
@@ -44,7 +45,7 @@ const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
 const rng = debug && params.has('seed') ? seededRng(Number(params.get('seed'))) : Math.random;
 const canvas = $('#game');
-const codec = save.create({species, regions, size: MAX_MAP_SIZE});
+const codec = save.create({species, regions, size: MAX_MAP_SIZE, pack: PACK_ID});
 const storage = getStorage();
 const loaded = codec.load(storage);
 const settings = loadSettings(storage);
@@ -127,7 +128,7 @@ function postStart() {
       toast(game.save.recap);
       game.save.recap = '';
     }
-    if (['restored', 'recovered', 'future', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
+    if (['restored', 'recovered', 'future', 'foreign', 'unavailable'].includes(loaded.status)) app.menus.saveNotice(loaded.status, loaded.message);
     if (!resumed) actions.checkEnding(); // a save that already earned every seal sees the ending once
   };
   if (!actions.showPremise(rest)) rest(); // the opening card comes first on a brand-new adventure
@@ -232,8 +233,8 @@ async function boot() {
   }
   if (!app.maps.length) {
     try {
-      const {maps: rawMaps, objectives: rawObjectives, story: rawStory} = await fetchAdventure();
-      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions}, rawObjectives, rawStory);
+      const {maps: rawMaps, objectives: rawObjectives, story: rawStory, pack: rawPack} = await fetchAdventure();
+      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: PACK_ID}, rawObjectives, rawStory, rawPack);
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;

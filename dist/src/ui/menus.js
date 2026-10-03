@@ -185,7 +185,13 @@ export function createMenus(app) {
   }
 
   function saveNotice(status, message) {
-    const title = {restored: 'Save restored', recovered: 'Save could not be read', future: 'Newer save found', unavailable: 'Storage unavailable'}[status];
+    const title = {
+      restored: 'Save restored',
+      recovered: 'Save could not be read',
+      future: 'Newer save found',
+      foreign: 'Another adventure’s save',
+      unavailable: 'Storage unavailable',
+    }[status];
     $('#save-note').textContent = message;
     open(`${header('SAVE RECOVERY', title)}<p>${message}</p><button class="primary" id="notice-ok">Continue</button>`, 'notice', 'Save recovery');
     wireClose();
