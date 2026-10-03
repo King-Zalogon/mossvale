@@ -269,7 +269,7 @@ async function boot() {
         mapBounds,
         Object.fromEntries(rawMaps.map(m => [m.id, {w: m.size?.w, h: m.size?.h, spawn: {x: m.spawns?.camp?.[0], y: m.spawns?.camp?.[1]}}])),
       );
-      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: PACK_ID}, rawObjectives, rawStory, rawPack);
+      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: rawPack.id}, rawObjectives, rawStory, rawPack);
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;

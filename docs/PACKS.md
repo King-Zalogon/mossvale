@@ -69,4 +69,10 @@ npm run pack -- preview-pack ./content/bright-hollow start
 1. Run `create-pack`, then use `add-map` or edit the generated map files. A pack folder contains `index.json`, `registries.json`, optional objective/story files and maps.
 2. Give it a unique pack id. Changing registered species IDs remains safe for persisted identities as long as an existing ID is not renamed or reused.
 3. Run `validate-pack` and `preview-pack`; reuse existing art by name before commissioning new art.
-4. Copy the selected pack's manifest, registry and maps into the game's `dist/maps/` layout to make it the one loaded by this build. A title-screen multi-pack chooser is tracked separately by #67.
+4. Build the selected pack as a standalone static-browser artifact. The command validates the source folder, copies only its manifest, registries, maps, objectives and story over `maps/`, and keeps the shared engine and asset set:
+
+   ```sh
+   npm run build -- --pack ./content/bright-hollow
+   ```
+
+   Set `BUILD_DIR` to choose an output folder. The artifact's `version.json` records engine version, pack ID/content version, save schema and source commit. Referenced assets are checked against the manifest and all checked-in image files are validated before output is replaced. Keep the previous complete build folder as the rollback copy; restore it as a unit so the engine and its map data stay paired. Saves remain isolated by pack ID, and any future save schema change needs an explicit migration before that engine version ships. A title-screen multi-pack chooser is tracked separately by #67.

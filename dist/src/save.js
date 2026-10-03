@@ -118,6 +118,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       recap: '',
       goal: '',
       hints: [],
+      events: [],
       completed: false,
       battle: null,
       party: [0],
@@ -163,6 +164,9 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     s.recap = typeof raw.recap === 'string' ? raw.recap.slice(0, 200) : '';
     s.goal = typeof raw.goal === 'string' && /^[a-z0-9-]{1,40}$/.test(raw.goal) ? raw.goal : ''; // last objective shown; unknown ids are harmless
     s.hints = Array.isArray(raw.hints) ? [...new Set(raw.hints.filter(h => typeof h === 'string' && /^[a-z0-9-]{1,30}$/.test(h)))].slice(0, 30) : [];
+    s.events = Array.isArray(raw.events)
+      ? [...new Set(raw.events.filter(id => typeof id === 'string' && /^[a-z0-9-]+\/[a-z0-9-]+$/.test(id)))].slice(0, 256)
+      : [];
     s.completed = raw.completed === true;
     s.battle = normalizeBattle(raw.battle, legacy);
     const region = ref(raw.region, regions, regionIndex);
@@ -227,6 +231,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       recap: save.recap || '',
       goal: save.goal || '',
       hints: save.hints || [],
+      ...(save.events?.length ? {events: save.events} : {}),
       completed: save.completed === true,
       party: save.party.map(sid),
       battle: save.battle ? {...save.battle, id: sid(save.battle.id)} : null,

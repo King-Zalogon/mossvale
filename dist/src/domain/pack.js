@@ -18,6 +18,7 @@ export function validatePack(raw, {packId, speciesIds}) {
   else if (packId !== undefined && raw.id !== packId) at('id', `"${raw.id}" is not the adventure this game's content and saves are built for ("${packId}")`);
   if (typeof raw.name !== 'string' || !raw.name) at('name', 'required');
   if (typeof raw.brief !== 'string' || !raw.brief) at('brief', 'a one-line description is required');
+  if (raw.contentVersion !== undefined && (!Number.isInteger(raw.contentVersion) || raw.contentVersion < 1)) at('contentVersion', 'must be a positive integer');
   if (raw.registries !== undefined && (typeof raw.registries !== 'string' || !/^[a-z0-9-]+\.json$/.test(raw.registries)))
     at('registries', 'must name a JSON file in the pack folder');
   if (raw.mapDirectory !== undefined && (typeof raw.mapDirectory !== 'string' || !/^[a-z0-9-]+\/$/.test(raw.mapDirectory)))

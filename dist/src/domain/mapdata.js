@@ -3,6 +3,7 @@
 import {PLAYER_RADIUS} from '../config.js';
 import {TACTICS} from '../data/tactics.js';
 import {validateLines} from './objectives.js';
+import {validateSceneEvent} from './scenes.js';
 
 export const MAP_FORMAT = 1;
 export const TERRAIN = {'.': 'void', g: 'ground', p: 'path', w: 'water', t: 'tallgrass'};
@@ -193,6 +194,7 @@ function validateOne(m, byId, ctx, errors) {
       at(where + '.level', '[min, max] integers, 1 <= min <= max <= 99');
     if (z?.rect !== undefined && !(Array.isArray(z.rect) && z.rect.length === 4 && z.rect.every(Number.isFinite))) at(where + '.rect', '[x0, y0, x1, y1]');
   });
+  const sceneEventIds = new Set();
   (m.triggers ?? []).forEach((t, i) => {
     const where = `triggers[${i}] (${t?.id})`;
     if (!inside(t?.at)) at(where + '.at', 'must be [x, y] inside the map');
@@ -207,6 +209,13 @@ function validateOne(m, byId, ctx, errors) {
           if (!Number.isInteger(a.level) || a.level < 1 || a.level > 99) at(`${where}.do[${j}].level`, 'integer 1..99');
         } else at(`${where}.do[${j}]`, 'action type must be "toast" or "battle"');
       });
+    (t.events ?? []).forEach((event, j) => {
+      errors.push(...validateSceneEvent(event, {speciesIds: ctx.speciesIds, mapId: m.id, mapIds: new Set(byId.keys()), where: `${where}.events[${j}]`}));
+      if (sceneEventIds.has(event?.id)) errors.push(`${where}.events[${j}].id: duplicate scene event id "${event.id}" in map ${m.id}`);
+      sceneEventIds.add(event?.id);
+      if (event?.actions?.some(action => action.type === 'challenge') && t.on !== 'interact')
+        errors.push(`${where}.events[${j}]: challenges must use an interact trigger`);
+    });
   });
 }
 
@@ -266,6 +275,10 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
     on: t.on,
     once: t.once !== false,
     actions: t.do.map(a => (a.type === 'battle' ? {type: 'battle', id: speciesIndex(a.species), level: a.level} : a)),
+    events: t.events?.map(event => ({
+      ...event,
+      actions: event.actions.map(action => (action.type === 'challenge' ? {...action, species: speciesIndex(action.species)} : action)),
+    })),
   }));
   return {id: m.id, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers};
 }
