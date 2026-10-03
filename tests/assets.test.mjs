@@ -70,6 +70,18 @@ test('content refers to art by name: species, directions and the manifest agree'
   assert.equal(new Set(assets.map(a => a.name)).size, assets.length);
   for (const s of species) assert.equal(assets[s.sprite].kind, 'creature', s.id);
   for (const d of ['south', 'north', 'west', 'east']) assert.equal(assets[spriteId(`person-red-cap-${d}`)].kind, 'person');
+  assert.deepEqual(assets[spriteId('person-red-cap-motion')].frames.rowOrder, [
+    'north',
+    'northeast',
+    'east',
+    'southeast',
+    'south',
+    'southwest',
+    'west',
+    'northwest',
+  ]);
+  assert.deepEqual(assets[spriteId('person-traveler')].frames.columnOrder, ['north', 'east', 'south', 'west']);
+  assert.deepEqual(assets[spriteId('person-gardener')].frames.columnOrder, ['north', 'east', 'south', 'west']);
   assert.throws(() => spriteId('no-such-sprite'), /unknown asset/);
 });
 
@@ -113,11 +125,34 @@ test('unused required assets are flagged as warnings, optional ones are not', ()
   });
 });
 
+test('fixed-cell transparent atlases validate each frame and its bottom anchor', () => {
+  const png = makePng(40, 20, (x, y) => (x % 20 >= 2 && x % 20 < 18 && y >= 2 && y < 19 ? [1, 2, 3, 255] : [0, 0, 0, 0]));
+  const sheet = entry('person-scout', 'person', {w: 40, h: 20, frames: {columns: 2, rows: 1, frameWidth: 20, frameHeight: 20}});
+  withDist({'assets/people/person-scout.png': png}, dir => assert.deepEqual(checkAssets([sheet], dir), {errors: [], warnings: []}));
+  withDist({'assets/people/person-scout.png': png}, dir => {
+    const {errors} = checkAssets([{...sheet, frames: {...sheet.frames, columns: 3}}], dir);
+    has(errors, 'frame grid');
+  });
+});
+
 test('the real sprites decode as tightly cropped RGBA', () => {
   const dist = new URL('../dist/', import.meta.url);
   for (const a of assets) {
     const im = decodePng(readFileSync(new URL(a.src, dist)));
     assert.equal(im.color, 6, a.name);
-    assert.ok(opaqueBounds(im).bottom <= 3, `${a.name} stands on the bottom edge`);
+    if (a.frames) {
+      for (let row = 0; row < a.frames.rows; row++) {
+        for (let column = 0; column < a.frames.columns; column++) {
+          let maxY = -1;
+          const x0 = column * a.frames.frameWidth;
+          const y0 = row * a.frames.frameHeight;
+          for (let y = 0; y < a.frames.frameHeight; y++) {
+            for (let x = 0; x < a.frames.frameWidth; x++) if (im.data[(y0 + y) * im.stride + (x0 + x) * 4 + 3] > 8) maxY = y;
+          }
+          assert.ok(maxY >= 0, `${a.name} frame ${row},${column} is visible`);
+          assert.ok(a.frames.frameHeight - 1 - maxY <= 6, `${a.name} frame ${row},${column} feet use the common bottom anchor`);
+        }
+      }
+    } else assert.ok(opaqueBounds(im).bottom <= 3, `${a.name} stands on the bottom edge`);
   }
 });

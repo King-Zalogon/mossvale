@@ -1,10 +1,12 @@
 /* Canvas rendering of the isometric world and minimap. Reads state; never mutates game rules. */
 import {species} from '../data/species.js';
+import {assets, spriteId} from '../data/assets.js';
 import {regions} from '../data/regions.js';
 import {TILE_H, TILE_W} from '../config.js';
+import {FACING, playerFrame} from '../domain/exploration.js';
 import {unlocked} from '../domain/rules.js';
 import {isLand, rnd} from '../domain/world.js';
-import {drawSprite, sprites} from './sprites.js';
+import {drawSprite, drawSpriteFrame, sprites} from './sprites.js';
 
 const raw = (x, y) => ({x: ((x - y) * TILE_W) / 2, y: ((x + y) * TILE_H) / 2});
 
@@ -44,7 +46,11 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     ctx.ellipse(s.x, s.y, w * view.zoom, 5 * view.zoom, 0, 0, Math.PI * 2);
     ctx.fill();
   };
-  const spriteHeight = o => o.w * view.zoom * (sprites[o.id]?.height / sprites[o.id]?.width || 1);
+  const spriteHeight = o => {
+    const frames = assets[o.id]?.frames;
+    const ratio = frames ? frames.frameHeight / frames.frameWidth : sprites[o.id]?.height / sprites[o.id]?.width;
+    return o.w * view.zoom * (ratio || 1);
+  };
   const occludesPlayer = (o, s) => {
     if (!['scenery', 'cottage'].includes(o.kind) || o.x + o.y <= view.player.x + view.player.y) return false;
     const p = point(view.player.x, view.player.y);
@@ -91,8 +97,14 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       }
     }
     const follow = {x: v.follower.x, y: v.follower.y, id: species[save.active].sprite, w: 37, kind: 'companion'};
-    const all = [...world.objects, follow, {x: player.x, y: player.y, id: player.dir, w: 36, kind: 'player'}].sort((a, b) => a.x + a.y - b.x - b.y);
-    const bobbing = v.moving;
+    const playerPose = {
+      column: playerFrame(player.walkDistance, v.moving, v.reducedMotion),
+      row: Number.isInteger(player.dir) ? player.dir : FACING.south,
+    };
+    const all = [...world.objects, follow, {x: player.x, y: player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player', frame: playerPose}].sort(
+      (a, b) => a.x + a.y - b.x - b.y,
+    );
+    const bobbing = v.moving && !v.reducedMotion;
     for (const o of all) {
       const s = point(o.x, o.y);
       if (s.x < -180 || s.x > canvas.width + 180 || s.y < -100 || s.y > canvas.height + 230) continue;
@@ -113,9 +125,11 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       const openedChest = o.kind === 'chest' && save.chests.includes(region);
       if (openedChest) drawSprite(ctx, o.id, s.x, s.y, o.w * zoom, {alpha: 0.45});
       else {
-        const bob = bobbing && (o.kind === 'player' || o.kind === 'companion') ? Math.sin(now / 95) * 1.5 * zoom : 0;
+        const bob = bobbing && o.kind === 'companion' ? Math.sin(now / 95) * 1.5 * zoom : 0;
         const tint = region === 2 && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : region === 1 && o.kind === 'grass' ? 'sepia(.5)' : 'none';
-        drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1});
+        const options = {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1};
+        if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, options);
+        else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
       }
       if (['ranger', 'shrine', 'chest', 'gate'].includes(o.kind) && !openedChest) {
         ctx.fillStyle = o.kind === 'shrine' ? '#a2ddf8' : o.kind === 'chest' ? '#f4ce81' : '#eef2c0';

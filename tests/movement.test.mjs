@@ -1,17 +1,57 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PLAYER_RADIUS} from '../dist/src/config.js';
-import {followerPoint, movePlayer, pushTrail} from '../dist/src/domain/exploration.js';
+import {DIRECTIONS, FACING, WALK_FRAME_DISTANCE, facing, followerPoint, movePlayer, playerFrame, pushTrail} from '../dist/src/domain/exploration.js';
 import {seededRng} from '../dist/src/domain/rng.js';
 import {buildWorld, isWalkable, nearestWalkable} from '../dist/src/domain/world.js';
 import {maps} from './helpers.mjs';
 
 const meadow = buildWorld(maps[0]);
 const open = {...meadow, map: {...meadow.map, objects: []}, objects: []}; // terrain only, no props
-const state = (world, x, y) => ({world, player: {x, y, dir: 8}, pacing: {steps: 0, encounterAt: 1e9, encounterCooldown: 99}, trail: []});
+const state = (world, x, y) => ({world, player: {x, y, dir: FACING.south}, pacing: {steps: 0, encounterAt: 1e9, encounterCooldown: 99}, trail: []});
 const walk = (st, sx, sy, seconds, fps, run = false) => {
   for (let i = 0; i < seconds * fps; i++) movePlayer(st, sx, sy, run, 1 / fps);
 };
+
+test('screen-space input selects each of the eight sprite rows', () => {
+  const inputs = [
+    [0, -1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
+    [0, 1],
+    [-1, 1],
+    [-1, 0],
+    [-1, -1],
+  ];
+  assert.deepEqual(
+    DIRECTIONS.map((name, i) => [name, i]),
+    Object.entries(FACING),
+  );
+  assert.deepEqual(
+    inputs.map(([x, y]) => facing(x, y)),
+    [0, 1, 2, 3, 4, 5, 6, 7],
+  );
+});
+
+test('idle and reduced motion hold the idle cell; walking advances by distance and wraps', () => {
+  assert.equal(playerFrame(0.4, false), 0);
+  assert.equal(playerFrame(0, true), 1);
+  assert.equal(playerFrame(WALK_FRAME_DISTANCE, true), 2);
+  assert.equal(playerFrame(WALK_FRAME_DISTANCE * 4, true), 1);
+  assert.equal(playerFrame(3, true, true), 0);
+});
+
+test('run reuses the walk loop at a faster travel cadence and stopping resets its phase', () => {
+  const walked = state(open, 19, 15);
+  const ran = state(open, 19, 15);
+  walk(walked, 1, 0, 0.5, 60, false);
+  walk(ran, 1, 0, 0.5, 60, true);
+  assert.ok(ran.player.walkDistance > walked.player.walkDistance);
+  assert.notEqual(playerFrame(ran.player.walkDistance, true), playerFrame(walked.player.walkDistance, true));
+  movePlayer(ran, 0, 0, false, 1 / 60);
+  assert.equal(ran.player.walkDistance, 0);
+});
 
 test('distance walked does not depend on the frame rate', () => {
   const ends = [20, 30, 60, 144].map(fps => {
