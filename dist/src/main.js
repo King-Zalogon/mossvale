@@ -159,10 +159,16 @@ Object.assign(actions, {
     settings[key] = value;
     if (key === 'sound') {
       app.audio.set(value);
+      app.audio.unlock();
       $('#sound').textContent = value ? 'Sound on' : 'Sound off';
       $('#sound').setAttribute('aria-pressed', String(value));
-      app.audio.tone(620);
+      app.audio.play('confirm');
     }
+    if (key === 'volume') {
+      app.audio.setVolume(value);
+      app.audio.play('confirm');
+    }
+    if (key === 'ambience') app.audio.setAmbienceEnabled(value);
     if (key === 'run') {
       ui.touchRun = value;
       $('#touch-run').setAttribute('aria-pressed', String(value));
@@ -358,6 +364,7 @@ $('#menu').onclick = () => actions.menu();
 $('#pause').onclick = () => {
   if (game.battle || ui.modalMode) return;
   ui.paused = !ui.paused;
+  app.audio.hold(ui.paused);
   $('#pause').textContent = ui.paused ? 'Resume' : 'Pause';
   ui.keys = {};
   ui.touch = null;
@@ -369,6 +376,11 @@ window.addEventListener('resize', resize);
 motionQuery.addEventListener?.('change', applyMotion);
 
 app.audio.set(settings.sound);
+app.audio.setVolume(settings.volume);
+app.audio.setAmbienceEnabled(settings.ambience);
+// Browsers keep audio locked until a gesture: unlock on every one (cheap), which also resumes after an interruption.
+for (const type of ['pointerdown', 'keydown']) window.addEventListener(type, () => app.audio.unlock(), {capture: true});
+document.addEventListener('visibilitychange', () => app.audio.hold(document.hidden || ui.paused));
 if (settings.sound) {
   $('#sound').textContent = 'Sound on';
   $('#sound').setAttribute('aria-pressed', 'true');

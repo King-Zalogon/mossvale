@@ -16,6 +16,8 @@ A working checklist for calling the first adventure "ready to play for fun", wit
 | A bot playing normally clears the meadow guardian | `tests/playthrough.test.mjs` |
 | Title, settings, new game, restore, backup export/import | `tests/profile.test.mjs`, `tests/backup.test.mjs`, browser flows |
 | Adventure pack: creature list, milestone order, shared art with different roles, saves from another adventure refused | `tests/packs.test.mjs` |
+| Sound: palette, ambience never stacks, mute/volume, pause/hidden, no Web Audio | `tests/audio.test.mjs` |
+| Rendering cost: no per-frame canvas filters; measured fps per map | `tests/render-budget.test.mjs`, `scripts/measure-perf.mjs` |
 | Assets: naming, format, crop, manifest | `tests/assets.test.mjs`, `npm run validate` |
 | Menus stay inside the screen at large text, stable focus, 44 px touch targets, contrast | browser flows, `tests/contrast.test.mjs` |
 | Builds are stamped and traceable to a commit | `tests/build.test.mjs`, CI artifact |

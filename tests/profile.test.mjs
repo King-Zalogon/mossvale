@@ -92,7 +92,7 @@ test('settings persist separately from the save and survive start over', () => {
   const s = store({[KEYS.v3]: codec.serialize(played())});
   saveSettings(s, {sound: true, motion: 'reduced', zoom: 1.8, run: true, text: 'large'});
   startOver({storage: s, codec, save: played()});
-  assert.deepEqual(loadSettings(s), {sound: true, motion: 'reduced', zoom: 1.8, run: true, text: 'large'});
+  assert.deepEqual(loadSettings(s), {sound: true, volume: 'medium', ambience: true, motion: 'reduced', zoom: 1.8, run: true, text: 'large'});
   assert.equal(s.m.has(SETTINGS_KEY), true);
   assert.deepEqual(loadSettings(store({[SETTINGS_KEY]: '{broken'})), DEFAULTS);
   assert.deepEqual(

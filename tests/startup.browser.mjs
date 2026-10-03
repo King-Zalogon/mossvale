@@ -171,6 +171,8 @@ for (const [seed, weakened] of [
   assert.equal(await page.locator('#m-primary').isVisible(), true, 'the title screen is not dismissed by Escape');
   await page.click('#m-settings');
   await page.click('[data-set="sound"][data-value="true"]');
+  await page.click('[data-set="volume"][data-value="low"]');
+  await page.click('[data-set="ambience"][data-value="false"]');
   await page.click('[data-set="motion"][data-value="reduced"]');
   await page.click('#s-zoom-in');
   await page.click('#m-back');
@@ -180,6 +182,14 @@ for (const [seed, weakened] of [
   await page.reload();
   await page.waitForSelector('#m-primary');
   assert.equal(await page.textContent('#sound'), 'Sound on');
+  assert.deepEqual(
+    await page.evaluate(() => {
+      const s = JSON.parse(localStorage.getItem('mossvale-settings'));
+      return [s.sound, s.volume, s.ambience];
+    }),
+    [true, 'low', false],
+    'volume and ambience persist',
+  );
   assert.equal(await page.evaluate(() => document.body.classList.contains('reduce-motion')), true);
   await page.click('#m-primary');
   await page.keyboard.press('Escape'); // Escape opens the menu during play
