@@ -4,6 +4,8 @@
 
 ## Direction and content budget
 
+The map-by-map plan, primary species slots, route order and first playable objective are in [CONTENT_MATRIX.md](CONTENT_MATRIX.md). They are briefs for future content, not claims that the planned maps or species are implemented.
+
 A personal-use browser creature adventure with 2D isometric pixel art and eight-direction movement. The owner decides whether normal play is fun; friend feedback is optional. Detailed worldbuilding comes later. Mature themes are allowed, not required.
 
 | Biome | Compact maps | Primarily associated creatures |
