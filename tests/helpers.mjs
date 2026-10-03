@@ -17,7 +17,19 @@ export const content = {assets, species, regions};
 export const packContent = {...content, packId: PACK_ID};
 export const adventure = buildAdventure(rawMaps(), packContent, rawObjectives(), rawStory(), rawPack());
 export const maps = adventure.maps;
+export const mapsById = adventure.mapsById;
 export const objectives = adventure.objectives;
 export const objCtx = {speciesCount: species.length, regions};
-export const codec = create({species, regions, size: 64, pack: PACK_ID});
+export const mapBounds = Object.fromEntries(
+  rawMaps().map(map => [
+    map.id,
+    {
+      w: map.size.w,
+      h: map.size.h,
+      spawn: {x: map.spawns.camp[0], y: map.spawns.camp[1]},
+      region: regions.findIndex(region => region.biome === map.biome),
+    },
+  ]),
+);
+export const codec = create({species, regions, size: 64, bounds: mapBounds, pack: PACK_ID});
 export const newSave = () => codec.fresh();

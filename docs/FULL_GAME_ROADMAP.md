@@ -23,7 +23,7 @@ The counts are starting budgets, not reasons to add filler. Roughly 2–4 hours 
 
 ## What exists and what changes
 
-The main gameplay snapshot audited at [8fc2c7b](https://github.com/King-Zalogon/mossvale/commit/8fc2c7b33251d7a8045b196712982be0489f4b20) contains eight species and three palette-themed regions that reuse one terrain layout, with basic capture/battle/XP, chests and local saves. The revised four-biome/eight-map/12-species content is **planned, not implemented**.
+The historical gameplay snapshot audited at [8fc2c7b](https://github.com/King-Zalogon/mossvale/commit/8fc2c7b33251d7a8045b196712982be0489f4b20) contained eight species and three palette-themed regions. The current branch adds four primary biome residents, regional stats/moves and a playable representative map for each biome; four additional map variants remain planned.
 
 Retain the proven core. The historical audit reproduced a malformed-save startup crash, invisible-player missing-asset failure and refresh-during-capture item loss. Save/startup work has now landed; verify the remaining gaps and prioritize durable battle actions. Replace repeated geometry with authored, varied map pairs. Favor a small data/module split and sensible checks over commercial-scale tooling.
 
@@ -49,15 +49,15 @@ Then: #19 shared supply/reward table with transactional shop, free rest floor an
 
 Then: #21 stamped build artifact per commit, in-game build label, frozen save fixtures and a publish/rollback routine ([PUBLISHING.md](PUBLISHING.md)). Not done: no automatic upload (the host's import path is unknown to this repo), repository visibility left unchanged (public, checked).
 
-Then: #23 guardian tactics (spore guard, rolling charge, frost chorus) with a visible next-move line and a per-guardian damage multiplier ([BATTLE.md](BATTLE.md)); the fourth challenge waits for the fourth biome (#54).
+Then: #23 guardian tactics (spore guard, rolling charge, frost chorus, tidal current) with a visible next-move line and a per-guardian damage multiplier ([BATTLE.md](BATTLE.md)); all four representative biome maps now have a distinct guardian.
 
-Then: #26 weighted zones with per-zone walking distance, named grace constants, journal habitat hints, a every-species-has-a-source check and a scripted-battle trigger action ([ENCOUNTERS.md](ENCOUNTERS.md)). Not done: the 12-creature roster and four-biome tuning wait for #24 and #51–#54.
+Then: #26 weighted zones with per-zone walking distance, named grace constants, journal habitat hints, a every-species-has-a-source check and a scripted-battle trigger action ([ENCOUNTERS.md](ENCOUNTERS.md)). The 12-creature roster is implemented on the issue #24 branch; remaining biome map variants and play tuning remain open.
 
 Then: #28 opening card, four one-time tips and a once-only ending that sets `completed` and leaves the world open ([STORY.md](STORY.md)). The text is placeholder copy for you to rewrite; credits and a distinct final-destination map are not done.
 
 Then: #30 save export/import with preview and session-checkpoint restore ([BACKUP.md](BACKUP.md)). Verified with a download from one browser context and an import into another; not tried on your real devices.
 
-Then: #32 art renamed by what it shows (`dist/assets/<kind>/<name>.png`), content refers to art by name, and a validator that decodes each PNG (RGBA, tight crop, bottom anchor, naming rules) ([ASSETS.md](ASSETS.md)). Not done: no editable source sheets exist in the repo, and new biome/creature batches (#51–#54, #24) are still to be made.
+Then: #32 art renamed by what it shows (`dist/assets/<kind>/<name>.png`), content refers to art by name, and a validator that decodes each PNG (RGBA, tight crop, bottom anchor, naming rules) ([ASSETS.md](ASSETS.md)). The #24 creature batch adds four generated, documented sprites; editable source sheets remain outside the repository.
 
 Then: #33/#34 dialogs with an inert background and stable focus/scroll through battle re-renders, a text-size setting, 44 px touch targets, live-region cues and contrast/overflow tests ([UI.md](UI.md)). Needs your devices (#35) and eyes for what is still unclear or unnecessary.
 Then: gap-closing tests for #8/#12/#13: a v2 fixture written by the original build, `tests/loader.browser.mjs` (slow/corrupt/aborted/stalled art, fonts, no canvas, bad map data; `?debug&assetTimeout=ms`), and `tests/playthrough.browser.mjs` (meadow guardian beaten through the real UI).
@@ -147,7 +147,7 @@ The GitHub repository is currently **public**, as checked during this revision. 
 ### 2 · four-biome adventure
 
 - [ ] #23 — **P1**, Make four regional challenges feel different without complex AI (M)
-- [ ] #24 — **P1**, Create 12 useful creatures, three associated with each biome (M)
+- [x] #24 — **P1**, Create 12 useful creatures, three associated with each biome (M)
 - [ ] #26 — **P1**, Pace encounters by biome and make creature discovery readable (S)
 - [ ] #27 — **P1**, Integrate and validate the four biome map pairs (S)
 - [ ] #28 — **P1**, Connect the adventure with a light premise and clear ending (S)

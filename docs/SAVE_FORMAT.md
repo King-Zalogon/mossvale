@@ -6,19 +6,19 @@ Implemented in `dist/src/save.js` (pure, tested without a browser). Issue: [#8](
 
 | Key | Purpose |
 | --- | --- |
-| `mossvale-v3` | Current save (schema 3, stable string IDs). The only key the game writes progress to. |
-| `mossvale-backup` | Checkpoint of the last valid v3 save, copied once at each successful start. |
+| `mossvale-v3` | Current save (schema 4, stable string IDs). The storage key and transaction journal remain unchanged for compatibility. |
+| `mossvale-backup` | Checkpoint of the last valid save, copied once at each successful start. |
 | `mossvale-quarantine` | Up to the 3 most recent unreadable payloads (`key`, `reason`, `at`, `raw`). Never auto-deleted. |
-| `mossvale-archive` | One adventure set aside by **New game** (or swapped in by **Restore previous adventure**): `{at, raw}` where `raw` is a v3 payload. Never deleted automatically. |
+| `mossvale-archive` | One adventure set aside by **New game** (or swapped in by **Restore previous adventure**): `{at, raw}` where `raw` is a v4 payload. Never deleted automatically. |
 | `mossvale-save-transaction` | Recovery journal for multi-key operations (import, new game, restore). Present only while an operation's copies are still being synchronized. |
 | `mossvale-settings` | Preferences (`sound`, `motion` auto/reduced, `zoom`, touch `run`), separate from the save so New game and Restore keep them. |
 | `mossvale-v2`, `mossvale-v1` | Legacy saves. Read for migration only and left untouched. |
 
-## Schema 3
+## Schema 4
 
-Species and regions are stored by ID, not array position, so content can be reordered or extended safely. Current IDs: species `fernling emberkin brooklet duskwing voltkit mushmallow frostowl pebblit`; regions `meadow amber-ridge frostveil-grove`. Never rename or reuse an ID.
+Species and regions are stored by ID, not array position, so content can be reordered or extended safely. Current IDs: species `fernling emberkin brooklet duskwing voltkit mushmallow frostowl pebblit bramblebuck siltkip sunskitter hushram`; regions `meadow amber-ridge frostveil-grove reedfen-wetlands`. Never rename or reuse an ID.
 
-Fields: `version, region, x, y, active, orbs, potions, coins, seen[], caught[], team{speciesId:{xp,hp}}, badges[], chests[], visited[], met, wins, playTime`. Goal: `goal` is the id of the last objective shown (see [OBJECTIVES.md](OBJECTIVES.md)); it only drives the "New goal" toast, and progress itself is derived from the save.
+Fields: `version, region, mapId, x, y, active, orbs, potions, coins, seen[], caught[], team{speciesId:{xp,hp}}, badges[], chests[], visited[], visitedMaps[], met, wins, playTime`. `region` remains the biome index used for badges; `mapId` records the exact map so a side-map visit survives reload, and `visitedMaps` tracks map discoveries. v3 saves migrate to the region's hub map and preserve their region visits. Goal: `goal` is the id of the last objective shown (see [OBJECTIVES.md](OBJECTIVES.md)); it only drives the "New goal" toast, and progress itself is derived from the save.
 
 Story: `hints` lists the one-time tips and cards already shown (at most 30 ids) and `completed` marks the ending as seen; both optional ([STORY.md](STORY.md)).
 
@@ -32,17 +32,17 @@ In memory the game still uses indexes; `save.js` converts at the load/serialize 
 
 ## Load order and outcomes
 
-Candidates are tried in order: `v3`, `backup`, `v2`, `v1`.
+Candidates are tried in order: current save, `backup`, `v2`, `v1`. The current key accepts both v3 and v4 payloads; v3 is migrated in memory and written as v4 on the next save. An interrupted transaction from v3 still replays through the unchanged journal before migration.
 
 | Situation | Status | Behavior |
 | --- | --- | --- |
 | No save | `new` | Fresh game |
 | Save written for a different adventure pack | `foreign` | Left untouched, not writable, explained; not treated as damage |
-| Valid v3 | `ok` | Loaded; backup refreshed |
-| Valid v1/v2 | `migrated` | Converted; legacy key untouched; v3 written on first save |
+| Valid v4 | `ok` | Loaded; backup refreshed |
+| Valid v1/v2/v3 | `migrated` | Converted; legacy key untouched; v4 written on first save |
 | Invalid JSON/structure, older candidate valid | `restored` | Bad payload quarantined, older save loaded, recovery dialog shown |
 | Invalid and nothing else usable | `recovered` | Bad payload quarantined, new game, recovery dialog shown |
-| `version` greater than 3 | `future` | Left untouched; session is not saved; dialog shown |
+| `version` greater than 4 | `future` | Left untouched; session is not saved; dialog shown |
 | Storage throws on read | `unavailable` | Plays in memory ("SESSION ONLY"); dialog shown |
 
 Validation: every field is type-checked; numbers must be finite and are clamped (coins 0–9999, orbs and potions 0–99, other counts 0–9999, XP 0–450 (the level-15 cap), HP 0–max for level, position inside the map); IDs must exist; duplicates removed; `seen ⊇ caught`; every caught species has a team record; `active` must be caught; a locked region falls back to the meadow.
@@ -70,7 +70,7 @@ Issue [#20](https://github.com/King-Zalogon/mossvale/issues/20). **New game** co
 
 ## Export and import
 
-Issue [#30](https://github.com/King-Zalogon/mossvale/issues/30). A backup file is `{ kind: "mossvale-save-backup", format: 1, exportedAt, build, save: <v3 save> }`; a bare save payload is also accepted on import. See [BACKUP.md](BACKUP.md).
+Issue [#30](https://github.com/King-Zalogon/mossvale/issues/30). A backup file is `{ kind: "mossvale-save-backup", format: 1, exportedAt, build, save: <v4 save> }`; v2 and v3 backup payloads are migrated on import, and a bare save payload is also accepted. See [BACKUP.md](BACKUP.md).
 
 ## Consistent import, new game and restore (#60)
 

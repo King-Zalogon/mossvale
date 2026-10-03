@@ -39,12 +39,12 @@ test('a simple objective chain is data and follows progress', () => {
   save.badges.push(1);
   assert.equal(now(save).id, 'frostveil-seal');
   save.badges.push(2);
-  assert.equal(now(save).id, 'every-friend');
-  save.caught = [0, 1, 2, 3, 4, 5, 6, 7];
+  assert.equal(now(save).id, 'reedfen-seal');
+  save.badges.push(3);
   assert.equal(now(save).id, 'keeper');
   assert.deepEqual(
     now(save).lines.map(l => l[0]),
-    [true, true],
+    [true, false],
   );
 });
 
@@ -55,9 +55,10 @@ test('the pin points at the target map when you are elsewhere, and lines fill in
   save.badges.push(0);
   assert.match(now(save).pin, /eastern trail to Ridge/);
   save.region = 1;
+  save.mapId = 'amber-ridge';
   assert.equal(now(save).pin, 'Follow the blue shrine marker north');
-  save.badges = [0, 1, 2];
-  assert.equal(now(save).lines[1][1], 'Befriend every species (2 / 8)');
+  save.badges = [0, 1, 2, 3];
+  assert.equal(now(save).lines[1][1], 'Befriend every species if you like (2 / 12)');
 });
 
 test('conditions: all, not, visited, seen, flags and unknown keys', () => {
@@ -78,7 +79,12 @@ test('NPC and sign lines are picked by condition with a fallback', () => {
   save.caught.push(1);
   assert.match(pickLine(ranger.lines, save, objCtx), /blue crystal/);
   save.badges.push(0);
-  assert.match(pickLine(ranger.lines, save, objCtx), /eastern trail/);
+  assert.match(pickLine(ranger.lines, save, objCtx), /orchard trail/);
+  const frostRanger = maps[2].objects.find(o => o.kind === 'ranger');
+  save.badges = [0, 1, 2];
+  assert.match(pickLine(frostRanger.lines, save, objCtx), /Reedfen's last shrine/);
+  save.badges.push(3);
+  assert.match(pickLine(frostRanger.lines, save, objCtx), /All four seals shine again/);
   assert.equal(pickLine([{when: {met: true}, text: 'x'}], save, objCtx), null);
   assert.equal(pickLine(undefined, save, objCtx), null);
   for (const map of maps) assert.ok(map.objects.find(o => o.kind === 'ranger').tag);

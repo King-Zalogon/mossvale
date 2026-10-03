@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {create, KEYS} from '../dist/src/save.js';
 
-const species = ['fernling', 'emberkin', 'brooklet', 'duskwing', 'voltkit', 'mushmallow', 'frostowl', 'pebblit'].map((id, i) => ({id, hp: 40 + i}));
-const regions = ['meadow', 'amber-ridge', 'frostveil-grove'].map(id => ({id}));
+const species = ['fernling', 'emberkin', 'brooklet', 'duskwing', 'voltkit', 'mushmallow', 'frostowl', 'pebblit'].map((id, i) => ({id, stats: {hp: 40 + i}}));
+const regions = ['meadow', 'amber-ridge', 'frostveil-grove', 'reedfen-wetlands'].map(id => ({id}));
 const codec = create({species, regions, size: 25});
 const store = (init = {}) => {
   const m = new Map(Object.entries(init));
@@ -42,13 +42,13 @@ test('v2 progress is preserved when migrated to stable IDs', () => {
     r = codec.load(s);
   assert.deepEqual([r.save.caught, r.save.badges, r.save.region, r.save.orbs, r.save.coins, r.save.team[0].xp], [[0, 1], [0], 1, 7, 50, 90]);
   const out = JSON.parse(codec.serialize(r.save));
-  assert.equal(out.version, 3);
+  assert.equal(out.version, 4);
   assert.deepEqual(out.caught, ['fernling', 'emberkin']);
   assert.deepEqual(out.badges, ['meadow']);
   assert.equal(out.region, 'amber-ridge');
   assert.equal(s.m.get(KEYS.v2), v2(), 'legacy payload is left untouched');
 });
-test('v3 identities survive reordering of definitions', () => {
+test('stable identities survive reordering of definitions', () => {
   const r = codec.load(store({[KEYS.v2]: v2()}));
   const raw = codec.serialize(r.save),
     reordered = create({species: [...species].reverse(), regions, size: 25});
@@ -56,7 +56,7 @@ test('v3 identities survive reordering of definitions', () => {
   assert.deepEqual(back.caught.map(i => [...species].reverse()[i].id).sort(), ['emberkin', 'fernling']);
   assert.equal([...species].reverse()[back.active].id, 'emberkin');
 });
-test('v3 round trip is unchanged and checkpoints a backup', () => {
+test('v4 round trip is unchanged and checkpoints a backup', () => {
   const raw = codec.serialize(codec.fresh()),
     s = store({[KEYS.v3]: raw}),
     r = codec.load(s);
@@ -71,11 +71,13 @@ test('positions near the far edge of the large-map coordinate range survive relo
     size: 128,
     bounds: {
       meadow: {w: 25, h: 25, spawn: {x: 12, y: 13}},
-      'amber-ridge': {w: 120, h: 80, spawn: {x: 2, y: 3}},
+      'amber-ridge': {w: 120, h: 80, spawn: {x: 2, y: 3}, region: 1},
     },
   });
   const save = largeMapCodec.fresh();
   save.region = 1;
+  save.mapId = 'amber-ridge';
+  save.visitedMaps = [...new Set([...save.visitedMaps, 'amber-ridge'])];
   save.badges = [0];
   save.x = 119;
   save.y = 79;
@@ -115,7 +117,7 @@ test('extreme, NaN-like, duplicate and unknown values are sanitized', () => {
   assert.deepEqual(r.caught, [3]);
   assert.deepEqual(r.seen, [1, 3]);
   assert.equal(r.active, 3);
-  assert.equal(r.team[3].hp, species[3].hp);
+  assert.equal(r.team[3].hp, species[3].stats.hp);
   assert.equal(r.team[3].xp, 0);
 });
 test('locked region falls back to the meadow', () => assert.equal(codec.load(store({[KEYS.v2]: v2({badges: [], region: 2})})).save.region, 0));

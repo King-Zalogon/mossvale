@@ -44,7 +44,7 @@ const set = (k, v) =>
   console.log('ok malformed team save');
 }
 {
-  // corrupt v3 shows the recovery dialog and keeps the payload
+  // corrupt current-key data shows the recovery dialog and keeps the payload
   const {page} = await open(set('mossvale-v3', '{"version":3,'));
   await page.waitForSelector('#modal:not([hidden])');
   assert.match(await page.textContent('#modal'), /could not be read/);
@@ -65,7 +65,7 @@ const set = (k, v) =>
   console.log('ok missing sprite retry');
 }
 {
-  // smoke: menus, seeded battle to a result, capture, travel, v3 save written, no page errors
+  // smoke: menus, seeded battle to a result, capture, travel, v4 save written, no page errors
   const {page, errors} = await open('');
   await page.goto(url + '?debug&seed=5');
   await page.waitForSelector('#loading', {state: 'hidden'});
@@ -90,7 +90,7 @@ const set = (k, v) =>
   assert.equal(await page.evaluate(() => window.mossvale.getState().save.region), 1);
   await page.waitForTimeout(100);
   const stored = JSON.parse(await page.evaluate(() => localStorage.getItem('mossvale-v3')));
-  assert.equal(stored.version, 3);
+  assert.equal(stored.version, 4);
   assert.equal(stored.region, 'amber-ridge');
   assert.deepEqual(errors, []);
   assert.equal(await page.evaluate(() => typeof window.mossvale), 'object');
@@ -170,7 +170,7 @@ for (const [seed, weakened] of [
   await page.goto(url);
   await page.waitForSelector('#m-primary');
   assert.equal(await page.textContent('#m-primary'), 'Continue');
-  assert.match(await page.textContent('#modal'), /2 of 8 friends · 1 seal · 10 min played/);
+  assert.match(await page.textContent('#modal'), /2 of 12 friends · 1 seal · 10 min played/);
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('#m-primary').isVisible(), true, 'the title screen is not dismissed by Escape');
   await page.click('#m-settings');
@@ -212,7 +212,7 @@ for (const [seed, weakened] of [
   await reloading('#m-confirm-restore');
   await page.waitForSelector('#m-primary');
   assert.equal(await page.textContent('#m-primary'), 'Continue');
-  assert.match(await page.textContent('#modal'), /2 of 8 friends/);
+  assert.match(await page.textContent('#modal'), /2 of 12 friends/);
   assert.deepEqual(errors, []);
   console.log('ok title, settings, new game and restore');
 }
@@ -290,7 +290,7 @@ for (const [seed, weakened] of [
   assert.equal(await page.locator('#story-ok').count(), 0, 'the opening card is only shown once');
 
   const done = newSave();
-  done.badges = [0, 1, 2];
+  done.badges = [0, 1, 2, 3];
   done.met = true;
   done.wins = 5;
   const ctx2 = await browser.newContext();
@@ -439,11 +439,18 @@ console.log('ok larger text and touch targets');
   fixturePack = 'hearth';
   const {page, errors} = await open('');
   await page.waitForFunction(() => window.mossvale?.getState().world.map?.id === 'hearth-yard');
-  await page.evaluate(() => {
+  const {starter, baseHp} = await page.evaluate(() => {
     const state = window.mossvale.getState();
-    state.save.team[0].xp = 40;
+    const starter = state.save.active;
+    const baseHp = state.save.team[starter].hp;
+    state.save.team[starter].xp = 40;
+    return {starter, baseHp};
   });
-  assert.equal(await page.evaluate(() => window.mossvale.maxHP(0)), 46, 'the hearth progression registry changes level tuning at the configured XP boundary');
+  assert.equal(
+    await page.evaluate(starter => window.mossvale.maxHP(starter), starter),
+    baseHp + 4,
+    'the hearth progression registry changes level tuning at the configured XP boundary',
+  );
   assert.deepEqual(errors, []);
   fixturePack = null;
   console.log('ok alternate pack registry boot');

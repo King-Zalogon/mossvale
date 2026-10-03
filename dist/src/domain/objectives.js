@@ -13,7 +13,10 @@ export function holds(cond, save, ctx) {
   if ('met' in cond) return save.met === cond.met;
   if ('caught' in cond) return save.caught.length >= (cond.caught === 'all' ? ctx.speciesCount : cond.caught);
   if ('seen' in cond) return save.seen.length >= (cond.seen === 'all' ? ctx.speciesCount : cond.seen);
-  if ('visited' in cond) return save.visited.includes(ctx.regions.findIndex(r => r.id === cond.visited));
+  if ('visited' in cond) {
+    const region = ctx.regions.findIndex(r => r.id === cond.visited);
+    return save.visitedMaps?.includes(cond.visited) === true || (region >= 0 && save.visited.includes(region));
+  }
   if ('all' in cond) return cond.all.every(c => holds(c, save, ctx));
   if ('not' in cond) return !holds(cond.not, save, ctx);
   return false;
@@ -24,7 +27,7 @@ const fill = (text, save, ctx) => text.replaceAll('{caught}', save.caught.length
 /** The first objective whose `done` condition is not met yet (the last one never finishes). */
 export function currentObjective(save, objectives, ctx) {
   const o = objectives.find(item => item.done && !holds(item.done, save, ctx)) ?? objectives.at(-1);
-  const here = o.map === undefined || ctx.regions[save.region]?.id === o.map;
+  const here = o.map === undefined || (save.mapId ?? ctx.regions[save.region]?.id) === o.map;
   return {
     id: o.id,
     step: o.step,

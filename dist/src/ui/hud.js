@@ -5,13 +5,14 @@ import {companion, level, maxHP, xpProgress} from '../domain/rules.js';
 import {drawCreature} from '../render/sprites.js';
 import {$} from './dom.js';
 
-export function renderRegion(region) {
+export function renderRegion(region, map = null) {
   const r = regions[region];
-  $('#region-name').textContent = r.name;
-  $('#region-subtitle').textContent = r.subtitle;
+  const mapName = map?.name ?? r.name;
+  $('#region-name').textContent = mapName;
+  $('#region-subtitle').textContent = mapName === r.name ? r.subtitle : `${r.name} · ${r.subtitle}`;
   $('#area-number').textContent = 'AREA 0' + (region + 1);
   $('#world-tag').textContent = '✦  ' + r.tag;
-  $('#coordinates').textContent = r.short.toUpperCase();
+  $('#coordinates').textContent = mapName.toUpperCase();
 }
 
 /** `q` = current objective (see domain/objectives.js), or null before the adventure data has loaded. */
@@ -34,8 +35,8 @@ export function renderHud(save, q = null) {
   $('#orbs').textContent = save.orbs;
   $('#potions').textContent = save.potions;
   $('#coins').textContent = save.coins;
-  $('#count').textContent = `${save.caught.length} befriended · ${save.seen.length} / 8 seen`;
-  $('#badge-count').textContent = `${save.badges.length} / 3 shrine seals`;
+  $('#count').textContent = `${save.caught.length} befriended · ${save.seen.length} / ${species.length} seen`;
+  $('#badge-count').textContent = `${save.badges.length} / ${regions.length} shrine seals`;
   if (!q) return drawCreature($('#buddy'), save.active, 106);
   $('#quest-title').textContent = q.title;
   $('#quest-copy').textContent = q.copy;

@@ -1,6 +1,9 @@
+import {moves} from '../data/moves.js';
+
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const COLOR = /^#[0-9a-f]{6}$/i;
 const ACTIONS = new Set(['strike', 'element', 'charge', 'heavy', 'brace']);
+const DEFAULT_STATS = {attack: 10, defense: 10};
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const finite = (value, min, max) => Number.isFinite(value) && value >= min && value <= max;
 
@@ -118,8 +121,21 @@ export function validateRegistries(raw, {assetNames}) {
 /** Convert asset names in a pack registry to the shared manifest's stable runtime indexes. */
 export function resolveRegistries(raw, assets) {
   const spriteId = name => assets.findIndex(asset => asset.name === name);
+  const moveIdsByName = new Map(Object.entries(moves).map(([id, move]) => [move.name.toLowerCase(), id]));
   return {
-    species: raw.species.map(entry => ({...entry, sprite: spriteId(entry.sprite)})),
+    species: raw.species.map(entry => {
+      const stats = entry.stats ?? {};
+      const move = moveIdsByName.get(entry.move.toLowerCase()) ?? entry.move;
+      return {
+        ...entry,
+        move,
+        stats: {hp: stats.hp ?? entry.hp, attack: stats.attack ?? DEFAULT_STATS.attack, defense: stats.defense ?? DEFAULT_STATS.defense},
+        role: entry.role ?? 'Trail companion',
+        personality: entry.personality ?? entry.desc,
+        encounterHint: entry.encounterHint ?? 'Look for it near the paths and grass of its home region.',
+        sprite: spriteId(entry.sprite),
+      };
+    }),
     regions: raw.regions.map(entry => ({...entry, preview: spriteId(entry.preview)})),
   };
 }

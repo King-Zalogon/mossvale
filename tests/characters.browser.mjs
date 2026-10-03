@@ -3,6 +3,8 @@ import {chromium} from 'playwright';
 import http from 'node:http';
 import {existsSync, readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 
 const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png', svg: 'image/svg+xml'};
@@ -56,7 +58,7 @@ try {
   await page.waitForFunction(() => window.characterPreview.rendererState().reducedMotion === 'true' && window.characterPreview.rendererState().frame === 0);
   await page.uncheck('#reduced-motion');
   await page.click('#toggle-walk');
-  await page.screenshot({path: '/tmp/mossvale-character-preview.png', fullPage: true});
+  await page.screenshot({path: join(tmpdir(), 'mossvale-character-preview.png'), fullPage: true});
   assert.deepEqual(errors, []);
   console.log('ok character atlas preview, distance cadence, idle/reduced-motion state, renderer depth order and foreground occlusion');
 } finally {

@@ -1,0 +1,185 @@
+{
+  "format": 1,
+  "id": "reedfen-wetlands",
+  "biome": "wetland",
+  "name": "Reedfen Wetlands",
+  "size": {
+    "w": 25,
+    "h": 25
+  },
+  "legend": {
+    ".": "void",
+    "g": "ground",
+    "p": "path",
+    "w": "water",
+    "t": "tallgrass"
+  },
+  "terrain": [
+    ".........................",
+    ".ggggggggggggggggggggggg.",
+    ".gttgttgttgggggggggggggg.",
+    ".gtgttgttggggggggggggggg.",
+    ".ggttgttgtgpppgggggggggg.",
+    ".gttgttgttgpppgggggggggg.",
+    ".gtgwwwttggpppgggggggggg.",
+    ".ggwwwwwgtgpppggggwwwwgg.",
+    ".gtwwwwwttgpppgggwwwwwwg.",
+    ".gtwwwwwtggpppgggwwwwwwg.",
+    ".ggwwwwwgtgpppgggwwwwwwg.",
+    ".gggwwwggggpppgggwwwwwwg.",
+    ".ggggggggggpppggggwwwwgg.",
+    ".ppppppppppppppppppppppp.",
+    ".gggggggggggggggtgtgtgtg.",
+    ".ggggwwwgggggggttttttttg.",
+    ".gggwwwwwggggggtgtgtgtgg.",
+    ".gggwwwwwggggggttttttttg.",
+    ".gggwwwwwgggggggtgtgtgtg.",
+    ".gggwwwwwggggggttttttttg.",
+    ".ggggwwwgggggggtgtgtgtgg.",
+    ".ggggggggggggggttttttttg.",
+    ".gggggggggggggggtgtgtgtg.",
+    ".ggggggggggggggggggggggg.",
+    "........................."
+  ],
+  "spawns": {
+    "camp": [12, 13]
+  },
+  "landmarks": [
+    {
+      "id": "shrine",
+      "kind": "shrine",
+      "sprite": "shrine-crystal-stone",
+      "at": [12, 4.6],
+      "w": 99,
+      "solid": 0.65,
+      "label": "Visit the shrine",
+      "flag": "reedfen-wetlands.seal",
+      "guardian": {
+        "species": "siltkip",
+        "level": 13,
+        "tactic": "tidal-current",
+        "power": 2
+      },
+      "reward": {
+        "coins": 75,
+        "potions": 2,
+        "xp": 80
+      }
+    },
+    {
+      "id": "cottage",
+      "kind": "cottage",
+      "sprite": "cottage-tiled",
+      "at": [13, 8.3],
+      "w": 133,
+      "solid": 1.15
+    },
+    {
+      "id": "ranger",
+      "kind": "ranger",
+      "sprite": "person-red-cap-south",
+      "at": [10.5, 11],
+      "w": 37,
+      "label": "Talk to Ranger Iris",
+      "name": "Ranger Iris",
+      "tag": "IRIS",
+      "lines": [
+        {
+          "when": {
+            "flag": "reedfen-wetlands.seal"
+          },
+          "text": "Reedfen's pools are quiet again. The trails are yours to wander."
+        },
+        {
+          "text": "The blue reeds mark the safer paths. Listen for splashes when you search the grass."
+        }
+      ]
+    },
+    {
+      "id": "sign",
+      "kind": "sign",
+      "sprite": "signpost-wood",
+      "at": [11, 13.2],
+      "w": 38,
+      "label": "Read the trail sign",
+      "text": "West: Frostveil Grove · North: the crystal shrine · Gold: treasure"
+    },
+    {
+      "id": "chest",
+      "kind": "chest",
+      "sprite": "chest-wooden",
+      "at": [17.2, 16],
+      "w": 44,
+      "label": "Open the treasure chest",
+      "flag": "reedfen-wetlands.chest",
+      "reward": {
+        "coins": 35,
+        "potions": 2,
+        "orbs": 4
+      }
+    }
+  ],
+  "exits": [
+    {
+      "id": "west",
+      "sprite": "signpost-wood",
+      "at": [1.9, 12],
+      "w": 40,
+      "label": "Return to Frostveil Grove",
+      "to": {
+        "map": "frostveil-grove",
+        "spawn": "camp"
+      }
+    }
+  ],
+  "props": [
+    {
+      "sprite": "grass-tuft",
+      "kind": "grass",
+      "w": 27,
+      "at": [
+        [2, 4],
+        [8, 4],
+        [9, 8],
+        [3, 16],
+        [10, 19],
+        [21, 20],
+        [22, 15]
+      ]
+    },
+    {
+      "sprite": "cattail-clump",
+      "kind": "scenery",
+      "w": 43,
+      "solid": 0.28,
+      "at": [
+        [4, 5],
+        [8, 10],
+        [17, 6],
+        [22, 11],
+        [9, 18],
+        [20, 21]
+      ]
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [3, 3],
+        [8, 3],
+        [15, 15],
+        [22, 19]
+      ]
+    }
+  ],
+  "zones": [
+    {
+      "id": "reed-grass",
+      "terrain": ["t"],
+      "pool": ["brooklet", "mushmallow", "siltkip", "fernling"],
+      "level": [11, 13]
+    }
+  ],
+  "triggers": []
+}

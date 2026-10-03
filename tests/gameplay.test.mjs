@@ -50,7 +50,7 @@ test('guardian: naturally winnable path unlocks next region', () => {
     rng = seededRng(3);
   save.caught.push(1);
   save.party.push(1);
-  save.team[1] = {xp: 0, hp: species[1].hp};
+  save.team[1] = {xp: 0, hp: species[1].stats.hp};
   const boss = createBattle(save, rng, {...maps[0].objects.find(o => o.kind === 'shrine').guardian, boss: true});
   assert.equal(boss.level, 7);
   boss.hp = 1;
@@ -66,7 +66,7 @@ test('enemy attacks reduce HP, guard softens them, faint swaps then loses', () =
   const save = newSave();
   save.caught.push(1);
   save.party.push(1);
-  save.team[1] = {xp: 0, hp: species[1].hp};
+  save.team[1] = {xp: 0, hp: species[1].stats.hp};
   const battle = createBattle(save, seededRng(4), {id: 2, level: 6});
   battle.guard = true;
   const guarded = enemyAttack(save, battle, () => 0.5);

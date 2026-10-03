@@ -1,5 +1,6 @@
 /* Pure game rules over a runtime save (species/region *indexes*). No DOM, timers or randomness. */
 import {species} from '../data/species.js';
+import {moves} from '../data/moves.js';
 import {regions} from '../data/regions.js';
 import {
   BASE_LEVEL,
@@ -18,7 +19,7 @@ import {
 } from '../config.js';
 
 export const level = (save, id) => Math.min(MAX_LEVEL, BASE_LEVEL + Math.floor((save.team[id]?.xp || 0) / XP_PER_LEVEL));
-export const maxHP = (save, id) => species[id].hp + (level(save, id) - BASE_LEVEL) * 4;
+export const maxHP = (save, id) => species[id].stats.hp + (level(save, id) - BASE_LEVEL) * 4;
 export const companion = (save, id = save.active) => save.team[id];
 /** Milestone flags used by map data: `<region-id>.seal` (shrine guardian beaten) and `<region-id>.chest` (chest opened). */
 export function flagDone(save, flag) {
@@ -102,8 +103,9 @@ export function xpProgress(save, id) {
 
 /** Elemental move name and power; the move grows stronger at MOVE_UPGRADE_LEVEL. */
 export const moveUpgraded = (save, id) => level(save, id) >= MOVE_UPGRADE_LEVEL;
-export const moveName = (save, id) => species[id].move + (moveUpgraded(save, id) ? '+' : '');
-export const elementPower = (save, id) => (moveUpgraded(save, id) ? UPGRADED_ELEMENT_POWER : ELEMENT_POWER);
+const elementalMove = id => moves[species[id].move] ?? {name: species[id].move, power: 1};
+export const moveName = (save, id) => elementalMove(id).name + (moveUpgraded(save, id) ? '+' : '');
+export const elementPower = (save, id) => (moveUpgraded(save, id) ? UPGRADED_ELEMENT_POWER : ELEMENT_POWER) * elementalMove(id).power;
 
 /** Adds XP to one companion (clamped to the cap). Returns what changed. */
 export function addXP(save, id, amount) {
