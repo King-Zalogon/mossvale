@@ -173,11 +173,14 @@ function showLoadError(message, detail) {
 function postStart() {
   canvas.focus({preventScroll: true});
   const rest = () => {
+    actions.explore(); // reveal the camp area before the player first opens a map
+    app.persist();
     toast(game.save.badges.length ? 'Your trail continues. Welcome back, explorer.' : 'The shrines are stirring. Find a new friend in the tall grass.');
     const resumed = actions.resumeBattle();
     if (!resumed && game.save.recap) {
       toast(game.save.recap);
       game.save.recap = '';
+      app.persist();
     }
     if (app.adventures.note) toast(app.adventures.note); // last, so the explanation is the message left on screen
     if (['restored', 'recovered', 'future', 'foreign', 'incompatible', 'unavailable', 'transaction-recovered', 'transaction-pending'].includes(loaded.status))

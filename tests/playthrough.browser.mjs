@@ -242,7 +242,26 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
       await page.waitForFunction(tick => window.mossvale.getState().now >= tick, action.milliseconds);
     } else if (action.type === 'interact' && action.target === 'shrine') {
       await page.keyboard.press('e');
-      await page.waitForSelector('#challenge');
+      try {
+        await page.waitForSelector('#challenge', {timeout: 1500});
+      } catch {
+        const state = await page.evaluate(() => {
+          const game = window.mossvale.getState();
+          return {
+            map: game.world.map.id,
+            phase: game.phase,
+            player: game.player,
+            caught: game.save.caught,
+            modal: document.querySelector('#modal')?.innerText,
+            toast: document.querySelector('#toast')?.textContent,
+            nearby: game.world.objects
+              .map(object => ({ref: object.ref, kind: object.kind, distance: Math.hypot(object.x - game.player.x, object.y - game.player.y)}))
+              .sort((a, b) => a.distance - b.distance)
+              .slice(0, 4),
+          };
+        });
+        throw new Error(`the shrine did not offer its challenge: ${JSON.stringify(state)}`);
+      }
       await capture('03-shrine-challenge');
     } else if (action.type === 'challenge') {
       await page.click('#challenge');

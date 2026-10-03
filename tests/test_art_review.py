@@ -33,6 +33,11 @@ class VisualReviewEvidenceTests(unittest.TestCase):
         self.contact_path = self.root / self.contact
         self.contact_path.parent.mkdir(parents=True)
         self.contact_path.write_bytes(png())
+        self.preview = "dist/character-preview.html"
+        preview_path = self.root / self.preview
+        preview_path.parent.mkdir(parents=True)
+        preview_path.write_bytes(b"<!doctype html>\r\n<main>review preview</main>\r\n")
+        preview_hash = hashlib.sha256(b"<!doctype html>\n<main>review preview</main>\n").hexdigest()
         subjects = []
         reviews = []
         for species in ["creature-fernling", "creature-duskwing"]:
@@ -43,15 +48,19 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                 file.parent.mkdir(parents=True, exist_ok=True)
                 file.write_bytes(png())
             subjects.append({"id": species, "canonicalReferences": [{"path": ref}], "exports": [{"path": output}]})
-            paths = sorted({self.contact, ref, output})
+            paths = sorted({self.contact, self.preview, ref, output})
             reviews.append(
                 {
                     "visualId": species,
                     "technical": {"status": "pass"},
                     "visual": {"decision": "accept", "reason": "Readable at the reviewed scale.", "ownerTaste": "pending"},
-                    "evidence": [self.contact],
+                    "evidence": [self.contact, self.preview],
                     "reviewedFiles": [
-                        {"path": path, "sha256": hashlib.sha256((self.root / path).read_bytes()).hexdigest()} for path in paths
+                        {
+                            "path": path,
+                            "sha256": preview_hash if path == self.preview else hashlib.sha256((self.root / path).read_bytes()).hexdigest(),
+                        }
+                        for path in paths
                     ],
                 }
             )

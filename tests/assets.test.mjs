@@ -8,6 +8,7 @@ import {assets, spriteId} from '../dist/src/data/assets.js';
 import {species} from '../dist/src/data/species.js';
 import {checkAssets} from '../scripts/lib/assets-check.mjs';
 import {checkSubjectProvenance} from '../scripts/lib/provenance-check.mjs';
+import {sha256File} from '../scripts/lib/sha256.mjs';
 import {decodePng, opaqueBounds} from '../scripts/lib/png.mjs';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
@@ -67,6 +68,13 @@ test('the shipped manifest, names and PNGs pass the checks', () => {
   const dist = fileURLToPath(new URL('../dist/', import.meta.url));
   const {errors} = checkAssets(assets, dist);
   assert.deepEqual(errors, []);
+});
+
+test('text provenance hashes are stable across Windows CRLF checkouts', () => {
+  const lf = Buffer.from('{"metadata":true}\n');
+  withDist({'metadata.json': Buffer.from('{"metadata":true}\r\n')}, dir => {
+    assert.equal(sha256File(join(dir, 'metadata.json')), createHash('sha256').update(lf).digest('hex'));
+  });
 });
 
 test('sample visual subjects have hashed canonical references, exports and linked batches', () => {

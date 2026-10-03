@@ -3,6 +3,8 @@ import {chromium} from 'playwright';
 import http from 'node:http';
 import {existsSync, readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 import {species} from '../dist/src/data/species.js';
 
 const root = new URL('../dist/', import.meta.url);
@@ -49,7 +51,7 @@ try {
     ),
     true,
   );
-  await page.screenshot({path: '/tmp/mossvale-creature-combat-preview.png', fullPage: true});
+  await page.screenshot({path: join(tmpdir(), 'mossvale-creature-combat-preview.png'), fullPage: true});
   await page.check('#calm');
   assert.ok(await page.locator('canvas[data-state="attack"][data-frame="3"]').count());
 
