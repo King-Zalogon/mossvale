@@ -42,6 +42,12 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     const b = raw(view.camera.x, view.camera.y);
     return {x: canvas.width / 2 + (a.x - b.x) * view.zoom, y: canvas.height * 0.49 + (a.y - b.y) * view.zoom};
   };
+  const worldToScreen = (x, y) => {
+    const p = point(x, y);
+    const rect = canvas.getBoundingClientRect();
+    const viewport = canvas.parentElement.getBoundingClientRect();
+    return {x: rect.left - viewport.left + (p.x / canvas.width) * rect.width, y: rect.top - viewport.top + (p.y / canvas.height) * rect.height};
+  };
   const poly = (points, color) => {
     ctx.fillStyle = color;
     ctx.beginPath();
@@ -252,18 +258,10 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     mini.stroke();
   }
 
-  /** Screen anchor (canvas pixels) for something standing in the world: its top-centre above any name tag, and its feet. */
-  function anchor(o) {
-    if (!view) return null;
-    const s = point(o.x, o.y);
-    const tag = ['ranger', 'shrine', 'chest', 'gate'].includes(o.kind) ? 22 * view.zoom : 4 * view.zoom;
-    return {x: s.x, headY: s.y - spriteHeight(o) - tag, feetY: s.y};
-  }
-
   return {
     drawWorld,
     drawMinimap,
-    anchor,
+    worldToScreen,
     context: ctx,
     miniContext: mini,
     get stats() {

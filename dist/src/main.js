@@ -38,7 +38,6 @@ import {direction, installInput, isMoving} from './input.js';
 import {$, downloadText, hideModal, toast} from './ui/dom.js';
 import {renderHud, renderSaveStatus} from './ui/hud.js';
 import {createMenus} from './ui/menus.js';
-import {createBubbles} from './ui/bubbles.js';
 import {createBattleView} from './ui/battle-view.js';
 
 function getStorage() {
@@ -55,6 +54,17 @@ function getStorage() {
 
 const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
+const editorPreviewId = params.get('editorPreview');
+let editorPreviewMap = null;
+if (editorPreviewId) {
+  try {
+    const value = JSON.parse(sessionStorage.getItem(`mossvale-editor-preview:${editorPreviewId}`) || 'null');
+    if (value?.id === editorPreviewId) editorPreviewMap = value;
+    sessionStorage.removeItem(`mossvale-editor-preview:${editorPreviewId}`);
+  } catch {
+    editorPreviewMap = null;
+  }
+}
 const rng = debug && params.has('seed') ? seededRng(Number(params.get('seed'))) : Math.random;
 const canvas = $('#game');
 const mapBounds = {};
@@ -101,13 +111,14 @@ const app = {
   maps: [],
   objectives: [],
   story: undefined,
-  skipPremise: debug && !params.has('premise'), // tests start in play; add &premise to see the opening card
+  skipPremise: (debug && !params.has('premise')) || !!editorPreviewId, // tests start in play; add &premise to see the opening card
   objCtx: {speciesCount: species.length, regions},
   audio: createAudio(),
   settings,
   build: null,
   buildLabel: () => describeBuild(app.build),
   motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,
+  projectWorld: (x, y) => renderer.worldToScreen(x, y),
   adventures: {list: parseCatalog(DEFAULT_CATALOG).adventures, current: parseCatalog(DEFAULT_CATALOG).adventures[0], note: ''},
   peekAdventure: id => ({...peekProgress(storage, id)}),
   describeProgress,
@@ -117,13 +128,10 @@ const app = {
   persist,
 };
 app.menus = createMenus(app);
-app.bubbles = createBubbles(app);
-ui.onModalOpen = () => app.bubbles.clear();
 app.renderBattle = createBattleView(app);
 const actions = createController(app);
 installInput(app);
 const renderer = createWorldRenderer({canvas, miniCanvas: $('#minimap')});
-app.renderer = renderer;
 
 // --- startup: world, loader, loop ---------------------------------------------------------------
 const loading = $('#loading');
@@ -219,7 +227,6 @@ Object.assign(actions, {
   switchAdventure(id) {
     if (!app.adventures.list.some(a => a.id === id)) return toast('That adventure is not available.');
     if (id === app.adventures.current.id) return actions.close();
-    app.bubbles.clear();
     app.persist(); // the adventure being left is saved first, under its own keys
     if (!writeSelection(storage, id))
       return toast('Could not switch adventures: this browser will not let Mossvale remember the choice. Your progress is unchanged.');
@@ -308,14 +315,27 @@ async function boot() {
         );
         return;
       }
+      if (editorPreviewMap) {
+        const index = rawMaps.findIndex(map => map.id === editorPreviewId);
+        if (index >= 0) rawMaps[index] = editorPreviewMap;
+      }
       const registryErrors = configureRegistry({registries, packId: rawPack.id});
       if (registryErrors.length) {
         showLoadError('The adventure registries are invalid.', registryErrors.slice(0, 5).join(' · '));
         return;
       }
       codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id});
-      loaded = codec.load(storage);
-      if (readSelection(storage) !== entry.id) writeSelection(storage, entry.id); // an explicit ?adventure= or a fallback becomes the choice
+      if (editorPreviewMap) {
+        const region = rawMaps.findIndex(map => map.id === editorPreviewId);
+        const fresh = codec.fresh();
+        fresh.region = region;
+        fresh.x = rawMaps[region].spawns.camp[0];
+        fresh.y = rawMaps[region].spawns.camp[1];
+        loaded = {save: fresh, status: 'new', message: '', writable: false, source: null};
+      } else {
+        loaded = codec.load(storage);
+        if (readSelection(storage) !== entry.id) writeSelection(storage, entry.id); // an explicit ?adventure= or a fallback becomes the choice
+      }
       $('#load-title').textContent = loaded.save.badges.length || loaded.save.caught.length > 1 ? 'Resuming your trail' : `Preparing ${rawPack.name}`;
       $('#load-switch').hidden = true;
       game.save = loaded.save;
@@ -400,7 +420,7 @@ function loop(t) {
   if (!document.hidden) {
     const {pacing} = game;
     pacing.encounterCooldown = Math.max(0, pacing.encounterCooldown - dt);
-    if (!ui.paused && !ui.modalMode && !ui.speech) {
+    if (!ui.paused && !ui.modalMode && !ui.speechActive) {
       game.save.playTime += dt;
       const [sx, sy] = direction(ui);
       const run = ui.keys.shift || ui.touchRun;
@@ -430,9 +450,8 @@ function loop(t) {
       reducedMotion: app.motionReduced(),
     };
     const t0 = perf ? performance.now() : 0;
-    ui.follower = view.follower;
     renderer.drawWorld(view);
-    if (ui.speech) app.bubbles.update();
+    actions.positionSpeech();
     const t1 = perf ? performance.now() : 0;
     if (frame % 4 === 0) renderer.drawMinimap(view);
     if (perf) {
@@ -511,11 +530,11 @@ if (debug) {
     travel: actions.travel,
     interact: actions.interact,
     objective: () => currentObjective(game.save, app.objectives, app.objCtx),
+    previewSpeech: actions.previewSpeech,
     level: id => level(game.save, id),
     maxHP: id => maxHP(game.save, id),
     effectiveness,
     perf: () => perf,
-    speechAnchor: ref => app.bubbles.anchorOf(ref),
     areaMap: () => app.areaMap.state,
   };
 }

@@ -13,42 +13,21 @@ import {$, hideModal, toast} from './ui/dom.js';
 import {TACTICS} from './data/tactics.js';
 import {spriteId} from './data/assets.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
-import {currentObjective, pickLineEntry} from './domain/objectives.js';
+import {currentObjective, pickLine} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 import {discover, entryFor, landmarkLabel, reveal} from './domain/discovery.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
 import {grant as grantReward} from './domain/economy.js';
+import {createSpeech} from './ui/speech.js';
 
 export function createController(app) {
   const {game, ui, audio, rng, persist, canvas, actions, menus, maps, objCtx} = app;
   const save = () => game.save;
   const sfx = name => audio.play(name);
-
-  /** Where a speaker stands, for the bubble tail: a keyword (player, companion), a landmark id of this map, or nothing (narrator). */
-  app.resolveSpeaker = ref => {
-    if (ref === 'player') return {x: game.player.x, y: game.player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player'};
-    if (ref === 'companion') {
-      const follower = ui.follower;
-      const buddy = species[save().active];
-      return follower ? {x: follower.x, y: follower.y, id: buddy.sprite, w: 37, kind: 'companion', name: buddy.name} : null;
-    }
-    const o = ref && ref !== 'narrator' ? game.world.objects.find(object => object.ref === ref) : null;
-    return o ?? null;
-  };
-
-  /** Shows a conversation in speech bubbles. A line without a speaker is said by `fallback`. */
-  function speak(items, {fallback = 'narrator', onDone} = {}) {
-    app.bubbles.say(items, {
-      fallback,
-      onDone: result => {
-        lastInteract = ui.now; // the press that closed it cannot also start the next one
-        onDone?.(result);
-      },
-    });
-  }
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
   const timeline = (app.timeline = createTimeline());
+  const speech = createSpeech({ui, canvas});
   const wait = ms => (app.motionReduced() ? 250 : ms);
 
   /** Distance to walk before the next encounter, from the zone the player stands in (or the default range). */
@@ -92,7 +71,6 @@ export function createController(app) {
 
   function enterRegion(region) {
     game.world = buildWorld(maps[region]);
-    app.bubbles.clear();
     renderRegion(region);
     audio.setRegion(regions[region].id);
   }
@@ -163,22 +141,17 @@ export function createController(app) {
   const rangerLandmark = () => game.world.objects.find(o => o.kind === 'ranger');
   const rangerName = () => rangerLandmark()?.name ?? 'the ranger';
 
-  /**
-   * Talks to the ranger: their line in a bubble above them, then the rest/shop choices as real controls. A `message`
-   * (after resting or buying) skips the bubble and answers inside the menu.
-   */
+  /** Opens the ranger menu with `message`, or the first matching line from the map data. */
   function openRanger(message) {
     const o = rangerLandmark();
-    const name = o?.name ?? 'The ranger';
-    if (message !== undefined) return menus.ranger({name, message: message + tip('first-ranger')});
-    const entry = pickLineEntry(o?.lines, save(), objCtx) ?? {text: 'Welcome back. Rest here whenever you need to.'};
-    const tipText = tip('first-ranger');
-    speak([entry], {
-      fallback: o?.ref ?? 'narrator',
-      onDone: ({dismissed}) => {
-        if (!dismissed) menus.ranger({name, message: 'What would you like to do?' + tipText}); // Escape closes the conversation without opening the menu
-      },
-    });
+    const line = message ?? pickLine(o?.lines, save(), objCtx) ?? 'Welcome back. Rest here whenever you need to.';
+    const speakerId = o?.ref ?? 'narrator';
+    const actor = o;
+    speech.show(
+      [{text: line + tip('first-ranger'), speaker: speakerId, name: o?.name ?? 'Mossvale'}],
+      () => actor && app.projectWorld(actor.x, actor.y),
+      () => menus.ranger({name: o?.name ?? 'The ranger', message: ''}),
+    );
   }
 
   function rest() {
@@ -240,8 +213,11 @@ export function createController(app) {
   const sealOf = flag => regions.find(r => r.id === flag.split('.')[0]).seal.toLowerCase();
 
   function interact() {
+    if (ui.speechActive) {
+      speech.advance();
+      return;
+    }
     if (game.battle || ui.modalMode || ui.paused) return;
-    if (ui.speech) return app.bubbles.advance(); // while someone is talking, the action button means "next"
     if (ui.now - lastInteract < INTERACT_COOLDOWN_MS && ui.now >= lastInteract) return; // double taps do nothing
     lastInteract = ui.now;
     const o = nearest();
@@ -254,7 +230,7 @@ export function createController(app) {
     const s = save();
     sfx('tap');
     if (o.kind === 'ranger') openRanger();
-    else if (o.kind === 'sign') speak([pickLineEntry(o.lines, s, objCtx) ?? {text: o.text}], {fallback: o.ref});
+    else if (o.kind === 'sign') toast(o.text ?? pickLine(o.lines, s, objCtx));
     else if (o.kind === 'chest') {
       const got = claimChest(s, o);
       if (!got) {
@@ -294,15 +270,24 @@ export function createController(app) {
       }
       const result = applySceneActions(save(), event, {setFlag: flag => setFlag(save(), flag)});
       if (result.reward) grantReward(save(), result.reward);
+      if (result.dialogue.length) {
+        const lines = result.dialogue.map(line => {
+          const actor = line.speaker === 'player' ? null : game.world.objects.find(object => object.ref === line.speaker);
+          return {...line, name: actor?.name ?? (line.speaker === 'player' ? 'You' : line.speaker === 'narrator' ? 'Mossvale' : actor?.kind)};
+        });
+        speech.show(lines, line => {
+          if (line.speaker === 'player') return app.projectWorld(game.player.x, game.player.y);
+          const actor = game.world.objects.find(object => object.ref === line.speaker);
+          return actor ? app.projectWorld(actor.x, actor.y) : null;
+        });
+      }
+      if (result.challenge) beginBattle(result.challenge);
       persist();
-      if (result.speech.length) speak(result.speech, {onDone: () => result.challenge && beginBattle(result.challenge)});
-      else if (result.challenge) beginBattle(result.challenge);
     }
   }
 
   /** Called every frame from the main loop: fires 'enter' triggers the player is standing in. */
   function checkTriggers() {
-    if (ui.speech) return;
     for (const t of triggersAt(game.world, game.player, 'enter')) runTrigger(t);
   }
 
@@ -610,7 +595,6 @@ export function createController(app) {
     openRanger,
     checkTriggers,
     explore,
-    dismissSpeech: () => app.bubbles.dismiss(),
     battleAction,
     performTurn,
     resumeBattle,
@@ -620,6 +604,20 @@ export function createController(app) {
     enterRegion,
     resetCamera,
     nearest,
+    advanceSpeech: () => speech.advance(),
+    dismissSpeech: () => speech.dismiss(),
+    positionSpeech: () => speech.position(),
+    previewSpeech: lines =>
+      speech.show(
+        lines.map(line => {
+          const actor = line.speaker === 'player' ? null : game.world.objects.find(object => object.ref === line.speaker);
+          return {...line, name: line.name ?? actor?.name ?? (line.speaker === 'player' ? 'You' : line.speaker === 'narrator' ? 'Mossvale' : undefined)};
+        }),
+        line => {
+          const actor = line.speaker === 'player' ? game.player : game.world.objects.find(object => object.ref === line.speaker);
+          return actor ? app.projectWorld(actor.x, actor.y) : null;
+        },
+      ),
     renderBattle,
     party: () => menus.party(),
     worldMap: () => menus.worldMap(),

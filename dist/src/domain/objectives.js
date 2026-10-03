@@ -38,13 +38,8 @@ export function currentObjective(save, objectives, ctx) {
 
 /** The first line whose `when` holds (a line without `when` is the fallback), or null. */
 export function pickLine(lines, save, ctx) {
-  return pickLineEntry(lines, save, ctx)?.text ?? null;
-}
-
-/** Like `pickLine`, but keeps who says it: `{text, speaker?}`. */
-export function pickLineEntry(lines, save, ctx) {
   const hit = (lines ?? []).find(l => holds(l.when, save, ctx));
-  return hit ? {text: fill(hit.text, save, ctx), ...(hit.speaker !== undefined ? {speaker: hit.speaker} : {})} : null;
+  return hit ? fill(hit.text, save, ctx) : null;
 }
 
 /** Structural checks on the objectives file. Returns readable errors. */
@@ -91,14 +86,10 @@ export function validateObjectives(data, {mapIds}) {
 }
 
 /** Validates the `when` conditions of NPC/sign lines found in maps. */
-export function validateLines(lines, where, {mapIds, speakerProblem}) {
+export function validateLines(lines, where, {mapIds}) {
   const errors = [];
   (lines ?? []).forEach((l, i) => {
     if (typeof l?.text !== 'string') errors.push(`${where}.lines[${i}].text: required text`);
-    if (l?.speaker !== undefined && speakerProblem) {
-      const problem = speakerProblem(l.speaker);
-      if (problem) errors.push(`${where}.lines[${i}].speaker: ${problem}`);
-    }
     errors.push(
       ...validateObjectives(
         {format: OBJECTIVES_FORMAT, objectives: [{id: 'x', step: '', title: '', copy: '', pin: '', lines: [{text: l?.text ?? '', done: l?.when}]}]},

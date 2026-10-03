@@ -1,5 +1,7 @@
 # Mossvale
 
+Map authoring preview: open `dist/map-editor.html` locally. The browser editor keeps its edits local and exports the validated map JSON used by the runtime and CLI.
+
 An original browser-playable creature-catching game with a 2D isometric world, pixel art, and eight-direction movement.
 
 [Play the hosted game](https://mossvale-pixel-adventure.gonzaloreydelcastill.chatgpt.site)
@@ -49,7 +51,7 @@ Progress saves automatically in the current browser using local storage. Origina
 - `dist/maps/registries.json`: pack-owned species, regions, moves and tuning; see [docs/PACKS.md](docs/PACKS.md) for `npm run pack -- create-pack`, `add-map`, `validate-pack` and `preview-pack`.
 - `dist/src/data/assets.js`: asset manifest (names, sizes, required status).
 - `dist/assets/`: original creature, character, and environment artwork, named by what it shows ([docs/ASSETS.md](docs/ASSETS.md)). `dist/favicon.svg`: site icon.
-- `docs/`: [game design](docs/GAME_DESIGN.md), [architecture](docs/ARCHITECTURE.md), [map format](docs/MAP_FORMAT.md), [save format](docs/SAVE_FORMAT.md), [content branch integration](docs/CONTENT_INTEGRATION.md), [backup and restore](docs/BACKUP.md), [publishing and rollback](docs/PUBLISHING.md), [roadmap](docs/FULL_GAME_ROADMAP.md), [assets](docs/ASSETS.md), [performance](docs/PERFORMANCE.md), [audio](docs/AUDIO.md), [speech bubbles](docs/DIALOGUE.md), [exploration and maps](docs/NAVIGATION.md).
+- `docs/`: [game design](docs/GAME_DESIGN.md), [architecture](docs/ARCHITECTURE.md), [map format](docs/MAP_FORMAT.md), [save format](docs/SAVE_FORMAT.md), [content branch integration](docs/CONTENT_INTEGRATION.md), [backup and restore](docs/BACKUP.md), [publishing and rollback](docs/PUBLISHING.md), [roadmap](docs/FULL_GAME_ROADMAP.md), [assets](docs/ASSETS.md), [performance](docs/PERFORMANCE.md), [audio](docs/AUDIO.md), [exploration and maps](docs/NAVIGATION.md).
 - `tests/`, `scripts/`, `.github/workflows/ci.yml`: automated checks.
 
 The game uses vanilla JavaScript and Canvas 2D. It has no backend, account system, or multiplayer service. Fonts are loaded from Google Fonts with local fallbacks.

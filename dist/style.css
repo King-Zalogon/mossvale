@@ -2104,109 +2104,74 @@ body.text-larger .heading {
   overflow-wrap: anywhere;
 }
 
-/* Comic speech bubbles (#84): a text globe above the speaker, tail pointing at them. */
-.speech {
-  --tail: 50%;
-  --speech-font: 15px;
+/* Character dialogue stays in the game viewport and points toward its current speaker. */
+.speech-bubble {
   position: absolute;
-  z-index: 6;
-  box-sizing: border-box;
-  max-width: 340px;
-  min-width: 140px;
-  padding: 10px 14px 8px;
-  border: 3px solid #1d2a1f;
-  border-radius: 18px;
-  background: #fffdf2;
-  color: #1d2a1f;
-  font-size: var(--speech-font);
-  line-height: 1.35;
-  box-shadow: 3px 4px 0 #1d2a1f55;
-  cursor: pointer;
-  animation: speech-pop 0.14s ease-out;
+  z-index: 8;
+  width: min(340px, calc(100% - 24px));
+  padding: 12px 14px 10px;
+  border: 2px solid #293d31;
+  border-radius: 13px;
+  background: #fff8dc;
+  color: #25382d;
+  box-shadow:
+    0 5px 0 #293d3133,
+    0 10px 26px #14251e55;
+  font-size: 1rem;
 }
-.speech[hidden] {
+.speech-bubble::after {
+  position: absolute;
+  left: var(--tail-x, 50%);
+  bottom: -10px;
+  width: 16px;
+  height: 16px;
+  border-right: 2px solid #293d31;
+  border-bottom: 2px solid #293d31;
+  background: #fff8dc;
+  content: '';
+  transform: rotate(45deg);
+}
+.speech-bubble.speech-fallback::after {
   display: none;
 }
-body.text-large .speech {
-  --speech-font: 17px;
+.speech-bubble.speech-tail-top::after {
+  top: -10px;
+  bottom: auto;
+  border: 0;
+  border-top: 2px solid #293d31;
+  border-left: 2px solid #293d31;
+  transform: rotate(45deg);
 }
-body.text-larger .speech {
-  --speech-font: 20px;
+.speech-bubble[hidden] {
+  display: none;
 }
-.speech-name {
-  margin-bottom: 2px;
+.speech-speaker {
+  color: #547348;
   font-size: 0.78em;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #4a6b3a;
 }
-.speech-text {
-  max-height: 40vh;
-  overflow-y: auto;
-  overflow-wrap: anywhere;
+.speech-bubble p {
+  margin: 5px 0 9px;
+  line-height: 1.45;
 }
-.speech-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 6px;
-}
-.speech-hint {
-  font-size: 0.68em;
-  opacity: 0.6;
-}
-.speech-next {
-  min-width: 44px;
-  min-height: 32px;
-  padding: 2px 12px;
-  border: 2px solid #1d2a1f;
-  border-radius: 12px;
-  background: #e5f0c8;
-  color: #1d2a1f;
+.speech-bubble button {
+  display: block;
+  margin-left: auto;
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #547348;
+  color: white;
   font: inherit;
-  font-size: 0.82em;
   font-weight: 700;
 }
-.speech-tail {
-  position: absolute;
-  left: var(--tail);
-  width: 16px;
-  height: 16px;
-  margin-left: -8px;
-  background: #fffdf2;
-  border: 3px solid #1d2a1f;
-  border-top: 0;
-  border-left: 0;
-  transform: rotate(45deg);
-  pointer-events: none;
-}
-.speech[data-side='above'] .speech-tail {
-  bottom: -10px;
-}
-.speech[data-side='below'] .speech-tail {
-  top: -10px;
-  transform: rotate(225deg);
-}
-.speech[data-side='none'] .speech-tail {
-  display: none;
-}
-.speech[data-side='none'] {
-  border-style: dashed;
-}
-@keyframes speech-pop {
-  from {
-    transform: scale(0.92);
-    opacity: 0;
-  }
-}
-.reduce-motion .speech {
-  animation: none;
-}
 @media (prefers-reduced-motion: reduce) {
-  .speech {
-    animation: none;
+  .speech-bubble,
+  .speech-bubble::after {
+    scroll-behavior: auto;
+    transition: none;
   }
 }
 

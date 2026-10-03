@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#102d28" />
+    <title>Mossvale Map Workshop</title>
+    <link rel="stylesheet" href="map-editor.css" />
+  </head>
+  <body>
+    <header>
+      <a href="./">← Mossvale</a>
+      <div>
+        <span class="eyebrow">AUTHORING TOOL</span>
+        <h1>Map Workshop</h1>
+      </div>
+      <span id="dirty" role="status">Saved</span>
+    </header>
+    <main>
+      <section class="toolbar" aria-label="Map editing controls">
+        <label
+          >Map
+          <select id="map"></select
+        ></label>
+        <label
+          >Terrain
+          <select id="terrain">
+            <option value="g">Ground</option>
+            <option value="p">Path</option>
+            <option value="t">Tall grass</option>
+            <option value="w">Water</option>
+            <option value=".">Void</option>
+          </select></label
+        >
+        <button id="undo" disabled>Undo</button><button id="redo" disabled>Redo</button> <button id="import">Import JSON</button
+        ><input id="file" type="file" accept="application/json,.json" hidden /> <button id="export" class="primary">Export JSON</button
+        ><button id="play-preview" class="primary">Play edited map</button
+        ><a class="button" href="./?debug" target="_blank" rel="noreferrer">Open current game</a>
+      </section>
+      <div class="workspace">
+        <section class="preview">
+          <div class="section-head">
+            <h2 id="map-name">Loading map…</h2>
+            <span id="coords">Click a tile to paint</span>
+          </div>
+          <canvas id="map-canvas" width="1120" height="680" aria-label="Isometric map terrain editor"></canvas>
+          <p class="hint">Paint terrain directly on the map. Select an entity on the map to edit its complete JSON record on the right.</p>
+        </section>
+        <aside>
+          <section class="panel">
+            <div class="section-head">
+              <h2>Map data</h2>
+              <button id="validate">Validate</button>
+            </div>
+            <div id="validation" role="status">Checking map…</div>
+            <label>Selected record<textarea id="record" spellcheck="false" aria-label="Selected map entity JSON"></textarea></label>
+            <div class="row"><button id="apply-record">Apply record</button><button id="delete-record" class="danger" disabled>Delete</button></div>
+          </section>
+          <section class="panel">
+            <h2>Add content</h2>
+            <label
+              >Content type<select id="add-kind">
+                <option value="prop">Prop</option>
+                <option value="landmark">Landmark</option>
+                <option value="exit">Exit</option>
+                <option value="zone">Encounter zone</option>
+                <option value="trigger">Scene trigger</option>
+                <option value="instance">Prefab instance</option>
+              </select></label
+            ><button id="add-content">Add at selected tile</button>
+            <p id="add-help" class="hint">Choose a map tile first. Edit the new record to set its stable ID and role.</p>
+          </section>
+          <section class="panel">
+            <h2>Route</h2>
+            <label>Spawn name<input id="spawn-name" value="camp" maxlength="24" /></label><button id="set-spawn">Set spawn on selected tile</button>
+          </section>
+        </aside>
+      </div>
+      <p class="notice">Changes stay in this browser until you export the map JSON. The exported file uses the same format validated by the game and CLI.</p>
+    </main>
+    <script type="module" src="src/map-editor.js"></script>
+  </body>
+</html>

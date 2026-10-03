@@ -19,7 +19,6 @@ A working checklist for calling the first adventure "ready to play for fun", wit
 | Sound: palette, ambience never stacks, mute/volume, pause/hidden, no Web Audio | `tests/audio.test.mjs` |
 | Rendering cost: no per-frame canvas filters; measured fps per map | `tests/render-budget.test.mjs`, `scripts/measure-perf.mjs` |
 | Several adventures in one browser: own progress, backups and recovery journals; switching and reloading never mixes them; wrong-pack imports refused | `tests/adventures.test.mjs`, `tests/adventures.browser.mjs` |
-| Dialogue in speech bubbles above the speaker, keyboard/touch, phone and zoom edges, multi-speaker scenes from data | `tests/speech.test.mjs`, `tests/speech.browser.mjs` |
 | Explored ground and found places on the minimap and a pan/zoom area map; secrets hidden until found; saved with the adventure; quiet corridors | `tests/discovery.test.mjs`, `tests/discovery.browser.mjs` |
 | Assets: naming, format, crop, manifest | `tests/assets.test.mjs`, `npm run validate` |
 | Menus stay inside the screen at large text, stable focus, 44 px touch targets, contrast | browser flows, `tests/contrast.test.mjs` |

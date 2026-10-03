@@ -1,6 +1,5 @@
 /* A deliberately small, data-only vocabulary for reusable map interactions. */
 import {holds, validateLines} from './objectives.js';
-import {speakerProblem} from './speech.js';
 
 export const SCENE_ACTIONS = ['dialogue', 'reward', 'flag', 'challenge'];
 export const MAX_SCENE_EVENTS = 256;
@@ -23,7 +22,7 @@ export function markSceneRun(save, mapId, id) {
   return true;
 }
 
-export function validateSceneEvent(event, {speciesIds, mapId, mapIds, landmarkIds = new Set(), where}) {
+export function validateSceneEvent(event, {speciesIds, speakerIds = new Set(), mapId, mapIds, where}) {
   const errors = [];
   const at = (field, message) => errors.push(`${where}.${field}: ${message}`);
   if (!event || typeof event !== 'object' || Array.isArray(event)) return [`${where}: expected an event object`];
@@ -42,10 +41,8 @@ export function validateSceneEvent(event, {speciesIds, mapId, mapIds, landmarkId
       if (!action || typeof action !== 'object' || Array.isArray(action)) return at(field, 'expected an action object');
       if (action.type === 'dialogue') {
         if (typeof action.text !== 'string' || !action.text.trim() || action.text.length > 500) at(field, 'dialogue needs 1–500 characters of text');
-        if (action.speaker !== undefined) {
-          const problem = speakerProblem(action.speaker, landmarkIds);
-          if (problem) at(`${field}.speaker`, problem);
-        }
+        if (action.speaker !== undefined && action.speaker !== 'narrator' && action.speaker !== 'player' && !speakerIds.has(action.speaker))
+          at(`${field}.speaker`, `unknown speaker "${action.speaker}" (use narrator, player, or a landmark id)`);
       } else if (action.type === 'reward') {
         const keys = Object.keys(action).filter(key => key !== 'type');
         if (!keys.length || keys.some(key => !['coins', 'potions', 'orbs'].includes(key))) at(field, 'reward accepts coins, potions and orbs');
@@ -68,12 +65,10 @@ export function validateSceneEvent(event, {speciesIds, mapId, mapIds, landmarkId
 
 /** Applies non-challenge actions in order. The caller persists the complete result as one save transaction. */
 export function applySceneActions(save, event, context) {
-  const result = {dialogue: [], speech: [], challenge: null, reward: null};
+  const result = {dialogue: [], challenge: null, reward: null};
   for (const action of event.actions) {
-    if (action.type === 'dialogue') {
-      result.dialogue.push(action.text);
-      result.speech.push({text: action.text, ...(action.speaker !== undefined ? {speaker: action.speaker} : {})});
-    } else if (action.type === 'reward') {
+    if (action.type === 'dialogue') result.dialogue.push({text: action.text, speaker: action.speaker ?? 'narrator'});
+    else if (action.type === 'reward') {
       for (const key of ['coins', 'potions', 'orbs']) if (Number.isInteger(action[key])) save[key] += action[key];
       result.reward = action;
     } else if (action.type === 'flag') context.setFlag(action.flag);

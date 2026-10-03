@@ -3,7 +3,6 @@
 import {PLAYER_RADIUS} from '../config.js';
 import {TACTICS} from '../data/tactics.js';
 import {validateLines} from './objectives.js';
-import {speakerProblem} from './speech.js';
 import {validateSceneEvent} from './scenes.js';
 
 export const MAP_FORMAT = 1;
@@ -113,7 +112,6 @@ function validateOne(m, byId, ctx, errors) {
   else for (const [name, p] of Object.entries(m.spawns)) if (!inside(p)) at(`spawns.${name}`, 'must be [x, y] inside the map');
 
   const ids = new Set();
-  const landmarkIds = new Set((m.landmarks ?? []).map(l => l?.id).filter(id => typeof id === 'string'));
   (m.landmarks ?? []).forEach((l, i) => {
     const where = `landmarks[${i}] (${l?.id})`;
     if (!isObj(l) || typeof l.id !== 'string') return at(`landmarks[${i}]`, 'id required');
@@ -145,8 +143,7 @@ function validateOne(m, byId, ctx, errors) {
       if (!isObj(l.reward)) at(where + '.reward', 'chests need { coins, potions, orbs }');
     }
     if (l.kind === 'sign' && typeof l.text !== 'string' && !Array.isArray(l.lines)) at(where + '.text', 'signs need text (or lines)');
-    if (l.lines !== undefined)
-      errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys()), speakerProblem: ref => speakerProblem(ref, landmarkIds)}));
+    if (l.lines !== undefined) errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys())}));
     if (l.tag !== undefined && (typeof l.tag !== 'string' || l.tag.length > 16)) at(where + '.tag', 'tag is a short label (up to 16 characters)');
     if (l.secret !== undefined && typeof l.secret !== 'boolean') at(where + '.secret', 'true (hidden from the maps until found nearby) or false');
     if (l.mapLabel !== undefined && (typeof l.mapLabel !== 'string' || !l.mapLabel || l.mapLabel.length > 24))
@@ -231,7 +228,13 @@ function validateOne(m, byId, ctx, errors) {
       });
     (t.events ?? []).forEach((event, j) => {
       errors.push(
-        ...validateSceneEvent(event, {speciesIds: ctx.speciesIds, mapId: m.id, mapIds: new Set(byId.keys()), landmarkIds, where: `${where}.events[${j}]`}),
+        ...validateSceneEvent(event, {
+          speciesIds: ctx.speciesIds,
+          speakerIds: new Set((m.landmarks ?? []).map(landmark => landmark.id)),
+          mapId: m.id,
+          mapIds: new Set(byId.keys()),
+          where: `${where}.events[${j}]`,
+        }),
       );
       if (sceneEventIds.has(event?.id)) errors.push(`${where}.events[${j}].id: duplicate scene event id "${event.id}" in map ${m.id}`);
       sceneEventIds.add(event?.id);
