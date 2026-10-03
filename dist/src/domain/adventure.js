@@ -43,7 +43,7 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
     const available = rawPack?.species ? species.filter(s => rawPack.species.includes(s.id)) : species;
     errors.push(
       ...checkProgression(ordered, regions, rawObjectives?.objectives ?? [], rawStory),
-      ...checkSources(ordered, available, biomes),
+      ...checkSources(ordered, available, available.length === species.length ? biomes : []),
       ...checkPoolsStayInPack(ordered, available),
       ...checkMilestoneOrder(ordered, regions, rawPack?.milestones),
     );

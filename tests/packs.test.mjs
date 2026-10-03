@@ -21,7 +21,8 @@ const fixture = name => {
   const dir = new URL(`./fixtures/packs/${name}/`, import.meta.url);
   const read = f => JSON.parse(readFileSync(new URL(f, dir), 'utf8'));
   const pack = read('index.json');
-  return {pack, maps: pack.maps.map(id => read(id + '.json')), regions: pack.maps.map(id => ({id}))};
+  const maps = pack.maps.map(id => read(id + '.json'));
+  return {pack, maps, regions: maps.map(map => ({id: map.id, biome: map.biome}))};
 };
 const buildFixture = (name, tweak) => {
   const f = fixture(name);
@@ -44,7 +45,7 @@ test('the first adventure is a pack: its id, creatures and milestones come from 
   assert.equal(pack.id, PACK_ID);
   assert.deepEqual(build(), []);
   assert.deepEqual(pack.species.toSorted(), species.map(s => s.id).toSorted());
-  assert.deepEqual(pack.milestones, ['meadow.seal', 'amber-ridge.seal', 'frostveil-grove.seal']);
+  assert.deepEqual(pack.milestones, ['meadow.seal', 'amber-ridge.seal', 'frostveil-grove.seal', 'reedfen-wetlands.seal']);
 });
 
 test('two fixture scenes give the same art and mechanics different roles', () => {
