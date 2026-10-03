@@ -65,6 +65,6 @@ Format version, unique ids, grid size and characters, known sprites and species,
 
 ## Limits
 
-- Rectangular maps can be up to 128 tiles per side and 16,384 tiles total. A 120 × 80 test map is the first large-world target; validation also caps authored entities and prop positions. Only three shipped maps exist today; the new biome maps arrive with #51–#54.
+- Rectangular maps can be up to 128 tiles per side and 16,384 tiles total. A 120 × 80 test map is the first large-world target; validation also caps authored entities and prop positions. Five Mossvale maps are shipped today: the two-map meadow pair and one map for each of the other three biomes. The larger biome pairs remain tracked in #52–#54.
 - Reachability uses tile-level flood fill, an approximation of continuous movement.
 - Layers beyond terrain + props, and per-tile event scripting, are intentionally out of scope.

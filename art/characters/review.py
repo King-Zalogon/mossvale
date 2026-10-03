@@ -7,6 +7,14 @@ from PIL import Image
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 DECISIONS = {"accept", "rework", "quarantine"}
+TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".md", ".mjs", ".py", ".txt"}
+
+
+def file_digest(path):
+    content = path.read_bytes()
+    if path.suffix.lower() in TEXT_SUFFIXES:
+        content = content.replace(b"\r\n", b"\n")
+    return hashlib.sha256(content).hexdigest()
 
 
 def check_digest(root, record, where):
@@ -16,7 +24,7 @@ def check_digest(root, record, where):
         raise SystemExit(f"{where}: a lowercase SHA-256 digest is required")
     if not path.is_file():
         raise SystemExit(f"{where}: missing reviewed file {record.get('path')}")
-    actual = hashlib.sha256(path.read_bytes()).hexdigest()
+    actual = file_digest(path)
     if actual != expected:
         raise SystemExit(f"{where}: reviewed evidence is stale for {record['path']}")
 

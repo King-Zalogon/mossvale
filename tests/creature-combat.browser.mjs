@@ -5,6 +5,8 @@ import {existsSync, readFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import assert from 'node:assert/strict';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 import {species} from '../dist/src/data/species.js';
 
 const root = new URL('../dist/', import.meta.url);

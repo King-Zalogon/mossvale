@@ -103,6 +103,30 @@ try {
     console.log('ok exploring reveals the minimap and survives a reload');
   }
 
+  // --- map discovery is isolated within one adventure and follows the active map after reload --------------
+  {
+    const {page, errors, ctx} = await open();
+    await teleport(page, 4, 4);
+    await saveNow(page);
+    await page.evaluate(() => window.mossvale.travel('orchard-ruins'));
+    await page.waitForFunction(() => window.mossvale.getState().world.map.id === 'orchard-ruins');
+    await teleport(page, 20, 20);
+    await saveNow(page);
+    const before = await page.evaluate(() => JSON.parse(localStorage.getItem('mossvale-v3')).explored);
+    assert.ok(before.meadow?.c && before['orchard-ruins']?.c, 'both maps have independent exploration records');
+    assert.notEqual(before.meadow.c, before['orchard-ruins'].c, 'walking different routes does not merge map fog');
+    await boot(page);
+    assert.equal(await page.evaluate(() => window.mossvale.getState().world.map.id), 'orchard-ruins');
+    const after = await page.evaluate(() => JSON.parse(localStorage.getItem('mossvale-v3')).explored);
+    assert.deepEqual(after, before, 'each map keeps its own discovery through reload');
+    await page.evaluate(() => window.mossvale.travel('meadow'));
+    await page.waitForFunction(() => window.mossvale.getState().world.map.id === 'meadow');
+    assert.ok((await share(page, 'meadow')) > 0);
+    assert.deepEqual(errors, []);
+    await ctx.close();
+    console.log('ok map discovery is isolated per map and follows the active map after reload');
+  }
+
   // --- area map: keys, buttons, drag, wheel; lists; way back to camp --------------------------------------
   {
     const {page, errors, ctx} = await open();
@@ -115,7 +139,7 @@ try {
       list.every(t => /north|south|east|west|here/.test(t)),
       'with a direction',
     );
-    assert.equal((await page.locator('.area-places li').filter({hasText: 'Treasure'}).count()) >= 0, true);
+    assert.equal(await page.locator('.area-places li').filter({hasText: 'Treasure'}).count(), 0, 'undiscovered treasure stays off the map');
     const s0 = await areaState(page);
     await page.keyboard.press('ArrowRight');
     const s1 = await areaState(page);
@@ -150,6 +174,10 @@ try {
     assert.ok(fit.zoom < zoomed.zoom, 'Show all fits the whole area');
     await page.click('.area-place >> nth=0');
     assert.equal(await page.evaluate(() => document.activeElement?.id), 'area-canvas', 'keys keep working after choosing a place');
+    await page.keyboard.press('Escape');
+    await teleport(page, 17.2, 16);
+    await openArea(page);
+    assert.equal(await page.locator('.area-places li').filter({hasText: 'Treasure'}).count(), 1, 'the chest appears after it is discovered');
     // Stuck? One button takes you to camp.
     await page.click('#am-camp');
     await page.waitForSelector('#modal', {state: 'hidden'});

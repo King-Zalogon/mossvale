@@ -97,7 +97,10 @@ export function createController(app) {
       return;
     }
     hideModal(ui, canvas);
-    if (game.phase === 'result') transition(game, 'explore');
+    if (game.phase === 'result') {
+      transition(game, 'explore');
+      save().recap = '';
+    }
     persist();
     const after = ui.afterModal;
     ui.afterModal = null;
@@ -326,12 +329,26 @@ export function createController(app) {
     menus.shrine(o);
   }
 
-  /** Opens a result screen: phase 'result', and the pending recap (shown after a reload) is no longer needed. */
+  /** Opens a result screen while retaining its short recap until the player acknowledges the result. */
   function showResult(descriptor) {
     transition(game, 'result');
-    save().recap = '';
     persist();
-    menus.result(descriptor);
+    const {onContinue, onSecondary, ...result} = descriptor;
+    menus.result({
+      ...result,
+      onContinue: () => {
+        save().recap = '';
+        persist();
+        (onContinue ?? close)();
+      },
+      onSecondary: onSecondary
+        ? () => {
+            save().recap = '';
+            persist();
+            onSecondary();
+          }
+        : undefined,
+    });
   }
 
   /** The unseen tip for `event` as a sentence to append to a message, marking it seen. Empty when none. */

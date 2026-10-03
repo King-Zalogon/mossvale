@@ -1,6 +1,7 @@
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {isAbsolute, relative, resolve, sep} from 'node:path';
+import {sha256File} from './sha256.mjs';
 
 const SHA256 = /^[a-f0-9]{64}$/;
 const UNAVAILABLE = new Set(['unavailable', 'summary-only', 'available']);
@@ -33,7 +34,7 @@ function checkHash(root, record, errors, where, {required = true} = {}) {
   if (!path) return;
   let digest;
   try {
-    digest = createHash('sha256').update(readFileSync(path)).digest('hex');
+    digest = sha256File(path);
   } catch {
     errors.push(`${where}: file ${record.path} is missing or unreadable`);
     return;
