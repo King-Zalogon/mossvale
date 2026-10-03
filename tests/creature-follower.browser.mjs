@@ -2,6 +2,8 @@
 import {chromium} from 'playwright';
 import http from 'node:http';
 import {existsSync, readFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 import assert from 'node:assert/strict';
 import {species} from '../dist/src/data/species.js';
 
@@ -52,7 +54,7 @@ try {
   );
   await page.check('#calm');
   assert.equal(await page.evaluate(() => window.followerPreview.state().reducedMotion), true);
-  await page.screenshot({path: '/tmp/mossvale-creature-follower-preview.png', fullPage: true});
+  await page.screenshot({path: join(tmpdir(), 'mossvale-creature-follower-preview.png'), fullPage: true});
   assert.deepEqual(errors, []);
 
   const game = await browser.newPage();
