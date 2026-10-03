@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#102d28" />
+    <title>Mossvale Combat Frame Preview</title>
+    <link rel="stylesheet" href="creature-combat-preview.css" />
+  </head>
+  <body>
+    <header>
+      <a href="./">← Mossvale</a>
+      <div>
+        <span>ART REVIEW</span>
+        <h1>Creature combat frames</h1>
+      </div>
+      <label><input id="calm" type="checkbox" /> Reduced motion</label>
+    </header>
+    <main>
+      <p>
+        Initial animation milestone: the existing Fernling and Duskwing portraits guide five transparent action rows. Cells render at the battle portrait width
+        with a shared bottom-center anchor.
+      </p>
+      <section id="species" aria-live="polite"></section>
+      <p class="footnote">Open the normal game preview to see attack, recoil, faint and capture event timing in battle.</p>
+      <a class="play" href="./?debug" target="_blank" rel="noreferrer">Open battle preview</a>
+    </main>
+    <script type="module" src="src/creature-combat-preview.js"></script>
+  </body>
+</html>

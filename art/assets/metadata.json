@@ -23,6 +23,11 @@
       "width": 2000,
       "height": 762,
       "mode": "RGBA"
+    },
+    "source/creature-combat-atlas.png": {
+      "width": 2292,
+      "height": 1440,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -187,6 +192,31 @@
       }
     },
     {
+      "name": "creature-duskwing-combat",
+      "src": "assets/creatures/creature-duskwing-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1124,
+      "height": 1405,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 1168,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [0, 1, 2, 3],
+        "rowOrder": ["idle", "attack", "hit", "faint", "capture"]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": ["art/characters/source/creature-duskwing-combat-generated.png"],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
       "name": "creature-emberkin",
       "src": "assets/creatures/creature-emberkin.png",
       "folder": "creatures",
@@ -224,6 +254,31 @@
         "editablePixelSource": "art/assets/source atlas cell",
         "originalGeneratedReferences": [],
         "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-fernling-combat",
+      "src": "assets/creatures/creature-fernling-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [0, 1, 2, 3],
+        "rowOrder": ["idle", "attack", "hit", "faint", "capture"]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": ["art/characters/source/creature-fernling-combat-generated.png"],
+        "originalGenerationSourceAvailable": true
       }
     },
     {

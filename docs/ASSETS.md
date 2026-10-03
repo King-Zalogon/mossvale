@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-27 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+29 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -46,6 +46,6 @@ The optional `--pack` command bootstraps atlases from the current runtime PNGs a
 
 The original generation sheets and briefs are retained for the red-cap motion, traveler and gardener art in `art/characters/source/`; those original references are linked from `art/characters/metadata.json` and `art/characters/SOURCES.md`. The older prop, creature and legacy-person atlases are reconstructed from the exact existing runtime crops, so their original generation prompts were not recovered. This distinction is recorded per asset in the source metadata.
 
-All assets use `bottom-center` anchors. World objects set their deliberate apparent size in map data, the player uses a 36 px world width, and creature portraits share the 85–110 px UI widths in `render/sprites.js` and the menu/battle callers. Frames with multiple poses declare the fixed cell size and direction order in the manifest and source metadata. The browser preview at `dist/character-preview.html` shows the generated character batch at gameplay scale.
+All assets use `bottom-center` anchors. World objects set their deliberate apparent size in map data, the player uses a 36 px world width, and creature portraits share the 85–110 px UI widths in `render/sprites.js` and the menu/battle callers. Frames with multiple poses declare the fixed cell size and direction order in the manifest and source metadata. The browser preview at `dist/character-preview.html` shows the generated character batch at gameplay scale. `dist/creature-combat-preview.html` shows the initial Fernling and Duskwing combat atlases at gameplay scale; the optional `*-combat` manifest IDs fall back to each creature’s static portrait until a sheet exists. Frame timing and source briefs are in `art/characters/creature-combat-metadata.json` and `art/characters/SOURCES.md`.
 
 Rights and attribution for distribution are tracked separately (deferred in the roadmap).

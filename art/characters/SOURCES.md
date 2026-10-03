@@ -30,3 +30,10 @@ Run `python3 art/characters/export.py` with Pillow installed. `metadata.json` re
 ## Creature animation treatment
 
 The eight current creature portraits remain the generated source images in `art/assets/source/creatures-atlas.png`, cropped and recorded in `art/assets/metadata.json`. A shared animation treatment applies to every manifest creature, so newly added species inherit it without per-species code: idle breathing, distance-paced travel bob, event-driven hit recoil and capture draw-in. The treatment leaves the art pixels and ground anchor unchanged. State methods, cadence and reduced-motion behavior are recorded in [`creature-animation-metadata.json`](creature-animation-metadata.json).
+
+## Creature combat frame milestone
+
+- Fernling and Duskwing combat sheets were generated on 2026-10-03 with the current transparent creature PNGs as references. Raw generated images are retained in `source/creature-fernling-combat-generated.png` and `source/creature-duskwing-combat-generated.png`.
+- Each sheet has four columns and five state rows: idle, attack, hit, faint and capture. The exporter crops equal grid cells, pads transparent pixels without resampling, and writes fixed frame sizes with bottom-center anchors: Fernling 288 × 288; Duskwing 328 × 304.
+- Run `python3 art/characters/export-creature-combat.py` to recreate the runtime PNGs. `creature-combat-metadata.json` records source IDs, frame order, dimensions, anchor and cadence.
+- The initial two-species batch proves the atlas contract; the other six current creatures still use their static portraits.

@@ -5,7 +5,7 @@ import {companion, effectiveness, level, maxHP, moveName} from '../domain/rules.
 import {captureChance, nextEnemyAction} from '../domain/battle.js';
 import {INTENT_TEXT} from '../data/tactics.js';
 import {ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, GUARD_FACTOR} from '../config.js';
-import {drawCreature} from '../render/sprites.js';
+import {drawCreatureAnimated} from '../render/sprites.js';
 import {$, header, openModal} from './dom.js';
 
 const button = (id, title, detail, disabled = false, extra = '') =>
@@ -32,8 +32,11 @@ export function createBattleView(app) {
       'battle',
       s.name + ' encounter',
     );
-    drawCreature($('#fight-buddy'), active, 107);
-    drawCreature($('#fight-wild'), b.id, 107);
+    const allyState = mineHp <= 0 ? 'faint' : animation === 'attack' ? 'attack' : animation === 'enemy' ? 'hit' : 'idle';
+    const enemyState =
+      animation === 'capture' ? 'capture' : animation === 'enemy' ? 'attack' : animation === 'attack' ? (enemyHp <= 0 ? 'faint' : 'hit') : 'idle';
+    drawCreatureAnimated($('#fight-buddy'), active, 107, allyState, app.motionReduced());
+    drawCreatureAnimated($('#fight-wild'), b.id, 107, enemyState, app.motionReduced());
     for (const id of ['attack', 'element', 'catch', 'potion', 'guard']) $('#' + id).onclick = () => actions.battleAction(id);
     $('#switch').onclick = actions.party;
     $('#flee').onclick = actions.flee;
