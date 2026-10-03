@@ -28,7 +28,16 @@ test('the shipped maps validate', () => {
     maps.map(m => m.id),
     content.regions.map(r => r.id),
   );
-  assert.deepEqual(Object.keys(mapsById), ['meadow', 'amber-ridge', 'frostveil-grove', 'reedfen-wetlands', 'orchard-ruins', 'stilt-isles', 'stone-basin']);
+  assert.deepEqual(Object.keys(mapsById), [
+    'meadow',
+    'amber-ridge',
+    'frostveil-grove',
+    'frostveil-pass',
+    'reedfen-wetlands',
+    'orchard-ruins',
+    'stilt-isles',
+    'stone-basin',
+  ]);
 });
 
 test('the meadow pair has a safe loop, a shortcut discovery and a gated onward trail', () => {
@@ -48,6 +57,26 @@ test('the meadow pair has a safe loop, a shortcut discovery and a gated onward t
   assert.notDeepEqual(meadowMap.terrain, orchardMap.terrain);
   assert.equal(mapsById['orchard-ruins'].biome, 'meadow');
   assert.equal(mapsById['orchard-ruins'].objects.find(o => o.ref === 'east-to-ridge').targetRegion, 1);
+});
+
+test('snowy maps form a distinct, traversable pair with a safe return and optional cache', () => {
+  const raw = rawMaps();
+  const grove = raw.find(m => m.id === 'frostveil-grove');
+  const pass = raw.find(m => m.id === 'frostveil-pass');
+  const outward = grove.exits.find(e => e.to.map === pass.id);
+  const back = pass.exits.find(e => e.to.map === grove.id);
+  const compiled = mapsById[pass.id];
+  const world = buildWorld(compiled);
+
+  assert.deepEqual(grove.size, {w: 64, h: 48});
+  assert.deepEqual(pass.size, {w: 64, h: 48});
+  assert.notDeepEqual(grove.terrain, pass.terrain);
+  assert.deepEqual(outward.to, {map: pass.id, spawn: 'camp'});
+  assert.deepEqual(back.to, {map: grove.id, spawn: 'pass-return'});
+  assert.equal(isWalkable(world, ...pass.spawns.camp), true);
+  assert.equal(pass.landmarks.find(l => l.kind === 'cottage').label, 'Rest at the pine shelter');
+  assert.equal(pass.landmarks.find(l => l.kind === 'chest').secret, true);
+  assert.equal(pass.zones[0].pool.length, 3);
 });
 
 test('a bounded large rectangular map validates and compiles through its far coordinates', () => {

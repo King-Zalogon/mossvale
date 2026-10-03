@@ -19,6 +19,7 @@ test('the shipped pack declares one canonical SHA-256 for every selected data fi
       'map:meadow',
       'map:amber-ridge',
       'map:frostveil-grove',
+      'map:frostveil-pass',
       'map:reedfen-wetlands',
       'map:orchard-ruins',
       'map:stilt-isles',

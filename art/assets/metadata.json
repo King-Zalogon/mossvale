@@ -25,8 +25,8 @@
       "mode": "RGBA"
     },
     "source/creature-combat-atlas.png": {
-      "width": 2292,
-      "height": 1440,
+      "width": 2320,
+      "height": 2896,
       "mode": "RGBA"
     },
     "source/creature-follower-atlas.png": {
@@ -197,6 +197,44 @@
       }
     },
     {
+      "name": "creature-brooklet-combat",
+      "src": "assets/creatures/creature-brooklet-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 1456
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-brooklet-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
       "name": "creature-duskwing",
       "src": "assets/creatures/creature-duskwing.png",
       "folder": "creatures",
@@ -232,12 +270,25 @@
       "frames": {
         "columns": 4,
         "rows": 5,
-        "columnOrder": [0, 1, 2, 3],
-        "rowOrder": ["idle", "attack", "hit", "faint", "capture"]
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": ["art/characters/source/creature-duskwing-combat-generated.png"],
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-duskwing-combat-generated.png"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -325,12 +376,25 @@
       "frames": {
         "columns": 4,
         "rows": 5,
-        "columnOrder": [0, 1, 2, 3],
-        "rowOrder": ["idle", "attack", "hit", "faint", "capture"]
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": ["art/characters/source/creature-fernling-combat-generated.png"],
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-fernling-combat-generated.png"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -400,6 +464,44 @@
         "editablePixelSource": "art/assets/source atlas cell",
         "originalGeneratedReferences": [],
         "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-hushram-combat",
+      "src": "assets/creatures/creature-hushram-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 1168,
+        "y": 1456
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-hushram-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
       }
     },
     {
@@ -564,11 +666,18 @@
         "rows": 1,
         "frameWidth": 160,
         "frameHeight": 256,
-        "columnOrder": ["north", "east", "south", "west"]
+        "columnOrder": [
+          "north",
+          "east",
+          "south",
+          "west"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/assets/source atlas cell",
-        "originalGeneratedReferences": ["art/characters/SOURCES.md"],
+        "originalGeneratedReferences": [
+          "art/characters/SOURCES.md"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -610,12 +719,29 @@
         "rows": 8,
         "frameWidth": 160,
         "frameHeight": 256,
-        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/assets/source atlas cell",
-        "originalGeneratedReferences": ["art/characters/SOURCES.md"],
+        "originalGeneratedReferences": [
+          "art/characters/SOURCES.md"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -697,11 +823,18 @@
         "rows": 1,
         "frameWidth": 160,
         "frameHeight": 256,
-        "columnOrder": ["north", "east", "south", "west"]
+        "columnOrder": [
+          "north",
+          "east",
+          "south",
+          "west"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/assets/source atlas cell",
-        "originalGeneratedReferences": ["art/characters/SOURCES.md"],
+        "originalGeneratedReferences": [
+          "art/characters/SOURCES.md"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },

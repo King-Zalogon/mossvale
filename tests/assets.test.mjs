@@ -78,7 +78,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
   assert.deepEqual(errors, []);
   assert.deepEqual(
     registry.subjects.map(subject => subject.id),
-    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing', 'creature-emberkin'],
+    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing', 'creature-emberkin', 'creature-brooklet', 'creature-hushram'],
   );
   const player = registry.subjects[0];
   assert.deepEqual(player.sourceBatches.flatMap(batch => batch.directions).toSorted(), [
