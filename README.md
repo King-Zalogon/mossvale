@@ -1,5 +1,7 @@
 # Mossvale
 
+Map authoring preview: open `dist/map-editor.html` locally. The browser editor keeps its edits local and exports the validated map JSON used by the runtime and CLI.
+
 An original browser-playable creature-catching game with a 2D isometric world, pixel art, and eight-direction movement.
 
 [Play the hosted game](https://mossvale-pixel-adventure.gonzaloreydelcastill.chatgpt.site)

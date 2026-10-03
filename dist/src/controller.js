@@ -19,6 +19,7 @@ import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
 import {grant as grantReward} from './domain/economy.js';
+import {createSpeech} from './ui/speech.js';
 
 export function createController(app) {
   const {game, ui, audio, rng, persist, canvas, actions, menus, maps, mapsById, objCtx} = app;
@@ -26,6 +27,7 @@ export function createController(app) {
   const sfx = name => audio.play(name);
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
   const timeline = (app.timeline = createTimeline());
+  const speech = createSpeech({ui, canvas});
   const wait = ms => (app.motionReduced() ? 250 : ms);
 
   /** Distance to walk before the next encounter, from the zone the player stands in (or the default range). */
@@ -152,7 +154,13 @@ export function createController(app) {
   function openRanger(message) {
     const o = rangerLandmark();
     const line = message ?? pickLine(o?.lines, save(), objCtx) ?? 'Welcome back. Rest here whenever you need to.';
-    menus.ranger({name: o?.name ?? 'The ranger', message: line + tip('first-ranger')});
+    const speakerId = o?.ref ?? 'narrator';
+    const actor = o;
+    speech.show(
+      [{text: line + tip('first-ranger'), speaker: speakerId, name: o?.name ?? 'Mossvale'}],
+      () => actor && app.projectWorld(actor.x, actor.y),
+      () => menus.ranger({name: o?.name ?? 'The ranger', message: ''}),
+    );
   }
 
   function rest() {
@@ -199,6 +207,10 @@ export function createController(app) {
   const sealOf = flag => regions.find(r => r.id === flag.split('.')[0]).seal.toLowerCase();
 
   function interact() {
+    if (ui.speechActive) {
+      speech.advance();
+      return;
+    }
     if (game.battle || ui.modalMode || ui.paused) return;
     if (ui.now - lastInteract < INTERACT_COOLDOWN_MS && ui.now >= lastInteract) return; // double taps do nothing
     lastInteract = ui.now;
@@ -252,7 +264,17 @@ export function createController(app) {
       }
       const result = applySceneActions(save(), event, {setFlag: flag => setFlag(save(), flag)});
       if (result.reward) grantReward(save(), result.reward);
-      if (result.dialogue.length) toast(result.dialogue.join(' '));
+      if (result.dialogue.length) {
+        const lines = result.dialogue.map(line => {
+          const actor = line.speaker === 'player' ? null : game.world.objects.find(object => object.ref === line.speaker);
+          return {...line, name: actor?.name ?? (line.speaker === 'player' ? 'You' : line.speaker === 'narrator' ? 'Mossvale' : actor?.kind)};
+        });
+        speech.show(lines, line => {
+          if (line.speaker === 'player') return app.projectWorld(game.player.x, game.player.y);
+          const actor = game.world.objects.find(object => object.ref === line.speaker);
+          return actor ? app.projectWorld(actor.x, actor.y) : null;
+        });
+      }
       if (result.challenge) beginBattle(result.challenge);
       persist();
     }
@@ -575,6 +597,20 @@ export function createController(app) {
     enterRegion,
     resetCamera,
     nearest,
+    advanceSpeech: () => speech.advance(),
+    dismissSpeech: () => speech.dismiss(),
+    positionSpeech: () => speech.position(),
+    previewSpeech: lines =>
+      speech.show(
+        lines.map(line => {
+          const actor = line.speaker === 'player' ? null : game.world.objects.find(object => object.ref === line.speaker);
+          return {...line, name: line.name ?? actor?.name ?? (line.speaker === 'player' ? 'You' : line.speaker === 'narrator' ? 'Mossvale' : undefined)};
+        }),
+        line => {
+          const actor = line.speaker === 'player' ? game.player : game.world.objects.find(object => object.ref === line.speaker);
+          return actor ? app.projectWorld(actor.x, actor.y) : null;
+        },
+      ),
     renderBattle,
     party: () => menus.party(),
     worldMap: () => menus.worldMap(),

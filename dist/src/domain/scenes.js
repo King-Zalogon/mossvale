@@ -22,7 +22,7 @@ export function markSceneRun(save, mapId, id) {
   return true;
 }
 
-export function validateSceneEvent(event, {speciesIds, mapId, mapIds, where}) {
+export function validateSceneEvent(event, {speciesIds, speakerIds = new Set(), mapId, mapIds, where}) {
   const errors = [];
   const at = (field, message) => errors.push(`${where}.${field}: ${message}`);
   if (!event || typeof event !== 'object' || Array.isArray(event)) return [`${where}: expected an event object`];
@@ -41,6 +41,8 @@ export function validateSceneEvent(event, {speciesIds, mapId, mapIds, where}) {
       if (!action || typeof action !== 'object' || Array.isArray(action)) return at(field, 'expected an action object');
       if (action.type === 'dialogue') {
         if (typeof action.text !== 'string' || !action.text.trim() || action.text.length > 500) at(field, 'dialogue needs 1–500 characters of text');
+        if (action.speaker !== undefined && action.speaker !== 'narrator' && action.speaker !== 'player' && !speakerIds.has(action.speaker))
+          at(`${field}.speaker`, `unknown speaker "${action.speaker}" (use narrator, player, or a landmark id)`);
       } else if (action.type === 'reward') {
         const keys = Object.keys(action).filter(key => key !== 'type');
         if (!keys.length || keys.some(key => !['coins', 'potions', 'orbs'].includes(key))) at(field, 'reward accepts coins, potions and orbs');
@@ -65,7 +67,7 @@ export function validateSceneEvent(event, {speciesIds, mapId, mapIds, where}) {
 export function applySceneActions(save, event, context) {
   const result = {dialogue: [], challenge: null, reward: null};
   for (const action of event.actions) {
-    if (action.type === 'dialogue') result.dialogue.push(action.text);
+    if (action.type === 'dialogue') result.dialogue.push({text: action.text, speaker: action.speaker ?? 'narrator'});
     else if (action.type === 'reward') {
       for (const key of ['coins', 'potions', 'orbs']) if (Number.isInteger(action[key])) save[key] += action[key];
       result.reward = action;

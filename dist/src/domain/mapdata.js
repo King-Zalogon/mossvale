@@ -211,7 +211,15 @@ function validateOne(m, byId, ctx, errors) {
         } else at(`${where}.do[${j}]`, 'action type must be "toast" or "battle"');
       });
     (t.events ?? []).forEach((event, j) => {
-      errors.push(...validateSceneEvent(event, {speciesIds: ctx.speciesIds, mapId: m.id, mapIds: new Set(byId.keys()), where: `${where}.events[${j}]`}));
+      errors.push(
+        ...validateSceneEvent(event, {
+          speciesIds: ctx.speciesIds,
+          speakerIds: new Set((m.landmarks ?? []).map(landmark => landmark.id)),
+          mapId: m.id,
+          mapIds: new Set(byId.keys()),
+          where: `${where}.events[${j}]`,
+        }),
+      );
       if (sceneEventIds.has(event?.id)) errors.push(`${where}.events[${j}].id: duplicate scene event id "${event.id}" in map ${m.id}`);
       sceneEventIds.add(event?.id);
       if (event?.actions?.some(action => action.type === 'challenge') && t.on !== 'interact')

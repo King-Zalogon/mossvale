@@ -1,5 +1,7 @@
 # Map and event data format (version 1)
 
+The browser authoring tool is available at `dist/map-editor.html`. It edits terrain, spawn points, and whole existing or newly placed entity records while preserving extra pack fields. “Play edited map” opens the selected map in the normal engine renderer in a fresh, read-only preview session. Run `npm run validate` after exporting; the CLI and game use the same map schema.
+
 Issue [#14](https://github.com/King-Zalogon/mossvale/issues/14). Maps are JSON files in `dist/maps/`, listed in `dist/maps/index.json` (the adventure pack manifest, see [PACKS.md](PACKS.md)). The runtime reads them at startup (`services/maps.js`), validates them (`domain/mapdata.js`) and compiles them (`domain/adventure.js`). No rule code names a specific map: change the data, not the engine.
 
 ## Workflow
@@ -49,7 +51,7 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 
 **zones** (encounters): `{ id, terrain: ["t"], rect?: [x0, y0, x1, y1], pool: [speciesId | { species, weight }...], level: [min, max], distance?: [min, max] }` (see [ENCOUNTERS.md](ENCOUNTERS.md)). Walking in a matching tile for long enough starts a wild encounter from `pool`. The first matching zone wins, so list narrow zones first.
 
-**triggers**: `{ id, at, radius?, on: "enter" | "interact", once?, do: [...] , events?: [...] }`. Existing `do` actions support a short toast or wild battle. Reusable `events` have a stable id, condition (`flag`, `met`, `caught`, `seen`, `visited`, `all`, or `not`) and required `repeatable: true | false`. Their action list can show dialogue, grant capped supplies, set a map milestone flag, or start a repeatable challenge. One-time events are recorded with the save in the existing atomic transaction, so rewards cannot replay after refresh. Challenge interactions must be repeatable so losing never consumes them. No script callbacks or arbitrary runtime code are allowed.
+**triggers**: `{ id, at, radius?, on: "enter" | "interact", once?, do: [...] , events?: [...] }`. Existing `do` actions support a short toast or wild battle. Reusable `events` have a stable id, condition (`flag`, `met`, `caught`, `seen`, `visited`, `all`, or `not`) and required `repeatable: true | false`. Their action list can show dialogue, grant capped supplies, set a map milestone flag, or start a repeatable challenge. Dialogue actions use `{ "type": "dialogue", "speaker": "ranger", "text": "..." }`; speaker is a stable landmark ID from that map, `player`, or `narrator` (the explicit top-of-viewport fallback). Lines remain ordered data, so a reply or a new speaker is another action. Bubbles are positioned from the current camera projection and use the same keyboard/touch advance controls. One-time events are recorded with the save in the existing atomic transaction, so rewards cannot replay after refresh. Challenge interactions must be repeatable so losing never consumes them. No script callbacks or arbitrary runtime code are allowed.
 
 ## Persistence is separate from geometry
 

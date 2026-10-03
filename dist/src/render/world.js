@@ -41,6 +41,12 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     const b = raw(view.camera.x, view.camera.y);
     return {x: canvas.width / 2 + (a.x - b.x) * view.zoom, y: canvas.height * 0.49 + (a.y - b.y) * view.zoom};
   };
+  const worldToScreen = (x, y) => {
+    const p = point(x, y);
+    const rect = canvas.getBoundingClientRect();
+    const viewport = canvas.parentElement.getBoundingClientRect();
+    return {x: rect.left - viewport.left + (p.x / canvas.width) * rect.width, y: rect.top - viewport.top + (p.y / canvas.height) * rect.height};
+  };
   const poly = (points, color) => {
     ctx.fillStyle = color;
     ctx.beginPath();
@@ -226,6 +232,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
   return {
     drawWorld,
     drawMinimap,
+    worldToScreen,
     context: ctx,
     miniContext: mini,
     get stats() {
