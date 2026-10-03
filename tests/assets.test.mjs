@@ -72,7 +72,8 @@ test('sample visual subjects have hashed canonical references, exports and linke
   const root = fileURLToPath(new URL('../', import.meta.url));
   const registry = JSON.parse(readFileSync(new URL('../art/assets/subjects.json', import.meta.url), 'utf8'));
   const sourceMetadata = JSON.parse(readFileSync(new URL('../art/assets/metadata.json', import.meta.url), 'utf8'));
-  const {errors} = checkSubjectProvenance(registry, {root, assets, sourceMetadata});
+  const combatMetadata = JSON.parse(readFileSync(new URL('../art/characters/creature-combat-metadata.json', import.meta.url), 'utf8'));
+  const {errors} = checkSubjectProvenance(registry, {root, assets, sourceMetadata, combatMetadata});
   assert.deepEqual(errors, []);
   assert.deepEqual(
     registry.subjects.map(subject => subject.id),
@@ -93,6 +94,10 @@ test('sample visual subjects have hashed canonical references, exports and linke
   for (const creature of registry.subjects.slice(1)) {
     assert.deepEqual(creature.runtimeTreatments.states, ['idle', 'travel', 'hit', 'capture']);
     assert.equal(creature.runtimeTreatments.artPixelsChanged, false);
+    assert.equal(creature.runtimeTreatments.scope, 'static portrait fallback only');
+    assert.deepEqual(creature.runtimeCombat.states, ['idle', 'attack', 'hit', 'faint', 'capture']);
+    assert.equal(creature.runtimeCombat.artPixelsChanged, true);
+    assert.ok(creature.sourceBatches.some(batch => batch.states?.length === 5 && batch.referenceAssetIds.includes(creature.id)));
   }
 });
 
@@ -100,13 +105,26 @@ test('visual-subject validation catches a stale output digest and an unrecorded 
   const root = fileURLToPath(new URL('../', import.meta.url));
   const registry = JSON.parse(readFileSync(new URL('../art/assets/subjects.json', import.meta.url), 'utf8'));
   const sourceMetadata = JSON.parse(readFileSync(new URL('../art/assets/metadata.json', import.meta.url), 'utf8'));
+  const combatMetadata = JSON.parse(readFileSync(new URL('../art/characters/creature-combat-metadata.json', import.meta.url), 'utf8'));
   registry.subjects[0].exports[0].sha256 = '0'.repeat(64);
   registry.subjects[0].sourceBatches[0].referenceAssetIds = ['missing-reference'];
   registry.subjects[0].sourceBatches[0].directions = ['northeast'];
-  const {errors} = checkSubjectProvenance(registry, {root, assets, sourceMetadata});
+  const {errors} = checkSubjectProvenance(registry, {root, assets, sourceMetadata, combatMetadata});
   has(errors, 'SHA-256 mismatch');
   has(errors, 'is not a canonical reference');
   has(errors, 'required direction north has no source batch');
+});
+
+test('combat provenance rejects frame-order drift and unlinked generated sources', () => {
+  const root = fileURLToPath(new URL('../', import.meta.url));
+  const registry = JSON.parse(readFileSync(new URL('../art/assets/subjects.json', import.meta.url), 'utf8'));
+  const sourceMetadata = JSON.parse(readFileSync(new URL('../art/assets/metadata.json', import.meta.url), 'utf8'));
+  const combatMetadata = JSON.parse(readFileSync(new URL('../art/characters/creature-combat-metadata.json', import.meta.url), 'utf8'));
+  registry.subjects[1].runtimeCombat.states.reverse();
+  registry.subjects[2].sourceBatches[0].path = 'art/characters/source/missing-generated-sheet.png';
+  const {errors} = checkSubjectProvenance(registry, {root, assets, sourceMetadata, combatMetadata});
+  has(errors, 'runtime combat states must match the manifest frame row order');
+  has(errors, 'generated combat source must be recorded as a referenced source batch');
 });
 
 test('content refers to art by name: species, directions and the manifest agree', () => {

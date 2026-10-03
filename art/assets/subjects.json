@@ -49,7 +49,7 @@
         },
         "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
       },
-      "sourceNotes": {"path": "art/characters/SOURCES.md", "sha256": "259095c659cb1e54a64bc4770d3c29a5c2b1eab25958aa1d7092fc4e74f0a566"},
+      "sourceNotes": {"path": "art/characters/SOURCES.md", "sha256": "875538a0389c66c86f29ab520a6d7a0b00937d0d573ac3489abda8904a0463eb"},
       "sourceMetadata": {"path": "art/characters/metadata.json", "sha256": "993d4294eed1c27f2bd01f6769914b444e8b98cd7085e3da47eb26a27c703be2"},
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -127,27 +127,70 @@
         },
         "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
       },
-      "sourceNotes": {"path": "art/assets/metadata.json", "sha256": "07fdd422aae5c3a1866271995b986b5f9dceb8cdb993a3d4a9296ba86135f522"},
+      "sourceNotes": {"path": "art/assets/metadata.json", "sha256": "dfe6f84e91c71b0ea4c3c318f68c431e5a7f6153a2f8e7f716b0107333fbe162"},
       "exportWorkflow": {
         "path": "art/assets/export.py",
         "sha256": "3afa52883bf0fd0b91cf525c8d8aabee006b0a9a499f964c183f9334cb8d1986",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change."
       },
-      "sourceBatches": [],
+      "sourceBatches": [
+        {
+          "id": "fernling-combat-2026-10-03",
+          "path": "art/characters/source/creature-fernling-combat-generated.png",
+          "sha256": "cbb4048b2d189e0017b5f2c7b0e536daa19b47f5852de5f0e0b96ed6e5c993da",
+          "directions": [],
+          "states": ["idle", "attack", "hit", "faint", "capture"],
+          "referenceAssetIds": ["creature-fernling"],
+          "exportAssetIds": ["creature-fernling-combat"],
+          "generation": {
+            "tool": {"status": "summary-only", "value": "image generation tool", "evidence": "art/characters/SOURCES.md#creature-combat-frame-milestone"},
+            "provider": {"status": "unavailable", "reason": "The retained combat-art notes do not identify the provider."},
+            "modelVersion": {"status": "unavailable", "reason": "The retained combat-art notes do not identify a model or version."},
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve leaf fox identity and green/cream/brown palette; add idle, leafy attack, hit recovery, faint and capture reactions.",
+              "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.fernling"
+            },
+            "seed": {"status": "unavailable", "reason": "No generation seed was retained."},
+            "generationReference": {"status": "available", "assetIds": ["creature-fernling"]},
+            "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
+          }
+        }
+      ],
       "exports": [
         {
           "assetId": "creature-fernling",
           "path": "dist/assets/creatures/creature-fernling.png",
           "sha256": "426046feb5c9b34cd134af383f054ef325a3153a827f81065388b28a35884d84"
+        },
+        {
+          "assetId": "creature-fernling-combat",
+          "path": "dist/assets/creatures/creature-fernling-combat.png",
+          "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64"
         }
       ],
       "runtimeTreatments": {
         "assetId": "creature-fernling",
+        "scope": "static portrait fallback only",
         "contractPath": "art/characters/creature-animation-metadata.json",
         "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
         "requiredStates": ["idle", "travel", "hit", "capture"],
         "states": ["idle", "travel", "hit", "capture"],
         "artPixelsChanged": false
+      },
+      "runtimeCombat": {
+        "assetId": "creature-fernling-combat",
+        "fallbackAssetId": "creature-fernling",
+        "contractPath": "art/characters/creature-combat-metadata.json",
+        "contractSha256": "c8efb137d6d6342b761f5db76b65dfeb1de785c9d1caf277d9652a1555112240",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-combat.py",
+          "sha256": "49710fbb088d4891fd3e60b29a2ebc35d39ccef06867388c9265daf00f107389",
+          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling."
+        },
+        "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
+        "states": ["idle", "attack", "hit", "faint", "capture"],
+        "artPixelsChanged": true
       }
     },
     {
@@ -179,27 +222,70 @@
         },
         "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
       },
-      "sourceNotes": {"path": "art/assets/metadata.json", "sha256": "07fdd422aae5c3a1866271995b986b5f9dceb8cdb993a3d4a9296ba86135f522"},
+      "sourceNotes": {"path": "art/assets/metadata.json", "sha256": "dfe6f84e91c71b0ea4c3c318f68c431e5a7f6153a2f8e7f716b0107333fbe162"},
       "exportWorkflow": {
         "path": "art/assets/export.py",
         "sha256": "3afa52883bf0fd0b91cf525c8d8aabee006b0a9a499f964c183f9334cb8d1986",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change."
       },
-      "sourceBatches": [],
+      "sourceBatches": [
+        {
+          "id": "duskwing-combat-2026-10-03",
+          "path": "art/characters/source/creature-duskwing-combat-generated.png",
+          "sha256": "480eec7a72277fda6a876d9439c3125884380ec7e64421e23d42c13a3e2c6e46",
+          "directions": [],
+          "states": ["idle", "attack", "hit", "faint", "capture"],
+          "referenceAssetIds": ["creature-duskwing"],
+          "exportAssetIds": ["creature-duskwing-combat"],
+          "generation": {
+            "tool": {"status": "summary-only", "value": "image generation tool", "evidence": "art/characters/SOURCES.md#creature-combat-frame-milestone"},
+            "provider": {"status": "unavailable", "reason": "The retained combat-art notes do not identify the provider."},
+            "modelVersion": {"status": "unavailable", "reason": "The retained combat-art notes do not identify a model or version."},
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve purple moth identity, patterned lavender wings, cream collar and magenta eyes; create five clean rows with complete contained poses for idle, gust attack, hit recovery, faint and capture reactions.",
+              "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.duskwing"
+            },
+            "seed": {"status": "unavailable", "reason": "No generation seed was retained."},
+            "generationReference": {"status": "available", "assetIds": ["creature-duskwing"]},
+            "maskHashes": {"status": "unavailable", "reason": "No generation masks were retained."}
+          }
+        }
+      ],
       "exports": [
         {
           "assetId": "creature-duskwing",
           "path": "dist/assets/creatures/creature-duskwing.png",
           "sha256": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1"
+        },
+        {
+          "assetId": "creature-duskwing-combat",
+          "path": "dist/assets/creatures/creature-duskwing-combat.png",
+          "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02"
         }
       ],
       "runtimeTreatments": {
         "assetId": "creature-duskwing",
+        "scope": "static portrait fallback only",
         "contractPath": "art/characters/creature-animation-metadata.json",
         "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
         "requiredStates": ["idle", "travel", "hit", "capture"],
         "states": ["idle", "travel", "hit", "capture"],
         "artPixelsChanged": false
+      },
+      "runtimeCombat": {
+        "assetId": "creature-duskwing-combat",
+        "fallbackAssetId": "creature-duskwing",
+        "contractPath": "art/characters/creature-combat-metadata.json",
+        "contractSha256": "c8efb137d6d6342b761f5db76b65dfeb1de785c9d1caf277d9652a1555112240",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-combat.py",
+          "sha256": "49710fbb088d4891fd3e60b29a2ebc35d39ccef06867388c9265daf00f107389",
+          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling."
+        },
+        "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
+        "states": ["idle", "attack", "hit", "faint", "capture"],
+        "artPixelsChanged": true
       }
     }
   ]

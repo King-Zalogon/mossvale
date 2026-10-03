@@ -13,7 +13,8 @@ const sources = [...walk(join(dist, 'src')), ...walk(join(dist, 'maps'))].filter
 const {errors, warnings} = checkAssets(assets, dist, {referenceText: sources.map(f => readFileSync(f, 'utf8')).join('\n')});
 const sourceMetadata = JSON.parse(readFileSync(new URL('../art/assets/metadata.json', import.meta.url), 'utf8'));
 const subjectRegistry = JSON.parse(readFileSync(new URL('../art/assets/subjects.json', import.meta.url), 'utf8'));
-errors.push(...checkSubjectProvenance(subjectRegistry, {root, assets, sourceMetadata}).errors);
+const combatMetadata = JSON.parse(readFileSync(new URL('../art/characters/creature-combat-metadata.json', import.meta.url), 'utf8'));
+errors.push(...checkSubjectProvenance(subjectRegistry, {root, assets, sourceMetadata, combatMetadata}).errors);
 for (const w of warnings) console.warn('warning: ' + w);
 if (errors.length) {
   console.error(errors.join('\n'));

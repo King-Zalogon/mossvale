@@ -56,7 +56,7 @@ function checkAvailability(record, errors, where) {
 }
 
 /** Check the auditable visual-identity records without inferring missing generation history. */
-export function checkSubjectProvenance(registry, {root, assets, sourceMetadata}) {
+export function checkSubjectProvenance(registry, {root, assets, sourceMetadata, combatMetadata}) {
   const errors = [];
   if (!Array.isArray(assets) || !Array.isArray(sourceMetadata?.assets)) return {errors: ['subjects.json: asset manifest metadata is malformed']};
   const manifest = new Map(assets.map(asset => [asset.name, asset]));
@@ -141,6 +141,7 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata})
     const sourceBatches = subject?.sourceBatches;
     if (!Array.isArray(sourceBatches)) errors.push(`${where}: sourceBatches must be an array`);
     const directions = new Set();
+    const states = new Set();
     for (const [index, batch] of (Array.isArray(sourceBatches) ? sourceBatches : []).entries()) {
       const batchWhere = `${where}: sourceBatches[${index}]`;
       if (!batch?.id) errors.push(`${batchWhere}: batch ID is required`);
@@ -151,12 +152,27 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata})
         if (directions.has(direction)) errors.push(`${batchWhere}: duplicate direction ${direction}`);
         directions.add(direction);
       }
+      if (batch?.states !== undefined && !Array.isArray(batch.states)) errors.push(`${batchWhere}: states must be an array`);
+      for (const state of Array.isArray(batch?.states) ? batch.states : []) {
+        if (!['idle', 'attack', 'hit', 'faint', 'capture'].includes(state)) errors.push(`${batchWhere}: unknown combat state ${state}`);
+        if (states.has(state)) errors.push(`${batchWhere}: duplicate combat state ${state}`);
+        states.add(state);
+      }
       if (!Array.isArray(batch?.referenceAssetIds)) errors.push(`${batchWhere}: referenceAssetIds must be an array`);
       for (const id of Array.isArray(batch?.referenceAssetIds) ? batch.referenceAssetIds : [])
         if (!referenceIds.has(id)) errors.push(`${batchWhere}: reference ${id} is not a canonical reference for this subject`);
       if (!Array.isArray(batch?.exportAssetIds)) errors.push(`${batchWhere}: exportAssetIds must be an array`);
       for (const id of Array.isArray(batch?.exportAssetIds) ? batch.exportAssetIds : [])
         if (!exportIds.has(id)) errors.push(`${batchWhere}: output ${id} is not recorded in this subject's exports`);
+      if (batch?.generation) {
+        for (const field of ['tool', 'provider', 'modelVersion', 'prompt', 'seed', 'generationReference', 'maskHashes']) {
+          checkAvailability(batch.generation[field], errors, `${batchWhere}: generation.${field}`);
+        }
+        if (batch.generation.generationReference?.status === 'available') {
+          for (const id of batch.generation.generationReference.assetIds ?? [])
+            if (!referenceIds.has(id)) errors.push(`${batchWhere}: generation reference ${id} is not a canonical reference`);
+        }
+      }
     }
     for (const direction of subject?.requiredDirections ?? [])
       if (!directions.has(direction)) errors.push(`${where}: required direction ${direction} has no source batch`);
@@ -171,6 +187,53 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata})
         if (!['idle', 'travel', 'hit', 'capture'].includes(state)) errors.push(`${where}: unknown runtime treatment ${state}`);
       for (const state of treatments.requiredStates ?? [])
         if (!treatments.states?.includes(state)) errors.push(`${where}: required runtime treatment ${state} is missing`);
+    }
+
+    if (subject?.runtimeCombat) {
+      const combat = subject.runtimeCombat;
+      const combatAsset = manifest.get(combat.assetId);
+      if (!exportIds.has(combat.assetId)) errors.push(`${where}: runtime combat asset must resolve to a recorded export`);
+      if (!exportIds.has(combat.fallbackAssetId)) errors.push(`${where}: runtime combat fallback must resolve to a recorded export`);
+      checkHash(root, {path: combat.contractPath, sha256: combat.contractSha256}, errors, `${where}: runtime combat contract`);
+      if (!Array.isArray(combat.states)) errors.push(`${where}: runtime combat states must be an array`);
+      if (!Array.isArray(combat.requiredStates)) errors.push(`${where}: required runtime combat states must be an array`);
+      checkHash(root, combat.exportWorkflow, errors, `${where}: runtime combat export workflow`);
+      if (!combat.exportWorkflow?.settings?.trim()) errors.push(`${where}: runtime combat export settings must be recorded`);
+      for (const state of combat.requiredStates ?? []) {
+        if (!combat.states?.includes(state)) errors.push(`${where}: required runtime combat state ${state} is missing`);
+        if (!states.has(state)) errors.push(`${where}: required runtime combat state ${state} has no source batch`);
+      }
+      if (!combatAsset?.frames) errors.push(`${where}: runtime combat asset must declare animation frames in the manifest`);
+      else if (JSON.stringify(combat.states) !== JSON.stringify(combatAsset.frames.rowOrder)) {
+        errors.push(`${where}: runtime combat states must match the manifest frame row order`);
+      }
+      const speciesKey = subject.id?.replace(/^creature-/, '');
+      const contractSource = combatMetadata?.sourceReferences?.[speciesKey];
+      const contractSprite = combatMetadata?.sprites?.[combat.assetId];
+      if (!contractSource || !contractSprite) errors.push(`${where}: combat art must resolve in creature-combat-metadata.json`);
+      else {
+        if (contractSprite.output !== `dist/${combatAsset?.src}`) errors.push(`${where}: combat metadata output does not match the manifest`);
+        if (contractSource.referenceAsset !== subject.id) errors.push(`${where}: combat generation reference must identify this subject`);
+        if (JSON.stringify(combat.states) !== JSON.stringify(combatMetadata.frameOrder))
+          errors.push(`${where}: runtime combat states must match the combat metadata frame order`);
+        if (
+          combatAsset?.frames &&
+          (contractSprite.columns !== combatAsset.frames.columns ||
+            contractSprite.rows !== combatAsset.frames.rows ||
+            contractSprite.frame?.[0] !== combatAsset.frames.frameWidth ||
+            contractSprite.frame?.[1] !== combatAsset.frames.frameHeight)
+        ) {
+          errors.push(`${where}: combat frame dimensions do not match the manifest`);
+        }
+        const sourceMetadataEntry = sourceByName.get(combat.assetId);
+        if (!sourceMetadataEntry?.provenance?.originalGeneratedReferences?.includes(contractSource.generatedSource)) {
+          errors.push(`${where}: editable source metadata does not link the generated combat source`);
+        }
+        if (!sourceBatches?.some(batch => batch.path === contractSource.generatedSource && batch.referenceAssetIds?.includes(contractSource.referenceAsset))) {
+          errors.push(`${where}: generated combat source must be recorded as a referenced source batch`);
+        }
+      }
+      if (combat.artPixelsChanged !== true) errors.push(`${where}: generated combat art must disclose that its pixels changed`);
     }
   }
   return {errors};
