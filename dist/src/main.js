@@ -293,6 +293,9 @@ function resize() {
 
 let last = 0;
 let frame = 0;
+// Frame timings for scripts/measure-perf.mjs; collected only with ?debug (the sample is a ring of the last 600 frames).
+const perf = debug ? {draw: [], mini: [], frames: 0, started: performance.now()} : null;
+const sample = (list, ms) => (list.push(ms), list.length > 600 && list.shift());
 function loop(t) {
   const dt = Math.min((t - last) / 1000, 0.04) || 0;
   last = t;
@@ -328,8 +331,15 @@ function loop(t) {
       phase: game.phase,
       moving: isMoving(ui) && !ui.modalMode && !ui.paused,
     };
+    const t0 = perf ? performance.now() : 0;
     renderer.drawWorld(view);
+    const t1 = perf ? performance.now() : 0;
     if (frame % 4 === 0) renderer.drawMinimap(view);
+    if (perf) {
+      sample(perf.draw, t1 - t0);
+      if (frame % 4 === 0) sample(perf.mini, performance.now() - t1);
+      perf.frames++;
+    }
   }
   requestAnimationFrame(loop);
 }
@@ -394,5 +404,6 @@ if (debug) {
     level: id => level(game.save, id),
     maxHP: id => maxHP(game.save, id),
     effectiveness,
+    perf: () => perf,
   };
 }

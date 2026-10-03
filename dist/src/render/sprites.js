@@ -3,14 +3,33 @@ import {species} from '../data/species.js';
 
 export const sprites = [];
 
+const tinted = new Map();
+
+/** A copy of sprite `id` with the canvas `filter` baked in once. Applying `ctx.filter` per draw is re-rasterised every frame. */
+function tintedSprite(id, tint) {
+  const key = id + '|' + tint;
+  let copy = tinted.get(key);
+  if (!copy) {
+    const im = sprites[id];
+    copy = document.createElement('canvas');
+    copy.width = im.naturalWidth;
+    copy.height = im.naturalHeight;
+    const c = copy.getContext('2d');
+    c.filter = tint;
+    c.drawImage(im, 0, 0);
+    tinted.set(key, copy);
+  }
+  return copy;
+}
+
 export function drawSprite(c, id, x, y, w, options = {}) {
-  const im = sprites[id];
-  if (!im?.complete || !im.naturalWidth) return;
-  const h = (w * im.height) / im.width;
+  const source = sprites[id];
+  if (!source?.complete || !source.naturalWidth) return;
+  const im = options.tint && options.tint !== 'none' ? tintedSprite(id, options.tint) : source;
+  const h = (w * source.height) / source.width;
   c.save();
   c.imageSmoothingEnabled = false;
   if (options.alpha !== undefined) c.globalAlpha = options.alpha;
-  if (options.tint) c.filter = options.tint;
   if (options.flip) {
     c.translate(Math.round(x), Math.round(y));
     c.scale(-1, 1);
