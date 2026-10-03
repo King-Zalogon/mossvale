@@ -211,3 +211,12 @@ test('compiled meadow geometry follows the terrain grid', () => {
   assert.ok(isWalkable(world, 12, 13));
   assert.ok(!isWalkable(world, 5, 15)); // pond
 });
+
+test('each local ranger has a distinct name and NPC artwork', () => {
+  const rangers = rawMaps().flatMap(m => m.landmarks.filter(l => l.kind === 'ranger'));
+  assert.equal(new Set(rangers.map(r => r.name)).size, rangers.length);
+  for (const ranger of rangers) {
+    assert.ok(['person-gardener', 'person-traveler'].includes(ranger.sprite), ranger.name);
+    assert.equal(ranger.label, `Talk to ${ranger.name}`);
+  }
+});
