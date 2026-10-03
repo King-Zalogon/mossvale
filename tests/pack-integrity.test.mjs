@@ -14,7 +14,18 @@ test('the shipped pack declares one canonical SHA-256 for every selected data fi
   const entries = packFileEntries(rawPack);
   assert.deepEqual(
     entries.map(entry => entry.id),
-    ['registry:main', 'map:meadow', 'map:amber-ridge', 'map:frostveil-grove', 'map:reedfen-wetlands', 'map:orchard-ruins', 'objectives:main', 'story:main'],
+    [
+      'registry:main',
+      'map:meadow',
+      'map:amber-ridge',
+      'map:frostveil-grove',
+      'map:reedfen-wetlands',
+      'map:orchard-ruins',
+      'map:stilt-isles',
+      'map:stone-basin',
+      'objectives:main',
+      'story:main',
+    ],
   );
   assert.deepEqual(validatePackMetadata(rawPack, {required: true}), []);
   for (const {id, path} of entries) assert.equal(rawPack.integrity.find(file => file.id === id).path, path);

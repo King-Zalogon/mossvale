@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "profileId": "creature-follower-v1",
+  "sourceReferences": {
+    "generatedOn": "2026-10-03",
+    "emberkin": {
+      "generatedSource": "art/characters/source/creature-emberkin-follower-generated.png",
+      "revisionSource": "art/characters/source/creature-emberkin-follower-initial.png",
+      "referenceAsset": "creature-emberkin",
+      "promptBrief": "Preserve the fire fox creature's face, flame tufts and orange/cream palette; transparent 5×8 directional atlas with compact four-pose travel cycles."
+    },
+    "fernling": {
+      "generatedSource": "art/characters/source/creature-fernling-follower-generated.png",
+      "revisionSource": "art/characters/source/creature-fernling-follower-initial.png",
+      "referenceAsset": "creature-fernling",
+      "promptBrief": "Preserve the leafy fox creature's face, leaf fan, cream chest and green palette; transparent 5×8 directional atlas with compact four-pose travel cycles."
+    }
+  },
+  "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+  "frameOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+  "frame": [200, 200],
+  "grid": {"columns": 5, "rows": 8},
+  "sheetRows": {
+    "creature-fernling-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-emberkin-follower": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"]
+  },
+  "sprites": {
+    "creature-emberkin-follower": {
+      "sourceSize": [992, 1585],
+      "output": "dist/assets/creatures/creature-emberkin-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-fernling-follower": {
+      "sourceSize": [994, 1582],
+      "output": "dist/assets/creatures/creature-fernling-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    }
+  },
+  "anchor": "bottom-center",
+  "feetY": 196,
+  "cadence": {
+    "unit": "follower world-distance",
+    "distancePerFrame": 0.42,
+    "walking": "advance one walk column for each 0.42 units traveled by the follower; run naturally advances faster",
+    "stopping": "hold idle column 0 and retain last facing",
+    "reducedMotion": "hold idle column 0 and retain last facing"
+  },
+  "fallback": "Species without a creature-<species>-follower atlas use their static portrait until a later #90 batch."
+}

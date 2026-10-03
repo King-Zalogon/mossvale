@@ -14,6 +14,7 @@ const types = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
 for (const [pack, expected] of [
   ['hearth', 'Hearth Hamlet'],
   ['bakery', 'Bakery Row'],
+  ['lantern-crossing', 'Lantern Crossing'],
 ]) {
   const output = join(scratch, pack);
   const source = join(root, 'tests/fixtures/packs', pack);
@@ -42,7 +43,39 @@ try {
     assert.deepEqual(errors, []);
     await page.close();
   }
-  console.log('ok standalone selected-pack builds boot independently');
+  const page = await browser.newPage();
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto(`http://localhost:${server.address().port}/lantern-crossing/?debug&seed=17`);
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  await page.waitForFunction(() => window.mossvale?.getState().world.map.id === 'start');
+  const spawn = await page.evaluate(() => window.mossvale.getState().player);
+  await page.keyboard.down('d');
+  await page.waitForFunction(
+    () => {
+      const p = window.mossvale.getState().player;
+      return p.x >= 5.4 && p.y <= 2.7;
+    },
+    null,
+    {timeout: 8000},
+  );
+  await page.keyboard.up('d');
+  await page.keyboard.press('e');
+  await page.waitForSelector('#result-continue');
+  const rewarded = await page.evaluate(() => window.mossvale.getState().save);
+  const objective = await page.evaluate(() => window.mossvale.objective());
+  assert.ok(Math.hypot(spawn.x - 6, spawn.y - 2) > 2, 'the player walked from camp to the chest');
+  assert.deepEqual([rewarded.coins, rewarded.potions, rewarded.orbs, rewarded.chests.length], [8, 4, 14, 1]);
+  assert.equal(objective.id, 'crossing-complete');
+  await page.click('#result-continue');
+  await page.waitForSelector('#story-ok');
+  await page.click('#story-ok');
+  await page.reload();
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  assert.deepEqual(await page.evaluate(() => [window.mossvale.getState().save.coins, window.mossvale.getState().save.chests.length]), [8, 1]);
+  assert.deepEqual(errors, []);
+  await page.close();
+  console.log('ok standalone packs boot; Lantern Crossing is walked, rewarded, completed and restored');
 } finally {
   await browser.close();
   server.close();

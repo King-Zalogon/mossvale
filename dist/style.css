@@ -493,8 +493,8 @@ footer {
 .touchpad {
   display: none;
   position: absolute;
-  bottom: 18px;
-  left: 18px;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  left: max(18px, env(safe-area-inset-left));
   grid-template-columns: repeat(3, 32px);
   gap: 3px;
 }
@@ -862,8 +862,8 @@ canvas#buddy {
 .touch-run {
   display: none;
   position: absolute;
-  bottom: 18px;
-  right: 17px;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  right: max(17px, env(safe-area-inset-right));
   background: #183b2bcc;
   border: 1px solid #adc891;
   border-radius: 7px;
@@ -1489,8 +1489,8 @@ canvas#buddy {
   }
   .touchpad {
     grid-template-columns: repeat(3, 35px);
-    bottom: 17px;
-    left: 13px;
+    bottom: max(17px, env(safe-area-inset-bottom));
+    left: max(13px, env(safe-area-inset-left));
     gap: 3px;
   }
   .touchpad button {

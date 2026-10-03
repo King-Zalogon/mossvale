@@ -29,7 +29,7 @@ export function installInput(app) {
       b.setPointerCapture(e.pointerId);
       ui.touch = b.dataset.dir.split(',').map(Number);
     };
-    b.onpointerup = b.onpointercancel = () => (ui.touch = null);
+    b.onpointerup = b.onpointercancel = b.onlostpointercapture = () => (ui.touch = null);
   }
 
   window.addEventListener('keydown', e => {
@@ -103,12 +103,14 @@ export function installInput(app) {
     releaseAll();
     persist();
   });
+  window.addEventListener('orientationchange', releaseAll);
   document.addEventListener('visibilitychange', () => {
     releaseAll();
     if (document.hidden) actions.flushPlayback();
     persist();
   });
   window.addEventListener('pagehide', () => {
+    releaseAll();
     actions.flushPlayback();
     persist();
   });

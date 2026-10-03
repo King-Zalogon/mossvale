@@ -67,7 +67,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "dfa289d656880469e6e922275f3c7ba2e49c0e2db19fdeb4e4879a89efbb048c"
+        "sha256": "2a2f7dddf85f2ccd0961d76338340df146650594a9863f368bb6be2ab19af108"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
@@ -177,8 +177,8 @@
         }
       },
       "sourceNotes": {
-        "path": "art/assets/metadata.json",
-        "sha256": "b1d8ca492275915a4b246c2ff79869a46170e697e380fe0ee2af6846f088ea7e"
+        "path": "art/characters/SOURCES.md",
+        "sha256": "2a2f7dddf85f2ccd0961d76338340df146650594a9863f368bb6be2ab19af108"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -228,6 +228,46 @@
               "reason": "No generation masks were retained."
             }
           }
+        },
+        {
+          "id": "fernling-follower-directions-2026-10-03",
+          "path": "art/characters/source/creature-fernling-follower-generated.png",
+          "sha256": "61d8bd41766d2a3447abd95f289f5778c2576683eca6ac6c81077999abc023f6",
+          "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "referenceAssetIds": ["creature-fernling"],
+          "exportAssetIds": ["creature-fernling-follower"],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#Creature-follower-direction-milestone-90"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide model-version metadata."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve the fernling identity and palette; produce an eight-direction, five-frame transparent overworld follower sprite atlas with stable foot anchors.",
+              "evidence": "art/characters/creature-follower-metadata.json"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was supplied."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": ["creature-fernling"]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No masks were supplied."
+            }
+          }
         }
       ],
       "exports": [
@@ -244,6 +284,13 @@
           "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64",
           "profileId": "creature-combat-v1",
           "profileSha256": "b295d09d7788e628e679c812299e4aba79f8080e3134425a47e28cf4e7cbda74"
+        },
+        {
+          "assetId": "creature-fernling-follower",
+          "path": "dist/assets/creatures/creature-fernling-follower.png",
+          "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
         }
       ],
       "runtimeTreatments": {
@@ -270,6 +317,26 @@
         "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
         "states": ["idle", "attack", "hit", "faint", "capture"],
         "artPixelsChanged": true
+      },
+      "requiredDirections": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+      "sourceMetadata": {
+        "path": "art/characters/creature-follower-metadata.json",
+        "sha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7"
+      },
+      "runtimeFollower": {
+        "assetId": "creature-fernling-follower",
+        "fallbackAssetId": "creature-fernling",
+        "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+        "frameOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "72e92e9537ebc89ab173c9855b1a4a2443a459eb5d7771deab9c41a9cf12cd10",
+          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+        }
       }
     },
     {
@@ -326,7 +393,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "b1d8ca492275915a4b246c2ff79869a46170e697e380fe0ee2af6846f088ea7e"
+        "sha256": "d2ca0d3ca01d168db3bb52e9d2104e4743b7d5d92f09b182a6a289da8d9abe46"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -418,6 +485,141 @@
         "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
         "states": ["idle", "attack", "hit", "faint", "capture"],
         "artPixelsChanged": true
+      }
+    },
+    {
+      "id": "creature-emberkin",
+      "revision": 1,
+      "identity": {
+        "silhouette": "Small quadrupedal fire fox with an upright flame crest, flame-shaped curled tail and compact paws.",
+        "palette": ["ember orange", "deep red", "golden yellow", "cream", "dark brown"],
+        "distinguishingFeatures": ["large glossy eyes", "upright flame crest", "bright curled flame tail", "cream chest"]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-emberkin",
+          "path": "dist/assets/creatures/creature-emberkin.png",
+          "sha256": "f7bd5e6dd44bf8fe44a7d708f48c8f8ef6946c4ea7e20f989f46266b92c97350"
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "unavailable",
+          "reason": "The original portrait generation tool was not recorded."
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The original portrait provider was not recorded."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The original portrait model version was not recorded."
+        },
+        "prompt": {
+          "status": "unavailable",
+          "reason": "The original portrait generation prompt was not retained."
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "The original portrait seed was not recorded."
+        },
+        "generationReference": {
+          "status": "unavailable",
+          "reason": "The original portrait generation reference was not retained."
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "The original portrait generation masks were not recorded."
+        }
+      },
+      "sourceNotes": {
+        "path": "art/characters/SOURCES.md",
+        "sha256": "2a2f7dddf85f2ccd0961d76338340df146650594a9863f368bb6be2ab19af108"
+      },
+      "sourceMetadata": {
+        "path": "art/characters/creature-follower-metadata.json",
+        "sha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7"
+      },
+      "exportWorkflow": {
+        "path": "art/assets/export.py",
+        "sha256": "f1538fc373d074ab2321e0715ce289913460b7686036e54a0106e44f4f76510b",
+        "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
+        "profileId": "creature-portrait-v1",
+        "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
+      },
+      "sourceBatches": [
+        {
+          "id": "emberkin-follower-directions-2026-10-03",
+          "path": "art/characters/source/creature-emberkin-follower-generated.png",
+          "sha256": "50f69f69bb6ef766c5ae2cc578695744cd98958accdcd9545127155441c82411",
+          "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "referenceAssetIds": ["creature-emberkin"],
+          "exportAssetIds": ["creature-emberkin-follower"],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#Creature-follower-direction-milestone-90"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide model-version metadata."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve the emberkin identity and palette; produce an eight-direction, five-frame transparent overworld follower sprite atlas with stable foot anchors.",
+              "evidence": "art/characters/creature-follower-metadata.json"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was supplied."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": ["creature-emberkin"]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No masks were supplied."
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "assetId": "creature-emberkin",
+          "path": "dist/assets/creatures/creature-emberkin.png",
+          "sha256": "f7bd5e6dd44bf8fe44a7d708f48c8f8ef6946c4ea7e20f989f46266b92c97350",
+          "profileId": "creature-portrait-v1",
+          "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
+        },
+        {
+          "assetId": "creature-emberkin-follower",
+          "path": "dist/assets/creatures/creature-emberkin-follower.png",
+          "sha256": "eb58e50eee961389052c0a12cf6138faf824f7a83b4f1c2063d9269f8405de0f",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+        }
+      ],
+      "requiredDirections": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+      "runtimeFollower": {
+        "assetId": "creature-emberkin-follower",
+        "fallbackAssetId": "creature-emberkin",
+        "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+        "frameOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "72e92e9537ebc89ab173c9855b1a4a2443a459eb5d7771deab9c41a9cf12cd10",
+          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+        }
       }
     }
   ]

@@ -38,6 +38,13 @@ The eight current creature portraits remain the generated source images in `art/
 - Run `python3 art/characters/export-creature-combat.py` to recreate the runtime PNGs. `creature-combat-metadata.json` records source IDs, frame order, dimensions, anchor and cadence.
 - The initial two-species batch proves the atlas contract; the other six current creatures still use their static portraits.
 
+## Creature follower direction milestone (#90)
+
+- Emberkin and Fernling overworld follower sheets were generated on 2026-10-03 from their current transparent creature portraits. The retained `*-follower-generated.png` sheets are the direction-preserving, margin-corrected generation outputs; `*-follower-initial.png` retains the first generated draft for review history.
+- Each runtime atlas is 5 columns × 8 rows: idle, walk-1…walk-4 across all eight directions. Fernling uses the standard N, NE, E, SE, S, SW, W, NW row order; Emberkin records its generated pose order explicitly in `creature-follower-metadata.json` and the manifest. The exporter trims low-alpha noise, fits each complete cell silhouette to a 184 × 184 content box with nearest-neighbor scaling, and aligns the visible feet at y=196 in fixed 200 × 200 cells. Runtime PNGs are 1000 × 1600 and remain separate from the combat atlases.
+- The browser preview at `dist/creature-follower-preview.html` displays all frames beside the red-cap player at gameplay scale and runs diagonal-turn, stop, backtrack and depth/foreground scenarios. Follower facing and frame cadence use the follower's own sampled path displacement; stopping and reduced motion hold the last direction with idle frame 0.
+- `python3 art/characters/export-creature-followers.py --check` verifies the normalized runtime sheets; `art/characters/creature-follower-metadata.json` records frame order, size, anchor, cadence, prompt summaries and reference species. The other active species retain static fallback while #90 continues.
+
 ## Identity and quality records
 
 `art/assets/subjects.json` assigns stable visual IDs and hashes canonical references, generated source sheets, and runtime outputs for the player, Fernling, and Duskwing; `npm run validate` verifies those links and digests. `export-profiles.json` records category-specific, versioned export settings. `visual-reviews.json` separates byte/frame checks from visual accept/rework/quarantine decisions; the captured creature contact sheet is under `reviews/`. See [`docs/ART_REVIEW.md`](../../docs/ART_REVIEW.md) for commands and the known pending visual/owner reviews.
