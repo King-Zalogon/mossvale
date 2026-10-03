@@ -245,7 +245,13 @@ async function boot() {
   if (!app.maps.length) {
     try {
       const {maps: rawMaps, objectives: rawObjectives, story: rawStory, pack: rawPack} = await fetchAdventure();
-      const {maps, mapsById, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: PACK_ID}, rawObjectives, rawStory, rawPack);
+      const {maps, mapsById, objectives, story, errors} = buildAdventure(
+        rawMaps,
+        {assets, species, regions, packId: PACK_ID},
+        rawObjectives,
+        rawStory,
+        rawPack,
+      );
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;
