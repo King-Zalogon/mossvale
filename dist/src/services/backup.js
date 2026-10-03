@@ -1,7 +1,7 @@
 /* Portable save backup: export to a JSON file, import with validation, and restore the session checkpoint.
    Saves live in one browser on one address; this is how progress moves between browsers or devices.
    Nothing here talks to a server. */
-import {KEYS, VERSION, packOf} from '../save.js';
+import {commitSaveTransaction, KEYS, packOf, readSaveItem, VERSION} from '../save.js';
 import {hasProgress} from './profile.js';
 
 export const BACKUP_KIND = 'mossvale-save-backup';
@@ -60,20 +60,25 @@ const stamp = () => new Date().toISOString();
 /** Replaces the current save with `incoming`, first archiving the current adventure (if it has progress). */
 export function importSave({storage, codec, save, incoming}) {
   try {
-    if (hasProgress(save)) storage.setItem(KEYS.archive, JSON.stringify({at: stamp(), raw: codec.serialize(save)}));
+    const changes = {};
+    if (hasProgress(save)) changes[KEYS.archive] = JSON.stringify({at: stamp(), raw: codec.serialize(save)});
+    else {
+      const archive = readSaveItem(storage, KEYS.archive);
+      if (archive !== null) changes[KEYS.archive] = archive;
+    }
     const raw = codec.serialize(incoming);
-    storage.setItem(KEYS.v3, raw);
-    storage.setItem(KEYS.backup, raw);
-    return {ok: true};
+    changes[KEYS.v3] = raw;
+    changes[KEYS.backup] = raw;
+    return commitSaveTransaction(storage, changes);
   } catch {
-    return {ok: false};
+    return {ok: false, recoveryPending: false, reason: 'storage'};
   }
 }
 
 /** The checkpoint kept from the start of the last session, as a validated save, or null. */
 export function readCheckpoint(storage, codec) {
   try {
-    const save = codec.normalize(JSON.parse(storage.getItem(KEYS.backup)), false);
+    const save = codec.normalize(JSON.parse(readSaveItem(storage, KEYS.backup)), false);
     return save ?? null;
   } catch {
     return null;

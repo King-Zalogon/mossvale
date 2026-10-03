@@ -191,6 +191,8 @@ export function createMenus(app) {
       future: 'Newer save found',
       foreign: 'Another adventure’s save',
       unavailable: 'Storage unavailable',
+      'transaction-recovered': 'Save recovery finished',
+      'transaction-pending': 'Save recovery pending',
     }[status];
     $('#save-note').textContent = message;
     open(`${header('SAVE RECOVERY', title)}<p>${message}</p><button class="primary" id="notice-ok">Continue</button>`, 'notice', 'Save recovery');

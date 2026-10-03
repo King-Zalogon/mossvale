@@ -10,6 +10,7 @@ Implemented in `dist/src/save.js` (pure, tested without a browser). Issue: [#8](
 | `mossvale-backup` | Checkpoint of the last valid v3 save, copied once at each successful start. |
 | `mossvale-quarantine` | Up to the 3 most recent unreadable payloads (`key`, `reason`, `at`, `raw`). Never auto-deleted. |
 | `mossvale-archive` | One adventure set aside by **New game** (or swapped in by **Restore previous adventure**): `{at, raw}` where `raw` is a v3 payload. Never deleted automatically. |
+| `mossvale-save-transaction` | Recovery journal for multi-key operations (import, new game, restore). Present only while an operation's copies are still being synchronized. |
 | `mossvale-settings` | Preferences (`sound`, `motion` auto/reduced, `zoom`, touch `run`), separate from the save so New game and Restore keep them. |
 | `mossvale-v2`, `mossvale-v1` | Legacy saves. Read for migration only and left untouched. |
 
@@ -70,3 +71,14 @@ Issue [#20](https://github.com/King-Zalogon/mossvale/issues/20). **New game** co
 ## Export and import
 
 Issue [#30](https://github.com/King-Zalogon/mossvale/issues/30). A backup file is `{ kind: "mossvale-save-backup", format: 1, exportedAt, build, save: <v3 save> }`; a bare save payload is also accepted on import. See [BACKUP.md](BACKUP.md).
+
+## Consistent import, new game and restore (#60)
+
+Import, **New game**, restore checkpoint and restore archive change several keys (archive, primary, checkpoint). localStorage cannot do that atomically, so they commit through a journal (``save.js: commitSaveTransaction`):
+
+1. The complete intent (`changes` for the archive, primary and checkpoint keys) is written to `mossvale-save-transaction` first. If that single write fails, nothing has changed and the operation reports failure with the current adventure untouched.
+2. Once the journal is written, the operation is committed: the journal is authoritative (reads go through `readSaveItem`), the keys are copied from it, and the journal is removed.
+3. If a copy fails (quota, denied), the live game and storage still agree. The next load, or the next save attempt, finishes the copy (`recoverSaveTransaction`) and reports `transaction-recovered`. While copies still cannot be written the status is `transaction-pending`: the game is read-only, says so, and **Backup & restore** can still export the adventure.
+4. The archive is never replaced without the previous copy being part of the same committed intent, so a failure cannot leave the only recovery copy overwritten.
+
+Covered by `tests/save-transaction.test.mjs` (fault injection at each write, quota and denied reads) and `tests/save-transaction.browser.mjs` (reload checks).

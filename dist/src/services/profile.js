@@ -1,6 +1,6 @@
 /* Starting over and restoring, without ever silently erasing recoverable progress.
    "New game" first copies the current adventure into one archive slot; "Restore" swaps the archive and the current save. */
-import {KEYS} from '../save.js';
+import {commitSaveTransaction, KEYS, readSaveItem} from '../save.js';
 
 /** True once the player has done anything worth keeping. */
 export const hasProgress = save =>
@@ -16,7 +16,7 @@ export function summarize(save, species) {
 /** The archived adventure as a validated runtime save plus when it was archived, or null. */
 export function readArchive(storage, codec) {
   try {
-    const entry = JSON.parse(storage.getItem(KEYS.archive));
+    const entry = JSON.parse(readSaveItem(storage, KEYS.archive));
     const save = codec.normalize(JSON.parse(entry.raw), false);
     return save ? {save, at: String(entry.at)} : null;
   } catch {
@@ -32,14 +32,16 @@ const stamp = () => new Date().toISOString();
  */
 export function startOver({storage, codec, save}) {
   try {
-    const replacedArchive = !!storage.getItem(KEYS.archive);
-    if (hasProgress(save)) storage.setItem(KEYS.archive, JSON.stringify({at: stamp(), raw: codec.serialize(save)}));
+    const replacedArchive = !!readSaveItem(storage, KEYS.archive);
+    const changes = {};
+    if (hasProgress(save)) changes[KEYS.archive] = JSON.stringify({at: stamp(), raw: codec.serialize(save)});
     const fresh = codec.serialize(codec.fresh());
-    storage.setItem(KEYS.v3, fresh);
-    storage.setItem(KEYS.backup, fresh); // otherwise corruption recovery would resurrect the old adventure
-    return {ok: true, replacedArchive};
+    changes[KEYS.v3] = fresh;
+    changes[KEYS.backup] = fresh; // otherwise corruption recovery would resurrect the old adventure
+    const result = commitSaveTransaction(storage, changes);
+    return {...result, replacedArchive: result.ok && replacedArchive};
   } catch {
-    return {ok: false, replacedArchive: false};
+    return {ok: false, recoveryPending: false, replacedArchive: false, reason: 'storage'};
   }
 }
 
@@ -49,11 +51,13 @@ export function restoreArchive({storage, codec, save}) {
     const archived = readArchive(storage, codec);
     if (!archived) return {ok: false};
     const current = codec.serialize(save);
-    storage.setItem(KEYS.v3, codec.serialize(archived.save));
-    storage.setItem(KEYS.backup, codec.serialize(archived.save));
-    storage.setItem(KEYS.archive, JSON.stringify({at: stamp(), raw: current}));
-    return {ok: true};
+    const restored = codec.serialize(archived.save);
+    return commitSaveTransaction(storage, {
+      [KEYS.v3]: restored,
+      [KEYS.backup]: restored,
+      [KEYS.archive]: JSON.stringify({at: stamp(), raw: current}),
+    });
   } catch {
-    return {ok: false};
+    return {ok: false, recoveryPending: false, reason: 'storage'};
   }
 }
