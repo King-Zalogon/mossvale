@@ -51,7 +51,8 @@ export function validateMaps(rawMaps, ctx) {
       const compiled = compileMap(m, {
         spriteIndex: n => [...ctx.spriteNames].indexOf(n),
         speciesIndex: id => [...ctx.speciesIds].indexOf(id),
-        regionIndex: id => [...byId.keys()].indexOf(id),
+        mapById: byId,
+        regionIndex: () => 0,
       });
       checkPlayable(compiled, byId, errors);
     }
@@ -193,7 +194,7 @@ function validateOne(m, byId, ctx, errors) {
 }
 
 /** Builds the runtime shape. Input must already be valid. */
-export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
+export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex}) {
   const rows = m.terrain;
   const terrainAt = (x, y) => (rows[y]?.[x] !== undefined ? TERRAIN[rows[y][x]] : 'void');
   const tiles = [];
@@ -227,7 +228,18 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
       guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level, tactic: l.guardian.tactic, power: l.guardian.power},
     }),
   );
-  const exits = (m.exits ?? []).map(e => mk(e, 'gate', {ref: e.id, label: e.label, target: regionIndex(e.to.map), spawn: e.to.spawn, requires: e.requires}));
+  const exits = (m.exits ?? []).map(e => {
+    const target = mapById?.get(e.to.map);
+    return mk(e, 'gate', {
+      ref: e.id,
+      label: e.label,
+      target: e.to.map,
+      targetRegion: target ? regionIndex(target.biome) : 0,
+      targetName: target?.name ?? e.to.map,
+      spawn: e.to.spawn,
+      requires: e.requires,
+    });
+  });
   objects.push(...landmarks, ...exits);
   objects.sort((a, b) => a.x + a.y - b.x - b.y);
   const spawns = Object.fromEntries(Object.entries(m.spawns).map(([k, p]) => [k, {x: p[0], y: p[1]}]));
@@ -249,7 +261,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, regionIndex}) {
     once: t.once !== false,
     actions: t.do.map(a => (a.type === 'battle' ? {type: 'battle', id: speciesIndex(a.species), level: a.level} : a)),
   }));
-  return {id: m.id, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers};
+  return {id: m.id, biome: m.biome, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers};
 }
 
 /** Semantic checks that need the compiled map: spawn safety, exits on land, reachable goals. */

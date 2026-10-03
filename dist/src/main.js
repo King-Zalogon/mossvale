@@ -81,6 +81,7 @@ const app = {
   canvas,
   actions: {},
   maps: [],
+  mapsById: {},
   objectives: [],
   story: undefined,
   skipPremise: debug && !params.has('premise'), // tests start in play; add &premise to see the opening card
@@ -244,12 +245,13 @@ async function boot() {
   if (!app.maps.length) {
     try {
       const {maps: rawMaps, objectives: rawObjectives, story: rawStory, pack: rawPack} = await fetchAdventure();
-      const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: PACK_ID}, rawObjectives, rawStory, rawPack);
+      const {maps, mapsById, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: PACK_ID}, rawObjectives, rawStory, rawPack);
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
         return;
       }
       app.maps.push(...maps);
+      Object.assign(app.mapsById, mapsById);
       app.objectives.push(...objectives);
       app.story = story;
     } catch (e) {

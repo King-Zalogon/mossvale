@@ -19,7 +19,7 @@ import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 
 export function createController(app) {
-  const {game, ui, audio, rng, persist, canvas, actions, menus, maps, objCtx} = app;
+  const {game, ui, audio, rng, persist, canvas, actions, menus, maps, mapsById, objCtx} = app;
   const save = () => game.save;
   const sfx = name => audio.play(name);
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
@@ -66,8 +66,13 @@ export function createController(app) {
   }
 
   function enterRegion(region) {
-    game.world = buildWorld(maps[region]);
-    renderRegion(region);
+    let map = mapsById[save().mapId];
+    if (!map || map.biome !== regions[region].biome) {
+      map = maps[region];
+      save().mapId = map.id;
+    }
+    game.world = buildWorld(map);
+    renderRegion(region, map);
     audio.setRegion(regions[region].id);
   }
 
@@ -91,21 +96,25 @@ export function createController(app) {
 
   function travel(id, spawn = 'camp') {
     const s = save();
-    if (game.battle || !unlocked(s, id)) {
+    const map = typeof id === 'number' ? maps[id] : mapsById[id];
+    const region = map ? regions.findIndex(r => r.biome === map.biome) : -1;
+    if (!map || region < 0 || game.battle || (region !== s.region && !unlocked(s, region))) {
       toast('Awaken the previous shrine to open this trail.');
       return;
     }
-    s.region = id;
-    s.visited = [...new Set([...s.visited, id])];
-    place(maps[id].spawns[spawn] || maps[id].spawns.camp);
+    s.region = region;
+    s.mapId = map.id;
+    s.visited = [...new Set([...s.visited, region])];
+    s.visitedMaps = [...new Set([...s.visitedMaps, map.id])];
+    place(map.spawns[spawn] || map.spawns.camp);
     game.pacing.encounterCooldown = GRACE_ON_ARRIVAL;
     game.pacing.steps = 0;
-    enterRegion(id);
+    enterRegion(region);
     fadeIn();
     close();
     refresh();
     sfx('welcome');
-    toast(`Welcome to ${regions[id].name}. The next chapter is yours.`);
+    toast(`Welcome to ${map.name}. The next trail is yours.`);
   }
 
   function selectCompanion(id) {
@@ -171,7 +180,7 @@ export function createController(app) {
       toast('Finish your encounter before returning to camp.');
       return;
     }
-    place(maps[save().region].spawns.camp);
+    place((mapsById[save().mapId] ?? maps[save().region]).spawns.camp);
     game.pacing.encounterCooldown = GRACE_ON_ARRIVAL;
     game.pacing.steps = 0;
     close();
@@ -363,7 +372,7 @@ export function createController(app) {
       game.pacing.encounterCooldown = GRACE_AFTER_BATTLE;
       transition(game, 'result');
       if (turn.ended === 'loss') {
-        place(maps[s.region].spawns.camp);
+        place((mapsById[s.mapId] ?? maps[s.region]).spawns.camp);
       }
       s.recap = recapFor(turn, b);
     }

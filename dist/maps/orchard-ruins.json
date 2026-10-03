@@ -1,0 +1,96 @@
+{
+  "format": 1,
+  "id": "orchard-ruins",
+  "biome": "meadow",
+  "name": "The Ruined Orchard",
+  "size": {"w": 25, "h": 25},
+  "legend": {".": "void", "g": "ground", "p": "path", "w": "water", "t": "tallgrass"},
+  "terrain": [
+    ".........................",
+    "............g............",
+    "........ggggggggg........",
+    "......ggggggggggggg......",
+    ".....ggggggggggggggg.....",
+    "....ggggggggggggggggg....",
+    "...ggggggggggggggggggg...",
+    "...ggggggpppppppggttgg...",
+    "..gggttppgggggggppgtggg..",
+    "..gggpptggggggggggppggg..",
+    "..ggpgggggggwwwgggggpgg..",
+    "..ppgggggggwwwwwgggggpg..",
+    ".pggggggggggwwwgggggggpg.",
+    "..ppgggggggggwgggggggpg..",
+    "..ggpggggggggggggggggpg..",
+    "..gggppgggggggggggggptg..",
+    "..gggggppgggggggggggptg..",
+    "...tttgggppgggggggppgg...",
+    "...ggggggggpppppppgggg...",
+    "....ggggggggggggggggg....",
+    ".....gggttggggggttgg.....",
+    "......ggggggggggggg......",
+    "........ggggggggg........",
+    "............g............",
+    "........................."
+  ],
+  "spawns": {"camp": [3, 12]},
+  "landmarks": [
+    {
+      "id": "orchard-ranger",
+      "kind": "ranger",
+      "sprite": "person-gardener",
+      "at": [5.2, 14],
+      "w": 37,
+      "label": "Talk to Orchard Keeper Mara",
+      "name": "Orchard Keeper Mara",
+      "tag": "MARA",
+      "lines": [
+        {"when": {"flag": "meadow.seal"}, "text": "The shrine is awake. The east gate leads to Amber Ridge."},
+        {"text": "Rest here before exploring. The old rows hide a short path around the pond."}
+      ]
+    },
+    {
+      "id": "trail-sign",
+      "kind": "sign",
+      "sprite": "signpost-wood",
+      "at": [4, 10.8],
+      "w": 38,
+      "label": "Read the orchard sign",
+      "lines": [
+        {"when": {"flag": "meadow.seal"}, "text": "West: Meadow · East: Amber Ridge · The short path slips beneath the oldest trees."},
+        {"text": "West: Meadow · East: a sealed trail · Look between the old apple rows for a shortcut."}
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "id": "back-to-meadow",
+      "sprite": "signpost-wood",
+      "at": [1.5, 12],
+      "w": 40,
+      "label": "Return to the Meadow",
+      "to": {"map": "meadow", "spawn": "orchard-return"}
+    },
+    {
+      "id": "east-to-ridge",
+      "sprite": "signpost-wood",
+      "at": [22.4, 12],
+      "w": 40,
+      "label": "Take the eastern trail to Amber Ridge",
+      "to": {"map": "amber-ridge", "spawn": "camp"},
+      "requires": "meadow.seal"
+    }
+  ],
+  "props": [
+    {"sprite": "tree-oak", "kind": "scenery", "w": 79, "solid": 0.52, "at": [[7.1, 5.1], [10.1, 4.1], [15.1, 4.1], [18.1, 5.1], [8.1, 9.1], [17.1, 9.1], [7.1, 14.1], [17.1, 15.1], [10.1, 18.1], [15.1, 19.1], [6.1, 19.1], [19.1, 18.1]]},
+    {"sprite": "tree-pine", "kind": "scenery", "w": 79, "solid": 0.52, "at": [[5.1, 6.1], [9.1, 6.1], [14.1, 5.1], [20.1, 7.1], [6.1, 10.1], [9.1, 10.1], [16.1, 10.1], [19.1, 10.1], [5.1, 16.1], [8.1, 17.1], [18.1, 18.1], [13.1, 20.1]]},
+    {"sprite": "bush-flowering", "kind": "flower", "w": 32, "at": [[6, 4], [11, 5], [16, 6], [19, 6], [4, 8], [21, 10], [5, 18], [12, 19], [20, 17]]},
+    {"sprite": "grass-tuft", "kind": "grass", "w": 27, "at": [[4, 5], [8, 4], [17, 4], [20, 8], [3, 10], [7, 10], [18, 12], [4, 16], [9, 18], [16, 18], [20, 19], [11, 20]]}
+  ],
+  "zones": [
+    {"id": "old-orchard-grass", "terrain": ["t"], "pool": ["fernling", "emberkin", "bramblebuck", "duskwing"], "level": [5, 7]},
+    {"id": "sunlit-meadow-path", "terrain": ["t"], "rect": [17, 6, 23, 10], "pool": ["emberkin", "bramblebuck", "duskwing"], "level": [5, 7]}
+  ],
+  "triggers": [
+    {"id": "hidden-cut-through", "at": [13, 15], "radius": 1.2, "on": "enter", "do": [{"type": "toast", "text": "A quiet cut-through slips under the oldest apple trees and rejoins the winding trail."}]}
+  ]
+}

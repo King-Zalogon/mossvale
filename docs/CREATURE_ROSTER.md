@@ -25,4 +25,4 @@ The four transparent sprites use the existing Fernling sprite as a style referen
 
 ## Playable coverage
 
-The four-map slice contains one representative region for each biome: Mossvale Meadow, Amber Ridge, Frostveil Grove, and Reedfen Wetlands. Three primary residents are present in each matching encounter pool, while a few cross-biome guests keep the maps connected to the wider ecology. The second distinct map for each biome remains tracked under #27 and #51–#54.
+The current five-map slice covers four biomes: the Sunlit Trail and Ruined Orchard in Meadow, Amber Ridge, Frostveil Grove, and Reedfen Wetlands. Three primary residents are present in each biome's encounter pools, while a few cross-biome guests keep the maps connected to the wider ecology. More distinct maps remain tracked under #27 and #52–#54.

@@ -55,6 +55,7 @@ test('the pin points at the target map when you are elsewhere, and lines fill in
   save.badges.push(0);
   assert.match(now(save).pin, /eastern trail to Ridge/);
   save.region = 1;
+  save.mapId = 'amber-ridge';
   assert.equal(now(save).pin, 'Follow the blue shrine marker north');
   save.badges = [0, 1, 2, 3];
   assert.equal(now(save).lines[1][1], 'Befriend every species if you like (2 / 12)');
@@ -78,7 +79,7 @@ test('NPC and sign lines are picked by condition with a fallback', () => {
   save.caught.push(1);
   assert.match(pickLine(ranger.lines, save, objCtx), /blue crystal/);
   save.badges.push(0);
-  assert.match(pickLine(ranger.lines, save, objCtx), /eastern trail/);
+  assert.match(pickLine(ranger.lines, save, objCtx), /orchard trail/);
   const frostRanger = maps[2].objects.find(o => o.kind === 'ranger');
   save.badges = [0, 1, 2];
   assert.match(pickLine(frostRanger.lines, save, objCtx), /Reedfen's last shrine/);
