@@ -129,7 +129,6 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     const all = [...visibleObjects, follow, {x: player.x, y: player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player', frame: playerPose}].sort(
       (a, b) => a.x + a.y - b.x - b.y,
     );
-    const bobbing = v.moving && !v.reducedMotion;
     for (const o of all) {
       const s = point(o.x, o.y);
       if (s.x < -180 || s.x > canvas.width + 180 || s.y < -100 || s.y > canvas.height + 230) continue;
@@ -150,7 +149,12 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       const openedChest = o.kind === 'chest' && save.chests.includes(region);
       if (openedChest) drawSprite(ctx, o.id, s.x, s.y, o.w * zoom, {alpha: 0.45});
       else {
-        const bob = bobbing && o.kind === 'companion' ? Math.sin(now / 95) * 1.5 * zoom : 0;
+        const bob =
+          o.kind === 'companion' && !v.reducedMotion
+            ? v.moving
+              ? Math.sin((player.walkDistance * Math.PI * 2) / 0.84) * 1.25 * zoom
+              : Math.sin(now / 950) * 0.45 * zoom
+            : 0;
         const tint = region === 2 && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : region === 1 && o.kind === 'grass' ? 'sepia(.5)' : 'none';
         const options = {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1};
         if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, options);

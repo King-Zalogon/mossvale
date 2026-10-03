@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "source": "art/assets/source/creatures-atlas.png",
+  "sourceMetadata": "art/assets/metadata.json",
+  "target": "every asset with kind=creature in dist/src/data/assets.js",
+  "appearance": "Keep the existing transparent creature PNG and bottom-center anchor; these states animate the unchanged art so new species inherit them.",
+  "states": {
+    "idle": {"method": "2px CSS breath", "cadence": "1.8s, two-step ease", "anchor": "bottom-center"},
+    "travel": {
+      "method": "renderer bob tied to traveled distance",
+      "cadence": "one cycle per 0.84 world units",
+      "amplitude": "1.25 screen-scaled px",
+      "anchor": "ground shadow stays fixed"
+    },
+    "hit": {"method": "simulation strike event: brief flash, recoil and squash", "cadence": "0.4s", "anchor": "bottom-center"},
+    "capture": {"method": "simulation orb event: fade and draw inward", "cadence": "0.72s", "anchor": "bottom-center"}
+  },
+  "reducedMotion": "Idle/travel motion and event effects are disabled by the browser preference and the in-game Calm setting."
+}

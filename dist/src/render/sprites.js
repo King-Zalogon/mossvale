@@ -77,6 +77,7 @@ export function drawSpriteFrame(c, id, column, row, x, y, w, options = {}) {
 export function drawCreature(canvasEl, speciesId, width = 105) {
   const c = canvasEl?.getContext('2d');
   if (!c) return;
+  canvasEl.classList.add('creature-sprite', 'creature-idle');
   c.clearRect(0, 0, c.canvas.width, c.canvas.height);
   drawSprite(c, species[speciesId].sprite, c.canvas.width / 2, c.canvas.height - 7, width);
 }
