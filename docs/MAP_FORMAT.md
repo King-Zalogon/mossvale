@@ -18,7 +18,7 @@ Map files and `src/data/regions.js` are linked by `id`: each region needs a map 
   "format": 1,
   "id": "meadow", // lowercase-kebab-case, unique, stable
   "name": "Mossvale Meadow",
-  "size": { "w": 25, "h": 25 }, // 4..64
+  "size": { "w": 25, "h": 25 }, // each dimension 4..128; at most 16,384 tiles total
   "legend": { ".": "void", "g": "ground", "p": "path", "w": "water", "t": "tallgrass" },
   "terrain": ["...25 chars...", "..."], // exactly h rows of w characters
   "spawns": { "camp": [12, 13] }, // "camp" is required; other names can be exit targets
@@ -61,6 +61,6 @@ Format version, unique ids, grid size and characters, known sprites and species,
 
 ## Limits
 
-- Eight authored maps are supported (`MAX_SIZE` 64 per side, any number of files), but only three exist today; the new biome maps arrive with #51–#54.
+- Rectangular maps can be up to 128 tiles per side and 16,384 tiles total. A 120 × 80 test map is the first large-world target; validation also caps authored entities and prop positions. Only three shipped maps exist today; the new biome maps arrive with #51–#54.
 - Reachability uses tile-level flood fill, an approximation of continuous movement.
 - Layers beyond terrain + props, and per-tile event scripting, are intentionally out of scope.

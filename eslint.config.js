@@ -2,7 +2,7 @@ import js from '@eslint/js';
 import globals from 'globals';
 
 export default [
-  {ignores: ['node_modules/**', 'test-results/**']},
+  {ignores: ['node_modules/**', 'test-results/**', 'build/**']},
   js.configs.recommended,
   {languageOptions: {ecmaVersion: 2023, sourceType: 'module'}, rules: {'no-unused-vars': ['error', {argsIgnorePattern: '^_'}]}},
   // Presentation, input and service layers run in the browser.

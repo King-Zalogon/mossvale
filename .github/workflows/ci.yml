@@ -11,7 +11,11 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -22,8 +26,12 @@ jobs:
       - run: npm ci
       - name: Lint, format, asset manifest, module boundaries and unit tests
         run: npm run check
-      - name: Install Chromium for browser smoke tests
+      - name: Install Chromium for browser smoke tests (Linux)
+        if: runner.os == 'Linux'
         run: npx playwright install --with-deps chromium
+      - name: Install Chromium for browser smoke tests (Windows)
+        if: runner.os == 'Windows'
+        run: npx playwright install chromium
       - name: Browser smoke tests
         run: npm run test:browser
       - name: Package a traceable build
@@ -31,6 +39,6 @@ jobs:
       - name: Keep the build for this commit
         uses: actions/upload-artifact@v4
         with:
-          name: mossvale-${{ github.sha }}
+          name: mossvale-${{ github.sha }}-${{ matrix.os }}
           path: build/
           retention-days: 90

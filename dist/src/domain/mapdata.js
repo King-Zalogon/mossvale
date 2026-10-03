@@ -7,7 +7,9 @@ import {validateLines} from './objectives.js';
 export const MAP_FORMAT = 1;
 export const TERRAIN = {'.': 'void', g: 'ground', p: 'path', w: 'water', t: 'tallgrass'};
 export const LANDMARK_KINDS = ['cottage', 'ranger', 'shrine', 'chest', 'sign'];
-export const MAX_SIZE = 64;
+export const MAX_SIZE = 128;
+export const MAX_CELLS = 16_384;
+const MAX_MAP_ENTITIES = 8_192;
 
 const blocksTerrain = t => t === 'void' || t === 'water';
 
@@ -65,7 +67,12 @@ function validateOne(m, byId, ctx, errors) {
   if (typeof m.name !== 'string' || !m.name) at('name', 'required');
   const w = m.size?.w,
     h = m.size?.h;
-  if (!Number.isInteger(w) || !Number.isInteger(h) || w < 4 || h < 4 || w > MAX_SIZE || h > MAX_SIZE) at('size', `w/h must be integers in 4..${MAX_SIZE}`);
+  const boundedSize = Number.isInteger(w) && Number.isInteger(h) && w >= 4 && h >= 4 && w <= MAX_SIZE && h <= MAX_SIZE && w * h <= MAX_CELLS;
+  if (!boundedSize) at('size', `w/h must be integers in 4..${MAX_SIZE} with no more than ${MAX_CELLS} total tiles`);
+  if (!boundedSize) return;
+  const entityCount = (m.landmarks?.length ?? 0) + (m.exits?.length ?? 0) + (m.props?.length ?? 0) + (m.zones?.length ?? 0) + (m.triggers?.length ?? 0);
+  if (entityCount > MAX_MAP_ENTITIES || (m.props ?? []).some(g => (g?.at?.length ?? 0) > MAX_CELLS))
+    return at('content', `map content is bounded to ${MAX_MAP_ENTITIES} entities and ${MAX_CELLS} prop positions`);
   const legend = isObj(m.legend) ? m.legend : TERRAIN;
   for (const [ch, name] of Object.entries(legend)) if (TERRAIN[ch] !== name) at(`legend.${ch}`, `unknown terrain "${name}" (use ${JSON.stringify(TERRAIN)})`);
   if (!Array.isArray(m.terrain) || (Number.isInteger(h) && m.terrain.length !== h)) at('terrain', `needs exactly ${h} rows`);

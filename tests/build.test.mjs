@@ -8,7 +8,7 @@ import {VERSION} from '../dist/src/save.js';
 import {describeBuild} from '../dist/src/services/version.js';
 
 test('the build copies the game and stamps the commit and save schema', () => {
-  const dir = mkdtempSync(join(tmpdir(), 'mossvale-build-'));
+  const dir = mkdtempSync(join(tmpdir(), 'mossvale build é-'));
   try {
     execFileSync('node', ['scripts/build.mjs'], {
       env: {...process.env, BUILD_DIR: dir, GITHUB_SHA: 'abcdef0123456789abcdef0123456789abcdef01', GITHUB_REF_NAME: 'main'},

@@ -64,6 +64,28 @@ test('v3 round trip is unchanged and checkpoints a backup', () => {
   assert.equal(codec.serialize(r.save), raw);
   assert.equal(s.m.get(KEYS.backup), raw);
 });
+test('positions near the far edge of the large-map coordinate range survive reload', () => {
+  const largeMapCodec = create({
+    species,
+    regions,
+    size: 128,
+    bounds: {
+      meadow: {w: 25, h: 25, spawn: {x: 12, y: 13}},
+      'amber-ridge': {w: 120, h: 80, spawn: {x: 2, y: 3}},
+    },
+  });
+  const save = largeMapCodec.fresh();
+  save.region = 1;
+  save.badges = [0];
+  save.x = 119;
+  save.y = 79;
+  const restored = largeMapCodec.load(store({[KEYS.v3]: largeMapCodec.serialize(save)}));
+  assert.deepEqual([restored.save.region, restored.save.x, restored.save.y], [1, 119, 79]);
+  save.x = 190;
+  save.y = 190;
+  const bounded = largeMapCodec.normalize(JSON.parse(largeMapCodec.serialize(save)), false);
+  assert.deepEqual([bounded.x, bounded.y], [119, 79]);
+});
 test('v1 saves migrate', () => {
   const r = codec.load(store({[KEYS.v1]: JSON.stringify({seen: [0, 2], caught: [0, 2], orbs: 4, wins: 2, met: true, hp: 30})}));
   assert.equal(r.status, 'migrated');
