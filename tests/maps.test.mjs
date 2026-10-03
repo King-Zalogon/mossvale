@@ -146,7 +146,7 @@ test('a missing map file or an orphan map is reported', () => {
 
 test('an author can change an encounter zone without touching code', () => {
   const raw = rawMaps();
-  meadow(raw).zones[0].pool = ['pebblit', 'fernling', 'emberkin', 'brooklet', 'duskwing'];
+  meadow(raw).zones[0].pool = ['pebblit', 'fernling', 'emberkin', 'bramblebuck', 'brooklet', 'duskwing'];
   meadow(raw).zones[0].level = [9, 9];
   const {maps, errors} = buildAdventure(raw, content, rawObjectives());
   assert.deepEqual(errors, []);
@@ -161,7 +161,7 @@ test('an author can change an encounter zone without touching code', () => {
 
 test('zones can be limited to a rectangle', () => {
   const raw = rawMaps();
-  meadow(raw).zones = [{id: 'north-only', terrain: ['t'], rect: [0, 0, 24, 7], pool: ['fernling'], level: [5, 5]}];
+  meadow(raw).zones = [{id: 'north-only', terrain: ['t'], rect: [0, 0, 24, 7], pool: ['fernling', 'emberkin', 'bramblebuck'], level: [5, 5]}];
   const {maps, errors} = buildAdventure(raw, content);
   assert.deepEqual(errors, []);
   const world = buildWorld(maps[0]);

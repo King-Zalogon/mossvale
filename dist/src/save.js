@@ -94,7 +94,7 @@ export function commitSaveTransaction(storage, changes) {
 function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pack = LEGACY_PACK}) {
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = id => regions.findIndex(r => r.id === id);
-  const maxHP = (idx, xp) => species[idx].hp + Math.floor(xp / XP_PER_LEVEL) * 4;
+  const maxHP = (idx, xp) => species[idx].stats.hp + Math.floor(xp / XP_PER_LEVEL) * 4;
 
   function fresh() {
     return {
@@ -108,7 +108,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       coins: 0,
       seen: [0],
       caught: [0],
-      team: {0: {xp: 0, hp: species[0].hp}},
+      team: {0: {xp: 0, hp: species[0].stats.hp}},
       badges: [],
       chests: [],
       visited: [0],

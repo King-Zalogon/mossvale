@@ -3,9 +3,9 @@
   "premise": {
     "title": "The quiet shrines",
     "paragraphs": [
-      "The Verdant Isles used to hum with light. Three crystal shrines kept the trails safe and the wild friends close.",
+      "The Verdant Isles used to hum with light. Four crystal shrines kept the trails safe and the wild friends close.",
       "For years the shrines have been quiet. The ranger at camp believes a bond with the creatures of the grass could wake them.",
-      "Find a friend in the tall grass, then follow the blue shrine markers east: from the meadow, to the ridge, to the snowy grove."
+      "Find a friend in the tall grass, then follow the blue shrine markers from the meadow to Amber Ridge, through Frostveil Grove, and into Reedfen's wetlands."
     ],
     "button": "Begin"
   },
@@ -20,10 +20,10 @@
     {"id": "ranger", "event": "first-ranger", "text": "Tip: rest here whenever you like: it heals everyone and tops up your orbs for free."}
   ],
   "ending": {
-    "when": {"all": [{"flag": "meadow.seal"}, {"flag": "amber-ridge.seal"}, {"flag": "frostveil-grove.seal"}]},
+    "when": {"all": [{"flag": "meadow.seal"}, {"flag": "amber-ridge.seal"}, {"flag": "frostveil-grove.seal"}, {"flag": "reedfen-wetlands.seal"}]},
     "title": "The isles are awake",
     "paragraphs": [
-      "The last seal glows, and for a moment the whole isle hums together: meadow, ridge and grove.",
+      "The last seal glows, and for a moment the whole isle hums together: meadow, ridge, grove, and wetland.",
       "The trails are safe again. The friends you made gather at the shore to watch the shrines shine.",
       "The adventure is complete, but the isles are still yours. Wander back, find the friends you have not met, and rest wherever you like."
     ],

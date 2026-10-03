@@ -4,6 +4,7 @@ import {chromium} from 'playwright';
 import http from 'node:http';
 import {readFileSync, existsSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {assets} from '../dist/src/data/assets.js';
 import {codec, newSave} from './helpers.mjs';
 
 const root = new URL('../dist/', import.meta.url);
@@ -56,7 +57,7 @@ const failed = (page, text) =>
   behavior = new Map([['assets/*', 'gate']]);
   const {page, errors, ctx} = await start();
   await page.waitForFunction(() => /Loading artwork… \d+ \/ \d+/.test(document.querySelector('#load-status').textContent));
-  assert.match(await page.textContent('#load-status'), /Loading artwork… \d+ \/ 27/);
+  assert.match(await page.textContent('#load-status'), new RegExp(`Loading artwork… \\d+ / ${assets.length}`));
   const modalState = () => page.evaluate(() => document.querySelector('#modal').outerHTML);
   const before = await modalState();
   await page.keyboard.press('j');

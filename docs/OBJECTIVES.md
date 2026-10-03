@@ -16,7 +16,7 @@ An ordered list. The current objective is the first one whose `done` condition i
   "lines": [ { "text": "Earn the verdant seal", "done": { "flag": "meadow.seal" } } ] }
 ```
 
-`lines[].text` may contain `{caught}` and `{total}`. The current goal id is stored in the save (`goal`); when it changes during play a "New goal: …" toast appears (not on first run or reload).
+`lines[].text` may contain `{caught}` and `{total}`. The final goal keeps the all-species count optional; the story ends when all four regional seals are earned. The current goal id is stored in the save (`goal`); when it changes during play a "New goal: …" toast appears (not on first run or reload).
 
 ## Conditions
 

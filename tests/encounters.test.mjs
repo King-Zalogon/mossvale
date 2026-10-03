@@ -24,11 +24,14 @@ const has = (errors, text) =>
 test('every species can be found, and a species with no source is rejected', () => {
   const found = new Set(maps.flatMap(m => m.zones.flatMap(z => z.pool)));
   assert.equal(found.size, species.length);
-  const {errors} = edit(m => (meadow(m).zones[0].pool = ['emberkin', 'brooklet', 'duskwing'])); // fernling lives only here
+  const {errors} = edit(m => {
+    meadow(m).zones[0].pool = ['emberkin', 'brooklet', 'duskwing'];
+    m.find(x => x.id === 'reedfen-wetlands').zones[0].pool = ['brooklet', 'mushmallow', 'siltkip'];
+  });
   has(errors, 'species: "fernling" has no encounter zone');
 });
 
-test('the three biomes have different encounters', () => {
+test('the four biomes have different encounters', () => {
   const pools = maps.map(m =>
     m.zones
       .flatMap(z => z.pool)
@@ -66,14 +69,14 @@ test('zone data validation: weights and walking distance', () => {
   meadow(d).zones[0].distance = [9, 3];
   has(buildAdventure(d, content, rawObjectives()).errors, 'distance');
   const ok = rawMaps();
-  meadow(ok).zones[0].pool = [{species: 'fernling', weight: 3}, 'emberkin', 'brooklet', 'duskwing'];
+  meadow(ok).zones[0].pool = [{species: 'fernling', weight: 3}, 'emberkin', 'bramblebuck', 'brooklet', 'duskwing'];
   meadow(ok).zones[0].distance = [10, 12];
   const built = buildAdventure(ok, content, rawObjectives());
   assert.deepEqual(built.errors, []);
   assert.deepEqual(
     [built.maps[0].zones[0].weights, built.maps[0].zones[0].distance],
     [
-      [3, 1, 1, 1],
+      [3, 1, 1, 1, 1],
       [10, 12],
     ],
   );

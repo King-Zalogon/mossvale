@@ -170,7 +170,7 @@ for (const [seed, weakened] of [
   await page.goto(url);
   await page.waitForSelector('#m-primary');
   assert.equal(await page.textContent('#m-primary'), 'Continue');
-  assert.match(await page.textContent('#modal'), /2 of 8 friends · 1 seal · 10 min played/);
+  assert.match(await page.textContent('#modal'), /2 of 12 friends · 1 seal · 10 min played/);
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('#m-primary').isVisible(), true, 'the title screen is not dismissed by Escape');
   await page.click('#m-settings');
@@ -212,7 +212,7 @@ for (const [seed, weakened] of [
   await reloading('#m-confirm-restore');
   await page.waitForSelector('#m-primary');
   assert.equal(await page.textContent('#m-primary'), 'Continue');
-  assert.match(await page.textContent('#modal'), /2 of 8 friends/);
+  assert.match(await page.textContent('#modal'), /2 of 12 friends/);
   assert.deepEqual(errors, []);
   console.log('ok title, settings, new game and restore');
 }
@@ -286,7 +286,7 @@ for (const [seed, weakened] of [
   assert.equal(await page.locator('#story-ok').count(), 0, 'the opening card is only shown once');
 
   const done = newSave();
-  done.badges = [0, 1, 2];
+  done.badges = [0, 1, 2, 3];
   done.met = true;
   done.wins = 5;
   const ctx2 = await browser.newContext();

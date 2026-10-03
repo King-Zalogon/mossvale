@@ -1,6 +1,7 @@
 /* Game flow: connects domain rules, menus and services. Owns timers (battle pacing) and screen transitions.
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
 import {species} from './data/species.js';
+import {moves} from './data/moves.js';
 import {regions} from './data/regions.js';
 import {maxHP} from './domain/rules.js';
 import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, setFlag, unlocked} from './domain/rules.js';
@@ -407,7 +408,7 @@ export function createController(app) {
     if (e.action === 'charge') return `${foe.name} is gathering strength…`;
     if (e.action === 'brace') return `${foe.name} braces itself. Your next attack will glance off.`;
     if (e.action === 'heavy') return `${foe.name} unleashes a heavy blow for ${e.damage} damage!`;
-    return `${foe.name} used ${e.element ? foe.move : 'Quick strike'} for ${e.damage} damage.`;
+    return `${foe.name} used ${e.element ? moves[foe.move].name : 'Quick strike'} for ${e.damage} damage.`;
   }
 
   /** Turns resolved events into display frames (presentation only; no state changes). */
@@ -476,13 +477,13 @@ export function createController(app) {
     const r = regions[s.region];
     if (turn.ended === 'win') {
       sfx(last.newSeal ? 'seal' : 'win');
-      const next = last.newSeal && s.region < 2;
+      const next = last.newSeal && s.region < regions.length - 1;
       showResult({
         title: last.newSeal ? r.seal + ' awakened!' : 'A little stronger.',
         copy: last.newSeal
-          ? s.region < 2
+          ? s.region < regions.length - 1
             ? `The eastern trail to ${regions[s.region + 1].name} is open. Your team is rested and ready.`
-            : 'All three shrines shine again. You’ve become a keeper of the Verdant Isles!'
+            : `All ${regions.length} shrines shine again. You’ve become a keeper of the Verdant Isles!`
           : `${species[b.id].name} retreated into the wild.`,
         id: b.id,
         rewards: [last.reward + ' coins', last.xp + ' XP', ...(last.potions ? [`${last.potions} potions`] : [])],

@@ -1,6 +1,7 @@
 {
   "format": 1,
   "id": "meadow",
+  "biome": "meadow",
   "name": "Mossvale Meadow",
   "size": {
     "w": 25,
@@ -57,7 +58,7 @@
         "species": "mushmallow",
         "level": 7,
         "tactic": "spore-guard",
-        "power": 1.5
+        "power": 1.8
       },
       "reward": {
         "coins": 60,
@@ -335,7 +336,7 @@
     {
       "id": "tall-grass",
       "terrain": ["t"],
-      "pool": ["fernling", "emberkin", "brooklet", "duskwing"],
+      "pool": ["fernling", "emberkin", "bramblebuck", "duskwing"],
       "level": [5, 7]
     }
   ],

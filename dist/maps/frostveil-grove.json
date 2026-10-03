@@ -1,6 +1,7 @@
 {
   "format": 1,
   "id": "frostveil-grove",
+  "biome": "snowy-forest",
   "name": "Frostveil Grove",
   "size": {
     "w": 25,
@@ -84,12 +85,18 @@
       "lines": [
         {
           "when": {
-            "flag": "frostveil-grove.seal"
+            "flag": "reedfen-wetlands.seal"
           },
-          "text": "All three shrines are awake. Thank you, keeper."
+          "text": "All four seals shine again. Thank you, keeper."
         },
         {
-          "text": "The last shrine is north of camp, through the snow. Rest here first."
+          "when": {
+            "flag": "frostveil-grove.seal"
+          },
+          "text": "Three seals are shining now. Reedfen's last shrine lies beyond the eastern trail."
+        },
+        {
+          "text": "The Frostveil shrine is north of camp, through the snow. Rest here before the eastern trail opens."
         }
       ]
     },
@@ -136,9 +143,10 @@
       "w": 40,
       "label": "Take the eastern trail",
       "to": {
-        "map": "meadow",
+        "map": "reedfen-wetlands",
         "spawn": "camp"
-      }
+      },
+      "requires": "frostveil-grove.seal"
     }
   ],
   "props": [
@@ -301,7 +309,7 @@
     {
       "id": "tall-grass",
       "terrain": ["t"],
-      "pool": ["brooklet", "duskwing", "frostowl", "pebblit"],
+      "pool": ["duskwing", "frostowl", "hushram", "pebblit"],
       "level": [9, 11]
     }
   ],

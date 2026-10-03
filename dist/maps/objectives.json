@@ -56,26 +56,31 @@
       ]
     },
     {
-      "id": "every-friend",
+      "id": "reedfen-seal",
       "step": "05",
-      "title": "Every friend has a story",
-      "copy": "The shrines are awake. Explore all three regions to befriend the remaining creatures.",
-      "pin": "Find the remaining creatures",
-      "done": {"caught": "all"},
+      "title": "A hush over Reedfen",
+      "copy": "Follow the eastern trail from Frostveil Grove and wake the last shrine.",
+      "map": "reedfen-wetlands",
+      "pin": "Follow the blue shrine marker north",
+      "pinElsewhere": "Return to Reedfen from Frostveil Grove",
+      "done": {"flag": "reedfen-wetlands.seal"},
       "lines": [
-        {"text": "Awaken all three shrines", "done": {"all": [{"flag": "meadow.seal"}, {"flag": "amber-ridge.seal"}, {"flag": "frostveil-grove.seal"}]}},
-        {"text": "Befriend every species ({caught} / {total})", "done": {"caught": "all"}}
+        {"text": "Earn the Reedfen seal", "done": {"flag": "reedfen-wetlands.seal"}},
+        {"text": "Explore Reedfen", "done": {"visited": "reedfen-wetlands"}}
       ]
     },
     {
       "id": "keeper",
-      "step": "05",
+      "step": "06",
       "title": "Keeper of the isles",
-      "copy": "All three shrines are awake, and every creature has a place in your journal. Keep exploring.",
-      "pin": "All shrines awakened · Keep exploring",
+      "copy": "All four shrines are awake. The remaining friends are there if you want to meet them.",
+      "pin": "Four shrines awakened · Keep exploring",
       "lines": [
-        {"text": "Awaken all three shrines", "done": {"all": []}},
-        {"text": "Befriend every species ({caught} / {total})", "done": {"all": []}}
+        {
+          "text": "Awaken all four shrines",
+          "done": {"all": [{"flag": "meadow.seal"}, {"flag": "amber-ridge.seal"}, {"flag": "frostveil-grove.seal"}, {"flag": "reedfen-wetlands.seal"}]}
+        },
+        {"text": "Befriend every species if you like ({caught} / {total})", "done": {"caught": "all"}}
       ]
     }
   ]
