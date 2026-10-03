@@ -61,6 +61,42 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata, 
   if (!Array.isArray(assets) || !Array.isArray(sourceMetadata?.assets)) return {errors: ['subjects.json: asset manifest metadata is malformed']};
   const manifest = new Map(assets.map(asset => [asset.name, asset]));
   const sourceByName = new Map(sourceMetadata.assets.map(asset => [asset.name, asset]));
+  let profileRegistry;
+  try {
+    profileRegistry = JSON.parse(readFileSync(resolve(root, 'art/characters/export-profiles.json'), 'utf8'));
+  } catch {
+    return {errors: ['export-profiles.json: profile registry is missing or malformed']};
+  }
+  const profiles = profileRegistry?.schemaVersion === 1 ? profileRegistry.profiles : null;
+  if (!profiles || typeof profiles !== 'object' || Array.isArray(profiles)) errors.push('export-profiles.json: unsupported or malformed profile registry');
+  const checkProfile = (profileId, profileSha256, asset, where) => {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*-v\d+$/.test(profileId ?? '')) {
+      errors.push(`${where}: a versioned export profile ID is required`);
+      return;
+    }
+    const profile = profiles?.[profileId];
+    if (!profile) {
+      errors.push(`${where}: unknown export profile ${profileId}`);
+      return;
+    }
+    if (typeof profile.category !== 'string' || !profile.category.trim()) errors.push(`${where}: export profile category is required`);
+    if (profile.status?.startsWith('pending-')) errors.push(`${where}: pending profile ${profileId} cannot export runtime art`);
+    const actualProfileHash = createHash('sha256').update(JSON.stringify(profile)).digest('hex');
+    if (profileSha256 !== actualProfileHash) errors.push(`${where}: export profile ${profileId} settings hash is stale`);
+    if (asset) {
+      const compatible = {
+        'player-motion': asset.kind === 'person' && asset.name === 'person-red-cap-motion',
+        'npc-turnaround': asset.kind === 'person' && ['person-traveler', 'person-gardener'].includes(asset.name),
+        'creature-combat': asset.kind === 'creature' && asset.name.endsWith('-combat'),
+        'creature-portrait': asset.kind === 'creature' && !asset.name.endsWith('-combat'),
+        prop: asset.kind === 'prop',
+      }[profile.category];
+      if (!compatible) errors.push(`${where}: profile category ${profile.category} does not match ${asset.name}`);
+    }
+  };
+  for (const source of sourceMetadata.assets.filter(asset => asset.kind === 'prop')) {
+    checkProfile(source.exportProfile?.id, source.exportProfile?.settingsSha256, manifest.get(source.name), `source metadata for ${source.name}`);
+  }
   if (registry?.version !== 1 || !Array.isArray(registry.subjects)) return {errors: ['subjects.json: unsupported or malformed registry']};
   const ids = new Set();
 
@@ -129,6 +165,7 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata, 
       const asset = manifest.get(output?.assetId);
       if (!asset) errors.push(`${outWhere}: unknown exported asset ID ${output?.assetId}`);
       else if (output.path !== `dist/${asset.src}`) errors.push(`${outWhere}: path does not match the asset manifest for ${output.assetId}`);
+      checkProfile(output?.profileId, output?.profileSha256, asset, outWhere);
       exportIds.add(output?.assetId);
       checkHash(root, output, errors, outWhere);
     }
@@ -137,6 +174,7 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata, 
     const workflow = subject?.exportWorkflow;
     checkHash(root, workflow, errors, `${where}: exportWorkflow`);
     if (!workflow?.settings?.trim()) errors.push(`${where}: export settings must be recorded`);
+    checkProfile(workflow?.profileId, workflow?.profileSha256, null, `${where}: exportWorkflow`);
 
     const sourceBatches = subject?.sourceBatches;
     if (!Array.isArray(sourceBatches)) errors.push(`${where}: sourceBatches must be an array`);
@@ -199,6 +237,7 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata, 
       if (!Array.isArray(combat.requiredStates)) errors.push(`${where}: required runtime combat states must be an array`);
       checkHash(root, combat.exportWorkflow, errors, `${where}: runtime combat export workflow`);
       if (!combat.exportWorkflow?.settings?.trim()) errors.push(`${where}: runtime combat export settings must be recorded`);
+      checkProfile(combat.exportWorkflow?.profileId, combat.exportWorkflow?.profileSha256, combatAsset, `${where}: runtime combat export workflow`);
       for (const state of combat.requiredStates ?? []) {
         if (!combat.states?.includes(state)) errors.push(`${where}: required runtime combat state ${state} is missing`);
         if (!states.has(state)) errors.push(`${where}: required runtime combat state ${state} has no source batch`);
@@ -210,6 +249,8 @@ export function checkSubjectProvenance(registry, {root, assets, sourceMetadata, 
       const speciesKey = subject.id?.replace(/^creature-/, '');
       const contractSource = combatMetadata?.sourceReferences?.[speciesKey];
       const contractSprite = combatMetadata?.sprites?.[combat.assetId];
+      const combatExport = exports?.find(output => output.assetId === combat.assetId);
+      if (combatExport?.profileId !== combat.exportWorkflow?.profileId) errors.push(`${where}: runtime combat export profile must match its output record`);
       if (!contractSource || !contractSprite) errors.push(`${where}: combat art must resolve in creature-combat-metadata.json`);
       else {
         if (contractSprite.output !== `dist/${combatAsset?.src}`) errors.push(`${where}: combat metadata output does not match the manifest`);

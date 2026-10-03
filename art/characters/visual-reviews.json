@@ -9,7 +9,11 @@
       "creaturePortraitWidth": 115,
       "renderer": "dist/src/render/sprites.js"
     },
-    "beforeAfter": "Each species card shows its canonical portrait beside the generated combat states."
+    "beforeAfter": "Each species card shows its canonical portrait beside the generated combat states.",
+    "contactSheetDigest": {
+      "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+      "sha256": "c3ae5b9d774f5af9e59d731a6f61ebac80ea0ff6cef3a13b07bf3bca6065a6f5"
+    }
   },
   "subjects": [
     {
@@ -25,7 +29,33 @@
         "reason": "Eight facing rows retain the red cap, blue clothing and compact scale; NE/NW silhouette changes are expected for turned views, not identity failures.",
         "ownerTaste": "pending"
       },
-      "evidence": ["dist/character-preview.html"]
+      "evidence": ["dist/character-preview.html"],
+      "reviewedFiles": [
+        {
+          "path": "dist/assets/people/person-red-cap-east.png",
+          "sha256": "1ea752494f7897b5e512d5885f8c732a06590949c74450f6e6c8744ea4053850"
+        },
+        {
+          "path": "dist/assets/people/person-red-cap-motion.png",
+          "sha256": "9a8c5376affa0b538964041baff4c0618780de1324dee6c815298f6ce9a61e57"
+        },
+        {
+          "path": "dist/assets/people/person-red-cap-north.png",
+          "sha256": "16c613be7720e0c9f231eca4f7e5181b709647afde0ab858a5efeafa4ddec6a8"
+        },
+        {
+          "path": "dist/assets/people/person-red-cap-south.png",
+          "sha256": "9088f1039cc08e0f0496d08ff942ec3de9b55bfee561c23e8e38b4326faacc51"
+        },
+        {
+          "path": "dist/assets/people/person-red-cap-west.png",
+          "sha256": "73b972aca231577c7a746b84585b004672c6bbb0271799f24e9832202874fadd"
+        },
+        {
+          "path": "dist/character-preview.html",
+          "sha256": "0946906b268ec0999484661c0f7637679b90e6651b00f47957dfadafbd4e1cf5"
+        }
+      ]
     },
     {
       "visualId": "creature-fernling",
@@ -40,7 +70,25 @@
         "reason": "The small actual-scale contact sheet shows detached leaf/spark pixels below multiple faint-row poses; keep the source, revise those cells before calling this species art complete.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"]
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "c3ae5b9d774f5af9e59d731a6f61ebac80ea0ff6cef3a13b07bf3bca6065a6f5"
+        },
+        {
+          "path": "dist/assets/creatures/creature-fernling-combat.png",
+          "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64"
+        },
+        {
+          "path": "dist/assets/creatures/creature-fernling.png",
+          "sha256": "426046feb5c9b34cd134af383f054ef325a3153a827f81065388b28a35884d84"
+        }
+      ]
     },
     {
       "visualId": "creature-duskwing",
@@ -55,7 +103,25 @@
         "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"]
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "c3ae5b9d774f5af9e59d731a6f61ebac80ea0ff6cef3a13b07bf3bca6065a6f5"
+        },
+        {
+          "path": "dist/assets/creatures/creature-duskwing-combat.png",
+          "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02"
+        },
+        {
+          "path": "dist/assets/creatures/creature-duskwing.png",
+          "sha256": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1"
+        }
+      ]
     }
   ],
   "fixtures": [
@@ -80,7 +146,7 @@
       },
       "visual": {
         "decision": "quarantine",
-        "reason": "Deliberate hue shift destroys Fernling\u2019s defining leaf-green palette despite a valid PNG."
+        "reason": "Deliberate hue shift destroys Fernling’s defining leaf-green palette despite a valid PNG."
       }
     },
     {
@@ -95,6 +161,23 @@
         "silhouetteChanged": true,
         "reason": "The NE facing pose changes the outline while retaining the red cap, clothing and subject identity."
       }
+    }
+  ],
+  "coverage": [
+    {
+      "issue": "#85",
+      "status": "reviewed-at-scale",
+      "visualIds": ["creature-fernling", "creature-duskwing"],
+      "creaturePortraitWidth": 115,
+      "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png"
+    }
+  ],
+  "coverageGaps": [
+    {
+      "issue": "#90",
+      "profileId": "creature-follower-v1",
+      "status": "pending-art",
+      "reason": "No dedicated follower direction source frames are available; the current single portrait uses path-based follower motion. Review the #90 batch when its source art exists."
     }
   ]
 }

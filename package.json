@@ -20,7 +20,7 @@
     "art:jobs": "node scripts/art-jobs.mjs",
     "brief:compile": "node scripts/compile-brief.mjs",
     "build": "npm run build:game && node scripts/prepare-vercel-game.mjs && next build",
-    "art:check": "python3 art/characters/export.py --check && python3 art/characters/export-creature-combat.py --check && python3 art/assets/export.py --check && python3 art/characters/review.py"
+    "art:check": "python3 tests/test_art_export.py && python3 tests/test_art_review.py && python3 art/characters/export.py --check && python3 art/characters/export-creature-combat.py --check && python3 art/assets/export.py --check && python3 art/characters/review.py"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
