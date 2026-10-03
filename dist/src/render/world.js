@@ -3,7 +3,7 @@ import {species} from '../data/species.js';
 import {assets, spriteId} from '../data/assets.js';
 import {regions} from '../data/regions.js';
 import {TILE_H, TILE_W} from '../config.js';
-import {DIRECTIONS, FACING, movementFacing, playerFrame} from '../domain/exploration.js';
+import {DIRECTIONS, FACING, movementFacing, playerFrame, playerSpritePose} from '../domain/exploration.js';
 import {unlocked} from '../domain/rules.js';
 import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
 import {isKnown, isRevealed} from '../domain/discovery.js';
@@ -158,7 +158,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     const follow = {x: v.follower.x, y: v.follower.y, id: followerId, w: 37, kind: 'companion', frame: followerPose, moving: moved > 1e-4};
     const playerPose = {
       column: playerFrame(player.walkDistance, v.moving, v.reducedMotion),
-      row: Number.isInteger(player.dir) ? player.dir : FACING.south,
+      ...playerSpritePose(player.dir),
     };
     const visibleObjects = objectsInBounds(world, bounds);
     stats = {visibleTiles: tiles.length, worldTiles: world.tiles.length, visibleObjects: visibleObjects.length, worldObjects: world.objects.length};
@@ -193,7 +193,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
             : 0;
         const tint = region === 2 && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : region === 1 && o.kind === 'grass' ? 'sepia(.5)' : 'none';
         const options = {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1};
-        if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, options);
+        if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
         else if (o.kind === 'companion' && assets[o.id]?.frames) drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, options);
         else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
       }

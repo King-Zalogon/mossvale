@@ -151,7 +151,7 @@ The GitHub repository is currently **public**, as checked during this revision. 
 - [ ] #23 — **P1**, Make four regional challenges feel different without complex AI (M)
 - [x] #24 — **P1**, Create 12 useful creatures, three associated with each biome (M)
 - [ ] #26 — **P1**, Pace encounters by biome and make creature discovery readable (S)
-- [ ] #27 — **P1**, Integrate and validate the four biome map pairs (S)
+- [x] #27 — **P1**, Integrate and validate the four biome map pairs (S)
 - [ ] #28 — **P1**, Connect the adventure with a light premise and clear ending (S)
 - [ ] #30 — **P1**, Add a portable save backup and simple restore (S)
 - [ ] #33 — **P1**, Make objectives, team selection and battle information easy to use (S)

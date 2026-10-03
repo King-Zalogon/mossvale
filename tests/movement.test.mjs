@@ -6,6 +6,7 @@ import {
   FACING,
   WALK_FRAME_DISTANCE,
   facing,
+  playerSpritePose,
   followerPoint,
   movementFacing,
   movePlayer,
@@ -171,4 +172,12 @@ test('every required route is traversable at footprint size (validation uses the
       assert.ok(Math.hypot(near.x - o.x, near.y - o.y) < 1.95, `${map.id}/${o.ref} has no standing spot in reach`);
     }
   }
+});
+
+test('walking up-left draws the up-right pose mirrored; every other direction uses its own row', () => {
+  assert.deepEqual(playerSpritePose(FACING.northwest), {row: FACING.northeast, flip: true});
+  assert.deepEqual(playerSpritePose(FACING.northeast), {row: FACING.northeast, flip: false});
+  for (const name of ['north', 'east', 'southeast', 'south', 'southwest', 'west'])
+    assert.deepEqual(playerSpritePose(FACING[name]), {row: FACING[name], flip: false});
+  assert.deepEqual(playerSpritePose(undefined), {row: FACING.south, flip: false});
 });
