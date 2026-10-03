@@ -65,6 +65,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
 | `render/world.js` | render | `createWorldRenderer` |
 | `save.js` | root | `KEYS`, `LEGACY_PACK`, `VERSION`, `commitSaveTransaction`, `create`, `keysFor`, `packOf`, `readSaveItem`, `recoverSaveTransaction` |
+| `services/account.js` | services | `createAccountClient` |
 | `services/adventures.js` | services | `ADVENTURE_KEY`, `CATALOG_FORMAT`, `DEFAULT_CATALOG`, `chooseAdventure`, `describeProgress`, `parseCatalog`, `peekProgress`, `readSelection`, `relocateLegacyPacks`, `writeSelection` |
 | `services/audio.js` | services | `createAudio` |
 | `services/backup.js` | services | `BACKUP_FORMAT`, `BACKUP_KIND`, `MAX_BACKUP_BYTES`, `exportBackup`, `exportFileName`, `importSave`, `parseBackup`, `readCheckpoint`, `restoreCheckpoint` |
@@ -75,6 +76,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/settings.js` | services | `DEFAULTS`, `MOTION`, `SETTINGS_KEY`, `TEXT_SIZES`, `VOLUME_STEPS`, `ZOOM_MAX`, `ZOOM_MIN`, `loadSettings`, `normalizeSettings`, `saveSettings` |
 | `services/timeline.js` | services | `createTimeline` |
 | `services/version.js` | services | `describeBuild`, `fetchBuild` |
+| `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |

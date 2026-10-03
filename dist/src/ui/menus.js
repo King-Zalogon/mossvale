@@ -14,6 +14,7 @@ import {POTION_HEAL} from '../domain/battle.js';
 import {TACTICS} from '../data/tactics.js';
 import {hasProgress, summarize} from '../services/profile.js';
 import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
+import {createAccountMenus} from './account.js';
 import {createAreaMap} from './areamap.js';
 import {$, header, openModal} from './dom.js';
 
@@ -23,6 +24,7 @@ export function createMenus(app) {
   const {game, ui, actions} = app;
   const save = () => game.save;
   const open = (content, mode, label) => openModal(ui, content, mode, label);
+  const accountMenus = createAccountMenus(app, open);
   const wireClose = () => {
     const c = $('#modal .close');
     if (c) c.onclick = actions.close;
@@ -276,7 +278,7 @@ export function createMenus(app) {
       } else if (view === 'confirm-restore') {
         body = `${header('RESTORE', 'Go back to your earlier adventure?', false)}<p class="menu-summary">Restores ${summarize(archived.save, species)}, archived ${new Date(archived.at).toLocaleDateString()}. Your current adventure (${summarize(s, species)}) becomes the backup, so nothing is lost.</p><div class="menu-list"><button id="m-confirm-restore" class="primary">Restore it</button><button id="m-cancel">Cancel</button></div>`;
       } else {
-        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${app.adventures.list.length > 1 ? '<button id="m-adventures">Adventures<small>' + esc(app.adventures.current.name) + '</small></button>' : ''}<button id="m-backup">Backup & restore</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
+        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button><button id="m-feedback">Leave feedback</button><button id="m-account-save">Account save</button>${app.adventures.list.length > 1 ? '<button id="m-adventures">Adventures<small>' + esc(app.adventures.current.name) + '</small></button>' : ''}<button id="m-backup">Backup & restore</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
       }
       open(body, mode, title ? 'Mossvale' : 'Game menu');
       wireClose();
@@ -289,6 +291,8 @@ export function createMenus(app) {
       };
       on('#m-primary', () => (title ? actions.startPlaying() : actions.close()));
       on('#m-settings', go('settings'));
+      on('#m-feedback', () => accountMenus.feedback(render));
+      on('#m-account-save', () => accountMenus.accountSave(render));
       on('#m-adventures', go('adventures'));
       for (const b of document.querySelectorAll('[data-adventure]')) b.onclick = () => actions.switchAdventure(b.dataset.adventure);
       on('#m-backup', () => {

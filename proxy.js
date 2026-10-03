@@ -41,5 +41,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ['/', '/api/launch', '/game', '/game/:path*'],
+  matcher: ['/', '/api/launch', '/api/feedback', '/api/feedback-review', '/api/account-save', '/game', '/game/:path*'],
 };

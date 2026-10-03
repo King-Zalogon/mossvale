@@ -11,6 +11,10 @@ GitHub issues and pull requests are authoritative for current status. Use this l
 | 2026-10-03 | #53 badlands pair: expanded Amber Ridge + new `stone-basin` map | World / content design | `ccr-075e1d10-ok9hef` | Base `origin/main` `0e7fa00` | `npm run verify`, `npm run build:game` (see PR) | Data-only plus `scripts/gen-badlands-maps.py`; Frostveil west exit now lands at Amber `east-return`. No #51/#54 content touched. |
 | 2026-10-03 | #52 wetland pair: expanded Reedfen + new `stilt-isles` map | World / content design | `ccr-075e1d10-ok9hef` | Base `origin/main` `aeae4d1` | `npm run verify`, `npm run build` (see PR) | Data-only plus `scripts/gen-wetland-maps.py`; no #51/#53/#54 content touched. Stilt art batch still optional. |
 
+### Account feedback — #126
+
+2026-10-03 · Core/UI integration on `main`, base `8dbf72f`. Added same-project Zalonline Auth/app-grant feedback, SQL-authoritative 2,000-character/10-per-UTC-day limits, retry IDs, owner-only review export, bounded durable AI triage/daily workflow, and explicit revision-checked per-user/pack cloud checkpoints. No service-role key in Vercel or game runtime. See `docs/FEEDBACK.md` for activation and evidence; deployed database/secrets are unavailable in this environment. Integrated current map work through `237b836`; verification passed: 251 unit tests, all browser scripts, real PostgreSQL RLS/concurrent quota/revision/lease checks, production Next build and account API HTTP-fixture checks. Verification also exposed existing duplicate combat-test imports and unformatted art metadata/preview files; removed duplicate imports, normalized formatting and refreshed only hashes of reviewed whitespace-only text changes. Also corrected a pre-existing stale character-preview evidence digest after its browser preview passed and was visually inspected. No sprite pixels or visual acceptance decisions changed.
+
 ## Entry format
 
 `YYYY-MM-DD | #issue / bounded scope | owner lane | branch | head and base | checks or review evidence | blocker and next owner/action`

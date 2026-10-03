@@ -68,7 +68,7 @@ In Vercel, import this repository as a Next.js project and add these environment
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | That project's publishable/anon key (never a secret/service-role key)               |
 | `MOSSVALE_GATE_SECRET`          | A private random value of at least 32 characters, such as `openssl rand -base64 32` |
 
-Deploy, then upsert the project URL into `public.applications` with slug `mossvale`. Sign in with an existing Zalonline user; access follows the portal's per-user and group app grants. No Supabase service-role key belongs in Vercel. Browser saves remain local to that browser and deployment origin; they do not sync to the old hosted game or other devices.
+Deploy, then upsert the project URL into `public.applications` with slug `mossvale`. Sign in with an existing Zalonline user; access follows the portal's per-user and group app grants. No Supabase service-role key belongs in Vercel. Local autosaves remain in this browser. The Esc menu also provides explicit per-account/per-adventure Supabase checkpoints and feedback; apply the storage migration described in [account feedback and checkpoints](docs/FEEDBACK.md). The older hosted copy does not share these APIs.
 
 For local development of the portal wrapper, copy `.env.example` to `.env.local`, fill in the values, then run `npm run dev`. The original local game server remains `npm start`.
 

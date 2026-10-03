@@ -33,7 +33,7 @@ export default async function Home({searchParams}) {
         <p className="intro">
           {user
             ? canAccess
-              ? 'Sign in is connected to your Zalonline account. Your game saves stay in this browser.'
+              ? 'Sign in is connected to your Zalonline account. Local autosaves stay in this browser; upload or restore an account checkpoint from the game menu.'
               : 'This account does not have Mossvale in its Zalonline app library yet.'
             : 'Sign in with the account you use for Zalonline to open your private game.'}
         </p>
