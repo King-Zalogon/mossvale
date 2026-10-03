@@ -45,7 +45,8 @@ const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
 const rng = debug && params.has('seed') ? seededRng(Number(params.get('seed'))) : Math.random;
 const canvas = $('#game');
-const codec = save.create({species, regions, size: MAX_MAP_SIZE, pack: PACK_ID});
+const mapBounds = {};
+const codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: PACK_ID});
 const storage = getStorage();
 const loaded = codec.load(storage);
 const settings = loadSettings(storage);
@@ -244,6 +245,10 @@ async function boot() {
   if (!app.maps.length) {
     try {
       const {maps: rawMaps, objectives: rawObjectives, story: rawStory, pack: rawPack} = await fetchAdventure();
+      Object.assign(
+        mapBounds,
+        Object.fromEntries(rawMaps.map(m => [m.id, {w: m.size?.w, h: m.size?.h, spawn: {x: m.spawns?.camp?.[0], y: m.spawns?.camp?.[1]}}])),
+      );
       const {maps, objectives, story, errors} = buildAdventure(rawMaps, {assets, species, regions, packId: PACK_ID}, rawObjectives, rawStory, rawPack);
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));
@@ -252,6 +257,10 @@ async function boot() {
       app.maps.push(...maps);
       app.objectives.push(...objectives);
       app.story = story;
+      const boundedSave = codec.normalize(JSON.parse(codec.serialize(game.save)), false);
+      game.save = boundedSave;
+      game.player.x = boundedSave.x;
+      game.player.y = boundedSave.y;
     } catch (e) {
       showLoadError('Could not load the map data. Check your connection, then try again.', String(e.message || e));
       return;

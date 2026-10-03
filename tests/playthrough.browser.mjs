@@ -40,6 +40,11 @@ const state = () =>
         tactic: g.battle.tactic,
       },
       caught: s.caught.length,
+      caughtIds: s.caught,
+      active: s.active,
+      party: s.party,
+      reserve: s.caught.filter(i => !s.party.includes(i)),
+      team: s.team,
       badges: s.badges.length,
       level: window.mossvale.level(s.active),
       hp: s.team[s.active].hp,
@@ -105,7 +110,43 @@ for (let round = 0; round < 40 && (await state()).badges === 0; round++) {
 const end = await state();
 assert.equal(end.badges, 1, `the meadow seal was earned through normal play (${JSON.stringify(end)}, ${guardianTries} guardian tries)`);
 assert.ok(end.caught >= 2);
+
+// Fill the three-member battle team and place another captured creature in reserve through real battle actions.
+for (const id of [3, 4]) {
+  await page.evaluate(id => window.mossvale.encounter(id), id);
+  await fightOut(true);
+  await dismissResults();
+}
+const stocked = await state();
+assert.ok(stocked.caughtIds.includes(3) && stocked.caughtIds.includes(4));
+assert.equal(stocked.party.length, 3);
+assert.ok(stocked.reserve.length > 0);
+
+// Choose a reserve companion, bench a teammate, then reload and confirm the collection and health records persist.
+await page.click('#party');
+await page.waitForSelector('[data-select]');
+const selected = stocked.reserve[0];
+await page.click(`[data-select="${selected}"]`);
+await page.waitForFunction(id => window.mossvale.getState().save.active === id, selected);
+let managed = await state();
+assert.ok(managed.party.includes(selected));
+assert.ok(!managed.reserve.includes(selected));
+const benched = managed.party.find(i => i !== managed.active);
+await page.click('#party');
+await page.waitForSelector(`[data-bench="${benched}"]`);
+await page.click(`[data-bench="${benched}"]`);
+managed = await state();
+assert.ok(managed.reserve.includes(benched));
+assert.ok(managed.caughtIds.includes(benched));
+const savedParty = managed.party;
+const savedTeam = managed.team;
+await page.reload();
+await page.waitForSelector('#loading', {state: 'hidden'});
+const restored = await state();
+assert.deepEqual(restored.party, savedParty);
+assert.deepEqual(restored.team, savedTeam);
+assert.deepEqual(restored.caughtIds, managed.caughtIds);
 assert.deepEqual(errors, []);
-console.log(`ok meadow guardian beaten through the UI (level ${end.level}, ${guardianTries} tries, ${end.wins} wins)`);
+console.log(`ok party/reserve selection and persistence plus meadow guardian playthrough (level ${end.level}, ${guardianTries} tries)`);
 await browser.close();
 server.close();

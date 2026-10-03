@@ -2,11 +2,24 @@
 // and an earlier copy can be put back. No bundling: the game is static files.
 //   node scripts/build.mjs            -> build/
 //   BUILD_DIR=/tmp/x node scripts/build.mjs
-import {cpSync, mkdirSync, rmSync, writeFileSync} from 'node:fs';
+import {cpSync, mkdirSync, readdirSync, rmSync, writeFileSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
+import {join, resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {VERSION} from '../dist/src/save.js';
 
-const out = new URL(process.env.BUILD_DIR ? `file://${process.env.BUILD_DIR.replace(/\/?$/, '/')}` : '../build/', import.meta.url);
+const repoRoot = fileURLToPath(new URL('../', import.meta.url));
+const dist = join(repoRoot, 'dist');
+const out = process.env.BUILD_DIR ? resolve(process.env.BUILD_DIR) : join(repoRoot, 'build');
+function copyDirectory(source, destination) {
+  mkdirSync(destination, {recursive: true});
+  for (const entry of readdirSync(source, {withFileTypes: true})) {
+    const from = join(source, entry.name);
+    const to = join(destination, entry.name);
+    if (entry.isDirectory()) copyDirectory(from, to);
+    else cpSync(from, to);
+  }
+}
 const git = (...args) => {
   try {
     return execFileSync('git', args, {encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore']}).trim();
@@ -26,7 +39,6 @@ const info = {
 };
 
 rmSync(out, {recursive: true, force: true});
-mkdirSync(out, {recursive: true});
-cpSync(new URL('../dist/', import.meta.url), out, {recursive: true});
-writeFileSync(new URL('version.json', out), JSON.stringify(info, null, 2) + '\n');
-console.log(`built ${info.short}${info.dirty ? ' (uncommitted changes)' : ''} on ${info.branch} -> ${out.pathname}`);
+copyDirectory(dist, out);
+writeFileSync(join(out, 'version.json'), JSON.stringify(info, null, 2) + '\n');
+console.log(`built ${info.short}${info.dirty ? ' (uncommitted changes)' : ''} on ${info.branch} -> ${out}`);

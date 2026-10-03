@@ -91,7 +91,7 @@ export function commitSaveTransaction(storage, changes) {
   }
 }
 
-function create({species, regions, size, spawn = {x: 12, y: 13}, pack = LEGACY_PACK}) {
+function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pack = LEGACY_PACK}) {
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = id => regions.findIndex(r => r.id === id);
   const maxHP = (idx, xp) => species[idx].hp + Math.floor(xp / XP_PER_LEVEL) * 4;
@@ -167,8 +167,9 @@ function create({species, regions, size, spawn = {x: 12, y: 13}, pack = LEGACY_P
     s.battle = normalizeBattle(raw.battle, legacy);
     const region = ref(raw.region, regions, regionIndex);
     s.region = region >= 0 && (region === 0 || s.badges.includes(region - 1)) ? region : 0;
-    s.x = num(raw.x, 0, size - 1, spawn.x);
-    s.y = num(raw.y, 0, size - 1, spawn.y);
+    const map = bounds[regions[s.region].id] ?? {w: size, h: size, spawn};
+    s.x = num(raw.x, 0, map.w - 1, map.spawn?.x ?? spawn.x);
+    s.y = num(raw.y, 0, map.h - 1, map.spawn?.y ?? spawn.y);
     return s;
   }
 

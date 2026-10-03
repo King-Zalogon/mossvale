@@ -1,9 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
+import {compileMap, MAX_CELLS, validateMaps} from '../dist/src/domain/mapdata.js';
 import {buildWorld, isWalkable, triggersAt, zoneAt} from '../dist/src/domain/world.js';
 import {rollWild} from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
+import {movePlayer} from '../dist/src/domain/exploration.js';
 import {content, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
 const edit = fn => {
@@ -25,6 +27,46 @@ test('the shipped maps validate', () => {
     maps.map(m => m.id),
     content.regions.map(r => r.id),
   );
+});
+
+test('a bounded large rectangular map validates and compiles through its far coordinates', () => {
+  const large = {
+    format: 1,
+    id: 'long-meadow',
+    name: 'Long Meadow',
+    size: {w: 120, h: 80},
+    terrain: Array(80).fill('g'.repeat(120)),
+    spawns: {camp: [1, 1]},
+  };
+  const errors = validateMaps([large], {spriteNames: new Set(), speciesIds: new Set()});
+  assert.deepEqual(errors, []);
+  const map = compileMap(large, {spriteIndex: () => -1, speciesIndex: () => -1, regionIndex: () => 0});
+  assert.deepEqual(map.size, {w: 120, h: 80});
+  assert.equal(map.terrainAt(119, 79), 'ground');
+  assert.equal(map.terrainAt(120, 79), 'void');
+  assert.equal(isWalkable(buildWorld(map), 119, 79), true);
+  assert.equal(120 * 80 < MAX_CELLS, true);
+  const world = buildWorld(map);
+  const player = {x: 1, y: 1};
+  const movement = {world, player, pacing: {steps: 0, encounterAt: 4, encounterCooldown: Infinity}, trail: []};
+  for (let i = 0; i < 3000 && player.x < 118.5; i++) movePlayer(movement, 1, 1, false, 1 / 60);
+  for (let i = 0; i < 3000 && player.y < 78.5; i++) movePlayer(movement, -1, 1, false, 1 / 60);
+  assert.ok(player.x >= 118.5 && player.y >= 78.5, `walked to the far edge at (${player.x}, ${player.y})`);
+  assert.equal(isWalkable(world, player.x, player.y), true);
+});
+
+test('map validation refuses dimensions and area beyond its work budget', () => {
+  const large = {
+    format: 1,
+    id: 'too-large',
+    name: 'Too Large',
+    size: {w: 128, h: 128},
+    terrain: Array(128).fill('g'.repeat(128)),
+    spawns: {camp: [1, 1]},
+  };
+  assert.deepEqual(validateMaps([large], {spriteNames: new Set(), speciesIds: new Set()}), []);
+  large.size = {w: 128, h: 129};
+  has(validateMaps([large], {spriteNames: new Set(), speciesIds: new Set()}), 'no more than 16384 total tiles');
 });
 
 test('invalid exits, spawns, assets, species and flags are reported with map and field context', () => {
