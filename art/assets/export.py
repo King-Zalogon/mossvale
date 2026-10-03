@@ -60,12 +60,35 @@ FRAMES = {
         "frameHeight": 256,
         "columnOrder": ["north", "east", "south", "west"],
     },
+    **{
+        f"creature-{name}-combat": {
+            "columns": 4,
+            "rows": 5,
+            "frameWidth": 288,
+            "frameHeight": 288,
+            "columnOrder": [0, 1, 2, 3],
+            "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+        }
+        for name in ["fernling", "brooklet", "hushram"]
+    },
+    "creature-duskwing-combat": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 281,
+        "frameHeight": 281,
+        "columnOrder": [0, 1, 2, 3],
+        "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+    },
 }
 
 GENERATED_SOURCES = {
     "person-red-cap-motion": ["art/characters/SOURCES.md"],
     "person-traveler": ["art/characters/SOURCES.md"],
     "person-gardener": ["art/characters/SOURCES.md"],
+    "creature-fernling-combat": ["art/characters/source/creature-fernling-combat-generated.png"],
+    "creature-duskwing-combat": ["art/characters/source/creature-duskwing-combat-generated.png"],
+    "creature-brooklet-combat": ["art/characters/source/creature-brooklet-combat-generated.png"],
+    "creature-hushram-combat": ["art/characters/source/creature-hushram-combat-generated.png"],
 }
 
 

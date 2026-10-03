@@ -37,7 +37,7 @@ export function validateBrief(brief) {
 }
 
 function runPack(...args) {
-  const result = spawnSync(process.execPath, [new URL('./pack.mjs', import.meta.url).pathname, ...args], {encoding: 'utf8'});
+  const result = spawnSync(process.execPath, [fileURLToPath(new URL('./pack.mjs', import.meta.url)), ...args], {encoding: 'utf8'});
   if (result.status !== 0) fail((result.stderr || result.stdout || 'pack command failed').trim());
 }
 

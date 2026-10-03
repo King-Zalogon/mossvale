@@ -3,7 +3,7 @@
   "id": "mossvale",
   "name": "Mossvale",
   "brief": "Four biomes, twelve friends and a seal at every shrine.",
-  "maps": ["meadow", "amber-ridge", "frostveil-grove", "reedfen-wetlands", "orchard-ruins", "stilt-isles", "stone-basin"],
+  "maps": ["meadow", "amber-ridge", "frostveil-grove", "frostveil-pass", "reedfen-wetlands", "orchard-ruins", "stilt-isles", "stone-basin"],
   "species": [
     "fernling",
     "emberkin",
@@ -47,7 +47,12 @@
     {
       "id": "map:frostveil-grove",
       "path": "frostveil-grove.json",
-      "sha256": "e04183b9502daaf157cf484e92df75255aabec0faa4810904dc7a65e3984eb91"
+      "sha256": "02de86039986a649f5f53a4ffe6a9e36bb3dbd154141fa70c22ff6b97eb3ccd9"
+    },
+    {
+      "id": "map:frostveil-pass",
+      "path": "frostveil-pass.json",
+      "sha256": "320144b8a2b1cf2bb264fe29979771a7d56cdec40b5ea0d01e64a533f0b9e182"
     },
     {
       "id": "map:reedfen-wetlands",
