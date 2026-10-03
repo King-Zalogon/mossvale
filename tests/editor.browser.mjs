@@ -8,7 +8,7 @@ const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png', svg: 'image/svg+xml'};
 const server = http
   .createServer((request, response) => {
-    const name = decodeURIComponent(request.url.split('?')[0].slice(1));
+    const name = decodeURIComponent(request.url.split('?')[0].slice(1)) || 'index.html';
     const file = new URL(name, root);
     if (!existsSync(file)) return void response.writeHead(404).end();
     response.writeHead(200, {'content-type': types[name.split('.').pop()] || 'application/octet-stream'}).end(readFileSync(file));
@@ -35,6 +35,34 @@ try {
   await page.locator('#record').fill(JSON.stringify(record, null, 2));
   await page.click('#apply-record');
   assert.match(await page.locator('#validation').textContent(), /Valid map data/);
+  await page.locator('#map-canvas').click({position: {x: 560, y: 354}});
+  await page.selectOption('#add-kind', 'exit');
+  await page.click('#add-content');
+  const exitRecord = JSON.parse(await page.locator('#record').inputValue());
+  exitRecord.id = 'editor-return-portal';
+  await page.locator('#record').fill(JSON.stringify(exitRecord, null, 2));
+  await page.click('#apply-record');
+  assert.match(await page.locator('#validation').textContent(), /Valid map data/);
+  const previewPromise = page.waitForEvent('popup');
+  await page.click('#play-preview');
+  const game = await previewPromise;
+  await game.waitForFunction(() => window.mossvale && document.querySelector('#loading').hidden);
+  assert.equal(await game.evaluate(() => window.mossvale.getState().world.map.id), 'meadow');
+  assert.ok(await game.evaluate(() => window.mossvale.getState().world.objects.some(object => object.ref === 'editor-return-portal')));
+  await game.waitForFunction(() => window.mossvale.getState().phase === 'explore' && !window.mossvale.getState().modalMode);
+  const previewStart = await game.evaluate(() => ({x: window.mossvale.getState().player.x, y: window.mossvale.getState().player.y}));
+  await game.locator('#game').click();
+  await game.keyboard.down('ArrowRight');
+  await game.waitForTimeout(900);
+  await game.keyboard.up('ArrowRight');
+  const previewMoved = await game.evaluate(() => ({x: window.mossvale.getState().player.x, y: window.mossvale.getState().player.y}));
+  assert.notDeepEqual(
+    previewMoved,
+    previewStart,
+    `edited map can be played using normal movement (${JSON.stringify(await game.evaluate(() => window.mossvale.getState()))})`,
+  );
+  assert.equal(await game.evaluate(() => localStorage.getItem('mossvale-v3')), null, 'preview does not write a game save');
+  await game.close();
   const downloadPromise = page.waitForEvent('download');
   await page.click('#export');
   const download = await downloadPromise;
@@ -47,11 +75,14 @@ try {
     exported.landmarks.some(entity => entity.role === 'optional-guide'),
     `arbitrary runtime fields survive the JSON round trip: ${JSON.stringify(exported.landmarks.map(entity => ({id: entity.id, role: entity.role})))}`,
   );
+  assert.ok(
+    exported.exits.some(entity => entity.id === 'editor-return-portal'),
+    'the edited portal is exported',
+  );
   const large = structuredClone(exported);
   large.id = 'author-large-test';
   large.name = 'Author Large Test';
   large.size = {w: 64, h: 64};
-  large.terrain = Array.from({length: 64}, () => 'g'.repeat(64));
   large.terrain = Array.from({length: 64}, () => 't'.repeat(64));
   large.authoring = {opaqueId: 'keep-this-field'};
   await page.locator('#file').setInputFiles({name: 'author-large-test.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(large))});
@@ -65,7 +96,7 @@ try {
   assert.equal(largeRoundTrip.authoring.opaqueId, 'keep-this-field');
   assert.equal(largeRoundTrip.exits[0].id, large.exits[0].id);
   assert.deepEqual(errors, []);
-  console.log('ok map painting, undo/redo, validation, role editing and JSON round trip');
+  console.log('ok terrain and portal editing, undo/redo, validation, full-engine preview and large-map JSON round trip');
 } finally {
   await browser.close();
   server.close();
