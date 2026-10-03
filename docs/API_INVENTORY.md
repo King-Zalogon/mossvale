@@ -21,6 +21,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | Module | Layer | Named exports |
 | --- | --- | --- |
 | `character-preview.js` | root | — |
+| `compatibility.js` | root | `ENGINE_VERSION`, `SAVE_SCHEMA_VERSION` |
 | `config.js` | root | `BASE_LEVEL`, `BENCH_SHARE`, `CATCH_UP_BONUS`, `CATCH_UP_GAP`, `ELEMENT_COST`, `ELEMENT_POWER`, `FOCUS_GAIN`, `FOCUS_MAX`, `FOCUS_START`, `FOLLOW_GAP`, `GRACE_AFTER_BATTLE`, `GRACE_ON_ARRIVAL`, `GUARD_FACTOR`, `MAX_LEVEL`, `MAX_MAP_SIZE`, `MAX_XP`, `MOVE_STEP`, `MOVE_UPGRADE_LEVEL`, `PARTY_SIZE`, `PLAYER_RADIUS`, `TILE_H`, `TILE_W`, `TYPE_ADVANTAGE`, `TYPE_DISADVANTAGE`, `UNSEEN_PREFERENCE`, `UPGRADED_ELEMENT_POWER`, `XP_PER_LEVEL`, `configurePackRules` |
 | `controller.js` | root | `createController` |
 | `creature-combat-preview.js` | root | — |
@@ -36,11 +37,13 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `data/tactics.js` | data | `BRACE_FACTOR`, `DEFAULT_PATTERN`, `HEAVY_FACTOR`, `INTENT_TEXT`, `TACTICS`, `planOf`, `replaceTactics` |
 | `domain/adventure.js` | domain | `buildAdventure` |
 | `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `createBattle`, `encounterDistance`, `enemyAttack`, `ensureHealthyCompanion`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion` |
+| `domain/clock.js` | domain | `createTestClock` |
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
+| `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
 | `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `facing`, `followerPoint`, `movePlayer`, `playerFrame`, `pushTrail` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
 | `domain/objectives.js` | domain | `OBJECTIVES_FORMAT`, `collectFlags`, `currentObjective`, `holds`, `pickLine`, `validateLines`, `validateObjectives` |
-| `domain/pack.js` | domain | `PACK_FORMAT`, `milestonesOf`, `validatePack` |
+| `domain/pack.js` | domain | `PACK_FORMAT`, `milestonesOf`, `packFileEntries`, `validatePack`, `validatePackMetadata` |
 | `domain/phase.js` | domain | `PHASES`, `transition` |
 | `domain/prefabs.js` | domain | `expandMapPrefabs` |
 | `domain/registries.js` | domain | `resolveRegistries`, `validateRegistries` |
