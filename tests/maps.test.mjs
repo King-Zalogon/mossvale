@@ -297,7 +297,7 @@ test('the badlands pair is two large maps with a loop of safe exits and alternat
   assert.equal(mapsById['stone-basin'].biome, 'badlands');
   const to = (map, id) => map.exits.find(e => e.id === id).to;
   assert.deepEqual(to(ridge, 'down-to-basin'), {map: 'stone-basin', spawn: 'camp'});
-  assert.equal(to(basin, 'back-to-ridge').spawn, 'basin-landing');
+  assert.equal(to(basin, 'back-to-ridge').spawn, 'basin-return');
   assert.equal(to(basin, 'east-gate').spawn, 'basin-landing');
   assert.ok(ridge.spawns['basin-landing'] && ridge.spawns['east-return']);
   assert.equal(

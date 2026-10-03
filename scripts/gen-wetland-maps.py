@@ -172,7 +172,7 @@ def reedfen():
             {'id': 'heron-blind', 'kind': 'sign', 'sprite': 'signpost-wood', 'at': list(L['heron']), 'w': 38, 'label': 'Read the weathered note', 'secret': True, 'mapLabel': 'Heron blind', 'text': 'A hide for watching herons. Someone scratched in the plank: the shrine guardian loves a strong current.'},
         ],
         'exits': [
-            {'id': 'west', 'sprite': 'signpost-wood', 'at': list(L['west']), 'w': 40, 'label': 'Return to Frostveil Grove', 'to': {'map': 'frostveil-grove', 'spawn': 'camp'}},
+            {'id': 'west', 'sprite': 'signpost-wood', 'at': list(L['west']), 'w': 40, 'label': 'Return to Frostveil Grove', 'to': {'map': 'frostveil-grove', 'spawn': 'east-return'}},
             {'id': 'east-to-stilts', 'sprite': 'signpost-wood', 'at': list(L['east']), 'w': 40, 'label': 'Take the stilt boardwalk', 'to': {'map': 'stilt-isles', 'spawn': 'camp'}},
         ],
         'props': props,
