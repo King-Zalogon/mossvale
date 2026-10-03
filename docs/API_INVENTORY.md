@@ -38,10 +38,14 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/adventure.js` | domain | `buildAdventure` |
 | `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `createBattle`, `encounterDistance`, `enemyAttack`, `ensureHealthyCompanion`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion` |
 | `domain/clock.js` | domain | `createTestClock` |
+| `domain/companion-routes.js` | domain | `companionCanUseRoute`, `validateCompanionRoutes` |
+| `domain/composition.js` | domain | `compileComposition`, `validateBodyPlan` |
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
 | `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
 | `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `facing`, `followerPoint`, `movePlayer`, `playerFrame`, `pushTrail` |
+| `domain/inventory.js` | domain | `createInventory`, `moveInventory`, `sellInventory`, `validateInventoryRules` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
+| `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents` |
 | `domain/objectives.js` | domain | `OBJECTIVES_FORMAT`, `collectFlags`, `currentObjective`, `holds`, `pickLine`, `validateLines`, `validateObjectives` |
 | `domain/pack.js` | domain | `PACK_FORMAT`, `milestonesOf`, `packFileEntries`, `validatePack`, `validatePackMetadata` |
 | `domain/phase.js` | domain | `PHASES`, `transition` |
@@ -51,6 +55,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/rules.js` | domain | `addToParty`, `addXP`, `awardXP`, `clampHealth`, `companion`, `effectiveness`, `elementPower`, `flagDone`, `healTeam`, `healthyParty`, `inParty`, `level`, `maxHP`, `moveName`, `moveUpgraded`, `normalizeParty`, `removeFromParty`, `reserve`, `setActive`, `setFlag`, `unlocked`, `xpProgress` |
 | `domain/scenes.js` | domain | `MAX_SCENE_EVENTS`, `SCENE_ACTIONS`, `applySceneActions`, `markSceneRun`, `sceneConditionHolds`, `sceneEventKey`, `sceneHasRun`, `validateSceneEvent` |
 | `domain/story.js` | domain | `HINT_EVENTS`, `MAX_HINTS`, `STORY_FORMAT`, `endingDue`, `markSeen`, `pendingHint`, `validateStory` |
+| `domain/terrain-family.js` | domain | `chooseTerrainVariant`, `terrainSeed`, `terrainVariant` |
 | `domain/world.js` | domain | `INTERACTIVE_KINDS`, `buildWorld`, `isLand`, `isWalkable`, `nearestInteractive`, `nearestWalkable`, `objectsInBounds`, `rnd`, `spawnOf`, `terrainAt`, `tilesInBounds`, `triggersAt`, `zoneAt` |
 | `input.js` | root | `direction`, `installInput`, `isMoving` |
 | `main.js` | root | — |
