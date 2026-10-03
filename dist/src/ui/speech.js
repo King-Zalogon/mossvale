@@ -1,7 +1,7 @@
 import {$} from './dom.js';
 
 /** Small accessible, reusable comic bubble queue. Coordinates are relative to the game viewport. */
-export function createSpeech({ui, canvas}) {
+export function createSpeech({ui, canvas, onEvent = () => {}}) {
   const bubble = $('#speech-bubble');
   const text = $('#speech-text');
   const speaker = $('#speech-speaker');
@@ -11,10 +11,13 @@ export function createSpeech({ui, canvas}) {
   let returnFocus = null;
   let anchor = null;
   let completed = null;
+  let dialogueId = '';
 
   const close = (finished = false) => {
+    if (dialogueId) onEvent(finished ? 'dialogue.finished' : 'dialogue.dismissed', {dialogueId, line: index});
     lines = [];
     index = 0;
+    dialogueId = '';
     anchor = null;
     ui.speechActive = false;
     bubble.hidden = true;
@@ -28,6 +31,7 @@ export function createSpeech({ui, canvas}) {
   const paint = () => {
     const line = lines[index];
     if (!line) return close();
+    onEvent('dialogue.line', {dialogueId, line: index, speaker: line.speaker ?? 'narrator'});
     text.textContent = line.text;
     speaker.textContent = line.name || (line.speaker === 'player' ? 'You' : 'A voice');
     next.textContent = index === lines.length - 1 ? 'Done' : 'Next';
@@ -49,6 +53,7 @@ export function createSpeech({ui, canvas}) {
       if (!ui.speechActive) returnFocus = document.activeElement;
       lines = sequence;
       index = 0;
+      dialogueId = sequence[0].id ?? `speaker-${sequence[0].speaker ?? 'narrator'}`;
       anchor = resolveAnchor;
       completed = onComplete;
       ui.keys = {};
@@ -56,6 +61,7 @@ export function createSpeech({ui, canvas}) {
       $('#interact').style.display = 'none';
       ui.speechActive = true;
       bubble.hidden = false;
+      onEvent('dialogue.started', {dialogueId, lines: sequence.length});
       paint();
       next.focus({preventScroll: true});
     },
