@@ -24,7 +24,7 @@ export function installInput(app) {
   };
   for (const b of document.querySelectorAll('[data-dir]')) {
     b.onpointerdown = e => {
-      if (ui.modalMode || ui.paused) return;
+      if (ui.modalMode || ui.paused || ui.speechActive) return;
       e.preventDefault();
       b.setPointerCapture(e.pointerId);
       ui.touch = b.dataset.dir.split(',').map(Number);
@@ -35,6 +35,12 @@ export function installInput(app) {
   window.addEventListener('keydown', e => {
     if (!ui.ready) return;
     const k = e.key.toLowerCase();
+    if (ui.speechActive) {
+      e.preventDefault();
+      if (['enter', ' ', 'e'].includes(k)) actions.advanceSpeech();
+      else if (k === 'escape') actions.dismissSpeech();
+      return;
+    }
     if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(k) && !ui.modalMode) e.preventDefault();
     if (ui.modalMode) {
       if (ui.modalMode === 'result' && ['enter', ' ', 'e', 'escape'].includes(k)) {

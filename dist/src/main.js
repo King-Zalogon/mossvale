@@ -96,6 +96,7 @@ const app = {
   build: null,
   buildLabel: () => describeBuild(app.build),
   motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,
+  projectWorld: (x, y) => renderer.worldToScreen(x, y),
   archive: () => readArchive(storage, codec),
   checkpoint: () => readCheckpoint(storage, codec),
   canStartOver: () => loaded.writable,
@@ -339,7 +340,7 @@ function loop(t) {
   if (!document.hidden) {
     const {pacing} = game;
     pacing.encounterCooldown = Math.max(0, pacing.encounterCooldown - dt);
-    if (!ui.paused && !ui.modalMode) {
+    if (!ui.paused && !ui.modalMode && !ui.speechActive) {
       game.save.playTime += dt;
       const [sx, sy] = direction(ui);
       const run = ui.keys.shift || ui.touchRun;
@@ -369,6 +370,7 @@ function loop(t) {
     };
     const t0 = perf ? performance.now() : 0;
     renderer.drawWorld(view);
+    actions.positionSpeech();
     const t1 = perf ? performance.now() : 0;
     if (frame % 4 === 0) renderer.drawMinimap(view);
     if (perf) {
@@ -447,6 +449,7 @@ if (debug) {
     travel: actions.travel,
     interact: actions.interact,
     objective: () => currentObjective(game.save, app.objectives, app.objCtx),
+    previewSpeech: actions.previewSpeech,
     level: id => level(game.save, id),
     maxHP: id => maxHP(game.save, id),
     effectiveness,

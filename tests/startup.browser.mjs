@@ -253,14 +253,18 @@ for (const [seed, weakened] of [
   });
   await page.waitForTimeout(100);
   await page.evaluate(() => window.mossvale.interact());
+  await page.click('#speech-next');
   await page.waitForSelector('[data-buy="potion"]');
   await page.click('[data-buy="potion"]');
+  await page.click('#speech-next');
   assert.deepEqual(await state(), {coins: 15, potions: 1, orbs: 0});
   await page.waitForSelector('[data-buy="potion"]');
   await page.click('[data-buy="orbs"]');
+  await page.click('#speech-next');
   assert.deepEqual(await state(), {coins: 0, potions: 1, orbs: 5});
   assert.equal(await page.locator('[data-buy="orbs"]').isDisabled(), true, 'cannot buy without coins');
   await page.click('#rest-team');
+  await page.click('#speech-next');
   assert.deepEqual(await state(), {coins: 0, potions: 1, orbs: 12});
   assert.deepEqual(errors, []);
   console.log('ok ranger shop and rest');

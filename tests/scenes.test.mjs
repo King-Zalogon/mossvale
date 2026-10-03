@@ -44,7 +44,7 @@ test('map scene actions validate references and reject unsafe challenge semantic
 test('one-time scene effects and reward flags persist together; repeatable conditions remain reusable', () => {
   const save = newSave();
   const result = applySceneActions(save, validEvent, {setFlag: flag => setFlag(save, flag)});
-  assert.deepEqual(result.dialogue, ['The trail is quiet today.']);
+  assert.deepEqual(result.dialogue, [{text: 'The trail is quiet today.', speaker: 'narrator'}]);
   assert.equal(save.coins, 3);
   assert.equal(save.orbs, 13);
   assert.equal(save.chests.includes(0), true);
@@ -54,4 +54,20 @@ test('one-time scene effects and reward flags persist together; repeatable condi
   assert.equal(sceneConditionHolds({when: {met: false}}, restored, {speciesCount: 2, regions: [{id: 'meadow'}]}), true);
   markSceneRun(restored, 'meadow', validEvent.id);
   assert.equal(restored.events.length, 1);
+});
+
+test('dialogue resolves stable reusable speaker ids and rejects unknown ones', () => {
+  const withSpeaker = {id: 'welcome', repeatable: false, actions: [{type: 'dialogue', speaker: 'ranger', text: 'The trail is quiet today.'}]};
+  assert.deepEqual(
+    validateSceneEvent(withSpeaker, {speciesIds: new Set(), speakerIds: new Set(['ranger']), mapId: 'meadow', mapIds: new Set(['meadow']), where: 'test'}),
+    [],
+  );
+  assert.ok(
+    validateSceneEvent(
+      {...withSpeaker, actions: [{...withSpeaker.actions[0], speaker: 'not-here'}]},
+      {speciesIds: new Set(), speakerIds: new Set(['ranger']), mapId: 'meadow', mapIds: new Set(['meadow']), where: 'test'},
+    ).some(error => error.includes('unknown speaker')),
+  );
+  const save = {coins: 0, potions: 0, orbs: 0};
+  assert.deepEqual(applySceneActions(save, withSpeaker, {setFlag() {}}).dialogue, [{text: 'The trail is quiet today.', speaker: 'ranger'}]);
 });
