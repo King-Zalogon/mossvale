@@ -4,7 +4,7 @@ These modules are pure, opt-in building blocks. They do not change the current M
 
 ## Terrain families (#96)
 
-`domain/terrain-family.js` classifies a grid cell by its cardinal and diagonal neighbors, produces a stable family key, and chooses seeded variants reproducibly. It defaults to no transform; rotational reuse is only labeled safe when the caller explicitly opts in. This provides topology/seed behavior for an authoring tool to bake. It does not add grass/path/water source art, bridge semantics, or editor previews.
+`domain/terrain-family.js` classifies a grid cell by cardinal edges and diagonal corners, labels isolated/end/straight/corner/tee/cross shapes, and chooses seeded variants reproducibly. Corner-specific art can override a cardinal mask. Missing edge art returns `null` instead of falling back to a center tile. It defaults to no transform; rotational reuse is only labeled safe when the caller explicitly opts in. This is still topology data for an authoring tool to bake: no grass/path/water source art, bridge semantics, map compiler integration, or editor previews are included.
 
 ## Optional bag and storage (#99)
 
@@ -12,14 +12,14 @@ These modules are pure, opt-in building blocks. They do not change the current M
 
 ## Event-driven objectives (#100)
 
-`domain/objective-events.js` defines a small linear stage list triggered by typed events. Each event advances at most one stage, and a terminal reward is returned once in state. A pack can persist the returned state through its normal transaction layer. It does not yet extend the shipped objective validator, dialogue choices, gameplay event wiring, or browser UI.
+`domain/objective-events.js` defines a small linear stage list triggered by typed events. Cycles are rejected, state can be checked after JSON reload, each event advances at most one stage, and a terminal reward is returned once in state. `domain/dialogue-choices.js` validates stable speaker/target IDs and filters choices using the existing objective conditions. These remain opt-in pure helpers: no shipped objective validator, gameplay event wiring, choice buttons/keyboard navigation, or browser UI is included.
 
 ## Compositional creatures (#101)
 
-`domain/composition.js` compiles a plan and assigned tagged parts into flat `parts`, unique `abilities`, and bounded modifiers, reporting missing/incompatible/unknown slots. It changes no species definitions and does not compose artwork; generated visual identity briefs and a roster of sample compositions remain follow-up.
+`domain/composition.js` compiles a plan and assigned tagged parts into flat `parts`, unique `abilities`, and bounded modifiers, reporting missing/incompatible/unknown slots, excluded tags, and aggregate modifier overflow. It changes no species definitions and does not compose artwork; generated visual identity briefs and a roster of sample compositions remain follow-up.
 
 ## Optional companion routes (#102)
 
-`domain/companion-routes.js` checks whether a companion has a route's optional ability and habitat tags, and validates that each starter retains access to marked recovery routes. This is a route-offer data check only: no shipped maps, unlock persistence, route telegraph, discovery reward, or movement physics change yet.
+`domain/companion-routes.js` checks whether a companion has a route's optional ability and habitat tags, filters route offers, validates route IDs/requirements, and ensures each starter can reach at least one recovery route. This is a route-offer data check only: no shipped maps, unlock persistence, route telegraph, discovery reward, or movement physics change yet.
 
 Run the focused prototype suite with `node --test tests/graftworks-prototypes.test.mjs`. These modules are intentionally independent so the shared systems can be adopted gradually after pack and owner review.

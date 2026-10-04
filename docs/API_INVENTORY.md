@@ -39,15 +39,16 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/adventure.js` | domain | `buildAdventure` |
 | `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `createBattle`, `encounterDistance`, `enemyAttack`, `ensureHealthyCompanion`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion` |
 | `domain/clock.js` | domain | `createTestClock` |
-| `domain/companion-routes.js` | domain | `companionCanUseRoute`, `validateCompanionRoutes` |
+| `domain/companion-routes.js` | domain | `availableCompanionRoutes`, `companionCanUseRoute`, `validateCompanionRoutes` |
 | `domain/composition.js` | domain | `compileComposition`, `validateBodyPlan` |
+| `domain/dialogue-choices.js` | domain | `availableDialogueChoices`, `selectDialogueChoice`, `validateDialogueChoices` |
 | `domain/discovery.js` | domain | `CELL`, `MAX_SEEN`, `SECRET_RANGE`, `VISION`, `cellGrid`, `compass`, `decodeEntry`, `discover`, `encodeEntry`, `entryFor`, `exploredShare`, `isKnown`, `isRevealed`, `landmarkLabel`, `reveal`, `toHex` |
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
 | `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
 | `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `directionPose`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
 | `domain/inventory.js` | domain | `createInventory`, `moveInventory`, `sellInventory`, `validateInventoryRules` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
-| `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents` |
+| `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents`, `validateObjectiveState` |
 | `domain/objectives.js` | domain | `OBJECTIVES_FORMAT`, `collectFlags`, `currentObjective`, `holds`, `pickLine`, `validateLines`, `validateObjectives` |
 | `domain/pack.js` | domain | `PACK_FORMAT`, `milestonesOf`, `packFileEntries`, `validatePack`, `validatePackMetadata` |
 | `domain/phase.js` | domain | `PHASES`, `transition` |
