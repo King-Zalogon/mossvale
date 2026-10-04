@@ -239,8 +239,8 @@ export function createController(app) {
   const rangerLandmark = () => game.world.objects.find(o => o.kind === 'ranger');
   const rangerName = () => rangerLandmark()?.name ?? 'the ranger';
 
-  function speakLandmark(o, text, onComplete) {
-    const choices = availableDialogueChoices(o?.choices, save(), objCtx);
+  function speakLandmark(o, text, onComplete, {includeChoices = true} = {}) {
+    const choices = includeChoices ? availableDialogueChoices(o?.choices, save(), objCtx) : [];
     const anchor = line => {
       const actor = game.world.objects.find(object => object.ref === line.speaker) ?? o;
       return actor ? app.projectWorld(actor.x, actor.y) : null;
@@ -261,7 +261,9 @@ export function createController(app) {
   function openRanger(message) {
     const o = rangerLandmark();
     const line = message ?? pickLine(o?.lines, save(), objCtx) ?? 'Welcome back. Rest here whenever you need to.';
-    speakLandmark(o, line + tip('first-ranger'), () => menus.ranger({name: o?.name ?? 'The ranger', sprite: o?.id, message: ''}));
+    speakLandmark(o, line + tip('first-ranger'), () => menus.ranger({name: o?.name ?? 'The ranger', sprite: o?.id, message: ''}), {
+      includeChoices: message === undefined,
+    });
   }
 
   function rest() {

@@ -58,7 +58,9 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
     choicesVisible = true;
     choiceList.replaceChildren();
     choiceList.hidden = false;
-    next.hidden = true;
+    next.hidden = false;
+    next.textContent = 'Continue';
+    next.setAttribute('aria-label', 'Continue without choosing');
     text.textContent = 'Choose a response.';
     const buttons = choices.map(choice => {
       const button = document.createElement('button');
@@ -81,7 +83,8 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
     buttons[0]?.focus({preventScroll: true});
   };
   next.onclick = () => {
-    if (index + 1 >= lines.length && choices.length) showChoices();
+    if (choicesVisible) close(true);
+    else if (index + 1 >= lines.length && choices.length) showChoices();
     else if (index + 1 >= lines.length) close(true);
     else {
       index++;
