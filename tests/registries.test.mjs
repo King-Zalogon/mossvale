@@ -22,10 +22,12 @@ test('pack registries are versioned, field-checked and bound to shared asset IDs
   invalid.species[0].sprite = 'missing-art';
   invalid.progression.partySize = 8;
   invalid.tactics.defaultPattern = ['teleport'];
+  invalid.tactics.patterns['spore-guard'].braceQuickFactor = 0;
   const errors = check(invalid).join('\n');
   assert.match(errors, /unknown shared asset/);
   assert.match(errors, /partySize/);
   assert.match(errors, /supported actions/);
+  assert.match(errors, /braceQuickFactor/);
 });
 
 test('two packs install different species, region, economy and battle rules through the same engine modules', () => {

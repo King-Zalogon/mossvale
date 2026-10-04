@@ -10,13 +10,14 @@ import {drawCreature, drawSprite} from '../render/sprites.js';
 import {spriteId} from '../data/assets.js';
 import {REST_FLOOR, SHOP} from '../data/economy.js';
 import {canBuy} from '../domain/economy.js';
-import {POTION_HEAL} from '../domain/battle.js';
+import {guardianLevel, POTION_HEAL} from '../domain/battle.js';
 import {TACTICS} from '../data/tactics.js';
+import {PORTAL_RETURN_URL} from '../build-config.js';
 import {hasProgress, summarize} from '../services/profile.js';
 import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
 import {createAccountMenus} from './account.js';
 import {createAreaMap} from './areamap.js';
-import {$, header, openModal} from './dom.js';
+import {$, header, openModal, toast} from './dom.js';
 
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'})[c]);
 
@@ -167,13 +168,52 @@ export function createMenus(app) {
     if (game.battle) return;
     const s = save();
     open(
-      `${header('RANGER STATION', 'A moment with ' + name)}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free: your team is healed and your bag is topped up to ${REST_FLOOR.orbs} orbs and ${REST_FLOOR.potions} potion.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">1 · Rest your team</button>${SHOP.map((o, i) => `<button data-buy="${o.id}" ${canBuy(s, o) ? '' : 'disabled'}>${i + 2} · ${o.label} · ${o.price} coins</button>`).join('')}</div><p class="dialog-note">Potions restore ${POTION_HEAL} HP during battle. Coins only buy extras: you can always rest for free. Use 1–3 to choose, Tab then Enter to activate, or Esc to return.</p>`,
+      `${header('RANGER STATION', 'A moment with ' + name)}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free: your team is healed and your bag is topped up to ${REST_FLOOR.orbs} orbs and ${REST_FLOOR.potions} potion.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">1 · Rest your team</button>${SHOP.map((o, i) => `<button data-buy="${o.id}" ${canBuy(s, o) ? '' : 'disabled'}>${i + 2} · ${o.label} · ${o.price} coins</button>`).join('')}</div>${app.inventoryRules ? '<button id="open-inventory" class="muted-button">Bag & ranger’s stash</button>' : ''}<p class="dialog-note">Potions restore ${POTION_HEAL} HP during battle. Coins only buy extras: you can always rest for free. Use 1–3 to choose, Tab then Enter to activate, or Esc to return.</p>`,
       'ranger',
       name,
     );
     drawSprite($('#ranger-art').getContext('2d'), sprite, 45, 130, 65);
     $('#rest-team').onclick = () => actions.rest();
     for (const b of document.querySelectorAll('[data-buy]')) b.onclick = () => actions.buy(b.dataset.buy);
+    if ($('#open-inventory')) $('#open-inventory').onclick = () => inventory();
+    wireClose();
+  }
+
+  function inventory() {
+    if (!app.inventoryRules || !save().inventory || game.battle) return;
+    const rules = app.inventoryRules;
+    const inventory = save().inventory;
+    const bagRows =
+      Object.entries(inventory.bag)
+        .map(([id, quantity]) => {
+          const item = rules.items[id];
+          if (!item) return '';
+          return `<div class="item-counts"><span>${esc(item.name)} · ${quantity}</span><button data-stash="${esc(id)}">Store one</button>${item.kind === 'valuable' ? `<button data-sell="${esc(id)}">Sell one · ${item.sellPrice} coins</button>` : ''}</div>`;
+        })
+        .join('') || '<p>Your bag is empty.</p>';
+    const storageRows =
+      Object.entries(inventory.storage)
+        .map(([id, quantity]) => {
+          const item = rules.items[id];
+          return item ? `<div class="item-counts"><span>${esc(item.name)} · ${quantity}</span><button data-withdraw="${esc(id)}">Take one</button></div>` : '';
+        })
+        .join('') || '<p>The ranger’s stash is empty.</p>';
+    const shopRows = Object.entries(rules.items)
+      .filter(([, item]) => item.kind === 'usable' && item.price > 0 && item.buyable !== false)
+      .map(
+        ([id, item]) =>
+          `<button data-pack-buy="${esc(id)}" ${inventory.coins < item.price || Object.values(inventory.bag).reduce((total, count) => total + count, 0) >= rules.carryCap ? 'disabled' : ''}>Buy ${esc(item.name)} · ${item.price} coins</button>`,
+      )
+      .join('');
+    open(
+      `${header('YOUR SUPPLIES', 'Bag & ranger’s stash')}<p>Coins · ${inventory.coins} · Carry ${Object.values(inventory.bag).reduce((total, count) => total + count, 0)} / ${rules.carryCap}</p><h3 class="party-heading">Bag</h3>${bagRows}<h3 class="party-heading">Ranger’s stash · ${Object.values(inventory.storage).reduce((total, count) => total + count, 0)} / ${rules.storageCap}</h3>${storageRows}${shopRows ? `<h3 class="party-heading">Pack shop</h3><div class="ranger-actions">${shopRows}</div>` : ''}`,
+      'ranger',
+      'Bag and stash',
+    );
+    for (const button of document.querySelectorAll('[data-stash]')) button.onclick = () => actions.movePackItem(button.dataset.stash, 'bag');
+    for (const button of document.querySelectorAll('[data-withdraw]')) button.onclick = () => actions.movePackItem(button.dataset.withdraw, 'storage');
+    for (const button of document.querySelectorAll('[data-sell]')) button.onclick = () => actions.sellPackItem(button.dataset.sell);
+    for (const button of document.querySelectorAll('[data-pack-buy]')) button.onclick = () => actions.buyPackItem(button.dataset.packBuy);
     wireClose();
   }
 
@@ -181,7 +221,7 @@ export function createMenus(app) {
     const s = save();
     const r = regions[s.region];
     open(
-      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${g.guardian.level} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < regions.length - 1 ? ' and open the trail to ' + regions[s.region + 1].name : `. All ${regions.length} shrines will be awake`}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div>${TACTICS[g.guardian.tactic] ? `<p class="dialog-note" style="text-align:center"><b>${TACTICS[g.guardian.tactic].name}.</b> ${TACTICS[g.guardian.tactic].intro}</p>` : ''}<p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. You can rest and try again any time.</p>`,
+      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${guardianLevel(s, g.guardian)} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < regions.length - 1 ? ' and open the trail to ' + regions[s.region + 1].name : `. All ${regions.length} shrines will be awake`}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div>${TACTICS[g.guardian.tactic] ? `<p class="dialog-note" style="text-align:center"><b>${TACTICS[g.guardian.tactic].name}.</b> ${TACTICS[g.guardian.tactic].intro}</p>` : ''}<p class="dialog-note" style="text-align:center">Guardian levels are at least their shrine level and rise to match your party's average. Wild encounters keep their own levels. Guardians cannot be captured; you can rest and retry any time.</p>`,
       'shrine',
       'Shrine guardian',
     );
@@ -278,7 +318,7 @@ export function createMenus(app) {
       } else if (view === 'confirm-restore') {
         body = `${header('RESTORE', 'Go back to your earlier adventure?', false)}<p class="menu-summary">Restores ${summarize(archived.save, species)}, archived ${new Date(archived.at).toLocaleDateString()}. Your current adventure (${summarize(s, species)}) becomes the backup, so nothing is lost.</p><div class="menu-list"><button id="m-confirm-restore" class="primary">Restore it</button><button id="m-cancel">Cancel</button></div>`;
       } else {
-        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${!title ? '<button id="m-feedback">Leave feedback</button><button id="m-account-save">Account save</button>' : ''}${app.adventures.list.length > 1 ? '<button id="m-adventures">Adventures<small>' + esc(app.adventures.current.name) + '</small></button>' : ''}<button id="m-backup">Backup & restore</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
+        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${!title ? '<button id="m-feedback">Leave feedback</button><button id="m-account-save">Account save</button>' : ''}${app.adventures.list.length > 1 ? '<button id="m-adventures">Adventures<small>' + esc(app.adventures.current.name) + '</small></button>' : ''}<button id="m-backup">Backup & restore</button>${!title && PORTAL_RETURN_URL ? '<button id="m-return-dashboard">Return to dashboard</button>' : ''}${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
       }
       open(body, mode, title ? 'Mossvale' : 'Game menu');
       wireClose();
@@ -290,6 +330,13 @@ export function createMenus(app) {
         render();
       };
       on('#m-primary', () => (title ? actions.startPlaying() : actions.close()));
+      on('#m-return-dashboard', () => {
+        if (!app.persist()) {
+          toast('Your progress could not be saved. Keep this tab open and try again.');
+          return;
+        }
+        location.assign(PORTAL_RETURN_URL);
+      });
       on('#m-settings', go('settings'));
       on('#m-feedback', () => accountMenus.feedback(render));
       on('#m-account-save', () => accountMenus.accountSave(render));
@@ -344,5 +391,5 @@ export function createMenus(app) {
     render();
   }
 
-  return {story, mainMenu, worldMap, journal, party, ranger, shrine, result, help, saveNotice};
+  return {story, mainMenu, worldMap, journal, party, ranger, inventory, shrine, result, help, saveNotice};
 }

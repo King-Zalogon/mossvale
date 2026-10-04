@@ -89,6 +89,16 @@ export function validateRegistries(raw, {assetNames}) {
       if (!Array.isArray(pattern) || !pattern.length || !pattern.every(action => ACTIONS.has(action)))
         at('tactics.' + key, 'needs a non-empty sequence of supported actions');
     for (const field of ['heavyFactor', 'braceFactor']) if (!finite(raw.tactics[field], 0.1, 10)) at('tactics.' + field, 'must be a positive bounded number');
+    for (const [id, tactic] of Object.entries(raw.tactics.patterns)) {
+      for (const [field, min, max] of [
+        ['braceQuickFactor', 0.1, 1],
+        ['braceElementFactor', 0.1, 2],
+        ['guardRiposteFactor', 0, 2],
+        ['repeatElementFactor', 1, 2],
+        ['recoveryOnCharge', 0, 0.5],
+      ])
+        if (tactic?.[field] !== undefined && !finite(tactic[field], min, max)) at(`tactics.patterns.${id}.${field}`, `must be a number from ${min} to ${max}`);
+    }
     if (!object(raw.tactics.intentText) || [...ACTIONS].some(action => typeof raw.tactics.intentText[action] !== 'string'))
       at('tactics.intentText', 'needs player-facing text for every action');
   }

@@ -42,7 +42,7 @@ test('v2 progress is preserved when migrated to stable IDs', () => {
     r = codec.load(s);
   assert.deepEqual([r.save.caught, r.save.badges, r.save.region, r.save.orbs, r.save.coins, r.save.team[0].xp], [[0, 1], [0], 1, 7, 50, 90]);
   const out = JSON.parse(codec.serialize(r.save));
-  assert.equal(out.version, 4);
+  assert.equal(out.version, 5);
   assert.deepEqual(out.caught, ['fernling', 'emberkin']);
   assert.deepEqual(out.badges, ['meadow']);
   assert.equal(out.region, 'amber-ridge');
@@ -56,13 +56,49 @@ test('stable identities survive reordering of definitions', () => {
   assert.deepEqual(back.caught.map(i => [...species].reverse()[i].id).sort(), ['emberkin', 'fernling']);
   assert.equal([...species].reverse()[back.active].id, 'emberkin');
 });
-test('v4 round trip is unchanged and checkpoints a backup', () => {
+test('v5 round trip is unchanged and checkpoints a backup', () => {
   const raw = codec.serialize(codec.fresh()),
     s = store({[KEYS.v3]: raw}),
     r = codec.load(s);
   assert.equal(r.status, 'ok');
   assert.equal(codec.serialize(r.save), raw);
   assert.equal(s.m.get(KEYS.backup), raw);
+});
+test('optional pack inventory persists and v4 supplies migrate without losing counts', () => {
+  const rules = {
+    carryCap: 198,
+    storageCap: 198,
+    items: {potion: {name: 'Potion', kind: 'usable', price: 10}, orb: {name: 'Orb', kind: 'usable', price: 3}},
+    supplies: {potions: 'potion', orbs: 'orb'},
+  };
+  const packCodec = create({species, regions, size: 25, inventoryRules: rules});
+  const legacy = JSON.parse(packCodec.serialize(packCodec.fresh()));
+  legacy.version = 4;
+  delete legacy.inventory;
+  legacy.potions = 19;
+  legacy.orbs = 44;
+  legacy.coins = 73;
+  const loaded = packCodec.load(store({[KEYS.v3]: JSON.stringify(legacy)}));
+  assert.equal(loaded.status, 'migrated');
+  assert.deepEqual(loaded.save.inventory, {bag: {potion: 19, orb: 44}, storage: {}, coins: 73, claimed: {}});
+  const saved = JSON.parse(packCodec.serialize(loaded.save));
+  assert.equal(saved.version, 5);
+  const reloaded = packCodec.load(store({[KEYS.v3]: JSON.stringify(saved)}));
+  assert.deepEqual(reloaded.save.inventory, loaded.save.inventory);
+  assert.deepEqual([reloaded.save.potions, reloaded.save.orbs, reloaded.save.coins], [19, 44, 73]);
+});
+test('v1 saves preserve any coins and potions that the older payload contains', () => {
+  const rules = {
+    carryCap: 198,
+    storageCap: 198,
+    items: {potion: {name: 'Potion', kind: 'usable', price: 10}, orb: {name: 'Orb', kind: 'usable', price: 3}},
+    supplies: {potions: 'potion', orbs: 'orb'},
+  };
+  const packCodec = create({species, regions, size: 25, inventoryRules: rules});
+  const old = {seen: [0], caught: [0], orbs: 6, potions: 8, coins: 42, wins: 1, met: true, hp: 35};
+  const loaded = packCodec.load(store({[KEYS.v1]: JSON.stringify(old)}));
+  assert.deepEqual([loaded.save.coins, loaded.save.potions, loaded.save.orbs], [42, 8, 6]);
+  assert.deepEqual(loaded.save.inventory.bag, {potion: 8, orb: 6});
 });
 test('positions near the far edge of the large-map coordinate range survive reload', () => {
   const largeMapCodec = create({

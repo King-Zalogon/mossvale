@@ -55,6 +55,10 @@ try {
   assert.ok((await page.locator('#speech-text').textContent()).length > 250, 'long dialogue remains readable in a small viewport');
   box = await bounds();
   assert.ok(box.left >= 0 && box.right <= box.width && box.top >= 0 && box.bottom <= box.height, JSON.stringify(box));
+  await page.keyboard.press('Tab');
+  assert.equal(await page.evaluate(() => document.activeElement.id), 'speech-bubble', 'keyboard can focus the scrollable reading area');
+  await page.keyboard.press('Tab');
+  assert.equal(await page.evaluate(() => document.activeElement.id), 'speech-next', 'Tab stays within dialogue');
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('#speech-bubble').isHidden(), true, 'Escape dismisses and clears the line queue');
   await page.evaluate(() => {

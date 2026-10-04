@@ -164,6 +164,12 @@ try {
     await page.mouse.move(box.x + 120, box.y + 110, {steps: 4});
     await page.mouse.up();
     const dragged = await areaState(page);
+    await page.mouse.move(box.x + 180, box.y + 130);
+    await page.mouse.down();
+    await page.locator('#area-canvas').dispatchEvent('lostpointercapture');
+    await page.mouse.move(box.x + 100, box.y + 80);
+    assert.deepEqual(await areaState(page), dragged, 'lost pointer capture stops map dragging');
+    await page.mouse.up();
     assert.ok(dragged.cx !== before.cx || dragged.cy !== before.cy, 'dragging pans');
     await page.mouse.move(box.x + 200, box.y + 150);
     await page.mouse.wheel(0, -300);

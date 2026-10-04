@@ -17,6 +17,8 @@ import {
   withdraw,
 } from '../dist/src/domain/inventory.js';
 import {seededRng} from '../dist/src/domain/rng.js';
+import {createPersistence} from '../dist/src/services/persistence.js';
+import {codec, newSave, rawInventoryRules} from './helpers.mjs';
 
 // A pack that keeps Mossvale's potion/orb supplies, small caps and a 40% potion.
 const meadow = {
@@ -198,4 +200,23 @@ test('existing saves keep their supplies when a pack adopts items', () => {
   const next = inventoryToSupplies(state, save, meadow);
   assert.deepEqual([next.potions, next.orbs, next.coins, next.region], [2, 12, 33, 1]);
   assert.deepEqual(suppliesToInventory({coins: 5}, lantern).bag, {}, 'a pack without supply mapping starts with an empty bag');
+});
+
+test('every persistence write syncs legacy battle supplies into the pack bag', () => {
+  const values = new Map();
+  const storage = {
+    getItem: key => values.get(key) ?? null,
+    setItem: (key, value) => values.set(key, String(value)),
+    removeItem: key => values.delete(key),
+  };
+  const game = {save: newSave(), player: {x: 4, y: 6}, battle: null};
+  game.save.potions--;
+  game.save.orbs--;
+  game.save.coins = 25;
+  const persist = createPersistence({storage, codec, game, writable: true, inventoryRules: rawInventoryRules(), onStatus() {}});
+  assert.equal(persist(), true);
+  const raw = JSON.parse(values.get(codec.keys.v3));
+  assert.deepEqual([raw.potions, raw.orbs, raw.coins], [2, 11, 25]);
+  assert.deepEqual(raw.inventory.bag, {potion: 2, orb: 11});
+  assert.equal(raw.inventory.coins, 25);
 });

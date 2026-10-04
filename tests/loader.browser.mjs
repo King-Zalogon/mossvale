@@ -187,7 +187,7 @@ const failed = (page, text) =>
   });
   assert.deepEqual(state, {caught: [0, 2, 3], coins: 60, chests: [0]});
   await page.waitForTimeout(200);
-  assert.equal(JSON.parse(await page.evaluate(() => localStorage.getItem('mossvale-v3'))).version, 4);
+  assert.equal(JSON.parse(await page.evaluate(() => localStorage.getItem('mossvale-v3'))).version, 5);
   assert.equal((await page.evaluate(() => localStorage.getItem('mossvale-v2'))) !== null, true, 'the old save is left untouched');
   assert.deepEqual(errors, []);
   await ctx.close();

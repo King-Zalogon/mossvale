@@ -22,13 +22,18 @@ const fixture = name => {
   const dir = new URL(`./fixtures/packs/${name}/`, import.meta.url);
   const read = f => JSON.parse(readFileSync(new URL(f, dir), 'utf8'));
   const pack = read('index.json');
-  return {pack, registries: read(pack.registries), maps: pack.maps.map(id => read(id + '.json'))};
+  return {
+    pack,
+    registries: read(pack.registries),
+    maps: pack.maps.map(id => read(id + '.json')),
+    inventoryRules: pack.inventory ? read(pack.inventory) : undefined,
+  };
 };
 const buildFixture = (name, tweak) => {
   const f = fixture(name);
   tweak?.(f);
   const content = resolveRegistries(f.registries, assets);
-  return buildAdventure(f.maps, {assets, ...content, packId: f.pack.id}, undefined, undefined, f.pack);
+  return buildAdventure(f.maps, {assets, ...content, packId: f.pack.id}, undefined, undefined, f.pack, f.inventoryRules);
 };
 const store = (init = {}) => {
   const m = new Map(Object.entries(init));
@@ -38,7 +43,8 @@ const build = tweak => {
   const pack = rawPack();
   const maps = rawMaps();
   tweak?.({pack, maps});
-  return buildAdventure(maps, packContent, rawObjectives(), rawStory(), pack).errors;
+  const inventoryRules = pack.inventory ? JSON.parse(readFileSync(new URL('../dist/maps/inventory.json', import.meta.url), 'utf8')) : undefined;
+  return buildAdventure(maps, packContent, rawObjectives(), rawStory(), pack, inventoryRules).errors;
 };
 
 test('the first adventure is a pack: its id, creatures and milestones come from data', () => {

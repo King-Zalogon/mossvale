@@ -22,17 +22,18 @@
   "ending": "story",
   "objectives": "objectives.json",
   "story": "story.json",
+  "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 1,
+  "contentVersion": 2,
   "requires": {
     "engineVersion": 1,
-    "saveSchema": 4
+    "saveSchema": 5
   },
   "integrity": [
     {
       "id": "registry:main",
       "path": "registries.json",
-      "sha256": "0b7381acb5650df084a0d6464eeb58c90f8dec425d659da3c05d8deba0c7d0b2"
+      "sha256": "b128b093be1665f349cddb5eaef88c886bb2cee814f58e3ebb300a598f3e462b"
     },
     {
       "id": "map:meadow",
@@ -57,7 +58,7 @@
     {
       "id": "map:reedfen-wetlands",
       "path": "reedfen-wetlands.json",
-      "sha256": "d63ca19946dfff52c1dafb14f0c08712a451a2b4e628ec1b971dafb9f1a36d20"
+      "sha256": "0ff3d8fd422dad7a8d76dc2cf1ca3e14313bffbd1d4c49fb6d2a2a1eafbdbfd1"
     },
     {
       "id": "map:orchard-ruins",
@@ -83,6 +84,11 @@
       "id": "story:main",
       "path": "story.json",
       "sha256": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927"
+    },
+    {
+      "id": "inventory:main",
+      "path": "inventory.json",
+      "sha256": "a49b85797e882745725bb24f79f31ac82eca79d7bfe52ee7fa5fd987b6ef434f"
     }
   ]
 }
