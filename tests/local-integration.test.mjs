@@ -4,7 +4,8 @@ import {execFileSync} from 'node:child_process';
 import {mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {launch, selectIntegration} from '../scripts/local-integration.mjs';
+import {launch, selectIntegration, listenLocal, DEFAULT_LOCAL_PORTS, launcherError} from '../scripts/local-integration.mjs';
+import {EventEmitter} from 'node:events';
 
 const git = (cwd, ...args) => execFileSync('git', args, {cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']}).trim();
 function fixture(t, integration = true) {
@@ -107,4 +108,55 @@ test('a second port cannot update an integration snapshot while another launcher
   const server = await launch({cwd: repo, port: 0, browser: false});
   t.after(() => new Promise(resolve => server.close(resolve)));
   await assert.rejects(launch({cwd: repo, port: 0, browser: false}), /Another launcher owns/);
+});
+
+function simulatedBinding(codeForPort) {
+  const server = new EventEmitter();
+  server.attempts = [];
+  server.listen = (port, address) => {
+    server.attempts.push({port, address});
+    queueMicrotask(() => {
+      const code = codeForPort(port);
+      if (code) server.emit('error', Object.assign(new Error(code), {code}));
+      else {
+        server.port = port;
+        server.emit('listening');
+      }
+    });
+  };
+  server.address = () => ({port: server.port});
+  return server;
+}
+
+test('default launcher skips permission-denied and occupied ports while remaining on loopback', async () => {
+  const server = simulatedBinding(port => (port === 8080 ? 'EACCES' : port === 8081 ? 'EADDRINUSE' : null));
+  assert.equal(await listenLocal(server), 5173);
+  assert.deepEqual(
+    server.attempts,
+    [8080, 8081, 5173].map(port => ({port, address: '127.0.0.1'})),
+  );
+  assert.equal(server.listenerCount('error'), 0);
+  assert.equal(server.listenerCount('listening'), 0);
+});
+
+test('explicit port denial stays on that port and gives an actionable message', async () => {
+  const server = simulatedBinding(() => 'EACCES');
+  await assert.rejects(listenLocal(server, 8080), {code: 'EACCES'});
+  assert.deepEqual(
+    server.attempts.map(a => a.port),
+    [8080],
+  );
+  assert.match(launcherError({code: 'EACCES'}), /--port=5173/);
+});
+
+test('exhausted ports fail clearly and unexpected network errors are not retried', async () => {
+  const denied = simulatedBinding(() => 'EACCES');
+  await assert.rejects(listenLocal(denied), /No local test port is available/);
+  assert.deepEqual(
+    denied.attempts.map(a => a.port),
+    DEFAULT_LOCAL_PORTS,
+  );
+  const broken = simulatedBinding(() => 'ENETDOWN');
+  await assert.rejects(listenLocal(broken), {code: 'ENETDOWN'});
+  assert.equal(broken.attempts.length, 1);
 });
