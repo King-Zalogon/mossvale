@@ -94,7 +94,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "d2e7a2aa28f7383fb9939eb353632fabd603fd5aad5b0e1cc0d2cad132da4bca"
+        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
@@ -243,11 +243,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "d2e7a2aa28f7383fb9939eb353632fabd603fd5aad5b0e1cc0d2cad132da4bca"
+        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "ceb270fc06c7914a2e32dcaf40ae4fe7fe0833ee64678a8746a5ab27e1a4b4d5",
+        "sha256": "cdc60ae97743961591a161e1977688ee3ad2485caed22cfb5e4042e7d9737829",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -375,7 +375,7 @@
           "path": "dist/assets/creatures/creature-fernling-combat.png",
           "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         },
         {
           "assetId": "creature-fernling-follower",
@@ -408,13 +408,13 @@
         "assetId": "creature-fernling-combat",
         "fallbackAssetId": "creature-fernling",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8f27ed9cce583e59d5fd493dc8ebed456dd065123ecca0608ade0fd14ac37c3b",
+        "contractSha256": "c8cb5fd18a786c43f160714a18cc1a653ee9486ef2bc53bdb0fca1b42a5f6be0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "46319cd8c3f6f8129e82af6916a68778db420d446228bed156a5c8cf351c71d3",
+          "sha256": "d88f95fcde1f44199042a69a34df3fa68cef7b0049521bc2bb98856ff24eb67e",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         },
         "requiredStates": [
           "idle",
@@ -541,11 +541,11 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "2a9cbecf05f41c85f03bf3af1ce7afee7b80dc0dd0b1b5dd8d761204328fd0f6"
+        "sha256": "8ccb7edadfc018c00f0669c297457ed5e024802e70931bae3720ae1def3c321a"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "ceb270fc06c7914a2e32dcaf40ae4fe7fe0833ee64678a8746a5ab27e1a4b4d5",
+        "sha256": "cdc60ae97743961591a161e1977688ee3ad2485caed22cfb5e4042e7d9737829",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -673,7 +673,7 @@
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
           "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         },
         {
           "assetId": "creature-duskwing-follower",
@@ -706,13 +706,13 @@
         "assetId": "creature-duskwing-combat",
         "fallbackAssetId": "creature-duskwing",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8f27ed9cce583e59d5fd493dc8ebed456dd065123ecca0608ade0fd14ac37c3b",
+        "contractSha256": "c8cb5fd18a786c43f160714a18cc1a653ee9486ef2bc53bdb0fca1b42a5f6be0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "46319cd8c3f6f8129e82af6916a68778db420d446228bed156a5c8cf351c71d3",
+          "sha256": "d88f95fcde1f44199042a69a34df3fa68cef7b0049521bc2bb98856ff24eb67e",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         },
         "requiredStates": [
           "idle",
@@ -833,7 +833,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "d2e7a2aa28f7383fb9939eb353632fabd603fd5aad5b0e1cc0d2cad132da4bca"
+        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
@@ -841,7 +841,7 @@
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "ceb270fc06c7914a2e32dcaf40ae4fe7fe0833ee64678a8746a5ab27e1a4b4d5",
+        "sha256": "cdc60ae97743961591a161e1977688ee3ad2485caed22cfb5e4042e7d9737829",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -980,7 +980,7 @@
           "path": "dist/assets/creatures/creature-emberkin-combat.png",
           "sha256": "dbe7f65ae28ad098d8e43521c3f6b092caed7c8f9d220682faa585f90f205b3b",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         }
       ],
       "requiredDirections": [
@@ -1088,11 +1088,11 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "2a9cbecf05f41c85f03bf3af1ce7afee7b80dc0dd0b1b5dd8d761204328fd0f6"
+        "sha256": "8ccb7edadfc018c00f0669c297457ed5e024802e70931bae3720ae1def3c321a"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "ceb270fc06c7914a2e32dcaf40ae4fe7fe0833ee64678a8746a5ab27e1a4b4d5",
+        "sha256": "cdc60ae97743961591a161e1977688ee3ad2485caed22cfb5e4042e7d9737829",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -1220,7 +1220,7 @@
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
           "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         },
         {
           "assetId": "creature-brooklet-follower",
@@ -1253,13 +1253,13 @@
         "assetId": "creature-brooklet-combat",
         "fallbackAssetId": "creature-brooklet",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8f27ed9cce583e59d5fd493dc8ebed456dd065123ecca0608ade0fd14ac37c3b",
+        "contractSha256": "c8cb5fd18a786c43f160714a18cc1a653ee9486ef2bc53bdb0fca1b42a5f6be0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "46319cd8c3f6f8129e82af6916a68778db420d446228bed156a5c8cf351c71d3",
+          "sha256": "d88f95fcde1f44199042a69a34df3fa68cef7b0049521bc2bb98856ff24eb67e",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         },
         "requiredStates": [
           "idle",
@@ -1386,11 +1386,11 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "2a9cbecf05f41c85f03bf3af1ce7afee7b80dc0dd0b1b5dd8d761204328fd0f6"
+        "sha256": "8ccb7edadfc018c00f0669c297457ed5e024802e70931bae3720ae1def3c321a"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "ceb270fc06c7914a2e32dcaf40ae4fe7fe0833ee64678a8746a5ab27e1a4b4d5",
+        "sha256": "cdc60ae97743961591a161e1977688ee3ad2485caed22cfb5e4042e7d9737829",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -1522,7 +1522,7 @@
           "path": "dist/assets/creatures/creature-hushram-combat.png",
           "sha256": "32a1817ed1f63bb330f4bd59f32355f9517f09a903e22dfd02d60a9e1d41bae4",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         },
         {
           "assetId": "creature-hushram-follower",
@@ -1555,13 +1555,13 @@
         "assetId": "creature-hushram-combat",
         "fallbackAssetId": "creature-hushram",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8f27ed9cce583e59d5fd493dc8ebed456dd065123ecca0608ade0fd14ac37c3b",
+        "contractSha256": "c8cb5fd18a786c43f160714a18cc1a653ee9486ef2bc53bdb0fca1b42a5f6be0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "46319cd8c3f6f8129e82af6916a68778db420d446228bed156a5c8cf351c71d3",
+          "sha256": "d88f95fcde1f44199042a69a34df3fa68cef7b0049521bc2bb98856ff24eb67e",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         },
         "requiredStates": [
           "idle",
@@ -1639,7 +1639,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "d2e7a2aa28f7383fb9939eb353632fabd603fd5aad5b0e1cc0d2cad132da4bca"
+        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
       },
       "sourceBatches": [
         {
@@ -1772,7 +1772,7 @@
           "path": "dist/assets/creatures/creature-voltkit-combat.png",
           "sha256": "ce6faf852efddc2dc4b7ea80b5cc313b811d1f266ff4289cbafc49d1f22fdc36",
           "profileId": "creature-combat-v1",
-          "profileSha256": "7ec3a1af9f119e006e8cae5dee93487b78c5721b0f95bab69d63aecfcdc42c55"
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
         },
         {
           "assetId": "creature-voltkit-follower",
@@ -1784,10 +1784,396 @@
       ],
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "ceb270fc06c7914a2e32dcaf40ae4fe7fe0833ee64678a8746a5ab27e1a4b4d5",
+        "sha256": "cdc60ae97743961591a161e1977688ee3ad2485caed22cfb5e4042e7d9737829",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
+      }
+    },
+    {
+      "id": "creature-mushmallow",
+      "revision": 1,
+      "identity": {
+        "silhouette": "A gentle hedgehog with a cream face and paws, violet spines, a broad mushroom cap and small mushrooms across its back.",
+        "palette": [
+          "cream",
+          "lilac",
+          "violet",
+          "deep purple"
+        ],
+        "distinguishingFeatures": [
+          "large pale-spotted mushroom cap",
+          "violet spines",
+          "cream hedgehog face",
+          "small back mushrooms"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-mushmallow",
+          "path": "dist/assets/creatures/creature-mushmallow.png",
+          "sha256": "3a140fbb9adeccfc96ae972cc6e8a7d871e3d6c080d8ecc663e362823fce5c0b"
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "unavailable",
+          "reason": "The original portrait generation tool was not recorded."
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The original portrait provider was not recorded."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The original portrait model version was not recorded."
+        },
+        "prompt": {
+          "status": "unavailable",
+          "reason": "The original portrait generation prompt was not retained."
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "No portrait generation seed was recorded."
+        },
+        "generationReference": {
+          "status": "unavailable",
+          "reason": "The portrait source atlas cell is the current canonical image; its original generation reference was not retained."
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No portrait generation masks were recorded."
+        }
+      },
+      "sourceNotes": {
+        "path": "art/characters/SOURCES.md",
+        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
+      },
+      "sourceMetadata": {
+        "path": "art/characters/creature-combat-metadata.json",
+        "sha256": "c8cb5fd18a786c43f160714a18cc1a653ee9486ef2bc53bdb0fca1b42a5f6be0"
+      },
+      "exportWorkflow": {
+        "path": "art/assets/export.py",
+        "sha256": "cdc60ae97743961591a161e1977688ee3ad2485caed22cfb5e4042e7d9737829",
+        "settings": "Pixel-preserving RGBA crop from the existing creature source-atlas cell; no resizing or palette change.",
+        "profileId": "creature-portrait-v1",
+        "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
+      },
+      "sourceBatches": [
+        {
+          "id": "mushmallow-combat-2026-10-04",
+          "path": "art/characters/source/creature-mushmallow-combat-generated.png",
+          "sha256": "d6102ac63093b26b3300cb3ee358cf3d3c17cd559e3bea55fd444060bd3d21a7",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/characters/source/creature-mushmallow-combat-generated.png"
+          },
+          "directions": [],
+          "referenceAssetIds": [
+            "creature-mushmallow"
+          ],
+          "exportAssetIds": [
+            "creature-mushmallow-combat"
+          ],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "built-in image generation tool",
+              "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.mushmallow"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The built-in image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The built-in image generation tool did not provide model-version metadata."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve Mushmallow’s cream hedgehog face and paws, violet spines and spotted lilac mushroom cap; create a transparent 4×5 battle atlas with distinct idle, lunge/attack, recoil, faint and capture poses at a shared ground anchor.",
+              "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.mushmallow"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was supplied."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-mushmallow"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No masks were supplied."
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "assetId": "creature-mushmallow",
+          "path": "dist/assets/creatures/creature-mushmallow.png",
+          "sha256": "3a140fbb9adeccfc96ae972cc6e8a7d871e3d6c080d8ecc663e362823fce5c0b",
+          "profileId": "creature-portrait-v1",
+          "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
+        },
+        {
+          "assetId": "creature-mushmallow-combat",
+          "path": "dist/assets/creatures/creature-mushmallow-combat.png",
+          "sha256": "dc522312ac233dd35462e76dd2050067c058c7f70b3773fd12e92b2c38e02fcb",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
+        }
+      ],
+      "runtimeCombat": {
+        "assetId": "creature-mushmallow-combat",
+        "fallbackAssetId": "creature-mushmallow",
+        "contractPath": "art/characters/creature-combat-metadata.json",
+        "contractSha256": "c8cb5fd18a786c43f160714a18cc1a653ee9486ef2bc53bdb0fca1b42a5f6be0",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-combat.py",
+          "sha256": "d88f95fcde1f44199042a69a34df3fa68cef7b0049521bc2bb98856ff24eb67e",
+          "settings": "Crop the 4×5 source grid to fixed 288×288 frames, pad transparently and align visible feet to a common bottom anchor without resampling; encode runtime colors as a 256-color indexed PNG without dithering.",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
+        },
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "artPixelsChanged": true
+      },
+      "runtimeTreatments": {
+        "assetId": "creature-mushmallow",
+        "scope": "static portrait fallback only",
+        "contractPath": "art/characters/creature-animation-metadata.json",
+        "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "artPixelsChanged": false
+      }
+    },
+    {
+      "id": "creature-frostowl",
+      "revision": 1,
+      "identity": {
+        "silhouette": "A compact white owl with luminous blue eyes, crystalline blue feathers, a dark beak and dark feet.",
+        "palette": [
+          "snow white",
+          "ice blue",
+          "cyan",
+          "navy"
+        ],
+        "distinguishingFeatures": [
+          "large cyan-blue eyes",
+          "crystalline ear and wing tufts",
+          "white feather face",
+          "dark beak and feet"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-frostowl",
+          "path": "dist/assets/creatures/creature-frostowl.png",
+          "sha256": "e9815a89122b06f86d76723ed3bdf97158ee69b00707b7eb19b4c1003988e5d8"
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "unavailable",
+          "reason": "The original portrait generation tool was not recorded."
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The original portrait provider was not recorded."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The original portrait model version was not recorded."
+        },
+        "prompt": {
+          "status": "unavailable",
+          "reason": "The original portrait generation prompt was not retained."
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "No portrait generation seed was recorded."
+        },
+        "generationReference": {
+          "status": "unavailable",
+          "reason": "The portrait source atlas cell is the current canonical image; its original generation reference was not retained."
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No portrait generation masks were recorded."
+        }
+      },
+      "sourceNotes": {
+        "path": "art/characters/SOURCES.md",
+        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
+      },
+      "sourceMetadata": {
+        "path": "art/characters/creature-combat-metadata.json",
+        "sha256": "c8cb5fd18a786c43f160714a18cc1a653ee9486ef2bc53bdb0fca1b42a5f6be0"
+      },
+      "exportWorkflow": {
+        "path": "art/assets/export.py",
+        "sha256": "cdc60ae97743961591a161e1977688ee3ad2485caed22cfb5e4042e7d9737829",
+        "settings": "Pixel-preserving RGBA crop from the existing creature source-atlas cell; no resizing or palette change.",
+        "profileId": "creature-portrait-v1",
+        "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
+      },
+      "sourceBatches": [
+        {
+          "id": "frostowl-combat-2026-10-04",
+          "path": "art/characters/source/creature-frostowl-combat-generated.png",
+          "sha256": "741b4e0f0c1e7ec9e8fcee08ef20db610f2ae49edca68ae20270217e69171d21",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/characters/source/creature-frostowl-combat-generated.png"
+          },
+          "directions": [],
+          "referenceAssetIds": [
+            "creature-frostowl"
+          ],
+          "exportAssetIds": [
+            "creature-frostowl-combat"
+          ],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "built-in image generation tool",
+              "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.frostowl"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The built-in image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The built-in image generation tool did not provide model-version metadata."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve Frostowl’s white owl body, cyan-blue eyes, crystalline blue tufts, dark beak and feet; create a transparent 4×5 battle atlas with idle, ice attack, hit recoil, faint and capture poses at a shared ground anchor.",
+              "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.frostowl"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was supplied."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-frostowl"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No masks were supplied."
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "assetId": "creature-frostowl",
+          "path": "dist/assets/creatures/creature-frostowl.png",
+          "sha256": "e9815a89122b06f86d76723ed3bdf97158ee69b00707b7eb19b4c1003988e5d8",
+          "profileId": "creature-portrait-v1",
+          "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
+        },
+        {
+          "assetId": "creature-frostowl-combat",
+          "path": "dist/assets/creatures/creature-frostowl-combat.png",
+          "sha256": "0ec81b187ff2be0cf4130a518c38bacee56d49e2ac1724f358537b0c710adb32",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
+        }
+      ],
+      "runtimeCombat": {
+        "assetId": "creature-frostowl-combat",
+        "fallbackAssetId": "creature-frostowl",
+        "contractPath": "art/characters/creature-combat-metadata.json",
+        "contractSha256": "c8cb5fd18a786c43f160714a18cc1a653ee9486ef2bc53bdb0fca1b42a5f6be0",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-combat.py",
+          "sha256": "d88f95fcde1f44199042a69a34df3fa68cef7b0049521bc2bb98856ff24eb67e",
+          "settings": "Crop the 4×5 source grid to fixed 288×288 frames, pad transparently and align visible feet to a common bottom anchor without resampling; encode runtime colors as a 256-color indexed PNG without dithering.",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
+        },
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "artPixelsChanged": true
+      },
+      "runtimeTreatments": {
+        "assetId": "creature-frostowl",
+        "scope": "static portrait fallback only",
+        "contractPath": "art/characters/creature-animation-metadata.json",
+        "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "artPixelsChanged": false
       }
     }
   ]

@@ -38,15 +38,17 @@
         "fernling": [288, 288],
         "duskwing": [281, 281],
         "brooklet": [288, 288],
-        "hushram": [288, 288]
+        "hushram": [288, 288],
+        "mushmallow": [288, 288],
+        "frostowl": [288, 288]
       },
       "resampling": "none",
       "alphaThreshold": 8,
       "footInset": 4,
-      "palette": "preserve exact generated source bytes; encode Emberkin and Voltkit runtime sheets as 256-color indexed PNG with no dithering",
+      "palette": "preserve exact generated source bytes; encode Emberkin, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
       "reviewStages": ["generated-source", "segmented-cells", "anchored-runtime"],
       "indexedOutput": {
-        "species": ["emberkin", "voltkit"],
+        "species": ["emberkin", "voltkit", "mushmallow", "frostowl"],
         "colors": 256,
         "dither": "none"
       }
