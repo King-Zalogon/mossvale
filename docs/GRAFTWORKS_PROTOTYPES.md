@@ -20,6 +20,6 @@ These modules are pure, opt-in building blocks. They do not change the current M
 
 ## Optional companion routes (#102)
 
-`domain/companion-routes.js` checks whether a companion has a route's optional ability and habitat tags, filters route offers, validates route IDs/requirements, and ensures each starter can reach at least one recovery route. This is a route-offer data check only: no shipped maps, unlock persistence, route telegraph, discovery reward, or movement physics change yet.
+`domain/companion-routes.js` checks optional ability/habitat requirements and verifies recovery for every starter. Map exits can now declare a route gate, player-facing hint, one-time reward and stable unlock event. The Reedfen-to-Lantern-Islet cut uses Brooklet's optional `cross-shallow-water`/`wetland` tags; once discovered it stays open after reload for any companion. The existing boardwalk remains available to all starters. The route is a data-driven portal shortcut with static sign art; it does not change global water physics or add movement animations.
 
 Run the focused prototype suite with `node --test tests/graftworks-prototypes.test.mjs`. These modules are intentionally independent so the shared systems can be adopted gradually after pack and owner review.
