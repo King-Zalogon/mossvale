@@ -16,12 +16,16 @@ const server = http
   .listen(0);
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 try {
-  const context = await browser.newContext({viewport: {width: 390, height: 844}, hasTouch: true, isMobile: true});
+  // Start in phone landscape to cover the orientation where the width-only
+  // responsive breakpoint previously hid every movement control.
+  const context = await browser.newContext({viewport: {width: 844, height: 390}, hasTouch: true, isMobile: true});
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(`http://localhost:${server.address().port}/?debug&seed=31`);
   await page.waitForSelector('#loading', {state: 'hidden'});
+  assert.equal(await page.locator('.touchpad').evaluate(node => getComputedStyle(node).display), 'grid', 'landscape startup exposes touch movement');
+  assert.equal(await page.locator('#touch-run').evaluate(node => getComputedStyle(node).display), 'block', 'landscape startup exposes touch run');
   for (const viewport of [
     {width: 390, height: 844},
     {width: 844, height: 390},
@@ -99,6 +103,26 @@ try {
     await page.evaluate(() => ({mapId: window.mossvale.getState().save.mapId, coins: window.mossvale.getState().save.coins})),
     stateBeforeResize,
   );
+
+  // Exercise movement and run by touch in landscape, not by locator click.
+  const landscapePad = page.locator('button[data-dir="1,0"]');
+  const landscapePadBox = await landscapePad.boundingBox();
+  const landscapeStart = await page.evaluate(() => window.mossvale.getState().player);
+  await cdp.send('Input.dispatchTouchEvent', {
+    type: 'touchStart',
+    touchPoints: [{id: 3, x: landscapePadBox.x + landscapePadBox.width / 2, y: landscapePadBox.y + landscapePadBox.height / 2}],
+  });
+  await page.waitForFunction(p => Math.hypot(window.mossvale.getState().player.x - p.x, window.mossvale.getState().player.y - p.y) > 0.2, landscapeStart, {
+    timeout: 5000,
+  });
+  await cdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+  const run = await page.locator('#touch-run').boundingBox();
+  await cdp.send('Input.dispatchTouchEvent', {
+    type: 'touchStart',
+    touchPoints: [{id: 4, x: run.x + run.width / 2, y: run.y + run.height / 2}],
+  });
+  await cdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+  assert.equal(await page.locator('#touch-run').getAttribute('aria-pressed'), 'true', 'landscape touch toggles run');
   assert.deepEqual(errors, []);
   await context.close();
   console.log('ok 12-creature journal hints and touch interruption across portrait/landscape sizes');
