@@ -105,7 +105,8 @@ test('rewards are tuned so coins are a luxury, not a requirement', () => {
 test('saved supplies are bounded', () => {
   const raw = JSON.parse(codec.serialize(newSave()));
   const save = codec.normalize({...raw, orbs: 1e9, potions: 500, coins: 1e12}, false);
-  assert.deepEqual([save.orbs, save.potions, save.coins], [CAPS.orbs, CAPS.potions, CAPS.coins]);
+  assert.deepEqual([save.orbs, save.potions, save.coins], [0, 198, CAPS.coins]);
+  assert.ok(save.orbs + save.potions <= 198, 'pack supplies stay within the data-defined carry capacity');
 });
 
 test('side-map chests persist independently and cannot pay again after reload', () => {

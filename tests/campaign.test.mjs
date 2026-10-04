@@ -7,7 +7,7 @@ import {currentObjective} from '../dist/src/domain/objectives.js';
 import {endingDue} from '../dist/src/domain/story.js';
 import {regions} from '../dist/src/data/regions.js';
 import {species} from '../dist/src/data/species.js';
-import {codec, content, newSave, objCtx, rawMaps, rawObjectives, rawStory, rawPack} from './helpers.mjs';
+import {codec, content, newSave, objCtx, rawMaps, rawObjectives, rawStory, rawPack, rawInventoryRules} from './helpers.mjs';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
 
 const pack = JSON.parse(JSON.stringify(rawPack()));
@@ -15,7 +15,7 @@ const story = rawStory();
 const objectives = rawObjectives().objectives;
 const mapData = rawMaps();
 const rawById = new Map(mapData.map(map => [map.id, map]));
-const adventure = buildAdventure(mapData, content, rawObjectives(), story, pack);
+const adventure = buildAdventure(mapData, content, rawObjectives(), story, pack, rawInventoryRules());
 
 function actionFor(save, battle, boss) {
   const c = companion(save);

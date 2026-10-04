@@ -6,10 +6,10 @@ Implemented in `dist/src/save.js` (pure, tested without a browser). Issue: [#8](
 
 | Key | Purpose |
 | --- | --- |
-| `mossvale-v3` | Current save (schema 4, stable string IDs). The storage key and transaction journal remain unchanged for compatibility. |
+| `mossvale-v3` | Current save (schema 5, stable string IDs). The storage key and transaction journal remain unchanged for compatibility. |
 | `mossvale-backup` | Checkpoint of the last valid save, copied once at each successful start. |
 | `mossvale-quarantine` | Up to the 3 most recent unreadable payloads (`key`, `reason`, `at`, `raw`). Never auto-deleted. |
-| `mossvale-archive` | One adventure set aside by **New game** (or swapped in by **Restore previous adventure**): `{at, raw}` where `raw` is a v4 payload. Never deleted automatically. |
+| `mossvale-archive` | One adventure set aside by **New game** (or swapped in by **Restore previous adventure**): `{at, raw}` where `raw` is a v5 payload. Never deleted automatically. |
 | `mossvale-save-transaction` | Recovery journal for multi-key operations (import, new game, restore). Present only while an operation's copies are still being synchronized. |
 | `mossvale-settings` | Preferences (`sound`, `motion` auto/reduced, `zoom`, touch `run`), separate from the save so New game and Restore keep them. |
 | `mossvale-v2`, `mossvale-v1` | Legacy saves. Read for migration only and left untouched. |
@@ -40,24 +40,30 @@ Interrupted encounters: `battle` (`{id, hp, max, level, boss, guard, turn, focus
 
 Adventure pack: `pack` names the adventure the save belongs to ([PACKS.md](PACKS.md)). The first adventure (`mossvale`) omits it, which keeps its saves identical to older ones; a save from another pack is reported as `foreign`, never loaded, overwritten or imported.
 
+## Schema 5
+
+Schema 5 adds optional pack-owned `inventory: {bag, storage, coins, claimed}`. A pack opts in by selecting and integrity-hashing an `inventory.json` file. Item definitions, buy/sell values, supply mappings and bag/stash capacities stay in that pack. Packs without inventory rules keep their previous save shape. For a pack that opts in, v1-v4 saves map their existing `potions`, `orbs` and `coins` into the configured bag; values are retained, and storage starts empty. The mapped top-level supply fields remain synchronized with the bag so battle, free recovery and existing HUD code continue to work. A save referring to removed pack item IDs is reported as incompatible and left untouched.
+
+The legacy `mossvale-v3` storage key and `mossvale-save-transaction` journal do not change. Older builds see schema 5 as a future save and will not overwrite it.
+
 In memory the game still uses indexes; `save.js` converts at the load/serialize boundary.
 
 ## Load order and outcomes
 
-Candidates are tried in order: current save, `backup`, `v2`, `v1`. The current key accepts both v3 and v4 payloads; v3 is migrated in memory and written as v4 on the next save. An interrupted transaction from v3 still replays through the unchanged journal before migration.
+Candidates are tried in order: current save, `backup`, `v2`, `v1`. The current key accepts schemas 3, 4 and 5; schemas 3 and 4 migrate in memory to v5 on the next save. An interrupted transaction from an older schema still replays through the unchanged journal before migration.
 
 | Situation | Status | Behavior |
 | --- | --- | --- |
 | No save | `new` | Fresh game |
 | Save written for a different adventure pack | `foreign` | Left untouched, not writable, explained; not treated as damage |
-| Valid v4 | `ok` | Loaded; backup refreshed |
-| Valid v1/v2/v3 | `migrated` | Converted; legacy key untouched; v4 written on first save |
+| Valid v5 | `ok` | Loaded; backup refreshed |
+| Valid v1/v2/v3/v4 | `migrated` | Converted; legacy key untouched; v5 written on first save |
 | Invalid JSON/structure, older candidate valid | `restored` | Bad payload quarantined, older save loaded, recovery dialog shown |
 | Invalid and nothing else usable | `recovered` | Bad payload quarantined, new game, recovery dialog shown |
-| `version` greater than 4 | `future` | Left untouched; session is not saved; dialog shown |
+| `version` greater than 5 | `future` | Left untouched; session is not saved; dialog shown |
 | Storage throws on read | `unavailable` | Plays in memory ("SESSION ONLY"); dialog shown |
 
-Validation: every field is type-checked; numbers must be finite and are clamped (coins 0–9999, orbs and potions 0–99, other counts 0–9999, XP 0–450 (the level-15 cap), HP 0–max for level, position inside the map); IDs must exist; duplicates removed; `seen ⊇ caught`; every caught species has a team record; `active` must be caught; a locked region falls back to the meadow.
+Validation: every field is type-checked; numbers must be finite and are clamped (legacy coins 0–9999, orbs and potions 0–99, other counts 0–9999, XP 0–450 (the level-15 cap), HP 0–max for level, position inside the map); IDs must exist; duplicates removed; `seen ⊇ caught`; every caught species has a team record; `active` must be caught; a locked region falls back to the meadow. Optional item maps are checked against their pack rules and each cap.
 
 ## Tests
 
@@ -82,7 +88,7 @@ Issue [#20](https://github.com/King-Zalogon/mossvale/issues/20). **New game** co
 
 ## Export and import
 
-Issue [#30](https://github.com/King-Zalogon/mossvale/issues/30). A backup file is `{ kind: "mossvale-save-backup", format: 1, exportedAt, build, save: <v4 save> }`; v2 and v3 backup payloads are migrated on import, and a bare save payload is also accepted. See [BACKUP.md](BACKUP.md).
+Issue [#30](https://github.com/King-Zalogon/mossvale/issues/30). A backup file is `{ kind: "mossvale-save-backup", format: 1, exportedAt, build, save: <v5 save> }`; v1-v4 backup payloads are migrated on import, and a bare save payload is also accepted. See [BACKUP.md](BACKUP.md).
 
 ## Consistent import, new game and restore (#60)
 

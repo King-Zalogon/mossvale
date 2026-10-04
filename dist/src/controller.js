@@ -21,6 +21,7 @@ import {discover, entryFor, landmarkLabel, reveal} from './domain/discovery.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
+import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
 
 export function createController(app) {
   const {game, ui, audio, rng, persist, canvas, actions, menus, maps, mapsById, objCtx} = app;
@@ -194,6 +195,40 @@ export function createController(app) {
     refresh();
     sfx('buy');
     openRanger(result.offer.thanks);
+  }
+
+  function inventoryTransaction(action) {
+    const rules = app.inventoryRules;
+    if (!rules || !save().inventory) return {ok: false, reason: 'unavailable'};
+    const previous = save();
+    const result = commitInventory(save().inventory, action, draft => {
+      const next = inventoryToSupplies(draft, previous, rules);
+      next.inventory = draft;
+      game.save = next;
+      if (persist()) return true;
+      game.save = previous;
+      return false;
+    });
+    if (!result.ok) {
+      toast(result.reason === 'persist' ? 'The change could not be saved. Your bag was left as it was.' : 'That item change is not available.');
+      return result;
+    }
+    refresh();
+    sfx('buy');
+    menus.inventory();
+    return result;
+  }
+
+  function buyPackItem(item) {
+    return inventoryTransaction(draft => buyInventory(draft, item, 1, app.inventoryRules));
+  }
+
+  function movePackItem(item, from) {
+    return inventoryTransaction(draft => (from === 'bag' ? deposit : withdraw)(draft, item, 1, app.inventoryRules));
+  }
+
+  function sellPackItem(item) {
+    return inventoryTransaction(draft => sellInventory(draft, item, 1, app.inventoryRules));
   }
 
   function returnToCamp() {
@@ -658,6 +693,9 @@ export function createController(app) {
     partyEdit,
     rest,
     buy,
+    buyPackItem,
+    movePackItem,
+    sellPackItem,
     returnToCamp,
     interact,
     startWild,

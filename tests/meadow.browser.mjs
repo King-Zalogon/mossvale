@@ -51,7 +51,7 @@ try {
     'crossing the portal records its source and destination',
   );
   const orchardRaw = await page.evaluate(() => JSON.parse(localStorage.getItem('mossvale-v3')));
-  assert.deepEqual([orchardRaw.version, orchardRaw.mapId], [4, 'orchard-ruins']);
+  assert.deepEqual([orchardRaw.version, orchardRaw.mapId], [5, 'orchard-ruins']);
   assert.deepEqual(orchardRaw.visitedMaps, ['meadow', 'orchard-ruins']);
 
   // Reload proves that mapId, not just its shared biome, chooses the active world.

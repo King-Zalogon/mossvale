@@ -44,8 +44,9 @@ export async function fetchAdventure(base = 'maps/') {
   const maps = index.maps.map(id => files[`map:${id}`]);
   const objectives = files['objectives:main'];
   const story = files['story:main'];
+  const inventoryRules = files['inventory:main'];
   const registries = files['registry:main'];
-  return {maps, objectives, story, registries, pack: index};
+  return {maps, objectives, story, inventoryRules, registries, pack: index};
 }
 
 /** The adventure catalog next to the page. A build without one offers just the adventure in `maps/`. */

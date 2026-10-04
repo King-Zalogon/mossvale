@@ -76,8 +76,9 @@ function loadPack(folder) {
   const maps = index.maps.map(id => json(join(root, mapDirectory, id + '.json')));
   const objectives = index.objectives ? json(join(root, index.objectives)) : undefined;
   const story = index.story ? json(join(root, index.story)) : undefined;
+  const inventoryRules = index.inventory ? json(join(root, index.inventory)) : undefined;
   const content = resolveRegistries(registries, assets);
-  const built = buildAdventure(maps, {assets, ...content, packId: index.id}, objectives, story, index);
+  const built = buildAdventure(maps, {assets, ...content, packId: index.id}, objectives, story, index, inventoryRules);
   errors.push(...built.errors);
   if (errors.length) fail(errors.map(error => ` - ${error}`).join('\n'));
   return {root, index, registries, maps, built};
