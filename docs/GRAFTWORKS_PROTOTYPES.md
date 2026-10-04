@@ -4,7 +4,7 @@ These modules are pure, opt-in building blocks. They do not change the current M
 
 ## Terrain families (#96)
 
-`domain/terrain-family.js` classifies a grid cell by cardinal edges and diagonal corners, labels isolated/end/straight/corner/tee/cross shapes, and chooses seeded variants reproducibly. Corner-specific art can override a cardinal mask. Missing edge art returns `null` instead of falling back to a center tile. It defaults to no transform; rotational reuse is only labeled safe when the caller explicitly opts in. This is still topology data for an authoring tool to bake: no grass/path/water source art, bridge semantics, map compiler integration, or editor previews are included.
+`domain/terrain-family.js` classifies cardinal edges and diagonal corners and chooses seeded source variants without unsafe transforms. The Map Workshop adds a Show topology overlay for the selected map and a 13 × 9 Verdant crossing fixture with grass/path/water recipes, an explicit two-cell bridge, corner overrides, and a seed control. The fixture checks walkability and both banks, and it stays outside `maps/index.json` so it cannot change shipped maps. Its vector colors, motifs and seams are an authoring prototype; production tile art and baked runtime variants are still pending.
 
 ## Optional bag and storage (#99)
 

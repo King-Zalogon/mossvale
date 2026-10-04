@@ -6,6 +6,8 @@ Issue [#14](https://github.com/King-Zalogon/mossvale/issues/14). Maps are JSON f
 
 ## Workflow
 
+The Map Workshop’s Show topology toggle outlines neighboring terrain boundaries and reports the selected tile’s cardinal/corner key. Its separate Verdant crossing preview exercises grass, path, water, seeded variants and an explicitly walkable bridge over blocked water. This is an authoring-only fixture, not a shipped map or runtime terrain renderer; seed 71 reproduces its current decoration.
+
 1. Edit `dist/maps/<id>.json`.
 2. `npm run validate` checks every map; errors name the map, field and problem (e.g. `map meadow: exits[0] (east).to.spawn: map "amber-ridge" has no spawn "cellar"`).
 3. `npm run map:preview -- meadow` prints an ASCII preview (terrain, solid objects, spawns, landmarks, exits, encounter pool).

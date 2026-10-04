@@ -34,7 +34,7 @@
         >
         <button id="undo" disabled>Undo</button><button id="redo" disabled>Redo</button> <button id="import">Import JSON</button
         ><input id="file" type="file" accept="application/json,.json" hidden /> <button id="export" class="primary">Export JSON</button
-        ><button id="play-preview" class="primary">Play edited map</button
+        ><button id="play-preview" class="primary">Play edited map</button><button id="topology-toggle" type="button" aria-pressed="false">Show topology</button
         ><a class="button" href="./?debug" target="_blank" rel="noreferrer">Open current game</a>
       </section>
       <div class="workspace">
@@ -44,6 +44,7 @@
             <span id="coords">Click a tile to paint</span>
           </div>
           <canvas id="map-canvas" width="1120" height="680" aria-label="Isometric map terrain editor"></canvas>
+          <p id="topology-status" class="hint" role="status">Topology overlay is off.</p>
           <p class="hint">Paint terrain directly on the map. Select an entity on the map to edit its complete JSON record on the right.</p>
         </section>
         <aside>
@@ -69,6 +70,18 @@
               </select></label
             ><button id="add-content">Add at selected tile</button>
             <p id="add-help" class="hint">Choose a map tile first. Edit the new record to set its stable ID and role.</p>
+          </section>
+          <section class="panel" aria-labelledby="family-heading">
+            <div class="section-head">
+              <h2 id="family-heading">Terrain family prototype</h2>
+              <label class="seed-control">Seed<input id="family-seed" type="number" min="0" step="1" value="71" /></label>
+            </div>
+            <canvas id="family-canvas" width="520" height="270" aria-label="Grass, path, water and bridge terrain family preview"></canvas>
+            <p id="family-status" class="hint" role="status">Loading terrain fixture…</p>
+            <p class="hint">
+              Grass and path are walkable; water blocks movement; the two bridge deck cells are explicitly walkable. This vector preview is authoring data, not
+              shipped tile art.
+            </p>
           </section>
           <section class="panel">
             <h2>Route</h2>
