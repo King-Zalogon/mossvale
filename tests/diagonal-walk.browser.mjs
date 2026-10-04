@@ -53,9 +53,14 @@ try {
     assert.equal(after.player.dir, diagonal.dir, `${diagonal.name} sets the matching world facing`);
     assert.ok(Math.hypot(after.player.x - before.x, after.player.y - before.y) > 0.5, `${diagonal.name} moves in the real map`);
     const playerCells = after.draws.filter(frame => frame.row === diagonal.sourceRow && frame.flipped === diagonal.flipped);
-    const walkFrames = new Set(playerCells.map(frame => frame.column).filter(column => column > 0));
+    const walkSequence = playerCells.map(frame => frame.column).filter(column => column > 0);
+    const walkFrames = new Set(walkSequence);
     assert.deepEqual([...walkFrames].sort(), [1, 2, 3, 4], `${diagonal.name} renders all four walk cells from its intended atlas pose`);
-    evidence.push({direction: diagonal.name, cells: [...walkFrames].sort((a, b) => a - b)});
+    const transitions = walkSequence.filter((column, index) => index === 0 || column !== walkSequence[index - 1]);
+    assert.ok(transitions.length >= 4, `${diagonal.name} repeats a full walk cycle`);
+    for (let i = 1; i < transitions.length; i++)
+      assert.equal(transitions[i], (transitions[i - 1] % 4) + 1, `${diagonal.name} advances walk cells in order without skips`);
+    evidence.push({direction: diagonal.name, cells: [...walkFrames].sort((a, b) => a - b), transitions});
     await page.waitForTimeout(120);
   }
 

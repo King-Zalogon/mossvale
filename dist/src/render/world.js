@@ -3,7 +3,7 @@ import {species} from '../data/species.js';
 import {assets, spriteId} from '../data/assets.js';
 import {regions} from '../data/regions.js';
 import {TILE_H, TILE_W} from '../config.js';
-import {FACING, directionPose, movementFacing, playerFrame, playerSpritePose} from '../domain/exploration.js';
+import {FACING, FOLLOWER_FRAME_DISTANCE, directionPose, followerFrame, movementFacing, playerFrame, playerSpritePose} from '../domain/exploration.js';
 import {unlocked} from '../domain/rules.js';
 import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
 import {isKnown, isRevealed} from '../domain/discovery.js';
@@ -153,7 +153,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     followerMotion.y = v.follower.y;
     const followerPose = {
       ...directionPose(assets[followerId]?.frames, followerMotion.dir),
-      column: playerFrame(followerMotion.distance, moved > 1e-4, v.reducedMotion),
+      column: followerFrame(followerMotion.distance, moved > 1e-4, v.reducedMotion),
     };
     const follow = {x: v.follower.x, y: v.follower.y, id: followerId, w: 37, kind: 'companion', frame: followerPose, moving: moved > 1e-4};
     const playerPose = {
@@ -188,7 +188,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         const bob =
           o.kind === 'companion' && !v.reducedMotion
             ? o.moving
-              ? Math.sin((followerMotion.distance * Math.PI * 2) / 0.84) * 1.25 * zoom
+              ? Math.sin((followerMotion.distance * Math.PI * 2) / (FOLLOWER_FRAME_DISTANCE * 4)) * 0.7 * zoom
               : Math.sin(now / 950) * 0.45 * zoom
             : 0;
         const tint = region === 2 && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : region === 1 && o.kind === 'grass' ? 'sepia(.5)' : 'none';

@@ -32,7 +32,7 @@ export function createBattleView(app) {
       intentAction === 'brace' && tactic?.braceElementFactor > 1
         ? ' (Element breaks through)'
         : intentAction === 'charge' && tactic?.recoveryOnCharge
-          ? ` (restores up to ${Math.ceil(b.max * tactic.recoveryOnCharge)} HP)`
+          ? ` (restores up to ${Math.ceil(b.max * tactic.recoveryOnCharge)} HP; elemental hit interrupts it)`
           : intentAction === 'heavy' && tactic?.guardRiposteFactor
             ? ' (Guard counters this blow)'
             : intentAction === 'element' && lastEnemyAction(b) === 'element' && tactic?.repeatElementFactor > 1

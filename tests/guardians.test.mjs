@@ -123,6 +123,21 @@ test('the tidal lull restores guardian health, and shrine scaling leaves wild en
   assert.equal(charge.action, 'charge');
   assert.equal(charge.recovered, Math.min(10, Math.ceil(b.max * TACTICS['tidal-current'].recoveryOnCharge)));
   assert.equal(b.hp, before + charge.recovered);
+
+  const pressured = createBattle(save, seededRng(1), spec(3));
+  pressured.turn = 1;
+  pressured.focus = 2;
+  pressured.hp -= 10;
+  const pressure = resolveTurn(save, pressured, {kind: 'element'}, mid);
+  const disrupted = pressure.events.find(event => event.type === 'enemy');
+  assert.equal(disrupted.action, 'charge');
+  assert.equal(disrupted.interrupted, true);
+  assert.equal(disrupted.recovered, 0, 'an elemental hit during the forecast charge cancels its recovery');
+  assert.equal(
+    pressured.hp,
+    pressured.max - 10 - pressure.events.find(event => event.type === 'strike').damage,
+    'the cancelled recovery does not restore guardian health',
+  );
 });
 
 test('a guardian tactic survives a refresh through the battle checkpoint', () => {

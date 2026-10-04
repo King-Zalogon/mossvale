@@ -13,7 +13,7 @@
     "sourceGrid": {"columns": 5, "rows": 8},
     "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-    "walkCadence": {"unit": "world-distance", "distancePerFrame": 0.42, "running": "reuse walk; faster cadence follows increased travel speed"},
+    "walkCadence": {"unit": "world-distance", "distancePerFrame": 0.56, "running": "reuse walk; faster cadence follows increased travel speed"},
     "reducedMotion": "hold the idle cell while movement and direction remain readable"
   },
   "npcs": [
