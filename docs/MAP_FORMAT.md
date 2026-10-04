@@ -70,3 +70,7 @@ Format version, unique ids, grid size and characters, known sprites and species,
 - Rectangular maps can be up to 128 tiles per side and 16,384 tiles total. A 120 × 80 test map is the first large-world target; validation also caps authored entities and prop positions. Five Mossvale maps are shipped today: the two-map meadow pair and one map for each of the other three biomes. The larger biome pairs remain tracked in #52–#54.
 - Reachability uses tile-level flood fill, an approximation of continuous movement.
 - Layers beyond terrain + props, and per-tile event scripting, are intentionally out of scope.
+
+## Side-map completion
+
+Regional seals/chests retain their legacy saved region IDs. Completion flags for side maps are stored independently in `mapFlags`, scoped to the selected adventure and preserved by backup/import. Each cache pays once across reloads without consuming another map’s chest. Saves with no side-map flags retain the existing serialized shape.

@@ -4,7 +4,7 @@ import {CAPS, REST_FLOOR, REWARDS, SHOP} from '../dist/src/data/economy.js';
 import {buy, canBuy, claimChest, grant, restAtCamp} from '../dist/src/domain/economy.js';
 import {createBattle, resolveCapture, resolveTurn, resolveWin, throwOrb, usePotion} from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
-import {codec, maps, newSave} from './helpers.mjs';
+import {codec, maps, mapsById, newSave} from './helpers.mjs';
 
 const chest = maps[0].objects.find(o => o.kind === 'chest');
 
@@ -106,4 +106,18 @@ test('saved supplies are bounded', () => {
   const raw = JSON.parse(codec.serialize(newSave()));
   const save = codec.normalize({...raw, orbs: 1e9, potions: 500, coins: 1e12}, false);
   assert.deepEqual([save.orbs, save.potions, save.coins], [CAPS.orbs, CAPS.potions, CAPS.coins]);
+});
+
+test('side-map chests persist independently and cannot pay again after reload', () => {
+  let save = newSave();
+  for (const id of ['frostveil-pass', 'stone-basin', 'stilt-isles']) {
+    const landmark = mapsById[id].objects.find(o => o.kind === 'chest');
+    const before = save.coins;
+    assert.ok(claimChest(save, landmark));
+    assert.ok(save.coins > before);
+    save = codec.normalize(JSON.parse(codec.serialize(save)), false);
+    assert.equal(claimChest(save, landmark), null, `${id} does not pay twice`);
+  }
+  assert.equal(save.mapFlags.length, 3);
+  assert.ok(claimChest(save, chest), 'side caches do not consume the meadow chest');
 });

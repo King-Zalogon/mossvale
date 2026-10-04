@@ -3,7 +3,7 @@
    Lists every known place with its direction and distance, and always offers the way back to camp. */
 import {regions} from '../data/regions.js';
 import {compass, exploredShare, isKnown, isRevealed, landmarkLabel} from '../domain/discovery.js';
-import {unlocked} from '../domain/rules.js';
+import {flagDone, unlocked} from '../domain/rules.js';
 import {$} from './dom.js';
 
 const W = 560;
@@ -41,7 +41,7 @@ export function createAreaMap(app) {
       .map(o => {
         const target = o.kind === 'gate' ? regions[o.target] : null;
         const locked = target && !unlocked(save(), o.target);
-        const opened = o.kind === 'chest' && save().chests.includes(save().region);
+        const opened = o.kind === 'chest' && o.flag && flagDone(save(), o.flag);
         const base = landmarkLabel(o, target?.short);
         return {ref: o.ref, x: o.x, y: o.y, kind: o.kind, label: base + (locked ? ' (locked)' : opened ? ' (opened)' : ''), dim: opened};
       });
@@ -198,7 +198,7 @@ export function createAreaMap(app) {
       pan(-(e.clientX - drag.x) * scale, -(e.clientY - drag.y) * scale);
       drag = {x: e.clientX, y: e.clientY};
     };
-    canvas.onpointerup = canvas.onpointercancel = () => (drag = null);
+    canvas.onpointerup = canvas.onpointercancel = canvas.onlostpointercapture = () => (drag = null);
     canvas.onwheel = e => {
       e.preventDefault();
       zoomBy(e.deltaY < 0 ? 1.15 : 1 / 1.15);
