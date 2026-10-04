@@ -101,3 +101,10 @@ test('occupied port is refused before updating cached files', async t => {
   git(repo, 'remote', 'remove', 'origin');
   await assert.rejects(launch({cwd: repo, port: server.address().port, browser: false}), {code: 'EADDRINUSE'});
 });
+
+test('a second port cannot update an integration snapshot while another launcher serves it', async t => {
+  const repo = fixture(t);
+  const server = await launch({cwd: repo, port: 0, browser: false});
+  t.after(() => new Promise(resolve => server.close(resolve)));
+  await assert.rejects(launch({cwd: repo, port: 0, browser: false}), /Another launcher owns/);
+});

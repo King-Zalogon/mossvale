@@ -1,6 +1,6 @@
 import {execFileSync, spawn} from 'node:child_process';
 import {createServer} from 'node:http';
-import {createReadStream, existsSync, realpathSync, statSync} from 'node:fs';
+import {createReadStream, existsSync, realpathSync, statSync, openSync, writeFileSync, closeSync, unlinkSync} from 'node:fs';
 import {dirname, extname, isAbsolute, relative, resolve, sep} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 
@@ -103,7 +103,26 @@ export async function launch({cwd = repository, port = 8080, browser = true} = {
     server.once('error', reject);
     server.listen(port, '127.0.0.1', accept);
   });
+  let lock;
   try {
+    const common = git(cwd, ['rev-parse', '--path-format=absolute', '--git-common-dir']);
+    const lockPath = resolve(common, 'mossvale-local-test.lock');
+    try {
+      lock = openSync(lockPath, 'wx');
+    } catch (error) {
+      if (error.code === 'EEXIST')
+        throw new Error(`Another launcher owns ${lockPath}. Stop it first. After a crash, remove this lock only after confirming no launcher is running.`);
+      throw error;
+    }
+    server.once('close', () => {
+      closeSync(lock);
+      try {
+        unlinkSync(lockPath);
+      } catch {
+        /* a deleted test checkout needs no cleanup */
+      }
+    });
+    writeFileSync(lock, String(process.pid));
     const target = selectIntegration(cwd);
     handler = gameHandler(target.directory);
     const url = `http://127.0.0.1:${server.address().port}/`;
