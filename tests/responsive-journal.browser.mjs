@@ -54,6 +54,77 @@ try {
     await page.waitForSelector('#modal', {state: 'hidden'});
   }
 
+  // The two phone HUD reports share the same layout and overlay behavior.
+  // Use a real trail sign so this covers the sign toast and nearby E prompt.
+  await page.setViewportSize({width: 844, height: 390});
+  await page.evaluate(() => {
+    Object.assign(window.mossvale.getState().player, {x: 11, y: 13.2});
+  });
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('#interact')).display === 'block');
+  await page.evaluate(() => window.mossvale.interact());
+  await page.waitForFunction(() => document.querySelector('#toast').dataset.active === 'true');
+  await page.waitForTimeout(80);
+  assert.equal(
+    await page.locator('#interact').evaluate(node => getComputedStyle(node).display),
+    'none',
+    'sign copy takes priority over its interaction prompt',
+  );
+  const landscapeHud = await page.evaluate(() => {
+    const rect = selector => {
+      const {x, y, width, height} = document.querySelector(selector).getBoundingClientRect();
+      return {x, y, right: x + width, bottom: y + height};
+    };
+    const viewport = rect('.viewport');
+    const frame = document.querySelector('.game-frame').getBoundingClientRect();
+    const aside = document.querySelector('.layout > aside').getBoundingClientRect();
+    const pad = rect('.touchpad');
+    const run = rect('#touch-run');
+    const minimap = rect('.minimap-box');
+    const zoom = getComputedStyle(document.querySelector('.zoom-controls')).display;
+    return {
+      overflowX: document.documentElement.scrollWidth - innerWidth,
+      asideBelow: aside.top >= frame.bottom - 1,
+      viewportRight: viewport.right,
+      viewportBottom: viewport.bottom,
+      pad,
+      run,
+      minimap,
+      zoom,
+    };
+  });
+  assert.ok(landscapeHud.overflowX <= 1, 'phone landscape has no horizontal page overflow');
+  assert.ok(landscapeHud.asideBelow, 'companion and inventory panels move below the landscape game');
+  assert.ok(landscapeHud.pad.x >= 0 && landscapeHud.pad.bottom <= landscapeHud.viewportBottom + 1, 'movement pad stays inside the playfield');
+  assert.ok(
+    landscapeHud.run.right <= landscapeHud.viewportRight + 1 && landscapeHud.run.bottom <= landscapeHud.viewportBottom + 1,
+    'Run stays inside the playfield',
+  );
+  assert.ok(landscapeHud.minimap.x >= 0 && landscapeHud.minimap.right <= landscapeHud.viewportRight + 1, 'minimap stays inside the playfield');
+  assert.equal(landscapeHud.zoom, 'none', 'zoom controls no longer collide with Run in short landscape');
+
+  await page.evaluate(() => {
+    delete document.querySelector('#toast').dataset.active;
+    window.mossvale.previewSpeech([{speaker: 'ranger', text: 'A long travel note. '.repeat(22)}]);
+  });
+  await page.waitForSelector('#speech-bubble:not([hidden])');
+  await page.setViewportSize({width: 390, height: 844});
+  await page.waitForTimeout(100);
+  const speechBox = await page.locator('#speech-bubble').evaluate(node => {
+    const box = node.getBoundingClientRect();
+    const parent = node.parentElement.getBoundingClientRect();
+    return {
+      left: box.left - parent.left,
+      top: box.top - parent.top,
+      right: box.right - parent.left,
+      bottom: box.bottom - parent.top,
+      width: parent.width,
+      height: parent.height,
+    };
+  });
+  assert.ok(speechBox.left >= 0 && speechBox.right <= speechBox.width && speechBox.top >= 0 && speechBox.bottom <= speechBox.height, JSON.stringify(speechBox));
+  await page.locator('#speech-next').click();
+  assert.equal(await page.locator('#speech-bubble').isHidden(), true, 'dialogue remains dismissible by touch after rotation');
+
   const pad = page.locator('button[data-dir="1,0"]');
   await pad.waitFor({state: 'visible'});
   const box = await pad.boundingBox();

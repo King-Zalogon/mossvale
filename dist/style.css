@@ -2125,11 +2125,28 @@ body.text-larger .heading {
     display: none;
   }
   .layout {
-    grid-template-columns: minmax(0, 1fr) 190px;
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .layout > aside {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    align-items: start;
+    gap: 8px;
+  }
+  .layout > aside .bag {
+    grid-column: 1 / -1;
+  }
+  .game-footer > span:first-child,
+  .game-footer > span:nth-child(3) {
+    display: none;
+  }
+  .game-footer::before {
+    content: 'Touch to move · tap E to interact';
+    color: #aac194;
   }
   .viewport {
-    height: min(52vh, 320px);
+    height: min(64vh, 420px);
     aspect-ratio: auto;
   }
   .location {
@@ -2137,32 +2154,65 @@ body.text-larger .heading {
     padding: 7px 10px;
   }
   .touchpad {
-    left: max(8px, env(safe-area-inset-left));
-    bottom: max(8px, env(safe-area-inset-bottom));
+    left: max(10px, env(safe-area-inset-left));
+    bottom: max(10px, env(safe-area-inset-bottom));
   }
   .touch-run {
-    right: max(8px, env(safe-area-inset-right));
-    bottom: max(8px, env(safe-area-inset-bottom));
+    right: max(10px, env(safe-area-inset-right));
+    bottom: max(10px, env(safe-area-inset-bottom));
+  }
+  .minimap-box {
+    top: 10px;
+    right: 10px;
+    padding: 4px;
+  }
+  .minimap-box canvas {
+    width: 58px;
+    height: 48px;
+  }
+  .minimap-box span {
+    font-size: 7px;
+  }
+  .zoom-controls {
+    display: none;
   }
   .toast {
-    bottom: 8px;
+    bottom: 130px;
     left: 50%;
-    max-width: 42%;
+    max-width: min(68%, 520px);
     transform: translateX(-50%);
-    font-size: 11px;
+    font-size: 13px;
+    z-index: 6;
   }
   .interaction {
-    bottom: 8px;
-    max-width: 38%;
-    font-size: 11px;
+    top: 14px;
+    bottom: auto;
+    left: 50%;
+    max-width: min(58%, 420px);
+    font-size: 13px;
+    z-index: 4;
   }
   .game-footer {
     padding: 7px 10px;
   }
 }
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) and (max-width: 600px) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr);
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px), (pointer: coarse) and (max-width: 600px) {
+  .viewport.has-interaction .world-tag,
+  .viewport.has-interaction .objective-pin,
+  .viewport.speech-open .world-tag,
+  .viewport.speech-open .objective-pin,
+  .viewport.speech-open .minimap-box,
+  .viewport.speech-open .zoom-controls {
+    display: none;
+  }
+  .viewport.speech-open .touchpad,
+  .viewport.speech-open .touch-run {
+    opacity: 0.28;
+    pointer-events: none;
+  }
+  .interaction {
+    top: 12px;
+    max-width: calc(100% - 100px);
   }
 }
 
@@ -2175,6 +2225,8 @@ body.text-larger .heading {
   position: absolute;
   z-index: 8;
   width: min(340px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  overflow-y: auto;
   padding: 12px 14px 10px;
   border: 2px solid #293d31;
   border-radius: 13px;
