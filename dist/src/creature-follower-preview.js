@@ -4,8 +4,6 @@ const ROWS = {
   emberkin: ['south', 'southwest', 'east', 'northeast', 'north', 'west', 'northwest', 'southeast'],
   duskwing: DIRECTIONS,
   brooklet: ['north', 'northwest', 'west', 'southwest', 'south', 'southeast', 'east', 'northeast'],
-  hushram: DIRECTIONS,
-  voltkit: DIRECTIONS,
 };
 const VECTORS = [
   [-1, -1],
@@ -24,15 +22,11 @@ const sources = {
   fernling: load('../assets/creatures/creature-fernling-follower.png'),
   duskwing: load('../assets/creatures/creature-duskwing-follower.png'),
   brooklet: load('../assets/creatures/creature-brooklet-follower.png'),
-  hushram: load('../assets/creatures/creature-hushram-follower.png'),
-  voltkit: load('../assets/creatures/creature-voltkit-follower.png'),
   portrait: {
     emberkin: load('../assets/creatures/creature-emberkin.png'),
     fernling: load('../assets/creatures/creature-fernling.png'),
     duskwing: load('../assets/creatures/creature-duskwing.png'),
     brooklet: load('../assets/creatures/creature-brooklet.png'),
-    hushram: load('../assets/creatures/creature-hushram.png'),
-    voltkit: load('../assets/creatures/creature-voltkit.png'),
   },
   tree: load('../assets/props/tree-oak.png'),
 };

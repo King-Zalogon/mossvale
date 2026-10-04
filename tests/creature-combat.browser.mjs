@@ -25,12 +25,12 @@ try {
   await page.goto(`http://localhost:${server.address().port}/creature-combat-preview.html`);
   await page.waitForFunction(
     () =>
-      document.querySelectorAll('.creature canvas').length === 120 &&
+      document.querySelectorAll('.creature canvas').length === 80 &&
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
         [...canvas.getContext('2d').getImageData(0, 0, 160, 160).data].some((value, index) => index % 4 === 3 && value > 0),
       ),
   );
-  assert.deepEqual(await page.locator('.creature h2').allTextContents(), ['Fernling', 'Emberkin', 'Duskwing', 'Brooklet', 'Hushram', 'Voltkit']);
+  assert.deepEqual(await page.locator('.creature h2').allTextContents(), ['Fernling', 'Duskwing', 'Brooklet', 'Hushram']);
   assert.equal(await page.locator('.reference img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), true);
   assert.deepEqual(
     await page.evaluate(() =>
@@ -40,9 +40,9 @@ try {
         return counts;
       }, {}),
     ),
-    {idle: 24, attack: 24, hit: 24, faint: 24, capture: 24},
+    {idle: 16, attack: 16, hit: 16, faint: 16, capture: 16},
   );
-  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 30}, () => ['1', '2', '3', '4']).flat());
+  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 20}, () => ['1', '2', '3', '4']).flat());
   assert.equal(
     await page.evaluate(() =>
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
