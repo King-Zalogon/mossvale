@@ -36,7 +36,7 @@ The workflow runs on Ubuntu and Windows for pushes and pull requests. Treat a ch
 ## Needs you (cannot be judged from here)
 
 - **Play the meadow.** First capture, the first guardian, a refresh in a fight. Does Focus feel like a decision? Is a team of three right? Is the pace of levels and coins right? (#22, #31, #16, #17, #25, #19)
-- **Your devices and browsers.** Controls on your screens, touch layout, text size, and export/import between your browsers. Automated coverage cannot confirm your real devices (#35).
+- **Your devices and browsers.** Phone reports about landscape touch, dialogue overlap, and HUD collisions are recorded in #135/#144/#145; their fixes are on main in #138/#146. Confirmation on the current build, text size on your screens, and save transfer between your browsers still need your devices (#35).
 - **Taste.** The opening and ending text is placeholder; the tips and the title screen on every load may be too much. (#28, #20)
 - **Rewrite or delete anything you do not enjoy.** The roadmap prefers removing UI to adding dashboards.
 

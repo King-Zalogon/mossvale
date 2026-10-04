@@ -24,6 +24,62 @@
       "generatedSource": "art/characters/source/creature-brooklet-follower-generated.png",
       "referenceAsset": "creature-brooklet",
       "promptBrief": "Preserve Brooklet’s blue otter silhouette, cream muzzle and chest, expressive eyes and curled water tail; transparent 5x8 eight-direction overworld atlas with idle and four stable walk poses."
+    },
+    "hushram": {
+      "generatedSource": "art/characters/source/creature-hushram-follower-generated.png",
+      "referenceAsset": "creature-hushram",
+      "promptBrief": "Preserve Hushram’s shaggy cream ram silhouette, curved ice-blue horns, pale blue markings and dark hooves; a transparent 5×8 directional overworld atlas with distinct alternating hoof steps, corrected from the first generated draft.",
+      "originalSha256": "bd7c782e9bdbdd758e4d28996da107789baea3745d20899788cecf2d30186e15",
+      "originalBytes": 2213903
+    },
+    "voltkit": {
+      "generatedSource": "art/characters/source/creature-voltkit-follower-generated.png",
+      "referenceAsset": "creature-voltkit",
+      "promptBrief": "Preserve Voltkit’s golden electric companion palette and distinctive ear/tail marks; transparent 5×8 directional atlas with an idle pose and four walking poses per direction.",
+      "originalSha256": "c8486fc51fc1d1f5df18e9008d1d263799013b70ff7ac893501964b7ffa7450f",
+      "originalBytes": 1872215
+    },
+    "mushmallow": {
+      "generatedSource": "art/characters/source/creature-mushmallow-follower-generated.png",
+      "referenceAsset": "creature-mushmallow",
+      "promptBrief": "Preserve Mushmallow’s cream hedgehog face and paws, violet spines, spotted lilac mushroom cap and smaller back mushrooms; a transparent 5×8 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses.",
+      "originalSha256": "adc805c11690f8cb878aba2aa6b85a8fa2704c673f6dcf49d63fdab583ab0d34",
+      "originalBytes": 2291565
+    },
+    "frostowl": {
+      "generatedSource": "art/characters/source/creature-frostowl-follower-generated.png",
+      "referenceAsset": "creature-frostowl",
+      "promptBrief": "Preserve Frostowl’s white owl body, luminous cyan eyes, crystalline blue brow/wing feathers, dark beak and feet; a transparent 5×8 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses with clear per-cell margins.",
+      "originalSha256": "18900661e9d4d7ca5986d4c15c389c29c40de2887531548aab0d257e791a5c50",
+      "originalBytes": 2214547
+    },
+    "pebblit": {
+      "generatedSource": "art/characters/source/creature-pebblit-follower-generated.png",
+      "referenceAsset": "creature-pebblit",
+      "promptBrief": "Preserve Pebblit's canonical species silhouette, markings and palette; transparent 5-column by 8-row directional follower atlas with an idle and four walk poses for N, NE, E, SE, S, SW, W and NW.",
+      "originalSha256": "803cfd6c11deb120f009707d8b4b428233739c6cdfc7a6f067e1633f33c4ce11",
+      "originalBytes": 2084268
+    },
+    "bramblebuck": {
+      "generatedSource": "art/characters/source/creature-bramblebuck-follower-generated.png",
+      "referenceAsset": "creature-bramblebuck",
+      "promptBrief": "Preserve Bramblebuck's canonical species silhouette, markings and palette; transparent 5-column by 8-row directional follower atlas with an idle and four walk poses for N, NE, E, SE, S, SW, W and NW.",
+      "originalSha256": "c482575bb7992b89e963814b8c5a58f96e22a721805d3be4c77640fef9d6d2cf",
+      "originalBytes": 2173977
+    },
+    "siltkip": {
+      "generatedSource": "art/characters/source/creature-siltkip-follower-generated.png",
+      "referenceAsset": "creature-siltkip",
+      "promptBrief": "Preserve Siltkip's canonical species silhouette, markings and palette; transparent 5-column by 8-row directional follower atlas with an idle and four walk poses for N, NE, E, SE, S, SW, W and NW.",
+      "originalSha256": "faffbee2efa48fa287bd039e97bf0a6ed853fc11bb6318ae871dd42d0d9aac1f",
+      "originalBytes": 2693969
+    },
+    "sunskitter": {
+      "generatedSource": "art/characters/source/creature-sunskitter-follower-generated.png",
+      "referenceAsset": "creature-sunskitter",
+      "promptBrief": "Preserve Sunskitter's canonical species silhouette, markings and palette; transparent 5-column by 8-row directional follower atlas with an idle and four walk poses for N, NE, E, SE, S, SW, W and NW.",
+      "originalSha256": "df8b86f72f707d0b4e6296c50a4fc434981f93a3f436056b45534a506d8be202",
+      "originalBytes": 2148839
     }
   },
   "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
@@ -37,7 +93,15 @@
     "creature-fernling-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-emberkin-follower": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
     "creature-duskwing-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-    "creature-brooklet-follower": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"]
+    "creature-brooklet-follower": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
+    "creature-mushmallow-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-frostowl-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-hushram-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-voltkit-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-pebblit-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-bramblebuck-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-siltkip-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-sunskitter-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
   },
   "sprites": {
     "creature-emberkin-follower": {
@@ -70,6 +134,78 @@
     "creature-brooklet-follower": {
       "sourceSize": [992, 1586],
       "output": "dist/assets/creatures/creature-brooklet-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-hushram-follower": {
+      "sourceSize": [992, 1585],
+      "output": "dist/assets/creatures/creature-hushram-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-voltkit-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-voltkit-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-mushmallow-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-mushmallow-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-frostowl-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-frostowl-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-pebblit-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-pebblit-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-bramblebuck-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-bramblebuck-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-siltkip-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-siltkip-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-sunskitter-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-sunskitter-follower.png",
       "frame": [200, 200],
       "columns": 5,
       "rows": 8,

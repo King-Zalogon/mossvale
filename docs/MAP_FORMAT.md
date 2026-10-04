@@ -6,6 +6,8 @@ Issue [#14](https://github.com/King-Zalogon/mossvale/issues/14). Maps are JSON f
 
 ## Workflow
 
+The Map Workshop’s Show topology toggle outlines neighboring terrain boundaries and reports the selected tile’s cardinal/corner key. **Preview family art on map** displays the shared authored grass/path/water source family while painting. The separate 32 × 20 Verdant crossing fixture exercises narrow paths, junctions, shorelines, a large repeated meadow, seeded source variants and an explicitly walkable bridge over blocked water. `dist/maps/terrain-family-fixture.baked.json` stores row-aligned recipe, topology and explicit walkability layers; the shared artwork table carries source paths, anchors and lighting. Run `npm run terrain:bake` after editing that fixture; `npm run validate` checks the baked data and local SVG sources. This compiler output is for Map Workshop and content review; existing maps keep their current format and gameplay renderer until a pack explicitly adopts it.
+
 1. Edit `dist/maps/<id>.json`.
 2. `npm run validate` checks every map; errors name the map, field and problem (e.g. `map meadow: exits[0] (east).to.spawn: map "amber-ridge" has no spawn "cellar"`).
 3. `npm run map:preview -- meadow` prints an ASCII preview (terrain, solid objects, spawns, landmarks, exits, encounter pool).
@@ -45,11 +47,11 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 **landmarks**: `{ id, kind, sprite, at, w, label?, solid?, flag?, ... }`. `kind` is one of `cottage`, `ranger`, `shrine`, `chest`, `sign`. `sprite` is a name from the asset manifest (`src/data/assets.js`), `w` its drawn width.
 - `shrine`: needs `guardian: { species, level, tactic?, power? }` (tactics are listed in `src/data/tactics.js`, see [BATTLE.md](BATTLE.md)), `flag` (the milestone it completes, e.g. `meadow.seal`) and `reward: { coins, potions, xp }` (paid once when the seal is earned).
 - `chest`: needs `flag` (e.g. `meadow.chest`, makes opening persistent) and `reward: { coins, potions, orbs }`.
-- `sign`: needs `text` (or `lines`). `ranger`: `name`, optional `tag` (the short label drawn above it). Any landmark may have `lines` (see [OBJECTIVES.md](OBJECTIVES.md)).
+- `sign`: needs `text` (or `lines`). `ranger`: `name`, optional `tag` (the short label drawn above it). Any landmark may have `lines` (see [OBJECTIVES.md](OBJECTIVES.md)) or an optional `choices` list. A choice has stable `id`, `speaker` and `target` landmark IDs, `text`, `reply`, optional `when` condition, and optional typed `event`. Choices use the same speech bubble; buttons support Tab, arrow keys, Enter/Space and touch. Without `choices`, the existing short-dialogue flow is unchanged.
 
 **secrets and map names** ([NAVIGATION.md](NAVIGATION.md)): any landmark may set `secret: true` (it stays off every map until the player walks within 2.5 tiles) and `mapLabel` (the name maps show). **quiet**: `[{ id, rect: [x0, y0, x1, y1], label? }]` marks corridors where no wild encounter starts, whatever the encounter zones say.
 
-**exits**: `{ id, sprite, at, w, label, to: { map, spawn }, requires? }`. `to` must name an existing map and a spawn defined there. `requires` is a milestone flag that must be done first.
+**exits**: `{ id, sprite, at, w, label, to: { map, spawn }, requires?, route? }`. `to` must name an existing map and a spawn defined there. `requires` is a milestone flag that must be done first. An optional companion `route` has `{ id, requires: { ability, habitat? }, hint, unlockedText, reward }`; it checks the active species' optional `abilities`/`habitats` registry tags before the first crossing, shows `hint` if they do not match, then saves a stable `route-<id>` event and grants the capped reward once. After discovery the route stays open for every companion. Keep an ordinary reachable exit as a recovery path; route gates never change global water/terrain physics.
 
 **props**: groups of decoration: `{ sprite, kind: "scenery" | "grass" | "flower", w, solid?, at: [[x, y], ...] }`. `solid` is a collision radius.
 
@@ -59,7 +61,7 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 
 ## Persistence is separate from geometry
 
-Maps are immutable. Progress lives in the save under stable flags of the form `<map-id>.seal` (the shrine guardian was beaten) and `<map-id>.chest` (the chest was opened). Today these resolve to the existing `badges` / `chests` lists in the v3 save (`domain/rules.js: flagDone`), so existing saves keep working. Editing a map never changes what the player has completed. Flags are unique within an adventure pack and a save records which pack it belongs to, see [PACKS.md](PACKS.md).
+Maps are immutable. Progress lives in the save under stable flags of the form `<map-id>.seal` (the shrine guardian was beaten) and `<map-id>.chest` (the chest was opened). Today these resolve to the existing `badges` / `chests` lists in the v3 save (`domain/rules.js: flagDone`), so existing saves keep working. One-time companion-route discoveries use the existing `events` list and save transaction; they add no schema field. Editing a map never changes what the player has completed. Flags are unique within an adventure pack and a save records which pack it belongs to, see [PACKS.md](PACKS.md).
 
 ## What validation checks
 

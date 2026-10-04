@@ -8,6 +8,7 @@ export default async function Home({searchParams}) {
   const reason = params?.reason === 'access' ? 'Your access link expired. Sign in again to continue.' : '';
   let user = null;
   let canAccess = false;
+  let isOwner = false;
 
   try {
     const supabase = await createSupabaseServerClient();
@@ -16,6 +17,8 @@ export default async function Home({searchParams}) {
     if (user) {
       const {data: app} = await supabase.from('applications').select('id').eq('slug', 'mossvale').eq('is_enabled', true).maybeSingle();
       canAccess = Boolean(app);
+      const {data: profile} = await supabase.from('portal_profiles').select('role').eq('user_id', user.id).maybeSingle();
+      isOwner = profile?.role === 'owner' && canAccess;
     }
   } catch {
     // The client panel gives a setup message if the Supabase environment is not configured.
@@ -37,7 +40,7 @@ export default async function Home({searchParams}) {
               : 'This account does not have Mossvale in its Zalonline app library yet.'
             : 'Sign in with the account you use for Zalonline to open your private game.'}
         </p>
-        <AccessPanel signedIn={Boolean(user)} canAccess={canAccess} message={reason} />
+        <AccessPanel signedIn={Boolean(user)} canAccess={canAccess} isOwner={isOwner} message={reason} />
         <p className="privacy-note">Private access is checked against your Zalonline app permissions.</p>
       </section>
     </main>

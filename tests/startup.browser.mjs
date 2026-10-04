@@ -244,9 +244,16 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   await page.setViewportSize({width: 700, height: 900});
   await page.setViewportSize({width: 1280, height: 800});
   assert.equal(await page.evaluate(() => window.mossvale.getState().zoom), zoom, 'zoom is kept through resize');
+  await page.bringToFront();
   await page.keyboard.down('d');
-  await page.waitForTimeout(600);
-  await page.keyboard.up('d');
+  try {
+    await page.waitForFunction(() => {
+      const player = window.mossvale.getState().player;
+      return player.x !== 12 || player.y !== 13;
+    });
+  } finally {
+    await page.keyboard.up('d');
+  }
   const moved = await page.evaluate(() => window.mossvale.getState().player);
   assert.ok(moved.x !== 12 || moved.y !== 13, 'the player moved');
   await page.evaluate(() => (window.mossvale.getState().save.badges.push(0), window.mossvale.travel(1)));
@@ -276,6 +283,9 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   });
   await page.waitForTimeout(100);
   await page.evaluate(() => window.mossvale.interact());
+  await page.click('#speech-next');
+  await page.waitForSelector('#speech-choices', {state: 'visible'});
+  assert.equal(await page.locator('#speech-next').textContent(), 'Continue', 'optional questions can be skipped before using ranger services');
   await page.click('#speech-next');
   await page.waitForSelector('[data-buy="potion"]');
   await page.keyboard.press('2');

@@ -26,7 +26,11 @@ try {
     window.followerAtlasDraws = [];
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (image, ...args) {
-      if (image?.src?.includes('-follower.png') || image?.src?.endsWith('/creature-hushram.png') || image?.src?.endsWith('/tree-oak.png')) {
+      if (
+        image?.src?.includes('-follower.png') ||
+        /\/creature-(mushmallow|frostowl|sunskitter)\.png$/.test(image?.src ?? '') ||
+        image?.src?.endsWith('/tree-oak.png')
+      ) {
         window.followerAtlasDraws.push({
           src: image.src,
           column: Math.round(args[0] / 200),
@@ -40,7 +44,20 @@ try {
   });
   await page.goto(`http://localhost:${server.address().port}/?debug&seed=131`);
   await page.waitForSelector('#loading', {state: 'hidden'});
-  const supported = ['emberkin', 'fernling'];
+  const supported = [
+    'emberkin',
+    'fernling',
+    'duskwing',
+    'brooklet',
+    'hushram',
+    'voltkit',
+    'mushmallow',
+    'frostowl',
+    'pebblit',
+    'bramblebuck',
+    'siltkip',
+    'sunskitter',
+  ];
   const ids = supported.map(name => species.findIndex(entry => entry.id === name));
   assert.ok(ids.every(id => id >= 0));
   await page.evaluate(([emberkin, fernling]) => {
@@ -94,7 +111,7 @@ try {
     ['ArrowLeft'],
     ['ArrowUp', 'ArrowLeft'],
   ];
-  const fallbackId = species.findIndex(entry => entry.id === 'hushram');
+  const fallbackId = species.findIndex(entry => entry.id === 'sunskitter');
   const evidence = {};
   for (let speciesIndex = 0; speciesIndex < supported.length; speciesIndex++) {
     const name = supported[speciesIndex];
@@ -348,24 +365,40 @@ try {
   const reloadFrames = await page.evaluate(src => window.followerAtlasDraws.filter(frame => frame.src.endsWith(src)), expected.emberkin.sprite);
   assert.ok(reloadFrames.some(frame => frame.row === expected.emberkin.rows.indexOf(DIRECTIONS[afterReload.motion.dir])));
 
-  // Static fallback remains usable for a species whose directional atlas is not yet authored.
-  const fallback = fallbackId;
-  await page.evaluate(id => {
+  // Static fallback remains usable when a supported optional direction atlas fails to load.
+  const fallbackPage = await browser.newPage({viewport: {width: 1200, height: 850}});
+  const fallbackErrors = [];
+  fallbackPage.on('pageerror', error => fallbackErrors.push(error.message));
+  await fallbackPage.route('**/assets/creatures/creature-sunskitter-follower.png', route => route.abort());
+  await fallbackPage.addInitScript(() => {
+    window.followerAtlasDraws = [];
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (image, ...args) {
+      if (/\/creature-sunskitter(?:-follower)?\.png$/.test(image?.src ?? '')) window.followerAtlasDraws.push({src: image.src});
+      return drawImage.call(this, image, ...args);
+    };
+  });
+  await fallbackPage.goto(`http://localhost:${server.address().port}/?debug&seed=132`);
+  await fallbackPage.waitForSelector('#loading', {state: 'hidden'});
+  await fallbackPage.locator('#game').click();
+  await fallbackPage.evaluate(id => {
     const save = window.mossvale.getState().save;
     save.caught = [id];
     save.party = [id];
     save.active = id;
-  }, fallback);
-  await page.evaluate(() => (window.followerAtlasDraws = []));
-  await page.keyboard.down('ArrowUp');
-  await page.waitForTimeout(400);
-  await page.keyboard.up('ArrowUp');
-  const fallbackDraws = await page.evaluate(() => window.followerAtlasDraws);
-  assert.equal(fallbackDraws.filter(frame => frame.src.endsWith('creature-hushram-follower.png')).length, 0);
+    save.team = {[id]: {xp: 0, hp: 100}};
+  }, fallbackId);
+  await fallbackPage.evaluate(() => (window.followerAtlasDraws = []));
+  await fallbackPage.keyboard.down('ArrowUp');
+  await fallbackPage.waitForTimeout(500);
+  await fallbackPage.keyboard.up('ArrowUp');
+  const fallbackDraws = await fallbackPage.evaluate(() => window.followerAtlasDraws);
+  assert.equal(fallbackDraws.filter(frame => frame.src.endsWith('creature-sunskitter-follower.png')).length, 0);
   assert.ok(
-    fallbackDraws.some(frame => frame.src.endsWith('creature-hushram.png')),
-    'unfinished species keep portrait fallback',
+    fallbackDraws.some(frame => frame.src.endsWith('creature-sunskitter.png')),
+    'failed optional atlas keeps the portrait fallback',
   );
+  assert.deepEqual(fallbackErrors, []);
   assert.deepEqual(errors, []);
   console.log(`ok live follower renderer ${JSON.stringify(evidence)}; optional portrait fallback and page execution are healthy`);
 } finally {

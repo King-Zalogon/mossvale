@@ -83,5 +83,45 @@
         {"text": "Befriend every species if you like ({caught} / {total})", "done": {"caught": "all"}}
       ]
     }
+  ],
+  "eventObjectives": [
+    {
+      "format": 1,
+      "id": "iris-follow-up",
+      "title": "Iris's follow-up",
+      "stages": [
+        {
+          "id": "meet-iris",
+          "label": "Talk to Ranger Iris",
+          "on": {"type": "interaction.used", "mapId": "meadow", "target": "ranger"},
+          "next": "ask-about-shrine"
+        },
+        {
+          "id": "ask-about-shrine",
+          "label": "Ask what lies beyond the meadow",
+          "on": {"type": "dialogue.choice", "mapId": "meadow", "choice": "ask-about-shrine"},
+          "reward": {"coins": 20}
+        }
+      ]
+    },
+    {
+      "format": 1,
+      "id": "quiet-corners",
+      "title": "Quiet corners",
+      "stages": [
+        {
+          "id": "read-the-old-well",
+          "label": "Read the old well plaque",
+          "on": {"type": "interaction.used", "mapId": "meadow", "target": "old-well"},
+          "next": "read-the-trail-sign"
+        },
+        {
+          "id": "read-the-trail-sign",
+          "label": "Compare it with the trail sign",
+          "on": {"type": "interaction.used", "mapId": "meadow", "target": "sign"},
+          "reward": {"coins": 8}
+        }
+      ]
+    }
   ]
 }

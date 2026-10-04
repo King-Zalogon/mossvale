@@ -96,6 +96,8 @@ const rest = async () => {
   await page.waitForTimeout(400);
   await page.evaluate(() => window.mossvale.interact());
   await page.click('#speech-next');
+  await page.waitForSelector('#speech-choices', {state: 'visible'});
+  await page.click('#speech-next');
   await page.click('#rest-team');
   await page.click('#speech-next');
   await page.keyboard.press('Escape');
@@ -233,6 +235,7 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
       await page.waitForSelector('#speech-bubble:not([hidden])');
     } else if (action.type === 'finish-dialogue') {
       await page.click('#speech-next');
+      if (await page.locator('#speech-choices').isVisible()) await page.click('#speech-next');
       await page.waitForSelector('#speech-bubble[hidden]', {state: 'hidden'});
       await page.waitForSelector('#modal:not([hidden])');
       await page.keyboard.press('Escape');

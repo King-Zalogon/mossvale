@@ -1,7 +1,7 @@
 {
   "version": 1,
   "sourceReferences": {
-    "generatedOn": "2026-10-03",
+    "generatedOn": "2026-10-04",
     "fernling": {
       "generatedSource": "art/characters/source/creature-fernling-combat-generated.png",
       "referenceAsset": "creature-fernling",
@@ -16,48 +16,265 @@
       "generatedSource": "art/characters/source/creature-brooklet-combat-generated.png",
       "referenceAsset": "creature-brooklet",
       "promptBrief": "Preserve Brooklet’s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
-      "sourceSize": [1122, 1402]
+      "sourceSize": [
+        1122,
+        1402
+      ]
     },
     "hushram": {
       "generatedSource": "art/characters/source/creature-hushram-combat-generated.png",
       "referenceAsset": "creature-hushram",
       "promptBrief": "Preserve Hushram’s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
-      "sourceSize": [1122, 1402]
+      "sourceSize": [
+        1122,
+        1402
+      ]
+    },
+    "emberkin": {
+      "generatedSource": "art/characters/source/creature-emberkin-combat-generated.png",
+      "referenceAsset": "creature-emberkin",
+      "promptBrief": "Preserve Emberkin’s rusty orange forest-mammal identity, cream chest, dark paws and three flame tail tufts; add idle, fire attack, hit, faint and capture states in a fixed-anchor 4×5 atlas.",
+      "originalSha256": "0569b8567de7ecbd2056b92c7f3c77bf8f447f5bd4bbea7cffc5ed90be8e584a",
+      "originalBytes": 2174056
+    },
+    "voltkit": {
+      "generatedSource": "art/characters/source/creature-voltkit-combat-generated.png",
+      "referenceAsset": "creature-voltkit",
+      "promptBrief": "Preserve Voltkit’s gold and cream electric companion identity, long asymmetrical ears, dark paws, blue cheek mark and crystal-tipped zigzag tail; add idle, electric attack, hit, faint and capture states in a fixed-anchor 4×5 atlas.",
+      "originalSha256": "537e1d98706f0748927f0ef1b8e18b7e23c8c6872cc05085e53d48d31d030f0c",
+      "originalBytes": 2019687
+    },
+    "mushmallow": {
+      "generatedSource": "art/characters/source/creature-mushmallow-combat-generated.png",
+      "referenceAsset": "creature-mushmallow",
+      "promptBrief": "Preserve Mushmallow’s cream hedgehog face and paws, violet spines and spotted lilac mushroom cap; create a transparent 4×5 battle atlas with distinct idle, lunge/attack, recoil, faint and capture poses at a shared ground anchor.",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "originalSha256": "d6102ac63093b26b3300cb3ee358cf3d3c17cd559e3bea55fd444060bd3d21a7",
+      "originalBytes": 2716499
+    },
+    "frostowl": {
+      "generatedSource": "art/characters/source/creature-frostowl-combat-generated.png",
+      "referenceAsset": "creature-frostowl",
+      "promptBrief": "Preserve Frostowl’s white owl body, cyan-blue eyes, crystalline blue tufts, dark beak and feet; create a transparent 4×5 battle atlas with idle, ice attack, hit recoil, faint and capture poses at a shared ground anchor.",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "originalSha256": "741b4e0f0c1e7ec9e8fcee08ef20db610f2ae49edca68ae20270217e69171d21",
+      "originalBytes": 2713085
+    },
+    "pebblit": {
+      "generatedSource": "art/characters/source/creature-pebblit-combat-generated.png",
+      "referenceAsset": "creature-pebblit",
+      "promptBrief": "Preserve Pebblit's canonical species silhouette, markings and palette; transparent 4-column by 5-row combat atlas with idle, attack, hit, faint and capture actions in stable bottom-center anchored cells.",
+      "originalSha256": "45395e6bd0b424de0c49988b53bdab396107058aedaa6dde9bfb2e0d14d0f622",
+      "originalBytes": 2517681
+    },
+    "bramblebuck": {
+      "generatedSource": "art/characters/source/creature-bramblebuck-combat-generated.png",
+      "referenceAsset": "creature-bramblebuck",
+      "promptBrief": "Preserve Bramblebuck's canonical species silhouette, markings and palette; transparent 4-column by 5-row combat atlas with idle, attack, hit, faint and capture actions in stable bottom-center anchored cells.",
+      "originalSha256": "c938445fcc7d47a1bd7d86473db5c97085c7e61e010fbb30642539a0576b1d0b",
+      "originalBytes": 2355886
+    },
+    "siltkip": {
+      "generatedSource": "art/characters/source/creature-siltkip-combat-generated.png",
+      "referenceAsset": "creature-siltkip",
+      "promptBrief": "Preserve Siltkip's canonical species silhouette, markings and palette; transparent 4-column by 5-row combat atlas with idle, attack, hit, faint and capture actions in stable bottom-center anchored cells.",
+      "originalSha256": "352352b9c8ff73d8ed029885ebd364590542d1cefeb1b636a5cf27a926a60f3e",
+      "originalBytes": 2660646
+    },
+    "sunskitter": {
+      "generatedSource": "art/characters/source/creature-sunskitter-combat-generated.png",
+      "referenceAsset": "creature-sunskitter",
+      "promptBrief": "Preserve Sunskitter's canonical species silhouette, markings and palette; transparent 4-column by 5-row combat atlas with idle, attack, hit, faint and capture actions in stable bottom-center anchored cells.",
+      "originalSha256": "10333be09a3db8daaca27f3b1bf3435390dad79feebdc4f548871f2bbe77e852",
+      "originalBytes": 2249854
     }
   },
-  "frameOrder": ["idle", "attack", "hit", "faint", "capture"],
-  "columnOrder": [0, 1, 2, 3],
+  "frameOrder": [
+    "idle",
+    "attack",
+    "hit",
+    "faint",
+    "capture"
+  ],
+  "columnOrder": [
+    0,
+    1,
+    2,
+    3
+  ],
   "sprites": {
     "creature-fernling-combat": {
-      "sourceSize": [1122, 1402],
+      "sourceSize": [
+        1122,
+        1402
+      ],
       "output": "dist/assets/creatures/creature-fernling-combat.png",
       "columns": 4,
       "rows": 5,
-      "frame": [288, 288],
+      "frame": [
+        288,
+        288
+      ],
       "anchor": "bottom-center"
     },
     "creature-duskwing-combat": {
-      "sourceSize": [1122, 1402],
+      "sourceSize": [
+        1122,
+        1402
+      ],
       "output": "dist/assets/creatures/creature-duskwing-combat.png",
       "columns": 4,
       "rows": 5,
-      "frame": [281, 281],
+      "frame": [
+        281,
+        281
+      ],
       "anchor": "bottom-center"
     },
     "creature-brooklet-combat": {
-      "sourceSize": [1122, 1402],
+      "sourceSize": [
+        1122,
+        1402
+      ],
       "output": "dist/assets/creatures/creature-brooklet-combat.png",
       "columns": 4,
       "rows": 5,
-      "frame": [288, 288],
+      "frame": [
+        288,
+        288
+      ],
       "anchor": "bottom-center"
     },
     "creature-hushram-combat": {
-      "sourceSize": [1122, 1402],
+      "sourceSize": [
+        1122,
+        1402
+      ],
       "output": "dist/assets/creatures/creature-hushram-combat.png",
       "columns": 4,
       "rows": 5,
-      "frame": [288, 288],
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-emberkin-combat": {
+      "sourceSize": [
+        1121,
+        1403
+      ],
+      "output": "dist/assets/creatures/creature-emberkin-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-voltkit-combat": {
+      "sourceSize": [
+        1121,
+        1403
+      ],
+      "output": "dist/assets/creatures/creature-voltkit-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-mushmallow-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-mushmallow-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-frostowl-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-frostowl-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-pebblit-combat": {
+      "sourceSize": [
+        1182,
+        1330
+      ],
+      "output": "dist/assets/creatures/creature-pebblit-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        296,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-bramblebuck-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-bramblebuck-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-siltkip-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-siltkip-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-sunskitter-combat": {
+      "sourceSize": [
+        1312,
+        1199
+      ],
+      "output": "dist/assets/creatures/creature-sunskitter-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        328,
+        288
+      ],
       "anchor": "bottom-center"
     }
   },

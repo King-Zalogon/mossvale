@@ -31,10 +31,19 @@ A milestone is a flag (`<map>.seal`, `<map>.chest`) that is stored once and neve
 - **Exit unlock**: an exit's `requires` names the flag that opens it.
 - **Discovery**: use `{caught}` / `{seen}` / `{visited}` in objectives.
 
+## Optional event objectives and dialogue choices (#100)
+
+Packs can add an `eventObjectives` list beside the existing `objectives` list. Each definition has a stable `id`, optional `title`, and ordered `stages`. A stage declares a gameplay event in `on`, then either `next` or a terminal `reward`. Supported events include landmark interaction, completed capture, map travel, challenge/battle start, and dialogue choice. Each matching event advances at most one stage.
+
+Completed stage IDs are stored in the existing bounded save event journal. On reload the stage and reward status are reconstructed from that journal; the reward and completion marker are committed together, so returning to the same landmark cannot pay twice. Cycles, unreachable stages, unknown event fields, invalid rewards, unknown maps/species/landmarks, and dangling choice references fail pack validation. Packs that omit `eventObjectives` need no save migration.
+
+Any landmark can optionally declare `choices: [{ id, speaker, target, text, reply, when?, event? }]`. IDs are stable within the map and both speaker and target must reference its landmarks. `when` uses the same conditions above, including map flags, so choices can branch as seals are earned. Available choices appear as focusable buttons in the existing dialogue bubble; Tab moves through controls, arrow keys move between choices, Enter/Space selects, and touch/pointer buttons work as well. A selected choice emits `dialogue.choice` with its map, speaker, target and stable choice ID.
+
+The shipped pack includes two small optional examples: ask Ranger Iris about the trail after waking the meadow shrine (a flag-gated choice and one-time coin reward), and compare the old-well plaque with the trail sign (two landmark stages and a one-time reward). They use existing map artwork; the ordinary ordered objective chain remains unchanged.
+
 ## Short lines and roles
 
-
-`lines: [{ "when": cond, "text": "…" }, { "text": "fallback" }]` on a `ranger` or `sign` landmark picks the first line whose condition holds. The on-screen name tag (`tag`) and the name (`name`) are map data, so the same ranger asset can carry a different name, tag and text in another adventure; `kind` stays the functional role (rest and shop). There are no branching dialogue trees or scripts by design; later story roles can add more `kind`s or `lines`.
+`lines: [{ "when": cond, "text": "…" }, { "text": "fallback" }]` on a `ranger` or `sign` landmark picks the first line whose condition holds. The on-screen name tag (`tag`) and the name (`name`) are map data, so the same ranger asset can carry a different name, tag and text in another adventure; `kind` stays the functional role (rest and shop). Objective stages and choices are optional data, not hardcoded quest scripts.
 
 ## No softlocks
 
