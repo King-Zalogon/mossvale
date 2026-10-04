@@ -30,7 +30,7 @@ export function createBattleView(app) {
     const intentAction = nextEnemyAction(b);
     const intentHint =
       intentAction === 'brace' && tactic?.braceElementFactor > 1
-        ? ' (quick strikes glance off; Element breaks through)'
+        ? ' (Element breaks through)'
         : intentAction === 'charge' && tactic?.recoveryOnCharge
           ? ` (restores up to ${Math.ceil(b.max * tactic.recoveryOnCharge)} HP)`
           : intentAction === 'heavy' && tactic?.guardRiposteFactor

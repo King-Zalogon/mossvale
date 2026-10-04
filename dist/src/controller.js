@@ -512,7 +512,7 @@ export function createController(app) {
   /** One line describing the enemy's turn. */
   function enemyText(foe, e) {
     if (e.action === 'charge') return `${foe.name} is gathering strength…${e.recovered ? ` The current restores ${e.recovered} HP.` : ''}`;
-    if (e.action === 'brace') return `${foe.name} braces itself against quick strikes.`;
+    if (e.action === 'brace') return `${foe.name} braces itself. Quick strikes glance off; an elemental move breaks through.`;
     const hit =
       e.action === 'heavy'
         ? `${foe.name} unleashes a heavy blow for ${e.damage} damage!`

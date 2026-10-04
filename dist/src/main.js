@@ -124,6 +124,7 @@ const app = {
   objCtx: {speciesCount: species.length, regions},
   audio: createAudio(),
   settings,
+  dashboardUrl: window.MOSSVALE_CONFIG?.dashboardUrl ?? '',
   build: null,
   buildLabel: () => describeBuild(app.build),
   motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,

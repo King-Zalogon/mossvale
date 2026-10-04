@@ -59,6 +59,8 @@ test('spore guard: bracing punishes quick strikes but an elemental move breaks t
   assert.ok(Math.abs(braced.damage / open.damage - TACTICS['spore-guard'].braceQuickFactor) < 0.2, `${braced.damage}/${open.damage}`);
   assert.equal(element.brokeBrace, true);
   assert.ok(element.damage > braced.damage * 3, `${element.damage}/${braced.damage}`);
+  assert.match(TACTICS['spore-guard'].intro, /After the brace, quick strikes glance off/);
+  assert.match(INTENT_TEXT.brace, /after this will be halved/);
 });
 
 test('rolling charge: a charge turn, then a heavy blow that Guard softens', () => {
