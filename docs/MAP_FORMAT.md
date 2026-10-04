@@ -6,6 +6,8 @@ Issue [#14](https://github.com/King-Zalogon/mossvale/issues/14). Maps are JSON f
 
 ## Workflow
 
+The Map Workshop’s Show topology toggle outlines neighboring terrain boundaries and reports the selected tile’s cardinal/corner key. Its separate Verdant crossing preview exercises grass, path, water, seeded variants and an explicitly walkable bridge over blocked water. This is an authoring-only fixture, not a shipped map or runtime terrain renderer; seed 71 reproduces its current decoration.
+
 1. Edit `dist/maps/<id>.json`.
 2. `npm run validate` checks every map; errors name the map, field and problem (e.g. `map meadow: exits[0] (east).to.spawn: map "amber-ridge" has no spawn "cellar"`).
 3. `npm run map:preview -- meadow` prints an ASCII preview (terrain, solid objects, spawns, landmarks, exits, encounter pool).
@@ -49,7 +51,7 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 
 **secrets and map names** ([NAVIGATION.md](NAVIGATION.md)): any landmark may set `secret: true` (it stays off every map until the player walks within 2.5 tiles) and `mapLabel` (the name maps show). **quiet**: `[{ id, rect: [x0, y0, x1, y1], label? }]` marks corridors where no wild encounter starts, whatever the encounter zones say.
 
-**exits**: `{ id, sprite, at, w, label, to: { map, spawn }, requires? }`. `to` must name an existing map and a spawn defined there. `requires` is a milestone flag that must be done first.
+**exits**: `{ id, sprite, at, w, label, to: { map, spawn }, requires?, route? }`. `to` must name an existing map and a spawn defined there. `requires` is a milestone flag that must be done first. An optional companion `route` has `{ id, requires: { ability, habitat? }, hint, unlockedText, reward }`; it checks the active species' optional `abilities`/`habitats` registry tags before the first crossing, shows `hint` if they do not match, then saves a stable `route-<id>` event and grants the capped reward once. After discovery the route stays open for every companion. Keep an ordinary reachable exit as a recovery path; route gates never change global water/terrain physics.
 
 **props**: groups of decoration: `{ sprite, kind: "scenery" | "grass" | "flower", w, solid?, at: [[x, y], ...] }`. `solid` is a collision radius.
 
@@ -59,7 +61,7 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 
 ## Persistence is separate from geometry
 
-Maps are immutable. Progress lives in the save under stable flags of the form `<map-id>.seal` (the shrine guardian was beaten) and `<map-id>.chest` (the chest was opened). Today these resolve to the existing `badges` / `chests` lists in the v3 save (`domain/rules.js: flagDone`), so existing saves keep working. Editing a map never changes what the player has completed. Flags are unique within an adventure pack and a save records which pack it belongs to, see [PACKS.md](PACKS.md).
+Maps are immutable. Progress lives in the save under stable flags of the form `<map-id>.seal` (the shrine guardian was beaten) and `<map-id>.chest` (the chest was opened). Today these resolve to the existing `badges` / `chests` lists in the v3 save (`domain/rules.js: flagDone`), so existing saves keep working. One-time companion-route discoveries use the existing `events` list and save transaction; they add no schema field. Editing a map never changes what the player has completed. Flags are unique within an adventure pack and a save records which pack it belongs to, see [PACKS.md](PACKS.md).
 
 ## What validation checks
 

@@ -1,6 +1,8 @@
 import {assets} from './data/assets.js';
 import {species} from './data/species.js';
 import {validateMaps} from './domain/mapdata.js';
+import {terrainVariant, validateTerrainFamilyFixture} from './domain/terrain-family.js';
+import {drawTerrainFamilyFixture} from './ui/terrain-family-preview.js';
 
 const $ = selector => document.querySelector(selector);
 const mapsUrl = new URL('../maps/', import.meta.url);
@@ -16,6 +18,8 @@ let selectedRecord = null;
 let undo = [];
 let redo = [];
 let cleanSnapshot = '';
+let topologyPreview = false;
+let familyFixture;
 
 const clone = value => JSON.parse(JSON.stringify(value));
 const snapshot = () => JSON.stringify(selectedMap);
@@ -36,6 +40,52 @@ function updateStatus() {
   $('#undo').disabled = !undo.length;
   $('#redo').disabled = !redo.length;
 }
+function updateTopologyStatus() {
+  const button = $('#topology-toggle');
+  button.setAttribute('aria-pressed', String(topologyPreview));
+  button.textContent = topologyPreview ? 'Hide topology' : 'Show topology';
+  const topology = selectedCell && terrainVariant(selectedMap.terrain, selectedCell.x, selectedCell.y);
+  if (!topologyPreview) {
+    $('#topology-status').textContent = 'Topology overlay is off.';
+  } else if (!topology) {
+    $('#topology-status').textContent = 'Highlighted lines show terrain boundaries. Select a tile to inspect its edge and corner key.';
+  } else {
+    $('#topology-status').textContent =
+      'Tile ' +
+      selectedCell.x +
+      ', ' +
+      selectedCell.y +
+      ': ' +
+      topology.shape +
+      '; boundaries ' +
+      (topology.edges.join(', ') || 'none') +
+      '; corners ' +
+      (topology.corners.join(', ') || 'none') +
+      '; key ' +
+      topology.cornerKey +
+      '.';
+  }
+}
+function drawTopologyOverlay(topology, px, py, tw, th) {
+  const vertices = {
+    n: [px, py - th / 2],
+    e: [px + tw / 2, py],
+    s: [px, py + th / 2],
+    w: [px - tw / 2, py],
+  };
+  const next = {n: 'e', e: 's', s: 'w', w: 'n'};
+  ctx.save();
+  ctx.lineWidth = Math.max(2, (tw / 28) * 2.5);
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = '#ffe08a';
+  for (const edge of topology.edges) {
+    ctx.beginPath();
+    ctx.moveTo(...vertices[edge]);
+    ctx.lineTo(...vertices[next[edge]]);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
 const coord = (x, y) => {
   const scale = Math.min(canvas.width / ((selectedMap.size.w + selectedMap.size.h) * 14), canvas.height / ((selectedMap.size.w + selectedMap.size.h) * 7));
   const tw = 28 * scale;
@@ -46,6 +96,7 @@ const coord = (x, y) => {
 };
 function draw() {
   if (!selectedMap) return;
+  updateTopologyStatus();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.imageSmoothingEnabled = false;
   for (let y = 0; y < selectedMap.size.h; y++)
@@ -61,6 +112,10 @@ function draw() {
         ctx.lineTo(px - tw / 2, py);
         ctx.closePath();
         ctx.fill();
+      }
+      if (topologyPreview && color !== '#00000000') {
+        const topology = terrainVariant(selectedMap.terrain, x, y);
+        if (topology) drawTopologyOverlay(topology, px, py, tw, th);
       }
       if (selectedCell?.x === x && selectedCell?.y === y) {
         ctx.strokeStyle = '#fff4ad';
@@ -161,6 +216,34 @@ $('#terrain').addEventListener('change', () => {
   changed(before);
 });
 $('#map').onchange = event => selectMap(event.target.value);
+$('#topology-toggle').onclick = () => {
+  topologyPreview = !topologyPreview;
+  draw();
+  drawFamilyPreview();
+};
+function drawFamilyPreview() {
+  if (!familyFixture) return;
+  const errors = validateTerrainFamilyFixture(familyFixture);
+  if (errors.length) {
+    $('#family-status').textContent = 'Fixture needs repair: ' + errors.slice(0, 3).join('; ');
+    return;
+  }
+  const rawSeed = $('#family-seed').valueAsNumber;
+  const seed = Number.isInteger(rawSeed) && rawSeed >= 0 ? rawSeed : familyFixture.seed;
+  const stats = drawTerrainFamilyFixture($('#family-canvas'), familyFixture, {seed, showTopology: topologyPreview});
+  $('#family-status').textContent =
+    stats.cells +
+    ' tiles · ' +
+    stats.walkable +
+    ' walkable (including ' +
+    stats.bridges +
+    ' bridge decks) · ' +
+    stats.blocked +
+    ' blocked water · seed ' +
+    seed +
+    (stats.missing ? ' · ' + stats.missing + ' unresolved tiles' : '');
+}
+$('#family-seed').addEventListener('input', drawFamilyPreview);
 $('#undo').onclick = () => {
   if (!undo.length) return;
   redo.push(snapshot());
@@ -299,3 +382,5 @@ mapIndex = await fetch(new URL('index.json', mapsUrl)).then(response => response
 maps = await Promise.all(mapIndex.maps.map(id => fetch(new URL(`${id}.json`, mapsUrl)).then(response => response.json())));
 for (const map of maps) $('#map').add(new Option(map.name, map.id));
 selectMap(maps[0].id);
+familyFixture = await fetch(new URL('terrain-family-fixture.json', mapsUrl)).then(response => response.json());
+drawFamilyPreview();

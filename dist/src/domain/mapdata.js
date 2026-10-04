@@ -121,6 +121,7 @@ function validateOne(m, byId, ctx, errors) {
 
   const ids = new Set();
   const landmarkIds = new Set((m.landmarks ?? []).map(landmark => landmark?.id).filter(id => typeof id === 'string'));
+  const routeEventIds = new Set();
   (m.landmarks ?? []).forEach((l, i) => {
     const where = `landmarks[${i}] (${l?.id})`;
     if (!isObj(l) || typeof l.id !== 'string') return at(`landmarks[${i}]`, 'id required');
@@ -175,6 +176,28 @@ function validateOne(m, byId, ctx, errors) {
     if (!target) at(where + '.to.map', `unknown map "${e.to?.map}"`);
     else if (!isPoint(target.spawns?.[e.to.spawn])) at(where + '.to.spawn', `map "${e.to.map}" has no spawn "${e.to.spawn}"`);
     if (e.requires !== undefined) flag(where + '.requires', e.requires);
+    if (e.route !== undefined) {
+      const route = e.route;
+      if (!isObj(route)) at(where + '.route', 'must be an optional companion route object');
+      else {
+        if (!ID.test(route.id ?? '')) at(where + '.route.id', 'needs a stable lowercase ID');
+        else if (routeEventIds.has(`route-${route.id}`)) at(where + '.route.id', 'duplicates another route unlock ID in this map');
+        else routeEventIds.add(`route-${route.id}`);
+        if (!isObj(route.requires) || typeof route.requires.ability !== 'string' || !ID.test(route.requires.ability))
+          at(where + '.route.requires', 'needs a stable ability ID and optional habitat ID');
+        else if (route.requires.habitat !== undefined && (typeof route.requires.habitat !== 'string' || !ID.test(route.requires.habitat)))
+          at(where + '.route.requires.habitat', 'must be a stable lowercase ID');
+        if (typeof route.hint !== 'string' || !route.hint.trim() || route.hint.length > 240)
+          at(where + '.route.hint', 'needs a short player-facing explanation (1–240 characters)');
+        if (typeof route.unlockedText !== 'string' || !route.unlockedText.trim() || route.unlockedText.length > 240)
+          at(where + '.route.unlockedText', 'needs a short discovery message (1–240 characters)');
+        if (!isObj(route.reward) || !Object.keys(route.reward).length || Object.keys(route.reward).some(key => !['coins', 'potions', 'orbs'].includes(key)))
+          at(where + '.route.reward', 'needs a non-empty coins, potions or orbs reward');
+        else
+          for (const [key, value] of Object.entries(route.reward))
+            if (!Number.isInteger(value) || value < 0 || value > 999) at(where + `.route.reward.${key}`, 'must be an integer from 0 to 999');
+      }
+    }
   });
   (m.props ?? []).forEach((g, i) => {
     const where = `props[${i}]`;
@@ -252,6 +275,7 @@ function validateOne(m, byId, ctx, errors) {
         }),
       );
       if (sceneEventIds.has(event?.id)) errors.push(`${where}.events[${j}].id: duplicate scene event id "${event.id}" in map ${m.id}`);
+      if (routeEventIds.has(event?.id)) errors.push(`${where}.events[${j}].id: conflicts with a companion route unlock ID in map ${m.id}`);
       sceneEventIds.add(event?.id);
       if (event?.actions?.some(action => action.type === 'challenge') && t.on !== 'interact')
         errors.push(`${where}.events[${j}]: challenges must use an interact trigger`);
@@ -307,6 +331,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
       targetName: target?.name ?? e.to.map,
       spawn: e.to.spawn,
       requires: e.requires,
+      route: e.route,
     });
   });
   objects.push(...landmarks, ...exits);

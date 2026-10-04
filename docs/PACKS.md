@@ -37,7 +37,7 @@ An optional `inventory` file adds pack-owned item definitions, supply mappings, 
 | --- | --- |
 | Maps | `maps` + `dist/maps/<id>.json` ([MAP_FORMAT.md](MAP_FORMAT.md)); optional reusable `prefabs` and `instances` ([PREFABS.md](PREFABS.md)) |
 | Species availability | `species`; zones and guardians may use only these, and each must be findable |
-| Species, type, region, move, economy, tactic and growth rules | `registries`; versioned pack data references art by shared asset ID |
+| Species, type, region, move, economy, tactic and growth rules | `registries`; versioned pack data references art by shared asset ID. A species may also define unique stable `abilities` and `habitats` tags for optional companion-route gates. |
 | Object and NPC roles | each landmark's `kind` (`ranger`, `cottage`, `sign`, `chest`, `shrine`), `name`, `tag`, `label`, `text`/`lines` |
 | Brief text | `brief` (and `name`) |
 | Milestone order | `milestones`; each must be earnable once the ones before it are done |

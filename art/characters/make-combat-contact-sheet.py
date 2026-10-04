@@ -3,11 +3,12 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[2]
-SPECIES = ["fernling", "emberkin", "duskwing", "brooklet", "hushram", "voltkit"]
+SPECIES = ["fernling", "emberkin", "duskwing", "brooklet", "hushram", "voltkit", "mushmallow", "frostowl"]
 STATES = ["idle", "attack", "hit", "faint", "capture"]
 OUT = ROOT / "art/characters/reviews/creature-combat-contact-sheet.png"
 CARD_W, CARD_H = 730, 664
-SHEET_W, SHEET_H = 2 * CARD_W + 36, 3 * CARD_H + 4 * 18
+SHEET_W = 2 * CARD_W + 36
+SHEET_H = 56 + ((len(SPECIES) + 1) // 2) * (CARD_H + 12)
 BG = "#17392f"
 CARD = "#20473a"
 PANEL = "#102d26"

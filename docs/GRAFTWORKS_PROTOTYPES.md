@@ -4,7 +4,7 @@ These modules are pure, opt-in building blocks. They do not change the current M
 
 ## Terrain families (#96)
 
-`domain/terrain-family.js` classifies a grid cell by cardinal edges and diagonal corners, labels isolated/end/straight/corner/tee/cross shapes, and chooses seeded variants reproducibly. Corner-specific art can override a cardinal mask. Missing edge art returns `null` instead of falling back to a center tile. It defaults to no transform; rotational reuse is only labeled safe when the caller explicitly opts in. This is still topology data for an authoring tool to bake: no grass/path/water source art, bridge semantics, map compiler integration, or editor previews are included.
+`domain/terrain-family.js` classifies cardinal edges and diagonal corners and chooses seeded source variants without unsafe transforms. The Map Workshop adds a Show topology overlay for the selected map and a 13 × 9 Verdant crossing fixture with grass/path/water recipes, an explicit two-cell bridge, corner overrides, and a seed control. The fixture checks walkability and both banks, and it stays outside `maps/index.json` so it cannot change shipped maps. Its vector colors, motifs and seams are an authoring prototype; production tile art and baked runtime variants are still pending.
 
 ## Optional bag and storage (#99)
 
@@ -16,10 +16,10 @@ Event objectives and conditional dialogue choices are opt-in pack data. Stages r
 
 ## Compositional creatures (#101)
 
-`domain/composition.js` compiles a plan and assigned tagged parts into flat `parts`, unique `abilities`, and bounded modifiers, reporting missing/incompatible/unknown slots, excluded tags, and aggregate modifier overflow. It changes no species definitions and does not compose artwork; generated visual identity briefs and a roster of sample compositions remain follow-up.
+`domain/composition.js` compiles a plan and assigned tagged parts into flat `parts`, unique `abilities`, and bounded modifiers, reporting missing/incompatible/unknown slots, excluded tags, and aggregate modifier overflow. `art/characters/composition-prototypes.json` now proves three compositions, including a novel `reed-skimmer` body plan authored entirely as data. The focused suite verifies each flattened result with the ordinary pack species validator and generates a structured anatomy/identity brief with `createCompositionArtBrief`. Run `npm run composition:briefs` to print those art briefs. The examples remain outside the shipped roster: briefs guide human sprite work and do not assemble or generate artwork.
 
 ## Optional companion routes (#102)
 
-`domain/companion-routes.js` checks whether a companion has a route's optional ability and habitat tags, filters route offers, validates route IDs/requirements, and ensures each starter can reach at least one recovery route. This is a route-offer data check only: no shipped maps, unlock persistence, route telegraph, discovery reward, or movement physics change yet.
+`domain/companion-routes.js` checks optional ability/habitat requirements and verifies recovery for every starter. Map exits can now declare a route gate, player-facing hint, one-time reward and stable unlock event. The Reedfen-to-Lantern-Islet cut uses Brooklet's optional `cross-shallow-water`/`wetland` tags; once discovered it stays open after reload for any companion. The existing boardwalk remains available to all starters. The route is a data-driven portal shortcut with static sign art; it does not change global water physics or add movement animations.
 
 Run the focused prototype suite with `node --test tests/graftworks-prototypes.test.mjs`. These modules are intentionally independent so the shared systems can be adopted gradually after pack and owner review.

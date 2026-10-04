@@ -44,7 +44,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
         preview_hash = hashlib.sha256(b"<!doctype html>\n<main>review preview</main>\n").hexdigest()
         subjects = []
         reviews = []
-        for species in ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"]:
+        for species in sorted(REVIEW_MODULE.COMBAT_IDS):
             ref = f"art/references/{species}.png"
             output = f"dist/assets/creatures/{species}-combat.png"
             for path in [ref, output]:
@@ -74,7 +74,16 @@ class VisualReviewEvidenceTests(unittest.TestCase):
             file = self.root / path
             file.parent.mkdir(parents=True, exist_ok=True)
             file.write_bytes(content)
-        follower_ids = ["creature-emberkin", "creature-fernling", "creature-duskwing", "creature-brooklet"]
+        follower_ids = [
+            "creature-emberkin",
+            "creature-fernling",
+            "creature-duskwing",
+            "creature-brooklet",
+            "creature-hushram",
+            "creature-voltkit",
+            "creature-mushmallow",
+            "creature-frostowl",
+        ]
         for species in follower_ids:
             reference = f"art/references/{species}.png"
             follower = f"dist/assets/creatures/{species}-follower.png"
@@ -135,11 +144,11 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                     "status": "reviewed-at-scale",
                     "creaturePortraitWidth": 115,
                     "contactSheet": self.contact,
-                    "visualIds": ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"],
+                    "visualIds": sorted(REVIEW_MODULE.COMBAT_IDS),
                 },
                 {
                     "issue": "#90",
-                    "status": "second-batch-reviewed-at-scale",
+                    "status": "third-batch-reviewed-at-scale",
                     "followerWidth": 37,
                     "contactSheet": follower_sheet,
                     "visualIds": follower_ids,
@@ -165,7 +174,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
             "coverage": [
                 {
                     "issue": "#90",
-                    "status": "second-batch-reviewed-at-scale",
+                    "status": "third-batch-reviewed-at-scale",
                     "visualIds": ids,
                     "followerWidth": 37,
                     "contactSheet": "art/characters/reviews/followers.png",
@@ -180,7 +189,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                 for species in ids
             ],
         }
-        self.assertEqual(REVIEW_MODULE.validate_directional_coverage(data, set(ids)), 4)
+        self.assertEqual(REVIEW_MODULE.validate_directional_coverage(data, set(ids)), 8)
         data["coverage"][0]["followerWidth"] = 115
         with self.assertRaisesRegex(SystemExit, "37 px"):
             REVIEW_MODULE.validate_directional_coverage(data, set(ids))

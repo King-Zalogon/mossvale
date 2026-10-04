@@ -8,7 +8,26 @@ from PIL import Image
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 DECISIONS = {"accept", "rework", "quarantine"}
 TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".md", ".mjs", ".py", ".txt"}
-FOLLOWER_IDS = {"creature-emberkin", "creature-fernling", "creature-duskwing", "creature-brooklet"}
+FOLLOWER_IDS = {
+    "creature-emberkin",
+    "creature-fernling",
+    "creature-duskwing",
+    "creature-brooklet",
+    "creature-hushram",
+    "creature-voltkit",
+    "creature-mushmallow",
+    "creature-frostowl",
+}
+COMBAT_IDS = {
+    "creature-fernling",
+    "creature-emberkin",
+    "creature-duskwing",
+    "creature-brooklet",
+    "creature-hushram",
+    "creature-voltkit",
+    "creature-mushmallow",
+    "creature-frostowl",
+}
 
 
 def validate_directional_coverage(data, reviewed_ids):
@@ -22,7 +41,7 @@ def validate_directional_coverage(data, reviewed_ids):
     covered_ids = {record.get("visualId") for record in records}
     if (
         not coverage
-        or coverage.get("status") != "second-batch-reviewed-at-scale"
+        or coverage.get("status") != "third-batch-reviewed-at-scale"
         or coverage.get("followerWidth") != 37
         or coverage.get("contactSheet") != contact_sheet
         or not FOLLOWER_IDS.issubset(covered_ids & reviewed_ids)
@@ -118,7 +137,7 @@ def validate_reviews(root):
         not follower_gap
         or follower_gap.get("status") != "pending-art"
         or not follower_gap.get("reason")
-        or profiles.get(follower_gap.get("profileId"), {}).get("status") not in {"pending-dedicated-direction-art", "implemented-initial-batch", "implemented-second-batch"}
+        or profiles.get(follower_gap.get("profileId"), {}).get("status") not in {"pending-dedicated-direction-art", "implemented-initial-batch", "implemented-second-batch", "implemented-third-batch"}
     ):
         raise SystemExit("#90 must remain an explicit pending-art review gap until dedicated follower frames exist")
     reviewed_ids = {record.get("visualId") for record in data.get("subjects", [])}
@@ -128,9 +147,7 @@ def validate_reviews(root):
         or combat_coverage.get("status") != "reviewed-at-scale"
         or combat_coverage.get("creaturePortraitWidth") != 115
         or combat_coverage.get("contactSheet") != contact_sheet
-        or not {"creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"}.issubset(
-            set(combat_coverage.get("visualIds", [])) & reviewed_ids
-        )
+        or not COMBAT_IDS.issubset(set(combat_coverage.get("visualIds", [])) & reviewed_ids)
     ):
         raise SystemExit("#85 combat review must cover every recorded species at 115 px using the pinned contact sheet")
     validate_directional_coverage(data, reviewed_ids)

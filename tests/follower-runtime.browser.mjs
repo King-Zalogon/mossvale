@@ -26,7 +26,11 @@ try {
     window.followerAtlasDraws = [];
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (image, ...args) {
-      if (image?.src?.includes('-follower.png') || image?.src?.endsWith('/creature-mushmallow.png') || image?.src?.endsWith('/tree-oak.png')) {
+      if (
+        image?.src?.includes('-follower.png') ||
+        /\/creature-(mushmallow|frostowl|sunskitter)\.png$/.test(image?.src ?? '') ||
+        image?.src?.endsWith('/tree-oak.png')
+      ) {
         window.followerAtlasDraws.push({
           src: image.src,
           column: Math.round(args[0] / 200),
@@ -40,7 +44,7 @@ try {
   });
   await page.goto(`http://localhost:${server.address().port}/?debug&seed=131`);
   await page.waitForSelector('#loading', {state: 'hidden'});
-  const supported = ['emberkin', 'fernling'];
+  const supported = ['emberkin', 'fernling', 'duskwing', 'brooklet', 'hushram', 'voltkit', 'mushmallow', 'frostowl'];
   const ids = supported.map(name => species.findIndex(entry => entry.id === name));
   assert.ok(ids.every(id => id >= 0));
   await page.evaluate(([emberkin, fernling]) => {
@@ -94,7 +98,7 @@ try {
     ['ArrowLeft'],
     ['ArrowUp', 'ArrowLeft'],
   ];
-  const fallbackId = species.findIndex(entry => entry.id === 'mushmallow');
+  const fallbackId = species.findIndex(entry => entry.id === 'sunskitter');
   const evidence = {};
   for (let speciesIndex = 0; speciesIndex < supported.length; speciesIndex++) {
     const name = supported[speciesIndex];
@@ -361,9 +365,9 @@ try {
   await page.waitForTimeout(400);
   await page.keyboard.up('ArrowUp');
   const fallbackDraws = await page.evaluate(() => window.followerAtlasDraws);
-  assert.equal(fallbackDraws.filter(frame => frame.src.endsWith('creature-mushmallow-follower.png')).length, 0);
+  assert.equal(fallbackDraws.filter(frame => frame.src.endsWith('creature-sunskitter-follower.png')).length, 0);
   assert.ok(
-    fallbackDraws.some(frame => frame.src.endsWith('creature-mushmallow.png')),
+    fallbackDraws.some(frame => frame.src.endsWith('creature-sunskitter.png')),
     'unfinished species keep portrait fallback',
   );
   assert.deepEqual(errors, []);

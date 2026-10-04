@@ -38,15 +38,17 @@
         "fernling": [288, 288],
         "duskwing": [281, 281],
         "brooklet": [288, 288],
-        "hushram": [288, 288]
+        "hushram": [288, 288],
+        "mushmallow": [288, 288],
+        "frostowl": [288, 288]
       },
       "resampling": "none",
       "alphaThreshold": 8,
       "footInset": 4,
-      "palette": "preserve exact generated source bytes; encode Emberkin and Voltkit runtime sheets as 256-color indexed PNG with no dithering",
+      "palette": "preserve exact generated source bytes; encode Emberkin, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
       "reviewStages": ["generated-source", "segmented-cells", "anchored-runtime"],
       "indexedOutput": {
-        "species": ["emberkin", "voltkit"],
+        "species": ["emberkin", "voltkit", "mushmallow", "frostowl"],
         "colors": 256,
         "dither": "none"
       }
@@ -59,7 +61,7 @@
     },
     "creature-follower-v1": {
       "category": "creature-follower",
-      "status": "implemented-second-batch",
+      "status": "implemented-third-batch",
       "sourceGrid": {
         "columns": 5,
         "rows": 8
@@ -70,10 +72,10 @@
       "alphaThreshold": 8,
       "minimumComponentPixels": 180,
       "footY": 196,
-      "palette": "preserve exact generated source bytes; encode Hushram and Voltkit runtime sheets as 256-color indexed PNG with no dithering",
-      "remaining": "Six species remain without follower atlases.",
+      "palette": "preserve exact generated source bytes; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
+      "remaining": "Four species remain without follower atlases.",
       "indexedOutput": {
-        "species": ["hushram", "voltkit"],
+        "species": ["hushram", "voltkit", "mushmallow", "frostowl"],
         "colors": 256,
         "dither": "none"
       }
