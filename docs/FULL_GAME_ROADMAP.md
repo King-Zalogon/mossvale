@@ -144,7 +144,7 @@ The GitHub repository is currently **public**, as checked during this revision. 
 - [ ] #19 — **P1**, Keep supplies and rewards useful without forced grinding (S)
 - [ ] #20 — **P1**, Add quick continue/new-game and only useful settings (S)
 - [ ] #22 — **P1**, Try the meadow map pair before finishing the other biomes (S)
-- [ ] #51 — **P1**, Build the meadow biome pack with two distinct compact maps (M)
+- [x] #51 — **P1**, Build the meadow biome pack with two distinct compact maps (M)
 
 ### 2 · four-biome adventure
 
