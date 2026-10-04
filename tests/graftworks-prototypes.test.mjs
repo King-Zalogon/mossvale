@@ -1,12 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {chooseTerrainVariant, terrainVariant} from '../dist/src/domain/terrain-family.js';
+import {chooseTerrainVariant, resolveTerrainFamilyCell, terrainVariant, validateTerrainFamilyFixture} from '../dist/src/domain/terrain-family.js';
 import {createInventory, moveInventory, sellInventory, validateInventoryRules} from '../dist/src/domain/inventory.js';
 import {applyObjectiveEvent, createObjectiveState, validateObjectiveEvents, validateObjectiveState} from '../dist/src/domain/objective-events.js';
 import {compileComposition, createCompositionArtBrief} from '../dist/src/domain/composition.js';
 import {validateRegistries} from '../dist/src/domain/registries.js';
 import compositionShowcase from '../art/characters/composition-prototypes.json' with {type: 'json'};
 import defaultRegistries from '../dist/maps/registries.json' with {type: 'json'};
+import mapIndex from '../dist/maps/index.json' with {type: 'json'};
+import terrainFamilyFixture from '../dist/maps/terrain-family-fixture.json' with {type: 'json'};
 import {availableCompanionRoutes, companionCanUseRoute, validateCompanionRoutes} from '../dist/src/domain/companion-routes.js';
 import {availableDialogueChoices, selectDialogueChoice, validateDialogueChoices} from '../dist/src/domain/dialogue-choices.js';
 
@@ -34,6 +36,77 @@ test('terrain family topology and decoration selection are deterministic and lea
   );
   const deterministic = chooseTerrainVariant(grid, 1, 1, {'p-edge-nesw': ['a', 'b', 'c']}, 71);
   assert.equal(deterministic.variant, chooseTerrainVariant(grid, 1, 1, {'p-edge-nesw': ['a', 'b', 'c']}, 71).variant);
+});
+
+test('terrain-family fixture resolves every seam, repeats seeded art and keeps the bridge path connected', () => {
+  assert.deepEqual(validateTerrainFamilyFixture(terrainFamilyFixture), []);
+  assert.ok(!mapIndex.maps.includes(terrainFamilyFixture.id), 'authoring fixture is not a shipped game map');
+  assert.equal(terrainFamilyFixture.surfaces.g.walkable, true);
+  assert.equal(terrainFamilyFixture.surfaces.p.walkable, true);
+  assert.equal(terrainFamilyFixture.surfaces.w.walkable, false);
+
+  const base = [];
+  const alternate = [];
+  const shapes = new Set();
+  const grid = terrainFamilyFixture.grid.map(row => [...row]);
+  for (let y = 0; y < terrainFamilyFixture.size.h; y++) {
+    for (let x = 0; x < terrainFamilyFixture.size.w; x++) {
+      const resolved = resolveTerrainFamilyCell(terrainFamilyFixture, x, y, terrainFamilyFixture.seed);
+      const repeated = resolveTerrainFamilyCell(terrainFamilyFixture, x, y, terrainFamilyFixture.seed);
+      const changedSeed = resolveTerrainFamilyCell(terrainFamilyFixture, x, y, terrainFamilyFixture.seed + 1);
+      assert.ok(resolved, 'all cells need a source recipe at ' + x + ',' + y);
+      assert.deepEqual(repeated, resolved);
+      assert.equal(resolved.walkable, resolved.bridgeId ? true : terrainFamilyFixture.surfaces[resolved.cellTerrain].walkable);
+      shapes.add(terrainVariant(grid, x, y).shape);
+      base.push(resolved.artVariant);
+      alternate.push(changedSeed.artVariant);
+    }
+  }
+  assert.ok([...shapes].includes('corner'));
+  assert.ok([...shapes].includes('tee'));
+  assert.ok(
+    base.some(id => id === 'g-bank-corner-0' || id === 'g-bank-corner-1'),
+    'exact corner recipe overrides its cardinal edge recipe',
+  );
+  assert.ok(
+    base.some(id => id === 'p-bend-corner-0' || id === 'p-bend-corner-1'),
+    'path turn uses its authored corner recipe',
+  );
+  assert.ok(
+    base.some((variant, index) => variant !== alternate[index]),
+    'changing the seed changes some repeated-area decoration',
+  );
+
+  const bridges = new Map(terrainFamilyFixture.bridges.flatMap(bridge => bridge.cells.map(([x, y]) => [x + ',' + y, bridge])));
+  const isWalkable = ([x, y]) => {
+    const bridge = bridges.get(x + ',' + y);
+    return bridge ? bridge.walkable : terrainFamilyFixture.surfaces[terrainFamilyFixture.grid[y][x]].walkable;
+  };
+  const pending = [[0, 3]];
+  const visited = new Set(['0,3']);
+  while (pending.length) {
+    const [x, y] = pending.shift();
+    for (const [nx, ny] of [
+      [x + 1, y],
+      [x - 1, y],
+      [x, y + 1],
+      [x, y - 1],
+    ]) {
+      const key = nx + ',' + ny;
+      if (nx < 0 || ny < 0 || nx >= terrainFamilyFixture.size.w || ny >= terrainFamilyFixture.size.h || visited.has(key) || !isWalkable([nx, ny])) continue;
+      visited.add(key);
+      pending.push([nx, ny]);
+    }
+  }
+  assert.ok(visited.has('12,3'), 'the path crosses the blocked water through the explicit bridge deck');
+  assert.ok(visited.has('8,7'), 'the crossing remains connected to the path junction and branch');
+
+  const invalid = structuredClone(terrainFamilyFixture);
+  invalid.bridges[0].walkable = false;
+  assert.match(validateTerrainFamilyFixture(invalid).join(' '), /explicitly walkable/);
+  const missingArt = structuredClone(terrainFamilyFixture);
+  delete missingArt.variants['p-edge-nes'];
+  assert.match(validateTerrainFamilyFixture(missingArt).join(' '), /missing source recipe/);
 });
 
 test('optional inventory transactions reject full storage without partial writes and sell only valuables', () => {
