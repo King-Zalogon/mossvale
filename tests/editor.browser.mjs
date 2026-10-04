@@ -22,8 +22,11 @@ try {
   await page.goto(`http://localhost:${server.address().port}/map-editor.html`);
   await page.waitForFunction(() => document.querySelector('#map-name')?.textContent.includes('72 × 64'));
   assert.match(await page.locator('#validation').textContent(), /Valid map data/);
+  await page.click('#topology-toggle');
+  assert.equal(await page.locator('#topology-toggle').getAttribute('aria-pressed'), 'true', errors.join(' · '));
   await page.selectOption('#terrain', 'p');
   await page.locator('#map-canvas').click({position: {x: 609, y: 142}});
+  assert.match(await page.locator('#topology-status').textContent(), /key p-(?:edge|center)/);
   assert.match(await page.locator('#dirty').textContent(), /Unsaved/);
   await page.click('#undo');
   assert.equal(await page.locator('#dirty').textContent(), 'Saved');
