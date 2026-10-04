@@ -16,7 +16,7 @@ These modules are pure, opt-in building blocks. They do not change the current M
 
 ## Compositional creatures (#101)
 
-`domain/composition.js` compiles a plan and assigned tagged parts into flat `parts`, unique `abilities`, and bounded modifiers, reporting missing/incompatible/unknown slots, excluded tags, and aggregate modifier overflow. It changes no species definitions and does not compose artwork; generated visual identity briefs and a roster of sample compositions remain follow-up.
+`domain/composition.js` compiles a plan and assigned tagged parts into flat `parts`, unique `abilities`, and bounded modifiers, reporting missing/incompatible/unknown slots, excluded tags, and aggregate modifier overflow. `art/characters/composition-prototypes.json` now proves three compositions, including a novel `reed-skimmer` body plan authored entirely as data. The focused suite verifies each flattened result with the ordinary pack species validator and generates a structured anatomy/identity brief with `createCompositionArtBrief`. Run `npm run composition:briefs` to print those art briefs. The examples remain outside the shipped roster: briefs guide human sprite work and do not assemble or generate artwork.
 
 ## Optional companion routes (#102)
 

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "sourceReferences": {
-    "generatedOn": "2026-10-03",
+    "generatedOn": "2026-10-04",
     "fernling": {
       "generatedSource": "art/characters/source/creature-fernling-combat-generated.png",
       "referenceAsset": "creature-fernling",
@@ -43,6 +43,28 @@
       "promptBrief": "Preserve Voltkit’s gold and cream electric companion identity, long asymmetrical ears, dark paws, blue cheek mark and crystal-tipped zigzag tail; add idle, electric attack, hit, faint and capture states in a fixed-anchor 4×5 atlas.",
       "originalSha256": "537e1d98706f0748927f0ef1b8e18b7e23c8c6872cc05085e53d48d31d030f0c",
       "originalBytes": 2019687
+    },
+    "mushmallow": {
+      "generatedSource": "art/characters/source/creature-mushmallow-combat-generated.png",
+      "referenceAsset": "creature-mushmallow",
+      "promptBrief": "Preserve Mushmallow’s cream hedgehog face and paws, violet spines and spotted lilac mushroom cap; create a transparent 4×5 battle atlas with distinct idle, lunge/attack, recoil, faint and capture poses at a shared ground anchor.",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "originalSha256": "d6102ac63093b26b3300cb3ee358cf3d3c17cd559e3bea55fd444060bd3d21a7",
+      "originalBytes": 2716499
+    },
+    "frostowl": {
+      "generatedSource": "art/characters/source/creature-frostowl-combat-generated.png",
+      "referenceAsset": "creature-frostowl",
+      "promptBrief": "Preserve Frostowl’s white owl body, cyan-blue eyes, crystalline blue tufts, dark beak and feet; create a transparent 4×5 battle atlas with idle, ice attack, hit recoil, faint and capture poses at a shared ground anchor.",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "originalSha256": "741b4e0f0c1e7ec9e8fcee08ef20db610f2ae49edca68ae20270217e69171d21",
+      "originalBytes": 2713085
     }
   },
   "frameOrder": [
@@ -135,6 +157,34 @@
         1403
       ],
       "output": "dist/assets/creatures/creature-voltkit-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-mushmallow-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-mushmallow-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-frostowl-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-frostowl-combat.png",
       "columns": 4,
       "rows": 5,
       "frame": [

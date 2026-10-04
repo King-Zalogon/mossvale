@@ -12,7 +12,7 @@
     "beforeAfter": "Each species card shows its canonical portrait beside the generated combat states.",
     "contactSheetDigest": {
       "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-      "sha256": "97fe1a2fa1d96dd65913e0ef68516503c9b547f9f698ad145ea50053bd4302ea"
+      "sha256": "c2842ab1034cd19c22d1ce4e16712e68a307e2ee576477b5ba60f62ef9aa96bf"
     },
     "followerContactSheet": "art/characters/reviews/creature-follower-contact-sheet.png",
     "followerContactSheetDigest": {
@@ -83,7 +83,7 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "97fe1a2fa1d96dd65913e0ef68516503c9b547f9f698ad145ea50053bd4302ea"
+          "sha256": "c2842ab1034cd19c22d1ce4e16712e68a307e2ee576477b5ba60f62ef9aa96bf"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-combat.png",
@@ -120,7 +120,7 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "97fe1a2fa1d96dd65913e0ef68516503c9b547f9f698ad145ea50053bd4302ea"
+          "sha256": "c2842ab1034cd19c22d1ce4e16712e68a307e2ee576477b5ba60f62ef9aa96bf"
         },
         {
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
@@ -152,7 +152,7 @@
       "reviewedFiles": [
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "97fe1a2fa1d96dd65913e0ef68516503c9b547f9f698ad145ea50053bd4302ea"
+          "sha256": "c2842ab1034cd19c22d1ce4e16712e68a307e2ee576477b5ba60f62ef9aa96bf"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
@@ -232,7 +232,7 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "97fe1a2fa1d96dd65913e0ef68516503c9b547f9f698ad145ea50053bd4302ea"
+          "sha256": "c2842ab1034cd19c22d1ce4e16712e68a307e2ee576477b5ba60f62ef9aa96bf"
         },
         {
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
@@ -269,7 +269,7 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "97fe1a2fa1d96dd65913e0ef68516503c9b547f9f698ad145ea50053bd4302ea"
+          "sha256": "c2842ab1034cd19c22d1ce4e16712e68a307e2ee576477b5ba60f62ef9aa96bf"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
@@ -398,7 +398,7 @@
       "reviewedFiles": [
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "97fe1a2fa1d96dd65913e0ef68516503c9b547f9f698ad145ea50053bd4302ea"
+          "sha256": "c2842ab1034cd19c22d1ce4e16712e68a307e2ee576477b5ba60f62ef9aa96bf"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
@@ -415,6 +415,64 @@
         {
           "path": "dist/assets/creatures/creature-voltkit.png",
           "sha256": "04d97b8c53aa99d027d072abef780ecb20be01799b292333a1f547683c11eddc"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-mushmallow",
+      "asset": "creature-mushmallow-combat",
+      "technical": {
+        "status": "pass",
+        "source": "npm run verify; 4×5 indexed frames, source archive and common foot-anchor checks"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA at 115 px",
+        "reason": "At the 115 px battle width, the cream face, violet spines and spotted mushroom cap remain readable; the attack lunge, recoil, faint and capture poses differ from idle. Owner taste and gameplay acceptance remain pending.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "c2842ab1034cd19c22d1ce4e16712e68a307e2ee576477b5ba60f62ef9aa96bf"
+        },
+        {
+          "path": "dist/assets/creatures/creature-mushmallow-combat.png",
+          "sha256": "dc522312ac233dd35462e76dd2050067c058c7f70b3773fd12e92b2c38e02fcb"
+        },
+        {
+          "path": "dist/assets/creatures/creature-mushmallow.png",
+          "sha256": "3a140fbb9adeccfc96ae972cc6e8a7d871e3d6c080d8ecc663e362823fce5c0b"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-frostowl",
+      "asset": "creature-frostowl-combat",
+      "technical": {
+        "status": "pass",
+        "source": "npm run verify; 4×5 indexed frames, source archive and common foot-anchor checks"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA at 115 px",
+        "reason": "At the 115 px battle width, the white owl silhouette, cyan eyes and crystalline blue feathers remain readable through the ice attack, recoil, faint and capture poses. Owner taste and gameplay acceptance remain pending.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "c2842ab1034cd19c22d1ce4e16712e68a307e2ee576477b5ba60f62ef9aa96bf"
+        },
+        {
+          "path": "dist/assets/creatures/creature-frostowl-combat.png",
+          "sha256": "0ec81b187ff2be0cf4130a518c38bacee56d49e2ac1724f358537b0c710adb32"
+        },
+        {
+          "path": "dist/assets/creatures/creature-frostowl.png",
+          "sha256": "e9815a89122b06f86d76723ed3bdf97158ee69b00707b7eb19b4c1003988e5d8"
         }
       ]
     }
@@ -462,7 +520,16 @@
     {
       "issue": "#85",
       "status": "reviewed-at-scale",
-      "visualIds": ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"],
+      "visualIds": [
+        "creature-fernling",
+        "creature-emberkin",
+        "creature-duskwing",
+        "creature-brooklet",
+        "creature-hushram",
+        "creature-voltkit",
+        "creature-mushmallow",
+        "creature-frostowl"
+      ],
       "creaturePortraitWidth": 115,
       "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png"
     },

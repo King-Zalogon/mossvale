@@ -35,9 +35,10 @@ The eight current creature portraits remain the generated source images in `art/
 
 - Fernling and Duskwing were generated on 2026-10-03 as the first combat-sheet milestone. Brooklet and Hushram were added on 2026-10-03 as the next art batch. All four raw generated images are retained under `source/creature-*-combat-generated.png` and use their current transparent portrait as the identity reference.
 - Emberkin and Voltkit combat sheets add two more species. Their immutable generated PNG bytes are stored in bounded parts referenced by `source-archive.json`; `source_archive.py` verifies and streams those exact bytes to the exporter, and `restore-generated-sources.py` can reconstruct the original PNG files for editing.
+- Mushmallow and Frostowl add the next two combat species. Their transparent source atlases use the same four-column, five-state grid and preserve their canonical mushroom-hedgehog and ice-owl identities; exact PNG bytes are retained as SHA-256-checked 600 KB archive chunks. The 256-color runtime exports use no dithering and keep the shared 288 × 288 frame and foot-anchor contract.
 - Each sheet has four columns and five state rows: idle, attack, hit, faint and capture. The exporter crops equal grid cells, pads transparent pixels without resampling, and writes fixed frame sizes with bottom-center anchors: Fernling, Brooklet and Hushram 288 × 288; Duskwing 281 × 281.
 - Emberkin and Voltkit runtime sheets use a 256-color indexed PNG palette with no dithering; their complete original RGBA source sheets remain unchanged in the archive. Run `python3 art/characters/export-creature-combat.py` to recreate runtime PNGs. `creature-combat-metadata.json` records source IDs, original hashes, frame order, dimensions, anchor and cadence.
-- Six species now have animated combat frames; the remaining six current creatures still use their static portraits. #85 remains open for the rest of the roster and gameplay acceptance.
+- Eight species now have animated combat frames; the remaining four current creatures still use their static portraits. #85 remains open for the rest of the roster and gameplay acceptance.
 
 ## Creature follower direction milestone (#90)
 

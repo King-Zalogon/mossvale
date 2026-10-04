@@ -14,6 +14,8 @@ SPECS = {
     "duskwing": {"source": "art/characters/source/creature-duskwing-combat-generated.png", "target": "dist/assets/creatures/creature-duskwing-combat.png"},
     "brooklet": {"source": "art/characters/source/creature-brooklet-combat-generated.png", "target": "dist/assets/creatures/creature-brooklet-combat.png"},
     "hushram": {"source": "art/characters/source/creature-hushram-combat-generated.png", "target": "dist/assets/creatures/creature-hushram-combat.png"},
+    "mushmallow": {"source": "art/characters/source/creature-mushmallow-combat-generated.png", "target": "dist/assets/creatures/creature-mushmallow-combat.png"},
+    "frostowl": {"source": "art/characters/source/creature-frostowl-combat-generated.png", "target": "dist/assets/creatures/creature-frostowl-combat.png"},
 }
 
 
