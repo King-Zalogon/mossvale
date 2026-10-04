@@ -26,7 +26,7 @@ try {
     window.followerAtlasDraws = [];
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (image, ...args) {
-      if (image?.src?.includes('-follower.png') || image?.src?.endsWith('/creature-hushram.png') || image?.src?.endsWith('/tree-oak.png')) {
+      if (image?.src?.includes('-follower.png') || image?.src?.endsWith('/creature-mushmallow.png') || image?.src?.endsWith('/tree-oak.png')) {
         window.followerAtlasDraws.push({
           src: image.src,
           column: Math.round(args[0] / 200),
@@ -94,7 +94,7 @@ try {
     ['ArrowLeft'],
     ['ArrowUp', 'ArrowLeft'],
   ];
-  const fallbackId = species.findIndex(entry => entry.id === 'hushram');
+  const fallbackId = species.findIndex(entry => entry.id === 'mushmallow');
   const evidence = {};
   for (let speciesIndex = 0; speciesIndex < supported.length; speciesIndex++) {
     const name = supported[speciesIndex];
@@ -361,9 +361,9 @@ try {
   await page.waitForTimeout(400);
   await page.keyboard.up('ArrowUp');
   const fallbackDraws = await page.evaluate(() => window.followerAtlasDraws);
-  assert.equal(fallbackDraws.filter(frame => frame.src.endsWith('creature-hushram-follower.png')).length, 0);
+  assert.equal(fallbackDraws.filter(frame => frame.src.endsWith('creature-mushmallow-follower.png')).length, 0);
   assert.ok(
-    fallbackDraws.some(frame => frame.src.endsWith('creature-hushram.png')),
+    fallbackDraws.some(frame => frame.src.endsWith('creature-mushmallow.png')),
     'unfinished species keep portrait fallback',
   );
   assert.deepEqual(errors, []);
