@@ -4,6 +4,7 @@ import {PLAYER_RADIUS} from '../config.js';
 import {TACTICS} from '../data/tactics.js';
 import {validateLines} from './objectives.js';
 import {validateSceneEvent} from './scenes.js';
+import {validateDialogueChoices} from './dialogue-choices.js';
 
 export const MAP_FORMAT = 1;
 export const TERRAIN = {'.': 'void', g: 'ground', p: 'path', w: 'water', t: 'tallgrass'};
@@ -119,6 +120,7 @@ function validateOne(m, byId, ctx, errors) {
   else for (const [name, p] of Object.entries(m.spawns)) if (!inside(p)) at(`spawns.${name}`, 'must be [x, y] inside the map');
 
   const ids = new Set();
+  const landmarkIds = new Set((m.landmarks ?? []).map(landmark => landmark?.id).filter(id => typeof id === 'string'));
   const routeEventIds = new Set();
   (m.landmarks ?? []).forEach((l, i) => {
     const where = `landmarks[${i}] (${l?.id})`;
@@ -152,6 +154,12 @@ function validateOne(m, byId, ctx, errors) {
     }
     if (l.kind === 'sign' && typeof l.text !== 'string' && !Array.isArray(l.lines)) at(where + '.text', 'signs need text (or lines)');
     if (l.lines !== undefined) errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys())}));
+    if (l.choices !== undefined)
+      errors.push(
+        ...validateDialogueChoices(l.choices, {speakerIds: landmarkIds, targetIds: landmarkIds, mapIds: new Set(byId.keys())}).map(
+          error => `${where}: ${error}`,
+        ),
+      );
     if (l.tag !== undefined && (typeof l.tag !== 'string' || l.tag.length > 16)) at(where + '.tag', 'tag is a short label (up to 16 characters)');
     if (l.secret !== undefined && typeof l.secret !== 'boolean') at(where + '.secret', 'true (hidden from the maps until found nearby) or false');
     if (l.mapLabel !== undefined && (typeof l.mapLabel !== 'string' || !l.mapLabel || l.mapLabel.length > 24))
@@ -305,6 +313,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
       flag: l.flag,
       text: l.text,
       lines: l.lines,
+      choices: l.choices,
       tag: l.tag,
       secret: l.secret === true,
       mapLabel: l.mapLabel,

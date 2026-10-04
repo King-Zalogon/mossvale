@@ -39,10 +39,24 @@ export function installInput(app) {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (k === 'tab') {
         e.preventDefault();
-        (document.activeElement === $('#speech-next') ? $('#speech-bubble') : $('#speech-next')).focus({preventScroll: true});
+        const focusable = [$('#speech-bubble'), ...$('#speech-bubble').querySelectorAll('button:not(:disabled):not([hidden])')];
+        const current = focusable.indexOf(document.activeElement);
+        const next = (current + (e.shiftKey ? -1 : 1) + focusable.length) % focusable.length;
+        focusable[next].focus({preventScroll: true});
+      } else if (['arrowdown', 'arrowup'].includes(k) && $('#speech-choices') && !$('#speech-choices').hidden) {
+        const buttons = [...$('#speech-choices').querySelectorAll('button:not(:disabled)')];
+        const current = buttons.indexOf(document.activeElement);
+        if (buttons.length) {
+          e.preventDefault();
+          buttons[(current + (k === 'arrowdown' ? 1 : -1) + buttons.length) % buttons.length].focus({preventScroll: true});
+        }
       } else if (['enter', ' ', 'e', 'escape'].includes(k)) {
         e.preventDefault();
-        if (!e.repeat) k === 'escape' ? actions.dismissSpeech() : actions.advanceSpeech();
+        if (!e.repeat) {
+          if (k === 'escape') actions.dismissSpeech();
+          else if (document.activeElement.matches?.('[data-speech-choice]')) document.activeElement.click();
+          else actions.advanceSpeech();
+        }
       }
       return; // other keys can scroll the focused reading region without moving the player
     }

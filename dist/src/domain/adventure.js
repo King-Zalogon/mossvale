@@ -5,6 +5,7 @@ import {collectFlags, validateObjectives} from './objectives.js';
 import {validateStory} from './story.js';
 import {validatePack} from './pack.js';
 import {validateInventoryRules} from './inventory.js';
+import {validateObjectiveEvents} from './objective-events.js';
 import {biomes} from '../data/biomes.js';
 
 /**
@@ -39,6 +40,7 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
   }
   if (rawObjectives !== undefined) {
     errors.push(...validateObjectives(rawObjectives, {mapIds: new Set(maps.map(m => m?.id))}));
+    errors.push(...validateEventObjectives(rawObjectives, maps, speciesIds));
   }
   if (rawStory !== undefined) errors.push(...validateStory(rawStory, {mapIds: new Set(maps.map(m => m?.id))}));
   if (rawPack?.inventory && inventoryRules === undefined) errors.push('pack inventory: the selected inventory rules file was not loaded');
@@ -61,7 +63,7 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
       ...checkMilestoneOrder(maps, regions, rawPack?.milestones),
     );
   }
-  if (errors.length) return {maps: [], objectives: [], story: undefined, errors};
+  if (errors.length) return {maps: [], objectives: [], eventObjectives: [], story: undefined, errors};
   const spriteIndex = name => assets.findIndex(a => a.name === name);
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = biome => {
@@ -74,9 +76,64 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
     maps: ordered.map(compile),
     mapsById: Object.fromEntries(maps.map(m => [m.id, compile(m)])),
     objectives: rawObjectives?.objectives ?? [],
+    eventObjectives: rawObjectives?.eventObjectives ?? [],
     story: rawStory,
     errors: [],
   };
+}
+
+const EVENT_FIELDS = {
+  'interaction.used': new Set(['mapId', 'target', 'kind']),
+  'capture.completed': new Set(['species', 'isNew', 'joined']),
+  'portal.traveled': new Set(['fromMap', 'toMap', 'spawn']),
+  'dialogue.choice': new Set(['mapId', 'speaker', 'target', 'choice']),
+  'challenge.started': new Set(['mapId', 'species', 'level', 'boss']),
+  'battle.started': new Set(['mapId', 'species', 'level', 'boss']),
+};
+
+function validateEventObjectives(rawObjectives, maps, speciesIds) {
+  if (rawObjectives?.eventObjectives === undefined) return [];
+  const errors = [];
+  if (!Array.isArray(rawObjectives.eventObjectives)) return ['eventObjectives: must be a list when present'];
+  const mapIds = new Set(maps.map(map => map?.id));
+  const landmarkIdsByMap = new Map(maps.map(map => [map?.id, new Set((Array.isArray(map?.landmarks) ? map.landmarks : []).map(landmark => landmark?.id))]));
+  const choiceIds = new Set(
+    maps.flatMap(map =>
+      (Array.isArray(map?.landmarks) ? map.landmarks : []).flatMap(landmark =>
+        (Array.isArray(landmark?.choices) ? landmark.choices : []).map(choice => `${map.id}/${choice?.id ?? ''}`),
+      ),
+    ),
+  );
+  const objectiveIds = new Set();
+  for (const [index, definition] of rawObjectives.eventObjectives.entries()) {
+    const where = `eventObjectives[${index}] (${definition?.id ?? 'unknown'})`;
+    errors.push(...validateObjectiveEvents(definition).map(error => `${where}: ${error}`));
+    if (objectiveIds.has(definition?.id)) errors.push(`${where}: duplicate objective id`);
+    objectiveIds.add(definition?.id);
+    for (const [stageIndex, stage] of (Array.isArray(definition?.stages) ? definition.stages : []).entries()) {
+      const event = stage?.on;
+      const at = `${where}.stages[${stageIndex}].on`;
+      const fields = EVENT_FIELDS[event?.type];
+      if (!fields) {
+        errors.push(`${at}.type: unsupported gameplay event "${event?.type ?? ''}"`);
+        continue;
+      }
+      for (const key of Object.keys(event)) if (key !== 'type' && !fields.has(key)) errors.push(`${at}.${key}: not a field of ${event.type}`);
+      if (event.mapId !== undefined && !mapIds.has(event.mapId)) errors.push(`${at}.mapId: unknown map "${event.mapId}"`);
+      if (event.target !== undefined) {
+        const known =
+          event.mapId !== undefined ? landmarkIdsByMap.get(event.mapId)?.has(event.target) : [...landmarkIdsByMap.values()].some(ids => ids.has(event.target));
+        if (!known) errors.push(`${at}.target: unknown stable landmark id "${event.target}"`);
+      }
+      if (event.choice !== undefined && !choiceIds.has(`${event.mapId}/${event.choice}`))
+        errors.push(`${at}.choice: unknown stable choice id "${event.choice}" for map "${event.mapId ?? ''}"`);
+      if (event.speaker !== undefined && !landmarkIdsByMap.get(event.mapId)?.has(event.speaker))
+        errors.push(`${at}.speaker: unknown stable speaker id "${event.speaker}" for map "${event.mapId ?? ''}"`);
+      if (event.species !== undefined && !speciesIds.has(event.species)) errors.push(`${at}.species: unknown species "${event.species}"`);
+      for (const key of ['fromMap', 'toMap']) if (event[key] !== undefined && !mapIds.has(event[key])) errors.push(`${at}.${key}: unknown map "${event[key]}"`);
+    }
+  }
+  return errors;
 }
 
 const flagsAwarded = map =>

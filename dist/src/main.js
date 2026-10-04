@@ -119,6 +119,7 @@ const app = {
   maps: [],
   mapsById: {},
   objectives: [],
+  eventObjectives: [],
   story: undefined,
   inventoryRules: undefined,
   skipPremise: (debug && !params.has('premise')) || !!editorPreviewId, // tests start in play; add &premise to see the opening card
@@ -401,7 +402,7 @@ async function boot() {
         onEvent: (type, data) => eventLog.emit(type, data),
       });
       if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
-      const {maps, mapsById, objectives, story, errors} = buildAdventure(
+      const {maps, mapsById, objectives, eventObjectives, story, errors} = buildAdventure(
         rawMaps,
         {assets, species, regions, packId: rawPack.id},
         rawObjectives,
@@ -416,6 +417,7 @@ async function boot() {
       app.maps.push(...maps);
       Object.assign(app.mapsById, mapsById);
       app.objectives.push(...objectives);
+      app.eventObjectives.push(...eventObjectives);
       app.story = story;
       const boundedSave = codec.normalize(JSON.parse(codec.serialize(game.save)), false);
       game.save = boundedSave;

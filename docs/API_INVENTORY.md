@@ -49,7 +49,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `directionPose`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
 | `domain/inventory.js` | domain | `buyInventory`, `claimInventory`, `commitInventory`, `createInventory`, `deposit`, `gatherInventory`, `inventoryToSupplies`, `moveInventory`, `rollDrop`, `sellInventory`, `suppliesToInventory`, `syncInventorySupplies`, `useInventory`, `validateInventoryRules`, `withdraw` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
-| `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents`, `validateObjectiveState` |
+| `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `objectiveStageEventId`, `recordObjectiveEvent`, `restoreObjectiveState`, `validateObjectiveEvents`, `validateObjectiveState` |
 | `domain/objectives.js` | domain | `OBJECTIVES_FORMAT`, `collectFlags`, `currentObjective`, `holds`, `pickLine`, `validateLines`, `validateObjectives` |
 | `domain/pack.js` | domain | `PACK_FORMAT`, `milestonesOf`, `packFileEntries`, `validatePack`, `validatePackMetadata` |
 | `domain/phase.js` | domain | `PHASES`, `transition` |

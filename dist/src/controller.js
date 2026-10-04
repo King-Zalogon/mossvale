@@ -19,6 +19,8 @@ import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 import {discover, entryFor, landmarkLabel, reveal} from './domain/discovery.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
+import {recordObjectiveEvent, restoreObjectiveState} from './domain/objective-events.js';
+import {availableDialogueChoices} from './domain/dialogue-choices.js';
 import {companionCanUseRoute} from './domain/companion-routes.js';
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
@@ -27,7 +29,11 @@ import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInvento
 export function createController(app) {
   const {game, ui, audio, rng, persist, canvas, actions, menus, maps, mapsById, objCtx} = app;
   const save = () => game.save;
-  const emit = (type, data) => app.events?.emit(type, data);
+  let applyingObjectiveEvent = false;
+  const emit = (type, data = {}) => {
+    app.events?.emit(type, data);
+    if (!applyingObjectiveEvent) applyOptionalObjectiveEvent(type, data);
+  };
   const sfx = name => {
     emit('audio.cue', {cue: name});
     audio.play(name);
@@ -37,6 +43,76 @@ export function createController(app) {
   const speech = createSpeech({ui, canvas, onEvent: emit});
   const wait = ms => (app.motionReduced() ? 250 : ms);
 
+  function optionalObjectiveStates() {
+    return (app.eventObjectives ?? []).map(definition => ({definition, state: restoreObjectiveState(definition, save().events ?? [])}));
+  }
+
+  function renderOptionalObjectives() {
+    const container = $('#optional-objectives');
+    const rows = optionalObjectiveStates();
+    container.replaceChildren();
+    container.hidden = rows.length === 0;
+    for (const {definition, state} of rows) {
+      const stage = definition.stages.find(item => item.id === state.stage);
+      const row = document.createElement('p');
+      row.className = `optional-objective ${state.status}`;
+      const title = document.createElement('strong');
+      title.textContent = definition.title ?? definition.id;
+      const detail = document.createElement('span');
+      const count = stage?.count > 1 && state.count > 0 ? ` (${state.count}/${stage.count})` : '';
+      detail.textContent =
+        state.status === 'rewarded' || state.status === 'complete'
+          ? 'Complete · reward claimed'
+          : `${state.status === 'active' ? 'In progress · ' : 'Optional · '}${stage?.label ?? stage?.id ?? ''}${count}`;
+      row.append(title, detail);
+      container.append(row);
+    }
+  }
+
+  function applyOptionalObjectiveEvent(type, data) {
+    if (!app.eventObjectives?.length) return;
+    applyingObjectiveEvent = true;
+    const before = structuredClone(save());
+    const outcomes = [];
+    try {
+      for (const definition of app.eventObjectives) {
+        const result = recordObjectiveEvent(save(), definition, {type, ...data}, save().mapId);
+        if (result.reason === 'event-limit') {
+          game.save = before;
+          toast('The saved event journal is full. This optional goal could not advance.');
+          return;
+        }
+        if (result.changed) {
+          const gained = result.reward ? grantReward(save(), result.reward) : null;
+          outcomes.push({definition, state: result.state, gained});
+        }
+      }
+      if (!outcomes.length) return;
+      if (!persist()) {
+        game.save = before;
+        toast('That goal update could not be saved, so its progress and reward were rolled back.');
+        return;
+      }
+      refresh();
+      for (const {definition, state, gained} of outcomes) {
+        app.events?.emit('objective.stage', {id: definition.id, stage: state.stage, status: state.status, mapId: save().mapId});
+        const rewards = gained
+          ? Object.entries(gained)
+              .filter(([, amount]) => amount > 0)
+              .map(([key, amount]) => `${amount} ${key}`)
+              .join(', ')
+          : '';
+        toast(
+          state.status === 'rewarded'
+            ? `${definition.title ?? definition.id} complete${rewards ? ` · ${rewards} earned` : ''}.`
+            : `${definition.title ?? definition.id} · ${definition.stages.find(stage => stage.id === state.stage)?.label ?? state.stage}`,
+        );
+      }
+    } finally {
+      applyingObjectiveEvent = false;
+    }
+  }
+
   /** Distance to walk before the next encounter, from the zone the player stands in (or the default range). */
   const nextDistance = () => encounterDistance(zoneAt(game.world, Math.round(game.player.x), Math.round(game.player.y)), rng);
 
@@ -44,6 +120,7 @@ export function createController(app) {
     clampHealth(save());
     const goal = app.objectives.length ? currentObjective(save(), app.objectives, objCtx) : null;
     renderHud(save(), goal);
+    renderOptionalObjectives();
     if (goal && goal.id !== save().goal) {
       if (save().goal && ui.ready) toast(`New goal: ${goal.title}`); // first run and reloads stay quiet
       save().goal = goal.id;
@@ -163,17 +240,31 @@ export function createController(app) {
   const rangerLandmark = () => game.world.objects.find(o => o.kind === 'ranger');
   const rangerName = () => rangerLandmark()?.name ?? 'the ranger';
 
+  function speakLandmark(o, text, onComplete, {includeChoices = true} = {}) {
+    const choices = includeChoices ? availableDialogueChoices(o?.choices, save(), objCtx) : [];
+    const anchor = line => {
+      const actor = game.world.objects.find(object => object.ref === line.speaker) ?? o;
+      return actor ? app.projectWorld(actor.x, actor.y) : null;
+    };
+    speech.show([{text, speaker: o?.ref ?? 'narrator', name: o?.name ?? 'Mossvale'}], anchor, onComplete, {
+      choices,
+      onChoice: choice => {
+        const event = {mapId: save().mapId, speaker: choice.speaker, target: choice.target, choice: choice.id};
+        emit('dialogue.choice', event);
+        if (choice.event && choice.event.type !== 'dialogue.choice') emit(choice.event.type, {...event, ...choice.event});
+        const speakerObject = game.world.objects.find(object => object.ref === choice.speaker);
+        speech.show([{text: choice.reply, speaker: choice.speaker, name: speakerObject?.name ?? choice.speaker}], anchor, onComplete);
+      },
+    });
+  }
+
   /** Opens the ranger menu with `message`, or the first matching line from the map data. */
   function openRanger(message) {
     const o = rangerLandmark();
     const line = message ?? pickLine(o?.lines, save(), objCtx) ?? 'Welcome back. Rest here whenever you need to.';
-    const speakerId = o?.ref ?? 'narrator';
-    const actor = o;
-    speech.show(
-      [{text: line + tip('first-ranger'), speaker: speakerId, name: o?.name ?? 'Mossvale'}],
-      () => actor && app.projectWorld(actor.x, actor.y),
-      () => menus.ranger({name: o?.name ?? 'The ranger', sprite: o?.id, message: ''}),
-    );
+    speakLandmark(o, line + tip('first-ranger'), () => menus.ranger({name: o?.name ?? 'The ranger', sprite: o?.id, message: ''}), {
+      includeChoices: message === undefined,
+    });
   }
 
   function rest() {
@@ -287,8 +378,7 @@ export function createController(app) {
     const s = save();
     sfx('tap');
     if (o.kind === 'ranger') openRanger();
-    else if (o.kind === 'sign')
-      speech.show([{text: o.text ?? pickLine(o.lines, s, objCtx), speaker: o.ref ?? 'sign', name: 'Trail sign'}], () => app.projectWorld(o.x, o.y));
+    else if (o.kind === 'sign') speakLandmark(o, o.text ?? pickLine(o.lines, s, objCtx), undefined);
     else if (o.kind === 'chest') {
       const got = claimChest(s, o);
       if (!got) {

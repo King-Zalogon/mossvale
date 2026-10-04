@@ -284,6 +284,9 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   await page.waitForTimeout(100);
   await page.evaluate(() => window.mossvale.interact());
   await page.click('#speech-next');
+  await page.waitForSelector('#speech-choices', {state: 'visible'});
+  assert.equal(await page.locator('#speech-next').textContent(), 'Continue', 'optional questions can be skipped before using ranger services');
+  await page.click('#speech-next');
   await page.waitForSelector('[data-buy="potion"]');
   await page.keyboard.press('2');
   await page.click('#speech-next');

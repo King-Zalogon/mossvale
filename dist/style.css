@@ -349,6 +349,30 @@ h2 {
   color: #b9d982;
   font-size: 17px;
 }
+.optional-objectives {
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px solid #ffffff1f;
+}
+.optional-objectives[hidden] {
+  display: none;
+}
+.optional-objective {
+  display: grid;
+  gap: 2px;
+  margin: 7px 0 !important;
+  color: #b9cdb2;
+  font-size: 11px;
+  line-height: 1.35;
+}
+.optional-objective strong {
+  color: #d4ddc6;
+  font-size: 12px;
+}
+.optional-objective.rewarded strong,
+.optional-objective.complete strong {
+  color: #b9d982;
+}
 .journal {
   display: flex;
   align-items: center;
@@ -2285,6 +2309,21 @@ body.text-larger .heading {
   color: white;
   font: inherit;
   font-weight: 700;
+}
+#speech-choices {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0;
+}
+#speech-choices[hidden] {
+  display: none;
+}
+#speech-choices button {
+  width: 100%;
+  margin: 0;
+  background: #e4efc8;
+  color: #25382d;
+  text-align: left;
 }
 @media (prefers-reduced-motion: reduce) {
   .speech-bubble,
