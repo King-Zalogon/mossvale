@@ -19,6 +19,7 @@ import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
 import {discover, entryFor, landmarkLabel, reveal} from './domain/discovery.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
+import {companionCanUseRoute} from './domain/companion-routes.js';
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
@@ -307,7 +308,28 @@ export function createController(app) {
       });
     } else if (o.kind === 'gate') {
       if (o.requires && !flagDone(s, o.requires)) toast(`This trail opens when you earn the ${sealOf(o.requires)}. Visit the blue shrine marker.`);
-      else travel(o.target, o.spawn);
+      else if (o.route) {
+        const eventId = `route-${o.route.id}`;
+        const discovered = sceneHasRun(s, game.world.map.id, eventId);
+        if (!discovered && !companionCanUseRoute(o.route, species[s.active])) {
+          toast(o.route.hint);
+          return;
+        }
+        if (!discovered) {
+          if (!markSceneRun(s, game.world.map.id, eventId)) {
+            toast('This adventure has reached its saved event limit.');
+            return;
+          }
+          const reward = grantReward(s, o.route.reward);
+          emit('route.unlocked', {mapId: game.world.map.id, routeId: o.route.id});
+          emit('reward.granted', {source: 'route', target: o.ref ?? o.id, ...reward});
+        }
+        travel(o.target, o.spawn);
+        if (!discovered) {
+          sfx('chest');
+          toast(o.route.unlockedText);
+        }
+      } else travel(o.target, o.spawn);
     } else if (o.kind === 'shrine') shrine(o);
   }
 

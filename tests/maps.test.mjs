@@ -6,6 +6,7 @@ import {buildWorld, isWalkable, triggersAt, zoneAt} from '../dist/src/domain/wor
 import {rollWild} from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
 import {movePlayer} from '../dist/src/domain/exploration.js';
+import {availableCompanionRoutes, validateCompanionRoutes} from '../dist/src/domain/companion-routes.js';
 import {content, mapsById, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
 const edit = fn => {
@@ -57,6 +58,59 @@ test('the meadow pair has a safe loop, a shortcut discovery and a gated onward t
   assert.notDeepEqual(meadowMap.terrain, orchardMap.terrain);
   assert.equal(mapsById['orchard-ruins'].biome, 'meadow');
   assert.equal(mapsById['orchard-ruins'].objects.find(o => o.ref === 'east-to-ridge').targetRegion, 1);
+});
+
+test('the Reedfen shallow-water cut is telegraphed, optional and keeps recovery open for every starter', () => {
+  const wetlands = rawMaps().find(map => map.id === 'reedfen-wetlands');
+  const stiltIsles = rawMaps().find(map => map.id === 'stilt-isles');
+  const routeExit = wetlands.exits.find(exit => exit.route?.id === 'shallow-water-cut');
+  assert.ok(routeExit, 'large wetland map includes an optional cut');
+  assert.match(wetlands.landmarks.find(landmark => landmark.id === 'shallow-cut-guide').text, /Brooklet/);
+  assert.deepEqual(routeExit.route.requires, {ability: 'cross-shallow-water', habitat: 'wetland'});
+  assert.deepEqual(routeExit.to, {map: 'stilt-isles', spawn: 'lantern-cut'});
+  assert.ok(stiltIsles.spawns[routeExit.to.spawn]);
+  assert.ok(
+    stiltIsles.exits.some(
+      exit =>
+        exit.to.map === wetlands.id &&
+        exit.to.spawn === 'shallow-cut-approach' &&
+        Math.hypot(...exit.at.map((coordinate, axis) => coordinate - stiltIsles.spawns['lantern-cut'][axis])) < 1.95,
+    ),
+    'the islet landing has a nearby return route',
+  );
+
+  const recovery = {id: 'existing-boardwalk', recovery: true};
+  const allStarters = content.species;
+  assert.deepEqual(validateCompanionRoutes([recovery, routeExit.route], allStarters), []);
+  for (const starter of allStarters) {
+    const available = availableCompanionRoutes([recovery, routeExit.route], starter);
+    assert.ok(
+      available.some(route => route.recovery),
+      `${starter.id} always has the boardwalk recovery route`,
+    );
+  }
+  assert.deepEqual(
+    availableCompanionRoutes(
+      [routeExit.route],
+      allStarters.find(starter => starter.id === 'brooklet'),
+    ).map(route => route.id),
+    ['shallow-water-cut'],
+  );
+  assert.deepEqual(
+    availableCompanionRoutes(
+      [routeExit.route],
+      allStarters.find(starter => starter.id === 'fernling'),
+    ),
+    [],
+  );
+  has(
+    edit(raw => (raw.find(map => map.id === 'reedfen-wetlands').exits.find(exit => exit.route).route.requires.ability = 'Cross-Water')),
+    'stable ability ID',
+  );
+  has(
+    edit(raw => (raw.find(map => map.id === 'reedfen-wetlands').exits.find(exit => exit.route).route.reward.coins = -1)),
+    'must be an integer from 0 to 999',
+  );
 });
 
 test('snowy maps form a distinct, traversable pair with a safe return and optional cache', () => {
