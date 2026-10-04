@@ -39,15 +39,16 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/adventure.js` | domain | `buildAdventure` |
 | `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `createBattle`, `encounterDistance`, `enemyAttack`, `ensureHealthyCompanion`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion` |
 | `domain/clock.js` | domain | `createTestClock` |
-| `domain/companion-routes.js` | domain | `companionCanUseRoute`, `validateCompanionRoutes` |
+| `domain/companion-routes.js` | domain | `availableCompanionRoutes`, `companionCanUseRoute`, `validateCompanionRoutes` |
 | `domain/composition.js` | domain | `compileComposition`, `validateBodyPlan` |
+| `domain/dialogue-choices.js` | domain | `availableDialogueChoices`, `selectDialogueChoice`, `validateDialogueChoices` |
 | `domain/discovery.js` | domain | `CELL`, `MAX_SEEN`, `SECRET_RANGE`, `VISION`, `cellGrid`, `compass`, `decodeEntry`, `discover`, `encodeEntry`, `entryFor`, `exploredShare`, `isKnown`, `isRevealed`, `landmarkLabel`, `reveal`, `toHex` |
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
 | `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
-| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
-| `domain/inventory.js` | domain | `createInventory`, `moveInventory`, `sellInventory`, `validateInventoryRules` |
+| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `directionPose`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
+| `domain/inventory.js` | domain | `buyInventory`, `claimInventory`, `commitInventory`, `createInventory`, `deposit`, `gatherInventory`, `inventoryToSupplies`, `moveInventory`, `rollDrop`, `sellInventory`, `suppliesToInventory`, `useInventory`, `validateInventoryRules`, `withdraw` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
-| `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents` |
+| `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents`, `validateObjectiveState` |
 | `domain/objectives.js` | domain | `OBJECTIVES_FORMAT`, `collectFlags`, `currentObjective`, `holds`, `pickLine`, `validateLines`, `validateObjectives` |
 | `domain/pack.js` | domain | `PACK_FORMAT`, `milestonesOf`, `packFileEntries`, `validatePack`, `validatePackMetadata` |
 | `domain/phase.js` | domain | `PHASES`, `transition` |
@@ -65,6 +66,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
 | `render/world.js` | render | `createWorldRenderer` |
 | `save.js` | root | `KEYS`, `LEGACY_PACK`, `VERSION`, `commitSaveTransaction`, `create`, `keysFor`, `packOf`, `readSaveItem`, `recoverSaveTransaction` |
+| `services/account.js` | services | `createAccountClient` |
 | `services/adventures.js` | services | `ADVENTURE_KEY`, `CATALOG_FORMAT`, `DEFAULT_CATALOG`, `chooseAdventure`, `describeProgress`, `parseCatalog`, `peekProgress`, `readSelection`, `relocateLegacyPacks`, `writeSelection` |
 | `services/audio.js` | services | `createAudio` |
 | `services/backup.js` | services | `BACKUP_FORMAT`, `BACKUP_KIND`, `MAX_BACKUP_BYTES`, `exportBackup`, `exportFileName`, `importSave`, `parseBackup`, `readCheckpoint`, `restoreCheckpoint` |
@@ -75,6 +77,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/settings.js` | services | `DEFAULTS`, `MOTION`, `SETTINGS_KEY`, `TEXT_SIZES`, `VOLUME_STEPS`, `ZOOM_MAX`, `ZOOM_MIN`, `loadSettings`, `normalizeSettings`, `saveSettings` |
 | `services/timeline.js` | services | `createTimeline` |
 | `services/version.js` | services | `describeBuild`, `fetchBuild` |
+| `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |

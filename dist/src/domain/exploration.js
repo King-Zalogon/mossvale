@@ -25,10 +25,25 @@ export function playerSpritePose(dir) {
   return row === FACING.northwest ? {row: FACING.northeast, flip: true} : {row, flip: false};
 }
 
+/**
+ * Atlas row and mirroring for a direction of a multi-direction sheet. `frames.mirror` maps a direction whose own row repeats
+ * another's pose to that other direction; it is drawn from the other row, flipped.
+ */
+export function directionPose(frames, dir) {
+  const name = DIRECTIONS[dir] ?? 'south';
+  const source = frames?.mirror?.[name];
+  const order = frames?.rowOrder ?? DIRECTIONS;
+  return source ? {row: order.indexOf(source), flip: true} : {row: order.indexOf(name), flip: false};
+}
+
 /** Sprite direction from the creature's own movement in world space (the inverse of movePlayer's screen mapping). */
 export function movementFacing(dx, dy) {
   if (Math.hypot(dx, dy) < 1e-6) return null;
-  return facing(dx - dy, dx + dy);
+  const screenX = dx - dy;
+  const screenY = dx + dy;
+  // Trail samples are sub-unit; normalize before facing() applies its input dead zone.
+  const length = Math.hypot(screenX, screenY);
+  return facing(screenX / length, screenY / length);
 }
 
 /** Row in the animation atlas for screen-space input (-1..1 on each axis). */

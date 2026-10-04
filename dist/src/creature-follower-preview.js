@@ -2,6 +2,8 @@ const DIRECTIONS = ['north', 'northeast', 'east', 'southeast', 'south', 'southwe
 const ROWS = {
   fernling: DIRECTIONS,
   emberkin: ['south', 'southwest', 'east', 'northeast', 'north', 'west', 'northwest', 'southeast'],
+  duskwing: DIRECTIONS,
+  brooklet: ['north', 'northwest', 'west', 'southwest', 'south', 'southeast', 'east', 'northeast'],
 };
 const VECTORS = [
   [-1, -1],
@@ -18,7 +20,14 @@ const sources = {
   player: load('../assets/people/person-red-cap-motion.png'),
   emberkin: load('../assets/creatures/creature-emberkin-follower.png'),
   fernling: load('../assets/creatures/creature-fernling-follower.png'),
-  portrait: {emberkin: load('../assets/creatures/creature-emberkin.png'), fernling: load('../assets/creatures/creature-fernling.png')},
+  duskwing: load('../assets/creatures/creature-duskwing-follower.png'),
+  brooklet: load('../assets/creatures/creature-brooklet-follower.png'),
+  portrait: {
+    emberkin: load('../assets/creatures/creature-emberkin.png'),
+    fernling: load('../assets/creatures/creature-fernling.png'),
+    duskwing: load('../assets/creatures/creature-duskwing.png'),
+    brooklet: load('../assets/creatures/creature-brooklet.png'),
+  },
   tree: load('../assets/props/tree-oak.png'),
 };
 const stage = document.querySelector('#stage');

@@ -256,6 +256,13 @@ Object.assign(actions, {
     app.persist.lock();
     location.reload();
   },
+  accountBackup() {
+    app.persist();
+    return JSON.parse(exportBackup(codec, game.save, app.build));
+  },
+  checkAccountBackup(backup) {
+    return parseBackup(JSON.stringify(backup), codec, app.adventures.list);
+  },
   exportSave() {
     if (loaded.status === 'incompatible' && loaded.raw) {
       downloadText(exportFileName(), loaded.raw.endsWith('\n') ? loaded.raw : `${loaded.raw}\n`);
@@ -470,8 +477,11 @@ function loop(t) {
       actions.explore();
       if (!isWalkable(game.world, game.player.x, game.player.y)) Object.assign(game.player, nearestWalkable(game.world, game.player.x, game.player.y)); // stuck recovery
       const nearest = actions.nearest();
-      $('#interact').style.display = nearest ? 'block' : 'none';
+      // A sign toast or character bubble owns the reading area. Keep the
+      // contextual prompt out of both overlays until the text is dismissed.
+      $('#interact').style.display = nearest && !ui.speechActive && $('#toast').dataset.active !== 'true' ? 'block' : 'none';
       if (nearest) $('#interact').textContent = 'E · ' + nearest.label;
+      document.querySelector('.viewport').classList.toggle('has-interaction', $('#interact').style.display === 'block');
     }
     const smoothing = app.motionReduced() ? 1 : Math.min(1, dt * 7);
     ui.camera.x += (game.player.x - ui.camera.x) * smoothing;
@@ -562,6 +572,8 @@ if (debug) {
       phase: game.phase,
       modalMode: ui.modalMode,
       now: ui.now,
+      followerMotion: renderer.followerMotion,
+      trail: game.trail,
       world: game.world,
       zoom: ui.zoom,
     }),

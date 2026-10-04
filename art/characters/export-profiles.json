@@ -54,8 +54,11 @@
     },
     "creature-follower-v1": {
       "category": "creature-follower",
-      "status": "implemented-initial-batch",
-      "sourceGrid": {"columns": 5, "rows": 8},
+      "status": "implemented-second-batch",
+      "sourceGrid": {
+        "columns": 5,
+        "rows": 8
+      },
       "frame": [200, 200],
       "maxSprite": [184, 184],
       "resampling": "nearest-neighbor fit to the shared 184x184 content box",
@@ -63,7 +66,7 @@
       "minimumComponentPixels": 180,
       "footY": 196,
       "palette": "preserve source RGBA; no quantization",
-      "remaining": "Initial Emberkin and Fernling batch only; other active species use static fallback."
+      "remaining": "Four of twelve roster species covered (Emberkin, Fernling, Duskwing and Brooklet); eight remain."
     },
     "prop-static-v1": {
       "category": "prop",

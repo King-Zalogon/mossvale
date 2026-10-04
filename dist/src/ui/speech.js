@@ -21,6 +21,7 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
     anchor = null;
     ui.speechActive = false;
     bubble.hidden = true;
+    bubble.parentElement.classList.remove('speech-open');
     if (returnFocus?.isConnected) returnFocus.focus({preventScroll: true});
     else canvas.focus({preventScroll: true});
     returnFocus = null;
@@ -60,6 +61,7 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
       ui.touch = null;
       $('#interact').style.display = 'none';
       ui.speechActive = true;
+      bubble.parentElement.classList.add('speech-open');
       bubble.hidden = false;
       onEvent('dialogue.started', {dialogueId, lines: sequence.length});
       paint();

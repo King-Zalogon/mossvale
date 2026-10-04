@@ -1,0 +1,30 @@
+name: Review private player feedback
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * *'
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: mossvale-feedback-review
+  cancel-in-progress: false
+jobs:
+  review:
+    # Deliberately opt-in: collect feedback first, then enable daily model usage.
+    if: vars.FEEDBACK_REVIEW_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Evaluate pending feedback and create or link viable improvements
+        run: node scripts/review-feedback.mjs --auto
+        env:
+          SUPABASE_URL: ${{ secrets.FEEDBACK_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.FEEDBACK_SUPABASE_SERVICE_ROLE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.FEEDBACK_OPENAI_API_KEY }}
+          FEEDBACK_REVIEW_MODEL: ${{ vars.FEEDBACK_REVIEW_MODEL }}
+          GITHUB_TOKEN: ${{ github.token }}

@@ -1,10 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PLAYER_RADIUS} from '../dist/src/config.js';
+import {assets, spriteId} from '../dist/src/data/assets.js';
 import {
   DIRECTIONS,
   FACING,
   WALK_FRAME_DISTANCE,
+  directionPose,
   facing,
   playerSpritePose,
   followerPoint,
@@ -46,19 +48,26 @@ test('screen-space input selects each of the eight sprite rows', () => {
 });
 
 test('follower facing is derived from its own world-space path, including diagonals and stationary idle', () => {
+  const worldDirections = [
+    [-1, -1],
+    [0, -1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
+    [0, 1],
+    [-1, 1],
+    [-1, 0],
+    [-1, -1],
+  ];
+  const expected = [FACING.north, FACING.northeast, FACING.east, FACING.southeast, FACING.south, FACING.southwest, FACING.west, FACING.northwest, FACING.north];
   assert.deepEqual(
-    [
-      movementFacing(-1, -1),
-      movementFacing(0, -1),
-      movementFacing(1, -1),
-      movementFacing(1, 0),
-      movementFacing(1, 1),
-      movementFacing(0, 1),
-      movementFacing(-1, 1),
-      movementFacing(-1, 0),
-      movementFacing(-1, -1),
-    ],
-    [FACING.north, FACING.northeast, FACING.east, FACING.southeast, FACING.south, FACING.southwest, FACING.west, FACING.northwest, FACING.north],
+    worldDirections.map(([x, y]) => movementFacing(x, y)),
+    expected,
+  );
+  // Trail samples are only 0.1 world units apart. Small real follower steps must not fall under facing's input dead zone.
+  assert.deepEqual(
+    worldDirections.map(([x, y]) => movementFacing(x * 0.1, y * 0.1)),
+    expected,
   );
   assert.equal(movementFacing(0, 0), null);
 });
@@ -180,4 +189,15 @@ test('walking up-left draws the up-right pose mirrored; every other direction us
   for (const name of ['north', 'east', 'southeast', 'south', 'southwest', 'west'])
     assert.deepEqual(playerSpritePose(FACING[name]), {row: FACING[name], flip: false});
   assert.deepEqual(playerSpritePose(undefined), {row: FACING.south, flip: false});
+});
+
+test('directionPose reads the sheet row order and draws mirrored directions from their source row (#36/#90)', () => {
+  const ember = assets[spriteId('creature-emberkin-follower')].frames;
+  assert.deepEqual(directionPose(ember, FACING.south), {row: 0, flip: false});
+  assert.deepEqual(directionPose(ember, FACING.southwest), {row: 1, flip: false});
+  // Emberkin's own southeast row repeats the southwest pose, so southeast draws the southwest row flipped
+  assert.deepEqual(directionPose(ember, FACING.southeast), {row: 1, flip: true});
+  // sheets without a mirror map or a custom row order fall back to the canonical order
+  assert.deepEqual(directionPose(undefined, FACING.west), {row: FACING.west, flip: false});
+  assert.deepEqual(directionPose({rowOrder: ['east', 'west']}, FACING.west), {row: 1, flip: false});
 });

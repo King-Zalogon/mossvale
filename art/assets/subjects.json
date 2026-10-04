@@ -94,7 +94,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "ce3804c7216f96fc3385367121d0ad8c9f782c778d8e7058c781d7d7b6e0af2b"
+        "sha256": "0a8ec39bf787644f9c32d6f98e8af42eba232166cd20a96f5ca3a473927fa67e"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
@@ -243,7 +243,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "ce3804c7216f96fc3385367121d0ad8c9f782c778d8e7058c781d7d7b6e0af2b"
+        "sha256": "0a8ec39bf787644f9c32d6f98e8af42eba232166cd20a96f5ca3a473927fa67e"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -382,7 +382,7 @@
           "path": "dist/assets/creatures/creature-fernling-follower.png",
           "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "runtimeTreatments": {
@@ -408,7 +408,7 @@
         "assetId": "creature-fernling-combat",
         "fallbackAssetId": "creature-fernling",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "c86a26b744ab31f8c9875fb7249b4d47d01d8783928bbdab337fdf70f5d8c7e3",
+        "contractSha256": "9231f8665a4ab44b493a46032f56cf0f85c98ed6cc2baf3ccfd919370e3841c9",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "51c87e8e2df7ab2210f381ee16e01f0c2a12b0abadb614978251349505bed4ee",
@@ -444,7 +444,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7"
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
       },
       "runtimeFollower": {
         "assetId": "creature-fernling-follower",
@@ -467,13 +467,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "72e92e9537ebc89ab173c9855b1a4a2443a459eb5d7771deab9c41a9cf12cd10",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
           "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       }
     },
@@ -541,7 +541,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "6d402c37950779ce69041f4419005d23f66502c884fd9aa1f3026595ab4c1cfc"
+        "sha256": "2a9cbecf05f41c85f03bf3af1ce7afee7b80dc0dd0b1b5dd8d761204328fd0f6"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -603,6 +603,61 @@
               "reason": "No generation masks were retained."
             }
           }
+        },
+        {
+          "id": "duskwing-follower-2026-10-03",
+          "path": "art/characters/source/creature-duskwing-follower-generated.png",
+          "sha256": "be6a7f16f416553ed13fabc125d7272d484c822d204de4160f1c94c98ee7f275",
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-duskwing"
+          ],
+          "exportAssetIds": [
+            "creature-duskwing-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#creature-follower-direction-milestone-90"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The generation service provider was not retained."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The generation model version was not retained."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve the Duskwing moth silhouette, eye-spotted lavender wings, cream ruff and magenta eyes; make eight readable overworld directions with idle and four contained walk poses.",
+              "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.duskwing"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-duskwing"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
         }
       ],
       "exports": [
@@ -619,6 +674,13 @@
           "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02",
           "profileId": "creature-combat-v1",
           "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
+        },
+        {
+          "assetId": "creature-duskwing-follower",
+          "path": "dist/assets/creatures/creature-duskwing-follower.png",
+          "sha256": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "runtimeTreatments": {
@@ -644,7 +706,7 @@
         "assetId": "creature-duskwing-combat",
         "fallbackAssetId": "creature-duskwing",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "c86a26b744ab31f8c9875fb7249b4d47d01d8783928bbdab337fdf70f5d8c7e3",
+        "contractSha256": "9231f8665a4ab44b493a46032f56cf0f85c98ed6cc2baf3ccfd919370e3841c9",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "51c87e8e2df7ab2210f381ee16e01f0c2a12b0abadb614978251349505bed4ee",
@@ -667,6 +729,50 @@
           "capture"
         ],
         "artPixelsChanged": true
+      },
+      "requiredDirections": [
+        "north",
+        "northeast",
+        "east",
+        "southeast",
+        "south",
+        "southwest",
+        "west",
+        "northwest"
+      ],
+      "sourceMetadata": {
+        "path": "art/characters/creature-follower-metadata.json",
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
+      },
+      "runtimeFollower": {
+        "assetId": "creature-duskwing-follower",
+        "fallbackAssetId": "creature-duskwing",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
+          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
+        }
       }
     },
     {
@@ -727,11 +833,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "ce3804c7216f96fc3385367121d0ad8c9f782c778d8e7058c781d7d7b6e0af2b"
+        "sha256": "0a8ec39bf787644f9c32d6f98e8af42eba232166cd20a96f5ca3a473927fa67e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7"
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -810,7 +916,7 @@
           "path": "dist/assets/creatures/creature-emberkin-follower.png",
           "sha256": "eb58e50eee961389052c0a12cf6138faf824f7a83b4f1c2063d9269f8405de0f",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "requiredDirections": [
@@ -844,13 +950,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "72e92e9537ebc89ab173c9855b1a4a2443a459eb5d7771deab9c41a9cf12cd10",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
           "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       }
     },
@@ -918,7 +1024,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "6d402c37950779ce69041f4419005d23f66502c884fd9aa1f3026595ab4c1cfc"
+        "sha256": "2a9cbecf05f41c85f03bf3af1ce7afee7b80dc0dd0b1b5dd8d761204328fd0f6"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -980,6 +1086,61 @@
               "reason": "No generation masks were retained."
             }
           }
+        },
+        {
+          "id": "brooklet-follower-2026-10-03",
+          "path": "art/characters/source/creature-brooklet-follower-generated.png",
+          "sha256": "b3cf23bca252599fa5062a25c0d0c92e8d28f01e6db453c1d03c85c50e2b9fa0",
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-brooklet"
+          ],
+          "exportAssetIds": [
+            "creature-brooklet-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#creature-follower-direction-milestone-90"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The generation service provider was not retained."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The generation model version was not retained."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve Brooklet’s blue river-otter silhouette, cream muzzle/chest and curled water tail; make eight readable overworld directions with idle and four contained walk poses.",
+              "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.brooklet"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-brooklet"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
         }
       ],
       "exports": [
@@ -996,6 +1157,13 @@
           "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242",
           "profileId": "creature-combat-v1",
           "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
+        },
+        {
+          "assetId": "creature-brooklet-follower",
+          "path": "dist/assets/creatures/creature-brooklet-follower.png",
+          "sha256": "5b2c2a46344f9dd6bf23c92ddf623baf4004e71785bd87582f5f8e5adda1c7af",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "runtimeTreatments": {
@@ -1021,7 +1189,7 @@
         "assetId": "creature-brooklet-combat",
         "fallbackAssetId": "creature-brooklet",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "c86a26b744ab31f8c9875fb7249b4d47d01d8783928bbdab337fdf70f5d8c7e3",
+        "contractSha256": "9231f8665a4ab44b493a46032f56cf0f85c98ed6cc2baf3ccfd919370e3841c9",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "51c87e8e2df7ab2210f381ee16e01f0c2a12b0abadb614978251349505bed4ee",
@@ -1044,6 +1212,50 @@
           "capture"
         ],
         "artPixelsChanged": true
+      },
+      "requiredDirections": [
+        "north",
+        "northeast",
+        "east",
+        "southeast",
+        "south",
+        "southwest",
+        "west",
+        "northwest"
+      ],
+      "sourceMetadata": {
+        "path": "art/characters/creature-follower-metadata.json",
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
+      },
+      "runtimeFollower": {
+        "assetId": "creature-brooklet-follower",
+        "fallbackAssetId": "creature-brooklet",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
+          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
+        }
       }
     },
     {
@@ -1110,7 +1322,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "6d402c37950779ce69041f4419005d23f66502c884fd9aa1f3026595ab4c1cfc"
+        "sha256": "2a9cbecf05f41c85f03bf3af1ce7afee7b80dc0dd0b1b5dd8d761204328fd0f6"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1213,7 +1425,7 @@
         "assetId": "creature-hushram-combat",
         "fallbackAssetId": "creature-hushram",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "c86a26b744ab31f8c9875fb7249b4d47d01d8783928bbdab337fdf70f5d8c7e3",
+        "contractSha256": "9231f8665a4ab44b493a46032f56cf0f85c98ed6cc2baf3ccfd919370e3841c9",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "51c87e8e2df7ab2210f381ee16e01f0c2a12b0abadb614978251349505bed4ee",

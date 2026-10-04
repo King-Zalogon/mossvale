@@ -345,3 +345,18 @@ test('the badlands pair is two large maps with a loop of safe exits and alternat
     );
   }
 });
+
+test('the meadow keeps its original hub and grows into a large map with a hidden grove and a gate to the orchard (#51)', () => {
+  const raw = rawMaps();
+  const meadowMap = meadow(raw);
+  const walkable = m => m.terrain.join('').replace(/[.w]/g, '').length;
+  assert.ok(walkable(meadowMap) >= 5 * 465 * 0.9, 'several times the original ~465 walkable tiles');
+  // the hub keeps its coordinates, so saves, objectives and hints from the compact map still point at the right places
+  assert.deepEqual(meadowMap.spawns.camp, [12, 13]);
+  assert.deepEqual(meadowMap.landmarks.find(l => l.id === 'shrine').at, [12, 4.6]);
+  assert.equal(meadowMap.landmarks.find(l => l.id === 'chest').flag, 'meadow.chest');
+  assert.equal(meadowMap.exits.find(e => e.to.map === 'orchard-ruins').to.spawn, 'camp');
+  assert.ok(meadowMap.landmarks.filter(l => l.secret).length >= 2 && meadowMap.quiet.length >= 4);
+  assert.ok(meadowMap.triggers.some(t => t.id === 'quiet-grove'));
+  assert.ok(meadowMap.zones.every(z => z.distance || z.id === 'tall-grass') && meadowMap.zones.length >= 2);
+});

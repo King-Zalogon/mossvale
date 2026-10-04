@@ -16,6 +16,19 @@ export function validateObjectiveEvents(definition) {
   }
   for (const [i, stage] of definition.stages.entries())
     if (stage?.next && !ids.has(stage.next)) errors.push(`stages[${i}].next: unknown stage "${stage.next}"`);
+  const byId = new Map(definition.stages.map(stage => [stage?.id, stage]));
+  for (const stage of definition.stages) {
+    const seen = new Set([stage.id]);
+    let next = stage.next;
+    while (next && byId.has(next)) {
+      if (seen.has(next)) {
+        errors.push(`stages (${stage.id}): next chain contains a cycle at "${next}"`);
+        break;
+      }
+      seen.add(next);
+      next = byId.get(next).next;
+    }
+  }
   return errors;
 }
 
@@ -25,10 +38,27 @@ export function createObjectiveState(definition) {
   return {id: definition.id, status: 'available', stage: definition.stages[0].id, paid: []};
 }
 
+export function validateObjectiveState(state, definition) {
+  const errors = [];
+  if (!state || state.id !== definition?.id) errors.push('state.id does not match objective definition');
+  const stageIds = new Set(definition?.stages?.map(stage => stage.id) ?? []);
+  if (!stageIds.has(state?.stage)) errors.push(`state.stage names unknown stage "${state?.stage ?? ''}"`);
+  if (!['available', 'active', 'complete', 'rewarded'].includes(state?.status)) errors.push('state.status is invalid');
+  const rewardStages = new Set((definition?.stages ?? []).filter(stage => stage.reward).map(stage => stage.id));
+  if (!Array.isArray(state?.paid)) errors.push('state.paid must be a list');
+  else {
+    if (new Set(state.paid).size !== state.paid.length) errors.push('state.paid contains duplicates');
+    for (const stageId of state.paid) if (!rewardStages.has(stageId)) errors.push(`state.paid contains non-reward stage "${stageId}"`);
+  }
+  return errors;
+}
+
 /** Applies at most one stage per event. `reward` is returned once and the caller owns persistence. */
 export function applyObjectiveEvent(state, definition, event) {
   const errors = validateObjectiveEvents(definition);
   if (errors.length) throw new Error(errors.join('\n'));
+  const stateErrors = validateObjectiveState(state, definition);
+  if (stateErrors.length) return {changed: false, errors: stateErrors};
   if (state.id !== definition.id || state.status === 'complete' || state.status === 'rewarded') return {changed: false};
   const stage = definition.stages.find(item => item.id === state.stage);
   if (!stage || !event || event.type !== stage.on.type || Object.entries(stage.on).some(([key, value]) => event[key] !== value)) return {changed: false};

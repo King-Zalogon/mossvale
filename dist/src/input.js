@@ -66,7 +66,11 @@ export function installInput(app) {
       }
       if (k === 'tab') {
         const modal = $('#modal');
-        const focusable = [...modal.querySelectorAll('button:not(:disabled),[tabindex="0"]')];
+        const focusable = [
+          ...modal.querySelectorAll(
+            'button:not(:disabled),textarea:not(:disabled),input:not(:disabled):not([hidden]),select:not(:disabled),a[href],[tabindex="0"]',
+          ),
+        ];
         if (focusable.length) {
           const first = focusable[0];
           const last = focusable.at(-1);
