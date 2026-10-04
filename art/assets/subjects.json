@@ -94,7 +94,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6a2e4f8ce16487dff3819f2c395b51eddb10fa7fa22c1dec3b2599e44a2fd945"
+        "sha256": "0a8ec39bf787644f9c32d6f98e8af42eba232166cd20a96f5ca3a473927fa67e"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
@@ -243,7 +243,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6a2e4f8ce16487dff3819f2c395b51eddb10fa7fa22c1dec3b2599e44a2fd945"
+        "sha256": "0a8ec39bf787644f9c32d6f98e8af42eba232166cd20a96f5ca3a473927fa67e"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -375,14 +375,14 @@
           "path": "dist/assets/creatures/creature-fernling-combat.png",
           "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64",
           "profileId": "creature-combat-v1",
-          "profileSha256": "a39143aff91a948ea147adcac5a7ec29fc9318a8825febfb22553394743adbc4"
+          "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
         {
           "assetId": "creature-fernling-follower",
           "path": "dist/assets/creatures/creature-fernling-follower.png",
           "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7",
           "profileId": "creature-follower-v1",
-          "profileSha256": "8c3380b012a448f6a438e4a8d55b1790d3ec524a6570cd90b445953d5d4396c2"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "runtimeTreatments": {
@@ -408,13 +408,13 @@
         "assetId": "creature-fernling-combat",
         "fallbackAssetId": "creature-fernling",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "930b2d40f024bf509be8247b5d49e126b41b9093a14e020e18de813259554ff9",
+        "contractSha256": "9231f8665a4ab44b493a46032f56cf0f85c98ed6cc2baf3ccfd919370e3841c9",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "d6d2658fb4e584849131a9ed0a3735dba7db13f930555fd98db9ebd7bfa16701",
+          "sha256": "51c87e8e2df7ab2210f381ee16e01f0c2a12b0abadb614978251349505bed4ee",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "a39143aff91a948ea147adcac5a7ec29fc9318a8825febfb22553394743adbc4"
+          "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
         "requiredStates": [
           "idle",
@@ -444,7 +444,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "ab2653ea79fd23158c2c63555c84af9021eb4a33120fc2e2001842b946866677"
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
       },
       "runtimeFollower": {
         "assetId": "creature-fernling-follower",
@@ -467,13 +467,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "ab2653ea79fd23158c2c63555c84af9021eb4a33120fc2e2001842b946866677",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "ab115b90bd4370a02772cff9fefd3793d001b32a3b352f183aa6d028f52d47bf",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
           "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "8c3380b012a448f6a438e4a8d55b1790d3ec524a6570cd90b445953d5d4396c2"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       }
     },
@@ -673,14 +673,14 @@
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
           "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02",
           "profileId": "creature-combat-v1",
-          "profileSha256": "a39143aff91a948ea147adcac5a7ec29fc9318a8825febfb22553394743adbc4"
+          "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
         {
           "assetId": "creature-duskwing-follower",
           "path": "dist/assets/creatures/creature-duskwing-follower.png",
           "sha256": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae",
           "profileId": "creature-follower-v1",
-          "profileSha256": "8c3380b012a448f6a438e4a8d55b1790d3ec524a6570cd90b445953d5d4396c2"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "runtimeTreatments": {
@@ -706,13 +706,13 @@
         "assetId": "creature-duskwing-combat",
         "fallbackAssetId": "creature-duskwing",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "930b2d40f024bf509be8247b5d49e126b41b9093a14e020e18de813259554ff9",
+        "contractSha256": "9231f8665a4ab44b493a46032f56cf0f85c98ed6cc2baf3ccfd919370e3841c9",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "d6d2658fb4e584849131a9ed0a3735dba7db13f930555fd98db9ebd7bfa16701",
+          "sha256": "51c87e8e2df7ab2210f381ee16e01f0c2a12b0abadb614978251349505bed4ee",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "a39143aff91a948ea147adcac5a7ec29fc9318a8825febfb22553394743adbc4"
+          "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
         "requiredStates": [
           "idle",
@@ -742,7 +742,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "ab2653ea79fd23158c2c63555c84af9021eb4a33120fc2e2001842b946866677"
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
       },
       "runtimeFollower": {
         "assetId": "creature-duskwing-follower",
@@ -765,13 +765,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "ab2653ea79fd23158c2c63555c84af9021eb4a33120fc2e2001842b946866677",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "ab115b90bd4370a02772cff9fefd3793d001b32a3b352f183aa6d028f52d47bf",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
           "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "8c3380b012a448f6a438e4a8d55b1790d3ec524a6570cd90b445953d5d4396c2"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       }
     },
@@ -833,11 +833,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6a2e4f8ce16487dff3819f2c395b51eddb10fa7fa22c1dec3b2599e44a2fd945"
+        "sha256": "0a8ec39bf787644f9c32d6f98e8af42eba232166cd20a96f5ca3a473927fa67e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "ab2653ea79fd23158c2c63555c84af9021eb4a33120fc2e2001842b946866677"
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -916,7 +916,7 @@
           "path": "dist/assets/creatures/creature-emberkin-follower.png",
           "sha256": "eb58e50eee961389052c0a12cf6138faf824f7a83b4f1c2063d9269f8405de0f",
           "profileId": "creature-follower-v1",
-          "profileSha256": "8c3380b012a448f6a438e4a8d55b1790d3ec524a6570cd90b445953d5d4396c2"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "requiredDirections": [
@@ -950,13 +950,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "ab2653ea79fd23158c2c63555c84af9021eb4a33120fc2e2001842b946866677",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "ab115b90bd4370a02772cff9fefd3793d001b32a3b352f183aa6d028f52d47bf",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
           "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "8c3380b012a448f6a438e4a8d55b1790d3ec524a6570cd90b445953d5d4396c2"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       }
     },
@@ -1068,7 +1068,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Brooklet\u00e2\u20ac\u2122s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
+              "summary": "Preserve Brookletâ€™s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences"
             },
             "seed": {
@@ -1123,7 +1123,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Brooklet\u2019s blue river-otter silhouette, cream muzzle/chest and curled water tail; make eight readable overworld directions with idle and four contained walk poses.",
+              "summary": "Preserve Brooklet’s blue river-otter silhouette, cream muzzle/chest and curled water tail; make eight readable overworld directions with idle and four contained walk poses.",
               "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.brooklet"
             },
             "seed": {
@@ -1156,14 +1156,14 @@
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
           "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242",
           "profileId": "creature-combat-v1",
-          "profileSha256": "a39143aff91a948ea147adcac5a7ec29fc9318a8825febfb22553394743adbc4"
+          "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
         {
           "assetId": "creature-brooklet-follower",
           "path": "dist/assets/creatures/creature-brooklet-follower.png",
           "sha256": "5b2c2a46344f9dd6bf23c92ddf623baf4004e71785bd87582f5f8e5adda1c7af",
           "profileId": "creature-follower-v1",
-          "profileSha256": "8c3380b012a448f6a438e4a8d55b1790d3ec524a6570cd90b445953d5d4396c2"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "runtimeTreatments": {
@@ -1189,13 +1189,13 @@
         "assetId": "creature-brooklet-combat",
         "fallbackAssetId": "creature-brooklet",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "930b2d40f024bf509be8247b5d49e126b41b9093a14e020e18de813259554ff9",
+        "contractSha256": "9231f8665a4ab44b493a46032f56cf0f85c98ed6cc2baf3ccfd919370e3841c9",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "d6d2658fb4e584849131a9ed0a3735dba7db13f930555fd98db9ebd7bfa16701",
+          "sha256": "51c87e8e2df7ab2210f381ee16e01f0c2a12b0abadb614978251349505bed4ee",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "a39143aff91a948ea147adcac5a7ec29fc9318a8825febfb22553394743adbc4"
+          "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
         "requiredStates": [
           "idle",
@@ -1225,7 +1225,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "ab2653ea79fd23158c2c63555c84af9021eb4a33120fc2e2001842b946866677"
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
       },
       "runtimeFollower": {
         "assetId": "creature-brooklet-follower",
@@ -1248,13 +1248,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "ab2653ea79fd23158c2c63555c84af9021eb4a33120fc2e2001842b946866677",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "ab115b90bd4370a02772cff9fefd3793d001b32a3b352f183aa6d028f52d47bf",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
           "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "8c3380b012a448f6a438e4a8d55b1790d3ec524a6570cd90b445953d5d4396c2"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       }
     },
@@ -1366,7 +1366,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Hushram\u00e2\u20ac\u2122s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
+              "summary": "Preserve Hushramâ€™s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences"
             },
             "seed": {
@@ -1399,7 +1399,7 @@
           "path": "dist/assets/creatures/creature-hushram-combat.png",
           "sha256": "32a1817ed1f63bb330f4bd59f32355f9517f09a903e22dfd02d60a9e1d41bae4",
           "profileId": "creature-combat-v1",
-          "profileSha256": "a39143aff91a948ea147adcac5a7ec29fc9318a8825febfb22553394743adbc4"
+          "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         }
       ],
       "runtimeTreatments": {
@@ -1425,13 +1425,13 @@
         "assetId": "creature-hushram-combat",
         "fallbackAssetId": "creature-hushram",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "930b2d40f024bf509be8247b5d49e126b41b9093a14e020e18de813259554ff9",
+        "contractSha256": "9231f8665a4ab44b493a46032f56cf0f85c98ed6cc2baf3ccfd919370e3841c9",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "d6d2658fb4e584849131a9ed0a3735dba7db13f930555fd98db9ebd7bfa16701",
+          "sha256": "51c87e8e2df7ab2210f381ee16e01f0c2a12b0abadb614978251349505bed4ee",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "a39143aff91a948ea147adcac5a7ec29fc9318a8825febfb22553394743adbc4"
+          "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
         "requiredStates": [
           "idle",

@@ -13,8 +13,6 @@ SPECS = {
     "duskwing": {"source": "art/characters/source/creature-duskwing-combat-generated.png", "target": "dist/assets/creatures/creature-duskwing-combat.png"},
     "brooklet": {"source": "art/characters/source/creature-brooklet-combat-generated.png", "target": "dist/assets/creatures/creature-brooklet-combat.png"},
     "hushram": {"source": "art/characters/source/creature-hushram-combat-generated.png", "target": "dist/assets/creatures/creature-hushram-combat.png"},
-    "emberkin": {"source": "art/characters/source/creature-emberkin-combat-generated.png", "target": "dist/assets/creatures/creature-emberkin-combat.png"},
-    "voltkit": {"source": "art/characters/source/creature-voltkit-combat-generated.png", "target": "dist/assets/creatures/creature-voltkit-combat.png"},
 }
 
 
