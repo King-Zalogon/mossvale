@@ -38,6 +38,20 @@
       "promptBrief": "Preserve Voltkit’s golden electric companion palette and distinctive ear/tail marks; transparent 5×8 directional atlas with an idle pose and four walking poses per direction.",
       "originalSha256": "c8486fc51fc1d1f5df18e9008d1d263799013b70ff7ac893501964b7ffa7450f",
       "originalBytes": 1872215
+    },
+    "mushmallow": {
+      "generatedSource": "art/characters/source/creature-mushmallow-follower-generated.png",
+      "referenceAsset": "creature-mushmallow",
+      "promptBrief": "Preserve Mushmallow’s cream hedgehog face and paws, violet spines, spotted lilac mushroom cap and smaller back mushrooms; a transparent 5×8 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses.",
+      "originalSha256": "adc805c11690f8cb878aba2aa6b85a8fa2704c673f6dcf49d63fdab583ab0d34",
+      "originalBytes": 2291565
+    },
+    "frostowl": {
+      "generatedSource": "art/characters/source/creature-frostowl-follower-generated.png",
+      "referenceAsset": "creature-frostowl",
+      "promptBrief": "Preserve Frostowl’s white owl body, luminous cyan eyes, crystalline blue brow/wing feathers, dark beak and feet; a transparent 5×8 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses with clear per-cell margins.",
+      "originalSha256": "18900661e9d4d7ca5986d4c15c389c29c40de2887531548aab0d257e791a5c50",
+      "originalBytes": 2214547
     }
   },
   "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
@@ -51,7 +65,11 @@
     "creature-fernling-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-emberkin-follower": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
     "creature-duskwing-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-    "creature-brooklet-follower": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"]
+    "creature-brooklet-follower": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
+    "creature-mushmallow-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-frostowl-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-hushram-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-voltkit-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
   },
   "sprites": {
     "creature-emberkin-follower": {
@@ -102,6 +120,24 @@
     "creature-voltkit-follower": {
       "sourceSize": [992, 1586],
       "output": "dist/assets/creatures/creature-voltkit-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-mushmallow-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-mushmallow-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-frostowl-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-frostowl-follower.png",
       "frame": [200, 200],
       "columns": 5,
       "rows": 8,

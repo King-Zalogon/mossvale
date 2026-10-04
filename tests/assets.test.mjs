@@ -119,7 +119,16 @@ test('sample visual subjects have hashed canonical references, exports and linke
     assert.ok(creature.sourceBatches.some(batch => batch.states?.length === 5 && batch.referenceAssetIds.includes(creature.id)));
   }
   const followers = registry.subjects.filter(subject => subject.runtimeFollower);
-  assert.deepEqual(followers.map(subject => subject.id).toSorted(), ['creature-brooklet', 'creature-duskwing', 'creature-emberkin', 'creature-fernling']);
+  assert.deepEqual(followers.map(subject => subject.id).toSorted(), [
+    'creature-brooklet',
+    'creature-duskwing',
+    'creature-emberkin',
+    'creature-fernling',
+    'creature-frostowl',
+    'creature-hushram',
+    'creature-mushmallow',
+    'creature-voltkit',
+  ]);
   for (const creature of followers) {
     assert.equal(creature.runtimeFollower.assetId, `${creature.id}-follower`);
     assert.equal(creature.runtimeFollower.fallbackAssetId, creature.id);
@@ -208,7 +217,14 @@ test('editable portrait and prop atlases cover their runtime sprites and export 
   const propProfileSha256 = createHash('sha256').update(JSON.stringify(profiles['prop-static-v1'])).digest('hex');
   assert.equal(metadata.pixelPreserving, true);
   assert.equal(metadata.anchor, 'bottom-center');
-  const separatelySourced = new Set(['creature-emberkin-combat', 'creature-voltkit-combat', 'creature-hushram-follower', 'creature-voltkit-follower']);
+  const separatelySourced = new Set([
+    'creature-emberkin-combat',
+    'creature-voltkit-combat',
+    'creature-hushram-follower',
+    'creature-voltkit-follower',
+    'creature-mushmallow-follower',
+    'creature-frostowl-follower',
+  ]);
   const atlasAssets = assets.filter(a => !separatelySourced.has(a.name));
   assert.equal(metadata.assets.length, atlasAssets.length);
   assert.deepEqual(metadata.assets.map(a => a.name).toSorted(), atlasAssets.map(a => a.name).toSorted());

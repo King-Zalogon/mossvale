@@ -94,7 +94,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
+        "sha256": "ec1040537b037102e97798a7b4b1b7402ec7d4b989a615de3b6c637c0eb094f0"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
@@ -243,7 +243,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
+        "sha256": "ec1040537b037102e97798a7b4b1b7402ec7d4b989a615de3b6c637c0eb094f0"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -382,7 +382,7 @@
           "path": "dist/assets/creatures/creature-fernling-follower.png",
           "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       ],
       "runtimeTreatments": {
@@ -444,7 +444,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "bf655585251e077cf5e7d8242fd3fcbea2ef11a867b2935751da71fa32fd4be3"
+        "sha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b"
       },
       "runtimeFollower": {
         "assetId": "creature-fernling-follower",
@@ -467,13 +467,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "bf655585251e077cf5e7d8242fd3fcbea2ef11a867b2935751da71fa32fd4be3",
+        "contractSha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "abb50126a226cac323b451523503a62d7fd9863d7a42aba04543f610c3d42767",
-          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "sha256": "f67cdac558da3580e5d22c02d87031d577efd07782d8a5fd750248788e0ded26",
+          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       }
     },
@@ -680,7 +680,7 @@
           "path": "dist/assets/creatures/creature-duskwing-follower.png",
           "sha256": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       ],
       "runtimeTreatments": {
@@ -742,7 +742,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "bf655585251e077cf5e7d8242fd3fcbea2ef11a867b2935751da71fa32fd4be3"
+        "sha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b"
       },
       "runtimeFollower": {
         "assetId": "creature-duskwing-follower",
@@ -765,13 +765,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "bf655585251e077cf5e7d8242fd3fcbea2ef11a867b2935751da71fa32fd4be3",
+        "contractSha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "abb50126a226cac323b451523503a62d7fd9863d7a42aba04543f610c3d42767",
-          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "sha256": "f67cdac558da3580e5d22c02d87031d577efd07782d8a5fd750248788e0ded26",
+          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       }
     },
@@ -833,11 +833,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
+        "sha256": "ec1040537b037102e97798a7b4b1b7402ec7d4b989a615de3b6c637c0eb094f0"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "bf655585251e077cf5e7d8242fd3fcbea2ef11a867b2935751da71fa32fd4be3"
+        "sha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -973,7 +973,7 @@
           "path": "dist/assets/creatures/creature-emberkin-follower.png",
           "sha256": "eb58e50eee961389052c0a12cf6138faf824f7a83b4f1c2063d9269f8405de0f",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         },
         {
           "assetId": "creature-emberkin-combat",
@@ -1014,13 +1014,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "bf655585251e077cf5e7d8242fd3fcbea2ef11a867b2935751da71fa32fd4be3",
+        "contractSha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "abb50126a226cac323b451523503a62d7fd9863d7a42aba04543f610c3d42767",
-          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "sha256": "f67cdac558da3580e5d22c02d87031d577efd07782d8a5fd750248788e0ded26",
+          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       }
     },
@@ -1227,7 +1227,7 @@
           "path": "dist/assets/creatures/creature-brooklet-follower.png",
           "sha256": "5b2c2a46344f9dd6bf23c92ddf623baf4004e71785bd87582f5f8e5adda1c7af",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       ],
       "runtimeTreatments": {
@@ -1289,7 +1289,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "bf655585251e077cf5e7d8242fd3fcbea2ef11a867b2935751da71fa32fd4be3"
+        "sha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b"
       },
       "runtimeFollower": {
         "assetId": "creature-brooklet-follower",
@@ -1312,13 +1312,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "bf655585251e077cf5e7d8242fd3fcbea2ef11a867b2935751da71fa32fd4be3",
+        "contractSha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "abb50126a226cac323b451523503a62d7fd9863d7a42aba04543f610c3d42767",
-          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "sha256": "f67cdac558da3580e5d22c02d87031d577efd07782d8a5fd750248788e0ded26",
+          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       }
     },
@@ -1527,9 +1527,9 @@
         {
           "assetId": "creature-hushram-follower",
           "path": "dist/assets/creatures/creature-hushram-follower.png",
-          "sha256": "59aee6fdfb97926de8a36acdf1c19e731c6ff08c7251b4c621e49b340ddf5606",
+          "sha256": "226ca829dd5e943cb3b956b9ed35040ddbf1451f2bfd03b557bd2c23819cf52b",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       ],
       "runtimeTreatments": {
@@ -1578,6 +1578,36 @@
           "capture"
         ],
         "artPixelsChanged": true
+      },
+      "runtimeFollower": {
+        "assetId": "creature-hushram-follower",
+        "fallbackAssetId": "creature-hushram",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "f67cdac558da3580e5d22c02d87031d577efd07782d8a5fd750248788e0ded26",
+          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
+        }
       }
     },
     {
@@ -1639,7 +1669,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
+        "sha256": "ec1040537b037102e97798a7b4b1b7402ec7d4b989a615de3b6c637c0eb094f0"
       },
       "sourceBatches": [
         {
@@ -1779,7 +1809,7 @@
           "path": "dist/assets/creatures/creature-voltkit-follower.png",
           "sha256": "ce9ca12721e87fe13b6d8b527f589f1acb18328f9ed2de99f619b37a037711d6",
           "profileId": "creature-follower-v1",
-          "profileSha256": "0d417bad4ea051af3d9ffaf88ae8ae1d2d8d3bfcb327251959a58b0241c494c0"
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       ],
       "exportWorkflow": {
@@ -1788,6 +1818,36 @@
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
+      },
+      "runtimeFollower": {
+        "assetId": "creature-voltkit-follower",
+        "fallbackAssetId": "creature-voltkit",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "f67cdac558da3580e5d22c02d87031d577efd07782d8a5fd750248788e0ded26",
+          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
+        }
       }
     },
     {
@@ -1847,7 +1907,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
+        "sha256": "ec1040537b037102e97798a7b4b1b7402ec7d4b989a615de3b6c637c0eb094f0"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -1917,6 +1977,65 @@
               "reason": "No masks were supplied."
             }
           }
+        },
+        {
+          "id": "mushmallow-follower-2026-10-04",
+          "path": "art/characters/source/creature-mushmallow-follower-generated.png",
+          "sha256": "adc805c11690f8cb878aba2aa6b85a8fa2704c673f6dcf49d63fdab583ab0d34",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/characters/source/creature-mushmallow-follower-generated.png"
+          },
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-mushmallow"
+          ],
+          "exportAssetIds": [
+            "creature-mushmallow-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#Creature-follower-direction-milestone-90"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The retained source metadata does not identify the image provider."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The retained source metadata does not identify a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve Mushmallow’s cream hedgehog face and paws, violet spines, spotted lilac mushroom cap and smaller back mushrooms; a transparent 5×8 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses.",
+              "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.mushmallow"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-mushmallow"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
         }
       ],
       "exports": [
@@ -1933,6 +2052,13 @@
           "sha256": "dc522312ac233dd35462e76dd2050067c058c7f70b3773fd12e92b2c38e02fcb",
           "profileId": "creature-combat-v1",
           "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
+        },
+        {
+          "assetId": "creature-mushmallow-follower",
+          "path": "dist/assets/creatures/creature-mushmallow-follower.png",
+          "sha256": "dbba4c4e2cd59345ab48c76432284f0d325d0537bda1e13d306b7c856a52520b",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       ],
       "runtimeCombat": {
@@ -1981,6 +2107,36 @@
           "capture"
         ],
         "artPixelsChanged": false
+      },
+      "runtimeFollower": {
+        "assetId": "creature-mushmallow-follower",
+        "fallbackAssetId": "creature-mushmallow",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "f67cdac558da3580e5d22c02d87031d577efd07782d8a5fd750248788e0ded26",
+          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
+        }
       }
     },
     {
@@ -2040,7 +2196,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "7aef53d6e40e270d87ce6716b9fa0bd0ded9cf2057a7d11cb000c890f812d936"
+        "sha256": "ec1040537b037102e97798a7b4b1b7402ec7d4b989a615de3b6c637c0eb094f0"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -2110,6 +2266,65 @@
               "reason": "No masks were supplied."
             }
           }
+        },
+        {
+          "id": "frostowl-follower-2026-10-04",
+          "path": "art/characters/source/creature-frostowl-follower-generated.png",
+          "sha256": "18900661e9d4d7ca5986d4c15c389c29c40de2887531548aab0d257e791a5c50",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/characters/source/creature-frostowl-follower-generated.png"
+          },
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-frostowl"
+          ],
+          "exportAssetIds": [
+            "creature-frostowl-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#Creature-follower-direction-milestone-90"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The retained source metadata does not identify the image provider."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The retained source metadata does not identify a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve Frostowl’s white owl body, luminous cyan eyes, crystalline blue brow/wing feathers, dark beak and feet; a transparent 5×8 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses with clear per-cell margins.",
+              "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.frostowl"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-frostowl"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
         }
       ],
       "exports": [
@@ -2126,6 +2341,13 @@
           "sha256": "0ec81b187ff2be0cf4130a518c38bacee56d49e2ac1724f358537b0c710adb32",
           "profileId": "creature-combat-v1",
           "profileSha256": "229b9fa9020083a25e2835a3d4aaab16505a8510e272173d3e8003605f3617a7"
+        },
+        {
+          "assetId": "creature-frostowl-follower",
+          "path": "dist/assets/creatures/creature-frostowl-follower.png",
+          "sha256": "a09a15efa0b45f6ab4ba2f5bfd5808722267f883e06cc86abffc41bbe022e6ab",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
         }
       ],
       "runtimeCombat": {
@@ -2174,6 +2396,36 @@
           "capture"
         ],
         "artPixelsChanged": false
+      },
+      "runtimeFollower": {
+        "assetId": "creature-frostowl-follower",
+        "fallbackAssetId": "creature-frostowl",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "8b785e9c080c6bbcdd80eb9c05af2cf9e0cf55e466ccf17728f663a7bed1eb7b",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "f67cdac558da3580e5d22c02d87031d577efd07782d8a5fd750248788e0ded26",
+          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "7d87fc9e6937b5d51e9973e7dda5806fdcc0bf2817595205b34aa0b722c571f3"
+        }
       }
     }
   ]

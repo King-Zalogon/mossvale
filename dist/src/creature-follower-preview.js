@@ -6,6 +6,8 @@ const ROWS = {
   brooklet: ['north', 'northwest', 'west', 'southwest', 'south', 'southeast', 'east', 'northeast'],
   hushram: DIRECTIONS,
   voltkit: DIRECTIONS,
+  mushmallow: DIRECTIONS,
+  frostowl: DIRECTIONS,
 };
 const VECTORS = [
   [-1, -1],
@@ -26,6 +28,8 @@ const sources = {
   brooklet: load('../assets/creatures/creature-brooklet-follower.png'),
   hushram: load('../assets/creatures/creature-hushram-follower.png'),
   voltkit: load('../assets/creatures/creature-voltkit-follower.png'),
+  mushmallow: load('../assets/creatures/creature-mushmallow-follower.png'),
+  frostowl: load('../assets/creatures/creature-frostowl-follower.png'),
   portrait: {
     emberkin: load('../assets/creatures/creature-emberkin.png'),
     fernling: load('../assets/creatures/creature-fernling.png'),
@@ -33,6 +37,8 @@ const sources = {
     brooklet: load('../assets/creatures/creature-brooklet.png'),
     hushram: load('../assets/creatures/creature-hushram.png'),
     voltkit: load('../assets/creatures/creature-voltkit.png'),
+    mushmallow: load('../assets/creatures/creature-mushmallow.png'),
+    frostowl: load('../assets/creatures/creature-frostowl.png'),
   },
   tree: load('../assets/props/tree-oak.png'),
 };

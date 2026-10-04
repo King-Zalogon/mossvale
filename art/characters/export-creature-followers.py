@@ -35,6 +35,22 @@ SPECS = {
         "rowOrder": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
         "mirrorRows": [5, 6],
     },
+    "hushram": {
+        "source": "art/characters/source/creature-hushram-follower-generated.png",
+        "target": "dist/assets/creatures/creature-hushram-follower.png",
+    },
+    "voltkit": {
+        "source": "art/characters/source/creature-voltkit-follower-generated.png",
+        "target": "dist/assets/creatures/creature-voltkit-follower.png",
+    },
+    "mushmallow": {
+        "source": "art/characters/source/creature-mushmallow-follower-generated.png",
+        "target": "dist/assets/creatures/creature-mushmallow-follower.png",
+    },
+    "frostowl": {
+        "source": "art/characters/source/creature-frostowl-follower-generated.png",
+        "target": "dist/assets/creatures/creature-frostowl-follower.png",
+    },
 }
 
 
