@@ -2,22 +2,35 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {chooseTerrainVariant, terrainVariant} from '../dist/src/domain/terrain-family.js';
 import {createInventory, moveInventory, sellInventory, validateInventoryRules} from '../dist/src/domain/inventory.js';
-import {applyObjectiveEvent, createObjectiveState, validateObjectiveEvents} from '../dist/src/domain/objective-events.js';
+import {applyObjectiveEvent, createObjectiveState, validateObjectiveEvents, validateObjectiveState} from '../dist/src/domain/objective-events.js';
 import {compileComposition} from '../dist/src/domain/composition.js';
-import {companionCanUseRoute, validateCompanionRoutes} from '../dist/src/domain/companion-routes.js';
+import {availableCompanionRoutes, companionCanUseRoute, validateCompanionRoutes} from '../dist/src/domain/companion-routes.js';
+import {availableDialogueChoices, selectDialogueChoice, validateDialogueChoices} from '../dist/src/domain/dialogue-choices.js';
 
 test('terrain family topology and decoration selection are deterministic and leave unsafe rotation disabled', () => {
   const grid = ['ggg', 'gpw', 'ggg'].map(row => [...row]);
   assert.deepEqual(terrainVariant(grid, 1, 1), {
     terrain: 'p',
     key: 'p-edge-nesw',
+    cornerKey: 'p-edge-nesw-corner-neseswnw',
     edges: ['n', 'e', 's', 'w'],
     corners: ['ne', 'se', 'sw', 'nw'],
+    shape: 'cross',
     transform: 'none',
   });
   const variants = {'p-edge-nesw': ['bridge-a', 'bridge-b']};
   assert.deepEqual(chooseTerrainVariant(grid, 1, 1, variants, 123), chooseTerrainVariant(grid, 1, 1, variants, 123));
   assert.equal(terrainVariant(grid, 1, 1, {safeTransforms: true}).transform, 'rotate-90-safe');
+  const straightGrid = ['ggg', 'ppp', 'ggg'].map(row => [...row]);
+  const straight = terrainVariant(straightGrid, 1, 1);
+  assert.equal(straight.shape, 'straight');
+  assert.equal(
+    chooseTerrainVariant(straightGrid, 1, 1, {'p-center': ['wrong-center']}, 3),
+    null,
+    'missing edge art is explicit, never replaced by a center tile',
+  );
+  const deterministic = chooseTerrainVariant(grid, 1, 1, {'p-edge-nesw': ['a', 'b', 'c']}, 71);
+  assert.equal(deterministic.variant, chooseTerrainVariant(grid, 1, 1, {'p-edge-nesw': ['a', 'b', 'c']}, 71).variant);
 });
 
 test('optional inventory transactions reject full storage without partial writes and sell only valuables', () => {
@@ -52,6 +65,35 @@ test('event objectives progress one stage at a time and emit a reward once', () 
   assert.deepEqual(applyObjectiveEvent(state, definition, {type: 'talk', speaker: 'carrier'}), {changed: true, status: 'active', stage: 'find-parcel'});
   assert.deepEqual(applyObjectiveEvent(state, definition, {type: 'collect', item: 'parcel'}), {changed: true, status: 'rewarded', reward: {coins: 12}});
   assert.equal(applyObjectiveEvent(state, definition, {type: 'collect', item: 'parcel'}).changed, false);
+  const restarted = JSON.parse(JSON.stringify(state));
+  assert.deepEqual(validateObjectiveState(restarted, definition), []);
+  assert.equal(applyObjectiveEvent(restarted, definition, {type: 'collect', item: 'parcel'}).changed, false, 'reload cannot repeat a paid reward');
+  const cyclic = {
+    ...definition,
+    stages: [
+      {id: 'a', on: {type: 'talk'}, next: 'b'},
+      {id: 'b', on: {type: 'talk'}, next: 'a'},
+    ],
+  };
+  assert.match(validateObjectiveEvents(cyclic).join(' '), /cycle/);
+});
+
+test('conditional dialogue choices use stable IDs and filter by current objective flags', () => {
+  const choices = [
+    {id: 'ask-route', speaker: 'guide', target: 'ferry', text: 'Can I cross?', reply: 'The ford is open.', when: {met: true}},
+    {id: 'ask-reward', speaker: 'guide', target: 'ferry', text: 'Any reward?', reply: 'Take a token.', when: {met: false}},
+  ];
+  const refs = {speakerIds: new Set(['guide']), targetIds: new Set(['ferry']), mapIds: new Set(['meadow'])};
+  assert.deepEqual(validateDialogueChoices(choices, refs), []);
+  const save = {met: true, caught: [], seen: [], visited: [], badges: [], chests: []};
+  const ctx = {speciesCount: 12, regions: []};
+  assert.deepEqual(
+    availableDialogueChoices(choices, save, ctx).map(choice => choice.id),
+    ['ask-route'],
+  );
+  assert.equal(selectDialogueChoice(choices, 'ask-route', save, ctx).reply, 'The ford is open.');
+  assert.equal(selectDialogueChoice(choices, 'ask-reward', save, ctx), null);
+  assert.match(validateDialogueChoices([{...choices[0], target: 'unknown'}], refs).join(' '), /unknown stable target/);
 });
 
 test('body-plan compilation validates slots and de-duplicates derived abilities', () => {
@@ -69,25 +111,56 @@ test('body-plan compilation validates slots and de-duplicates derived abilities'
     species: {parts: {core: 'seed', wings: 'leafwing'}, abilities: ['cross-shallow-water', 'glide'], modifiers: {hp: 0.1}},
   });
   assert.match(compileComposition(plan, parts, {core: 'leafwing', wings: 'leafwing'}).errors.join(' '), /not compatible/);
+  const guardedPlan = {
+    id: 'river-runner',
+    slots: [
+      {id: 'core', required: true, accepts: ['core']},
+      {id: 'locomotion', required: true, accepts: ['movement'], excludes: ['flight']},
+    ],
+  };
+  const guardedParts = {
+    seed: {tags: ['core'], abilities: ['keen-sense'], modifiers: {speed: 0.3}},
+    paws: {tags: ['movement'], abilities: ['swim'], modifiers: {speed: 0.1}},
+    wings: {tags: ['movement', 'flight'], abilities: ['swim'], modifiers: {speed: 0.3}},
+  };
+  assert.deepEqual(compileComposition(guardedPlan, guardedParts, {core: 'seed', locomotion: 'paws'}).errors, []);
+  assert.deepEqual(compileComposition(guardedPlan, guardedParts, {core: 'seed', locomotion: 'paws'}).species.abilities, ['keen-sense', 'swim']);
+  assert.match(compileComposition(guardedPlan, guardedParts, {core: 'seed', locomotion: 'wings'}).errors.join(' '), /excludes/);
+  assert.match(
+    compileComposition(guardedPlan, {...guardedParts, paws: {tags: ['movement'], modifiers: {speed: 0.3}}}, {core: 'seed', locomotion: 'paws'}).errors.join(
+      ' ',
+    ),
+    /combined modifier/,
+  );
 });
 
 test('optional companion routes stay optional and every starter can reach recovery', () => {
   const waterway = {requires: {ability: 'cross-shallow-water', habitat: 'wetland'}};
   assert.equal(companionCanUseRoute(waterway, {abilities: ['cross-shallow-water'], habitats: ['wetland']}), true);
   assert.equal(companionCanUseRoute(waterway, {abilities: [], habitats: ['wetland']}), false);
+  const routes = [
+    {id: 'main-loop', recovery: true},
+    {id: 'reed-cut', recovery: false, ...waterway},
+  ];
+  assert.deepEqual(
+    availableCompanionRoutes(routes, {abilities: [], habitats: ['meadow']}).map(route => route.id),
+    ['main-loop'],
+  );
   const starts = [
     {id: 'seedling', abilities: [], habitats: ['meadow']},
     {id: 'pebblit', abilities: [], habitats: ['ridge']},
   ];
+  assert.deepEqual(validateCompanionRoutes(routes, starts), []);
+  assert.match(validateCompanionRoutes([{id: 'only-way-home', recovery: true, ...waterway}], starts).join(' '), /no accessible recovery route/);
+  assert.match(validateCompanionRoutes([{id: 'optional-only', recovery: false, ...waterway}], starts).join(' '), /no accessible recovery route/);
   assert.deepEqual(
     validateCompanionRoutes(
       [
         {id: 'main-loop', recovery: true},
-        {id: 'reed-cut', recovery: false, ...waterway},
+        {id: 'reed-cut', recovery: true, ...waterway},
       ],
       starts,
     ),
     [],
   );
-  assert.match(validateCompanionRoutes([{id: 'only-way-home', recovery: true, ...waterway}], starts).join(' '), /recovery path is unavailable/);
 });

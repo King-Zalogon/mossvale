@@ -8,6 +8,30 @@ from PIL import Image
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 DECISIONS = {"accept", "rework", "quarantine"}
 TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".md", ".mjs", ".py", ".txt"}
+FOLLOWER_IDS = {"creature-emberkin", "creature-fernling", "creature-duskwing", "creature-brooklet"}
+
+
+def validate_directional_coverage(data, reviewed_ids):
+    coverage = next((item for item in data.get("coverage", []) if item.get("issue") == "#90"), None)
+    contact_sheet = coverage.get("contactSheet") if coverage else None
+    records = [
+        record
+        for record in data.get("subjects", [])
+        if record.get("visualId") in FOLLOWER_IDS and contact_sheet in record.get("evidence", [])
+    ]
+    covered_ids = {record.get("visualId") for record in records}
+    if (
+        not coverage
+        or coverage.get("status") != "second-batch-reviewed-at-scale"
+        or coverage.get("followerWidth") != 37
+        or coverage.get("contactSheet") != contact_sheet
+        or not FOLLOWER_IDS.issubset(covered_ids & reviewed_ids)
+    ):
+        raise SystemExit("#90 review must cover its available directional follower sheets at 37 px")
+    for record in records:
+        if record.get("visual", {}).get("ownerTaste") not in {"pending", "approved", "rework"}:
+            raise SystemExit(f"{record['visualId']}: owner taste review state must be explicit")
+    return len(FOLLOWER_IDS)
 
 
 def file_digest(path):
@@ -109,6 +133,7 @@ def validate_reviews(root):
         )
     ):
         raise SystemExit("#85 combat review must cover every recorded species at 115 px using the pinned contact sheet")
+    validate_directional_coverage(data, reviewed_ids)
     pending_gaps = [item for item in gaps if item.get("status") == "pending-art"]
     return data, len(pending_gaps)
 

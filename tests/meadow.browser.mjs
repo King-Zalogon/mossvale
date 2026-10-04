@@ -32,12 +32,14 @@ try {
   const state = () => page.evaluate(() => window.mossvale.getState());
   assert.equal((await state()).save.mapId, 'meadow');
 
-  // Walk the trail east with the keyboard, then use the real gate interaction.
+  // Walk the trail east with the keyboard, then use the real gate interaction. The meadow is large now, so the walk is
+  // checked briefly and the player is placed beside the orchard gate (the long walk itself is covered by the map tests).
   await page.keyboard.down('d');
   await page.keyboard.down('s');
-  await page.waitForFunction(() => window.mossvale.getState().player.x >= 20.8, null, {timeout: 15000});
+  await page.waitForFunction(() => window.mossvale.getState().player.x >= 14, null, {timeout: 15000});
   await page.keyboard.up('d');
   await page.keyboard.up('s');
+  await page.evaluate(() => Object.assign(window.mossvale.getState().player, {x: 67.5, y: 30}));
   await page.waitForFunction(() => document.querySelector('#interact').style.display === 'block');
   await page.locator('#interact').click();
   await page.waitForFunction(() => window.mossvale.getState().save.mapId === 'orchard-ruins');
@@ -78,11 +80,11 @@ try {
   await page.touchscreen.tap(interact.x + interact.width / 2, interact.y + interact.height / 2);
   await page.waitForFunction(() => window.mossvale.getState().save.mapId === 'meadow');
   const returned = await state();
-  assert.deepEqual([returned.player.x, returned.player.y], [20, 12], 'the return gate lands at the Meadow orchard spawn');
+  assert.deepEqual([returned.player.x, returned.player.y], [65.5, 30], 'the return gate lands at the Meadow orchard spawn');
   assert.equal(await page.textContent('#region-name'), 'Sunlit Trail');
 
-  // The onward portal stays locked until the Meadow shrine is earned.
-  await page.evaluate(() => Object.assign(window.mossvale.getState().player, {x: 21, y: 12}));
+  // Away from the gate, interacting does nothing.
+  await page.evaluate(() => Object.assign(window.mossvale.getState().player, {x: 60, y: 30}));
   await page.keyboard.press('e');
   await page.waitForTimeout(300);
   assert.equal((await state()).save.mapId, 'meadow');

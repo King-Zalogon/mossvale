@@ -1,5 +1,6 @@
 """The visual review gate rejects evidence that changed after its recorded decision."""
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import struct
@@ -12,6 +13,9 @@ import zlib
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEWER = ROOT / "art/characters/review.py"
+REVIEW_SPEC = importlib.util.spec_from_file_location("art_review", REVIEWER)
+REVIEW_MODULE = importlib.util.module_from_spec(REVIEW_SPEC)
+REVIEW_SPEC.loader.exec_module(REVIEW_MODULE)
 
 
 def png():
@@ -64,6 +68,40 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                     ],
                 }
             )
+        follower_sheet = "art/characters/reviews/followers.png"
+        follower_preview = "dist/follower-preview.html"
+        for path, content in [(follower_sheet, png()), (follower_preview, b"<main>direction preview</main>")]:
+            file = self.root / path
+            file.parent.mkdir(parents=True, exist_ok=True)
+            file.write_bytes(content)
+        follower_ids = ["creature-emberkin", "creature-fernling", "creature-duskwing", "creature-brooklet"]
+        for species in follower_ids:
+            reference = f"art/references/{species}.png"
+            follower = f"dist/assets/creatures/{species}-follower.png"
+            for path in [reference, follower]:
+                file = self.root / path
+                file.parent.mkdir(parents=True, exist_ok=True)
+                if not file.exists():
+                    file.write_bytes(png())
+            provenance = next((subject for subject in subjects if subject["id"] == species), None)
+            if provenance is None:
+                provenance = {"id": species, "canonicalReferences": [{"path": reference}], "exports": []}
+                subjects.append(provenance)
+            provenance["exports"].append({"path": follower})
+            paths = sorted({follower_sheet, follower_preview, *(item["path"] for item in provenance["canonicalReferences"]), *(item["path"] for item in provenance["exports"])})
+            reviews.append(
+                {
+                    "visualId": species,
+                    "technical": {"status": "pass"},
+                    "visual": {"decision": "accept", "reason": "Directional poses retain the subject identity.", "ownerTaste": "pending"},
+                    "evidence": [follower_sheet, follower_preview],
+                    "reviewedFiles": [{"path": path, "sha256": hashlib.sha256((self.root / path).read_bytes()).hexdigest()} for path in paths],
+                }
+            )
+        for review in reviews:
+            if review["visualId"] in follower_ids and follower_sheet not in review["evidence"]:
+                follower = f"dist/assets/creatures/{review['visualId']}-follower.png"
+                review["reviewedFiles"].append({"path": follower, "sha256": hashlib.sha256((self.root / follower).read_bytes()).hexdigest()})
         fixtures = []
         for fixture_id, decision in [("wrong-anatomy", "quarantine"), ("identity-drift", "quarantine"), ("valid-turned-pose", "accept")]:
             path = f"art/characters/reviews/fixtures/{fixture_id}.png"
@@ -98,7 +136,14 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                     "creaturePortraitWidth": 115,
                     "contactSheet": self.contact,
                     "visualIds": ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"],
-                }
+                },
+                {
+                    "issue": "#90",
+                    "status": "second-batch-reviewed-at-scale",
+                    "followerWidth": 37,
+                    "contactSheet": follower_sheet,
+                    "visualIds": follower_ids,
+                },
             ],
             "coverageGaps": [
                 {"issue": "#90", "profileId": "creature-follower-v1", "status": "pending-art", "reason": "Dedicated frames are not available."}
@@ -113,6 +158,32 @@ class VisualReviewEvidenceTests(unittest.TestCase):
 
     def run_reviewer(self):
         return subprocess.run([sys.executable, str(REVIEWER), "--root", str(self.root)], capture_output=True, text=True, check=False)
+
+    def test_directional_review_requires_each_available_species_at_gameplay_scale(self):
+        ids = sorted(REVIEW_MODULE.FOLLOWER_IDS)
+        data = {
+            "coverage": [
+                {
+                    "issue": "#90",
+                    "status": "second-batch-reviewed-at-scale",
+                    "visualIds": ids,
+                    "followerWidth": 37,
+                    "contactSheet": "art/characters/reviews/followers.png",
+                }
+            ],
+            "subjects": [
+                {
+                    "visualId": species,
+                    "evidence": ["art/characters/reviews/followers.png"],
+                    "visual": {"ownerTaste": "pending"},
+                }
+                for species in ids
+            ],
+        }
+        self.assertEqual(REVIEW_MODULE.validate_directional_coverage(data, set(ids)), 4)
+        data["coverage"][0]["followerWidth"] = 115
+        with self.assertRaisesRegex(SystemExit, "37 px"):
+            REVIEW_MODULE.validate_directional_coverage(data, set(ids))
 
     def test_current_evidence_passes_then_stale_art_requires_a_new_visual_review(self):
         current = self.run_reviewer()

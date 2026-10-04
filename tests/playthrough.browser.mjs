@@ -202,7 +202,7 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
     let arrived = false;
     try {
       for (let frame = 0; frame < 500; frame++) {
-        const player = (await state()).player;
+        const player = await page.evaluate(() => window.mossvale.getState().player); // the full state carries the whole world; keep steering fast
         if (Math.hypot(player.x - target.x, player.y - target.y) < 0.3) {
           arrived = true;
           break;

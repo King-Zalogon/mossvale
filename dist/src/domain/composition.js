@@ -11,6 +11,8 @@ export function validateBodyPlan(plan) {
     ids.add(slot?.id);
     if (!Array.isArray(slot?.accepts) || !slot.accepts.length || !slot.accepts.every(tag => typeof tag === 'string'))
       errors.push(`slots[${i}].accepts: needs compatible part tags`);
+    if (slot?.excludes !== undefined && (!Array.isArray(slot.excludes) || !slot.excludes.every(tag => typeof tag === 'string')))
+      errors.push(`slots[${i}].excludes: must be a list of incompatible part tags`);
     if (slot?.required !== undefined && typeof slot.required !== 'boolean') errors.push(`slots[${i}].required: must be boolean`);
   }
   return errors;
@@ -23,6 +25,7 @@ export function compileComposition(plan, parts, assignments, {modifierLimit = 0.
   const abilities = new Set();
   const modifiers = {};
   const resolved = {};
+  const resolvedTags = {};
   for (const slot of plan.slots) {
     const partId = assignments[slot.id];
     if (!partId) {
@@ -36,8 +39,10 @@ export function compileComposition(plan, parts, assignments, {modifierLimit = 0.
     }
     if (!Array.isArray(part.tags) || !part.tags.some(tag => slot.accepts.includes(tag)))
       errors.push(`part "${partId}" is not compatible with slot "${slot.id}"`);
+    if (!Array.isArray(part.tags) || !part.tags.every(tag => typeof tag === 'string')) errors.push(`part "${partId}" tags must be strings`);
     if (resolved[slot.id]) errors.push(`slot "${slot.id}" is assigned more than once`);
     resolved[slot.id] = partId;
+    resolvedTags[slot.id] = Array.isArray(part.tags) ? part.tags : [];
     for (const ability of part.abilities ?? []) if (typeof ability === 'string') abilities.add(ability);
     for (const [key, value] of Object.entries(part.modifiers ?? {})) {
       if (typeof value !== 'number' || !Number.isFinite(value) || value < -modifierLimit || value > modifierLimit)
@@ -45,6 +50,12 @@ export function compileComposition(plan, parts, assignments, {modifierLimit = 0.
       else modifiers[key] = (modifiers[key] ?? 0) + value;
     }
   }
+  for (const slot of plan.slots) {
+    const incompatible = (slot.excludes ?? []).find(tag => Object.values(resolvedTags).some(tags => tags.includes(tag)));
+    if (incompatible) errors.push(`slot "${slot.id}" excludes assigned part tag "${incompatible}"`);
+  }
+  for (const [key, value] of Object.entries(modifiers))
+    if (Math.abs(value) > modifierLimit) errors.push(`combined modifier "${key}" is outside ±${modifierLimit}`);
   for (const slotId of Object.keys(assignments)) if (!plan.slots.some(slot => slot.id === slotId)) errors.push(`unknown slot "${slotId}"`);
   if (errors.length) return {errors};
   return {errors: [], species: {parts: resolved, abilities: [...abilities].sort(), modifiers}};

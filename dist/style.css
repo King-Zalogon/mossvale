@@ -2098,6 +2098,72 @@ body.text-larger .heading {
     min-height: 44px;
     min-width: 44px;
   }
+  .touchpad {
+    display: grid;
+    grid-template-columns: repeat(3, 44px);
+    gap: 4px;
+  }
+  .touchpad button {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+  }
+  .touch-run {
+    display: block;
+    min-height: 44px;
+  }
+}
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+  header {
+    height: 54px;
+  }
+  main {
+    padding-top: 10px;
+    padding-bottom: 4px;
+  }
+  .heading {
+    display: none;
+  }
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 190px;
+    gap: 10px;
+  }
+  .viewport {
+    height: min(52vh, 320px);
+    aspect-ratio: auto;
+  }
+  .location {
+    height: 46px;
+    padding: 7px 10px;
+  }
+  .touchpad {
+    left: max(8px, env(safe-area-inset-left));
+    bottom: max(8px, env(safe-area-inset-bottom));
+  }
+  .touch-run {
+    right: max(8px, env(safe-area-inset-right));
+    bottom: max(8px, env(safe-area-inset-bottom));
+  }
+  .toast {
+    bottom: 8px;
+    left: 50%;
+    max-width: 42%;
+    transform: translateX(-50%);
+    font-size: 11px;
+  }
+  .interaction {
+    bottom: 8px;
+    max-width: 38%;
+    font-size: 11px;
+  }
+  .game-footer {
+    padding: 7px 10px;
+  }
+}
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) and (max-width: 600px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 #modal {
