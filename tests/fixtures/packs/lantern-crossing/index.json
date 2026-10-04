@@ -18,7 +18,7 @@
   "mapDirectory": "maps/",
   "objectives": "objectives.json",
   "story": "story.json",
-  "contentVersion": 1,
+  "contentVersion": 2,
   "requires": {
     "engineVersion": 1,
     "saveSchema": 5
@@ -43,6 +43,12 @@
       "id": "story:main",
       "path": "story.json",
       "sha256": "337cf6e8d663798941c6911140d5fe8fb5ce781c189e12a944c198df04f0728e"
+    },
+    {
+      "id": "inventory:main",
+      "path": "inventory.json",
+      "sha256": "3f58328775e7f62bddfd898a97d3d3ff99b49a7acfd3e1e2d0295e119b6113b4"
     }
-  ]
+  ],
+  "inventory": "inventory.json"
 }
