@@ -7,7 +7,9 @@ export function decodePng(buf) {
     height,
     depth,
     color,
-    interlace;
+    interlace,
+    palette = null,
+    paletteAlpha = null;
   const idat = [];
   while (pos < buf.length) {
     const len = buf.readUInt32BE(pos),
@@ -20,6 +22,8 @@ export function decodePng(buf) {
       color = data[9];
       interlace = data[12];
     }
+    if (type === 'PLTE') palette = data;
+    if (type === 'tRNS') paletteAlpha = data;
     if (type === 'IDAT') idat.push(data);
     pos += 12 + len;
   }
@@ -50,12 +54,30 @@ export function decodePng(buf) {
       out[y * stride + x] = v & 255;
     }
   }
-  return {width, height, depth, color, interlace, channels, stride, data: out};
+  if (color === 3) {
+    if (!palette || palette.length % 3 !== 0) throw new Error('indexed PNG has no valid palette');
+    const rgba = Buffer.alloc(width * height * 4);
+    let transparent = false;
+    for (let i = 0; i < width * height; i++) {
+      const index = out[i];
+      if (index * 3 + 2 >= palette.length) throw new Error(`palette index ${index} is out of range`);
+      const alpha = paletteAlpha?.[index] ?? 255;
+      const at = i * 4;
+      rgba[at] = palette[index * 3];
+      rgba[at + 1] = palette[index * 3 + 1];
+      rgba[at + 2] = palette[index * 3 + 2];
+      rgba[at + 3] = alpha;
+      if (alpha < 255) transparent = true;
+    }
+    return {width, height, depth, color, interlace, channels: 4, stride: width * 4, data: rgba, transparent};
+  }
+  const transparent = color === 6 && out.some((value, index) => index % 4 === 3 && value < 255);
+  return {width, height, depth, color, interlace, channels, stride, data: out, transparent};
 }
 
 /** Opaque bounding box (alpha above 8) and its padding inside the image, or null when fully transparent / no alpha. */
 export function opaqueBounds(im) {
-  if (im.color !== 6) return null;
+  if (im.channels !== 4) return null;
   let minX = im.width,
     minY = im.height,
     maxX = -1,
