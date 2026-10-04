@@ -3,11 +3,18 @@ import {species} from '../data/species.js';
 import {moves} from '../data/moves.js';
 import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
 import {REWARDS} from '../data/economy.js';
-import {BRACE_FACTOR, HEAVY_FACTOR, planOf} from '../data/tactics.js';
+import {BRACE_FACTOR, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
+
+/** Shrine challenges follow the current party's average level; ordinary encounters never scale. */
+export function guardianLevel(save, guardian) {
+  if (!save.party?.length) return guardian.level;
+  const average = save.party.reduce((sum, id) => sum + level(save, id), 0) / save.party.length;
+  return Math.max(guardian.level, Math.round(average));
+}
 
 /** Picks a different healthy companion if the active one is down. Returns false when the whole team is down. */
 export function ensureHealthyCompanion(save) {
@@ -72,9 +79,19 @@ export function playerStrike(save, battle, kind, rng) {
   const eff = kind === 'element' ? effectiveness(save.active, battle.id) : 1;
   const base = kind === 'element' ? elementPower(save, save.active) : species[save.active].stats.attack;
   const braced = lastEnemyAction(battle) === 'brace';
-  const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff * (braced ? BRACE_FACTOR : 1)));
+  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  const braceFactor = braced ? (kind === 'element' ? (tactic?.braceElementFactor ?? BRACE_FACTOR) : (tactic?.braceQuickFactor ?? BRACE_FACTOR)) : 1;
+  const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff * braceFactor));
   battle.hp = Math.max(0, battle.hp - damage);
-  return {kind, damage, eff, braced, move: kind === 'element' ? moveName(save, save.active) : 'Quick strike', defeated: battle.hp === 0};
+  return {
+    kind,
+    damage,
+    eff,
+    braced,
+    brokeBrace: braced && kind === 'element' && braceFactor > 1,
+    move: kind === 'element' ? moveName(save, save.active) : 'Quick strike',
+    defeated: battle.hp === 0,
+  };
 }
 
 export function usePotion(save) {
@@ -113,6 +130,8 @@ export function enemyAttack(save, battle, rng) {
   const attacks = action !== 'charge' && action !== 'brace';
   const foe = species[battle.id];
   const defender = species[save.active];
+  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  const repeatElement = element && lastEnemyAction(battle) === 'element';
   const raw =
     (7 + (foe.stats.attack - 10) * 0.4 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) *
     (element ? (moves[foe.move]?.power ?? 1) : 1) *
@@ -120,14 +139,20 @@ export function enemyAttack(save, battle, rng) {
     (battle.power ?? 1) *
     eff *
     (action === 'heavy' ? HEAVY_FACTOR : 1) *
-    (battle.guard ? GUARD_FACTOR : 1) *
+    (repeatElement ? (tactic?.repeatElementFactor ?? 1) : 1) *
     (1 - (defender.stats.defense - 10) / 100);
-  const damage = attacks ? Math.max(2, Math.round(raw)) : 0;
+  const unguarded = attacks ? Math.max(2, Math.round(raw)) : 0;
+  const damage = attacks ? Math.max(2, Math.round(raw * (battle.guard ? GUARD_FACTOR : 1))) : 0;
   const c = companion(save);
   c.hp = Math.max(0, c.hp - damage);
+  const counter = battle.guard && action === 'heavy' ? Math.round((unguarded - damage) * (tactic?.guardRiposteFactor ?? 0)) : 0;
+  if (counter > 0) battle.hp = Math.max(0, battle.hp - counter);
+  const recovered =
+    action === 'charge' && tactic?.recoveryOnCharge && battle.hp > 0 ? Math.min(battle.max - battle.hp, Math.ceil(battle.max * tactic.recoveryOnCharge)) : 0;
+  battle.hp += recovered;
   battle.guard = false;
   battle.turn++;
-  return {damage, element, action};
+  return {damage, element, action, counter, recovered, defeated: battle.hp === 0};
 }
 
 /** After an enemy hit: swap in a healthy companion, or report that the team is out. */
@@ -250,11 +275,16 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
   if (!ended) {
     const hit = enemyAttack(save, battle, rng);
     push({type: 'enemy', ...hit});
-    const faint = resolveFaint(save);
-    if (faint.status === 'switched') push({type: 'faint-switch', fainted: faint.fainted, replacement: faint.replacement});
-    else if (faint.status === 'lost') {
-      ended = 'loss';
-      push({type: 'loss', ...resolveLoss(save)});
+    if (hit.defeated) {
+      ended = 'win';
+      push({type: 'win', ...resolveWin(save, battle, rng, ctx)});
+    } else {
+      const faint = resolveFaint(save);
+      if (faint.status === 'switched') push({type: 'faint-switch', fainted: faint.fainted, replacement: faint.replacement});
+      else if (faint.status === 'lost') {
+        ended = 'loss';
+        push({type: 'loss', ...resolveLoss(save)});
+      }
     }
   }
   if (ended) battle.over = true;

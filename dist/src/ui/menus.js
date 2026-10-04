@@ -10,7 +10,7 @@ import {drawCreature, drawSprite} from '../render/sprites.js';
 import {spriteId} from '../data/assets.js';
 import {REST_FLOOR, SHOP} from '../data/economy.js';
 import {canBuy} from '../domain/economy.js';
-import {POTION_HEAL} from '../domain/battle.js';
+import {guardianLevel, POTION_HEAL} from '../domain/battle.js';
 import {TACTICS} from '../data/tactics.js';
 import {PORTAL_RETURN_URL} from '../build-config.js';
 import {hasProgress, summarize} from '../services/profile.js';
@@ -182,7 +182,7 @@ export function createMenus(app) {
     const s = save();
     const r = regions[s.region];
     open(
-      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${g.guardian.level} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < regions.length - 1 ? ' and open the trail to ' + regions[s.region + 1].name : `. All ${regions.length} shrines will be awake`}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div>${TACTICS[g.guardian.tactic] ? `<p class="dialog-note" style="text-align:center"><b>${TACTICS[g.guardian.tactic].name}.</b> ${TACTICS[g.guardian.tactic].intro}</p>` : ''}<p class="dialog-note" style="text-align:center">Guardian creatures cannot be captured. You can rest and try again any time.</p>`,
+      `${header('THE CRYSTAL SHRINE', r.name + ' guardian')}<canvas id="guardian-preview" class="result-art" width="150" height="150"></canvas><p style="text-align:center">${species[g.guardian.id].name} · Level ${guardianLevel(s, g.guardian)} · ${species[g.guardian.id].type}</p><p style="text-align:center;max-width:460px;margin:0 auto 17px">Win this challenge to earn the ${r.seal.toLowerCase()}${s.region < regions.length - 1 ? ' and open the trail to ' + regions[s.region + 1].name : `. All ${regions.length} shrines will be awake`}.</p><div style="display:flex;justify-content:center;gap:10px"><button id="challenge" class="primary">Challenge guardian</button><button id="prepare-team">Prepare your team</button></div>${TACTICS[g.guardian.tactic] ? `<p class="dialog-note" style="text-align:center"><b>${TACTICS[g.guardian.tactic].name}.</b> ${TACTICS[g.guardian.tactic].intro}</p>` : ''}<p class="dialog-note" style="text-align:center">Guardian levels are at least their shrine level and rise to match your party's average. Wild encounters keep their own levels. Guardians cannot be captured; you can rest and retry any time.</p>`,
       'shrine',
       'Shrine guardian',
     );

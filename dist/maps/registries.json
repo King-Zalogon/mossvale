@@ -355,28 +355,34 @@
       "spore-guard": {
         "name": "Spore guard",
         "pattern": ["strike", "brace"],
-        "intro": "When the forecast says Brace, strike while it takes no damage. After the brace, your next strike is halved, so Guard or heal through that opening before attacking again."
+        "braceQuickFactor": 0.25,
+        "braceElementFactor": 1.25,
+        "intro": "When the forecast says Brace, your action happens before it braces. After the brace, quick strikes glance off, but an elemental move breaks through. Watch the log for the brace, then answer with an elemental move."
       },
       "rolling-charge": {
         "name": "Rolling charge",
         "pattern": ["strike", "charge", "heavy"],
-        "intro": "It gathers strength, then lands a heavy blow. Watch the line under the log and Guard when the heavy blow is next."
+        "guardRiposteFactor": 0.85,
+        "intro": "It gathers strength, then lands a heavy blow. Watch the line under the log and Guard when the heavy blow is next; a well-timed Guard counters it."
       },
       "frost-chorus": {
         "name": "Frost chorus",
         "pattern": ["element", "element", "strike"],
-        "intro": "It keeps using its elemental move. A teammate that resists it, or healing between volleys, makes the difference."
+        "repeatElementFactor": 1.3,
+        "intro": "Its second elemental volley grows stronger. Switch to a teammate that resists the element before that repeat, or heal once the chorus breaks."
       },
       "tidal-current": {
         "name": "Tidal current",
         "pattern": ["element", "charge", "heavy"],
-        "intro": "A wave builds before the crash. Use the quiet turn to heal or prepare, then Guard when the line calls out the heavy blow."
+        "guardRiposteFactor": 0.85,
+        "recoveryOnCharge": 0.07,
+        "intro": "The current restores some health while it gathers for a heavy blow. Keep pressure on it during the lull, then Guard when the line calls out the crash."
       }
     },
     "intentText": {
       "strike": "a quick strike",
       "element": "its elemental move",
-      "heavy": "a heavy blow (Guard softens it)",
+      "heavy": "a heavy blow",
       "charge": "gathering strength",
       "brace": "bracing; your next strike after this will be halved"
     }

@@ -1,9 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {BRACE_FACTOR, DEFAULT_PATTERN, HEAVY_FACTOR, INTENT_TEXT, planOf, TACTICS} from '../dist/src/data/tactics.js';
-import {battleCheckpoint, createBattle, enemyAttack, lastEnemyAction, nextEnemyAction, playerStrike, resolveTurn} from '../dist/src/domain/battle.js';
+import {DEFAULT_PATTERN, HEAVY_FACTOR, INTENT_TEXT, planOf, TACTICS} from '../dist/src/data/tactics.js';
+import {
+  battleCheckpoint,
+  createBattle,
+  enemyAttack,
+  guardianLevel,
+  lastEnemyAction,
+  nextEnemyAction,
+  playerStrike,
+  resolveTurn,
+} from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
-import {companion, healTeam, level, maxHP} from '../dist/src/domain/rules.js';
+import {companion, effectiveness, healTeam, level, maxHP} from '../dist/src/domain/rules.js';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {codec, content, maps, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
@@ -32,7 +41,7 @@ test('wild creatures keep the simple strike/element rhythm and never carry a tac
   assert.deepEqual(seen, ['strike', 'element', 'strike', 'element']);
 });
 
-test('spore guard: bracing does no damage and halves the next attack, and the intent is shown one move ahead', () => {
+test('spore guard: bracing punishes quick strikes but an elemental move breaks through', () => {
   const save = newSave();
   save.team[0].hp = 1e6;
   const b = createBattle(save, seededRng(1), spec(0));
@@ -42,12 +51,15 @@ test('spore guard: bracing does no damage and halves the next attack, and the in
   const brace = enemyAttack(save, b, mid);
   assert.deepEqual([brace.damage, brace.action, lastEnemyAction(b)], [0, 'brace', 'brace']);
   const braced = playerStrike(save, {...b, hp: 1e6}, 'attack', mid);
+  const element = playerStrike(save, {...b, hp: 1e6}, 'element', mid);
   b.turn++; // the enemy strikes again: no longer braced
   const open = playerStrike(save, {...b, hp: 1e6}, 'attack', mid);
   assert.equal(braced.braced, true);
   assert.equal(open.braced, false);
-  assert.ok(Math.abs(braced.damage / open.damage - BRACE_FACTOR) < 0.2, `${braced.damage}/${open.damage}`);
-  assert.match(TACTICS['spore-guard'].intro, /After the brace, your next strike is halved/);
+  assert.ok(Math.abs(braced.damage / open.damage - TACTICS['spore-guard'].braceQuickFactor) < 0.2, `${braced.damage}/${open.damage}`);
+  assert.equal(element.brokeBrace, true);
+  assert.ok(element.damage > braced.damage * 3, `${element.damage}/${braced.damage}`);
+  assert.match(TACTICS['spore-guard'].intro, /After the brace, quick strikes glance off/);
   assert.match(INTENT_TEXT.brace, /after this will be halved/);
 });
 
@@ -59,12 +71,15 @@ test('rolling charge: a charge turn, then a heavy blow that Guard softens', () =
     b.turn = 2; // next is the heavy blow
     b.guard = guard;
     assert.equal(nextEnemyAction(b), 'heavy');
-    return enemyAttack(save, b, mid).damage;
+    return {b, hit: enemyAttack(save, b, mid)};
   };
   const plain = enemyAttack(save, {...createBattle(save, seededRng(1), spec(1)), turn: 0}, mid).damage;
-  const heavy = hit(false);
+  const heavy = hit(false).hit.damage;
   assert.ok(heavy > plain * (HEAVY_FACTOR - 0.3), `heavy ${heavy} vs strike ${plain}`);
-  assert.ok(hit(true) < heavy / 2, 'Guard cuts the heavy blow');
+  const guarded = hit(true);
+  assert.ok(guarded.hit.damage < heavy / 2, 'Guard cuts the heavy blow');
+  assert.ok(guarded.hit.counter > 0, 'the timed Guard ripostes');
+  assert.ok(guarded.b.hp < createBattle(save, seededRng(1), spec(1)).hp, 'the riposte damages the guardian');
   const charge = enemyAttack(save, {...createBattle(save, seededRng(1), spec(1)), turn: 1}, mid);
   assert.deepEqual([charge.action, charge.damage], ['charge', 0]);
 });
@@ -78,6 +93,36 @@ test('frost chorus keeps using the elemental move, so the matchup decides the da
     rounds.map(r => r.action),
     ['element', 'element', 'strike'],
   );
+  assert.ok(rounds[1].damage > rounds[0].damage, 'the second elemental volley is stronger');
+});
+
+test('the tidal lull restores guardian health, and shrine scaling leaves wild encounters alone', () => {
+  const save = newSave();
+  save.party = [0, 1, 2];
+  save.caught = [0, 1, 2];
+  save.team[1] = {xp: 5 * 45, hp: 50};
+  save.team[2] = {xp: 5 * 45, hp: 50};
+  save.team[0].xp = 10 * 45;
+  const tidal = {...spec(3), level: guardianLevel(save, guardian(3))};
+  assert.equal(tidal.level, guardian(3).level);
+  assert.equal(guardianLevel(save, {...guardian(0), level: 4}), 12);
+  const scaledBoss = createBattle(save, seededRng(1), {...guardian(0), level: guardianLevel(save, guardian(0)), boss: true});
+  save.battle = battleCheckpoint(scaledBoss);
+  const restored = codec.normalize(JSON.parse(codec.serialize(save)), false).battle;
+  assert.equal(restored.level, 12, 'the already-scaled guardian level survives a reload');
+  const wild = createBattle(save, seededRng(1), {id: 9, level: 6});
+  assert.equal(wild.level, 6);
+  assert.equal(wild.tactic, undefined);
+
+  const b = createBattle(save, seededRng(1), spec(3));
+  b.turn = 1; // the tidal current is gathering strength
+  b.hp -= 10;
+  const before = b.hp;
+  const result = resolveTurn(save, b, {kind: 'guard'}, mid);
+  const charge = result.events.find(event => event.type === 'enemy');
+  assert.equal(charge.action, 'charge');
+  assert.equal(charge.recovered, Math.min(10, Math.ceil(b.max * TACTICS['tidal-current'].recoveryOnCharge)));
+  assert.equal(b.hp, before + charge.recovered);
 });
 
 test('a guardian tactic survives a refresh through the battle checkpoint', () => {
@@ -99,85 +144,101 @@ test('an unknown tactic in map data is reported', () => {
   assert.ok(buildAdventure(m, content, rawObjectives()).errors.some(e => e.includes('unknown tactic "sneeze"')));
 });
 
-// --- more than one sensible way to win -------------------------------------------------------------------------
+// --- tactical guardian play across ordinary and advanced saves -----------------------------------------------
 const policies = {
-  // Spend Focus on the elemental move whenever possible; drink a potion when low.
+  attackOnly: () => ({kind: 'attack'}),
   burst: (save, b) =>
     companion(save).hp < maxHP(save, save.active) * 0.35 && save.potions > 0 ? {kind: 'potion'} : {kind: b.focus >= 1 ? 'element' : 'attack'},
-  // Read the intent: Guard before a heavy blow or after a brace (before its next strike), otherwise attack; heal when low.
-  careful: (save, b) => {
+  responsive: (save, b) => {
     const next = nextEnemyAction(b);
-    if (companion(save).hp < maxHP(save, save.active) * 0.4 && save.potions > 0) return {kind: 'potion'};
-    if (next === 'heavy' || lastEnemyAction(b) === 'brace') return {kind: 'guard'};
+    if (companion(save).hp < maxHP(save, save.active) * 0.35 && save.potions > 0) return {kind: 'potion'};
+    if (next === 'heavy') return {kind: 'guard'};
+    if (lastEnemyAction(b) === 'brace' && b.focus >= 1) return {kind: 'element'};
+    if (next === 'element') {
+      const resistant = save.party.filter(id => save.team[id].hp > 0).sort((a, c) => effectiveness(b.id, a) - effectiveness(b.id, c))[0];
+      if (resistant !== undefined && resistant !== save.active && effectiveness(b.id, resistant) < effectiveness(b.id, save.active))
+        return {kind: 'switch', id: resistant};
+    }
     return {kind: b.focus >= 1 ? 'element' : 'attack'};
-  },
-  // Slow and steady: strike, guard when hurt, heal early.
-  steady: save => {
-    if (companion(save).hp < maxHP(save, save.active) * 0.55 && save.potions > 0) return {kind: 'potion'};
-    if (companion(save).hp < maxHP(save, save.active) * 0.45) return {kind: 'guard'};
-    return {kind: 'attack'};
   },
 };
 
-function challenge(region, policy, seed, companionLevel) {
+function preparedTeam(levels) {
   const save = newSave();
-  save.team[0].xp = (companionLevel - 5) * 45;
+  save.party = [0, 1, 2];
+  save.caught = [0, 1, 2];
+  save.seen = [0, 1, 2];
+  for (const id of save.party) save.team[id] = {xp: (levels[id] - 5) * 45, hp: 1};
+  save.active = 0;
   save.potions = 3;
   healTeam(save);
-  const rng = seededRng(seed);
-  const b = createBattle(save, rng, spec(region));
-  for (let turns = 0; turns < 80 && !b.over; turns++) {
-    const t = resolveTurn(save, b, policy(save, b), rng, {sealReward: shrineOf(region).reward});
-    if (t?.ended) return t.ended;
-    if (!t) return 'stalled';
-  }
-  return 'stalled';
+  return save;
 }
 
-test('every guardian can be beaten more than one sensible way, and mindless striking is not enough', () => {
-  const tries = 30;
-  const report = [];
-  let mindlessFailures = 0;
-  const trivialGuardians = [];
-  for (let region = 0; region < maps.length; region++) {
-    const arrivalLevel = guardian(region).level - 1; // typically one level under when you first arrive; retries are free
-    const rates = {};
-    for (const [name, policy] of Object.entries(policies)) {
-      let wins = 0;
-      for (let seed = 1; seed <= tries; seed++) if (challenge(region, policy, seed, arrivalLevel) === 'win') wins++;
-      rates[name] = wins / tries;
-      report.push(`${maps[region].id}/${name}: ${wins}/${tries}`);
+function challenge(region, policy, seed, levels) {
+  const save = preparedTeam(levels);
+  const rng = seededRng(seed);
+  const shrine = shrineOf(region);
+  const config = guardian(region);
+  const b = createBattle(save, rng, {...config, level: guardianLevel(save, config), boss: true});
+  const stats = {result: 'stalled', damageTaken: 0, counterDamage: 0, recovered: 0, potionsUsed: 0, switches: 0};
+  for (let turns = 0; turns < 80 && !b.over; turns++) {
+    const action = policy(save, b);
+    if (action.kind === 'potion') stats.potionsUsed++;
+    if (action.kind === 'switch') stats.switches++;
+    const t = resolveTurn(save, b, action, rng, {sealReward: shrine.reward});
+    if (!t) return stats;
+    for (const event of t.events)
+      if (event.type === 'enemy') {
+        stats.damageTaken += event.damage;
+        stats.counterDamage += event.counter;
+        stats.recovered += event.recovered;
+      }
+    if (t.ended) {
+      stats.result = t.ended;
+      break;
     }
-    const sensible = [rates.burst, rates.careful].filter(r => r >= 0.4).length;
-    assert.ok(sensible >= 2, `${maps[region].id}: burst ${rates.burst}, careful ${rates.careful} at level ${arrivalLevel}`);
-    if (Math.min(...Object.values(rates)) === 1) trivialGuardians.push(maps[region].id);
-    if (rates.steady < 0.4) mindlessFailures++;
   }
-  console.log(`guardian win rates (30 tries each, level = guardian level - 1): ${report.join('  ')}`);
-  assert.deepEqual(trivialGuardians, [], `every policy always wins against ${trivialGuardians.join(', ')}`);
-  assert.ok(mindlessFailures >= 2, 'at least two challenges must demand more than plain striking');
-});
+  return stats;
+}
 
-test('an overlevelled starter can breeze through early shrines, while late telegraphs reward responses', () => {
-  const attackOnly = () => ({kind: 'attack'});
-  const readAndRespond = (save, battle) => policies.careful(save, battle);
-  const results = [];
-  for (const region of [0, 1, 2, 3]) {
-    let blind = 0;
-    let responsive = 0;
-    for (let seed = 1; seed <= 30; seed++) {
-      const activeLevel = 12;
-      if (challenge(region, attackOnly, seed, activeLevel) === 'win') blind++;
-      if (challenge(region, readAndRespond, seed, activeLevel) === 'win') responsive++;
+test('all four guardians reward their distinct tactic while burst and matchup play remain viable', () => {
+  const tries = 50;
+  const report = [];
+  const average = rows => rows.reduce((sum, row) => sum + row.damageTaken, 0) / rows.length;
+  for (let region = 0; region < maps.length; region++) {
+    const arrival = Math.max(5, guardian(region).level - 1);
+    const profiles = {arrival: [arrival, arrival, arrival], 'advanced starter': [15, 10, 10]};
+    for (const [profile, levels] of Object.entries(profiles)) {
+      const outcomes = Object.fromEntries(
+        Object.entries(policies).map(([name, policy]) => [name, Array.from({length: tries}, (_, i) => challenge(region, policy, i + 1, levels))]),
+      );
+      for (const name of ['burst', 'responsive']) {
+        const wins = outcomes[name].filter(row => row.result === 'win').length;
+        report.push(`${profile}/${maps[region].id}/${name}: ${wins}/${tries}`);
+        assert.ok(wins >= tries * 0.9, `${profile}/${maps[region].id}/${name}: ${wins}/${tries}`);
+      }
+      const attackWins = outcomes.attackOnly.filter(row => row.result === 'win').length;
+      report.push(
+        `${profile}/${maps[region].id}: attack ${attackWins}/${tries} · burst ${outcomes.burst.filter(row => row.result === 'win').length}/${tries} · responsive ${outcomes.responsive.filter(row => row.result === 'win').length}/${tries} · damage ${average(outcomes.attackOnly).toFixed(1)}→${average(outcomes.responsive).toFixed(1)}`,
+      );
+      if (profile === 'advanced starter') {
+        const lessDamage = average(outcomes.responsive) <= average(outcomes.attackOnly) * 0.8;
+        assert.ok(lessDamage, `${maps[region].id}: responsive average damage ${average(outcomes.responsive)} vs attack-only ${average(outcomes.attackOnly)}`);
+      }
+      if (profile === 'arrival' && region === 1)
+        assert.ok(
+          outcomes.responsive.some(row => row.counterDamage > 0),
+          'Amber Ridge rewards Guard timing',
+        );
+      if (profile === 'arrival' && region === 2)
+        assert.ok(
+          outcomes.responsive.some(row => row.switches > 0),
+          'Frostveil rewards switching to a resistant teammate',
+        );
     }
-    results.push(`${maps[region].id}: attack ${blind}/30, respond ${responsive}/30`);
-    assert.ok(responsive >= blind, `${maps[region].id}: response should not make the outcome worse`);
   }
-  assert.ok(
-    results.slice(1).some(value => /attack (?:0|[1-2]\d)\/30, respond 30\/30/.test(value)),
-    results.join(' · '),
-  );
-  console.log(`solo level-12 starter: ${results.join(' · ')}; guardian and wild levels remain fixed`);
+  console.log(`guardian win rates (50 deterministic seeds per policy, two team profiles): ${report.join('  ')}`);
 });
 
 test('losing a guardian fight neither blocks progress nor pays a reward', () => {
