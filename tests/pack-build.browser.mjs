@@ -42,9 +42,54 @@ try {
     await page.waitForFunction(() => window.mossvale);
     await page.waitForSelector('#loading', {state: 'hidden'});
     assert.equal(await page.locator('#region-name').textContent(), outputs.get(pack).expected);
+    if (pack !== 'lantern-crossing')
+      assert.equal(
+        await page.evaluate(() => window.mossvale.getState().save.inventory),
+        undefined,
+        'packs without optional inventory keep their original save shape',
+      );
     assert.deepEqual(errors, []);
     await page.close();
   }
+  // An independently packaged inventory uses the same UI/controller with different data.
+  const inventoryPage = await browser.newPage();
+  const inventoryErrors = [];
+  inventoryPage.on('pageerror', error => inventoryErrors.push(error.message));
+  const inventoryUrl = `http://localhost:${server.address().port}/lantern-crossing/?debug&seed=17`;
+  await inventoryPage.goto(inventoryUrl);
+  await inventoryPage.waitForSelector('#loading', {state: 'hidden'});
+  await inventoryPage.waitForFunction(() => window.mossvale?.getState().save.inventory);
+  await inventoryPage.evaluate(() => {
+    const game = window.mossvale.getState();
+    game.save.coins = 20;
+    game.save.inventory.coins = 20;
+    const ranger = game.world.objects.find(object => object.kind === 'ranger');
+    Object.assign(game.player, {x: ranger.x, y: ranger.y});
+    window.mossvale.interact();
+  });
+  await inventoryPage.click('#speech-next');
+  await inventoryPage.click('#open-inventory');
+  assert.match(await inventoryPage.locator('[data-pack-buy="lantern-tonic"]').textContent(), /Lantern tonic.*4 coins/);
+  assert.equal(await inventoryPage.locator('[data-pack-buy="potion"]').count(), 0);
+  assert.match(await inventoryPage.locator('#modal').textContent(), /Carry 15 \/ 240/);
+  assert.match(await inventoryPage.locator('#modal').textContent(), /stash · 0 \/ 8/);
+  await inventoryPage.click('[data-pack-buy="lantern-tonic"]');
+  await inventoryPage.waitForFunction(() => window.mossvale.getState().save.potions === 4);
+  await inventoryPage.click('[data-stash="spark-orb"]');
+  await inventoryPage.waitForFunction(() => window.mossvale.getState().save.inventory.storage['spark-orb'] === 1);
+  await inventoryPage.reload();
+  await inventoryPage.waitForSelector('#loading', {state: 'hidden'});
+  assert.deepEqual(
+    await inventoryPage.evaluate(() => {
+      const save = window.mossvale.getState().save;
+      return [save.coins, save.potions, save.orbs, save.inventory.bag['lantern-tonic'], save.inventory.bag['spark-orb'], save.inventory.storage['spark-orb']];
+    }),
+    [16, 4, 11, 4, 11, 1],
+    'different inventory IDs stay mapped to supplies after a real purchase, stash move and reload',
+  );
+  assert.deepEqual(inventoryErrors, []);
+  await inventoryPage.close();
+  console.log('ok independently packaged Lantern Crossing inventory names, prices, capacities, transactions and reload');
   const page = await browser.newPage();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));

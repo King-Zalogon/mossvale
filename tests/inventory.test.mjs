@@ -19,6 +19,7 @@ import {
 import {seededRng} from '../dist/src/domain/rng.js';
 import {createPersistence} from '../dist/src/services/persistence.js';
 import {codec, newSave, rawInventoryRules} from './helpers.mjs';
+import crossingRules from './fixtures/packs/lantern-crossing/inventory.json' with {type: 'json'};
 
 // A pack that keeps Mossvale's potion/orb supplies, small caps and a 40% potion.
 const meadow = {
@@ -219,4 +220,54 @@ test('every persistence write syncs legacy battle supplies into the pack bag', (
   assert.deepEqual([raw.potions, raw.orbs, raw.coins], [2, 11, 25]);
   assert.deepEqual(raw.inventory.bag, {potion: 2, orb: 11});
   assert.equal(raw.inventory.coins, 25);
+});
+
+test('real inventory packs preserve legacy supplies with distinct IDs, prices and capacities', () => {
+  const mossvale = rawInventoryRules();
+  assert.deepEqual(validateInventoryRules(crossingRules), []);
+  assert.notDeepEqual(crossingRules.supplies, mossvale.supplies);
+  assert.notEqual(crossingRules.carryCap, mossvale.carryCap);
+  assert.notEqual(crossingRules.storageCap, mossvale.storageCap);
+  const oldSave = {version: 4, coins: 20, potions: 3, orbs: 12, mapId: 'start'};
+  const inventory = suppliesToInventory(oldSave, crossingRules);
+  assert.deepEqual(inventory.bag, {'lantern-tonic': 3, 'spark-orb': 12});
+  assert.equal(buyInventory(inventory, 'lantern-tonic', 1, crossingRules).cost, 4);
+  assert.equal(deposit(inventory, 'spark-orb', 1, crossingRules).ok, true);
+  const save = inventoryToSupplies(inventory, oldSave, crossingRules);
+  assert.deepEqual([save.coins, save.potions, save.orbs, save.mapId], [16, 4, 11, 'start']);
+  assert.equal(inventory.storage['spark-orb'], 1);
+  const maximumOldSupplies = suppliesToInventory({...oldSave, potions: 99, orbs: 99}, crossingRules);
+  assert.ok(
+    Object.values(maximumOldSupplies.bag).reduce((a, b) => a + b, 0) <= crossingRules.carryCap,
+    'adopting inventory can hold the previous adventure supply limits without deleting excess supplies',
+  );
+});
+
+test('real pack capacities and refused writes are enforced without cross-pack item leakage', () => {
+  for (const rules of [rawInventoryRules(), crossingRules]) {
+    const state = createInventory();
+    const orb = rules.supplies.orbs;
+    assert.equal(gatherInventory(state, [{item: orb, quantity: rules.carryCap}], rules).ok, true);
+    const full = structuredClone(state);
+    assert.equal(gatherInventory(state, [{item: orb, quantity: 1}], rules).reason, 'full');
+    assert.deepEqual(state, full);
+    assert.equal(deposit(state, orb, rules.storageCap, rules).ok, true);
+    const stored = structuredClone(state);
+    if (state.bag[orb]) {
+      assert.equal(deposit(state, orb, 1, rules).reason, 'full');
+      assert.deepEqual(state, stored);
+    }
+  }
+  const state = suppliesToInventory({coins: 20, potions: 3, orbs: 12}, crossingRules);
+  const before = structuredClone(state);
+  assert.equal(buyInventory(state, 'potion', 1, crossingRules).reason, 'unknown');
+  assert.equal(
+    commitInventory(
+      state,
+      draft => buyInventory(draft, 'lantern-tonic', 1, crossingRules),
+      () => false,
+    ).reason,
+    'persist',
+  );
+  assert.deepEqual(state, before, 'unknown Mossvale IDs and refused persistence mutate nothing');
 });
