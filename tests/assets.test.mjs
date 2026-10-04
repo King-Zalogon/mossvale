@@ -86,7 +86,17 @@ test('sample visual subjects have hashed canonical references, exports and linke
   assert.deepEqual(errors, []);
   assert.deepEqual(
     registry.subjects.map(subject => subject.id),
-    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing', 'creature-emberkin', 'creature-brooklet', 'creature-hushram'],
+    [
+      'player-red-cap-adventurer',
+      'creature-fernling',
+      'creature-duskwing',
+      'creature-emberkin',
+      'creature-brooklet',
+      'creature-hushram',
+      'creature-voltkit',
+      'creature-mushmallow',
+      'creature-frostowl',
+    ],
   );
   const player = registry.subjects[0];
   assert.deepEqual(player.sourceBatches.flatMap(batch => batch.directions).toSorted(), [
@@ -190,15 +200,18 @@ test('content refers to art by name: species, directions and the manifest agree'
   assert.throws(() => spriteId('no-such-sprite'), /unknown asset/);
 });
 
-test('editable source atlases cover every runtime sprite and export the exact manifest crops', () => {
+test('editable portrait and prop atlases cover their runtime sprites and export exact manifest crops', () => {
   const sourceRoot = new URL('../art/assets/', import.meta.url);
   const metadata = JSON.parse(readFileSync(new URL('metadata.json', sourceRoot), 'utf8'));
+  const sourceArchive = JSON.parse(readFileSync(new URL('../characters/source-archive.json', sourceRoot), 'utf8'));
   const profiles = JSON.parse(readFileSync(new URL('../characters/export-profiles.json', sourceRoot), 'utf8')).profiles;
   const propProfileSha256 = createHash('sha256').update(JSON.stringify(profiles['prop-static-v1'])).digest('hex');
   assert.equal(metadata.pixelPreserving, true);
   assert.equal(metadata.anchor, 'bottom-center');
-  assert.equal(metadata.assets.length, assets.length);
-  assert.deepEqual(metadata.assets.map(a => a.name).toSorted(), assets.map(a => a.name).toSorted());
+  const separatelySourced = new Set(['creature-emberkin-combat', 'creature-voltkit-combat', 'creature-hushram-follower', 'creature-voltkit-follower']);
+  const atlasAssets = assets.filter(a => !separatelySourced.has(a.name));
+  assert.equal(metadata.assets.length, atlasAssets.length);
+  assert.deepEqual(metadata.assets.map(a => a.name).toSorted(), atlasAssets.map(a => a.name).toSorted());
 
   const sheets = new Map();
   for (const [name, dimensions] of Object.entries(metadata.sheets)) {
@@ -218,7 +231,19 @@ test('editable source atlases cover every runtime sprite and export the exact ma
     if (source.kind === 'prop') assert.deepEqual(source.exportProfile, {id: 'prop-static-v1', settingsSha256: propProfileSha256}, source.name);
     assert.ok(sheets.has(source.sheet), `${source.name} source sheet exists`);
     assert.ok(source.provenance.editablePixelSource, source.name);
-    for (const ref of source.provenance.originalGeneratedReferences) assert.ok(readFileSync(new URL(`../../${ref}`, sourceRoot)), ref);
+    for (const ref of source.provenance.originalGeneratedReferences) {
+      let generated;
+      try {
+        generated = readFileSync(new URL(`../../${ref}`, sourceRoot));
+      } catch {
+        const archived = sourceArchive.sources[ref];
+        assert.ok(archived, `${ref} is retained directly or in the generated-source archive`);
+        generated = Buffer.concat(archived.parts.map(part => readFileSync(new URL(`../../${part}`, sourceRoot))));
+        assert.equal(generated.length, archived.bytes, ref);
+        assert.equal(createHash('sha256').update(generated).digest('hex'), archived.sha256, ref);
+      }
+      assert.ok(generated.length, ref);
+    }
     if (asset.frames) {
       assert.equal(source.frames.columns, asset.frames.columns, source.name);
       assert.equal(source.frames.rows, asset.frames.rows, source.name);
@@ -230,7 +255,8 @@ test('editable source atlases cover every runtime sprite and export the exact ma
     const {x, y} = source.cell;
     assert.ok(x >= 0 && y >= 0 && x + source.width <= sheet.width && y + source.height <= sheet.height, source.name);
     const runtime = decodePng(readFileSync(new URL(asset.src, new URL('../dist/', import.meta.url))));
-    assert.equal(runtime.color, 6, asset.name);
+    assert.ok([3, 6].includes(runtime.color), `${asset.name} uses a supported RGBA or indexed PNG`);
+    assert.equal(runtime.channels, 4, asset.name);
     for (let row = 0; row < source.height; row++) {
       const sheetStart = (y + row) * sheet.stride + x * 4;
       const runtimeStart = row * runtime.stride;
@@ -297,7 +323,9 @@ test('the real sprites decode as tightly cropped RGBA', () => {
   const dist = new URL('../dist/', import.meta.url);
   for (const a of assets) {
     const im = decodePng(readFileSync(new URL(a.src, dist)));
-    assert.equal(im.color, 6, a.name);
+    assert.ok([3, 6].includes(im.color), `${a.name} uses a supported RGBA/indexed PNG`);
+    assert.equal(im.channels, 4, `${a.name} expands to RGBA pixels`);
+    assert.equal(im.transparent, true, `${a.name} has a real transparent palette/channel`);
     if (a.frames) {
       for (let row = 0; row < a.frames.rows; row++) {
         for (let column = 0; column < a.frames.columns; column++) {

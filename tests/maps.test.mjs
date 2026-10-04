@@ -369,3 +369,20 @@ test('malformed map collection fields return contextual validation errors rather
     }
   }
 });
+
+test('the orchard keeps its original island and grows into a large map with a long gate to Amber Ridge (#51)', () => {
+  const raw = rawMaps();
+  const orchardMap = orchard(raw);
+  const walkable = m => m.terrain.join('').replace(/[.w]/g, '').length;
+  assert.ok(walkable(orchardMap) >= 4 * 365, 'several times the original ~365 walkable tiles');
+  // the original island keeps its coordinates, so saves and the hidden cut-through still point at the right places
+  assert.deepEqual(orchardMap.spawns.camp, [3, 12]);
+  assert.equal(orchardMap.triggers[0].id, 'hidden-cut-through');
+  assert.deepEqual(orchardMap.triggers[0].at, [13, 15]);
+  const gate = orchardMap.exits.find(e => e.to.map === 'amber-ridge');
+  assert.equal(gate.requires, 'meadow.seal');
+  assert.ok(gate.at[0] > 50, 'the gate to Amber Ridge is at the far east end');
+  assert.ok(Math.hypot(orchardMap.spawns['ridge-return'][0] - gate.at[0], orchardMap.spawns['ridge-return'][1] - gate.at[1]) < 4);
+  assert.ok(orchardMap.landmarks.filter(l => l.secret).length >= 2 && orchardMap.quiet.length >= 3);
+  assert.ok(orchardMap.triggers.length >= 2 && orchardMap.zones.length >= 3);
+});
