@@ -569,6 +569,8 @@ if (debug) {
       phase: game.phase,
       modalMode: ui.modalMode,
       now: ui.now,
+      followerMotion: renderer.followerMotion,
+      trail: game.trail,
       world: game.world,
       zoom: ui.zoom,
     }),

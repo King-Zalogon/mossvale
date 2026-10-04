@@ -48,19 +48,26 @@ test('screen-space input selects each of the eight sprite rows', () => {
 });
 
 test('follower facing is derived from its own world-space path, including diagonals and stationary idle', () => {
+  const worldDirections = [
+    [-1, -1],
+    [0, -1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
+    [0, 1],
+    [-1, 1],
+    [-1, 0],
+    [-1, -1],
+  ];
+  const expected = [FACING.north, FACING.northeast, FACING.east, FACING.southeast, FACING.south, FACING.southwest, FACING.west, FACING.northwest, FACING.north];
   assert.deepEqual(
-    [
-      movementFacing(-1, -1),
-      movementFacing(0, -1),
-      movementFacing(1, -1),
-      movementFacing(1, 0),
-      movementFacing(1, 1),
-      movementFacing(0, 1),
-      movementFacing(-1, 1),
-      movementFacing(-1, 0),
-      movementFacing(-1, -1),
-    ],
-    [FACING.north, FACING.northeast, FACING.east, FACING.southeast, FACING.south, FACING.southwest, FACING.west, FACING.northwest, FACING.north],
+    worldDirections.map(([x, y]) => movementFacing(x, y)),
+    expected,
+  );
+  // Trail samples are only 0.1 world units apart. Small real follower steps must not fall under facing's input dead zone.
+  assert.deepEqual(
+    worldDirections.map(([x, y]) => movementFacing(x * 0.1, y * 0.1)),
+    expected,
   );
   assert.equal(movementFacing(0, 0), null);
 });
