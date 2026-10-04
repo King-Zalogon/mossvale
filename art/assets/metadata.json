@@ -26,7 +26,7 @@
     },
     "source/creature-combat-atlas.png": {
       "width": 2320,
-      "height": 4352,
+      "height": 10112,
       "mode": "RGBA"
     },
     "source/creature-follower-atlas.png": {
@@ -1170,6 +1170,166 @@
       "exportProfile": {
         "id": "prop-static-v1",
         "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "creature-pebblit-combat",
+      "src": "assets/creatures/creature-pebblit-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1184,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 4352,
+        "width": 1184,
+        "height": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-pebblit-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-bramblebuck-combat",
+      "src": "assets/creatures/creature-bramblebuck-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 5792,
+        "width": 1152,
+        "height": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-bramblebuck-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-siltkip-combat",
+      "src": "assets/creatures/creature-siltkip-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 7232,
+        "width": 1152,
+        "height": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-siltkip-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-sunskitter-combat",
+      "src": "assets/creatures/creature-sunskitter-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1312,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 8672,
+        "width": 1312,
+        "height": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sunskitter-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
       }
     }
   ]

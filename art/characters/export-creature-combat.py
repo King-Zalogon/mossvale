@@ -10,12 +10,18 @@ from source_archive import source_bytes
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 PROFILE_ID = "creature-combat-v1"
 SPECS = {
+    "emberkin": {"source": "art/characters/source/creature-emberkin-combat-generated.png", "target": "dist/assets/creatures/creature-emberkin-combat.png"},
+    "voltkit": {"source": "art/characters/source/creature-voltkit-combat-generated.png", "target": "dist/assets/creatures/creature-voltkit-combat.png"},
     "fernling": {"source": "art/characters/source/creature-fernling-combat-generated.png", "target": "dist/assets/creatures/creature-fernling-combat.png"},
     "duskwing": {"source": "art/characters/source/creature-duskwing-combat-generated.png", "target": "dist/assets/creatures/creature-duskwing-combat.png"},
     "brooklet": {"source": "art/characters/source/creature-brooklet-combat-generated.png", "target": "dist/assets/creatures/creature-brooklet-combat.png"},
     "hushram": {"source": "art/characters/source/creature-hushram-combat-generated.png", "target": "dist/assets/creatures/creature-hushram-combat.png"},
     "mushmallow": {"source": "art/characters/source/creature-mushmallow-combat-generated.png", "target": "dist/assets/creatures/creature-mushmallow-combat.png"},
     "frostowl": {"source": "art/characters/source/creature-frostowl-combat-generated.png", "target": "dist/assets/creatures/creature-frostowl-combat.png"},
+    "pebblit": {"source": "art/characters/source/creature-pebblit-combat-generated.png", "target": "dist/assets/creatures/creature-pebblit-combat.png"},
+    "bramblebuck": {"source": "art/characters/source/creature-bramblebuck-combat-generated.png", "target": "dist/assets/creatures/creature-bramblebuck-combat.png"},
+    "siltkip": {"source": "art/characters/source/creature-siltkip-combat-generated.png", "target": "dist/assets/creatures/creature-siltkip-combat.png"},
+    "sunskitter": {"source": "art/characters/source/creature-sunskitter-combat-generated.png", "target": "dist/assets/creatures/creature-sunskitter-combat.png"},
 }
 
 

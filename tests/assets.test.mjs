@@ -96,6 +96,10 @@ test('sample visual subjects have hashed canonical references, exports and linke
       'creature-voltkit',
       'creature-mushmallow',
       'creature-frostowl',
+      'creature-pebblit',
+      'creature-bramblebuck',
+      'creature-siltkip',
+      'creature-sunskitter',
     ],
   );
   const player = registry.subjects[0];
@@ -120,6 +124,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
   }
   const followers = registry.subjects.filter(subject => subject.runtimeFollower);
   assert.deepEqual(followers.map(subject => subject.id).toSorted(), [
+    'creature-bramblebuck',
     'creature-brooklet',
     'creature-duskwing',
     'creature-emberkin',
@@ -127,6 +132,9 @@ test('sample visual subjects have hashed canonical references, exports and linke
     'creature-frostowl',
     'creature-hushram',
     'creature-mushmallow',
+    'creature-pebblit',
+    'creature-siltkip',
+    'creature-sunskitter',
     'creature-voltkit',
   ]);
   for (const creature of followers) {
@@ -224,6 +232,10 @@ test('editable portrait and prop atlases cover their runtime sprites and export 
     'creature-voltkit-follower',
     'creature-mushmallow-follower',
     'creature-frostowl-follower',
+    'creature-pebblit-follower',
+    'creature-bramblebuck-follower',
+    'creature-siltkip-follower',
+    'creature-sunskitter-follower',
   ]);
   const atlasAssets = assets.filter(a => !separatelySourced.has(a.name));
   assert.equal(metadata.assets.length, atlasAssets.length);
