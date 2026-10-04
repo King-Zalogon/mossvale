@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[2]
 DIRECTIONS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
-SPECIES = ["emberkin", "fernling", "duskwing", "brooklet", "hushram", "voltkit", "mushmallow", "frostowl"]
+SPECIES = ["emberkin", "fernling", "duskwing", "brooklet", "hushram", "voltkit", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter"]
 ROW_ORDER = {
     "emberkin": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
     "fernling": DIRECTIONS,
@@ -15,6 +15,10 @@ ROW_ORDER = {
     "voltkit": DIRECTIONS,
     "mushmallow": DIRECTIONS,
     "frostowl": DIRECTIONS,
+    "pebblit": DIRECTIONS,
+    "bramblebuck": DIRECTIONS,
+    "siltkip": DIRECTIONS,
+    "sunskitter": DIRECTIONS,
 }
 FRAMES = ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
 CELL, SIZE, GAP, LABEL = 200, 37, 8, 90
@@ -22,7 +26,7 @@ PANEL_W = LABEL + len(FRAMES) * (SIZE + GAP) + GAP
 PANEL_H = 38 + len(DIRECTIONS) * (SIZE + GAP) + GAP
 MARGIN, SPACE = 24, 24
 WIDTH = MARGIN * 2 + PANEL_W * 4 + SPACE * 3
-HEIGHT = MARGIN * 2 + PANEL_H * 2 + SPACE
+HEIGHT = MARGIN * 2 + PANEL_H * 3 + SPACE * 2
 
 def font(size):
     candidate = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")

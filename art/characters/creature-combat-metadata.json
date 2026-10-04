@@ -65,6 +65,34 @@
       ],
       "originalSha256": "741b4e0f0c1e7ec9e8fcee08ef20db610f2ae49edca68ae20270217e69171d21",
       "originalBytes": 2713085
+    },
+    "pebblit": {
+      "generatedSource": "art/characters/source/creature-pebblit-combat-generated.png",
+      "referenceAsset": "creature-pebblit",
+      "promptBrief": "Preserve Pebblit's canonical species silhouette, markings and palette; transparent 4-column by 5-row combat atlas with idle, attack, hit, faint and capture actions in stable bottom-center anchored cells.",
+      "originalSha256": "45395e6bd0b424de0c49988b53bdab396107058aedaa6dde9bfb2e0d14d0f622",
+      "originalBytes": 2517681
+    },
+    "bramblebuck": {
+      "generatedSource": "art/characters/source/creature-bramblebuck-combat-generated.png",
+      "referenceAsset": "creature-bramblebuck",
+      "promptBrief": "Preserve Bramblebuck's canonical species silhouette, markings and palette; transparent 4-column by 5-row combat atlas with idle, attack, hit, faint and capture actions in stable bottom-center anchored cells.",
+      "originalSha256": "c938445fcc7d47a1bd7d86473db5c97085c7e61e010fbb30642539a0576b1d0b",
+      "originalBytes": 2355886
+    },
+    "siltkip": {
+      "generatedSource": "art/characters/source/creature-siltkip-combat-generated.png",
+      "referenceAsset": "creature-siltkip",
+      "promptBrief": "Preserve Siltkip's canonical species silhouette, markings and palette; transparent 4-column by 5-row combat atlas with idle, attack, hit, faint and capture actions in stable bottom-center anchored cells.",
+      "originalSha256": "352352b9c8ff73d8ed029885ebd364590542d1cefeb1b636a5cf27a926a60f3e",
+      "originalBytes": 2660646
+    },
+    "sunskitter": {
+      "generatedSource": "art/characters/source/creature-sunskitter-combat-generated.png",
+      "referenceAsset": "creature-sunskitter",
+      "promptBrief": "Preserve Sunskitter's canonical species silhouette, markings and palette; transparent 4-column by 5-row combat atlas with idle, attack, hit, faint and capture actions in stable bottom-center anchored cells.",
+      "originalSha256": "10333be09a3db8daaca27f3b1bf3435390dad79feebdc4f548871f2bbe77e852",
+      "originalBytes": 2249854
     }
   },
   "frameOrder": [
@@ -189,6 +217,62 @@
       "rows": 5,
       "frame": [
         288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-pebblit-combat": {
+      "sourceSize": [
+        1182,
+        1330
+      ],
+      "output": "dist/assets/creatures/creature-pebblit-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        296,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-bramblebuck-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-bramblebuck-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-siltkip-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-siltkip-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-sunskitter-combat": {
+      "sourceSize": [
+        1312,
+        1199
+      ],
+      "output": "dist/assets/creatures/creature-sunskitter-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        328,
         288
       ],
       "anchor": "bottom-center"

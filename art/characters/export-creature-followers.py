@@ -51,6 +51,24 @@ SPECS = {
         "source": "art/characters/source/creature-frostowl-follower-generated.png",
         "target": "dist/assets/creatures/creature-frostowl-follower.png",
     },
+    "pebblit": {
+        "source": "art/characters/source/creature-pebblit-follower-generated.png",
+        "target": "dist/assets/creatures/creature-pebblit-follower.png",
+    },
+    "bramblebuck": {
+        "source": "art/characters/source/creature-bramblebuck-follower-generated.png",
+        "target": "dist/assets/creatures/creature-bramblebuck-follower.png",
+        "rowAlphaThreshold": 128,
+    },
+    "siltkip": {
+        "source": "art/characters/source/creature-siltkip-follower-generated.png",
+        "target": "dist/assets/creatures/creature-siltkip-follower.png",
+        "rowAlphaThreshold": 128,
+    },
+    "sunskitter": {
+        "source": "art/characters/source/creature-sunskitter-follower-generated.png",
+        "target": "dist/assets/creatures/creature-sunskitter-follower.png",
+    },
 }
 
 
@@ -120,7 +138,7 @@ def build(source_path, frame_size, content_size, foot_y, alpha_threshold, minimu
     with Image.open(BytesIO(source_data)) as opened:
         source = opened.convert("RGBA")
     columns, rows = 5, 8
-    xs, ys = bounds(source.width, columns), generated_row_bounds(source, alpha_threshold, rows)
+    xs, ys = bounds(source.width, columns), generated_row_bounds(source, spec.get("rowAlphaThreshold", alpha_threshold), rows)
     source_rows = spec.get("sourceRows", list(range(rows)))
     if len(source_rows) != rows or sorted(source_rows) != list(range(rows)):
         raise ValueError(f"{source_path}: sourceRows must map each source row exactly once")

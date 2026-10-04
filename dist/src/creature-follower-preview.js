@@ -8,6 +8,10 @@ const ROWS = {
   voltkit: DIRECTIONS,
   mushmallow: DIRECTIONS,
   frostowl: DIRECTIONS,
+  pebblit: DIRECTIONS,
+  bramblebuck: DIRECTIONS,
+  siltkip: DIRECTIONS,
+  sunskitter: DIRECTIONS,
 };
 const VECTORS = [
   [-1, -1],
@@ -30,6 +34,10 @@ const sources = {
   voltkit: load('../assets/creatures/creature-voltkit-follower.png'),
   mushmallow: load('../assets/creatures/creature-mushmallow-follower.png'),
   frostowl: load('../assets/creatures/creature-frostowl-follower.png'),
+  pebblit: load('../assets/creatures/creature-pebblit-follower.png'),
+  bramblebuck: load('../assets/creatures/creature-bramblebuck-follower.png'),
+  siltkip: load('../assets/creatures/creature-siltkip-follower.png'),
+  sunskitter: load('../assets/creatures/creature-sunskitter-follower.png'),
   portrait: {
     emberkin: load('../assets/creatures/creature-emberkin.png'),
     fernling: load('../assets/creatures/creature-fernling.png'),
@@ -39,6 +47,10 @@ const sources = {
     voltkit: load('../assets/creatures/creature-voltkit.png'),
     mushmallow: load('../assets/creatures/creature-mushmallow.png'),
     frostowl: load('../assets/creatures/creature-frostowl.png'),
+    pebblit: load('../assets/creatures/creature-pebblit.png'),
+    bramblebuck: load('../assets/creatures/creature-bramblebuck.png'),
+    siltkip: load('../assets/creatures/creature-siltkip.png'),
+    sunskitter: load('../assets/creatures/creature-sunskitter.png'),
   },
   tree: load('../assets/props/tree-oak.png'),
 };

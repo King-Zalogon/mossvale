@@ -35,12 +35,18 @@
         "rows": 5
       },
       "frameSizes": {
+        "emberkin": [288, 288],
+        "voltkit": [288, 288],
         "fernling": [288, 288],
         "duskwing": [281, 281],
         "brooklet": [288, 288],
         "hushram": [288, 288],
         "mushmallow": [288, 288],
-        "frostowl": [288, 288]
+        "frostowl": [288, 288],
+        "pebblit": [296, 288],
+        "bramblebuck": [288, 288],
+        "siltkip": [288, 288],
+        "sunskitter": [328, 288]
       },
       "resampling": "none",
       "alphaThreshold": 8,
@@ -61,7 +67,7 @@
     },
     "creature-follower-v1": {
       "category": "creature-follower",
-      "status": "implemented-third-batch",
+      "status": "implemented-fourth-batch",
       "sourceGrid": {
         "columns": 5,
         "rows": 8
@@ -73,7 +79,7 @@
       "minimumComponentPixels": 180,
       "footY": 196,
       "palette": "preserve exact generated source bytes; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
-      "remaining": "Four species remain without follower atlases.",
+      "remaining": "All twelve roster species have follower atlases; visual owner review remains separate.",
       "indexedOutput": {
         "species": ["hushram", "voltkit", "mushmallow", "frostowl"],
         "colors": 256,
