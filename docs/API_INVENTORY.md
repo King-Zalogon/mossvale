@@ -47,7 +47,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
 | `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
 | `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `directionPose`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
-| `domain/inventory.js` | domain | `buyInventory`, `claimInventory`, `commitInventory`, `createInventory`, `deposit`, `gatherInventory`, `inventoryToSupplies`, `moveInventory`, `rollDrop`, `sellInventory`, `suppliesToInventory`, `useInventory`, `validateInventoryRules`, `withdraw` |
+| `domain/inventory.js` | domain | `buyInventory`, `claimInventory`, `commitInventory`, `createInventory`, `deposit`, `gatherInventory`, `inventoryToSupplies`, `moveInventory`, `rollDrop`, `sellInventory`, `suppliesToInventory`, `syncInventorySupplies`, `useInventory`, `validateInventoryRules`, `withdraw` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
 | `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents`, `validateObjectiveState` |
 | `domain/objectives.js` | domain | `OBJECTIVES_FORMAT`, `collectFlags`, `currentObjective`, `holds`, `pickLine`, `validateLines`, `validateObjectives` |

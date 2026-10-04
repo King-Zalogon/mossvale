@@ -16,7 +16,7 @@ export function packFileEntries(raw) {
     const directory = typeof raw.mapDirectory === 'string' && /^[a-z0-9-]+\/$/.test(raw.mapDirectory) ? raw.mapDirectory : '';
     for (const id of raw.maps) files.push({id: `map:${id}`, path: `${directory}${id}.json`});
   }
-  for (const key of ['objectives', 'story'])
+  for (const key of ['objectives', 'story', 'inventory'])
     if (typeof raw?.[key] === 'string' && /^[a-z0-9-]+\.json$/.test(raw[key])) files.push({id: `${key}:main`, path: raw[key]});
   return files;
 }
@@ -89,7 +89,7 @@ export function validatePack(raw, {packId, speciesIds}) {
     at('registries', 'must name a JSON file in the pack folder');
   if (raw.mapDirectory !== undefined && (typeof raw.mapDirectory !== 'string' || !/^[a-z0-9-]+\/$/.test(raw.mapDirectory)))
     at('mapDirectory', 'must be a relative folder name ending with /');
-  for (const key of ['objectives', 'story'])
+  for (const key of ['objectives', 'story', 'inventory'])
     if (raw[key] !== undefined && (typeof raw[key] !== 'string' || !/^[a-z0-9-]+\.json$/.test(raw[key]))) at(key, 'must name a JSON file in the pack folder');
   if (!Array.isArray(raw.maps) || !raw.maps.length || !raw.maps.every(id => typeof id === 'string' && ID.test(id))) at('maps', 'a non-empty list of map ids');
   else if (new Set(raw.maps).size !== raw.maps.length) at('maps', 'duplicate map id');

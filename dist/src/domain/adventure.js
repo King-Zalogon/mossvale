@@ -4,6 +4,7 @@ import {expandMapPrefabs} from './prefabs.js';
 import {collectFlags, validateObjectives} from './objectives.js';
 import {validateStory} from './story.js';
 import {validatePack} from './pack.js';
+import {validateInventoryRules} from './inventory.js';
 import {biomes} from '../data/biomes.js';
 
 /**
@@ -12,10 +13,11 @@ import {biomes} from '../data/biomes.js';
  * @param {object} [rawObjectives] parsed objectives.json
  * @param {object} [rawStory] parsed story.json
  * @param {object} [rawPack] parsed maps/index.json: the adventure pack manifest (docs/PACKS.md)
+ * @param {object} [inventoryRules] pack-owned optional item rules
  * @param {{assets:{name:string}[], species:{id:string}[], regions:{id:string}[], packId?:string}} content
  * @returns {{maps: object[], mapsById: object, errors: string[]}} `maps[i]` is the region hub; mapsById also includes side maps.
  */
-export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawObjectives, rawStory, rawPack) {
+export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawObjectives, rawStory, rawPack, inventoryRules) {
   const spriteNames = new Set(assets.map(a => a.name));
   const speciesIds = new Set(species.map(s => s.id));
   const biomeIds = new Set(biomes.map(b => b.id));
@@ -39,6 +41,8 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
     errors.push(...validateObjectives(rawObjectives, {mapIds: new Set(maps.map(m => m?.id))}));
   }
   if (rawStory !== undefined) errors.push(...validateStory(rawStory, {mapIds: new Set(maps.map(m => m?.id))}));
+  if (rawPack?.inventory && inventoryRules === undefined) errors.push('pack inventory: the selected inventory rules file was not loaded');
+  if (inventoryRules !== undefined) errors.push(...validateInventoryRules(inventoryRules).map(error => `inventory ${error}`));
   if (rawPack !== undefined) {
     errors.push(...validatePack(rawPack, {packId, speciesIds}));
     if (Array.isArray(rawPack?.maps)) {

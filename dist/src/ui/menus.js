@@ -168,13 +168,52 @@ export function createMenus(app) {
     if (game.battle) return;
     const s = save();
     open(
-      `${header('RANGER STATION', 'A moment with ' + name)}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free: your team is healed and your bag is topped up to ${REST_FLOOR.orbs} orbs and ${REST_FLOOR.potions} potion.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">1 · Rest your team</button>${SHOP.map((o, i) => `<button data-buy="${o.id}" ${canBuy(s, o) ? '' : 'disabled'}>${i + 2} · ${o.label} · ${o.price} coins</button>`).join('')}</div><p class="dialog-note">Potions restore ${POTION_HEAL} HP during battle. Coins only buy extras: you can always rest for free. Use 1–3 to choose, Tab then Enter to activate, or Esc to return.</p>`,
+      `${header('RANGER STATION', 'A moment with ' + name)}<div class="ranger-body"><canvas id="ranger-art" width="90" height="135"></canvas><div><p>${message}</p><p>Rest here for free: your team is healed and your bag is topped up to ${REST_FLOOR.orbs} orbs and ${REST_FLOOR.potions} potion.</p><div class="item-counts"><span>● ${s.coins} coins</span><span>✚ ${s.potions} potions</span><span>◉ ${s.orbs} orbs</span></div></div></div><div class="ranger-actions"><button class="primary" id="rest-team">1 · Rest your team</button>${SHOP.map((o, i) => `<button data-buy="${o.id}" ${canBuy(s, o) ? '' : 'disabled'}>${i + 2} · ${o.label} · ${o.price} coins</button>`).join('')}</div>${app.inventoryRules ? '<button id="open-inventory" class="muted-button">Bag & ranger’s stash</button>' : ''}<p class="dialog-note">Potions restore ${POTION_HEAL} HP during battle. Coins only buy extras: you can always rest for free. Use 1–3 to choose, Tab then Enter to activate, or Esc to return.</p>`,
       'ranger',
       name,
     );
     drawSprite($('#ranger-art').getContext('2d'), sprite, 45, 130, 65);
     $('#rest-team').onclick = () => actions.rest();
     for (const b of document.querySelectorAll('[data-buy]')) b.onclick = () => actions.buy(b.dataset.buy);
+    if ($('#open-inventory')) $('#open-inventory').onclick = () => inventory();
+    wireClose();
+  }
+
+  function inventory() {
+    if (!app.inventoryRules || !save().inventory || game.battle) return;
+    const rules = app.inventoryRules;
+    const inventory = save().inventory;
+    const bagRows =
+      Object.entries(inventory.bag)
+        .map(([id, quantity]) => {
+          const item = rules.items[id];
+          if (!item) return '';
+          return `<div class="item-counts"><span>${esc(item.name)} · ${quantity}</span><button data-stash="${esc(id)}">Store one</button>${item.kind === 'valuable' ? `<button data-sell="${esc(id)}">Sell one · ${item.sellPrice} coins</button>` : ''}</div>`;
+        })
+        .join('') || '<p>Your bag is empty.</p>';
+    const storageRows =
+      Object.entries(inventory.storage)
+        .map(([id, quantity]) => {
+          const item = rules.items[id];
+          return item ? `<div class="item-counts"><span>${esc(item.name)} · ${quantity}</span><button data-withdraw="${esc(id)}">Take one</button></div>` : '';
+        })
+        .join('') || '<p>The ranger’s stash is empty.</p>';
+    const shopRows = Object.entries(rules.items)
+      .filter(([, item]) => item.kind === 'usable' && item.price > 0 && item.buyable !== false)
+      .map(
+        ([id, item]) =>
+          `<button data-pack-buy="${esc(id)}" ${inventory.coins < item.price || Object.values(inventory.bag).reduce((total, count) => total + count, 0) >= rules.carryCap ? 'disabled' : ''}>Buy ${esc(item.name)} · ${item.price} coins</button>`,
+      )
+      .join('');
+    open(
+      `${header('YOUR SUPPLIES', 'Bag & ranger’s stash')}<p>Coins · ${inventory.coins} · Carry ${Object.values(inventory.bag).reduce((total, count) => total + count, 0)} / ${rules.carryCap}</p><h3 class="party-heading">Bag</h3>${bagRows}<h3 class="party-heading">Ranger’s stash · ${Object.values(inventory.storage).reduce((total, count) => total + count, 0)} / ${rules.storageCap}</h3>${storageRows}${shopRows ? `<h3 class="party-heading">Pack shop</h3><div class="ranger-actions">${shopRows}</div>` : ''}`,
+      'ranger',
+      'Bag and stash',
+    );
+    for (const button of document.querySelectorAll('[data-stash]')) button.onclick = () => actions.movePackItem(button.dataset.stash, 'bag');
+    for (const button of document.querySelectorAll('[data-withdraw]')) button.onclick = () => actions.movePackItem(button.dataset.withdraw, 'storage');
+    for (const button of document.querySelectorAll('[data-sell]')) button.onclick = () => actions.sellPackItem(button.dataset.sell);
+    for (const button of document.querySelectorAll('[data-pack-buy]')) button.onclick = () => actions.buyPackItem(button.dataset.packBuy);
     wireClose();
   }
 
@@ -352,5 +391,5 @@ export function createMenus(app) {
     render();
   }
 
-  return {story, mainMenu, worldMap, journal, party, ranger, shrine, result, help, saveNotice};
+  return {story, mainMenu, worldMap, journal, party, ranger, inventory, shrine, result, help, saveNotice};
 }

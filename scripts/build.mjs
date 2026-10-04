@@ -95,7 +95,7 @@ function copyPack(root, index, destination) {
   };
   copyPackFile('index.json');
   copyPackFile(index.registries ?? 'registries.json');
-  for (const name of ['objectives', 'story']) if (index[name]) copyPackFile(index[name]);
+  for (const name of ['objectives', 'story', 'inventory']) if (index[name]) copyPackFile(index[name]);
   const mapDir = index.mapDirectory ?? '';
   for (const id of index.maps) copyPackFile(join(mapDir, id + '.json'));
 }

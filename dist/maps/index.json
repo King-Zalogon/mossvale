@@ -22,11 +22,12 @@
   "ending": "story",
   "objectives": "objectives.json",
   "story": "story.json",
+  "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 1,
+  "contentVersion": 2,
   "requires": {
     "engineVersion": 1,
-    "saveSchema": 4
+    "saveSchema": 5
   },
   "integrity": [
     {
@@ -83,6 +84,11 @@
       "id": "story:main",
       "path": "story.json",
       "sha256": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927"
+    },
+    {
+      "id": "inventory:main",
+      "path": "inventory.json",
+      "sha256": "a49b85797e882745725bb24f79f31ac82eca79d7bfe52ee7fa5fd987b6ef434f"
     }
   ]
 }

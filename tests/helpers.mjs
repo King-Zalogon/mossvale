@@ -13,9 +13,10 @@ export const rawMaps = () => read('index.json').maps.map(id => read(id + '.json'
 export const rawPack = () => read('index.json');
 export const rawStory = () => read(read('index.json').story);
 export const rawObjectives = () => read(read('index.json').objectives);
+export const rawInventoryRules = () => (read('index.json').inventory ? read(read('index.json').inventory) : undefined);
 export const content = {assets, species, regions};
 export const packContent = {...content, packId: PACK_ID};
-export const adventure = buildAdventure(rawMaps(), packContent, rawObjectives(), rawStory(), rawPack());
+export const adventure = buildAdventure(rawMaps(), packContent, rawObjectives(), rawStory(), rawPack(), rawInventoryRules());
 export const maps = adventure.maps;
 export const mapsById = adventure.mapsById;
 export const objectives = adventure.objectives;
@@ -31,5 +32,5 @@ export const mapBounds = Object.fromEntries(
     },
   ]),
 );
-export const codec = create({species, regions, size: 64, bounds: mapBounds, pack: PACK_ID});
+export const codec = create({species, regions, size: 64, bounds: mapBounds, pack: PACK_ID, inventoryRules: rawInventoryRules()});
 export const newSave = () => codec.fresh();

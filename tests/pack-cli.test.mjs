@@ -20,7 +20,7 @@ test('pack CLI scaffolds, extends, validates and previews a data-only pack in pa
     assert.match(run('validate-pack', pack), /2 map\(s\), 2 species/);
     const index = JSON.parse(readFileSync(join(pack, 'index.json'), 'utf8'));
     assert.deepEqual(index.maps, ['start', 'orchard']);
-    assert.deepEqual(index.requires, {engineVersion: 1, saveSchema: 4});
+    assert.deepEqual(index.requires, {engineVersion: 1, saveSchema: 5});
     assert.deepEqual(
       index.integrity.map(file => file.id),
       ['registry:main', 'map:start', 'map:orchard'],

@@ -1,14 +1,16 @@
 /* Writes the runtime save through the save codec. Storage is injected so it can be faked in tests. */
 import {recoverSaveTransaction} from '../save.js';
 import {battleCheckpoint} from '../domain/battle.js';
+import {syncInventorySupplies} from '../domain/inventory.js';
 
-export function createPersistence({storage, codec, game, writable, onStatus, onEvent}) {
+export function createPersistence({storage, codec, game, writable, onStatus, onEvent, inventoryRules}) {
   let locked = false;
   const persist = function () {
     if (locked) return false;
     game.save.x = game.player.x;
     game.save.y = game.player.y;
     game.save.battle = battleCheckpoint(game.battle);
+    syncInventorySupplies(game.save, inventoryRules);
     if (!writable) {
       onStatus('session-only');
       onEvent?.('save.write', {status: 'session-only'});

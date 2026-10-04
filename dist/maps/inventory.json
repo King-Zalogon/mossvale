@@ -1,0 +1,26 @@
+{
+  "format": 1,
+  "carryCap": 198,
+  "storageCap": 198,
+  "items": {
+    "potion": {
+      "name": "Potion",
+      "kind": "usable",
+      "price": 10,
+      "effect": {"type": "heal-percent", "percent": 35}
+    },
+    "orb": {
+      "name": "Capture orb",
+      "kind": "usable",
+      "price": 3,
+      "effect": {"type": "none"}
+    },
+    "moss-pearl": {
+      "name": "Moss pearl",
+      "kind": "valuable",
+      "price": 0,
+      "sellPrice": 7
+    }
+  },
+  "supplies": {"potions": "potion", "orbs": "orb"}
+}
