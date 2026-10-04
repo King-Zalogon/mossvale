@@ -1,4 +1,4 @@
-// Visual frame preview plus in-battle state wiring for the first two animated creatures (#85).
+// Visual frame preview plus in-battle state wiring for the combat-art batches (#85).
 import {chromium} from 'playwright';
 import http from 'node:http';
 import {existsSync, readFileSync} from 'node:fs';
@@ -25,12 +25,21 @@ try {
   await page.goto(`http://localhost:${server.address().port}/creature-combat-preview.html`);
   await page.waitForFunction(
     () =>
-      document.querySelectorAll('.creature canvas').length === 80 &&
+      document.querySelectorAll('.creature canvas').length === 160 &&
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
         [...canvas.getContext('2d').getImageData(0, 0, 160, 160).data].some((value, index) => index % 4 === 3 && value > 0),
       ),
   );
-  assert.deepEqual(await page.locator('.creature h2').allTextContents(), ['Fernling', 'Duskwing', 'Brooklet', 'Hushram']);
+  assert.deepEqual(await page.locator('.creature h2').allTextContents(), [
+    'Fernling',
+    'Emberkin',
+    'Duskwing',
+    'Brooklet',
+    'Hushram',
+    'Voltkit',
+    'Mushmallow',
+    'Frostowl',
+  ]);
   assert.equal(await page.locator('.reference img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), true);
   assert.deepEqual(
     await page.evaluate(() =>
@@ -40,9 +49,9 @@ try {
         return counts;
       }, {}),
     ),
-    {idle: 16, attack: 16, hit: 16, faint: 16, capture: 16},
+    {idle: 32, attack: 32, hit: 32, faint: 32, capture: 32},
   );
-  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 20}, () => ['1', '2', '3', '4']).flat());
+  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 40}, () => ['1', '2', '3', '4']).flat());
   assert.equal(
     await page.evaluate(() =>
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
@@ -59,10 +68,10 @@ try {
   battle.on('pageerror', error => errors.push(error.message));
   await battle.goto(`http://localhost:${server.address().port}/?debug&seed=3`);
   await battle.waitForSelector('#loading', {state: 'hidden'});
-  const brooklet = species.findIndex(entry => entry.id === 'brooklet');
-  const hushram = species.findIndex(entry => entry.id === 'hushram');
-  assert.notEqual(brooklet, -1);
-  assert.notEqual(hushram, -1);
+  const mushmallow = species.findIndex(entry => entry.id === 'mushmallow');
+  const frostowl = species.findIndex(entry => entry.id === 'frostowl');
+  assert.notEqual(mushmallow, -1);
+  assert.notEqual(frostowl, -1);
   await battle.evaluate(
     ({starter, foe}) => {
       const save = window.mossvale.getState().save;
@@ -72,7 +81,7 @@ try {
       save.team = {[starter]: {xp: 0, hp: 100}};
       window.mossvale.encounter(foe);
     },
-    {starter: brooklet, foe: hushram},
+    {starter: mushmallow, foe: frostowl},
   );
   await battle.waitForSelector('#fight-wild');
   assert.equal(await battle.locator('#fight-buddy').getAttribute('data-combat-state'), 'idle');

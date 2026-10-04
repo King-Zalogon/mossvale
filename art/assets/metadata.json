@@ -26,7 +26,7 @@
     },
     "source/creature-combat-atlas.png": {
       "width": 2320,
-      "height": 2896,
+      "height": 4352,
       "mode": "RGBA"
     },
     "source/creature-follower-atlas.png": {
@@ -212,12 +212,25 @@
       "frames": {
         "columns": 4,
         "rows": 5,
-        "columnOrder": [0, 1, 2, 3],
-        "rowOrder": ["idle", "attack", "hit", "faint", "capture"]
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": ["art/characters/source/creature-brooklet-combat-generated.png"],
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-brooklet-combat-generated.png"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -237,12 +250,29 @@
       "frames": {
         "columns": 5,
         "rows": 8,
-        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-        "rowOrder": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"]
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northwest",
+          "west",
+          "southwest",
+          "south",
+          "southeast",
+          "east",
+          "northeast"
+        ]
       },
       "provenance": {
         "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
-        "originalGeneratedReferences": ["art/characters/source/creature-brooklet-follower-generated.png"],
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-brooklet-follower-generated.png"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -282,12 +312,25 @@
       "frames": {
         "columns": 4,
         "rows": 5,
-        "columnOrder": [0, 1, 2, 3],
-        "rowOrder": ["idle", "attack", "hit", "faint", "capture"]
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": ["art/characters/source/creature-duskwing-combat-generated.png"],
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-duskwing-combat-generated.png"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -307,12 +350,29 @@
       "frames": {
         "columns": 5,
         "rows": 8,
-        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
       },
       "provenance": {
         "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
-        "originalGeneratedReferences": ["art/characters/source/creature-duskwing-follower-generated.png"],
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-duskwing-follower-generated.png"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -352,8 +412,23 @@
       "frames": {
         "columns": 5,
         "rows": 8,
-        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-        "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"]
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "south",
+          "southwest",
+          "east",
+          "northeast",
+          "north",
+          "west",
+          "northwest",
+          "southeast"
+        ]
       },
       "provenance": {
         "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
@@ -400,12 +475,25 @@
       "frames": {
         "columns": 4,
         "rows": 5,
-        "columnOrder": [0, 1, 2, 3],
-        "rowOrder": ["idle", "attack", "hit", "faint", "capture"]
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": ["art/characters/source/creature-fernling-combat-generated.png"],
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-fernling-combat-generated.png"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -425,8 +513,23 @@
       "frames": {
         "columns": 5,
         "rows": 8,
-        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
       },
       "provenance": {
         "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
@@ -455,6 +558,44 @@
         "editablePixelSource": "art/assets/source atlas cell",
         "originalGeneratedReferences": [],
         "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-frostowl-combat",
+      "src": "assets/creatures/creature-frostowl-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 1168,
+        "y": 2912
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-frostowl-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
       }
     },
     {
@@ -493,12 +634,25 @@
       "frames": {
         "columns": 4,
         "rows": 5,
-        "columnOrder": [0, 1, 2, 3],
-        "rowOrder": ["idle", "attack", "hit", "faint", "capture"]
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": ["art/characters/source/creature-hushram-combat-generated.png"],
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-hushram-combat-generated.png"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -520,6 +674,44 @@
         "editablePixelSource": "art/assets/source atlas cell",
         "originalGeneratedReferences": [],
         "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-mushmallow-combat",
+      "src": "assets/creatures/creature-mushmallow-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 2912
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-mushmallow-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
       }
     },
     {
@@ -664,11 +856,18 @@
         "rows": 1,
         "frameWidth": 160,
         "frameHeight": 256,
-        "columnOrder": ["north", "east", "south", "west"]
+        "columnOrder": [
+          "north",
+          "east",
+          "south",
+          "west"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/assets/source atlas cell",
-        "originalGeneratedReferences": ["art/characters/SOURCES.md"],
+        "originalGeneratedReferences": [
+          "art/characters/SOURCES.md"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -710,12 +909,29 @@
         "rows": 8,
         "frameWidth": 160,
         "frameHeight": 256,
-        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-        "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/assets/source atlas cell",
-        "originalGeneratedReferences": ["art/characters/SOURCES.md"],
+        "originalGeneratedReferences": [
+          "art/characters/SOURCES.md"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },
@@ -797,11 +1013,18 @@
         "rows": 1,
         "frameWidth": 160,
         "frameHeight": 256,
-        "columnOrder": ["north", "east", "south", "west"]
+        "columnOrder": [
+          "north",
+          "east",
+          "south",
+          "west"
+        ]
       },
       "provenance": {
         "editablePixelSource": "art/assets/source atlas cell",
-        "originalGeneratedReferences": ["art/characters/SOURCES.md"],
+        "originalGeneratedReferences": [
+          "art/characters/SOURCES.md"
+        ],
         "originalGenerationSourceAvailable": true
       }
     },

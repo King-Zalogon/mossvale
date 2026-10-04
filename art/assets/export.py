@@ -69,7 +69,7 @@ FRAMES = {
             "columnOrder": [0, 1, 2, 3],
             "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
         }
-        for name in ["fernling", "brooklet", "hushram"]
+        for name in ["fernling", "brooklet", "hushram", "mushmallow", "frostowl"]
     },
     "creature-duskwing-combat": {
         "columns": 4,
@@ -89,6 +89,8 @@ GENERATED_SOURCES = {
     "creature-duskwing-combat": ["art/characters/source/creature-duskwing-combat-generated.png"],
     "creature-brooklet-combat": ["art/characters/source/creature-brooklet-combat-generated.png"],
     "creature-hushram-combat": ["art/characters/source/creature-hushram-combat-generated.png"],
+    "creature-mushmallow-combat": ["art/characters/source/creature-mushmallow-combat-generated.png"],
+    "creature-frostowl-combat": ["art/characters/source/creature-frostowl-combat-generated.png"],
 }
 
 
@@ -96,8 +98,7 @@ def list_assets() -> list[dict]:
     entries = []
     for path in sorted(ASSET_ROOT.glob("*/*.png")):
         with Image.open(path) as source:
-            if source.mode != "RGBA":
-                raise ValueError(f"{path.relative_to(ROOT)} is {source.mode}; expected RGBA")
+            source = source.convert("RGBA")
             width, height = source.size
         name = path.stem
         generated = GENERATED_SOURCES.get(name, [])
@@ -192,7 +193,8 @@ def export(check_only: bool = False) -> None:
         same_pixels = False
         if destination.exists():
             with Image.open(destination) as current:
-                same_pixels = current.mode == "RGBA" and current.size == crop.size and current.tobytes() == crop.tobytes()
+                current = current.convert("RGBA")
+                same_pixels = current.size == crop.size and current.tobytes() == crop.tobytes()
         if check_only and not same_pixels:
             raise ValueError(f"{item['name']} differs from its source atlas cell; run export.py to update dist")
         prepared.append((item, destination, crop, same_pixels))
