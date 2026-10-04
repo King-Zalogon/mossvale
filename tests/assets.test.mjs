@@ -190,17 +190,15 @@ test('content refers to art by name: species, directions and the manifest agree'
   assert.throws(() => spriteId('no-such-sprite'), /unknown asset/);
 });
 
-test('editable portrait and prop atlases cover their runtime sprites and export exact manifest crops', () => {
+test('editable source atlases cover every runtime sprite and export the exact manifest crops', () => {
   const sourceRoot = new URL('../art/assets/', import.meta.url);
   const metadata = JSON.parse(readFileSync(new URL('metadata.json', sourceRoot), 'utf8'));
   const profiles = JSON.parse(readFileSync(new URL('../characters/export-profiles.json', sourceRoot), 'utf8')).profiles;
   const propProfileSha256 = createHash('sha256').update(JSON.stringify(profiles['prop-static-v1'])).digest('hex');
   assert.equal(metadata.pixelPreserving, true);
   assert.equal(metadata.anchor, 'bottom-center');
-  const separatelySourced = new Set(['creature-emberkin-combat', 'creature-voltkit-combat', 'creature-hushram-follower', 'creature-voltkit-follower']);
-  const atlasAssets = assets.filter(a => !separatelySourced.has(a.name));
-  assert.equal(metadata.assets.length, atlasAssets.length);
-  assert.deepEqual(metadata.assets.map(a => a.name).toSorted(), atlasAssets.map(a => a.name).toSorted());
+  assert.equal(metadata.assets.length, assets.length);
+  assert.deepEqual(metadata.assets.map(a => a.name).toSorted(), assets.map(a => a.name).toSorted());
 
   const sheets = new Map();
   for (const [name, dimensions] of Object.entries(metadata.sheets)) {
