@@ -45,6 +45,7 @@ const {mapsById, errors} = buildAdventure(
   index.objectives ? read(index.objectives) : undefined,
   index.story ? read(index.story) : undefined,
   index,
+  index.inventory ? read(index.inventory) : undefined,
 );
 const catalog = parseCatalog(JSON.parse(readFileSync(new URL('../dist/adventures.json', import.meta.url), 'utf8')));
 errors.push(...catalog.errors);

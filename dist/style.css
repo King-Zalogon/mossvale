@@ -2212,6 +2212,7 @@ body.text-larger .heading {
   }
   .interaction {
     top: 12px;
+    bottom: auto;
     max-width: calc(100% - 100px);
   }
 }
@@ -2373,4 +2374,9 @@ body.text-larger .heading {
 #feedback-count,
 #feedback-note {
   font-size: 0.9em;
+}
+
+.viewport.speech-open .toast,
+.viewport.speech-open .interaction {
+  display: none;
 }

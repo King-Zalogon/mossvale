@@ -3,6 +3,7 @@ import {$} from './dom.js';
 /** Small accessible, reusable comic bubble queue. Coordinates are relative to the game viewport. */
 export function createSpeech({ui, canvas, onEvent = () => {}}) {
   const bubble = $('#speech-bubble');
+  bubble.tabIndex = 0;
   const text = $('#speech-text');
   const speaker = $('#speech-speaker');
   const next = $('#speech-next');
@@ -37,6 +38,7 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
     speaker.textContent = line.name || (line.speaker === 'player' ? 'You' : 'A voice');
     next.textContent = index === lines.length - 1 ? 'Done' : 'Next';
     next.setAttribute('aria-label', index === lines.length - 1 ? 'Finish conversation' : 'Continue conversation');
+    next.focus({preventScroll: true});
   };
   next.onclick = () => {
     if (index + 1 >= lines.length) close(true);

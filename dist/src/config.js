@@ -6,7 +6,7 @@ export let XP_PER_LEVEL = 45;
 export let BASE_LEVEL = 5;
 
 // Growth (issue #25). Tune here; rules.js and the save codec derive everything from these.
-export let MAX_LEVEL = 15; // bounded: the strongest planned enemy is level 11
+export let MAX_LEVEL = 15; // shrine guardians can rise to the current party's average level
 export let MAX_XP = (MAX_LEVEL - BASE_LEVEL) * XP_PER_LEVEL; // xp is stored as a running total and clamped to this
 export let MOVE_UPGRADE_LEVEL = 10; // elemental move grows stronger at this level
 export let ELEMENT_POWER = 16;

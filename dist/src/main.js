@@ -120,10 +120,12 @@ const app = {
   mapsById: {},
   objectives: [],
   story: undefined,
+  inventoryRules: undefined,
   skipPremise: (debug && !params.has('premise')) || !!editorPreviewId, // tests start in play; add &premise to see the opening card
   objCtx: {speciesCount: species.length, regions},
   audio: createAudio(),
   settings,
+  dashboardUrl: window.MOSSVALE_CONFIG?.dashboardUrl ?? '',
   build: null,
   buildLabel: () => describeBuild(app.build),
   motionReduced: () => settings.motion === 'reduced' || motionQuery.matches,
@@ -329,7 +331,7 @@ async function boot() {
       app.adventures.list = parsed.adventures;
       app.adventures.current = entry;
       app.adventures.note = note;
-      const {maps: rawMaps, objectives: rawObjectives, story: rawStory, registries, pack: rawPack} = await fetchAdventure(entry.path);
+      const {maps: rawMaps, objectives: rawObjectives, story: rawStory, inventoryRules, registries, pack: rawPack} = await fetchAdventure(entry.path);
       if (rawCatalog === null && rawPack.id !== entry.id) {
         // No catalog (a build from before the chooser): whatever pack is in maps/ is the one adventure.
         Object.assign(entry, {id: rawPack.id, name: rawPack.name ?? entry.name, brief: rawPack.brief ?? ''});
@@ -359,7 +361,16 @@ async function boot() {
           ]),
         ),
       );
-      codec = save.create({species, regions, size: MAX_MAP_SIZE, bounds: mapBounds, pack: rawPack.id, contentVersion: rawPack.contentVersion ?? 1});
+      app.inventoryRules = inventoryRules;
+      codec = save.create({
+        species,
+        regions,
+        size: MAX_MAP_SIZE,
+        bounds: mapBounds,
+        pack: rawPack.id,
+        contentVersion: rawPack.contentVersion ?? 1,
+        inventoryRules,
+      });
       if (editorPreviewMap) {
         const region = rawMaps.findIndex(map => map.id === editorPreviewId);
         const fresh = codec.fresh();
@@ -385,6 +396,7 @@ async function boot() {
         codec,
         game,
         writable: loaded.writable,
+        inventoryRules,
         onStatus: renderSaveStatus,
         onEvent: (type, data) => eventLog.emit(type, data),
       });
@@ -395,6 +407,7 @@ async function boot() {
         rawObjectives,
         rawStory,
         rawPack,
+        inventoryRules,
       );
       if (errors.length) {
         showLoadError('The adventure data is invalid.', errors.slice(0, 5).join(' · '));

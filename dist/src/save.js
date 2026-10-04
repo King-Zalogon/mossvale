@@ -1,12 +1,13 @@
-/* Mossvale save codec: validation, v1-v3 -> v4 migration, quarantine and checkpoints.
+/* Mossvale save codec: validation, v1-v4 -> v5 migration, quarantine and checkpoints.
    Pure functions over a Storage-like object so it can be tested without a browser.
    In memory the game keeps species/region *indexes*; on disk it stores stable string IDs. */
 import {CAPS} from './data/economy.js';
 import {TACTICS} from './data/tactics.js';
 import {decodeEntry, encodeEntry} from './domain/discovery.js';
+import {inventoryToSupplies, suppliesToInventory, validateInventoryRules} from './domain/inventory.js';
 import {FOCUS_MAX, FOCUS_START, MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
-const VERSION = 4;
+const VERSION = 5;
 const LEGACY_PACK = 'mossvale';
 const KEYS = {
   v3: 'mossvale-v3',
@@ -112,7 +113,9 @@ export function commitSaveTransaction(storage, changes, keys = KEYS) {
   }
 }
 
-function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pack = LEGACY_PACK, contentVersion = 1}) {
+function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pack = LEGACY_PACK, contentVersion = 1, inventoryRules}) {
+  if (inventoryRules && validateInventoryRules(inventoryRules).length)
+    throw new Error(`Invalid inventory rules: ${validateInventoryRules(inventoryRules).join(' · ')}`);
   const keys = keysFor(pack);
   const speciesIndex = id => species.findIndex(s => s.id === id);
   const regionIndex = id => regions.findIndex(r => r.id === id);
@@ -121,7 +124,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
 
   function fresh(rng = () => 0) {
     const starter = Math.min(species.length - 1, Math.max(0, Math.floor(rng() * species.length)));
-    return {
+    const save = {
       version: VERSION,
       region: 0,
       mapId: regions[0].id,
@@ -136,6 +139,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       team: {[starter]: {xp: 0, hp: baseHP(starter)}},
       badges: [],
       chests: [],
+      mapFlags: [],
       visited: [0],
       visitedMaps: [regions[0].id],
       met: false,
@@ -151,6 +155,42 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       party: [starter],
       ...(pack === LEGACY_PACK ? {} : {contentVersion}),
     };
+    if (inventoryRules) {
+      save.inventory = suppliesToInventory(save, inventoryRules);
+      Object.assign(save, inventoryToSupplies(save.inventory, save, inventoryRules));
+    }
+    return save;
+  }
+
+  function normalizeInventory(raw, supplies) {
+    if (!inventoryRules) return raw === undefined ? undefined : null;
+    if (raw === undefined) return suppliesToInventory(supplies, inventoryRules);
+    if (!isObj(raw) || !isObj(raw.bag) || !isObj(raw.storage) || !Number.isInteger(raw.coins) || raw.coins < 0 || raw.coins > MAX_COUNT) return null;
+    const supplyItems = new Set(Object.values(inventoryRules.supplies ?? {}));
+    const counts = (source, limit, ignored = new Set()) => {
+      let total = 0;
+      const result = {};
+      for (const [id, quantity] of Object.entries(source)) {
+        if (ignored.has(id)) continue;
+        if (!inventoryRules.items[id] || !Number.isInteger(quantity) || quantity < 1 || quantity > MAX_COUNT) return null;
+        total += quantity;
+        if (total > limit) return null;
+        result[id] = quantity;
+      }
+      return result;
+    };
+    const bag = counts(raw.bag, inventoryRules.carryCap, supplyItems);
+    const storage = counts(raw.storage, inventoryRules.storageCap);
+    if (!bag || !storage) return null;
+    let room = inventoryRules.carryCap - Object.values(bag).reduce((total, quantity) => total + quantity, 0);
+    for (const [field, item] of Object.entries(inventoryRules.supplies ?? {})) {
+      const quantity = Math.min(supplies[field] ?? 0, room);
+      if (quantity > 0) bag[item] = quantity;
+      room -= quantity;
+    }
+    const claimEntries = isObj(raw.claimed) ? Object.entries(raw.claimed) : [];
+    if (claimEntries.length > 256 || claimEntries.some(([key, value]) => !/^[a-z0-9-]+(?:\/[a-z0-9-]+)?$/.test(key) || value !== true)) return null;
+    return {bag, storage, coins: raw.coins, claimed: Object.fromEntries(claimEntries)};
   }
 
   /**
@@ -159,6 +199,13 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
    */
   function contentIssue(raw) {
     if (!isObj(raw)) return null;
+    if (raw.inventory !== undefined && !inventoryRules)
+      return 'This save contains pack inventory, but the installed adventure does not provide its item rules.';
+    if (raw.inventory !== undefined && inventoryRules) {
+      const itemIds = [...Object.keys(raw.inventory?.bag ?? {}), ...Object.keys(raw.inventory?.storage ?? {})];
+      const missingItem = itemIds.find(id => !inventoryRules.items[id]);
+      if (missingItem) return `This save contains item ID "${missingItem}", which the installed adventure no longer defines.`;
+    }
     if (raw.contentVersion !== undefined && (!Number.isInteger(raw.contentVersion) || raw.contentVersion < 1))
       return 'The save has an invalid adventure content version.';
     const savedContentVersion = raw.contentVersion ?? 1;
@@ -191,6 +238,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     const issue =
       missingRegion(raw.region) ||
       missingMap(raw.mapId) ||
+      (Array.isArray(raw.mapFlags) ? raw.mapFlags.map(flag => (typeof flag === 'string' ? missingMap(flag.split('.')[0]) : null)).find(Boolean) : null) ||
       missingSpecies(raw.active) ||
       unsupported(raw.visited, id => (regionIds.has(id) ? 1 : -1), 'visited region') ||
       unsupported(raw.badges, id => (regionIds.has(id) ? 1 : -1), 'region') ||
@@ -218,6 +266,14 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     s.seen = [...new Set([...refs(raw.seen, species, speciesIndex), ...s.caught])];
     s.badges = refs(raw.badges, regions, regionIndex);
     s.chests = refs(raw.chests, regions, regionIndex);
+    const mapIds = new Set([...regions.map(r => r.id), ...Object.keys(bounds)]);
+    s.mapFlags = [
+      ...new Set(
+        (Array.isArray(raw.mapFlags) ? raw.mapFlags : []).filter(
+          flag => typeof flag === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/.test(flag) && mapIds.has(flag.split('.')[0]),
+        ),
+      ),
+    ].slice(0, 256);
     s.visited = [...new Set([0, ...refs(raw.visited, regions, regionIndex)])];
     s.team = {};
     const rawTeam = isObj(raw.team) ? raw.team : {};
@@ -238,8 +294,10 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       ['orbs', 12],
       ['potions', 3],
       ['coins', 0],
-    ])
-      s[key] = Math.floor(num(raw[key], 0, CAPS[key], def));
+    ]) {
+      const packLimit = inventoryRules && raw.inventory !== undefined && (key === 'orbs' || key === 'potions') ? inventoryRules.carryCap : CAPS[key];
+      s[key] = Math.floor(num(raw[key], 0, packLimit, def));
+    }
     s.wins = Math.floor(num(raw.wins, 0, MAX_COUNT, 0));
     s.playTime = num(raw.playTime, 0, MAX_TIME, 0);
     s.met = raw.met === true;
@@ -269,6 +327,13 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     const knownMapIds = new Set([...regions.map(r => r.id), ...Object.keys(bounds)]);
     const visitedMapIds = Array.isArray(raw.visitedMaps) ? raw.visitedMaps.filter(id => typeof id === 'string' && MAP_ID.test(id) && knownMapIds.has(id)) : [];
     s.visitedMaps = [...new Set([...s.visited.map(i => regions[i].id), ...visitedMapIds, s.mapId])];
+    if (inventoryRules) {
+      const inventory = normalizeInventory(raw.inventory, s);
+      if (!inventory) return null;
+      s.inventory = inventory;
+      s.inventory.coins = s.coins;
+      for (const [field, item] of Object.entries(inventoryRules.supplies ?? {})) s[field] = inventory.bag[item] ?? 0;
+    }
     const map = bounds[s.mapId] ?? bounds[regions[s.region].id] ?? {w: size, h: size, spawn};
     s.x = num(raw.x, 0, map.w - 1, map.spawn?.x ?? spawn.x);
     s.y = num(raw.y, 0, map.h - 1, map.spawn?.y ?? spawn.y);
@@ -299,7 +364,17 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
   function fromV1(old) {
     if (!isObj(old)) return null;
     const wins = Math.floor(num(old.wins, 0, MAX_COUNT, 0));
-    return {seen: old.seen, caught: old.caught, orbs: old.orbs, wins, met: old.met, active: 0, team: {0: {xp: wins * 14, hp: old.hp}}};
+    return {
+      seen: old.seen,
+      caught: old.caught,
+      orbs: old.orbs,
+      potions: old.potions,
+      coins: old.coins,
+      wins,
+      met: old.met,
+      active: 0,
+      team: {0: {xp: wins * 14, hp: old.hp}},
+    };
   }
 
   function exploredField(save) {
@@ -316,6 +391,14 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       rid = i => regions[i].id;
     const team = {};
     for (const idx of save.caught) team[sid(idx)] = {xp: save.team[idx].xp, hp: save.team[idx].hp};
+    const inventory = save.inventory && inventoryRules ? structuredClone(save.inventory) : undefined;
+    if (inventory) {
+      inventory.coins = save.coins;
+      for (const [field, item] of Object.entries(inventoryRules.supplies ?? {})) {
+        if (save[field] > 0) inventory.bag[item] = save[field];
+        else delete inventory.bag[item];
+      }
+    }
     return JSON.stringify({
       version: VERSION,
       region: rid(save.region),
@@ -326,11 +409,13 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       orbs: save.orbs,
       potions: save.potions,
       coins: save.coins,
+      ...(inventory ? {inventory} : {}),
       seen: save.seen.map(sid),
       caught: save.caught.map(sid),
       team,
       badges: save.badges.map(rid),
       chests: save.chests.map(rid),
+      ...(save.mapFlags?.length ? {mapFlags: save.mapFlags} : {}),
       visited: save.visited.map(rid),
       visitedMaps: save.visitedMaps,
       met: save.met,
@@ -464,7 +549,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
             ? isObj(parsed) && parsed.version === 2
               ? normalize(parsed, true)
               : null
-            : (schema === 3 || schema === VERSION) && isObj(parsed) && parsed.version === schema
+            : (schema === 3 || schema === 4 || schema === VERSION) && isObj(parsed) && parsed.version === schema
               ? normalize(parsed, false)
               : null;
       if (!save) {

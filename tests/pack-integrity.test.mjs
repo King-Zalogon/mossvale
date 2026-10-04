@@ -26,6 +26,7 @@ test('the shipped pack declares one canonical SHA-256 for every selected data fi
       'map:stone-basin',
       'objectives:main',
       'story:main',
+      'inventory:main',
     ],
   );
   assert.deepEqual(validatePackMetadata(rawPack, {required: true}), []);
@@ -77,6 +78,7 @@ test('a missing pack file reports its canonical identity and supports a fresh re
     const loaded = await fetchAdventure('mock/');
     assert.equal(loaded.maps.length, rawPack.maps.length);
     assert.equal(loaded.pack.id, rawPack.id);
+    assert.ok(loaded.inventoryRules.items.potion);
   } finally {
     globalThis.fetch = originalFetch;
   }

@@ -34,7 +34,7 @@ test('older v3 fixture migrates with every saved field intact and defaults to it
   const r = load(KEYS.v3, raw);
   assert.equal(r.status, 'migrated');
   const resaved = JSON.parse(codec.serialize(r.save));
-  assert.equal(resaved.version, 4);
+  assert.equal(resaved.version, 5);
   for (const [key, value] of Object.entries(JSON.parse(raw))) if (key !== 'version') assert.deepEqual(resaved[key], value, key);
   assert.equal(r.save.mapId, 'amber-ridge');
   assert.deepEqual([r.save.party, r.save.goal, r.save.badges, r.save.playTime], [[3, 0, 1], 'amber-seal', [0], 2400]);
@@ -44,19 +44,20 @@ test('latest v3 fixture migrates without changing its location or progress', () 
   const raw = fixture('v3-latest');
   const r = load(KEYS.v3, raw);
   assert.equal(r.status, 'migrated');
-  assert.equal(JSON.parse(codec.serialize(r.save)).version, 4);
+  assert.equal(JSON.parse(codec.serialize(r.save)).version, 5);
   assert.equal(r.save.mapId, 'amber-ridge');
   assert.deepEqual(r.save.visitedMaps, ['meadow', 'amber-ridge', 'frostveil-grove']);
   assert.deepEqual([r.save.hints, r.save.completed, r.save.goal], [['premise', 'capture'], true, 'keeper']);
 });
 
-test('v4 fixture preserves a side-map location and map visits byte for byte', () => {
+test('v4 fixture migrates its side-map location and supplies into v5 inventory', () => {
   const raw = fixture('v4-orchard');
   const r = load(KEYS.v3, raw);
-  assert.equal(r.status, 'ok');
+  assert.equal(r.status, 'migrated');
   assert.equal(r.save.mapId, 'orchard-ruins');
   assert.deepEqual(r.save.visitedMaps, ['meadow', 'orchard-ruins']);
-  assert.equal(codec.serialize(r.save), raw);
+  assert.deepEqual(r.save.inventory.bag, {orb: r.save.orbs, potion: r.save.potions});
+  assert.equal(JSON.parse(codec.serialize(r.save)).version, 5);
 });
 
 test('an interrupted v3 transaction is recovered with the existing journal keys, then migrates', () => {
@@ -73,7 +74,7 @@ test('an interrupted v3 transaction is recovered with the existing journal keys,
   assert.equal(r.save.mapId, 'amber-ridge');
   assert.equal(values.has(KEYS.transaction), false);
   assert.equal(values.get(KEYS.v3), raw, 'the recovery journal still synchronizes the existing save key');
-  assert.equal(JSON.parse(codec.serialize(r.save)).version, 4);
+  assert.equal(JSON.parse(codec.serialize(r.save)).version, 5);
 });
 
 test('a save written by the original build (commit 8fc2c7b, played through its own UI) migrates faithfully', () => {

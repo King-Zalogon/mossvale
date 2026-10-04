@@ -11,7 +11,7 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
   "format": 1,
   "id": "mossvale", // saves record it; never changes
   "contentVersion": 1, // raise when saved identities or progress semantics change
-  "requires": { "engineVersion": 1, "saveSchema": 4 },
+  "requires": { "engineVersion": 1, "saveSchema": 5 },
   "name": "Mossvale",
   "brief": "Three islands, eight friends and a seal at every shrine.",
   "maps": ["meadow", "amber-ridge", "frostveil-grove"], // the map files, dist/maps/<id>.json
@@ -22,6 +22,7 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
   "ending": "story", // the ending is the one in the story file
   "objectives": "objectives.json",
   "story": "story.json",
+  "inventory": "inventory.json", // optional item/shop/stash rules
   "integrity": [
     { "id": "registry:main", "path": "registries.json", "sha256": "…64 lowercase hex characters…" },
     { "id": "map:meadow", "path": "meadow.json", "sha256": "…64 lowercase hex characters…" }
@@ -29,6 +30,8 @@ Issue [#50](https://github.com/King-Zalogon/mossvale/issues/50). An **adventure 
   "prefabs": { "waystation": { "footprint": {"w": 5, "h": 4}, "slots": [] } } // optional; see PREFABS.md
 }
 ```
+
+An optional `inventory` file adds pack-owned item definitions, supply mappings, bag/stash capacities and prices. It is included in the same integrity check. Packs without the field do not get an inventory panel or a new save field. When a pack adopts inventory, v1-v4 saves carry their existing coins, potions and orbs into the configured bag on the first v5 save; the original save key and recovery journal remain unchanged.
 
 | Part of the issue | Where it lives |
 | --- | --- |
@@ -60,7 +63,7 @@ Progress flags stay `<map-id>.seal` and `<map-id>.chest`, unique inside a pack. 
 
 ## Pack integrity and save compatibility
 
-The `integrity` list has exactly one entry for each selected registry, map, objective file and story file. Its canonical IDs (`registry:main`, `map:<map-id>`, `objectives:main`, and `story:main`) stay stable if a file is moved; `path` is the pack-relative filename and `sha256` hashes its exact bytes. The browser checks the engine and save schema requirements, then verifies every file before it reads or updates a save. A missing file, mixed build, hash mismatch, or unsupported requirement leaves saves alone and shows a retryable startup error. These hashes catch accidental mixing or corruption; they are not signatures and do not establish who published a pack.
+The `integrity` list has exactly one entry for each selected registry, map, objective, story and optional inventory file. Its canonical IDs (`registry:main`, `map:<map-id>`, `objectives:main`, `story:main` and `inventory:main`) stay stable if a file is moved; `path` is the pack-relative filename and `sha256` hashes its exact bytes. The browser checks the engine and save schema requirements, then verifies every file before it reads or updates a save. A missing file, mixed build, hash mismatch, or unsupported requirement leaves saves alone and shows a retryable startup error. These hashes catch accidental mixing or corruption; they are not signatures and do not establish who published a pack.
 
 `contentVersion` starts at 1 and is increased by the pack maintainer when a change affects saved identities or progression semantics. Compatible updates keep stable map, region, and species IDs, so added content and presentation changes can load existing progress and its checkpoint. If an update removes or renames an ID already used by an older save, the game stops writes, leaves both copies untouched, and offers an unmodified save export. Restore the matching complete earlier build to keep playing; never reuse a retired ID for different meaning. Engine or save-schema requirements must match this game exactly. A future schema change needs an explicit save migration before the new engine ships.
 

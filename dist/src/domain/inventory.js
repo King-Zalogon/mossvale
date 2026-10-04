@@ -18,7 +18,7 @@ export function validateInventoryRules(rules) {
       errors.push(`items.${id}.sellPrice: valuables need a non-negative integer sell price`);
   }
   for (const field of ['carryCap', 'storageCap'])
-    if (!Number.isInteger(rules?.[field]) || rules[field] < 0 || rules[field] > 999) errors.push(`${field}: must be an integer from 0 to 999`);
+    if (!Number.isInteger(rules?.[field]) || rules[field] < 0 || rules[field] > 9999) errors.push(`${field}: must be an integer from 0 to 9999`);
   for (const [table, entries] of Object.entries(rules.drops ?? {})) {
     if (!Array.isArray(entries) || !entries.length) errors.push(`drops.${table}: a non-empty list of drops is required`);
     else
@@ -163,4 +163,15 @@ export function inventoryToSupplies(state, save, rules) {
   const out = {...save, coins: state.coins};
   for (const [field, item] of Object.entries(rules?.supplies ?? {})) out[field] = state.bag[item] ?? 0;
   return out;
+}
+
+/** Mirrors legacy supply counters into the optional bag before every save write. */
+export function syncInventorySupplies(save, rules) {
+  if (!save?.inventory || !rules?.supplies) return save;
+  save.inventory.coins = save.coins;
+  for (const [field, item] of Object.entries(rules.supplies)) {
+    if (save[field] > 0) save.inventory.bag[item] = save[field];
+    else delete save.inventory.bag[item];
+  }
+  return save;
 }

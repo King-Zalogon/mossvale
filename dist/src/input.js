@@ -36,10 +36,15 @@ export function installInput(app) {
     if (!ui.ready) return;
     const k = e.key.toLowerCase();
     if (ui.speechActive) {
-      e.preventDefault();
-      if (['enter', ' ', 'e'].includes(k)) actions.advanceSpeech();
-      else if (k === 'escape') actions.dismissSpeech();
-      return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (k === 'tab') {
+        e.preventDefault();
+        (document.activeElement === $('#speech-next') ? $('#speech-bubble') : $('#speech-next')).focus({preventScroll: true});
+      } else if (['enter', ' ', 'e', 'escape'].includes(k)) {
+        e.preventDefault();
+        if (!e.repeat) k === 'escape' ? actions.dismissSpeech() : actions.advanceSpeech();
+      }
+      return; // other keys can scroll the focused reading region without moving the player
     }
     if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(k) && !ui.modalMode) e.preventDefault();
     if (ui.modalMode) {

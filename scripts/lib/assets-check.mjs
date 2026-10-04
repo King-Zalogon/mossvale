@@ -49,8 +49,8 @@ export function checkAssets(assets, distDir, {referenceText = null} = {}) {
       continue;
     }
     if (im.width !== a.w || im.height !== a.h) errors.push(`${where}: is ${im.width}x${im.height}, manifest says ${a.w}x${a.h}`);
-    if (im.color !== 6) {
-      errors.push(`${where}: must be 8-bit RGBA (colour type 6) so it has real transparency, got type ${im.color}`);
+    if (im.channels !== 4 || !im.transparent || ![3, 6].includes(im.color)) {
+      errors.push(`${where}: must be an 8-bit transparent RGBA or indexed PNG, got colour type ${im.color}`);
       continue;
     }
     if (a.frames) {
@@ -102,7 +102,7 @@ export function checkAssets(assets, distDir, {referenceText = null} = {}) {
 }
 
 function frameBounds(im, x0, y0, width, height) {
-  if (im.color !== 6) return null;
+  if (im.channels !== 4) return null;
   let minX = width;
   let minY = height;
   let maxX = -1;

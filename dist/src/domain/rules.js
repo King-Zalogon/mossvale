@@ -25,6 +25,7 @@ export const companion = (save, id = save.active) => save.team[id];
 export function flagDone(save, flag) {
   const [regionId, kind] = flag.split('.');
   const i = regions.findIndex(r => r.id === regionId);
+  if (i < 0) return save.mapFlags?.includes(flag) === true;
   return kind === 'seal' ? save.badges.includes(i) : save.chests.includes(i);
 }
 
@@ -34,6 +35,10 @@ export function setFlag(save, flag) {
   const i = regions.findIndex(r => r.id === regionId);
   const list = kind === 'seal' ? save.badges : save.chests;
   if (i >= 0 && !list.includes(i)) list.push(i);
+  else if (i < 0 && /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/.test(flag)) {
+    save.mapFlags ??= [];
+    if (!save.mapFlags.includes(flag)) save.mapFlags.push(flag);
+  }
 }
 
 export const unlocked = (save, regionId) => regionId === 0 || save.badges.includes(regionId - 1);
