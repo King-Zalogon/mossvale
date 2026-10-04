@@ -7,7 +7,7 @@ function browserClient() {
   return createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 }
 
-export default function AccessPanel({signedIn, canAccess, message}) {
+export default function AccessPanel({signedIn, canAccess, isOwner, message}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState(message);
@@ -54,6 +54,11 @@ export default function AccessPanel({signedIn, canAccess, message}) {
         <button className="primary" disabled={busy} onClick={launch}>
           {busy ? 'Opening…' : 'Open Mossvale'}
         </button>
+        {isOwner && (
+          <a className="secondary link-button" href="/mcp-access">
+            Manage AI feedback access
+          </a>
+        )}
         <button className="secondary" disabled={busy} onClick={signOut}>
           Sign out
         </button>
