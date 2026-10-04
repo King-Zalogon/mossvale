@@ -3,78 +3,146 @@
   "id": "verdant-crossing-family",
   "name": "Verdant crossing",
   "seed": 71,
-  "size": {"w": 13, "h": 9},
-  "tile": {"w": 28, "h": 14, "anchor": "bottom-center"},
+  "size": {
+    "w": 32,
+    "h": 20
+  },
+  "tile": {
+    "w": 28,
+    "h": 14,
+    "anchor": [14, 7]
+  },
   "grid": [
-    "ggggggggggggg",
-    "gggwwwwgggggg",
-    "gggwwwwgggggg",
-    "ppppwwppppppp",
-    "gggwwwwpppggg",
-    "gggwwwwgpgggg",
-    "ggggggggpgggg",
-    "ggggggggpgggg",
-    "ggggggggggggg"
+    "gggggggggggggggggggggggggggggggg",
+    "gggggggggggggggwwggggggggggggggg",
+    "ggwwwwgggggggggwwggggggggggggggg",
+    "ggwwwwgggggggggwwggggggggggggggg",
+    "ggwwwwgggggggggwwgggggpggggggggg",
+    "ggggggggpggggggwwgggggpggggggggg",
+    "ggggggggpggggggwwgggggpggggggggg",
+    "ggggggggpggggggwwgggggpggggggggg",
+    "ggggggggpggggggwwgggggpggggggggg",
+    "gggppppppppppppwwppppppppppppggg",
+    "ggggggggpggggggwwggggggggggggggg",
+    "ggggggggpggggggwwggggggggggggggg",
+    "ggggggggpggggggwwggggggggggggggg",
+    "ggggggggpggggggwwggggggggwwwwwgg",
+    "ggggggggpggggggwwggggggggwwwwwgg",
+    "ggggggggpggggggwwggggggggwwwwwgg",
+    "ggggggggpppppggwwggggggggwwwwwgg",
+    "gggggggggggggggwwggggggggwwwwwgg",
+    "gggggggggggggggwwggggggggggggggg",
+    "gggggggggggggggggggggggggggggggg"
   ],
   "surfaces": {
-    "g": {"name": "Meadow grass", "fill": "#789f5c", "edge": "#496f43", "walkable": true},
-    "p": {"name": "Packed path", "fill": "#c8a66a", "edge": "#8c6945", "walkable": true},
-    "w": {"name": "Shallow water", "fill": "#4c9ca0", "edge": "#2d696f", "walkable": false}
+    "g": {
+      "name": "Meadow grass",
+      "fill": "#789f5c",
+      "kind": "land",
+      "walkable": true
+    },
+    "t": {
+      "name": "Tall grass",
+      "fill": "#6d9656",
+      "kind": "land",
+      "walkable": true
+    },
+    "p": {
+      "name": "Packed path",
+      "fill": "#c8a66a",
+      "kind": "land",
+      "walkable": true
+    },
+    "w": {
+      "name": "Shallow water",
+      "fill": "#4c9ca0",
+      "kind": "water",
+      "walkable": false
+    }
   },
   "recipes": {
-    "g-0": {"surface": "g", "detail": "grass-tuft"},
-    "g-1": {"surface": "g", "detail": "clover"},
-    "g-bank-corner-0": {"surface": "g", "detail": "bank-corner"},
-    "g-bank-corner-1": {"surface": "g", "detail": "reeds"},
-    "p-0": {"surface": "p", "detail": "path-grain"},
-    "p-1": {"surface": "p", "detail": "small-pebbles"},
-    "p-bend-corner-0": {"surface": "p", "detail": "cut-corner"},
-    "p-bend-corner-1": {"surface": "p", "detail": "worn-corner"},
-    "w-0": {"surface": "w", "detail": "ripple"},
-    "w-1": {"surface": "w", "detail": "bubble"},
-    "bridge-0": {"surface": "bridge", "detail": "reed-planks"},
-    "bridge-1": {"surface": "bridge", "detail": "weathered-planks"}
+    "g-0": {
+      "surface": "g",
+      "source": "meadow-grass-a",
+      "detail": "grass-tuft"
+    },
+    "g-1": {
+      "surface": "g",
+      "source": "meadow-grass-b",
+      "detail": "clover"
+    },
+    "g-bank-corner-0": {
+      "surface": "g",
+      "source": "meadow-grass-a",
+      "detail": "bank-corner"
+    },
+    "g-bank-corner-1": {
+      "surface": "g",
+      "source": "meadow-grass-b",
+      "detail": "reeds"
+    },
+    "t-0": {
+      "surface": "t",
+      "source": "meadow-grass-a",
+      "detail": "grass-tuft"
+    },
+    "t-1": {
+      "surface": "t",
+      "source": "meadow-grass-b",
+      "detail": "clover"
+    },
+    "p-0": {
+      "surface": "p",
+      "source": "packed-path-a",
+      "detail": "path-grain"
+    },
+    "p-1": {
+      "surface": "p",
+      "source": "packed-path-b",
+      "detail": "small-pebbles"
+    },
+    "p-bend-corner-0": {
+      "surface": "p",
+      "source": "packed-path-a",
+      "detail": "cut-corner"
+    },
+    "p-bend-corner-1": {
+      "surface": "p",
+      "source": "packed-path-b",
+      "detail": "worn-corner"
+    },
+    "w-0": {
+      "surface": "w",
+      "source": "shallow-water-a",
+      "detail": "ripple"
+    },
+    "w-1": {
+      "surface": "w",
+      "source": "shallow-water-b",
+      "detail": "bubble"
+    },
+    "bridge-0": {
+      "surface": "bridge",
+      "source": "reed-bridge-a",
+      "detail": "reed-planks"
+    },
+    "bridge-1": {
+      "surface": "bridge",
+      "source": "reed-bridge-b",
+      "detail": "weathered-planks"
+    }
   },
   "variants": {
-    "g-edge-nw": ["g-0", "g-1"],
-    "g-edge-n": ["g-0", "g-1"],
-    "g-edge-ns": ["g-0", "g-1"],
-    "g-edge-ne": ["g-0", "g-1"],
-    "g-edge-w": ["g-0", "g-1"],
-    "g-center": ["g-0", "g-1"],
-    "g-edge-e": ["g-0", "g-1"],
-    "g-edge-sw": ["g-0", "g-1"],
-    "g-edge-s": ["g-0", "g-1"],
-    "g-edge-es": ["g-0", "g-1"],
-    "g-edge-new": ["g-0", "g-1"],
-    "g-edge-nw-corner-swnw": ["g-bank-corner-0", "g-bank-corner-1"],
-    "w-edge-nw": ["w-0", "w-1"],
-    "w-edge-n": ["w-0", "w-1"],
-    "w-edge-ne": ["w-0", "w-1"],
-    "w-edge-sw": ["w-0", "w-1"],
-    "w-center": ["w-0", "w-1"],
-    "w-edge-es": ["w-0", "w-1"],
-    "w-edge-w": ["w-0", "w-1"],
-    "w-edge-e": ["w-0", "w-1"],
-    "w-edge-s": ["w-0", "w-1"],
-    "p-edge-nsw": ["p-0", "p-1"],
-    "p-edge-ns": ["p-0", "p-1"],
-    "p-edge-nes": ["p-0", "p-1"],
-    "p-edge-n": ["p-0", "p-1"],
-    "p-edge-sw": ["p-0", "p-1"],
-    "p-edge-es": ["p-0", "p-1"],
-    "p-center": ["p-0", "p-1"],
-    "p-edge-ew": ["p-0", "p-1"],
-    "p-edge-esw": ["p-0", "p-1"],
-    "p-edge-sw-corner-sw": ["p-bend-corner-0", "p-bend-corner-1"]
+    "g-edge-es-corner-nesesw": ["g-bank-corner-0", "g-bank-corner-1"],
+    "p-edge-sw-corner-neseswnw": ["p-bend-corner-0", "p-bend-corner-1"]
   },
   "bridges": [
     {
       "id": "reed-crossing",
       "orientation": "east-west",
       "cells": [
-        [4, 3],
-        [5, 3]
+        [15, 9],
+        [16, 9]
       ],
       "waterTerrain": "w",
       "deckTerrain": "p",
@@ -82,6 +150,64 @@
       "variants": ["bridge-0", "bridge-1"]
     }
   ],
-  "artStatus": "authoring-vector-prototype",
-  "artNotes": "The colors, recipe IDs and edge overlay are a topology preview only. Production pixel-art source tiles and baked runtime variants remain future art work; no rotation or mirroring is implied."
+  "artStatus": "authored-svg-source-family",
+  "artNotes": "Source SVG tiles use northwest lighting and canonical orientation. Per-cell topology, shoreline and collision are compiled separately; transforms are not inferred from art alpha.",
+  "artwork": {
+    "meadow-grass-a": {
+      "src": "../assets/terrain-family/grass-meadow-a.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "meadow-grass-b": {
+      "src": "../assets/terrain-family/grass-meadow-b.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "packed-path-a": {
+      "src": "../assets/terrain-family/path-packed-a.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "packed-path-b": {
+      "src": "../assets/terrain-family/path-packed-b.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "shallow-water-a": {
+      "src": "../assets/terrain-family/water-shallow-a.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "shallow-water-b": {
+      "src": "../assets/terrain-family/water-shallow-b.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "reed-bridge-a": {
+      "src": "../assets/terrain-family/bridge-reed-a.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": [],
+      "orientation": "east-west"
+    },
+    "reed-bridge-b": {
+      "src": "../assets/terrain-family/bridge-reed-b.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": [],
+      "orientation": "east-west"
+    }
+  },
+  "surfaceDefaults": {
+    "g": ["g-0", "g-1"],
+    "t": ["t-0", "t-1"],
+    "p": ["p-0", "p-1"],
+    "w": ["w-0", "w-1"]
+  }
 }

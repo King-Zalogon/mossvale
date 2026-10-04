@@ -59,7 +59,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/rules.js` | domain | `addToParty`, `addXP`, `awardXP`, `clampHealth`, `companion`, `effectiveness`, `elementPower`, `flagDone`, `healTeam`, `healthyParty`, `inParty`, `level`, `maxHP`, `moveName`, `moveUpgraded`, `normalizeParty`, `removeFromParty`, `reserve`, `setActive`, `setFlag`, `unlocked`, `xpProgress` |
 | `domain/scenes.js` | domain | `MAX_SCENE_EVENTS`, `SCENE_ACTIONS`, `applySceneActions`, `markSceneRun`, `sceneConditionHolds`, `sceneEventKey`, `sceneHasRun`, `validateSceneEvent` |
 | `domain/story.js` | domain | `HINT_EVENTS`, `MAX_HINTS`, `STORY_FORMAT`, `endingDue`, `markSeen`, `pendingHint`, `validateStory` |
-| `domain/terrain-family.js` | domain | `chooseTerrainVariant`, `resolveTerrainFamilyCell`, `terrainSeed`, `terrainVariant`, `validateTerrainFamilyFixture` |
+| `domain/terrain-family.js` | domain | `bakeTerrainFamily`, `chooseTerrainVariant`, `resolveTerrainFamilyCell`, `serializeTerrainFamilyBake`, `terrainSeed`, `terrainVariant`, `validateTerrainFamilyFixture` |
 | `domain/world.js` | domain | `INTERACTIVE_KINDS`, `buildWorld`, `isLand`, `isQuiet`, `isWalkable`, `nearestInteractive`, `nearestWalkable`, `objectsInBounds`, `rnd`, `spawnOf`, `terrainAt`, `tilesInBounds`, `triggersAt`, `zoneAt` |
 | `input.js` | root | `direction`, `installInput`, `isMoving` |
 | `main.js` | root | — |
