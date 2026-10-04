@@ -43,7 +43,7 @@ try {
     ),
     true,
   );
-  for (const id of ['emberkin', 'fernling', 'duskwing', 'brooklet']) {
+  for (const id of ['emberkin', 'fernling', 'duskwing', 'brooklet', 'hushram', 'voltkit']) {
     await page.selectOption('#species', id);
     await page.waitForFunction(
       () =>
@@ -66,7 +66,7 @@ try {
   await game.goto(`http://localhost:${server.address().port}/?debug&seed=3`);
   await game.waitForSelector('#loading', {state: 'hidden'});
   await game.locator('#game').click();
-  for (const id of ['emberkin', 'fernling', 'duskwing', 'brooklet']) {
+  for (const id of ['emberkin', 'fernling', 'duskwing', 'brooklet', 'hushram', 'voltkit']) {
     const speciesId = species.findIndex(entry => entry.id === id);
     assert.notEqual(speciesId, -1);
     await game.evaluate(value => {
@@ -86,7 +86,7 @@ try {
     assert.equal(await game.evaluate(() => window.mossvale.getState().save.active), speciesId);
   }
   assert.deepEqual(errors, []);
-  console.log('ok follower preview displays all eight directions and five frames for four species; in-game path motion switches all four species');
+  console.log('ok follower preview displays all eight directions and five frames for six species; in-game path motion switches all six species');
 } finally {
   await browser.close();
   server.close();

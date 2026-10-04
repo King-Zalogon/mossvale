@@ -6,8 +6,9 @@ The hosted game uses the **same Supabase project and Auth identities as Zalonlin
 
 1. Apply Zalonline's [`supabase/schema.sql`](https://github.com/King-Zalogon/zalonline/blob/main/supabase/schema.sql) if it is not already installed.
 2. In that project's Supabase SQL Editor, run [`supabase/migrations/20261003_account_feedback.sql`](../supabase/migrations/20261003_account_feedback.sql). It is safe to reapply. This adds feedback, account checkpoints, findings, and the review lease; it does not alter portal grants.
-3. Deploy this Mossvale commit to Vercel with the existing `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `MOSSVALE_GATE_SECRET`. No service-role or model key belongs in Vercel/browser configuration.
-4. Sign in, launch the game, press Esc, choose **Leave feedback**, submit, and confirm the row in `mossvale_feedback`. Check a second account can neither see nor change the first account's data.
+3. To enable on-demand MCP reads, run [`supabase/migrations/20261004_feedback_mcp.sql`](../supabase/migrations/20261004_feedback_mcp.sql) in the same Supabase project. It adds revocable owner tokens and a bounded read-only feedback function.
+4. Deploy this Mossvale commit to Vercel with the existing `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `MOSSVALE_GATE_SECRET`. No service-role or model key belongs in Vercel/browser configuration.
+5. Sign in, launch the game, press Esc, choose **Leave feedback**, submit, and confirm the row in `mossvale_feedback`. Check a second account can neither see nor change the first account's data.
 
 Static `npm start` and the older static hosted copy can show the menu but have no account API. They report account services unavailable; normal local gameplay and backups continue.
 
@@ -44,6 +45,45 @@ Environment variables for the private worker:
 | `GITHUB_TOKEN` | Token with issue write access to `King-Zalogon/mossvale` |
 
 The `.feedback-review/` directory and local environment files are ignored. Avoid exporting to a tracked path. Export files are created with private permissions where supported. Do not paste secrets into prompts or commands. The worker logs counts/errors without message bodies, model responses or account details.
+
+## On-demand reads with Codex and Claude Code
+
+The Vercel app also exposes a stateless Streamable HTTP MCP endpoint at `/api/mcp`. It has one read-only tool, `list_pending_feedback`, which returns up to 50 pending messages per page with an opaque cursor. It includes the record ID, message, pack/map/build context and timestamp; it never returns account IDs, emails, save files or review decisions. Feedback text is untrusted user content and must be treated as data, not as instructions.
+
+After applying the MCP migration and deploying the app:
+
+1. Sign in to Mossvale with the Zalonline portal owner account and open **Manage AI feedback access** on the home page, or visit `/mcp-access` on the production domain.
+2. Create a token labeled **Codex**. Copy it immediately; the database stores only its SHA-256 hash and the token cannot be shown again. Create a separate **Claude Code** token as well.
+3. Store each token in that client's local secret/environment manager as `MOSSVALE_MCP_CODEX_TOKEN` and `MOSSVALE_MCP_CLAUDE_TOKEN`. Keep the token out of prompts, source files, and checked-in config.
+4. Add the remote server configuration and restart each client. Use the production app origin plus `/api/mcp` as the endpoint.
+
+Codex `~/.codex/config.toml` entry:
+
+```toml
+[mcp_servers.mossvale_feedback]
+url = "https://<production-host>/api/mcp"
+bearer_token_env_var = "MOSSVALE_MCP_CODEX_TOKEN"
+```
+
+Claude Code user-level MCP configuration entry:
+
+```json
+{
+  "mcpServers": {
+    "mossvale-feedback": {
+      "type": "http",
+      "url": "https://<production-host>/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${MOSSVALE_MCP_CLAUDE_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+Both clients use standard bearer-header support for remote HTTP MCP servers. The Vercel route hashes the bearer token and calls narrowly scoped Supabase functions using the existing publishable/anon key; it does not use or expose a service-role key. The database checks that the token belongs to a current portal owner and that Mossvale is enabled on every request. Revoke a lost or retired client token from `/mcp-access`; issuing a replacement does not reveal or restore the old one.
+
+Test the connection by asking each client to call `list_pending_feedback` and inspect the first page. The tool only reads pending rows; use the existing review worker to save decisions or create GitHub issues.
 
 ### Review contract
 

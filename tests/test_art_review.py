@@ -44,7 +44,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
         preview_hash = hashlib.sha256(b"<!doctype html>\n<main>review preview</main>\n").hexdigest()
         subjects = []
         reviews = []
-        for species in ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"]:
+        for species in sorted(REVIEW_MODULE.COMBAT_IDS):
             ref = f"art/references/{species}.png"
             output = f"dist/assets/creatures/{species}-combat.png"
             for path in [ref, output]:
@@ -135,7 +135,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                     "status": "reviewed-at-scale",
                     "creaturePortraitWidth": 115,
                     "contactSheet": self.contact,
-                    "visualIds": ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"],
+                    "visualIds": sorted(REVIEW_MODULE.COMBAT_IDS),
                 },
                 {
                     "issue": "#90",

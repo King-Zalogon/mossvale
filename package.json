@@ -10,8 +10,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "validate": "node scripts/validate-assets.mjs && node scripts/validate-maps.mjs && node scripts/check-boundaries.mjs",
-    "test": "node --test tests/save.test.mjs tests/gameplay.test.mjs tests/maps.test.mjs tests/growth.test.mjs tests/party.test.mjs tests/battle-actions.test.mjs tests/profile.test.mjs tests/movement.test.mjs tests/objectives.test.mjs tests/economy.test.mjs tests/guardians.test.mjs tests/encounters.test.mjs tests/story.test.mjs tests/scenes.test.mjs tests/backup.test.mjs tests/save-transaction.test.mjs tests/assets.test.mjs tests/contrast.test.mjs tests/saves-compat.test.mjs tests/build.test.mjs tests/turns.test.mjs tests/playthrough.test.mjs tests/packs.test.mjs tests/campaign.test.mjs tests/pack-integrity.test.mjs tests/prefabs.test.mjs tests/registries.test.mjs tests/roster.test.mjs tests/pack-cli.test.mjs tests/authoring-tools.test.mjs tests/graftworks-prototypes.test.mjs tests/render-budget.test.mjs tests/audio.test.mjs tests/integration.test.mjs tests/account.test.mjs tests/feedback-review.test.mjs tests/inventory.test.mjs",
+    "test": "node --test tests/save.test.mjs tests/gameplay.test.mjs tests/maps.test.mjs tests/growth.test.mjs tests/party.test.mjs tests/battle-actions.test.mjs tests/profile.test.mjs tests/movement.test.mjs tests/objectives.test.mjs tests/economy.test.mjs tests/guardians.test.mjs tests/encounters.test.mjs tests/story.test.mjs tests/scenes.test.mjs tests/backup.test.mjs tests/save-transaction.test.mjs tests/assets.test.mjs tests/contrast.test.mjs tests/saves-compat.test.mjs tests/build.test.mjs tests/turns.test.mjs tests/playthrough.test.mjs tests/packs.test.mjs tests/campaign.test.mjs tests/pack-integrity.test.mjs tests/prefabs.test.mjs tests/registries.test.mjs tests/roster.test.mjs tests/pack-cli.test.mjs tests/authoring-tools.test.mjs tests/graftworks-prototypes.test.mjs tests/render-budget.test.mjs tests/audio.test.mjs tests/integration.test.mjs tests/account.test.mjs tests/feedback-review.test.mjs tests/inventory.test.mjs tests/local-integration.test.mjs",
     "test:authoring": "node --test tests/authoring-tools.test.mjs",
+    "composition:briefs": "node scripts/composition-briefs.mjs",
     "test:browser": "node tests/startup.browser.mjs && node tests/loader.browser.mjs && node tests/save-transaction.browser.mjs && node tests/inventory.browser.mjs && node tests/playthrough.browser.mjs && node tests/adventures.browser.mjs && node tests/discovery.browser.mjs && node tests/characters.browser.mjs && node tests/diagonal-walk.browser.mjs && node tests/creatures.browser.mjs && node tests/pack-build.browser.mjs && node tests/meadow.browser.mjs && node tests/biome-maps.browser.mjs && node tests/speech.browser.mjs && node tests/editor.browser.mjs && node tests/creature-combat.browser.mjs && node tests/responsive-journal.browser.mjs && node tests/creature-follower.browser.mjs && node tests/follower-runtime.browser.mjs && node tests/account.browser.mjs && node tests/portal-return.browser.mjs",
     "check": "npm run lint && npm run format:check && npm run validate && npm test && npm run art:check",
     "verify": "npm run check && npm run test:browser",
@@ -19,12 +20,14 @@
     "pack": "node scripts/pack.mjs",
     "art:jobs": "node scripts/art-jobs.mjs",
     "brief:compile": "node scripts/compile-brief.mjs",
-    "art:check": "python3 tests/test_art_export.py && python3 tests/test_follower_export.py && python3 tests/test_art_review.py && python3 art/characters/export.py --check && python3 art/characters/export-creature-combat.py --check && python3 art/characters/export-creature-followers.py --check && python3 art/assets/export.py --check && python3 art/characters/review.py",
+    "art:check": "python3 tests/test_art_export.py && python3 tests/test_source_archive.py && python3 tests/test_follower_export.py && python3 tests/test_art_review.py && python3 art/characters/export.py --check && python3 art/characters/export-creature-combat.py --check && python3 art/characters/export-creature-followers.py --check && python3 art/assets/export.py --check && python3 art/characters/review.py",
     "feedback:review": "node scripts/review-feedback.mjs",
     "test:account-db": "node tests/account-database.mjs",
-    "test:account-api": "node tests/account-api.integration.mjs"
+    "test:account-api": "node tests/account-api.integration.mjs",
+    "test:local": "node scripts/local-integration.mjs"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.117.2",
     "next": "^16.3.8",
