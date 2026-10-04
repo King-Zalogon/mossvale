@@ -47,6 +47,8 @@ test('spore guard: bracing does no damage and halves the next attack, and the in
   assert.equal(braced.braced, true);
   assert.equal(open.braced, false);
   assert.ok(Math.abs(braced.damage / open.damage - BRACE_FACTOR) < 0.2, `${braced.damage}/${open.damage}`);
+  assert.match(TACTICS['spore-guard'].intro, /After the brace, your next strike is halved/);
+  assert.match(INTENT_TEXT.brace, /after this will be halved/);
 });
 
 test('rolling charge: a charge turn, then a heavy blow that Guard softens', () => {
@@ -102,11 +104,11 @@ const policies = {
   // Spend Focus on the elemental move whenever possible; drink a potion when low.
   burst: (save, b) =>
     companion(save).hp < maxHP(save, save.active) * 0.35 && save.potions > 0 ? {kind: 'potion'} : {kind: b.focus >= 1 ? 'element' : 'attack'},
-  // Read the intent: Guard before a heavy blow or while the foe braces, otherwise attack; heal when low.
+  // Read the intent: Guard before a heavy blow or after a brace (before its next strike), otherwise attack; heal when low.
   careful: (save, b) => {
     const next = nextEnemyAction(b);
     if (companion(save).hp < maxHP(save, save.active) * 0.4 && save.potions > 0) return {kind: 'potion'};
-    if (next === 'heavy' || next === 'brace') return {kind: 'guard'};
+    if (next === 'heavy' || lastEnemyAction(b) === 'brace') return {kind: 'guard'};
     return {kind: b.focus >= 1 ? 'element' : 'attack'};
   },
   // Slow and steady: strike, guard when hurt, heal early.
@@ -154,6 +156,28 @@ test('every guardian can be beaten more than one sensible way, and mindless stri
   console.log(`guardian win rates (30 tries each, level = guardian level - 1): ${report.join('  ')}`);
   assert.deepEqual(trivialGuardians, [], `every policy always wins against ${trivialGuardians.join(', ')}`);
   assert.ok(mindlessFailures >= 2, 'at least two challenges must demand more than plain striking');
+});
+
+test('an overlevelled starter can breeze through early shrines, while late telegraphs reward responses', () => {
+  const attackOnly = () => ({kind: 'attack'});
+  const readAndRespond = (save, battle) => policies.careful(save, battle);
+  const results = [];
+  for (const region of [0, 1, 2, 3]) {
+    let blind = 0;
+    let responsive = 0;
+    for (let seed = 1; seed <= 30; seed++) {
+      const activeLevel = 12;
+      if (challenge(region, attackOnly, seed, activeLevel) === 'win') blind++;
+      if (challenge(region, readAndRespond, seed, activeLevel) === 'win') responsive++;
+    }
+    results.push(`${maps[region].id}: attack ${blind}/30, respond ${responsive}/30`);
+    assert.ok(responsive >= blind, `${maps[region].id}: response should not make the outcome worse`);
+  }
+  assert.ok(
+    results.slice(1).some(value => /attack (?:0|[1-2]\d)\/30, respond 30\/30/.test(value)),
+    results.join(' · '),
+  );
+  console.log(`solo level-12 starter: ${results.join(' · ')}; guardian and wild levels remain fixed`);
 });
 
 test('losing a guardian fight neither blocks progress nor pays a reward', () => {

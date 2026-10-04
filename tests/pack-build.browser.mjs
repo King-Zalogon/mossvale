@@ -18,7 +18,9 @@ for (const [pack, expected] of [
 ]) {
   const output = join(scratch, pack);
   const source = join(root, 'tests/fixtures/packs', pack);
-  const result = spawnSync(process.execPath, ['scripts/build.mjs', '--pack', source], {cwd: root, env: {...process.env, BUILD_DIR: output}, encoding: 'utf8'});
+  const args = ['scripts/build.mjs', '--pack', source];
+  if (pack === 'lantern-crossing') args.push('--include', join(root, 'tests/fixtures/packs/hearth'));
+  const result = spawnSync(process.execPath, args, {cwd: root, env: {...process.env, BUILD_DIR: output}, encoding: 'utf8'});
   assert.equal(result.status, 0, result.stderr);
   outputs.set(pack, {output, expected});
 }
@@ -53,6 +55,41 @@ try {
   await page.keyboard.down('d');
   await page.waitForFunction(
     () => {
+      const player = window.mossvale.getState().player;
+      return window.mossvale.grass(Math.round(player.x), Math.round(player.y));
+    },
+    null,
+    {timeout: 8000},
+  );
+  try {
+    await page.waitForSelector('#fight-wild', {timeout: 8000});
+  } catch {
+    throw new Error(
+      `walk entered grass without an encounter: ${JSON.stringify(await page.evaluate(() => ({player: window.mossvale.getState().player, pacing: window.mossvale.getState().pacing, inGrass: window.mossvale.grass(Math.round(window.mossvale.getState().player.x), Math.round(window.mossvale.getState().player.y)), events: window.mossvale.events().slice(-5)})))}`,
+    );
+  }
+  await page.keyboard.up('d');
+  for (let turn = 0; turn < 20; turn++) {
+    const before = await page.evaluate(() => window.mossvale.getState().battle);
+    assert.ok(before, 'the walking encounter remains active while capture attempts resolve');
+    await page.click('#catch');
+    await page.waitForFunction(
+      previousTurn => {
+        const game = window.mossvale.getState();
+        return game.phase === 'result' || (!game.battle?.busy && game.battle?.turn > previousTurn);
+      },
+      before.turn,
+      {timeout: 5000},
+    );
+    if ((await page.evaluate(() => window.mossvale.getState().phase)) === 'result') break;
+  }
+  await page.waitForSelector('#result-continue');
+  const afterCapture = await page.evaluate(() => window.mossvale.getState().save);
+  assert.equal(afterCapture.caught.length, 2, 'the mini adventure includes a normal-play capture');
+  await page.click('#result-continue');
+  await page.waitForFunction(() => window.mossvale.getState().phase === 'explore');
+  await page.waitForFunction(
+    () => {
       const p = window.mossvale.getState().player;
       return p.x >= 5.4 && p.y <= 2.7;
     },
@@ -65,17 +102,50 @@ try {
   const rewarded = await page.evaluate(() => window.mossvale.getState().save);
   const objective = await page.evaluate(() => window.mossvale.objective());
   assert.ok(Math.hypot(spawn.x - 6, spawn.y - 2) > 2, 'the player walked from camp to the chest');
-  assert.deepEqual([rewarded.coins, rewarded.potions, rewarded.orbs, rewarded.chests.length], [8, 4, 14, 1]);
+  assert.deepEqual([rewarded.coins, rewarded.potions, rewarded.chests.length], [18, 4, 1]);
+  assert.ok(rewarded.orbs < 14, 'capturing uses at least one orb before the chest restocks two');
   assert.equal(objective.id, 'crossing-complete');
   await page.click('#result-continue');
   await page.waitForSelector('#story-ok');
   await page.click('#story-ok');
   await page.reload();
   await page.waitForSelector('#loading', {state: 'hidden'});
-  assert.deepEqual(await page.evaluate(() => [window.mossvale.getState().save.coins, window.mossvale.getState().save.chests.length]), [8, 1]);
+  assert.deepEqual(await page.evaluate(() => [window.mossvale.getState().save.coins, window.mossvale.getState().save.chests.length]), [18, 1]);
+  await page.keyboard.press('Escape');
+  await page.click('#m-adventures');
+  await page.click('[data-adventure="hearth-hamlet"]');
+  await page.waitForFunction(() => window.mossvale?.getState().world.map?.id === 'hearth-yard');
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  assert.equal(await page.locator('#region-name').textContent(), 'Hearth Hamlet');
+  await page.keyboard.press('Escape');
+  await page.click('#m-adventures');
+  await page.click('[data-adventure="lantern-crossing"]');
+  await page.waitForFunction(() => window.mossvale?.getState().world.map?.id === 'start');
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  assert.equal(await page.evaluate(() => window.mossvale.getState().save.coins), 18, 'switching away and back preserved Lantern Crossing progress');
+  await page.keyboard.press('Escape');
+  await page.click('#m-backup');
+  const downloadPromise = page.waitForEvent('download');
+  await page.click('#b-export');
+  const backupPath = join(scratch, 'lantern-crossing-backup.json');
+  await (await downloadPromise).saveAs(backupPath);
+  await page.keyboard.press('Escape');
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#m-new');
+  await page.click('#m-new');
+  await page.click('#m-confirm-new');
+  await page.waitForFunction(() => window.mossvale?.getState().save.coins === 0);
+  await page.waitForSelector('#loading', {state: 'hidden'});
+  await page.keyboard.press('Escape');
+  await page.click('#m-backup');
+  await page.setInputFiles('#b-file', backupPath);
+  await page.waitForSelector('#b-confirm');
+  await page.click('#b-confirm');
+  await page.waitForFunction(() => window.mossvale?.getState().save.coins === 18 && window.mossvale.getState().save.chests.length === 1);
+  await page.waitForSelector('#loading', {state: 'hidden'});
   assert.deepEqual(errors, []);
   await page.close();
-  console.log('ok standalone packs boot; Lantern Crossing is walked, rewarded, completed and restored');
+  console.log('ok standalone packs boot; Lantern Crossing is walked, rewarded, completed, switched, exported, imported and restored');
 } finally {
   await browser.close();
   server.close();
