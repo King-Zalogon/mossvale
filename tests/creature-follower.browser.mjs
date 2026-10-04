@@ -43,15 +43,19 @@ try {
     ),
     true,
   );
-  await page.selectOption('#species', 'fernling');
-  await page.waitForFunction(() =>
-    [...document.querySelectorAll('.direction canvas')].every(canvas =>
-      canvas
-        .getContext('2d')
-        .getImageData(0, 0, 80, 80)
-        .data.some((v, i) => i % 4 === 3 && v > 0),
-    ),
-  );
+  for (const id of ['emberkin', 'fernling', 'duskwing', 'brooklet']) {
+    await page.selectOption('#species', id);
+    await page.waitForFunction(
+      () =>
+        [...document.querySelectorAll('.direction canvas')].length === 40 &&
+        [...document.querySelectorAll('.direction canvas')].every(canvas =>
+          canvas
+            .getContext('2d')
+            .getImageData(0, 0, 80, 80)
+            .data.some((v, i) => i % 4 === 3 && v > 0),
+        ),
+    );
+  }
   await page.check('#calm');
   assert.equal(await page.evaluate(() => window.followerPreview.state().reducedMotion), true);
   await page.screenshot({path: join(tmpdir(), 'mossvale-creature-follower-preview.png'), fullPage: true});
@@ -61,26 +65,28 @@ try {
   game.on('pageerror', error => errors.push(error.message));
   await game.goto(`http://localhost:${server.address().port}/?debug&seed=3`);
   await game.waitForSelector('#loading', {state: 'hidden'});
-  const emberkin = species.findIndex(entry => entry.id === 'emberkin');
-  assert.notEqual(emberkin, -1);
-  await game.evaluate(id => {
-    const save = window.mossvale.getState().save;
-    save.caught = [id];
-    save.party = [id];
-    save.active = id;
-    save.team = {[id]: {xp: 0, hp: 100}};
-  }, emberkin);
   await game.locator('#game').click();
-  for (const key of ['ArrowUp', 'ArrowRight']) await game.keyboard.down(key);
-  await game.waitForTimeout(550);
-  for (const key of ['ArrowUp', 'ArrowRight']) await game.keyboard.up(key);
-  await game.waitForTimeout(180);
-  for (const key of ['ArrowDown', 'ArrowLeft']) await game.keyboard.down(key);
-  await game.waitForTimeout(450);
-  for (const key of ['ArrowDown', 'ArrowLeft']) await game.keyboard.up(key);
-  assert.equal(await game.evaluate(() => window.mossvale.getState().save.active), emberkin);
+  for (const id of ['emberkin', 'fernling', 'duskwing', 'brooklet']) {
+    const speciesId = species.findIndex(entry => entry.id === id);
+    assert.notEqual(speciesId, -1);
+    await game.evaluate(value => {
+      const save = window.mossvale.getState().save;
+      save.caught = [value];
+      save.party = [value];
+      save.active = value;
+      save.team = {[value]: {xp: 0, hp: 100}};
+    }, speciesId);
+    for (const key of ['ArrowUp', 'ArrowRight']) await game.keyboard.down(key);
+    await game.waitForTimeout(550);
+    for (const key of ['ArrowUp', 'ArrowRight']) await game.keyboard.up(key);
+    await game.waitForTimeout(180);
+    for (const key of ['ArrowDown', 'ArrowLeft']) await game.keyboard.down(key);
+    await game.waitForTimeout(450);
+    for (const key of ['ArrowDown', 'ArrowLeft']) await game.keyboard.up(key);
+    assert.equal(await game.evaluate(() => window.mossvale.getState().save.active), speciesId);
+  }
   assert.deepEqual(errors, []);
-  console.log('ok follower preview displays all eight directions and five frames for both species with reduced-motion path demo');
+  console.log('ok follower preview displays all eight directions and five frames for four species; in-game path motion switches all four species');
 } finally {
   await browser.close();
   server.close();

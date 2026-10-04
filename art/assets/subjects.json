@@ -4,11 +4,33 @@
     {
       "id": "player-red-cap-adventurer",
       "revision": 1,
-      "requiredDirections": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+      "requiredDirections": [
+        "north",
+        "northeast",
+        "east",
+        "southeast",
+        "south",
+        "southwest",
+        "west",
+        "northwest"
+      ],
       "identity": {
         "silhouette": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
-        "palette": ["warm red", "dark brown", "light skin", "muted olive", "khaki", "blue backpack straps", "dark leather"],
-        "distinguishingFeatures": ["red cap with a pale band", "dark side hair", "blue backpack straps", "dark boots"]
+        "palette": [
+          "warm red",
+          "dark brown",
+          "light skin",
+          "muted olive",
+          "khaki",
+          "blue backpack straps",
+          "dark leather"
+        ],
+        "distinguishingFeatures": [
+          "red cap with a pale band",
+          "dark side hair",
+          "blue backpack straps",
+          "dark boots"
+        ]
       },
       "canonicalReferences": [
         {
@@ -58,7 +80,12 @@
         },
         "generationReference": {
           "status": "available",
-          "assetIds": ["person-red-cap-north", "person-red-cap-east", "person-red-cap-south", "person-red-cap-west"]
+          "assetIds": [
+            "person-red-cap-north",
+            "person-red-cap-east",
+            "person-red-cap-south",
+            "person-red-cap-west"
+          ]
         },
         "maskHashes": {
           "status": "unavailable",
@@ -67,7 +94,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "ce3804c7216f96fc3385367121d0ad8c9f782c778d8e7058c781d7d7b6e0af2b"
+        "sha256": "0a8ec39bf787644f9c32d6f98e8af42eba232166cd20a96f5ca3a473927fa67e"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
@@ -85,33 +112,61 @@
           "id": "red-cap-motion-north-northeast",
           "path": "art/characters/source/person-red-cap-motion-north-northeast.png",
           "sha256": "6b42d49bbd3a540663f55ca0161895c0681651bb1f2c071e5417f99cccbbbaf8",
-          "directions": ["north", "northeast"],
-          "referenceAssetIds": ["person-red-cap-north"],
-          "exportAssetIds": ["person-red-cap-motion"]
+          "directions": [
+            "north",
+            "northeast"
+          ],
+          "referenceAssetIds": [
+            "person-red-cap-north"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ]
         },
         {
           "id": "red-cap-motion-east-southeast",
           "path": "art/characters/source/person-red-cap-motion-east-southeast.png",
           "sha256": "6109e0b89adae4c357c30c9519ae7fbe5e276639604585e46942623d84c2e799",
-          "directions": ["east", "southeast"],
-          "referenceAssetIds": ["person-red-cap-east"],
-          "exportAssetIds": ["person-red-cap-motion"]
+          "directions": [
+            "east",
+            "southeast"
+          ],
+          "referenceAssetIds": [
+            "person-red-cap-east"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ]
         },
         {
           "id": "red-cap-motion-south-southwest",
           "path": "art/characters/source/person-red-cap-motion-south-southwest.png",
           "sha256": "4ca3e6927e75be42570195ee6d8afac42ad596912f19026f6c51617b9375ad89",
-          "directions": ["south", "southwest"],
-          "referenceAssetIds": ["person-red-cap-south"],
-          "exportAssetIds": ["person-red-cap-motion"]
+          "directions": [
+            "south",
+            "southwest"
+          ],
+          "referenceAssetIds": [
+            "person-red-cap-south"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ]
         },
         {
           "id": "red-cap-motion-west-northwest",
           "path": "art/characters/source/person-red-cap-motion-west-northwest.png",
           "sha256": "49755cf194ea7050b20b0680cab46809f8c3a3a92f19279e84d3490385bf30ee",
-          "directions": ["west", "northwest"],
-          "referenceAssetIds": ["person-red-cap-west"],
-          "exportAssetIds": ["person-red-cap-motion"]
+          "directions": [
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "person-red-cap-west"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ]
         }
       ],
       "exports": [
@@ -129,8 +184,18 @@
       "revision": 1,
       "identity": {
         "silhouette": "Small quadrupedal creature with a broad leaf-shaped tail, tall pointed leaf ears, and compact legs.",
-        "palette": ["leaf green", "deep forest green", "cream", "warm brown"],
-        "distinguishingFeatures": ["oversized green eyes", "pale muzzle and chest", "large leaf tail", "pointed leaf ears"]
+        "palette": [
+          "leaf green",
+          "deep forest green",
+          "cream",
+          "warm brown"
+        ],
+        "distinguishingFeatures": [
+          "oversized green eyes",
+          "pale muzzle and chest",
+          "large leaf tail",
+          "pointed leaf ears"
+        ]
       },
       "canonicalReferences": [
         {
@@ -178,7 +243,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "ce3804c7216f96fc3385367121d0ad8c9f782c778d8e7058c781d7d7b6e0af2b"
+        "sha256": "0a8ec39bf787644f9c32d6f98e8af42eba232166cd20a96f5ca3a473927fa67e"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -193,9 +258,19 @@
           "path": "art/characters/source/creature-fernling-combat-generated.png",
           "sha256": "cbb4048b2d189e0017b5f2c7b0e536daa19b47f5852de5f0e0b96ed6e5c993da",
           "directions": [],
-          "states": ["idle", "attack", "hit", "faint", "capture"],
-          "referenceAssetIds": ["creature-fernling"],
-          "exportAssetIds": ["creature-fernling-combat"],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "referenceAssetIds": [
+            "creature-fernling"
+          ],
+          "exportAssetIds": [
+            "creature-fernling-combat"
+          ],
           "generation": {
             "tool": {
               "status": "summary-only",
@@ -221,7 +296,9 @@
             },
             "generationReference": {
               "status": "available",
-              "assetIds": ["creature-fernling"]
+              "assetIds": [
+                "creature-fernling"
+              ]
             },
             "maskHashes": {
               "status": "unavailable",
@@ -233,9 +310,22 @@
           "id": "fernling-follower-directions-2026-10-03",
           "path": "art/characters/source/creature-fernling-follower-generated.png",
           "sha256": "61d8bd41766d2a3447abd95f289f5778c2576683eca6ac6c81077999abc023f6",
-          "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-          "referenceAssetIds": ["creature-fernling"],
-          "exportAssetIds": ["creature-fernling-follower"],
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-fernling"
+          ],
+          "exportAssetIds": [
+            "creature-fernling-follower"
+          ],
           "generation": {
             "tool": {
               "status": "available",
@@ -261,7 +351,9 @@
             },
             "generationReference": {
               "status": "available",
-              "assetIds": ["creature-fernling"]
+              "assetIds": [
+                "creature-fernling"
+              ]
             },
             "maskHashes": {
               "status": "unavailable",
@@ -290,7 +382,7 @@
           "path": "dist/assets/creatures/creature-fernling-follower.png",
           "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "runtimeTreatments": {
@@ -298,8 +390,18 @@
         "scope": "static portrait fallback only",
         "contractPath": "art/characters/creature-animation-metadata.json",
         "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-        "requiredStates": ["idle", "travel", "hit", "capture"],
-        "states": ["idle", "travel", "hit", "capture"],
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
         "artPixelsChanged": false
       },
       "runtimeCombat": {
@@ -314,28 +416,64 @@
           "profileId": "creature-combat-v1",
           "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
-        "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
-        "states": ["idle", "attack", "hit", "faint", "capture"],
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
         "artPixelsChanged": true
       },
-      "requiredDirections": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+      "requiredDirections": [
+        "north",
+        "northeast",
+        "east",
+        "southeast",
+        "south",
+        "southwest",
+        "west",
+        "northwest"
+      ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7"
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
       },
       "runtimeFollower": {
         "assetId": "creature-fernling-follower",
         "fallbackAssetId": "creature-fernling",
-        "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-        "frameOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "72e92e9537ebc89ab173c9855b1a4a2443a459eb5d7771deab9c41a9cf12cd10",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
           "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       }
     },
@@ -344,8 +482,18 @@
       "revision": 1,
       "identity": {
         "silhouette": "Small moth-like creature with a rounded body, upright feelers, and two oversized wings.",
-        "palette": ["lavender", "deep violet", "cream", "magenta"],
-        "distinguishingFeatures": ["large eye-spotted wings", "pale chest ruff", "magenta eyes", "short dark legs"]
+        "palette": [
+          "lavender",
+          "deep violet",
+          "cream",
+          "magenta"
+        ],
+        "distinguishingFeatures": [
+          "large eye-spotted wings",
+          "pale chest ruff",
+          "magenta eyes",
+          "short dark legs"
+        ]
       },
       "canonicalReferences": [
         {
@@ -393,7 +541,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "48b6bd872fafd405c1cbf5014c56884fadc3615cef81c7389425351fc4cfbef6"
+        "sha256": "2a9cbecf05f41c85f03bf3af1ce7afee7b80dc0dd0b1b5dd8d761204328fd0f6"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -408,9 +556,19 @@
           "path": "art/characters/source/creature-duskwing-combat-generated.png",
           "sha256": "480eec7a72277fda6a876d9439c3125884380ec7e64421e23d42c13a3e2c6e46",
           "directions": [],
-          "states": ["idle", "attack", "hit", "faint", "capture"],
-          "referenceAssetIds": ["creature-duskwing"],
-          "exportAssetIds": ["creature-duskwing-combat"],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "referenceAssetIds": [
+            "creature-duskwing"
+          ],
+          "exportAssetIds": [
+            "creature-duskwing-combat"
+          ],
           "generation": {
             "tool": {
               "status": "summary-only",
@@ -436,7 +594,64 @@
             },
             "generationReference": {
               "status": "available",
-              "assetIds": ["creature-duskwing"]
+              "assetIds": [
+                "creature-duskwing"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "duskwing-follower-2026-10-03",
+          "path": "art/characters/source/creature-duskwing-follower-generated.png",
+          "sha256": "be6a7f16f416553ed13fabc125d7272d484c822d204de4160f1c94c98ee7f275",
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-duskwing"
+          ],
+          "exportAssetIds": [
+            "creature-duskwing-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#creature-follower-direction-milestone-90"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The generation service provider was not retained."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The generation model version was not retained."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve the Duskwing moth silhouette, eye-spotted lavender wings, cream ruff and magenta eyes; make eight readable overworld directions with idle and four contained walk poses.",
+              "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.duskwing"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-duskwing"
+              ]
             },
             "maskHashes": {
               "status": "unavailable",
@@ -459,6 +674,13 @@
           "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02",
           "profileId": "creature-combat-v1",
           "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
+        },
+        {
+          "assetId": "creature-duskwing-follower",
+          "path": "dist/assets/creatures/creature-duskwing-follower.png",
+          "sha256": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "runtimeTreatments": {
@@ -466,8 +688,18 @@
         "scope": "static portrait fallback only",
         "contractPath": "art/characters/creature-animation-metadata.json",
         "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-        "requiredStates": ["idle", "travel", "hit", "capture"],
-        "states": ["idle", "travel", "hit", "capture"],
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
         "artPixelsChanged": false
       },
       "runtimeCombat": {
@@ -482,9 +714,65 @@
           "profileId": "creature-combat-v1",
           "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
-        "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
-        "states": ["idle", "attack", "hit", "faint", "capture"],
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
         "artPixelsChanged": true
+      },
+      "requiredDirections": [
+        "north",
+        "northeast",
+        "east",
+        "southeast",
+        "south",
+        "southwest",
+        "west",
+        "northwest"
+      ],
+      "sourceMetadata": {
+        "path": "art/characters/creature-follower-metadata.json",
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
+      },
+      "runtimeFollower": {
+        "assetId": "creature-duskwing-follower",
+        "fallbackAssetId": "creature-duskwing",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
+          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
+        }
       }
     },
     {
@@ -492,8 +780,19 @@
       "revision": 1,
       "identity": {
         "silhouette": "Small quadrupedal fire fox with an upright flame crest, flame-shaped curled tail and compact paws.",
-        "palette": ["ember orange", "deep red", "golden yellow", "cream", "dark brown"],
-        "distinguishingFeatures": ["large glossy eyes", "upright flame crest", "bright curled flame tail", "cream chest"]
+        "palette": [
+          "ember orange",
+          "deep red",
+          "golden yellow",
+          "cream",
+          "dark brown"
+        ],
+        "distinguishingFeatures": [
+          "large glossy eyes",
+          "upright flame crest",
+          "bright curled flame tail",
+          "cream chest"
+        ]
       },
       "canonicalReferences": [
         {
@@ -534,11 +833,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "ce3804c7216f96fc3385367121d0ad8c9f782c778d8e7058c781d7d7b6e0af2b"
+        "sha256": "0a8ec39bf787644f9c32d6f98e8af42eba232166cd20a96f5ca3a473927fa67e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7"
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -552,9 +851,22 @@
           "id": "emberkin-follower-directions-2026-10-03",
           "path": "art/characters/source/creature-emberkin-follower-generated.png",
           "sha256": "50f69f69bb6ef766c5ae2cc578695744cd98958accdcd9545127155441c82411",
-          "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-          "referenceAssetIds": ["creature-emberkin"],
-          "exportAssetIds": ["creature-emberkin-follower"],
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-emberkin"
+          ],
+          "exportAssetIds": [
+            "creature-emberkin-follower"
+          ],
           "generation": {
             "tool": {
               "status": "available",
@@ -580,7 +892,9 @@
             },
             "generationReference": {
               "status": "available",
-              "assetIds": ["creature-emberkin"]
+              "assetIds": [
+                "creature-emberkin"
+              ]
             },
             "maskHashes": {
               "status": "unavailable",
@@ -602,23 +916,47 @@
           "path": "dist/assets/creatures/creature-emberkin-follower.png",
           "sha256": "eb58e50eee961389052c0a12cf6138faf824f7a83b4f1c2063d9269f8405de0f",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
-      "requiredDirections": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+      "requiredDirections": [
+        "north",
+        "northeast",
+        "east",
+        "southeast",
+        "south",
+        "southwest",
+        "west",
+        "northwest"
+      ],
       "runtimeFollower": {
         "assetId": "creature-emberkin-follower",
         "fallbackAssetId": "creature-emberkin",
-        "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-        "frameOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "445db9ba5b8095f90d1e6a7816c73d0eec7a10ba87d555bb75fa990b472516d7",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "72e92e9537ebc89ab173c9855b1a4a2443a459eb5d7771deab9c41a9cf12cd10",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
           "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c0cd809d2e7c5e8cd7f3d832ff21366176bf9a91be92d54e55effd1bee3283de"
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       }
     },
@@ -627,8 +965,18 @@
       "revision": 1,
       "identity": {
         "silhouette": "Small four-legged blue river otter with a broad curling water tail and compact paws.",
-        "palette": ["river blue", "deep navy", "cream", "cyan"],
-        "distinguishingFeatures": ["large bright eyes", "pale muzzle and chest", "curling blue tail", "water bubbles"]
+        "palette": [
+          "river blue",
+          "deep navy",
+          "cream",
+          "cyan"
+        ],
+        "distinguishingFeatures": [
+          "large bright eyes",
+          "pale muzzle and chest",
+          "curling blue tail",
+          "water bubbles"
+        ]
       },
       "canonicalReferences": [
         {
@@ -676,7 +1024,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "48b6bd872fafd405c1cbf5014c56884fadc3615cef81c7389425351fc4cfbef6"
+        "sha256": "2a9cbecf05f41c85f03bf3af1ce7afee7b80dc0dd0b1b5dd8d761204328fd0f6"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -691,9 +1039,19 @@
           "path": "art/characters/source/creature-brooklet-combat-generated.png",
           "sha256": "cea8dd78da3f5b176408287136ec051008c25756ad93ee7d5ded104deab83467",
           "directions": [],
-          "states": ["idle", "attack", "hit", "faint", "capture"],
-          "referenceAssetIds": ["creature-brooklet"],
-          "exportAssetIds": ["creature-brooklet-combat"],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "referenceAssetIds": [
+            "creature-brooklet"
+          ],
+          "exportAssetIds": [
+            "creature-brooklet-combat"
+          ],
           "generation": {
             "tool": {
               "status": "summary-only",
@@ -710,7 +1068,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Brooklet\u00e2\u20ac\u2122s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
+              "summary": "Preserve Brookletâ€™s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences"
             },
             "seed": {
@@ -719,7 +1077,64 @@
             },
             "generationReference": {
               "status": "available",
-              "assetIds": ["creature-brooklet"]
+              "assetIds": [
+                "creature-brooklet"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "brooklet-follower-2026-10-03",
+          "path": "art/characters/source/creature-brooklet-follower-generated.png",
+          "sha256": "b3cf23bca252599fa5062a25c0d0c92e8d28f01e6db453c1d03c85c50e2b9fa0",
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-brooklet"
+          ],
+          "exportAssetIds": [
+            "creature-brooklet-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "image generation tool",
+              "evidence": "art/characters/SOURCES.md#creature-follower-direction-milestone-90"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The generation service provider was not retained."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The generation model version was not retained."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve Brooklet’s blue river-otter silhouette, cream muzzle/chest and curled water tail; make eight readable overworld directions with idle and four contained walk poses.",
+              "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.brooklet"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-brooklet"
+              ]
             },
             "maskHashes": {
               "status": "unavailable",
@@ -742,6 +1157,13 @@
           "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242",
           "profileId": "creature-combat-v1",
           "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
+        },
+        {
+          "assetId": "creature-brooklet-follower",
+          "path": "dist/assets/creatures/creature-brooklet-follower.png",
+          "sha256": "5b2c2a46344f9dd6bf23c92ddf623baf4004e71785bd87582f5f8e5adda1c7af",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
         }
       ],
       "runtimeTreatments": {
@@ -749,8 +1171,18 @@
         "scope": "static portrait fallback only",
         "contractPath": "art/characters/creature-animation-metadata.json",
         "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-        "requiredStates": ["idle", "travel", "hit", "capture"],
-        "states": ["idle", "travel", "hit", "capture"],
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
         "artPixelsChanged": false
       },
       "runtimeCombat": {
@@ -765,9 +1197,65 @@
           "profileId": "creature-combat-v1",
           "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
-        "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
-        "states": ["idle", "attack", "hit", "faint", "capture"],
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
         "artPixelsChanged": true
+      },
+      "requiredDirections": [
+        "north",
+        "northeast",
+        "east",
+        "southeast",
+        "south",
+        "southwest",
+        "west",
+        "northwest"
+      ],
+      "sourceMetadata": {
+        "path": "art/characters/creature-follower-metadata.json",
+        "sha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f"
+      },
+      "runtimeFollower": {
+        "assetId": "creature-brooklet-follower",
+        "fallbackAssetId": "creature-brooklet",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "10620ebfa322363821e9ff923b70d9d988b402b585be78f3b4198a8da63d293f",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "ca4226438d7148a043c2d1d184a2d4271d310cf6cce4dfe77fa2c6b79a492a3e",
+          "settings": "Normalize 5x8 RGBA grid into 200x200 cells; nearest-neighbor fit to 184x184, discard alpha <=8, align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "9b8803870023340c6271f88d5376cc8d2f1da5efd3db30cae24fd2736bdc2e7f"
+        }
       }
     },
     {
@@ -775,8 +1263,18 @@
       "revision": 1,
       "identity": {
         "silhouette": "Sturdy shaggy ram with long curved ice horns, four dark hooves and a low fluffy tail.",
-        "palette": ["snow white", "ice blue", "slate blue", "dark navy"],
-        "distinguishingFeatures": ["large crystalline curled horns", "blue eye markings", "shaggy cream-white coat", "dark hooves"]
+        "palette": [
+          "snow white",
+          "ice blue",
+          "slate blue",
+          "dark navy"
+        ],
+        "distinguishingFeatures": [
+          "large crystalline curled horns",
+          "blue eye markings",
+          "shaggy cream-white coat",
+          "dark hooves"
+        ]
       },
       "canonicalReferences": [
         {
@@ -824,7 +1322,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "48b6bd872fafd405c1cbf5014c56884fadc3615cef81c7389425351fc4cfbef6"
+        "sha256": "2a9cbecf05f41c85f03bf3af1ce7afee7b80dc0dd0b1b5dd8d761204328fd0f6"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -839,9 +1337,19 @@
           "path": "art/characters/source/creature-hushram-combat-generated.png",
           "sha256": "c4934bb88dfdda26b9e43d9d783f6aeee60642a2c71e75a15275b2c154222dab",
           "directions": [],
-          "states": ["idle", "attack", "hit", "faint", "capture"],
-          "referenceAssetIds": ["creature-hushram"],
-          "exportAssetIds": ["creature-hushram-combat"],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "referenceAssetIds": [
+            "creature-hushram"
+          ],
+          "exportAssetIds": [
+            "creature-hushram-combat"
+          ],
           "generation": {
             "tool": {
               "status": "summary-only",
@@ -858,7 +1366,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Hushram\u00e2\u20ac\u2122s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
+              "summary": "Preserve Hushramâ€™s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences"
             },
             "seed": {
@@ -867,7 +1375,9 @@
             },
             "generationReference": {
               "status": "available",
-              "assetIds": ["creature-hushram"]
+              "assetIds": [
+                "creature-hushram"
+              ]
             },
             "maskHashes": {
               "status": "unavailable",
@@ -897,8 +1407,18 @@
         "scope": "static portrait fallback only",
         "contractPath": "art/characters/creature-animation-metadata.json",
         "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-        "requiredStates": ["idle", "travel", "hit", "capture"],
-        "states": ["idle", "travel", "hit", "capture"],
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
         "artPixelsChanged": false
       },
       "runtimeCombat": {
@@ -913,8 +1433,20 @@
           "profileId": "creature-combat-v1",
           "profileSha256": "df2f93ab2c4efe90d0e40720a9a22dcadf2d0c792ec82dc95bf1211b9659848f"
         },
-        "requiredStates": ["idle", "attack", "hit", "faint", "capture"],
-        "states": ["idle", "attack", "hit", "faint", "capture"],
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
         "artPixelsChanged": true
       }
     }

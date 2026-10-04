@@ -17,6 +17,16 @@ SPECS = {
         "source": "art/characters/source/creature-fernling-follower-generated.png",
         "target": "dist/assets/creatures/creature-fernling-follower.png",
     },
+    "duskwing": {
+        "source": "art/characters/source/creature-duskwing-follower-generated.png",
+        "target": "dist/assets/creatures/creature-duskwing-follower.png",
+    },
+    "brooklet": {
+        "source": "art/characters/source/creature-brooklet-follower-generated.png",
+        "target": "dist/assets/creatures/creature-brooklet-follower.png",
+        "rowOrder": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
+        "mirrorRows": [5, 6],
+    },
 }
 
 
@@ -81,16 +91,23 @@ def generated_row_bounds(source, alpha_threshold, rows):
     return separators
 
 
-def build(source_path, frame_size, content_size, foot_y, alpha_threshold, minimum_component):
+def build(source_path, frame_size, content_size, foot_y, alpha_threshold, minimum_component, spec):
     with Image.open(source_path) as opened:
         source = opened.convert("RGBA")
     columns, rows = 5, 8
     xs, ys = bounds(source.width, columns), generated_row_bounds(source, alpha_threshold, rows)
+    source_rows = spec.get("sourceRows", list(range(rows)))
+    if len(source_rows) != rows or sorted(source_rows) != list(range(rows)):
+        raise ValueError(f"{source_path}: sourceRows must map each source row exactly once")
+    mirror_rows = set(spec.get("mirrorRows", []))
     sheet = Image.new("RGBA", (columns * frame_size, rows * frame_size), (0, 0, 0, 0))
     footprints = []
     for row in range(rows):
         for column in range(columns):
-            cell = source.crop((xs[column], ys[row], xs[column + 1], ys[row + 1]))
+            source_row = source_rows[row]
+            cell = source.crop((xs[column], ys[source_row], xs[column + 1], ys[source_row + 1]))
+            if row in mirror_rows:
+                cell = cell.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
             cell.putalpha(cell.getchannel("A").point(lambda value: value if value > alpha_threshold else 0))
             remove_small_components(cell, alpha_threshold, minimum_component)
             bbox = cell.getchannel("A").getbbox()
@@ -147,7 +164,7 @@ def main():
     for name, spec in SPECS.items():
         source = root / spec["source"]
         target = root / spec["target"]
-        sheet, footprints = build(source, frame_w, content[0], profile["footY"], profile["alphaThreshold"], profile["minimumComponentPixels"])
+        sheet, footprints = build(source, frame_w, content[0], profile["footY"], profile["alphaThreshold"], profile["minimumComponentPixels"], spec)
         same = False
         if target.is_file():
             with Image.open(target) as opened:

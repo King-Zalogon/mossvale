@@ -14,15 +14,30 @@
       "revisionSource": "art/characters/source/creature-fernling-follower-initial.png",
       "referenceAsset": "creature-fernling",
       "promptBrief": "Preserve the leafy fox creature's face, leaf fan, cream chest and green palette; transparent 5×8 directional atlas with compact four-pose travel cycles."
+    },
+    "duskwing": {
+      "generatedSource": "art/characters/source/creature-duskwing-follower-generated.png",
+      "referenceAsset": "creature-duskwing",
+      "promptBrief": "Preserve Duskwing’s violet moth silhouette, eye-spotted wings, cream ruff and magenta eyes; transparent 5x8 eight-direction overworld atlas with idle and four stable walk poses."
+    },
+    "brooklet": {
+      "generatedSource": "art/characters/source/creature-brooklet-follower-generated.png",
+      "referenceAsset": "creature-brooklet",
+      "promptBrief": "Preserve Brooklet’s blue otter silhouette, cream muzzle and chest, expressive eyes and curled water tail; transparent 5x8 eight-direction overworld atlas with idle and four stable walk poses."
     }
   },
   "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
   "frameOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
   "frame": [200, 200],
-  "grid": {"columns": 5, "rows": 8},
+  "grid": {
+    "columns": 5,
+    "rows": 8
+  },
   "sheetRows": {
     "creature-fernling-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-    "creature-emberkin-follower": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"]
+    "creature-emberkin-follower": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
+    "creature-duskwing-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-brooklet-follower": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"]
   },
   "sprites": {
     "creature-emberkin-follower": {
@@ -37,6 +52,24 @@
     "creature-fernling-follower": {
       "sourceSize": [994, 1582],
       "output": "dist/assets/creatures/creature-fernling-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-duskwing-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-duskwing-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-brooklet-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-brooklet-follower.png",
       "frame": [200, 200],
       "columns": 5,
       "rows": 8,
