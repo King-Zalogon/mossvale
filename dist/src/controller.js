@@ -5,7 +5,7 @@ import {moves} from './data/moves.js';
 import {regions} from './data/regions.js';
 import {maxHP} from './domain/rules.js';
 import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, setFlag, unlocked} from './domain/rules.js';
-import {createBattle, encounterDistance, ensureHealthyCompanion, resolveTurn, rollWild} from './domain/battle.js';
+import {createBattle, encounterDistance, ensureHealthyCompanion, guardianLevel, resolveTurn, rollWild} from './domain/battle.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
 import {buildWorld, nearestInteractive, triggersAt, zoneAt} from './domain/world.js';
@@ -417,7 +417,7 @@ export function createController(app) {
 
   /** Shrine guardian `{id, level}` from map data. */
   function startGuardian(guardian) {
-    beginBattle({id: guardian.id, level: guardian.level, boss: true, tactic: guardian.tactic, power: guardian.power});
+    beginBattle({id: guardian.id, level: guardianLevel(save(), guardian), boss: true, tactic: guardian.tactic, power: guardian.power});
   }
 
   /** Re-opens an encounter that was saved mid-fight. Invalid leftovers are dropped without penalty. */
@@ -511,10 +511,13 @@ export function createController(app) {
 
   /** One line describing the enemy's turn. */
   function enemyText(foe, e) {
-    if (e.action === 'charge') return `${foe.name} is gathering strength…`;
-    if (e.action === 'brace') return `${foe.name} braces itself. Your next attack will glance off.`;
-    if (e.action === 'heavy') return `${foe.name} unleashes a heavy blow for ${e.damage} damage!`;
-    return `${foe.name} used ${e.element ? (moves[foe.move]?.name ?? foe.move) : 'Quick strike'} for ${e.damage} damage.`;
+    if (e.action === 'charge') return `${foe.name} is gathering strength…${e.recovered ? ` The current restores ${e.recovered} HP.` : ''}`;
+    if (e.action === 'brace') return `${foe.name} braces itself against quick strikes.`;
+    const hit =
+      e.action === 'heavy'
+        ? `${foe.name} unleashes a heavy blow for ${e.damage} damage!`
+        : `${foe.name} used ${e.element ? (moves[foe.move]?.name ?? foe.move) : 'Quick strike'} for ${e.damage} damage.`;
+    return `${hit}${e.counter ? ` Your Guard ripostes for ${e.counter} damage.` : ''}`;
   }
 
   /** Turns resolved events into display frames (presentation only; no state changes). */
@@ -524,7 +527,7 @@ export function createController(app) {
     for (const e of turn.events) {
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
-        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
+        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.brokeBrace ? ' It broke through the brace!' : e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
         frames.push({message: player, animation: 'attack', after: e.after, sfx: e.kind === 'element' ? 'element' : 'strike', wait: wait(650)});
       } else if (e.type === 'throw') {
         player = 'The creature broke free of the orb.';
