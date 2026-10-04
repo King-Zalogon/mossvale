@@ -26,23 +26,51 @@
       "asset": "person-red-cap-motion",
       "technical": {
         "status": "pass",
-        "source": "npm run verify / asset source atlas pixel checks"
+        "source": "npm run verify / real-map Playwright diagonal cycles and 52 × 84 px rendered foot-travel checks"
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "Eight facing rows retain the red cap, blue clothing and compact scale; NE/NW silhouette changes are expected for turned views, not identity failures.",
+        "reason": "At the renderer’s 52 × 84 px size, NE/NW/SW alternate readable walk poses with measured boot travel of 9.6/9.6/12.8 px; the unchanged SE control measures 8.8 px. NW mirrors NE. Owner gameplay taste remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["dist/character-preview.html"],
+      "evidence": ["dist/character-preview.html", "art/characters/reviews/diagonal-walk-before-after.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "0b72e9f28c86232ea30cb87fd955023f3590ee9bdb0616d716afbfedcbf17fbe"
+          "sha256": "028dea5913b9f44df9c89cbe9259bae5efbdd239799c3dc051f032ce01121ecc"
+        },
+        {
+          "path": "art/characters/reviews/diagonal-walk-before-after.png",
+          "sha256": "31b0cb2852483c69a63b881680bacfcd5fc844b6a7a95b0d858ea1dd4baaba6f"
+        },
+        {
+          "path": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+          "sha256": "0d0def87e7211180b62b6eab5710f1b10b6dd8284b358a05026edb1e9c2dc117"
+        },
+        {
+          "path": "art/characters/source/person-red-cap-motion-southwest-v2.png",
+          "sha256": "0bc1009b828738a92d49a1a0c85616a0ceb25f8238ff85712fc8be881f1a4dc3"
+        },
+        {
+          "path": "dist/assets/people/person-red-cap-east.png",
+          "sha256": "1ea752494f7897b5e512d5885f8c732a06590949c74450f6e6c8744ea4053850"
         },
         {
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "sha256": "9a8c5376affa0b538964041baff4c0618780de1324dee6c815298f6ce9a61e57"
+          "sha256": "f1ab1240e8d9680998a7287ac49065d1ffb72075a08ae1827f1c1dc5f5fe03fd"
+        },
+        {
+          "path": "dist/assets/people/person-red-cap-north.png",
+          "sha256": "16c613be7720e0c9f231eca4f7e5181b709647afde0ab858a5efeafa4ddec6a8"
+        },
+        {
+          "path": "dist/assets/people/person-red-cap-south.png",
+          "sha256": "9088f1039cc08e0f0496d08ff942ec3de9b55bfee561c23e8e38b4326faacc51"
+        },
+        {
+          "path": "dist/assets/people/person-red-cap-west.png",
+          "sha256": "73b972aca231577c7a746b84585b004672c6bbb0271799f24e9832202874fadd"
         },
         {
           "path": "dist/character-preview.html",
