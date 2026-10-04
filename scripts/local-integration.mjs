@@ -111,7 +111,9 @@ export async function launch({cwd = repository, port = 8080, browser = true} = {
       lock = openSync(lockPath, 'wx');
     } catch (error) {
       if (error.code === 'EEXIST')
-        throw new Error(`Another launcher owns ${lockPath}. Stop it first. After a crash, remove this lock only after confirming no launcher is running.`);
+        throw new Error(`Another launcher owns ${lockPath}. Stop it first. After a crash, remove this lock only after confirming no launcher is running.`, {
+          cause: error,
+        });
       throw error;
     }
     server.once('close', () => {
@@ -152,3 +154,6 @@ if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.m
     process.exitCode = 1;
   }
 }
+From https://github.com/King-Zalogon/mossvale
+   e4eb23a..319a2c6  codex/163-local-integration-launcher -> origin/codex/163-local-integration-launcher
+   32afc3b..58144b9  integration -> origin/integration
