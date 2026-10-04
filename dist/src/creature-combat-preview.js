@@ -2,7 +2,7 @@ import {assets, spriteId} from './data/assets.js';
 import {species} from './data/species.js';
 import {drawSprite, sprites} from './render/sprites.js';
 
-const kinds = ['fernling', 'emberkin', 'duskwing', 'brooklet', 'hushram', 'voltkit'];
+const kinds = ['fernling', 'emberkin', 'duskwing', 'brooklet', 'hushram', 'voltkit', 'mushmallow', 'frostowl'];
 const states = ['idle', 'attack', 'hit', 'faint', 'capture'];
 const host = document.querySelector('#species');
 const calm = document.querySelector('#calm');
