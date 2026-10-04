@@ -3,7 +3,10 @@ import assert from 'node:assert/strict';
 import {chooseTerrainVariant, terrainVariant} from '../dist/src/domain/terrain-family.js';
 import {createInventory, moveInventory, sellInventory, validateInventoryRules} from '../dist/src/domain/inventory.js';
 import {applyObjectiveEvent, createObjectiveState, validateObjectiveEvents, validateObjectiveState} from '../dist/src/domain/objective-events.js';
-import {compileComposition} from '../dist/src/domain/composition.js';
+import {compileComposition, createCompositionArtBrief} from '../dist/src/domain/composition.js';
+import {validateRegistries} from '../dist/src/domain/registries.js';
+import compositionShowcase from '../art/characters/composition-prototypes.json' with {type: 'json'};
+import defaultRegistries from '../dist/maps/registries.json' with {type: 'json'};
 import {availableCompanionRoutes, companionCanUseRoute, validateCompanionRoutes} from '../dist/src/domain/companion-routes.js';
 import {availableDialogueChoices, selectDialogueChoice, validateDialogueChoices} from '../dist/src/domain/dialogue-choices.js';
 
@@ -132,6 +135,42 @@ test('body-plan compilation validates slots and de-duplicates derived abilities'
     ),
     /combined modifier/,
   );
+});
+
+test('composition showcase compiles three ordinary species records and generated art briefs, including a novel data-only plan', () => {
+  assert.equal(compositionShowcase.compositions.length, 3);
+  assert.equal(compositionShowcase.bodyPlans[compositionShowcase.novelPlan].novel, true);
+  const compiledSpecies = [];
+  const briefs = [];
+  for (const composition of compositionShowcase.compositions) {
+    const plan = compositionShowcase.bodyPlans[composition.bodyPlan];
+    const compiled = compileComposition(plan, compositionShowcase.parts, composition.assignments);
+    assert.deepEqual(compiled.errors, [], composition.id);
+    const brief = createCompositionArtBrief(plan, compositionShowcase.parts, composition.assignments, {
+      id: composition.species.id,
+      name: composition.species.name,
+      visualIdentity: composition.identityBrief,
+    });
+    assert.deepEqual(brief.errors, [], composition.id);
+    assert.equal(brief.brief.anatomy.length, Object.keys(composition.assignments).length);
+    assert.match(brief.brief.artDirection, /cohesive, full-body creature/);
+    briefs.push(brief.brief);
+    compiledSpecies.push({...composition.species, ...compiled.species});
+  }
+  assert.equal(new Set(compiledSpecies.map(entry => entry.id)).size, 3);
+  assert.ok(
+    compiledSpecies.every(entry => typeof entry.hp === 'number' && entry.stats?.hp === entry.hp && Array.isArray(entry.strong) && Array.isArray(entry.weak)),
+  );
+  assert.deepEqual(compiledSpecies[2].abilities, ['cross-shallow-water', 'dash', 'glide']);
+  assert.equal(new Set(briefs.map(brief => brief.speciesId)).size, 3);
+
+  const registry = {...defaultRegistries, species: [...defaultRegistries.species, ...compiledSpecies]};
+  const assetNames = new Set([
+    ...defaultRegistries.species.map(entry => entry.sprite),
+    ...defaultRegistries.regions.map(entry => entry.preview),
+    ...compiledSpecies.map(entry => entry.sprite),
+  ]);
+  assert.deepEqual(validateRegistries(registry, {assetNames}), [], 'compiled prototypes remain compatible with ordinary pack species records');
 });
 
 test('optional companion routes stay optional and every starter can reach recovery', () => {
