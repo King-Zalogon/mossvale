@@ -1,7 +1,6 @@
 import {assets} from './data/assets.js';
 import {species} from './data/species.js';
 import {validateMaps} from './domain/mapdata.js';
-import {terrainVariant} from './domain/terrain-family.js';
 
 const $ = selector => document.querySelector(selector);
 const mapsUrl = new URL('../maps/', import.meta.url);
@@ -17,7 +16,6 @@ let selectedRecord = null;
 let undo = [];
 let redo = [];
 let cleanSnapshot = '';
-let topologyPreview = false;
 
 const clone = value => JSON.parse(JSON.stringify(value));
 const snapshot = () => JSON.stringify(selectedMap);
@@ -37,18 +35,6 @@ function updateStatus() {
   $('#dirty').classList.toggle('unsaved', dirty);
   $('#undo').disabled = !undo.length;
   $('#redo').disabled = !redo.length;
-}
-function updateTopologyStatus() {
-  const button = $('#topology-toggle');
-  button?.setAttribute('aria-pressed', String(topologyPreview));
-  if (!topologyPreview) {
-    $('#topology-status').textContent = 'Topology preview is off.';
-    return;
-  }
-  const selected = selectedCell && terrainVariant(selectedMap.terrain, selectedCell.x, selectedCell.y);
-  $('#topology-status').textContent = selected
-    ? `${selected.terrain}: ${selected.shape}; edges ${selected.edges.join(', ') || 'none'}; corners ${selected.corners.join(', ') || 'none'}; key ${selected.cornerKey}. Highlighted outlines mark neighboring terrain changes. This prototype displays topology; source tile art is not assigned yet.`
-    : 'Highlighted outlines mark terrain edges; click a tile to inspect its edge mask, corners and deterministic variant key. Source tile art is not assigned yet.';
 }
 const coord = (x, y) => {
   const scale = Math.min(canvas.width / ((selectedMap.size.w + selectedMap.size.h) * 14), canvas.height / ((selectedMap.size.w + selectedMap.size.h) * 7));
@@ -75,25 +61,6 @@ function draw() {
         ctx.lineTo(px - tw / 2, py);
         ctx.closePath();
         ctx.fill();
-      }
-      if (topologyPreview && selectedMap.terrain[y][x] !== '.') {
-        const topology = terrainVariant(selectedMap.terrain, x, y);
-        const vertices = {
-          n: [px, py - th / 2],
-          e: [px + tw / 2, py],
-          s: [px, py + th / 2],
-          w: [px - tw / 2, py],
-        };
-        ctx.lineWidth = Math.max(2, (tw / 28) * 2.5);
-        for (const edge of topology.edges) {
-          const from = vertices[edge];
-          const to = vertices[{n: 'e', e: 's', s: 'w', w: 'n'}[edge]];
-          ctx.strokeStyle = edge === 'n' || edge === 's' ? '#ffe08a' : '#e98d7f';
-          ctx.beginPath();
-          ctx.moveTo(...from);
-          ctx.lineTo(...to);
-          ctx.stroke();
-        }
       }
       if (selectedCell?.x === x && selectedCell?.y === y) {
         ctx.strokeStyle = '#fff4ad';
@@ -122,7 +89,6 @@ function draw() {
     ctx.fillText(name, x + 6, y + 12);
   }
   $('#map-name').textContent = `${selectedMap.name} · ${selectedMap.size.w} × ${selectedMap.size.h}`;
-  updateTopologyStatus();
 }
 function validate() {
   if (!selectedMap) return;
@@ -156,8 +122,7 @@ function selectMap(id) {
 }
 function selectAt(x, y) {
   selectedCell = {x, y};
-  const topology = terrainVariant(selectedMap.terrain, x, y);
-  $('#coords').textContent = topologyPreview && topology ? `Tile ${x}, ${y} · ${topology.shape} · ${topology.key}` : `Tile ${x}, ${y}`;
+  $('#coords').textContent = `Tile ${x}, ${y}`;
   const entities = ['landmarks', 'exits', 'props', 'zones', 'triggers', 'instances']
     .flatMap(kind => (selectedMap[kind] ?? []).map((record, index) => ({kind, index, record})))
     .find(({kind, record}) => {
@@ -195,10 +160,6 @@ $('#terrain').addEventListener('change', () => {
   selectedMap.terrain[selectedCell.y] = row.join('');
   changed(before);
 });
-$('#topology-toggle').onclick = () => {
-  topologyPreview = !topologyPreview;
-  draw();
-};
 $('#map').onchange = event => selectMap(event.target.value);
 $('#undo').onclick = () => {
   if (!undo.length) return;

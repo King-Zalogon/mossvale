@@ -32,7 +32,6 @@
             <option value=".">Void</option>
           </select></label
         >
-        <button id="topology-toggle" aria-pressed="false">Show terrain topology</button>
         <button id="undo" disabled>Undo</button><button id="redo" disabled>Redo</button> <button id="import">Import JSON</button
         ><input id="file" type="file" accept="application/json,.json" hidden /> <button id="export" class="primary">Export JSON</button
         ><button id="play-preview" class="primary">Play edited map</button
@@ -46,7 +45,6 @@
           </div>
           <canvas id="map-canvas" width="1120" height="680" aria-label="Isometric map terrain editor"></canvas>
           <p class="hint">Paint terrain directly on the map. Select an entity on the map to edit its complete JSON record on the right.</p>
-          <p id="topology-status" class="hint" aria-live="polite">Topology preview is off.</p>
         </section>
         <aside>
           <section class="panel">

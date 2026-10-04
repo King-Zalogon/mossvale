@@ -1,7 +1,7 @@
 {
   "version": 1,
   "sourceReferences": {
-    "generatedOn": "2026-10-04",
+    "generatedOn": "2026-10-03",
     "fernling": {
       "generatedSource": "art/characters/source/creature-fernling-combat-generated.png",
       "referenceAsset": "creature-fernling",
@@ -16,127 +16,48 @@
       "generatedSource": "art/characters/source/creature-brooklet-combat-generated.png",
       "referenceAsset": "creature-brooklet",
       "promptBrief": "Preserve Brooklet’s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
-      "sourceSize": [
-        1122,
-        1402
-      ]
+      "sourceSize": [1122, 1402]
     },
     "hushram": {
       "generatedSource": "art/characters/source/creature-hushram-combat-generated.png",
       "referenceAsset": "creature-hushram",
       "promptBrief": "Preserve Hushram’s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
-      "sourceSize": [
-        1122,
-        1402
-      ]
-    },
-    "emberkin": {
-      "generatedSource": "art/characters/source/creature-emberkin-combat-generated.png",
-      "referenceAsset": "creature-emberkin",
-      "promptBrief": "Preserve Emberkin’s rusty orange forest-mammal identity, cream chest, dark paws and three flame tail tufts; add idle, fire attack, hit, faint and capture states in a fixed-anchor 4×5 atlas."
-    },
-    "voltkit": {
-      "generatedSource": "art/characters/source/creature-voltkit-combat-generated.png",
-      "referenceAsset": "creature-voltkit",
-      "promptBrief": "Preserve Voltkit’s gold and cream electric companion identity, long asymmetrical ears, dark paws, blue cheek mark and crystal-tipped zigzag tail; add idle, electric attack, hit, faint and capture states in a fixed-anchor 4×5 atlas."
+      "sourceSize": [1122, 1402]
     }
   },
-  "frameOrder": [
-    "idle",
-    "attack",
-    "hit",
-    "faint",
-    "capture"
-  ],
-  "columnOrder": [
-    0,
-    1,
-    2,
-    3
-  ],
+  "frameOrder": ["idle", "attack", "hit", "faint", "capture"],
+  "columnOrder": [0, 1, 2, 3],
   "sprites": {
     "creature-fernling-combat": {
-      "sourceSize": [
-        1122,
-        1402
-      ],
+      "sourceSize": [1122, 1402],
       "output": "dist/assets/creatures/creature-fernling-combat.png",
       "columns": 4,
       "rows": 5,
-      "frame": [
-        288,
-        288
-      ],
+      "frame": [288, 288],
       "anchor": "bottom-center"
     },
     "creature-duskwing-combat": {
-      "sourceSize": [
-        1122,
-        1402
-      ],
+      "sourceSize": [1122, 1402],
       "output": "dist/assets/creatures/creature-duskwing-combat.png",
       "columns": 4,
       "rows": 5,
-      "frame": [
-        281,
-        281
-      ],
+      "frame": [281, 281],
       "anchor": "bottom-center"
     },
     "creature-brooklet-combat": {
-      "sourceSize": [
-        1122,
-        1402
-      ],
+      "sourceSize": [1122, 1402],
       "output": "dist/assets/creatures/creature-brooklet-combat.png",
       "columns": 4,
       "rows": 5,
-      "frame": [
-        288,
-        288
-      ],
+      "frame": [288, 288],
       "anchor": "bottom-center"
     },
     "creature-hushram-combat": {
-      "sourceSize": [
-        1122,
-        1402
-      ],
+      "sourceSize": [1122, 1402],
       "output": "dist/assets/creatures/creature-hushram-combat.png",
       "columns": 4,
       "rows": 5,
-      "frame": [
-        288,
-        288
-      ],
-      "anchor": "bottom-center"
-    },
-    "creature-emberkin-combat": {
-      "sourceSize": [
-        1121,
-        1403
-      ],
-      "output": "dist/assets/creatures/creature-emberkin-combat.png",
-      "columns": 4,
-      "rows": 5,
-      "frame": [
-        288,
-        288
-      ],
-      "anchor": "bottom-center"
-    },
-    "creature-voltkit-combat": {
-      "sourceSize": [
-        1121,
-        1403
-      ],
-      "output": "dist/assets/creatures/creature-voltkit-combat.png",
-      "columns": 4,
-      "rows": 5,
-      "frame": [
-        288,
-        288
-      ],
+      "frame": [288, 288],
       "anchor": "bottom-center"
     }
   },
