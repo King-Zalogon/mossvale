@@ -251,7 +251,8 @@ export function createController(app) {
     const s = save();
     sfx('tap');
     if (o.kind === 'ranger') openRanger();
-    else if (o.kind === 'sign') toast(o.text ?? pickLine(o.lines, s, objCtx));
+    else if (o.kind === 'sign')
+      speech.show([{text: o.text ?? pickLine(o.lines, s, objCtx), speaker: o.ref ?? 'sign', name: 'Trail sign'}], () => app.projectWorld(o.x, o.y));
     else if (o.kind === 'chest') {
       const got = claimChest(s, o);
       if (!got) {

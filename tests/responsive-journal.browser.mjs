@@ -62,13 +62,14 @@ try {
   });
   await page.waitForFunction(() => getComputedStyle(document.querySelector('#interact')).display === 'block');
   await page.evaluate(() => window.mossvale.interact());
-  await page.waitForFunction(() => document.querySelector('#toast').dataset.active === 'true');
+  await page.waitForSelector('#speech-bubble:not([hidden])');
   await page.waitForTimeout(80);
   assert.equal(
     await page.locator('#interact').evaluate(node => getComputedStyle(node).display),
     'none',
     'sign copy takes priority over its interaction prompt',
   );
+  await page.locator('#speech-next').tap();
   const landscapeHud = await page.evaluate(() => {
     const rect = selector => {
       const {x, y, width, height} = document.querySelector(selector).getBoundingClientRect();
@@ -122,7 +123,7 @@ try {
     };
   });
   assert.ok(speechBox.left >= 0 && speechBox.right <= speechBox.width && speechBox.top >= 0 && speechBox.bottom <= speechBox.height, JSON.stringify(speechBox));
-  await page.locator('#speech-next').click();
+  await page.locator('#speech-next').tap();
   assert.equal(await page.locator('#speech-bubble').isHidden(), true, 'dialogue remains dismissible by touch after rotation');
 
   const pad = page.locator('button[data-dir="1,0"]');
