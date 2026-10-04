@@ -61,7 +61,7 @@
     },
     "creature-follower-v1": {
       "category": "creature-follower",
-      "status": "implemented-second-batch",
+      "status": "implemented-third-batch",
       "sourceGrid": {
         "columns": 5,
         "rows": 8
@@ -72,10 +72,10 @@
       "alphaThreshold": 8,
       "minimumComponentPixels": 180,
       "footY": 196,
-      "palette": "preserve exact generated source bytes; encode Hushram and Voltkit runtime sheets as 256-color indexed PNG with no dithering",
-      "remaining": "Six species remain without follower atlases.",
+      "palette": "preserve exact generated source bytes; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
+      "remaining": "Four species remain without follower atlases.",
       "indexedOutput": {
-        "species": ["hushram", "voltkit"],
+        "species": ["hushram", "voltkit", "mushmallow", "frostowl"],
         "colors": 256,
         "dither": "none"
       }
