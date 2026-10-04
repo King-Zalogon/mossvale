@@ -12,11 +12,12 @@ import {REST_FLOOR, SHOP} from '../data/economy.js';
 import {canBuy} from '../domain/economy.js';
 import {POTION_HEAL} from '../domain/battle.js';
 import {TACTICS} from '../data/tactics.js';
+import {PORTAL_RETURN_URL} from '../build-config.js';
 import {hasProgress, summarize} from '../services/profile.js';
 import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
 import {createAccountMenus} from './account.js';
 import {createAreaMap} from './areamap.js';
-import {$, header, openModal} from './dom.js';
+import {$, header, openModal, toast} from './dom.js';
 
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'})[c]);
 
@@ -278,7 +279,7 @@ export function createMenus(app) {
       } else if (view === 'confirm-restore') {
         body = `${header('RESTORE', 'Go back to your earlier adventure?', false)}<p class="menu-summary">Restores ${summarize(archived.save, species)}, archived ${new Date(archived.at).toLocaleDateString()}. Your current adventure (${summarize(s, species)}) becomes the backup, so nothing is lost.</p><div class="menu-list"><button id="m-confirm-restore" class="primary">Restore it</button><button id="m-cancel">Cancel</button></div>`;
       } else {
-        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${!title ? '<button id="m-feedback">Leave feedback</button><button id="m-account-save">Account save</button>' : ''}${app.adventures.list.length > 1 ? '<button id="m-adventures">Adventures<small>' + esc(app.adventures.current.name) + '</small></button>' : ''}<button id="m-backup">Backup & restore</button>${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
+        body = `${header('MOSSVALE', title ? 'Beyond the meadow' : 'Menu', !title)}<p class="menu-summary">${progress ? summarize(s, species) : 'A new adventure awaits.'}${s.completed ? ' · ✦ Adventure complete' : ''}${app.saveNote ? '<br><small>' + app.saveNote + '</small>' : ''}<br><small>${app.buildLabel()}</small></p><div class="menu-list"><button id="m-primary" class="primary">${title ? (progress ? 'Continue' : 'Start adventure') : 'Back to the game'}</button><button id="m-settings">Settings</button>${!title ? '<button id="m-feedback">Leave feedback</button><button id="m-account-save">Account save</button>' : ''}${app.adventures.list.length > 1 ? '<button id="m-adventures">Adventures<small>' + esc(app.adventures.current.name) + '</small></button>' : ''}<button id="m-backup">Backup & restore</button>${!title && PORTAL_RETURN_URL ? '<button id="m-return-dashboard">Return to dashboard</button>' : ''}${progress ? `<button id="m-new" ${app.canStartOver() ? '' : 'disabled'}>New game</button>` : ''}${archived ? `<button id="m-restore" ${app.canStartOver() ? '' : 'disabled'}>Restore previous adventure<small>${summarize(archived.save, species)}</small></button>` : ''}</div>`;
       }
       open(body, mode, title ? 'Mossvale' : 'Game menu');
       wireClose();
@@ -290,6 +291,13 @@ export function createMenus(app) {
         render();
       };
       on('#m-primary', () => (title ? actions.startPlaying() : actions.close()));
+      on('#m-return-dashboard', () => {
+        if (!app.persist()) {
+          toast('Your progress could not be saved. Keep this tab open and try again.');
+          return;
+        }
+        location.assign(PORTAL_RETURN_URL);
+      });
       on('#m-settings', go('settings'));
       on('#m-feedback', () => accountMenus.feedback(render));
       on('#m-account-save', () => accountMenus.accountSave(render));
