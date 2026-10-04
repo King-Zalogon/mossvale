@@ -60,3 +60,35 @@ export function compileComposition(plan, parts, assignments, {modifierLimit = 0.
   if (errors.length) return {errors};
   return {errors: [], species: {parts: resolved, abilities: [...abilities].sort(), modifiers}};
 }
+
+/** Turn a valid data composition into a structured art brief; this does not assemble or generate pixels. */
+export function createCompositionArtBrief(plan, parts, assignments, identity) {
+  const compiled = compileComposition(plan, parts, assignments);
+  if (compiled.errors.length) return compiled;
+  const errors = [];
+  if (!identity || !ID.test(identity.id ?? '') || typeof identity.name !== 'string' || !identity.name.trim())
+    errors.push('identity needs a kebab-case id and display name');
+  if (typeof plan.silhouette !== 'string' || !plan.silhouette.trim()) errors.push('body plan needs a silhouette description for an art brief');
+  if (typeof identity?.visualIdentity !== 'string' || !identity.visualIdentity.trim())
+    errors.push('identity needs a visualIdentity description for an art brief');
+  for (const [slotId, partId] of Object.entries(assignments)) {
+    if (typeof parts[partId]?.appearance !== 'string' || !parts[partId].appearance.trim())
+      errors.push(`part "${partId}" in slot "${slotId}" needs an appearance description for an art brief`);
+  }
+  if (errors.length) return {errors};
+  return {
+    errors: [],
+    brief: {
+      speciesId: identity.id,
+      name: identity.name,
+      silhouette: plan.silhouette,
+      identity: identity.visualIdentity.trim(),
+      anatomy: plan.slots
+        .filter(slot => assignments[slot.id])
+        .map(slot => ({slot: slot.id, part: assignments[slot.id], appearance: parts[assignments[slot.id]].appearance.trim()})),
+      derivedAbilities: compiled.species.abilities,
+      artDirection:
+        'Design one cohesive, full-body creature from these anatomy references. Treat component descriptions as guidance, not separately assembled sprite layers. Review the finished sprite at gameplay size.',
+    },
+  };
+}

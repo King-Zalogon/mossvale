@@ -1,0 +1,158 @@
+{
+  "format": 1,
+  "novelPlan": "reed-skimmer",
+  "bodyPlans": {
+    "trail-quadruped": {
+      "id": "trail-quadruped",
+      "silhouette": "A low, four-legged companion with a balanced body and a readable head crest.",
+      "slots": [
+        {"id": "core", "required": true, "accepts": ["core"]},
+        {"id": "body", "required": true, "accepts": ["body"]},
+        {"id": "locomotion", "required": true, "accepts": ["ground-locomotion"], "excludes": ["flight"]},
+        {"id": "crest", "required": false, "accepts": ["head"]}
+      ]
+    },
+    "marsh-wader": {
+      "id": "marsh-wader",
+      "silhouette": "A sturdy wetland body held above shallow water by broad, splayed feet.",
+      "slots": [
+        {"id": "core", "required": true, "accepts": ["core"]},
+        {"id": "shell", "required": true, "accepts": ["shell"]},
+        {"id": "locomotion", "required": true, "accepts": ["wader-locomotion"], "excludes": ["flight"]},
+        {"id": "face", "required": true, "accepts": ["head"]}
+      ]
+    },
+    "reed-skimmer": {
+      "id": "reed-skimmer",
+      "novel": true,
+      "silhouette": "A narrow, long-bodied shoreline runner with a low center of gravity, fan tail and small lift fins.",
+      "slots": [
+        {"id": "core", "required": true, "accepts": ["core"]},
+        {"id": "body", "required": true, "accepts": ["streamlined-body"]},
+        {"id": "locomotion", "required": true, "accepts": ["wader-locomotion"], "excludes": ["flight"]},
+        {"id": "lift-fins", "required": true, "accepts": ["lift-fin"]},
+        {"id": "tail", "required": true, "accepts": ["fan-tail"]}
+      ]
+    }
+  },
+  "parts": {
+    "sprout-core": {"tags": ["core"], "abilities": ["keen-sense"], "appearance": "A warm green seed-shaped patch at the center of the chest."},
+    "moss-pelt": {
+      "tags": ["body"],
+      "abilities": ["brace"],
+      "modifiers": {"hp": 0.08},
+      "appearance": "Short layered moss-green fur with a soft leaf-like ruff."
+    },
+    "spring-legs": {
+      "tags": ["ground-locomotion"],
+      "abilities": ["dash"],
+      "modifiers": {"speed": 0.1},
+      "appearance": "Four slim, springy legs with dark paws and clear joints."
+    },
+    "leaf-crown": {"tags": ["head"], "abilities": ["keen-sense"], "appearance": "Two small fern fronds sweep back from the brow without hiding the eyes."},
+    "river-core": {
+      "tags": ["core"],
+      "abilities": ["cross-shallow-water"],
+      "appearance": "A turquoise glow beneath the throat, like light through a clear pool."
+    },
+    "reed-shell": {
+      "tags": ["shell"],
+      "abilities": ["brace"],
+      "modifiers": {"defense": 0.12},
+      "appearance": "A smooth, dark-teal back with a few pale reed-shaped markings."
+    },
+    "webbed-feet": {
+      "tags": ["wader-locomotion"],
+      "abilities": ["cross-shallow-water"],
+      "appearance": "Broad orange-brown feet with visible webbing between each toe."
+    },
+    "whiskered-face": {
+      "tags": ["head"],
+      "abilities": ["keen-sense"],
+      "appearance": "A rounded muzzle with two short whiskers and bright, forward-looking eyes."
+    },
+    "streamline-body": {
+      "tags": ["streamlined-body"],
+      "abilities": ["dash"],
+      "modifiers": {"speed": 0.08},
+      "appearance": "A smooth, tapered body that narrows toward the hips for quick turns."
+    },
+    "glass-lift-fins": {
+      "tags": ["lift-fin"],
+      "abilities": ["glide"],
+      "appearance": "Two small translucent turquoise fins along the shoulders; they suggest a brief hop, not full flight."
+    },
+    "reed-fan-tail": {"tags": ["fan-tail"], "abilities": ["glide"], "appearance": "A broad, flexible tail ending in three overlapping reed-shaped lobes."}
+  },
+  "compositions": [
+    {
+      "id": "canopy-scout",
+      "bodyPlan": "trail-quadruped",
+      "assignments": {"core": "sprout-core", "body": "moss-pelt", "locomotion": "spring-legs", "crest": "leaf-crown"},
+      "identityBrief": "A curious meadow guide: alert and nimble, with a gentle expression and a distinct leaf-frond silhouette.",
+      "species": {
+        "id": "canopy-scout",
+        "name": "Canopy Scout",
+        "type": "Leaf",
+        "hp": 44,
+        "stats": {"hp": 44, "attack": 10, "defense": 10},
+        "move": "leaf-burst",
+        "biome": "meadow",
+        "role": "Agile pathfinder",
+        "personality": "Curious and attentive; it notices small changes along familiar paths.",
+        "desc": "A nimble green companion with a fern-frond crown.",
+        "encounterHint": "A composition study, not currently found in the playable world.",
+        "strong": ["Water", "Stone", "Mire"],
+        "weak": ["Fire", "Ice", "Frost"],
+        "color": "#bade7e",
+        "sprite": "creature-fernling"
+      }
+    },
+    {
+      "id": "reedfen-wader",
+      "bodyPlan": "marsh-wader",
+      "assignments": {"core": "river-core", "shell": "reed-shell", "locomotion": "webbed-feet", "face": "whiskered-face"},
+      "identityBrief": "A patient wetland companion that looks comfortable among reed pools, with an open, friendly face and careful footing.",
+      "species": {
+        "id": "reedfen-wader",
+        "name": "Reedfen Wader",
+        "type": "Water",
+        "hp": 47,
+        "stats": {"hp": 47, "attack": 9, "defense": 13},
+        "move": "ripple-rush",
+        "biome": "wetland",
+        "role": "Shallow-water helper",
+        "personality": "Patient and observant; it pauses to listen before crossing a stream.",
+        "desc": "A steady wetland companion with broad webbed feet.",
+        "encounterHint": "A composition study, not currently found in the playable world.",
+        "strong": ["Fire", "Stone", "Sand"],
+        "weak": ["Leaf", "Spark", "Bloom"],
+        "color": "#83dbe8",
+        "sprite": "creature-brooklet"
+      }
+    },
+    {
+      "id": "glasswing-skimmer",
+      "bodyPlan": "reed-skimmer",
+      "assignments": {"core": "river-core", "body": "streamline-body", "locomotion": "webbed-feet", "lift-fins": "glass-lift-fins", "tail": "reed-fan-tail"},
+      "identityBrief": "A quick shoreline scout with a calm, bright-eyed expression. Keep the translucent fins small and the fan tail readable at gameplay scale.",
+      "species": {
+        "id": "glasswing-skimmer",
+        "name": "Glasswing Skimmer",
+        "type": "Water",
+        "hp": 42,
+        "stats": {"hp": 42, "attack": 12, "defense": 8},
+        "move": "ripple-rush",
+        "biome": "wetland",
+        "role": "Shoreline scout",
+        "personality": "Bold near the water and careful on dry ground; it likes short leaps between reeds.",
+        "desc": "A streamlined companion with a fan tail and translucent shoulder fins.",
+        "encounterHint": "A composition study, not currently found in the playable world.",
+        "strong": ["Fire", "Stone", "Sand"],
+        "weak": ["Leaf", "Spark", "Bloom"],
+        "color": "#83dbe8",
+        "sprite": "creature-duskwing"
+      }
+    }
+  ]
+}
