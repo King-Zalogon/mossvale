@@ -5,7 +5,7 @@ import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {encounterDistance, rollWild} from '../dist/src/domain/battle.js';
 import {movePlayer} from '../dist/src/domain/exploration.js';
 import {seededRng} from '../dist/src/domain/rng.js';
-import {buildWorld, triggersAt} from '../dist/src/domain/world.js';
+import {buildWorld, triggersAt, zoneAt} from '../dist/src/domain/world.js';
 import {species} from '../dist/src/data/species.js';
 import {content, maps, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
@@ -133,7 +133,7 @@ test('a long walk through grass is not a stream of battles', () => {
       st.pacing.encounterAt = encounterDistance(world.map.zones[0], rng);
       st.pacing.encounterCooldown = GRACE_AFTER_BATTLE;
     }
-    tiles += Math.hypot(st.player.x - before.x, st.player.y - before.y);
+    if (zoneAt(world, Math.round(st.player.x), Math.round(st.player.y))) tiles += Math.hypot(st.player.x - before.x, st.player.y - before.y);
   }
   const perHundred = (encounters / tiles) * 100;
   assert.ok(perHundred > 5 && perHundred < 30, `${encounters} encounters over ${tiles.toFixed(0)} tiles (${perHundred.toFixed(1)} per 100)`);

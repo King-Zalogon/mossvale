@@ -77,12 +77,31 @@ function moveSlice(state, sx, sy, run, dt) {
   const {world, player, pacing} = state;
   const magnitude = Math.hypot(sx, sy);
   const v = (run ? RUN_SPEED : WALK_SPEED) * dt;
-  const dx = (sx / magnitude + sy / magnitude) * v;
-  const dy = (sy / magnitude - sx / magnitude) * v;
   const before = {x: player.x, y: player.y};
-  // Axes are resolved separately, so walking diagonally into a wall slides along it.
-  if (isWalkable(world, player.x + dx, player.y)) player.x += dx;
-  if (isWalkable(world, player.x, player.y + dy)) player.y += dy;
+  // Keep the conventional world-axis slide, but also try screen-axis decomposition. A screen diagonal can collapse
+  // to one world axis after isometric conversion, so world-only resolution has no spare component beside a prop wall.
+  const horizontal = [(sx / magnitude) * v, (-sx / magnitude) * v];
+  const vertical = [(sy / magnitude) * v, (sy / magnitude) * v];
+  const worldX = [horizontal[0] + vertical[0], 0];
+  const worldY = [0, horizontal[1] + vertical[1]];
+  const target = {x: player.x + horizontal[0] + vertical[0], y: player.y + horizontal[1] + vertical[1]};
+  const resolve = components => {
+    const candidate = {...before};
+    for (const [dx, dy] of components) {
+      const x = candidate.x + dx;
+      const y = candidate.y + dy;
+      if (isWalkable(world, x, y)) {
+        candidate.x = x;
+        candidate.y = y;
+      }
+    }
+    return candidate;
+  };
+  const candidates = [resolve([worldX, worldY]), resolve([worldY, worldX]), resolve([horizontal, vertical]), resolve([vertical, horizontal])];
+  const error = candidate => Math.hypot(target.x - candidate.x, target.y - candidate.y);
+  const resolved = candidates.reduce((best, candidate) => (error(candidate) < error(best) - 1e-9 ? candidate : best));
+  player.x = resolved.x;
+  player.y = resolved.y;
   player.dir = facing(sx, sy);
   const distance = Math.hypot(player.x - before.x, player.y - before.y);
   if (distance > 0) {
