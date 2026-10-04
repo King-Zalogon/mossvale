@@ -2,10 +2,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {chooseTerrainVariant, terrainVariant} from '../dist/src/domain/terrain-family.js';
 import {createInventory, moveInventory, sellInventory, validateInventoryRules} from '../dist/src/domain/inventory.js';
-import {applyObjectiveEvent, createObjectiveState, validateObjectiveEvents, validateObjectiveState} from '../dist/src/domain/objective-events.js';
+import {
+  applyObjectiveEvent,
+  createObjectiveState,
+  recordObjectiveEvent,
+  restoreObjectiveState,
+  validateObjectiveEvents,
+  validateObjectiveState,
+} from '../dist/src/domain/objective-events.js';
 import {compileComposition} from '../dist/src/domain/composition.js';
 import {availableCompanionRoutes, companionCanUseRoute, validateCompanionRoutes} from '../dist/src/domain/companion-routes.js';
 import {availableDialogueChoices, selectDialogueChoice, validateDialogueChoices} from '../dist/src/domain/dialogue-choices.js';
+import {adventure, mapsById, packContent, rawInventoryRules, rawMaps, rawObjectives, rawPack, rawStory} from './helpers.mjs';
+import {buildAdventure} from '../dist/src/domain/adventure.js';
 
 test('terrain family topology and decoration selection are deterministic and leave unsafe rotation disabled', () => {
   const grid = ['ggg', 'gpw', 'ggg'].map(row => [...row]);
@@ -76,6 +85,84 @@ test('event objectives progress one stage at a time and emit a reward once', () 
     ],
   };
   assert.match(validateObjectiveEvents(cyclic).join(' '), /cycle/);
+  assert.match(validateObjectiveEvents({...definition, stages: [...definition.stages, {id: 'orphan', on: {type: 'never'}}]}).join(' '), /unreachable/);
+});
+
+test('event objective stage journal restores progress and prevents a second reward after reload', () => {
+  const definition = {
+    format: 1,
+    id: 'quiet-corners',
+    title: 'Quiet corners',
+    stages: [
+      {id: 'find-well', on: {type: 'interaction.used', target: 'old-well'}, next: 'read-sign'},
+      {id: 'read-sign', on: {type: 'interaction.used', target: 'sign'}, reward: {coins: 8}},
+    ],
+  };
+  const save = {events: []};
+  assert.equal(recordObjectiveEvent(save, definition, {type: 'interaction.used', target: 'old-well'}, 'meadow').state.stage, 'read-sign');
+  const reloaded = JSON.parse(JSON.stringify(save));
+  const completion = recordObjectiveEvent(reloaded, definition, {type: 'interaction.used', target: 'sign'}, 'meadow');
+  assert.equal(completion.state.status, 'rewarded');
+  assert.deepEqual(completion.reward, {coins: 8});
+  assert.deepEqual(validateObjectiveState(restoreObjectiveState(definition, reloaded.events), definition), []);
+  assert.equal(recordObjectiveEvent(reloaded, definition, {type: 'interaction.used', target: 'sign'}, 'meadow').changed, false);
+  assert.equal(reloaded.events.length, 2);
+});
+
+test('event counters restore their partial count across reloads before completing', () => {
+  const definition = {
+    format: 1,
+    id: 'meet-neighbors',
+    stages: [{id: 'make-two-friends', count: 2, on: {type: 'capture.completed'}, reward: {potions: 1}}],
+  };
+  const save = {events: []};
+  const first = recordObjectiveEvent(save, definition, {type: 'capture.completed', species: 'fernling'}, 'meadow');
+  assert.equal(first.state.status, 'active');
+  assert.equal(first.state.count, 1);
+  assert.equal(first.reward, undefined);
+  const reloaded = JSON.parse(JSON.stringify(save));
+  assert.equal(restoreObjectiveState(definition, reloaded.events).count, 1);
+  const second = recordObjectiveEvent(reloaded, definition, {type: 'capture.completed', species: 'pebblit'}, 'meadow');
+  assert.equal(second.state.status, 'rewarded');
+  assert.deepEqual(second.reward, {potions: 1});
+  assert.equal(recordObjectiveEvent(reloaded, definition, {type: 'capture.completed', species: 'emberkin'}, 'meadow').changed, false);
+  assert.match(validateObjectiveEvents({...definition, stages: [{...definition.stages[0], count: 100}]}).join(' '), /1 to 99/);
+});
+
+test('the shipped adventure opts into two event goals and conditional ranger choices', () => {
+  assert.deepEqual(adventure.errors, []);
+  assert.deepEqual(
+    adventure.eventObjectives.map(goal => goal.id),
+    ['iris-follow-up', 'quiet-corners'],
+  );
+  const ranger = mapsById.meadow.objects.find(object => object.ref === 'ranger');
+  assert.deepEqual(
+    ranger.choices.map(choice => choice.id),
+    ['ask-about-trail', 'ask-about-shrine', 'ask-how-to-wake-shrine'],
+  );
+});
+
+test('packs without event goals or landmark choices keep their simple objective behavior', () => {
+  const maps = rawMaps().map(map => ({...map, landmarks: map.landmarks.map(landmark => ({...landmark, choices: undefined}))}));
+  const objectives = rawObjectives();
+  delete objectives.eventObjectives;
+  const built = buildAdventure(maps, packContent, objectives, rawStory(), rawPack(), rawInventoryRules());
+  assert.deepEqual(built.errors, []);
+  assert.deepEqual(built.eventObjectives, []);
+  assert.ok(built.objectives.length > 0);
+  assert.equal(built.mapsById.meadow.objects.find(object => object.ref === 'ranger').choices, undefined);
+});
+
+test('pack validation rejects unknown choice speakers and objective choices', () => {
+  const maps = rawMaps();
+  maps.find(map => map.id === 'meadow').landmarks.find(landmark => landmark.id === 'ranger').choices[0].speaker = 'missing-speaker';
+  const badSpeaker = buildAdventure(maps, packContent, rawObjectives(), rawStory(), rawPack(), rawInventoryRules());
+  assert.match(badSpeaker.errors.join(' '), /unknown stable speaker/);
+
+  const objectives = rawObjectives();
+  objectives.eventObjectives[0].stages[1].on.choice = 'missing-choice';
+  const badChoice = buildAdventure(rawMaps(), packContent, objectives, rawStory(), rawPack(), rawInventoryRules());
+  assert.match(badChoice.errors.join(' '), /unknown stable choice id/);
 });
 
 test('conditional dialogue choices use stable IDs and filter by current objective flags', () => {
@@ -94,6 +181,21 @@ test('conditional dialogue choices use stable IDs and filter by current objectiv
   assert.equal(selectDialogueChoice(choices, 'ask-route', save, ctx).reply, 'The ford is open.');
   assert.equal(selectDialogueChoice(choices, 'ask-reward', save, ctx), null);
   assert.match(validateDialogueChoices([{...choices[0], target: 'unknown'}], refs).join(' '), /unknown stable target/);
+
+  const branches = [
+    {...choices[0], id: 'after-seal', when: {flag: 'meadow.seal'}},
+    {...choices[1], id: 'before-seal', when: {not: {flag: 'meadow.seal'}}},
+  ];
+  const flagSave = {...save, badges: []};
+  assert.deepEqual(
+    availableDialogueChoices(branches, flagSave, {speciesCount: 12, regions: [{id: 'meadow'}]}).map(choice => choice.id),
+    ['before-seal'],
+  );
+  flagSave.badges.push(0);
+  assert.deepEqual(
+    availableDialogueChoices(branches, flagSave, {speciesCount: 12, regions: [{id: 'meadow'}]}).map(choice => choice.id),
+    ['after-seal'],
+  );
 });
 
 test('body-plan compilation validates slots and de-duplicates derived abilities', () => {

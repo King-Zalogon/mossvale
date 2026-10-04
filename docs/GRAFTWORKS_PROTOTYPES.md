@@ -12,7 +12,7 @@ These modules are pure, opt-in building blocks. They do not change the current M
 
 ## Event-driven objectives (#100)
 
-`domain/objective-events.js` defines a small linear stage list triggered by typed events. Cycles are rejected, state can be checked after JSON reload, each event advances at most one stage, and a terminal reward is returned once in state. `domain/dialogue-choices.js` validates stable speaker/target IDs and filters choices using the existing objective conditions. These remain opt-in pure helpers: no shipped objective validator, gameplay event wiring, choice buttons/keyboard navigation, or browser UI is included.
+Event objectives and conditional dialogue choices are opt-in pack data. Stages respond to normal gameplay events, their completion markers share the bounded save event journal, and terminal rewards are paid once. Choices use stable speaker/target IDs and the existing flag/condition language inside the keyboard- and touch-accessible speech bubble. The shipped pack demonstrates two optional goals with existing artwork; packs without these fields retain their current simple objective and dialogue behavior. This does not add branching scripts, item conditions, a save-schema migration, or new art.
 
 ## Compositional creatures (#101)
 

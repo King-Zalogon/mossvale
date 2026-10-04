@@ -7,18 +7,28 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
   const text = $('#speech-text');
   const speaker = $('#speech-speaker');
   const next = $('#speech-next');
+  const choiceList = $('#speech-choices');
   let lines = [];
   let index = 0;
   let returnFocus = null;
   let anchor = null;
   let completed = null;
   let dialogueId = '';
+  let choices = [];
+  let onChoice = null;
+  let choicesVisible = false;
 
   const close = (finished = false) => {
     if (dialogueId) onEvent(finished ? 'dialogue.finished' : 'dialogue.dismissed', {dialogueId, line: index});
     lines = [];
     index = 0;
     dialogueId = '';
+    choices = [];
+    onChoice = null;
+    choicesVisible = false;
+    choiceList.hidden = true;
+    choiceList.replaceChildren();
+    next.hidden = false;
     anchor = null;
     ui.speechActive = false;
     bubble.hidden = true;
@@ -33,6 +43,10 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
   const paint = () => {
     const line = lines[index];
     if (!line) return close();
+    choicesVisible = false;
+    choiceList.hidden = true;
+    choiceList.replaceChildren();
+    next.hidden = false;
     onEvent('dialogue.line', {dialogueId, line: index, speaker: line.speaker ?? 'narrator'});
     text.textContent = line.text;
     speaker.textContent = line.name || (line.speaker === 'player' ? 'You' : 'A voice');
@@ -40,8 +54,35 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
     next.setAttribute('aria-label', index === lines.length - 1 ? 'Finish conversation' : 'Continue conversation');
     next.focus({preventScroll: true});
   };
+  const showChoices = () => {
+    choicesVisible = true;
+    choiceList.replaceChildren();
+    choiceList.hidden = false;
+    next.hidden = true;
+    text.textContent = 'Choose a response.';
+    const buttons = choices.map(choice => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.speechChoice = choice.id;
+      button.textContent = choice.text;
+      button.onclick = () => {
+        if (!choicesVisible) return;
+        choicesVisible = false;
+        choiceList.hidden = true;
+        next.hidden = false;
+        choices = [];
+        const select = onChoice;
+        onChoice = null;
+        select?.(choice);
+      };
+      choiceList.append(button);
+      return button;
+    });
+    buttons[0]?.focus({preventScroll: true});
+  };
   next.onclick = () => {
-    if (index + 1 >= lines.length) close(true);
+    if (index + 1 >= lines.length && choices.length) showChoices();
+    else if (index + 1 >= lines.length) close(true);
     else {
       index++;
       paint();
@@ -51,7 +92,7 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
     get active() {
       return ui.speechActive;
     },
-    show(sequence, resolveAnchor, onComplete) {
+    show(sequence, resolveAnchor, onComplete, options = {}) {
       if (!sequence.length) return;
       if (!ui.speechActive) returnFocus = document.activeElement;
       lines = sequence;
@@ -59,6 +100,8 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
       dialogueId = sequence[0].id ?? `speaker-${sequence[0].speaker ?? 'narrator'}`;
       anchor = resolveAnchor;
       completed = onComplete;
+      choices = options.choices ?? [];
+      onChoice = options.onChoice ?? null;
       ui.keys = {};
       ui.touch = null;
       $('#interact').style.display = 'none';
@@ -70,6 +113,9 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
       next.focus({preventScroll: true});
     },
     advance: () => next.click(),
+    get choicesActive() {
+      return choicesVisible;
+    },
     dismiss: () => close(false),
     position() {
       if (bubble.hidden) return;
