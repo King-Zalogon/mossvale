@@ -1,10 +1,12 @@
-# Optional authoring and systems prototypes
+# Optional authoring and systems work
 
-These modules are pure, opt-in building blocks. They do not change the current Mossvale pack, save schema, item tables, renderer, creature roster, or browser gameplay until a pack and UI explicitly adopt them.
+Most modules in this document are pure, opt-in building blocks. The terrain-family authoring workflow is available in Map Workshop; it does not change shipped maps, the save schema, or browser-game collision.
 
 ## Terrain families (#96)
 
-`domain/terrain-family.js` classifies a grid cell by cardinal edges and diagonal corners, labels isolated/end/straight/corner/tee/cross shapes, and chooses seeded variants reproducibly. Corner-specific art can override a cardinal mask. Missing edge art returns `null` instead of falling back to a center tile. It defaults to no transform; rotational reuse is only labeled safe when the caller explicitly opts in. This is still topology data for an authoring tool to bake: no grass/path/water source art, bridge semantics, map compiler integration, or editor previews are included.
+`domain/terrain-family.js` compiles a 32 × 20 grass/path/water fixture into deterministic per-cell records: exact cardinal and diagonal masks, shore edges, authored SVG sources, source anchors, lighting direction, seeded variants, bridge overlays and explicit walkability. The exported JSON stores row-aligned layers and shares source metadata between cells. Eight hand-authored northwest-lit SVG tiles cover grass, path, water and bridge materials. The compiler never rotates or mirrors them; a bridge must use art authored for its declared orientation. Water blocks movement, while only the two bridge-deck cells are walkable. The test fixture includes a long river crossing, narrow paths, junctions, corners, shorelines and a large repeated meadow.
+
+Run `npm run terrain:bake` after changing the fixture, then `npm run validate`; validation checks the local SVG files, their tile bounds, safe contents and exact reproducibility of `dist/maps/terrain-family-fixture.baked.json`. In each baked layer, row/column indices are zero-based map y/x; recipe and surface rows are comma-separated IDs, walkability is a `1`/`0` string, and topology masks are hexadecimal digits with north/east/south/west bits `1/2/4/8`. In Map Workshop, use **Preview family art on map** to see the shared grass/path/water source family on the selected map. The separate family canvas previews all 640 fixture cells; changing the seed changes variants deterministically, and **Export baked data** downloads the current seed's compiler output. Existing map JSON and runtime collision rules remain unchanged until a game pack explicitly adopts a compiled family.
 
 ## Optional bag and storage (#99)
 
@@ -12,14 +14,14 @@ These modules are pure, opt-in building blocks. They do not change the current M
 
 ## Event-driven objectives (#100)
 
-`domain/objective-events.js` defines a small linear stage list triggered by typed events. Cycles are rejected, state can be checked after JSON reload, each event advances at most one stage, and a terminal reward is returned once in state. `domain/dialogue-choices.js` validates stable speaker/target IDs and filters choices using the existing objective conditions. These remain opt-in pure helpers: no shipped objective validator, gameplay event wiring, choice buttons/keyboard navigation, or browser UI is included.
+Event objectives and conditional dialogue choices are opt-in pack data. Stages respond to normal gameplay events, their completion markers share the bounded save event journal, and terminal rewards are paid once. Choices use stable speaker/target IDs and the existing flag/condition language inside the keyboard- and touch-accessible speech bubble. The shipped pack demonstrates two optional goals with existing artwork; packs without these fields retain their current simple objective and dialogue behavior. This does not add branching scripts, item conditions, a save-schema migration, or new art.
 
 ## Compositional creatures (#101)
 
-`domain/composition.js` compiles a plan and assigned tagged parts into flat `parts`, unique `abilities`, and bounded modifiers, reporting missing/incompatible/unknown slots, excluded tags, and aggregate modifier overflow. It changes no species definitions and does not compose artwork; generated visual identity briefs and a roster of sample compositions remain follow-up.
+`domain/composition.js` compiles a plan and assigned tagged parts into flat `parts`, unique `abilities`, and bounded modifiers, reporting missing/incompatible/unknown slots, excluded tags, and aggregate modifier overflow. `art/characters/composition-prototypes.json` now proves three compositions, including a novel `reed-skimmer` body plan authored entirely as data. The focused suite verifies each flattened result with the ordinary pack species validator and generates a structured anatomy/identity brief with `createCompositionArtBrief`. Run `npm run composition:briefs` to print those art briefs. The examples remain outside the shipped roster: briefs guide human sprite work and do not assemble or generate artwork.
 
 ## Optional companion routes (#102)
 
-`domain/companion-routes.js` checks whether a companion has a route's optional ability and habitat tags, filters route offers, validates route IDs/requirements, and ensures each starter can reach at least one recovery route. This is a route-offer data check only: no shipped maps, unlock persistence, route telegraph, discovery reward, or movement physics change yet.
+`domain/companion-routes.js` checks optional ability/habitat requirements and verifies recovery for every starter. Map exits can now declare a route gate, player-facing hint, one-time reward and stable unlock event. The Reedfen-to-Lantern-Islet cut uses Brooklet's optional `cross-shallow-water`/`wetland` tags; once discovered it stays open after reload for any companion. The existing boardwalk remains available to all starters. The route is a data-driven portal shortcut with static sign art; it does not change global water physics or add movement animations.
 
-Run the focused prototype suite with `node --test tests/graftworks-prototypes.test.mjs`. These modules are intentionally independent so the shared systems can be adopted gradually after pack and owner review.
+Run the focused prototype and terrain-family compiler suite with `node --test tests/graftworks-prototypes.test.mjs`. The other systems remain independently adoptable after pack and owner review.

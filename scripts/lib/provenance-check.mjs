@@ -36,8 +36,42 @@ function checkHash(root, record, errors, where, {required = true} = {}) {
   try {
     digest = sha256File(path);
   } catch {
-    errors.push(`${where}: file ${record.path} is missing or unreadable`);
-    return;
+    const archive = record.sourceArchive;
+    if (!archive || typeof archive.manifestPath !== 'string' || typeof archive.sourcePath !== 'string') {
+      errors.push(`${where}: file ${record.path} is missing or unreadable`);
+      return;
+    }
+    const manifestPath = safeFile(root, archive.manifestPath, errors, `${where}: source archive`);
+    if (!manifestPath) return;
+    try {
+      const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+      const archived = manifest?.sources?.[archive.sourcePath];
+      if (!archived || archive.sourcePath !== record.path || archived.sha256 !== record.sha256 || !Array.isArray(archived.parts)) {
+        errors.push(`${where}: source archive record does not match ${record.path}`);
+        return;
+      }
+      const hash = createHash('sha256');
+      let bytes = 0;
+      for (const part of archived.parts) {
+        const partPath = safeFile(root, part, errors, `${where}: source archive part`);
+        if (!partPath) return;
+        const content = readFileSync(partPath);
+        if (content.length > 600_000) {
+          errors.push(`${where}: source archive part ${part} exceeds 600000 bytes`);
+          return;
+        }
+        bytes += content.length;
+        hash.update(content);
+      }
+      digest = hash.digest('hex');
+      if (bytes !== archived.bytes || digest !== archived.sha256) {
+        errors.push(`${where}: source archive bytes do not match ${record.path}`);
+        return;
+      }
+    } catch {
+      errors.push(`${where}: source archive for ${record.path} is missing or invalid`);
+      return;
+    }
   }
   if (digest !== record.sha256) errors.push(`${where}: SHA-256 mismatch for ${record.path}`);
 }

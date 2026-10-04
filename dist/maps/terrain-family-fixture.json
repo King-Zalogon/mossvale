@@ -1,0 +1,213 @@
+{
+  "format": 1,
+  "id": "verdant-crossing-family",
+  "name": "Verdant crossing",
+  "seed": 71,
+  "size": {
+    "w": 32,
+    "h": 20
+  },
+  "tile": {
+    "w": 28,
+    "h": 14,
+    "anchor": [14, 7]
+  },
+  "grid": [
+    "gggggggggggggggggggggggggggggggg",
+    "gggggggggggggggwwggggggggggggggg",
+    "ggwwwwgggggggggwwggggggggggggggg",
+    "ggwwwwgggggggggwwggggggggggggggg",
+    "ggwwwwgggggggggwwgggggpggggggggg",
+    "ggggggggpggggggwwgggggpggggggggg",
+    "ggggggggpggggggwwgggggpggggggggg",
+    "ggggggggpggggggwwgggggpggggggggg",
+    "ggggggggpggggggwwgggggpggggggggg",
+    "gggppppppppppppwwppppppppppppggg",
+    "ggggggggpggggggwwggggggggggggggg",
+    "ggggggggpggggggwwggggggggggggggg",
+    "ggggggggpggggggwwggggggggggggggg",
+    "ggggggggpggggggwwggggggggwwwwwgg",
+    "ggggggggpggggggwwggggggggwwwwwgg",
+    "ggggggggpggggggwwggggggggwwwwwgg",
+    "ggggggggpppppggwwggggggggwwwwwgg",
+    "gggggggggggggggwwggggggggwwwwwgg",
+    "gggggggggggggggwwggggggggggggggg",
+    "gggggggggggggggggggggggggggggggg"
+  ],
+  "surfaces": {
+    "g": {
+      "name": "Meadow grass",
+      "fill": "#789f5c",
+      "kind": "land",
+      "walkable": true
+    },
+    "t": {
+      "name": "Tall grass",
+      "fill": "#6d9656",
+      "kind": "land",
+      "walkable": true
+    },
+    "p": {
+      "name": "Packed path",
+      "fill": "#c8a66a",
+      "kind": "land",
+      "walkable": true
+    },
+    "w": {
+      "name": "Shallow water",
+      "fill": "#4c9ca0",
+      "kind": "water",
+      "walkable": false
+    }
+  },
+  "recipes": {
+    "g-0": {
+      "surface": "g",
+      "source": "meadow-grass-a",
+      "detail": "grass-tuft"
+    },
+    "g-1": {
+      "surface": "g",
+      "source": "meadow-grass-b",
+      "detail": "clover"
+    },
+    "g-bank-corner-0": {
+      "surface": "g",
+      "source": "meadow-grass-a",
+      "detail": "bank-corner"
+    },
+    "g-bank-corner-1": {
+      "surface": "g",
+      "source": "meadow-grass-b",
+      "detail": "reeds"
+    },
+    "t-0": {
+      "surface": "t",
+      "source": "meadow-grass-a",
+      "detail": "grass-tuft"
+    },
+    "t-1": {
+      "surface": "t",
+      "source": "meadow-grass-b",
+      "detail": "clover"
+    },
+    "p-0": {
+      "surface": "p",
+      "source": "packed-path-a",
+      "detail": "path-grain"
+    },
+    "p-1": {
+      "surface": "p",
+      "source": "packed-path-b",
+      "detail": "small-pebbles"
+    },
+    "p-bend-corner-0": {
+      "surface": "p",
+      "source": "packed-path-a",
+      "detail": "cut-corner"
+    },
+    "p-bend-corner-1": {
+      "surface": "p",
+      "source": "packed-path-b",
+      "detail": "worn-corner"
+    },
+    "w-0": {
+      "surface": "w",
+      "source": "shallow-water-a",
+      "detail": "ripple"
+    },
+    "w-1": {
+      "surface": "w",
+      "source": "shallow-water-b",
+      "detail": "bubble"
+    },
+    "bridge-0": {
+      "surface": "bridge",
+      "source": "reed-bridge-a",
+      "detail": "reed-planks"
+    },
+    "bridge-1": {
+      "surface": "bridge",
+      "source": "reed-bridge-b",
+      "detail": "weathered-planks"
+    }
+  },
+  "variants": {
+    "g-edge-es-corner-nesesw": ["g-bank-corner-0", "g-bank-corner-1"],
+    "p-edge-sw-corner-neseswnw": ["p-bend-corner-0", "p-bend-corner-1"]
+  },
+  "bridges": [
+    {
+      "id": "reed-crossing",
+      "orientation": "east-west",
+      "cells": [
+        [15, 9],
+        [16, 9]
+      ],
+      "waterTerrain": "w",
+      "deckTerrain": "p",
+      "walkable": true,
+      "variants": ["bridge-0", "bridge-1"]
+    }
+  ],
+  "artStatus": "authored-svg-source-family",
+  "artNotes": "Source SVG tiles use northwest lighting and canonical orientation. Per-cell topology, shoreline and collision are compiled separately; transforms are not inferred from art alpha.",
+  "artwork": {
+    "meadow-grass-a": {
+      "src": "../assets/terrain-family/grass-meadow-a.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "meadow-grass-b": {
+      "src": "../assets/terrain-family/grass-meadow-b.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "packed-path-a": {
+      "src": "../assets/terrain-family/path-packed-a.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "packed-path-b": {
+      "src": "../assets/terrain-family/path-packed-b.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "shallow-water-a": {
+      "src": "../assets/terrain-family/water-shallow-a.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "shallow-water-b": {
+      "src": "../assets/terrain-family/water-shallow-b.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": []
+    },
+    "reed-bridge-a": {
+      "src": "../assets/terrain-family/bridge-reed-a.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": [],
+      "orientation": "east-west"
+    },
+    "reed-bridge-b": {
+      "src": "../assets/terrain-family/bridge-reed-b.svg",
+      "anchor": [14, 7],
+      "lighting": "northwest",
+      "safeTransforms": [],
+      "orientation": "east-west"
+    }
+  },
+  "surfaceDefaults": {
+    "g": ["g-0", "g-1"],
+    "t": ["t-0", "t-1"],
+    "p": ["p-0", "p-1"],
+    "w": ["w-0", "w-1"]
+  }
+}

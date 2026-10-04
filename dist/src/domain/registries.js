@@ -33,6 +33,15 @@ export function validateRegistries(raw, {assetNames}) {
       if (typeof entry?.type !== 'string' || !types.has(entry.type)) at(field + '.type', 'must reference a pack type ID');
       if (!Number.isInteger(entry?.hp) || !finite(entry?.hp, 1, 9999)) at(field + '.hp', 'must be a positive whole number');
       if (!assetNames.has(entry?.sprite)) at(field + '.sprite', `unknown shared asset "${entry?.sprite}"`);
+      for (const key of ['abilities', 'habitats']) {
+        if (
+          entry?.[key] !== undefined &&
+          (!Array.isArray(entry[key]) ||
+            !entry[key].every(value => typeof value === 'string' && ID.test(value)) ||
+            new Set(entry[key]).size !== entry[key].length)
+        )
+          at(field + '.' + key, 'must be a unique list of lowercase stable IDs');
+      }
       for (const key of ['strong', 'weak'])
         if (!Array.isArray(entry?.[key]) || !entry[key].every(type => typeof type === 'string')) at(field + '.' + key, 'needs a list of type names');
     });

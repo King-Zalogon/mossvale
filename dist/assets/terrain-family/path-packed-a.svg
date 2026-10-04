@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="14" viewBox="0 0 28 14" shape-rendering="crispEdges">
+  <defs>
+    <clipPath id="tile"><path d="M14 0 28 7 14 14 0 7Z"/></clipPath>
+    <linearGradient id="light" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2dfaa" stop-opacity=".4"/><stop offset="1" stop-color="#60462e" stop-opacity=".14"/></linearGradient>
+  </defs>
+  <path d="M14 0 28 7 14 14 0 7Z" fill="#bd9a5e"/>
+  <path d="M14 0 28 7 14 14 0 7Z" fill="url(#light)"/>
+  <g clip-path="url(#tile)" fill="none" stroke-linecap="square">
+    <path d="m6 8 3 1m7-5 2 1m3 5 2 1" stroke="#866b46" stroke-width=".8"/>
+    <path d="m11 5 2 1m9-2 2 1" stroke="#ead39a" stroke-width=".8"/>
+  </g>
+</svg>

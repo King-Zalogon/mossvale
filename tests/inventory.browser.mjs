@@ -33,6 +33,8 @@ try {
   });
   await page.waitForSelector('#speech-next');
   await page.click('#speech-next');
+  await page.waitForSelector('#speech-choices', {state: 'visible'});
+  await page.click('#speech-next');
   await page.waitForSelector('#open-inventory');
   await page.click('#open-inventory');
   await page.waitForSelector('[data-stash="orb"]');

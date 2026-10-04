@@ -84,6 +84,10 @@ button:hover,
 .button:hover {
   background: #285348;
 }
+button[aria-pressed='true'] {
+  border-color: #e9cf89;
+  color: #ffe5a6;
+}
 button:disabled {
   opacity: 0.46;
   cursor: default;
@@ -120,6 +124,42 @@ button:disabled {
   border-radius: 7px;
   background: #a8c78c;
   touch-action: none;
+}
+#family-canvas {
+  width: 100%;
+  display: block;
+  border: 1px solid #46665a;
+  border-radius: 7px;
+  background: #102b26;
+}
+.seed-control input {
+  width: 88px;
+}
+.family-actions {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+#family-heading {
+  align-self: start;
+}
+[aria-labelledby='family-heading'] .section-head {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: stretch;
+}
+#export-family {
+  white-space: nowrap;
+}
+#family-map-toggle[aria-pressed='true'] {
+  border-color: #9ecb79;
+  color: #d7edaa;
+}
+#topology-status,
+#family-status {
+  min-height: 1.2em;
 }
 aside {
   display: grid;

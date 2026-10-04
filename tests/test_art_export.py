@@ -13,6 +13,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPORTER = ROOT / "art/characters/export-creature-combat.py"
+SPECIES = ["emberkin", "voltkit", "fernling", "duskwing", "brooklet", "hushram", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter"]
 
 
 def png_chunk(name, payload):
@@ -49,7 +50,20 @@ class CombatExportTests(unittest.TestCase):
             "profiles": {
                 "creature-combat-v1": {
                     "sourceGrid": {"columns": 4, "rows": 5},
-                    "frameSizes": {"fernling": [12, 10], "duskwing": [12, 10], "brooklet": [12, 10], "hushram": [12, 10]},
+                    "frameSizes": {
+                        "emberkin": [12, 10],
+                        "voltkit": [12, 10],
+                        "fernling": [12, 10],
+                        "duskwing": [12, 10],
+                        "brooklet": [12, 10],
+                        "hushram": [12, 10],
+                        "mushmallow": [12, 10],
+                        "frostowl": [12, 10],
+                        "pebblit": [12, 10],
+                        "bramblebuck": [12, 10],
+                        "siltkip": [12, 10],
+                        "sunskitter": [12, 10],
+                    },
                     "resampling": "none",
                     "alphaThreshold": 8,
                     "footInset": 1,
@@ -62,18 +76,8 @@ class CombatExportTests(unittest.TestCase):
         self.source_dir = self.root / "art/characters/source"
         self.source_dir.mkdir(parents=True)
         self.target_dir = self.root / "dist/assets/creatures"
-        self.sources = [
-            self.source_dir / "creature-fernling-combat-generated.png",
-            self.source_dir / "creature-duskwing-combat-generated.png",
-            self.source_dir / "creature-brooklet-combat-generated.png",
-            self.source_dir / "creature-hushram-combat-generated.png",
-        ]
-        self.targets = [
-            self.target_dir / "creature-fernling-combat.png",
-            self.target_dir / "creature-duskwing-combat.png",
-            self.target_dir / "creature-brooklet-combat.png",
-            self.target_dir / "creature-hushram-combat.png",
-        ]
+        self.sources = [self.source_dir / f"creature-{species}-combat-generated.png" for species in SPECIES]
+        self.targets = [self.target_dir / f"creature-{species}-combat.png" for species in SPECIES]
 
     def tearDown(self):
         self.temp.cleanup()
@@ -95,7 +99,7 @@ class CombatExportTests(unittest.TestCase):
     def test_source_failure_does_not_partially_replace_runtime_outputs(self):
         self.write_sources(count=1)
         self.target_dir.mkdir(parents=True)
-        originals = [b"existing-fernling", b"existing-duskwing", b"existing-brooklet", b"existing-hushram"]
+        originals = [f"existing-{index}".encode() for index in range(len(self.targets))]
         for target, contents in zip(self.targets, originals):
             target.write_bytes(contents)
 
@@ -128,6 +132,7 @@ class CombatExportTests(unittest.TestCase):
         self.assertEqual([(path.read_bytes(), path.stat().st_mtime_ns) for path in self.targets], before)
 
         with Image.open(self.targets[0]) as output:
+            output = output.convert("RGBA")
             self.assertEqual(output.getpixel((2, 6)), (245, 80, 160, 255), "thin tail pixel must survive")
             self.assertEqual(output.getpixel((6, 5)), (255, 225, 40, 255), "identity detail pixel must survive")
             self.assertEqual(output.getpixel((5, 6))[3], 0, "enclosed transparent hole must survive")
@@ -143,7 +148,7 @@ class CombatExportTests(unittest.TestCase):
         self.assertEqual(checked.returncode, 0, checked.stderr)
         self.assertEqual((preview / "fernling-raw.png").read_bytes(), self.sources[0].read_bytes())
         self.assertEqual((preview / "fernling-runtime.png").read_bytes(), self.targets[0].read_bytes())
-        for species in ["fernling", "duskwing", "brooklet", "hushram"]:
+        for species in SPECIES:
             for stage in ["raw", "segmented", "anchored", "runtime"]:
                 self.assertTrue((preview / f"{species}-{stage}.png").is_file())
         page = (preview / "index.html").read_text()
