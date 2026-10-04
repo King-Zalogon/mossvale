@@ -298,5 +298,8 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     get stats() {
       return {...stats};
     },
+    get followerMotion() {
+      return followerMotion ? {...followerMotion} : null;
+    },
   };
 }
