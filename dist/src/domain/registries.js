@@ -1,5 +1,4 @@
 import {moves} from '../data/moves.js';
-import {validateInventoryRules} from './inventory.js';
 
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const COLOR = /^#[0-9a-f]{6}$/i;
@@ -135,9 +134,6 @@ export function validateRegistries(raw, {assetNames}) {
     !finite(raw.battle.guardFactor, 0, 1)
   )
     at('battle', 'needs valid focus and guard rules');
-  if (raw.inventory !== undefined) {
-    for (const error of validateInventoryRules(raw.inventory)) at(`inventory: ${error}`);
-  }
   return errors;
 }
 

@@ -38,15 +38,18 @@
         "fernling": [288, 288],
         "duskwing": [281, 281],
         "brooklet": [288, 288],
-        "hushram": [288, 288],
-        "emberkin": [288, 288],
-        "voltkit": [288, 288]
+        "hushram": [288, 288]
       },
       "resampling": "none",
       "alphaThreshold": 8,
       "footInset": 4,
-      "palette": "preserve source RGBA; no quantization",
-      "reviewStages": ["generated-source", "segmented-cells", "anchored-runtime"]
+      "palette": "preserve exact generated source bytes; encode Emberkin and Voltkit runtime sheets as 256-color indexed PNG with no dithering",
+      "reviewStages": ["generated-source", "segmented-cells", "anchored-runtime"],
+      "indexedOutput": {
+        "species": ["emberkin", "voltkit"],
+        "colors": 256,
+        "dither": "none"
+      }
     },
     "creature-portrait-v1": {
       "category": "creature-portrait",
@@ -67,8 +70,13 @@
       "alphaThreshold": 8,
       "minimumComponentPixels": 180,
       "footY": 196,
-      "palette": "preserve source RGBA; no quantization",
-      "remaining": "Hushram and Voltkit are added in this batch; six roster species remain without follower atlases."
+      "palette": "preserve exact generated source bytes; encode Hushram and Voltkit runtime sheets as 256-color indexed PNG with no dithering",
+      "remaining": "Six species remain without follower atlases.",
+      "indexedOutput": {
+        "species": ["hushram", "voltkit"],
+        "colors": 256,
+        "dither": "none"
+      }
     },
     "prop-static-v1": {
       "category": "prop",

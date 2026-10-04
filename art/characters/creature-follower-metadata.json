@@ -2,7 +2,7 @@
   "version": 1,
   "profileId": "creature-follower-v1",
   "sourceReferences": {
-    "generatedOn": "2026-10-04",
+    "generatedOn": "2026-10-03",
     "emberkin": {
       "generatedSource": "art/characters/source/creature-emberkin-follower-generated.png",
       "revisionSource": "art/characters/source/creature-emberkin-follower-initial.png",
@@ -28,12 +28,16 @@
     "hushram": {
       "generatedSource": "art/characters/source/creature-hushram-follower-generated.png",
       "referenceAsset": "creature-hushram",
-      "promptBrief": "Preserve Hushram’s shaggy cream ram silhouette, curved ice-blue horns, pale blue markings and dark hooves; a transparent 5×8 directional overworld atlas with distinct alternating hoof steps, corrected from the first generated draft."
+      "promptBrief": "Preserve Hushram’s shaggy cream ram silhouette, curved ice-blue horns, pale blue markings and dark hooves; a transparent 5×8 directional overworld atlas with distinct alternating hoof steps, corrected from the first generated draft.",
+      "originalSha256": "bd7c782e9bdbdd758e4d28996da107789baea3745d20899788cecf2d30186e15",
+      "originalBytes": 2213903
     },
     "voltkit": {
       "generatedSource": "art/characters/source/creature-voltkit-follower-generated.png",
       "referenceAsset": "creature-voltkit",
-      "promptBrief": "Preserve Voltkit’s golden electric companion palette and distinctive ear/tail marks; transparent 5×8 directional atlas with an idle pose and four walking poses per direction."
+      "promptBrief": "Preserve Voltkit’s golden electric companion palette and distinctive ear/tail marks; transparent 5×8 directional atlas with an idle pose and four walking poses per direction.",
+      "originalSha256": "c8486fc51fc1d1f5df18e9008d1d263799013b70ff7ac893501964b7ffa7450f",
+      "originalBytes": 1872215
     }
   },
   "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
@@ -47,9 +51,7 @@
     "creature-fernling-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-emberkin-follower": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
     "creature-duskwing-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-    "creature-brooklet-follower": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
-    "creature-hushram-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-    "creature-voltkit-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+    "creature-brooklet-follower": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"]
   },
   "sprites": {
     "creature-emberkin-follower": {

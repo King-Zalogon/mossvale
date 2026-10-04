@@ -1,10 +1,11 @@
 """Export generated five-state creature sheets with versioned, category-specific settings."""
 from argparse import ArgumentParser
+from io import BytesIO
 from html import escape
 import json
 from pathlib import Path
-from shutil import copyfile
 from PIL import Image
+from source_archive import source_bytes
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 PROFILE_ID = "creature-combat-v1"
@@ -13,8 +14,6 @@ SPECS = {
     "duskwing": {"source": "art/characters/source/creature-duskwing-combat-generated.png", "target": "dist/assets/creatures/creature-duskwing-combat.png"},
     "brooklet": {"source": "art/characters/source/creature-brooklet-combat-generated.png", "target": "dist/assets/creatures/creature-brooklet-combat.png"},
     "hushram": {"source": "art/characters/source/creature-hushram-combat-generated.png", "target": "dist/assets/creatures/creature-hushram-combat.png"},
-    "emberkin": {"source": "art/characters/source/creature-emberkin-combat-generated.png", "target": "dist/assets/creatures/creature-emberkin-combat.png"},
-    "voltkit": {"source": "art/characters/source/creature-voltkit-combat-generated.png", "target": "dist/assets/creatures/creature-voltkit-combat.png"},
 }
 
 
@@ -24,7 +23,7 @@ def bounds(length, count):
 
 def build(root, profile, spec, name):
     source_path = root / spec["source"]
-    with Image.open(source_path) as original:
+    with Image.open(BytesIO(source_bytes(root, spec["source"]))) as original:
         source = original.convert("RGBA")
     grid = profile["sourceGrid"]
     columns, rows = grid["columns"], grid["rows"]
@@ -53,18 +52,15 @@ def write_preview(root, preview_dir, profile, prepared):
     preview_dir = preview_dir if preview_dir.is_absolute() else root / preview_dir
     preview_dir.mkdir(parents=True, exist_ok=True)
     cards = []
-    for name, spec, target, segmented, anchored, _same in prepared:
+    for name, spec, target, segmented, anchored, runtime, _same in prepared:
         raw_name = f"{name}-raw.png"
         segmented_name = f"{name}-segmented.png"
         anchored_name = f"{name}-anchored.png"
         runtime_name = f"{name}-runtime.png"
-        copyfile(root / spec["source"], preview_dir / raw_name)
+        (preview_dir / raw_name).write_bytes(source_bytes(root, spec["source"]))
         segmented.save(preview_dir / segmented_name, optimize=True)
         anchored.save(preview_dir / anchored_name, optimize=True)
-        if target.is_file():
-            copyfile(target, preview_dir / runtime_name)
-        else:
-            anchored.save(preview_dir / runtime_name, optimize=True)
+        runtime.save(preview_dir / runtime_name, optimize=True)
         stages = [
             ("Raw source", raw_name),
             ("Segmented cells", segmented_name),
@@ -112,20 +108,22 @@ def main():
         if target.exists():
             with Image.open(target) as existing:
                 current = existing.convert("RGBA")
-        same = current is not None and current.size == anchored.size and current.tobytes() == anchored.tobytes()
+        palette = profile.get("indexedOutput", {})
+        runtime = anchored.quantize(colors=palette.get("colors", 256), method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE) if name in palette.get("species", []) else anchored
+        same = current is not None and current.size == runtime.size and current.tobytes() == runtime.convert("RGBA").tobytes()
         if args.check and not same:
             mismatches.append(f"{spec['target']} does not match profile {PROFILE_ID}")
-        prepared.append((name, spec, target, segmented, anchored, same))
+        prepared.append((name, spec, target, segmented, anchored, runtime, same))
 
     if not args.check:
         staged = []
         try:
-            for name, spec, target, _segmented, anchored, same in prepared:
+            for name, spec, target, _segmented, _anchored, runtime, same in prepared:
                 if same:
                     continue
                 target.parent.mkdir(parents=True, exist_ok=True)
                 temporary = target.with_suffix(".png.tmp")
-                anchored.save(temporary, format="PNG", optimize=True)
+                runtime.save(temporary, format="PNG", optimize=True)
                 staged.append((temporary, target))
             for temporary, target in staged:
                 temporary.replace(target)
@@ -138,7 +136,7 @@ def main():
     if mismatches:
         raise SystemExit("; ".join(mismatches) + ("; review preview stages before exporting" if args.preview_dir else "; pass --preview-dir to inspect the candidate"))
 
-    for _name, spec, _target, _segmented, anchored, _same in prepared:
+    for _name, spec, _target, _segmented, anchored, _runtime, _same in prepared:
         print(f"{'verified' if args.check else 'exported'} {spec['target']} via {PROFILE_ID} ({anchored.width}x{anchored.height})")
 
 

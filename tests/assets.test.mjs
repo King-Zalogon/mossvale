@@ -86,7 +86,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
   assert.deepEqual(errors, []);
   assert.deepEqual(
     registry.subjects.map(subject => subject.id),
-    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing', 'creature-emberkin', 'creature-brooklet', 'creature-hushram'],
+    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing', 'creature-emberkin', 'creature-brooklet', 'creature-hushram', 'creature-voltkit'],
   );
   const player = registry.subjects[0];
   assert.deepEqual(player.sourceBatches.flatMap(batch => batch.directions).toSorted(), [
@@ -299,7 +299,9 @@ test('the real sprites decode as tightly cropped RGBA', () => {
   const dist = new URL('../dist/', import.meta.url);
   for (const a of assets) {
     const im = decodePng(readFileSync(new URL(a.src, dist)));
-    assert.equal(im.color, 6, a.name);
+    assert.ok([3, 6].includes(im.color), `${a.name} uses a supported RGBA/indexed PNG`);
+    assert.equal(im.channels, 4, `${a.name} expands to RGBA pixels`);
+    assert.equal(im.transparent, true, `${a.name} has a real transparent palette/channel`);
     if (a.frames) {
       for (let row = 0; row < a.frames.rows; row++) {
         for (let column = 0; column < a.frames.columns; column++) {
