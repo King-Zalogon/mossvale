@@ -25,16 +25,17 @@
         <label
           >Terrain
           <select id="terrain">
-            <option value="g">Ground</option>
-            <option value="p">Path</option>
-            <option value="t">Tall grass</option>
-            <option value="w">Water</option>
-            <option value=".">Void</option>
+            <option value="g">Meadow grass · walkable</option>
+            <option value="p">Packed path · walkable</option>
+            <option value="t">Tall grass · walkable</option>
+            <option value="w">Water · blocked</option>
+            <option value=".">Void · blocked</option>
           </select></label
         >
         <button id="undo" disabled>Undo</button><button id="redo" disabled>Redo</button> <button id="import">Import JSON</button
         ><input id="file" type="file" accept="application/json,.json" hidden /> <button id="export" class="primary">Export JSON</button
         ><button id="play-preview" class="primary">Play edited map</button><button id="topology-toggle" type="button" aria-pressed="false">Show topology</button
+        ><button id="family-map-toggle" type="button" aria-pressed="false">Preview family art on map</button
         ><a class="button" href="./?debug" target="_blank" rel="noreferrer">Open current game</a>
       </section>
       <div class="workspace">
@@ -45,7 +46,10 @@
           </div>
           <canvas id="map-canvas" width="1120" height="680" aria-label="Isometric map terrain editor"></canvas>
           <p id="topology-status" class="hint" role="status">Topology overlay is off.</p>
-          <p class="hint">Paint terrain directly on the map. Select an entity on the map to edit its complete JSON record on the right.</p>
+          <p class="hint">
+            Paint terrain directly on the map. These terrain codes control gameplay collision; image transparency never changes walkability. Select an entity on
+            the map to edit its complete JSON record on the right.
+          </p>
         </section>
         <aside>
           <section class="panel">
@@ -73,14 +77,17 @@
           </section>
           <section class="panel" aria-labelledby="family-heading">
             <div class="section-head">
-              <h2 id="family-heading">Terrain family prototype</h2>
-              <label class="seed-control">Seed<input id="family-seed" type="number" min="0" step="1" value="71" /></label>
+              <h2 id="family-heading">Terrain family compiler</h2>
+              <div class="family-actions">
+                <label class="seed-control">Seed<input id="family-seed" type="number" min="0" max="4294967295" step="1" value="71" /></label
+                ><button id="export-family">Export baked data</button>
+              </div>
             </div>
             <canvas id="family-canvas" width="520" height="270" aria-label="Grass, path, water and bridge terrain family preview"></canvas>
             <p id="family-status" class="hint" role="status">Loading terrain fixture…</p>
             <p class="hint">
-              Grass and path are walkable; water blocks movement; the two bridge deck cells are explicitly walkable. This vector preview is authoring data, not
-              shipped tile art.
+              Authored, northwest-lit SVG tiles show seeded meadow, path, shore and water variants. Water blocks movement; only the two explicitly walkable
+              bridge-deck cells cross the channel. Exported cells include art source, anchor, neighbor masks and collision data.
             </p>
           </section>
           <section class="panel">

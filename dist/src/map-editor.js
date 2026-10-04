@@ -1,7 +1,13 @@
 import {assets} from './data/assets.js';
 import {species} from './data/species.js';
 import {validateMaps} from './domain/mapdata.js';
-import {terrainVariant, validateTerrainFamilyFixture} from './domain/terrain-family.js';
+import {
+  bakeTerrainFamily,
+  resolveTerrainFamilyCell,
+  serializeTerrainFamilyBake,
+  terrainVariant,
+  validateTerrainFamilyFixture,
+} from './domain/terrain-family.js';
 import {drawTerrainFamilyFixture} from './ui/terrain-family-preview.js';
 
 const $ = selector => document.querySelector(selector);
@@ -20,6 +26,12 @@ let redo = [];
 let cleanSnapshot = '';
 let topologyPreview = false;
 let familyFixture;
+let familyBake;
+let familyArtwork = {};
+let familyArtworkError = null;
+let familyOnMap = false;
+let mapFamilyCacheKey = '';
+let mapFamilyCells = new Map();
 
 const clone = value => JSON.parse(JSON.stringify(value));
 const snapshot = () => JSON.stringify(selectedMap);
@@ -65,6 +77,8 @@ function updateTopologyStatus() {
       topology.cornerKey +
       '.';
   }
+  $('#family-map-toggle').setAttribute('aria-pressed', String(familyOnMap));
+  $('#family-map-toggle').textContent = familyOnMap ? 'Hide family art on map' : 'Preview family art on map';
 }
 function drawTopologyOverlay(topology, px, py, tw, th) {
   const vertices = {
@@ -99,19 +113,40 @@ function draw() {
   updateTopologyStatus();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.imageSmoothingEnabled = false;
+  const seedValue = $('#family-seed').valueAsNumber;
+  const familySeed = Number.isInteger(seedValue) && seedValue >= 0 ? seedValue : (familyFixture?.seed ?? 71);
+  const cacheKey = familyOnMap && familyFixture ? selectedMap.terrain.join('\n') + ':' + familySeed : '';
+  if (cacheKey && cacheKey !== mapFamilyCacheKey) {
+    mapFamilyCacheKey = cacheKey;
+    const mapFixture = {...familyFixture, size: selectedMap.size, grid: selectedMap.terrain, bridges: []};
+    mapFamilyCells = new Map();
+    for (let y = 0; y < selectedMap.size.h; y++)
+      for (let x = 0; x < selectedMap.size.w; x++) {
+        const cell = resolveTerrainFamilyCell(mapFixture, x, y, familySeed);
+        if (cell) mapFamilyCells.set(`${x},${y}`, cell);
+      }
+  }
   for (let y = 0; y < selectedMap.size.h; y++)
     for (let x = 0; x < selectedMap.size.w; x++) {
       const {x: px, y: py, tw, th} = coord(x, y);
-      const color = terrainColors[selectedMap.terrain[y][x]];
+      const terrain = selectedMap.terrain[y][x];
+      const color = terrainColors[terrain];
       if (color !== '#00000000') {
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.moveTo(px, py - th / 2);
-        ctx.lineTo(px + tw / 2, py);
-        ctx.lineTo(px, py + th / 2);
-        ctx.lineTo(px - tw / 2, py);
-        ctx.closePath();
-        ctx.fill();
+        const familyCell = familyOnMap ? mapFamilyCells.get(`${x},${y}`) : null;
+        const sourceId = familyCell && familyFixture.recipes[familyCell.artVariant]?.source;
+        const source = sourceId && familyFixture.artwork[sourceId];
+        const image = source && familyArtwork[source.src];
+        if (image) ctx.drawImage(image, px - source.anchor[0] * (tw / 28), py - source.anchor[1] * (th / 14), tw, th);
+        else {
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.moveTo(px, py - th / 2);
+          ctx.lineTo(px + tw / 2, py);
+          ctx.lineTo(px, py + th / 2);
+          ctx.lineTo(px - tw / 2, py);
+          ctx.closePath();
+          ctx.fill();
+        }
       }
       if (topologyPreview && color !== '#00000000') {
         const topology = terrainVariant(selectedMap.terrain, x, y);
@@ -230,20 +265,57 @@ function drawFamilyPreview() {
   }
   const rawSeed = $('#family-seed').valueAsNumber;
   const seed = Number.isInteger(rawSeed) && rawSeed >= 0 ? rawSeed : familyFixture.seed;
-  const stats = drawTerrainFamilyFixture($('#family-canvas'), familyFixture, {seed, showTopology: topologyPreview});
-  $('#family-status').textContent =
-    stats.cells +
-    ' tiles · ' +
-    stats.walkable +
-    ' walkable (including ' +
-    stats.bridges +
-    ' bridge decks) · ' +
-    stats.blocked +
-    ' blocked water · seed ' +
-    seed +
-    (stats.missing ? ' · ' + stats.missing + ' unresolved tiles' : '');
+  try {
+    const baked = bakeTerrainFamily(familyFixture, seed);
+    const stats = drawTerrainFamilyFixture($('#family-canvas'), familyFixture, {seed, showTopology: topologyPreview, baked, artwork: familyArtwork});
+    $('#family-status').textContent =
+      stats.cells +
+      ' baked tiles · ' +
+      stats.walkable +
+      ' walkable (including ' +
+      stats.bridges +
+      ' bridge decks) · ' +
+      stats.blocked +
+      ' blocked water · ' +
+      stats.shoreTiles +
+      ' shoreline tiles · ' +
+      stats.sourceTiles +
+      ' source tiles · seed ' +
+      seed +
+      (seed === familyFixture.seed && familyBake && JSON.stringify(familyBake) !== JSON.stringify(serializeTerrainFamilyBake(familyFixture, baked))
+        ? ' · checked-in bake is stale; run npm run terrain:bake'
+        : '') +
+      (stats.missing ? ' · ' + stats.missing + ' unresolved art sources' : '');
+  } catch (error) {
+    $('#family-status').textContent = 'Cannot bake family: ' + error.message;
+    return;
+  }
+  mapFamilyCacheKey = '';
+  draw();
 }
 $('#family-seed').addEventListener('input', drawFamilyPreview);
+$('#family-map-toggle').onclick = () => {
+  familyOnMap = !familyOnMap;
+  mapFamilyCacheKey = '';
+  draw();
+};
+$('#export-family').onclick = () => {
+  if (!familyFixture) return;
+  try {
+    const rawSeed = $('#family-seed').valueAsNumber;
+    const seed = Number.isInteger(rawSeed) && rawSeed >= 0 ? rawSeed : familyFixture.seed;
+    const baked = serializeTerrainFamilyBake(familyFixture, bakeTerrainFamily(familyFixture, seed));
+    const blob = new Blob([JSON.stringify(baked, null, 2) + '\n'], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${familyFixture.id}-seed-${seed}.baked.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    $('#family-status').textContent = 'Cannot export family: ' + error.message;
+  }
+};
 $('#undo').onclick = () => {
   if (!undo.length) return;
   redo.push(snapshot());
@@ -382,5 +454,35 @@ mapIndex = await fetch(new URL('index.json', mapsUrl)).then(response => response
 maps = await Promise.all(mapIndex.maps.map(id => fetch(new URL(`${id}.json`, mapsUrl)).then(response => response.json())));
 for (const map of maps) $('#map').add(new Option(map.name, map.id));
 selectMap(maps[0].id);
-familyFixture = await fetch(new URL('terrain-family-fixture.json', mapsUrl)).then(response => response.json());
-drawFamilyPreview();
+try {
+  familyFixture = await fetch(new URL('terrain-family-fixture.json', mapsUrl)).then(response => {
+    if (!response.ok) throw new Error('Unable to load the terrain family fixture (' + response.status + ')');
+    return response.json();
+  });
+  familyBake = await fetch(new URL('terrain-family-fixture.baked.json', mapsUrl)).then(response => {
+    if (!response.ok) throw new Error('Unable to load the checked-in terrain bake (' + response.status + ')');
+    return response.json();
+  });
+  const sourceFiles = [...new Set(Object.values(familyFixture.artwork).map(source => source.src))];
+  familyArtwork = Object.fromEntries(
+    await Promise.all(
+      sourceFiles.map(
+        src =>
+          new Promise((resolve, reject) => {
+            const image = new Image();
+            image.onload = () => resolve([src, image]);
+            image.onerror = () => reject(new Error('Unable to load ' + src));
+            image.src = new URL(src, mapsUrl).href;
+          }),
+      ),
+    ),
+  );
+} catch (error) {
+  familyArtworkError = error.message;
+}
+if (familyArtworkError) {
+  $('#family-status').textContent = 'Terrain family artwork unavailable: ' + familyArtworkError;
+  $('#family-map-toggle').disabled = true;
+  $('#export-family').disabled = true;
+  $('#family-seed').disabled = true;
+} else drawFamilyPreview();

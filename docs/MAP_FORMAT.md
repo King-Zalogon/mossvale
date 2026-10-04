@@ -6,7 +6,7 @@ Issue [#14](https://github.com/King-Zalogon/mossvale/issues/14). Maps are JSON f
 
 ## Workflow
 
-The Map Workshop’s Show topology toggle outlines neighboring terrain boundaries and reports the selected tile’s cardinal/corner key. Its separate Verdant crossing preview exercises grass, path, water, seeded variants and an explicitly walkable bridge over blocked water. This is an authoring-only fixture, not a shipped map or runtime terrain renderer; seed 71 reproduces its current decoration.
+The Map Workshop’s Show topology toggle outlines neighboring terrain boundaries and reports the selected tile’s cardinal/corner key. **Preview family art on map** displays the shared authored grass/path/water source family while painting. The separate 32 × 20 Verdant crossing fixture exercises narrow paths, junctions, shorelines, a large repeated meadow, seeded source variants and an explicitly walkable bridge over blocked water. `dist/maps/terrain-family-fixture.baked.json` stores row-aligned recipe, topology and explicit walkability layers; the shared artwork table carries source paths, anchors and lighting. Run `npm run terrain:bake` after editing that fixture; `npm run validate` checks the baked data and local SVG sources. This compiler output is for Map Workshop and content review; existing maps keep their current format and gameplay renderer until a pack explicitly adopts it.
 
 1. Edit `dist/maps/<id>.json`.
 2. `npm run validate` checks every map; errors name the map, field and problem (e.g. `map meadow: exits[0] (east).to.spawn: map "amber-ridge" has no spawn "cellar"`).
