@@ -73,6 +73,12 @@ export function validateMaps(rawMaps, ctx) {
 function validateOne(m, byId, ctx, errors) {
   const at = (where, msg) => errors.push(`map ${m.id}: ${where}: ${msg}`);
   if (m.format !== MAP_FORMAT) at('format', `expected ${MAP_FORMAT}, got ${JSON.stringify(m.format)}`);
+  const collections = ['landmarks', 'exits', 'props', 'zones', 'triggers'];
+  const malformed = collections.filter(key => m[key] !== undefined && !Array.isArray(m[key]));
+  if (malformed.length) {
+    for (const key of malformed) at(key, 'must be an array');
+    return;
+  }
   if (typeof m.name !== 'string' || !m.name) at('name', 'required');
   const w = m.size?.w,
     h = m.size?.h;

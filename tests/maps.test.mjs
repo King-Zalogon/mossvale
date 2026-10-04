@@ -360,3 +360,12 @@ test('the meadow keeps its original hub and grows into a large map with a hidden
   assert.ok(meadowMap.triggers.some(t => t.id === 'quiet-grove'));
   assert.ok(meadowMap.zones.every(z => z.distance || z.id === 'tall-grass') && meadowMap.zones.length >= 2);
 });
+
+test('malformed map collection fields return contextual validation errors rather than throwing', () => {
+  for (const key of ['landmarks', 'exits', 'props', 'zones', 'triggers']) {
+    for (const value of [{}, 'invalid', null, 4]) {
+      const errors = edit(raw => (meadow(raw)[key] = value));
+      has(errors, `map meadow: ${key}: must be an array`);
+    }
+  }
+});
