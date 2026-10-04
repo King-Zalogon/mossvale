@@ -95,14 +95,52 @@ function openBrowser(url) {
   child.unref();
 }
 
-export async function launch({cwd = repository, port = 8080, browser = true} = {}) {
+export const DEFAULT_LOCAL_PORTS = [8080, 8081, 5173, 5174, 3000, 3001];
+
+export async function listenLocal(server, port) {
+  const candidates = port === undefined ? DEFAULT_LOCAL_PORTS : [port];
+  let lastError;
+  for (const candidate of candidates) {
+    try {
+      await new Promise((accept, reject) => {
+        const onError = error => {
+          server.off('listening', onListening);
+          reject(error);
+        };
+        const onListening = () => {
+          server.off('error', onError);
+          accept();
+        };
+        server.once('error', onError);
+        server.once('listening', onListening);
+        server.listen(candidate, '127.0.0.1');
+      });
+      return server.address().port;
+    } catch (error) {
+      if (port !== undefined || !['EACCES', 'EADDRINUSE'].includes(error.code)) throw error;
+      lastError = error;
+    }
+  }
+  throw new Error(
+    `No local test port is available (${candidates.join(', ')}). Windows may reserve these ports, or another app may be using them. Try an explicit --port=9000.`,
+    {cause: lastError},
+  );
+}
+
+export function launcherError(error) {
+  if (error.code === 'EACCES')
+    return 'Windows or your system denied access to this local port. Try --port=5173 or --port=9000. The server stays local; no administrator privileges are needed by the launcher.';
+  if (error.code === 'EADDRINUSE') return 'Port is occupied. Stop the existing server or use --port=5173. Your checkout was not changed.';
+  return error.message;
+}
+
+export async function launch({cwd = repository, port, browser = true} = {}) {
   let handler;
   const server = createServer((request, response) => (handler ? handler(request, response) : response.writeHead(503).end()));
   // Reserve the port before updating the cached worktree: a second launch cannot change files served by the first.
-  await new Promise((accept, reject) => {
-    server.once('error', reject);
-    server.listen(port, '127.0.0.1', accept);
-  });
+  const selectedPort = await listenLocal(server, port);
+  if (port === undefined && selectedPort !== DEFAULT_LOCAL_PORTS[0])
+    console.log(`Port 8080 is unavailable; using ${selectedPort}. Browser saves are separate for each port.`);
   let lock;
   try {
     const common = git(cwd, ['rev-parse', '--path-format=absolute', '--git-common-dir']);
@@ -117,7 +155,7 @@ export async function launch({cwd = repository, port = 8080, browser = true} = {
       throw error;
     }
     server.once('close', () => {
-      closeSync(lock);
+      if (lock !== undefined) closeSync(lock);
       try {
         unlinkSync(lockPath);
       } catch {
@@ -125,6 +163,8 @@ export async function launch({cwd = repository, port = 8080, browser = true} = {
       }
     });
     writeFileSync(lock, String(process.pid));
+    closeSync(lock);
+    lock = undefined;
     const target = selectIntegration(cwd);
     handler = gameHandler(target.directory);
     const url = `http://127.0.0.1:${server.address().port}/`;
@@ -143,14 +183,13 @@ if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.m
   try {
     const args = process.argv.slice(2);
     if (args.some(arg => !/^--(?:no-open|port=\d+)$/.test(arg))) throw new Error('Usage: node scripts/local-integration.mjs [--no-open] [--port=8080]');
-    const port = Number(args.find(arg => arg.startsWith('--port='))?.slice(7) ?? 8080);
-    if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Port must be from 1 to 65535.');
+    const requestedPort = args.find(arg => arg.startsWith('--port='));
+    const port = requestedPort === undefined ? undefined : Number(requestedPort.slice(7));
+    if (port !== undefined && (!Number.isInteger(port) || port < 1 || port > 65535)) throw new Error('Port must be from 1 to 65535.');
     const server = await launch({port, browser: !args.includes('--no-open')});
     for (const signal of ['SIGINT', 'SIGTERM']) process.once(signal, () => server.close(() => process.exit(0)));
   } catch (error) {
-    console.error(
-      error.code === 'EADDRINUSE' ? 'Port is occupied. Stop the existing server or use --port=8081. Your checkout was not changed.' : error.message,
-    );
+    console.error(launcherError(error));
     process.exitCode = 1;
   }
 }
