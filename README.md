@@ -16,6 +16,16 @@ python3 -m http.server 8080 --directory dist
 
 Open <http://localhost:8080> in a browser. Any static web server can serve the `dist` directory.
 
+## Quick integration test
+
+On Windows, double-click **Test Integration.cmd** (you can create a desktop shortcut to it). Alternatively run `npm run test:local`, or `./test-integration.sh` on macOS/Linux. Only Node 20.9+ and Git are needed; no npm install or Python is required for this launcher.
+
+It opens http://127.0.0.1:8080. If your current checkout is `integration`, it serves that working copy, including your edits. Otherwise it fetches the latest `origin/integration` and serves an isolated detached worktree under Git's common directory (`mossvale-local-test`). Your branch and uncommitted work stay in place. Each launch prints the revision and served directory. Stop it with Ctrl+C before launching another revision. A Git-directory lock prevents concurrent launches even on different ports; after a crash, the error identifies the stale lock to remove only after confirming no launcher remains running. Missing remote branches or failed fetches stop the launcher; it never falls back to main or stale content. A dirty cached worktree must be preserved and cleaned manually before reuse.
+
+For another port, run `npm run test:local -- --port=8081`; use `--no-open` to suppress browser opening. Saves belong to the browser origin: changing hostname or port creates separate local progress. The server binds only to loopback and serves only `dist/`. This is the standalone game; account saves, login, MCP and feedback APIs need the configured portal (`npm run dev`, `.env.local` and the documented database migrations). No authentication or production restrictions are changed.
+
+The launcher files become available when this change is fetched. Until it is promoted to main, use the integration checkout or the PR branch to obtain them; thereafter a shortcut created in another checkout still selects integration automatically.
+
 ## Controls
 
 | Control           | Action                                                                                                      |
