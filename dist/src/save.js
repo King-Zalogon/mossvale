@@ -136,6 +136,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       team: {[starter]: {xp: 0, hp: baseHP(starter)}},
       badges: [],
       chests: [],
+      mapFlags: [],
       visited: [0],
       visitedMaps: [regions[0].id],
       met: false,
@@ -191,6 +192,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     const issue =
       missingRegion(raw.region) ||
       missingMap(raw.mapId) ||
+      (Array.isArray(raw.mapFlags) ? raw.mapFlags.map(flag => (typeof flag === 'string' ? missingMap(flag.split('.')[0]) : null)).find(Boolean) : null) ||
       missingSpecies(raw.active) ||
       unsupported(raw.visited, id => (regionIds.has(id) ? 1 : -1), 'visited region') ||
       unsupported(raw.badges, id => (regionIds.has(id) ? 1 : -1), 'region') ||
@@ -218,6 +220,14 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     s.seen = [...new Set([...refs(raw.seen, species, speciesIndex), ...s.caught])];
     s.badges = refs(raw.badges, regions, regionIndex);
     s.chests = refs(raw.chests, regions, regionIndex);
+    const mapIds = new Set([...regions.map(r => r.id), ...Object.keys(bounds)]);
+    s.mapFlags = [
+      ...new Set(
+        (Array.isArray(raw.mapFlags) ? raw.mapFlags : []).filter(
+          flag => typeof flag === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/.test(flag) && mapIds.has(flag.split('.')[0]),
+        ),
+      ),
+    ].slice(0, 256);
     s.visited = [...new Set([0, ...refs(raw.visited, regions, regionIndex)])];
     s.team = {};
     const rawTeam = isObj(raw.team) ? raw.team : {};
@@ -331,6 +341,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       team,
       badges: save.badges.map(rid),
       chests: save.chests.map(rid),
+      ...(save.mapFlags?.length ? {mapFlags: save.mapFlags} : {}),
       visited: save.visited.map(rid),
       visitedMaps: save.visitedMaps,
       met: save.met,
