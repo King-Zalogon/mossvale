@@ -86,7 +86,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
   assert.deepEqual(errors, []);
   assert.deepEqual(
     registry.subjects.map(subject => subject.id),
-    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing', 'creature-emberkin', 'creature-brooklet', 'creature-hushram'],
+    ['player-red-cap-adventurer', 'creature-fernling', 'creature-duskwing', 'creature-emberkin', 'creature-brooklet', 'creature-hushram', 'creature-voltkit'],
   );
   const player = registry.subjects[0];
   assert.deepEqual(player.sourceBatches.flatMap(batch => batch.directions).toSorted(), [
@@ -190,15 +190,17 @@ test('content refers to art by name: species, directions and the manifest agree'
   assert.throws(() => spriteId('no-such-sprite'), /unknown asset/);
 });
 
-test('editable source atlases cover every runtime sprite and export the exact manifest crops', () => {
+test('editable portrait and prop atlases cover their runtime sprites and export exact manifest crops', () => {
   const sourceRoot = new URL('../art/assets/', import.meta.url);
   const metadata = JSON.parse(readFileSync(new URL('metadata.json', sourceRoot), 'utf8'));
   const profiles = JSON.parse(readFileSync(new URL('../characters/export-profiles.json', sourceRoot), 'utf8')).profiles;
   const propProfileSha256 = createHash('sha256').update(JSON.stringify(profiles['prop-static-v1'])).digest('hex');
   assert.equal(metadata.pixelPreserving, true);
   assert.equal(metadata.anchor, 'bottom-center');
-  assert.equal(metadata.assets.length, assets.length);
-  assert.deepEqual(metadata.assets.map(a => a.name).toSorted(), assets.map(a => a.name).toSorted());
+  const separatelySourced = new Set(['creature-emberkin-combat', 'creature-voltkit-combat', 'creature-hushram-follower', 'creature-voltkit-follower']);
+  const atlasAssets = assets.filter(a => !separatelySourced.has(a.name));
+  assert.equal(metadata.assets.length, atlasAssets.length);
+  assert.deepEqual(metadata.assets.map(a => a.name).toSorted(), atlasAssets.map(a => a.name).toSorted());
 
   const sheets = new Map();
   for (const [name, dimensions] of Object.entries(metadata.sheets)) {
@@ -297,7 +299,9 @@ test('the real sprites decode as tightly cropped RGBA', () => {
   const dist = new URL('../dist/', import.meta.url);
   for (const a of assets) {
     const im = decodePng(readFileSync(new URL(a.src, dist)));
-    assert.equal(im.color, 6, a.name);
+    assert.ok([3, 6].includes(im.color), `${a.name} uses a supported RGBA/indexed PNG`);
+    assert.equal(im.channels, 4, `${a.name} expands to RGBA pixels`);
+    assert.equal(im.transparent, true, `${a.name} has a real transparent palette/channel`);
     if (a.frames) {
       for (let row = 0; row < a.frames.rows; row++) {
         for (let column = 0; column < a.frames.columns; column++) {

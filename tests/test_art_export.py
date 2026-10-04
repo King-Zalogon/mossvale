@@ -128,6 +128,7 @@ class CombatExportTests(unittest.TestCase):
         self.assertEqual([(path.read_bytes(), path.stat().st_mtime_ns) for path in self.targets], before)
 
         with Image.open(self.targets[0]) as output:
+            output = output.convert("RGBA")
             self.assertEqual(output.getpixel((2, 6)), (245, 80, 160, 255), "thin tail pixel must survive")
             self.assertEqual(output.getpixel((6, 5)), (255, 225, 40, 255), "identity detail pixel must survive")
             self.assertEqual(output.getpixel((5, 6))[3], 0, "enclosed transparent hole must survive")
