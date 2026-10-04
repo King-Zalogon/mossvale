@@ -6,10 +6,10 @@ Issue [#27](https://github.com/King-Zalogon/mossvale/issues/27). A snapshot of t
 
 | Map | Biome | Size | Walkable tiles | Exits to | Secrets | Quiet corridors | Encounter species |
 | --- | --- | --- | ---: | --- | ---: | ---: | --- |
-| `meadow` | meadow | 25×25 | 465 | `orchard-ruins` | 0 | 0 | bramblebuck, duskwing, emberkin, fernling |
+| `meadow` | meadow | 72×64 | 3301 | `orchard-ruins` | 2 | 4 | bramblebuck, duskwing, emberkin, fernling |
 | `amber-ridge` | badlands | 64×56 | 2035 | `orchard-ruins`, `frostveil-grove`, `stone-basin` | 1 | 5 | pebblit, sunskitter, voltkit |
-| `frostveil-grove` | snowy-forest | 64×48 | 1735 | `amber-ridge`, `reedfen-wetlands`, `frostveil-pass` | 0 | 2 | duskwing, frostowl, hushram, pebblit |
-| `frostveil-pass` | snowy-forest | 64×48 | 1515 | `frostveil-grove` | 1 | 2 | duskwing, frostowl, hushram |
+| `frostveil-grove` | snowy-forest | 64×48 | 1735 | `amber-ridge`, `reedfen-wetlands`, `frostveil-pass` | 1 | 3 | duskwing, frostowl, hushram, pebblit |
+| `frostveil-pass` | snowy-forest | 64×48 | 1515 | `frostveil-grove` | 1 | 3 | duskwing, frostowl, hushram |
 | `reedfen-wetlands` | wetland | 64×56 | 2204 | `frostveil-grove`, `stilt-isles` | 1 | 4 | brooklet, mushmallow, siltkip |
 | `orchard-ruins` | meadow | 25×25 | 365 | `meadow`, `amber-ridge` | 0 | 0 | bramblebuck, duskwing, emberkin, fernling |
 | `stilt-isles` | wetland | 72×44 | 985 | `reedfen-wetlands`, `reedfen-wetlands` | 1 | 4 | brooklet, mushmallow, siltkip |
@@ -27,7 +27,7 @@ Issue [#27](https://github.com/King-Zalogon/mossvale/issues/27). A snapshot of t
 
 | Biome | Layout | Different activity |
 | --- | --- | --- |
-| Meadow | Compact open trail plus an orchard with a pond | Hidden cut-through trigger |
+| Meadow | A large open trail with a stream, tree belts and a hidden grove corridor, plus a compact orchard with a pond | Hidden grove and cut-through triggers |
 | Badlands | Cliff bands with a narrow cut and a long open trail; a ring path around a chasm | Choose a route; quarry and lookout secrets |
 | Snowy forest | Grove and a pass | Blueglass Pass side route |
 | Wetland | River with boardwalk crossings; seven stilt isles | Boardwalk crossings and island hopping |

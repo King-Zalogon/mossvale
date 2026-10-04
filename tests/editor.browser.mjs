@@ -20,10 +20,10 @@ try {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(`http://localhost:${server.address().port}/map-editor.html`);
-  await page.waitForFunction(() => document.querySelector('#map-name')?.textContent.includes('25 × 25'));
+  await page.waitForFunction(() => document.querySelector('#map-name')?.textContent.includes('72 × 64'));
   assert.match(await page.locator('#validation').textContent(), /Valid map data/);
   await page.selectOption('#terrain', 'p');
-  await page.locator('#map-canvas').click({position: {x: 560, y: 250}});
+  await page.locator('#map-canvas').click({position: {x: 609, y: 142}});
   assert.match(await page.locator('#dirty').textContent(), /Unsaved/);
   await page.click('#undo');
   assert.equal(await page.locator('#dirty').textContent(), 'Saved');
@@ -35,7 +35,7 @@ try {
   await page.locator('#record').fill(JSON.stringify(record, null, 2));
   await page.click('#apply-record');
   assert.match(await page.locator('#validation').textContent(), /Valid map data/);
-  await page.locator('#map-canvas').click({position: {x: 560, y: 354}});
+  await page.locator('#map-canvas').click({position: {x: 642, y: 158}});
   await page.selectOption('#add-kind', 'exit');
   await page.click('#add-content');
   const exitRecord = JSON.parse(await page.locator('#record').inputValue());
@@ -69,7 +69,7 @@ try {
   const bytes = await readFileSync(await download.path(), 'utf8');
   const exported = JSON.parse(bytes);
   assert.equal(exported.id, 'meadow');
-  assert.deepEqual(exported.size, {w: 25, h: 25});
+  assert.deepEqual(exported.size, {w: 72, h: 64});
   assert.ok(exported.terrain.every(row => row.length === exported.size.w));
   assert.ok(
     exported.landmarks.some(entity => entity.role === 'optional-guide'),
@@ -82,17 +82,17 @@ try {
   const large = structuredClone(exported);
   large.id = 'author-large-test';
   large.name = 'Author Large Test';
-  large.size = {w: 64, h: 64};
-  large.terrain = Array.from({length: 64}, () => 't'.repeat(64));
+  large.size = {w: 96, h: 96};
+  large.terrain = Array.from({length: 96}, () => 't'.repeat(96));
   large.authoring = {opaqueId: 'keep-this-field'};
   await page.locator('#file').setInputFiles({name: 'author-large-test.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(large))});
-  await page.waitForFunction(() => document.querySelector('#map-name')?.textContent.includes('64 × 64'));
+  await page.waitForFunction(() => document.querySelector('#map-name')?.textContent.includes('96 × 96'));
   assert.match(await page.locator('#validation').textContent(), /Valid map data/);
   const largeDownloadPromise = page.waitForEvent('download');
   await page.click('#export');
   const largeDownload = await largeDownloadPromise;
   const largeRoundTrip = JSON.parse(await readFileSync(await largeDownload.path(), 'utf8'));
-  assert.deepEqual(largeRoundTrip.size, {w: 64, h: 64});
+  assert.deepEqual(largeRoundTrip.size, {w: 96, h: 96});
   assert.equal(largeRoundTrip.authoring.opaqueId, 'keep-this-field');
   assert.equal(largeRoundTrip.exits[0].id, large.exits[0].id);
   assert.deepEqual(errors, []);
