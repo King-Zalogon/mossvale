@@ -1,0 +1,250 @@
+{
+  "visual": {
+    "kind": "visual",
+    "summary": "%description%",
+    "details": {
+      "appearance": "%description%",
+      "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+      "scale": "%dimensions%; displayed size belongs to the owning renderer or placed object.",
+      "directions": "%directions%",
+      "animations": "%animations%",
+      "compatibleUses": "Asset %runtimeId% is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+    },
+    "limits": [
+      "Available asset registration is not a fresh human approval of every animation.",
+      "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+    ],
+    "scope": "core"
+  },
+  "species": {
+    "kind": "actor",
+    "summary": "%description%",
+    "details": {
+      "appearance": "%description% Portrait reference: %sprite%.",
+      "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+      "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+      "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+    },
+    "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+    "scope": "optional-pack"
+  },
+  "map": {
+    "kind": "environment",
+    "summary": "%description%",
+    "details": {
+      "biome": "%biome%",
+      "connections": "%connections%",
+      "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
+      "spawns": "%spawns%",
+      "access": "Pack progression/region and exit conditions determine access; validate all required routes."
+    },
+    "limits": ["Coordinates and connections belong to the referenced map file; do not copy a summary as executable map data."],
+    "scope": "optional-pack"
+  },
+  "region": {
+    "kind": "environment",
+    "summary": "%description%",
+    "details": {
+      "biome": "%biome%",
+      "connections": "Region metadata groups maps; it is not a map exit graph.",
+      "walkability": "Region appearance/palette does not grant walkability; consult map collision data.",
+      "spawns": "Placed by map spawn definitions, not this region entry.",
+      "access": "Existing milestone/progression rules; see pack manifest."
+    },
+    "limits": ["Keep region and map IDs distinct even when their strings coincide."],
+    "scope": "optional-pack"
+  },
+  "biome": {
+    "kind": "environment",
+    "summary": "%name% ecology tag for content selection.",
+    "details": {
+      "biome": "%runtimeId%",
+      "connections": "No exits are defined by a biome.",
+      "walkability": "No collision behavior is defined by a biome label.",
+      "spawns": "Species and map data define encounters/spawns.",
+      "access": "No access gate is defined by a biome label."
+    },
+    "limits": ["Biome tags do not create missing artwork or procedural maps."],
+    "scope": "optional-pack"
+  },
+  "terrain": {
+    "kind": "environment",
+    "summary": "Use the existing %name% map terrain token.",
+    "details": {
+      "biome": "Terrain primitive usable within validated maps; appearance comes from map/region rendering.",
+      "connections": "Adjacent cells do not constitute authored exits.",
+      "walkability": "Runtime world and movement rules determine passability, including companion route overrides.",
+      "spawns": "Terrain can filter encounters but does not specify spawn coordinates.",
+      "access": "Progression and route gates remain separate from terrain."
+    },
+    "limits": ["Do not assume terrain artwork and collision are interchangeable."],
+    "scope": "optional-pack"
+  },
+  "landmark": {
+    "kind": "interactable",
+    "summary": "%description%",
+    "details": {
+      "activation": "%activation%",
+      "conditions": "Owning map/landmark conditions and existing controller flow.",
+      "actions": "%actions%",
+      "rewards": "%rewards%",
+      "repetition": "%repetition%",
+      "persistence": "%persistence%"
+    },
+    "limits": ["Map geometry, sprite selection and role are independently configured."],
+    "scope": "optional-pack"
+  },
+  "item": {
+    "kind": "item",
+    "summary": "%description%",
+    "details": {
+      "contexts": "%contexts%",
+      "targets": "%targets%",
+      "consumption": "%consumption%",
+      "strength": "%strength%",
+      "duration": "Immediate transaction or healing; no persistent duration effect is supplied by this definition.",
+      "stacking": "Inventory counts stack subject to capacities; no buff stacking system is implied.",
+      "persistence": "Bag, storage and mapped potion/orb counts use versioned save transactions."
+    },
+    "limits": [
+      "Effect metadata is validated data, not proof of a live UI for consuming arbitrary items.",
+      "Scene chest rewards are still coins/potions/orbs; arbitrary item loot/gather and timed effects are not claimed."
+    ],
+    "scope": "optional-pack"
+  },
+  "move": {
+    "kind": "mechanic",
+    "summary": "%description%",
+    "details": {
+      "trigger": "Elemental battle action for a species naming this move.",
+      "inputs": "Use the configuration in the linked canonical definition.",
+      "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+      "results": "%description% Shared multiplier: %power%.",
+      "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+      "errors": "Owning validators reject unsupported configuration.",
+      "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
+    },
+    "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+    "scope": "optional-pack"
+  },
+  "type": {
+    "kind": "mechanic",
+    "summary": "%description%",
+    "details": {
+      "trigger": "Selected through the owning gameplay or authoring system.",
+      "inputs": "Use the configuration in the linked canonical definition.",
+      "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+      "results": "Element %name%; species strong/weak tables and shared multipliers govern matchups.",
+      "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+      "errors": "Owning validators reject unsupported configuration.",
+      "persistence": "Save only through existing pack/save contracts; authoring metadata is not simulation state."
+    },
+    "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+    "scope": "optional-pack"
+  },
+  "sound": {
+    "kind": "mechanic",
+    "summary": "%description%",
+    "details": {
+      "trigger": "Selected through the owning gameplay or authoring system.",
+      "inputs": "Use the configuration in the linked canonical definition.",
+      "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+      "results": "Synthesized %name% cue; generated through the existing WebAudio palette.",
+      "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
+      "errors": "Owning validators reject unsupported configuration.",
+      "persistence": "Sound preferences are separate from adventure saves."
+    },
+    "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+    "scope": "optional-pack"
+  },
+  "ambience": {
+    "kind": "mechanic",
+    "summary": "%description%",
+    "details": {
+      "trigger": "Selected through the owning gameplay or authoring system.",
+      "inputs": "Use the configuration in the linked canonical definition.",
+      "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+      "results": "Regional %name% synthesized ambience profile.",
+      "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+      "errors": "Owning validators reject unsupported configuration.",
+      "persistence": "Audio preferences are separate from adventure saves."
+    },
+    "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+    "scope": "optional-pack"
+  },
+  "prefab": {
+    "kind": "mechanic",
+    "summary": "%description%",
+    "details": {
+      "trigger": "Selected through the owning gameplay or authoring system.",
+      "inputs": "Use the configuration in the linked canonical definition.",
+      "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+      "results": "Expand %name% into ordinary validated map records; arrangement transforms do not rotate sprite pixels.",
+      "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+      "errors": "Owning validators reject unsupported configuration.",
+      "persistence": "Save only through existing pack/save contracts; authoring metadata is not simulation state."
+    },
+    "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+    "scope": "authoring-only"
+  },
+  "pack": {
+    "kind": "mechanic",
+    "summary": "%description%",
+    "details": {
+      "trigger": "Selected through the owning gameplay or authoring system.",
+      "inputs": "Use the configuration in the linked canonical definition.",
+      "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+      "results": "Independent pack %name%, with the referenced registries/maps and existing runtime.",
+      "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+      "errors": "Owning validators reject unsupported configuration.",
+      "persistence": "Stable pack identity isolates saves and recovery."
+    },
+    "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+    "scope": "optional-pack"
+  },
+  "terrain-art": {
+    "kind": "mechanic",
+    "summary": "%description%",
+    "details": {
+      "trigger": "Selected through the owning gameplay or authoring system.",
+      "inputs": "Use the configuration in the linked canonical definition.",
+      "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+      "results": "Source tile %name% for the authoring-only neighbor-aware terrain family preview/baker.",
+      "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+      "errors": "Owning validators reject unsupported configuration.",
+      "persistence": "Baked authoring output is separate from the normal gameplay map save."
+    },
+    "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+    "scope": "authoring-only"
+  },
+  "rules": {
+    "kind": "mechanic",
+    "summary": "%description%",
+    "details": {
+      "trigger": "Selected through the owning gameplay or authoring system.",
+      "inputs": "Use the configuration in the linked canonical definition.",
+      "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+      "results": "Configure the existing validated %name% registry rules. Do not introduce new effects solely by naming them.",
+      "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+      "errors": "Owning validators reject unsupported configuration.",
+      "persistence": "Stable pack identity isolates saves and recovery."
+    },
+    "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+    "scope": "optional-pack"
+  },
+  "narrative": {
+    "kind": "mechanic",
+    "summary": "%description%",
+    "details": {
+      "trigger": "Selected through the owning gameplay or authoring system.",
+      "inputs": "Use the configuration in the linked canonical definition.",
+      "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+      "results": "Use current validated %name% objective/story definitions. Script intent must be translated into supported actions.",
+      "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+      "errors": "Owning validators reject unsupported configuration.",
+      "persistence": "Stable pack identity isolates saves and recovery."
+    },
+    "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+    "scope": "optional-pack"
+  }
+}
