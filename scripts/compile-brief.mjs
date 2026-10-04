@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Compile a structured adventure brief into a fresh, separately reviewable pack candidate. */
-import {existsSync, readFileSync, writeFileSync} from 'node:fs';
-import {resolve, join} from 'node:path';
+import {existsSync, readFileSync, writeFileSync, mkdirSync, mkdtempSync, renameSync, rmSync, realpathSync} from 'node:fs';
+import {resolve, join, dirname, relative, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {validatePackMetadata} from '../dist/src/domain/pack.js';
@@ -10,6 +10,43 @@ const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const fail = message => {
   throw new Error(message);
 };
+const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'})[character]);
+
+function ensureReviewLocation(output) {
+  const project = resolve(fileURLToPath(new URL('..', import.meta.url)));
+  const rel = relative(project, output);
+  if (rel === '' || (!rel.startsWith(`..${sep}`) && rel !== '..' && !rel.startsWith(sep))) {
+    fail(`refusing to compile candidates inside the repository: ${output}; choose an isolated review directory`);
+  }
+  const parent = dirname(output);
+  if (existsSync(parent)) {
+    const realProject = realpathSync(project);
+    const realParent = realpathSync(parent);
+    const realRelative = relative(realProject, realParent);
+    if (realRelative === '' || (!realRelative.startsWith(`..${sep}`) && realRelative !== '..' && !realRelative.startsWith(sep))) {
+      fail(`refusing to compile candidates inside the repository: ${output}; choose an isolated review directory`);
+    }
+  }
+}
+
+function writeCandidatePreview(folder, brief) {
+  const rows = brief.routes
+    .map(
+      route =>
+        `<tr><th>${escapeHtml(route.name)}<br><code>${escapeHtml(route.id)}</code></th><td><a href="${encodeURIComponent(route.id)}.json">${escapeHtml(route.id)}.json</a></td><td>${route.landmarks.map(escapeHtml).join(', ')}</td><td>${route.speciesRoles.map(escapeHtml).join(', ')}</td></tr>`,
+    )
+    .join('\n');
+  const html = `<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escapeHtml(brief.name)} candidate review</title>
+<style>body{max-width:960px;margin:2rem auto;padding:0 1rem;font:16px system-ui;color:#20352b;background:#f2f3e5}table{border-collapse:collapse;width:100%;background:white}th,td{padding:.75rem;border:1px solid #bdc8b6;text-align:left;vertical-align:top}th{min-width:10rem}code{color:#536b45}aside{padding:1rem;background:#e1ead4;margin:1rem 0}</style>
+<h1>${escapeHtml(brief.name)}</h1><p>Candidate review · revision ${escapeHtml(brief.revision ?? 1)} · biome ${escapeHtml(brief.biome)}</p>
+<aside><strong>Draft only:</strong> generated maps are scaffolds. Review map previews and author route landmarks, species roles, objectives, and story data before promotion. This report does not modify the playable game.</aside>
+<h2>Brief-to-pack route review</h2><table><thead><tr><th>Brief route</th><th>Generated map</th><th>Requested landmarks</th><th>Requested species roles</th></tr></thead><tbody>${rows}</tbody></table>
+<h2>Goals</h2><ul>${brief.goals.map(goal => `<li>${escapeHtml(goal)}</li>`).join('')}</ul><h2>Ending</h2><p>${escapeHtml(brief.ending)}</p>
+</html>`;
+  writeFileSync(join(folder, 'candidate-review.html'), html, {flag: 'wx'});
+}
 
 export function validateBrief(brief) {
   const errors = [];
@@ -48,17 +85,30 @@ export function compileBrief(briefPath, candidatePath) {
   const errors = validateBrief(brief);
   if (errors.length) fail(errors.join('\n'));
   if (existsSync(output)) fail(`refusing to overwrite candidate directory ${output}; choose a new path`);
-  runPack('create-pack', output, '--id', brief.id, '--name', brief.name);
-  for (const route of brief.routes.slice(1)) runPack('add-map', output, route.id);
-  const indexPath = join(output, 'index.json');
-  const index = JSON.parse(readFileSync(indexPath, 'utf8'));
-  index.brief = `${brief.name}: ${brief.goals.join('; ')} Ending: ${brief.ending}`;
-  writeFileSync(indexPath, JSON.stringify(index, null, 2) + '\n');
-  writeFileSync(join(output, 'brief.json'), JSON.stringify({source: briefFile, revision: brief.revision ?? 1, content: brief}, null, 2) + '\n', {flag: 'wx'});
-  runPack('refresh-manifest', output);
-  runPack('validate-pack', output);
-  const metadataErrors = validatePackMetadata(JSON.parse(readFileSync(indexPath, 'utf8')));
-  if (metadataErrors.length) fail(metadataErrors.join('\n'));
+  ensureReviewLocation(output);
+  mkdirSync(dirname(output), {recursive: true});
+  const staging = mkdtempSync(join(dirname(output), '.mossvale-brief-'));
+  const candidate = join(staging, 'pack');
+  try {
+    runPack('create-pack', candidate, '--id', brief.id, '--name', brief.name);
+    for (const route of brief.routes.slice(1)) runPack('add-map', candidate, route.id);
+    const indexPath = join(candidate, 'index.json');
+    const index = JSON.parse(readFileSync(indexPath, 'utf8'));
+    index.brief = `${brief.name}: ${brief.goals.join('; ')} Ending: ${brief.ending}`;
+    writeFileSync(indexPath, JSON.stringify(index, null, 2) + '\n');
+    writeFileSync(join(candidate, 'brief.json'), JSON.stringify({source: briefFile, revision: brief.revision ?? 1, content: brief}, null, 2) + '\n', {
+      flag: 'wx',
+    });
+    runPack('refresh-manifest', candidate);
+    runPack('validate-pack', candidate);
+    const metadataErrors = validatePackMetadata(JSON.parse(readFileSync(indexPath, 'utf8')));
+    if (metadataErrors.length) fail(metadataErrors.join('\n'));
+    writeCandidatePreview(candidate, brief);
+    if (existsSync(output)) fail(`refusing to replace candidate directory ${output}; choose a new path`);
+    renameSync(candidate, output);
+  } finally {
+    rmSync(staging, {recursive: true, force: true});
+  }
   return output;
 }
 

@@ -30,7 +30,19 @@ The `mock-result` command exercises the same record shape without contacting a g
 npm run art:jobs -- mock-result /tmp/red-cap-east.handoff.json /tmp/red-cap-east.result.json --attempts 2 --error "manual review requested a new silhouette"
 ```
 
-This is a handoff and checkpoint contract, not a ComfyUI client or image importer. Returned image files still go through the normal provenance, export and visual review steps.
+An optional ComfyUI adapter submits an API-format workflow to an explicitly configured loopback endpoint only. It writes a checkpoint with the prompt ID and bounded request attempts; generation still happens outside the game:
+
+```sh
+npm run art:jobs -- comfy-submit /tmp/red-cap-east.handoff.json workflows/red-cap-east.json /tmp/red-cap-east.checkpoint.json --endpoint http://127.0.0.1:8188
+```
+
+After either a manual tool or ComfyUI has produced the target PNGs, import a manifest into a new review directory. Each target must appear exactly once. The importer checks PNG signatures and size limits, copies files without replacing existing files, and records their SHA-256 hashes. Those candidates still go through the normal provenance, export, and visual review steps:
+
+```sh
+npm run art:jobs -- import-batch /tmp/red-cap-east.handoff.json /tmp/red-cap-east.result.json /tmp/red-cap-east-files.json /tmp/red-cap-east-review --adapter comfyui-local
+```
+
+The manifest uses `{ "files": [{ "target": "east-idle", "path": "/path/to/east-idle.png" }] }`. Use `--adapter manual` for manually generated images. Generator binaries, workflows, and model weights are not runtime dependencies.
 
 ## Structured adventure briefs
 
@@ -41,4 +53,4 @@ npm run brief:compile -- content/briefs/willow-hollow.json /tmp/willow-hollow-ca
 npm run pack -- preview-pack /tmp/willow-hollow-candidate start
 ```
 
-Compilation creates a standard pack scaffold, adds the remaining linked maps, retains the original brief and revision in `brief.json`, refreshes integrity hashes, and runs the pack validator. Invalid briefs fail with field-specific messages; an existing candidate path is refused. Candidate maps are generated scaffolds: route landmark and species-role ideas stay review notes in the retained brief and still need to be authored into playable map/registry data. There is no automatic promotion step, and the current playable pack is never changed.
+Compilation validates the complete brief, creates a standard pack scaffold in a temporary directory, adds the remaining linked maps, retains the source brief and revision in `brief.json`, refreshes integrity hashes, and runs the pack validator before atomically moving the finished candidate into place. It also writes `candidate-review.html` with the brief-to-map route list, requested landmarks and species roles, goals, ending, and links to generated map files. Invalid briefs create no candidate, an existing candidate path is refused, and destinations inside the repository are rejected. Candidate maps are generated scaffolds: route landmark and species-role ideas stay review notes in the retained brief and still need to be authored into playable map/registry data. There is no automatic promotion step, and the current playable pack is never changed.
