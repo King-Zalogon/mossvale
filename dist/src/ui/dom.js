@@ -3,10 +3,15 @@ export const $ = selector => document.querySelector(selector);
 
 let toastTimer;
 export function toast(message, duration = 5800) {
-  $('#toast').textContent = message;
-  $('#toast').style.opacity = '1';
+  const node = $('#toast');
+  node.textContent = message;
+  node.dataset.active = 'true';
+  node.style.opacity = '1';
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => ($('#toast').style.opacity = '0'), duration);
+  toastTimer = setTimeout(() => {
+    node.style.opacity = '0';
+    delete node.dataset.active;
+  }, duration);
 }
 
 export function header(eyebrow, title, closeButton = true) {
