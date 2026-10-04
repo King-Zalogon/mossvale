@@ -61,7 +61,8 @@
     "...................................wwwwwwwwww..........................."
   ],
   "spawns": {
-    "camp": [4, 22]
+    "camp": [4, 22],
+    "lantern-cut": [44, 39]
   },
   "landmarks": [
     {
@@ -153,6 +154,17 @@
       "to": {
         "map": "reedfen-wetlands",
         "spawn": "shrine-landing"
+      }
+    },
+    {
+      "id": "shallow-cut-return",
+      "sprite": "signpost-wood",
+      "at": [43, 39],
+      "w": 40,
+      "label": "Return through the shallow-water cut",
+      "to": {
+        "map": "reedfen-wetlands",
+        "spawn": "shallow-cut-approach"
       }
     }
   ],
