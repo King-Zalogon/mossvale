@@ -1,14 +1,11 @@
-# Integrating stacked content branches
+# Integrating dependent branches
 
-Some content branches depend on a shared data change. Integrate the base change first, then rebase the dependent change onto the updated `main` and run the full checks on that exact head.
+The owner's current workflow targets `integration`. Historical roster/map stacks do not authorize main merges.
 
-## Creature roster and meadow map stack
+1. Fetch origin and confirm integration exists. Create an agent issue branch from latest origin/main; never commit directly to main/integration.
+2. Integrate prerequisite PRs into integration first. Update the dependent working branch with latest integration, preserving both branches' changes and resolving conflicts.
+3. Run npm verify and relevant regressions on the final head; run npm build for shipped-output changes. Preserve save, browser and animation checks. Document catalogue impact using [the authoring contract](AUTHORING_CONTRACT.md).
+4. Open/update the PR toward integration. Wait for required CI and reviews; fix attributable failures. Do not bypass checks or merge pending/failed/conflicting PRs.
+5. Merge with the established strategy and report the integrated commit and local test steps. Main promotion requires explicit owner authorization for that task.
 
-PR [#64](https://github.com/King-Zalogon/mossvale/pull/64) contains the #51 orchard maps and is based on the #24 roster branch. Integrate them in this order:
-
-1. Review and merge the #24 creature roster change into `main`.
-2. Rebase the #51/#64 orchard work onto the new `main`; resolve any shared manifest or save-format changes there.
-3. Run `npm ci`, `npm run verify`, and `npm run build` on the rebased head. Keep all save, browser, and animation checks in the run.
-4. Merge #51 only when those checks pass on its current head. Do not merge the dependent head first or treat a green check on its old base as evidence for the rebased commit.
-
-The CI workflow runs this sequence of checks on Linux and Windows. A formatter ignore is not a substitute for fixing changed files: use `npx prettier --check <changed files>` to distinguish an actual formatting regression from the repository baseline.
+CI verifies Linux and Windows. Format changed files; do not add ignores to hide regressions. See [AGENTS.md](../AGENTS.md) and [Agent start here](AGENT_START_HERE.md).
