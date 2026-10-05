@@ -1,7 +1,7 @@
 name: CI
 
-# Runs on every push (main and branches) and on pull requests. No branch protection or required
-# approvals are assumed: failed checks stay visible on the commit but never block direct pushes to main.
+# Runs existing checks on pushes and PRs; integration PRs additionally enforce catalogue impact.
+# Required-check settings remain repository administration; never bypass failed checks.
 on:
   push:
   pull_request:
@@ -20,11 +20,16 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Catalogue documentation impact
+        if: github.event_name == 'pull_request'
+        run: npm run catalogue:impact -- --base origin/integration
       - name: Lint, format, asset manifest, module boundaries and unit tests
         run: npm run check
       - name: Install Chromium for browser smoke tests (Linux)

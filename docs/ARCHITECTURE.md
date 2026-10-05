@@ -28,7 +28,7 @@ Pure layers (`data/`, `domain/`, `save.js`, `config.js`) may not use the DOM, ti
 | `src/domain/mapdata.js`, `adventure.js` | World/data | Map JSON validation and compilation (`buildAdventure(rawMaps, content)`); format in [MAP_FORMAT.md](MAP_FORMAT.md). |
 | `src/domain/world.js` | World | `buildWorld(map), isWalkable, zoneAt, nearestInteractive, triggersAt` over a compiled map. |
 | `src/domain/exploration.js` | World | `movePlayer(state, sx, sy, run, dt)` returns `true` when a wild encounter starts. |
-| `src/services/` | Client engineering | `audio` (beeps), `loader` (image loading with retry data), `maps` (fetches verified pack JSON), `persistence` (writes v5 saves and battle checkpoints through the codec; can be locked), `timeline` (cancellable/flushable frame playback), `settings` (preferences, own storage key), `profile` (new game archive / restore). |
+| `src/services/` | Client engineering | `audio` (data-driven synthesized effects and regional ambience), `loader` (image loading with retry data), `maps` (fetches verified pack JSON), `persistence` (writes v5 saves and battle checkpoints through the codec; can be locked), `timeline` (cancellable/flushable frame playback), `settings` (preferences, own storage key), `profile` (new game archive / restore). |
 | `src/render/` | Art/rendering | `sprites` (shared sprite array, `drawSprite`, `drawCreature`), `world` (`createWorldRenderer → drawWorld, drawMinimap`). Read-only over state. |
 | `src/ui/` | UI | `dom` (selectors, toast, modal shell), `hud`, `menus` (map, journal, party, ranger, shrine, result, help, save notice), `battle-view`. Presentation only. |
 | `src/input.js` | UI | Keyboard/touch handlers; writes `ui.keys` / `ui.touch`; `direction`, `isMoving`. |
@@ -41,7 +41,7 @@ Pure layers (`data/`, `domain/`, `save.js`, `config.js`) may not use the DOM, ti
 - `ui` = `{modalMode, keys, touch, touchRun, paused, ready, zoom, camera, now}`: presentation state, never persisted.
 - Transitions go through `app.actions` (e.g. `travel`, `startBattle`, `battleAction`, `selectCompanion`, `rest`, `buy`, `close`, `flee`). Domain functions are the only place rules change `save`.
 - Stable IDs: species and regions are saved as strings (see SAVE_FORMAT). Object and map IDs for authored maps are defined with [#14](https://github.com/King-Zalogon/mossvale/issues/14).
-- Events: the controller does not emit events yet; typed event payloads (for quests/dialogue) are defined with [#18](https://github.com/King-Zalogon/mossvale/issues/18) on top of `actions`.
+- Events: controller actions emit ordered snapshots through `domain/events.js`; objective-event processing consumes applicable events. The log supports tests/debugging and does not provide a general subscription bus. See [the current authoring catalogue](CATALOGUE.md).
 
 ## Debug and test hook
 
@@ -53,6 +53,6 @@ Content (`data/`), art (`dist/assets/` + manifest, see [ASSETS.md](ASSETS.md)), 
 
 ## Known limits (follow-ups)
 
-- Only three playable maps exist so far. Map flags include the map ID, and saves carry the adventure-pack ID; #51–#54 add the remaining planned map pairs.
+- The shipped Mossvale pack currently contains eight authored maps across four biomes. Map flags include the map ID and saves carry the pack ID; additional adventures use the validated pack contract.
 - `style.css` is formatted but not yet split by component.
 - Menu HTML is built with template strings; a component layer is not planned for 1.0.

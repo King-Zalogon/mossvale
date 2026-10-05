@@ -10,6 +10,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / 'art/characters/source'
 OUTPUT = ROOT / 'dist/assets/people'
+PLAYER_SOURCE_ATLAS = ROOT / 'art/assets/source/people-atlas.png'
 PROFILES = json.loads((ROOT / 'art/characters/export-profiles.json').read_text())['profiles']
 PLAYER_PROFILE = PROFILES['red-cap-motion-v1']
 NPC_PROFILE = PROFILES['npc-turnaround-v1']
@@ -32,28 +33,37 @@ def fit_person(source_cell, target_height, max_width=144, alpha_threshold=8, cel
     return frame
 
 
-def export_player():
-    batches = [
-        'person-red-cap-motion-north-northeast.png',
-        'person-red-cap-motion-east-southeast.png',
-        'person-red-cap-motion-south-southwest.png',
-        'person-red-cap-motion-west-northwest.png',
-    ]
+PLAYER_ROWS = [
+    # The source row supplies its idle pose and walk cells unless a focused walk override is recorded.
+    ('person-red-cap-motion-north-northeast.png', 0, None),
+    ('person-red-cap-motion-north-northeast.png', 1, ('person-red-cap-motion-northeast-v2.png', 1)),
+    ('person-red-cap-motion-east-southeast.png', 0, None),
+    ('person-red-cap-motion-east-southeast.png', 1, None),
+    ('person-red-cap-motion-south-southwest.png', 0, None),
+    ('person-red-cap-motion-south-southwest.png', 1, ('person-red-cap-motion-southwest-v2.png', 1)),
+    ('person-red-cap-motion-west-northwest.png', 0, None),
+    ('person-red-cap-motion-west-northwest.png', 1, None),
+]
+
+
+def export_player(source_dir=SOURCE):
     out = Image.new('RGBA', (5 * CELL[0], 8 * CELL[1]), (0, 0, 0, 0))
-    for batch_index, filename in enumerate(batches):
-        sheet = Image.open(SOURCE / filename).convert('RGBA')
-        for local_row in range(2):
-            row = batch_index * 2 + local_row
-            y0, y1 = round(local_row * sheet.height / 2), round((local_row + 1) * sheet.height / 2)
-            for column in range(5):
-                x0, x1 = round(column * sheet.width / 5), round((column + 1) * sheet.width / 5)
-                cell = fit_person(
-                    sheet.crop((x0, y0, x1, y1)),
-                    PLAYER_PROFILE['maxSprite'][1],
-                    max_width=PLAYER_PROFILE['maxSprite'][0],
-                    alpha_threshold=PLAYER_PROFILE['alphaThreshold'],
-                )
-                out.alpha_composite(cell, (column * CELL[0], row * CELL[1]))
+    sheets = {}
+    for row, (base_name, base_row, walk_override) in enumerate(PLAYER_ROWS):
+        for column in range(5):
+            filename, source_row = walk_override if column > 0 and walk_override else (base_name, base_row)
+            if filename not in sheets:
+                sheets[filename] = Image.open(source_dir / filename).convert('RGBA')
+            sheet = sheets[filename]
+            y0, y1 = round(source_row * sheet.height / 2), round((source_row + 1) * sheet.height / 2)
+            x0, x1 = round(column * sheet.width / 5), round((column + 1) * sheet.width / 5)
+            cell = fit_person(
+                sheet.crop((x0, y0, x1, y1)),
+                PLAYER_PROFILE['maxSprite'][1],
+                max_width=PLAYER_PROFILE['maxSprite'][0],
+                alpha_threshold=PLAYER_PROFILE['alphaThreshold'],
+            )
+            out.alpha_composite(cell, (column * CELL[0], row * CELL[1]))
     return out
 
 
@@ -94,6 +104,25 @@ def save_or_check(name, image, check_only):
     print(f"{'verified' if check_only else 'exported'} {target.relative_to(ROOT)} via {PLAYER_PROFILE['category'] if 'motion' in name else NPC_PROFILE['category']}")
 
 
+def sync_player_source_atlas(image, check_only, source_atlas_path=PLAYER_SOURCE_ATLAS):
+    label = source_atlas_path.relative_to(ROOT) if source_atlas_path.is_relative_to(ROOT) else source_atlas_path
+    updated = None
+    with Image.open(source_atlas_path) as current:
+        if current.mode != 'RGBA' or current.width < image.width or current.height < image.height:
+            raise SystemExit(f'{label} cannot hold the RGBA player atlas at (0, 0)')
+        same = current.crop((0, 0, image.width, image.height)).tobytes() == image.tobytes()
+        if not same and not check_only:
+            current.paste(image, (0, 0))
+            updated = current.copy()
+    if updated:
+        temporary = source_atlas_path.with_suffix('.png.tmp')
+        updated.save(temporary, format='PNG', optimize=True)
+        temporary.replace(source_atlas_path)
+    if check_only and not same:
+        raise SystemExit(f'{label} player crop differs from its editable character sources')
+    print(f"{'verified' if check_only else 'synchronized'} {label} player crop")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true', help='verify generated pixels without changing runtime files')
@@ -105,6 +134,8 @@ def main():
     ]
     for name, image in outputs:
         save_or_check(name, image, args.check)
+        if name == 'person-red-cap-motion.png':
+            sync_player_source_atlas(image, args.check)
 
 
 if __name__ == '__main__':

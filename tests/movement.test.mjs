@@ -5,9 +5,11 @@ import {assets, spriteId} from '../dist/src/data/assets.js';
 import {
   DIRECTIONS,
   FACING,
+  FOLLOWER_FRAME_DISTANCE,
   WALK_FRAME_DISTANCE,
   directionPose,
   facing,
+  followerFrame,
   playerSpritePose,
   followerPoint,
   movementFacing,
@@ -78,6 +80,33 @@ test('idle and reduced motion hold the idle cell; walking advances by distance a
   assert.equal(playerFrame(WALK_FRAME_DISTANCE, true), 2);
   assert.equal(playerFrame(WALK_FRAME_DISTANCE * 4, true), 1);
   assert.equal(playerFrame(3, true, true), 0);
+  assert.equal(followerFrame(0.71, true), 1);
+  assert.equal(followerFrame(FOLLOWER_FRAME_DISTANCE, true), 2);
+  assert.equal(followerFrame(FOLLOWER_FRAME_DISTANCE * 4, true), 1);
+  assert.equal(followerFrame(3, true, true), 0);
+});
+
+test('changing facing restarts the walk cycle at a readable first step', () => {
+  const st = state(open, 19, 15);
+  walk(st, 0, 1, 0.2, 60);
+  assert.ok(st.player.walkDistance >= WALK_FRAME_DISTANCE);
+  assert.equal(playerFrame(st.player.walkDistance, true), 2);
+  movePlayer(st, 1, -1, false, 1 / 60);
+  assert.equal(st.player.dir, FACING.northeast);
+  assert.equal(playerFrame(st.player.walkDistance, true), 1);
+});
+
+test('the companion is interpolated at its exact trail gap instead of snapping between trail samples', () => {
+  const trail = [
+    {x: 9.4, y: 10},
+    {x: 9, y: 10},
+    {x: 8.6, y: 10},
+  ];
+  const first = followerPoint(open, {x: 10, y: 10}, trail);
+  assert.ok(Math.abs(Math.hypot(10 - first.x, 10 - first.y) - 1) < 1e-9);
+  const second = followerPoint(open, {x: 10.05, y: 10}, trail);
+  assert.ok(Math.abs(Math.hypot(10.05 - second.x, 10 - second.y) - 1) < 1e-9);
+  assert.ok(Math.abs(second.x - first.x - 0.05) < 1e-9, 'a newly interpolated point moves smoothly with the player');
 });
 
 test('run reuses the walk loop at a faster travel cadence and stopping resets its phase', () => {

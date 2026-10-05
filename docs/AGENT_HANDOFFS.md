@@ -6,6 +6,7 @@ GitHub issues and pull requests are authoritative for current status. Use this l
 
 | Date | Issue / scope | Owner lane | Branch | Head / base | Evidence | Blockers / next step |
 | --- | --- | --- | --- | --- | --- | --- |
+| 2026-10-04 | #171 wall sliding, #130 diagonal player animation, #131 follower facing, #172 follower cadence, #23 regional challenge counterplay | Movement / animation / combat | `codex/171-130-131-172-23-gameplay` | Started from `origin/main` `4714b24`; refreshed through `integration` `d2cc69f`, then `8083394` | Claims posted to all five issues in requested order; #171 movement uses merged #176 screen-axis solver; `npm run verify` passed on `8083394` (300 Node tests, art checks, all browser scenarios); `npm run build` passed | Await PR CI; #23 guardian counterplay passes deterministic simulations, owner play-feel review remains useful. |
 | 2026-10-04 | #177 second independent inventory adventure (#99 child) | Pack data / regression proof | `codex/177-second-inventory-pack` | Base `origin/main` `4714b24`; refreshed to `integration` `d2cc69f` | Focused inventory and packaged Lantern Crossing tests passed; full verification being rerun on refreshed integration | No shared runtime edits. #99 live percentage healing and loot/combat reward wiring remain separate. Await exact-head CI before integration. |
 | 2026-10-04 | #93 export profiles, #85 remaining combat roster, #90 remaining follower roster, #92 actual-scale review | Art tooling / creature art / art QA | `codex/93-85-90-92-creature-art` | Started at `origin/main` `4714b24`; fast-forwarded to `origin/integration` `96831fa` | Claims recorded in order on issues #93, #85, #90, #92; 12-species combat/follower exports and contact sheets; `npm run verify` / `npm run build` pass | Open PR to `integration`; owner taste review remains pending. |
 | 2026-10-04 | #100 optional staged objectives and conditional speech choices | Optional narrative mechanics | `codex/issue-100-objective-gameplay` | Work head `af433ec`; base `origin/main` `4714b24`; refreshed with `origin/integration` `7983456` | `npm run verify` passed (278 unit tests and browser checks); `npm run build` passed on this refreshed head; PR #156 | Fixes shop/rest access around optional questions; push refreshed branch and await GitHub CI before merging. |
@@ -27,3 +28,11 @@ GitHub issues and pull requests are authoritative for current status. Use this l
 `YYYY-MM-DD | #issue / bounded scope | owner lane | branch | head and base | checks or review evidence | blocker and next owner/action`
 
 When work is integrated, add the integration commit and mark the handoff complete. Do not treat a branch name or this log as proof that a GitHub issue is claimed, a PR is current, or CI is green; check the linked GitHub records.
+
+## #181 — authoring documentation contract
+
+Codex claim: `codex/181-authoring-contract`, created from main `4714b24`, aligned with integration `8083394`. Scope: format-1 catalogue schema, six teaching fixtures, contribution instructions and PR checklist, contract regressions. These fixtures are not complete resource coverage. #182/#183/#184/#185 consume this contract after integration; no game rules or artwork changed. PR targets integration only; final-head verification/CI is mandatory.
+
+## #182 / #183 — local catalogue and CI policy
+
+Codex claim: `codex/182-183-catalogue-ci`, created from main `4714b24`, aligned with integration `8083394` and carrying #181 head `c648f6b` as an explicit unmerged prerequisite. Scope: deterministic full resource collection, reviewed family descriptions/capabilities, safe references, source freshness and PR merge-base impact records. No gameplay rules or artwork changes. Catalogue visual browsing/export (#184) and scene script specification (#185) remain later work. Integration-only PR; required CI must pass before merge.

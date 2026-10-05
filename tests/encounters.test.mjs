@@ -105,7 +105,7 @@ test('encounters are spaced by the zone distance, with a grace period', () => {
     const d = encounterDistance(zone, rng);
     assert.ok(d >= zone.distance[0] && d <= zone.distance[1]);
   }
-  // Walking east through the tall grass: no encounter during the grace period, then roughly every 4-7 tiles.
+  // Walking east through the tall grass: no encounter during the grace period, then roughly every 5-7 tiles.
   const st = {world, player: {x: 15, y: 9, dir: 8}, pacing: {steps: 0, encounterAt: 5, encounterCooldown: 2}, trail: []};
   let firstAt = null;
   let t = 0;

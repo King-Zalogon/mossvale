@@ -202,11 +202,11 @@ function drawStage() {
       ctx.restore();
     } else if (object.kind === 'player') {
       const moving = simulationTime % 960 < 700;
-      const column = moving && !calm.checked ? (Math.floor(player.distance / 0.42) % 4) + 1 : 0;
+      const column = moving && !calm.checked ? (Math.floor(player.distance / 0.56) % 4) + 1 : 0;
       drawFrame(ctx, sources.player, column, player.dir, p.x, p.y, 36, 5, 8, 160, 256);
     } else {
       const walking = simulationTime % 960 < 700;
-      const col = !calm.checked && walking ? (Math.floor(follower.distance / 0.42) % 4) + 1 : 0;
+      const col = !calm.checked && walking ? (Math.floor(follower.distance / 0.72) % 4) + 1 : 0;
       drawFrame(ctx, creature, col, ROWS[speciesSelect.value].indexOf(DIRECTIONS[follower.dir]), p.x, p.y, 37, 5, 8, 200, 200);
     }
   }
