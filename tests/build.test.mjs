@@ -146,6 +146,6 @@ test('a selected data pack builds as a validated standalone artifact with compat
 
 test('the version label handles a missing stamp', () => {
   assert.equal(describeBuild(null), 'development build');
-  assert.match(describeBuild({short: 'abcdef0', builtAt: '2026-10-01T10:00:00Z'}), /^build abcdef0 · 2026-10-01$/);
+  assert.match(describeBuild({short: 'abcdef0', builtAt: '2026-10-01T10:00:00Z'}), /^Build #abcdef0 · 2026-10-01$/);
   assert.match(describeBuild({short: 'abcdef0', dirty: true, builtAt: '2026-10-01T10:00:00Z'}), /abcdef0\+/);
 });

@@ -83,6 +83,17 @@ test('loopback server serves integration, rejects private paths and unsupported 
   const response = await fetch(url);
   assert.equal(await response.text(), 'integration game');
   assert.equal(response.headers.get('cache-control'), 'no-store');
+  const versionResponse = await fetch(`${url}/version.json`);
+  assert.equal(versionResponse.status, 200);
+  assert.equal(versionResponse.headers.get('cache-control'), 'no-store');
+  const version = await versionResponse.json();
+  const integrationCommit = git(selectIntegration(repo).directory, 'rev-parse', 'HEAD');
+  assert.deepEqual(
+    {short: version.short, branch: version.branch, dirty: version.dirty},
+    {short: integrationCommit.slice(0, 7), branch: 'integration', dirty: false},
+  );
+  assert.equal(version.commit, integrationCommit);
+  assert.equal((await fetch(`${url}/version.json`, {method: 'HEAD'})).status, 200);
   for (const path of ['/.git/config', '/..%2f.env.local', '/%2e%2e%5c.env.local', '/%00']) assert.equal((await fetch(url + path)).status, 403);
   assert.equal((await fetch(url, {method: 'POST'})).status, 405);
   assert.equal((await fetch(url + '/absent.png')).status, 404);

@@ -2,7 +2,7 @@
   "name": "mossvale",
   "private": true,
   "scripts": {
-    "start": "python3 -m http.server 8080 --directory dist",
+    "start": "node scripts/local-game.mjs",
     "dev": "next dev",
     "build:game": "node scripts/build.mjs",
     "build": "npm run build:game && node scripts/prepare-vercel-game.mjs && next build",

@@ -7,9 +7,24 @@ import {fileURLToPath, pathToFileURL} from 'node:url';
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const git = (cwd, args) => execFileSync('git', args, {cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']}).trim();
 
+export function localBuildInfo(cwd = repository, branchOverride) {
+  try {
+    const commit = git(cwd, ['rev-parse', 'HEAD']);
+    return {
+      commit,
+      short: commit.slice(0, 7),
+      branch: branchOverride ?? (git(cwd, ['branch', '--show-current']) || 'detached'),
+      dirty: git(cwd, ['status', '--porcelain', '--untracked-files=all']) !== '',
+      builtAt: new Date().toISOString(),
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function selectIntegration(cwd = repository) {
   const branch = git(cwd, ['branch', '--show-current']);
-  if (branch === 'integration') return {directory: cwd, revision: git(cwd, ['rev-parse', '--short', 'HEAD']), workingCopy: true};
+  if (branch === 'integration') return {directory: cwd, revision: git(cwd, ['rev-parse', '--short', 'HEAD']), workingCopy: true, branch};
   try {
     git(cwd, ['fetch', 'origin', 'refs/heads/integration:refs/remotes/origin/integration']);
   } catch {
@@ -29,7 +44,7 @@ export function selectIntegration(cwd = repository) {
   } else {
     git(cwd, ['worktree', 'add', '--detach', directory, sha]);
   }
-  return {directory, revision: sha.slice(0, 7), workingCopy: false};
+  return {directory, revision: sha.slice(0, 7), workingCopy: false, branch: 'integration'};
 }
 
 const types = {
@@ -46,7 +61,7 @@ const types = {
   '.ogg': 'audio/ogg',
   '.woff2': 'font/woff2',
 };
-export function gameHandler(directory) {
+export function gameHandler(directory, {version} = {}) {
   const root = realpathSync(resolve(directory, 'dist'));
   return (request, response) => {
     if (!['GET', 'HEAD'].includes(request.method)) {
@@ -55,6 +70,17 @@ export function gameHandler(directory) {
     }
     try {
       const pathname = decodeURIComponent(request.url.split('?')[0]);
+      if (pathname === '/version.json') {
+        const info = typeof version === 'function' ? version() : version;
+        if (!info || !/^[a-f0-9]{40}$/i.test(info.commit ?? '')) {
+          response.writeHead(404, {'Cache-Control': 'no-store'}).end();
+          return;
+        }
+        response.writeHead(200, {'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'});
+        if (request.method === 'HEAD') response.end();
+        else response.end(JSON.stringify(info));
+        return;
+      }
       const parts = pathname.split('/');
       if (!pathname.startsWith('/') || parts.some(part => part.startsWith('.') || part.includes('\\')) || pathname.includes('\0')) {
         response.writeHead(403).end();
@@ -166,7 +192,7 @@ export async function launch({cwd = repository, port, browser = true} = {}) {
     closeSync(lock);
     lock = undefined;
     const target = selectIntegration(cwd);
-    handler = gameHandler(target.directory);
+    handler = gameHandler(target.directory, {version: () => localBuildInfo(target.directory, target.branch)});
     const url = `http://127.0.0.1:${server.address().port}/`;
     console.log(
       `Mossvale integration ${target.revision}${target.workingCopy ? ' (current working copy, including local edits)' : ''}\n${url}\nServing ${target.directory}\nCtrl+C to stop. Account/feedback APIs require the configured portal; this launcher serves local gameplay.`,
