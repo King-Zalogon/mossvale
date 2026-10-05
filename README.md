@@ -82,14 +82,14 @@ The portal-hosted copy is a separate deployment from the existing hosted game. I
 
 In Vercel, import this repository as a Next.js project and add these environment variables for Production:
 
-| Variable                        | Value                                                                               |
-| ------------------------------- | ----------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`      | The Zalonline Supabase project URL                                                  |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | That project's publishable/anon key (never a secret/service-role key)               |
-| `MOSSVALE_GATE_SECRET`          | A private random value of at least 32 characters, such as `openssl rand -base64 32` |
-| `MOSSVALE_PORTAL_RETURN_URL`    | Optional public URL: `https://zalonline.vercel.app/dashboard`                       |
+| Variable                        | Value                                                                                            |
+| ------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_SUPABASE_URL`      | The Zalonline Supabase project URL                                                               |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | That project's publishable/anon key (never a secret/service-role key)                            |
+| `MOSSVALE_GATE_SECRET`          | A private random value of at least 32 characters, such as `openssl rand -base64 32`              |
+| `MOSSVALE_PORTAL_RETURN_URL`    | Optional public return URL override; Vercel defaults to `https://zalonline.vercel.app/dashboard` |
 
-Deploy, then upsert the project URL into `public.applications` with slug `mossvale`. Sign in with an existing Zalonline user; access follows the portal's per-user and group app grants. No Supabase service-role key belongs in Vercel. When `MOSSVALE_PORTAL_RETURN_URL` is configured, the in-game Esc menu shows **Return to dashboard** and saves the current adventure before opening that URL in the same tab. Leave it unset for standalone builds. It is a public navigation URL; never put credentials in it. Local autosaves remain in this browser. The Esc menu also provides explicit per-account/per-adventure Supabase checkpoints and feedback; apply the storage migration described in [account feedback and checkpoints](docs/FEEDBACK.md). The older hosted copy does not share these APIs.
+Deploy, then upsert the project URL into `public.applications` with slug `mossvale`. Sign in with an existing Zalonline user; access follows the portal's per-user and group app grants. No Supabase service-role key belongs in Vercel. Vercel builds show **Return to dashboard** in the in-game Esc menu and save the current adventure before opening `https://zalonline.vercel.app/dashboard` in the same tab. Set `MOSSVALE_PORTAL_RETURN_URL` to override the destination, or to an empty string to hide the button. Standalone builds omit it unless explicitly configured. It is a public navigation URL; never put credentials in it. Local autosaves remain in this browser. The Esc menu also provides explicit per-account/per-adventure Supabase checkpoints and feedback; apply the storage migration described in [account feedback and checkpoints](docs/FEEDBACK.md). The older hosted copy does not share these APIs.
 
 For local development of the portal wrapper, copy `.env.example` to `.env.local`, fill in the values, then run `npm run dev`. The original local game server remains `npm start`.
 
