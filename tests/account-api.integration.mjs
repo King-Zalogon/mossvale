@@ -22,6 +22,7 @@ const mcpRows = [
     map_id: 'reedfen-wetlands',
     build: 'fixture-build',
     created_at: '2026-10-01T00:00:00.000000+00:00',
+    review_status: 'new',
   },
   {
     id: '00000000-0000-4000-8000-000000000012',
@@ -30,6 +31,7 @@ const mcpRows = [
     map_id: 'reedfen-wetlands',
     build: 'fixture-build',
     created_at: '2026-10-02T00:00:00.000000+00:00',
+    review_status: 'new',
   },
 ];
 const mock = http
@@ -58,6 +60,40 @@ const mock = http
         .filter(row => Date.parse(row.created_at) > after || (Date.parse(row.created_at) === after && row.id > afterId))
         .slice(0, body.p_limit);
       return res.end(JSON.stringify(rows));
+    }
+    if (path === '/rest/v1/rpc/mossvale_mcp_feedback_list') {
+      const after = body.p_cursor_created_at ? Date.parse(body.p_cursor_created_at) : -Infinity;
+      const afterId = body.p_cursor_id ?? '';
+      const rows = mcpRows
+        .filter(row => Date.parse(row.created_at) > after || (Date.parse(row.created_at) === after && row.id > afterId))
+        .filter(row => !body.p_review_status || row.review_status === body.p_review_status)
+        .filter(row => !body.p_map_id || row.map_id === body.p_map_id)
+        .filter(row => !body.p_created_after || Date.parse(row.created_at) >= Date.parse(body.p_created_after))
+        .filter(row => !body.p_created_before || Date.parse(row.created_at) <= Date.parse(body.p_created_before))
+        .slice(0, body.p_limit);
+      return res.end(JSON.stringify(rows));
+    }
+    if (path === '/rest/v1/rpc/mossvale_mcp_feedback_get') {
+      const row = mcpRows.find(item => item.id === body.p_feedback_id);
+      return res.end(
+        JSON.stringify(
+          row
+            ? [
+                {
+                  ...row,
+                  status_changed_at: row.review_status === 'new' ? null : '2026-10-05T20:00:00.000000+00:00',
+                  status_changed_by: row.review_status === 'new' ? null : 'Codex',
+                },
+              ]
+            : [],
+        ),
+      );
+    }
+    if (path === '/rest/v1/rpc/mossvale_mcp_feedback_set_status') {
+      const row = mcpRows.find(item => item.id === body.p_feedback_id);
+      if (!row) return res.end(JSON.stringify([]));
+      row.review_status = body.p_review_status;
+      return res.end(JSON.stringify([{id: row.id, review_status: row.review_status, changed_at: '2026-10-05T20:00:00.000000+00:00', changed_by: 'Codex'}]));
     }
     if (path === '/rest/v1/rpc/mossvale_submit_feedback') {
       if (body.p_message === 'quota') {
@@ -214,7 +250,11 @@ try {
   assert.equal((await initialize.json()).result.serverInfo.name, 'mossvale-feedback');
   const list = await mcpCall({jsonrpc: '2.0', id: 2, method: 'tools/list', params: {}});
   assert.equal(list.status, 200);
-  assert.equal((await list.json()).result.tools[0].name, 'list_pending_feedback');
+  const availableTools = (await list.json()).result.tools.map(tool => tool.name);
+  assert.ok(availableTools.includes('list_pending_feedback'));
+  assert.ok(availableTools.includes('list_feedback'));
+  assert.ok(availableTools.includes('get_feedback'));
+  assert.ok(availableTools.includes('update_feedback_status'));
   const firstPageResponse = await mcpCall({
     jsonrpc: '2.0',
     id: 3,
@@ -237,6 +277,49 @@ try {
   assert.equal(secondPage.feedback[0].message, mcpRows[1].message);
   assert.equal(secondPage.nextCursor, null);
 
+  const filteredResponse = await mcpCall({
+    jsonrpc: '2.0',
+    id: 5,
+    method: 'tools/call',
+    params: {name: 'list_feedback', arguments: {limit: 10, reviewStatus: 'new', mapId: 'reedfen-wetlands'}},
+  });
+  const filtered = JSON.parse((await filteredResponse.json()).result.content[0].text);
+  assert.equal(filtered.feedback.length, 2, 'bounded list supports status/map filters');
+  assert.equal(filtered.feedback[0].reviewStatus, 'new');
+  assert.equal('userId' in filtered.feedback[0], false);
+  const detailResponse = await mcpCall({
+    jsonrpc: '2.0',
+    id: 6,
+    method: 'tools/call',
+    params: {name: 'get_feedback', arguments: {feedbackId: mcpRows[0].id}},
+  });
+  const detail = JSON.parse((await detailResponse.json()).result.content[0].text).feedback;
+  assert.equal(detail.message, 'Improve the wetland path');
+  assert.equal('userId' in detail, false);
+  const beforeStatusChange = {...mcpRows[0]};
+  const updateResponse = await mcpCall({
+    jsonrpc: '2.0',
+    id: 7,
+    method: 'tools/call',
+    params: {name: 'update_feedback_status', arguments: {feedbackId: mcpRows[0].id, reviewStatus: 'accepted'}},
+  });
+  const updateResult = JSON.parse((await updateResponse.json()).result.content[0].text);
+  assert.equal(updateResult.reviewStatus, 'accepted');
+  assert.equal(updateResult.changedBy, 'Codex', 'status update identifies the verified client token label');
+  assert.equal(mcpRows[0].message, beforeStatusChange.message, 'status tool preserves original feedback text');
+  const updateCall = calls.findLast(c => c.url.includes('mossvale_mcp_feedback_set_status'));
+  assert.deepEqual(Object.keys(updateCall.body).sort(), ['p_feedback_id', 'p_review_status', 'p_token_hash']);
+  assert.equal(updateCall.body.p_review_status, 'accepted');
+  const updatedDetail = await mcpCall({
+    jsonrpc: '2.0',
+    id: 8,
+    method: 'tools/call',
+    params: {name: 'get_feedback', arguments: {feedbackId: mcpRows[0].id}},
+  });
+  const auditDetail = JSON.parse((await updatedDetail.json()).result.content[0].text).feedback;
+  assert.equal(auditDetail.statusChangedBy, 'Codex');
+  assert.equal(auditDetail.statusChangedAt, '2026-10-05T20:00:00.000000+00:00');
+
   const mcpClient = new Client({name: 'mossvale-api-test', version: '1.0.0'}, {capabilities: {}});
   const mcpTransport = new StreamableHTTPClientTransport(new URL(`${origin}/api/mcp`), {
     requestInit: {headers: {Authorization: `Bearer ${mcpToken}`}},
@@ -244,10 +327,10 @@ try {
   await mcpClient.connect(mcpTransport);
   const clientTools = await mcpClient.listTools();
   assert.ok(
-    clientTools.tools.some(tool => tool.name === 'list_pending_feedback'),
+    clientTools.tools.some(tool => tool.name === 'list_feedback'),
     'standard MCP client discovers the feedback tool',
   );
-  const clientPage = await mcpClient.callTool({name: 'list_pending_feedback', arguments: {limit: 1}});
+  const clientPage = await mcpClient.callTool({name: 'list_feedback', arguments: {limit: 1, reviewStatus: 'accepted'}});
   assert.equal(JSON.parse(clientPage.content[0].text).feedback[0].id, mcpRows[0].id, 'standard MCP client reads through Streamable HTTP');
   await mcpClient.close();
 
