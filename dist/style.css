@@ -2053,6 +2053,17 @@ body.reduce-motion *::after {
   text-align: center;
   opacity: 0.85;
 }
+.menu-summary .build-label {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 8px;
+  border: 1px solid var(--line, #66806b);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
 .setting-row {
   display: flex;
   flex-wrap: wrap;

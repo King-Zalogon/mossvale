@@ -13,6 +13,10 @@ let fixturePack = null;
 const server = http
   .createServer((q, r) => {
     const name = q.url.split('?')[0].slice(1) || 'index.html';
+    if (name === 'version.json') {
+      r.writeHead(200, {'content-type': 'application/json'}).end(JSON.stringify({short: 'abcdef0', builtAt: '2026-10-01T10:00:00Z'}));
+      return;
+    }
     if (fixturePack && name === 'adventures.json') {
       // A standalone build of the pack ships a catalog naming it (scripts/build.mjs --pack writes the same).
       const index = JSON.parse(readFileSync(new URL(`../tests/fixtures/packs/${fixturePack}/index.json`, import.meta.url), 'utf8'));
@@ -187,6 +191,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   const reloading = click => Promise.all([page.waitForEvent('load'), page.click(click)]);
   await page.goto(url);
   await page.waitForSelector('#m-primary');
+  await page.waitForFunction(() => document.querySelector('#build-label')?.textContent === 'Build #abcdef0 · 2026-10-01');
   assert.equal(await page.textContent('#m-primary'), 'Continue');
   assert.match(await page.textContent('#modal'), /2 of 12 friends · 1 seal · 10 min played/);
   await page.keyboard.press('Escape');

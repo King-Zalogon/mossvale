@@ -11,6 +11,7 @@ export async function fetchBuild(url = 'version.json') {
 }
 
 export function describeBuild(info) {
-  if (!info) return 'development build';
-  return `build ${info.short}${info.dirty ? '+' : ''} · ${String(info.builtAt).slice(0, 10)}`;
+  if (!/^[a-f0-9]{7,40}$/i.test(info?.short ?? '')) return 'development build';
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(String(info.builtAt ?? '').slice(0, 10)) ? ` · ${String(info.builtAt).slice(0, 10)}` : '';
+  return `Build #${info.short}${info.dirty ? '+' : ''}${date}`;
 }

@@ -307,7 +307,13 @@ Object.assign(actions, {
 });
 
 async function boot() {
-  if (!app.build) fetchBuild().then(info => (app.build = info)); // for the menu; never blocks play
+  if (!app.build) {
+    fetchBuild().then(info => {
+      app.build = info;
+      const label = document.querySelector('#build-label');
+      if (label) label.textContent = app.buildLabel();
+    }); // for the menu; never blocks play
+  }
   ui.ready = false;
   setBusy(true);
   loading.hidden = false;

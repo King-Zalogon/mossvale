@@ -8,13 +8,13 @@ An original browser-playable creature-catching game with a 2D isometric world, p
 
 ## Play locally
 
-No build step or dependencies are required. From the repository root, run:
+Install dependencies once with `npm ci`, then run the local game server:
 
 ```sh
-python3 -m http.server 8080 --directory dist
+npm start
 ```
 
-Open <http://localhost:8080> in a browser. Any static web server can serve the `dist` directory.
+Open the URL printed in the terminal. The title and Escape menus show the current `Build #<short-commit>`; a `+` marks uncommitted changes. This Node server reads the checkout's Git metadata, so it identifies local code as well as hosted builds. A plain static server can still serve `dist/`, but without `version.json` it reports `development build`.
 
 ## Quick integration test
 
@@ -95,7 +95,7 @@ For local development of the portal wrapper, copy `.env.example` to `.env.local`
 
 ## Development and checks
 
-Node 20+ (CI uses 22). Install once with `npm ci`; serving the game needs no build (`npm start` or the command above).
+Node 20+ (CI uses 22). Install once with `npm ci`; serving the game needs no separate build (`npm start`).
 
 | Command                | What it runs                                                                                                                                                      |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
