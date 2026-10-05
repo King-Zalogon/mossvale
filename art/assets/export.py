@@ -19,7 +19,11 @@ GUTTER = 16
 SHEET_WIDTH = 2048
 PROP_PROFILE_ID = "prop-static-v1"
 EXPORT_PROFILES = json.loads(PROFILE_PATH.read_text())["profiles"]
-PROP_PROFILE = EXPORT_PROFILES[PROP_PROFILE_ID]
+LANDMARK_MANIFEST = SOURCE_ROOT / "landmarks" / "manifest.json"
+LANDMARK_SOURCES = {
+    entry["name"]: entry["source"]
+    for entry in json.loads(LANDMARK_MANIFEST.read_text(encoding="utf-8")).get("assets", [])
+} if LANDMARK_MANIFEST.exists() else {}
 
 
 def profile_digest(profile: dict) -> str:
@@ -27,15 +31,20 @@ def profile_digest(profile: dict) -> str:
     return hashlib.sha256(serialized).hexdigest()
 
 
-def validate_prop_profile() -> dict:
-    if (
-        PROP_PROFILE.get("category") != "prop"
-        or PROP_PROFILE.get("status") != "implemented"
-        or PROP_PROFILE.get("resampling") != "none"
-        or PROP_PROFILE.get("palette") != "preserve RGBA"
-    ):
+def validate_prop_profile(profile_id: str = PROP_PROFILE_ID) -> dict:
+    profile = EXPORT_PROFILES.get(profile_id)
+    if profile is None or profile.get("category") != "prop" or profile.get("status") != "implemented":
+        raise ValueError(f"{profile_id} must be an implemented prop export profile")
+    if profile_id == PROP_PROFILE_ID and (profile.get("resampling") != "none" or profile.get("palette") != "preserve RGBA"):
         raise ValueError(f"{PROP_PROFILE_ID} must preserve prop pixels without resampling")
-    return {"id": PROP_PROFILE_ID, "settingsSha256": profile_digest(PROP_PROFILE)}
+    if profile_id == "prop-landmark-v1" and (
+        profile.get("maxPixelEdge") != 256
+        or profile.get("alphaThreshold") != 32
+        or profile.get("resampling") != "nearest-neighbor fit to maxPixelEdge"
+        or profile.get("palette") != "preserve 8-bit RGBA; no palette quantization"
+    ):
+        raise ValueError("prop-landmark-v1 settings do not match its deterministic source preparation")
+    return {"id": profile_id, "settingsSha256": profile_digest(profile)}
 
 FRAMES = {
     "person-red-cap-motion": {
@@ -92,6 +101,7 @@ GENERATED_SOURCES = {
     "creature-mushmallow-combat": ["art/characters/source/creature-mushmallow-combat-generated.png"],
     "creature-frostowl-combat": ["art/characters/source/creature-frostowl-combat-generated.png"],
 }
+GENERATED_SOURCES.update({name: [source] for name, source in LANDMARK_SOURCES.items()})
 
 
 def list_assets() -> list[dict]:
@@ -120,7 +130,8 @@ def list_assets() -> list[dict]:
             },
         }
         if entry["kind"] == "prop":
-            entry["exportProfile"] = validate_prop_profile()
+            profile_id = "prop-landmark-v1" if name in LANDMARK_SOURCES else PROP_PROFILE_ID
+            entry["exportProfile"] = validate_prop_profile(profile_id)
         entries.append(entry)
     return entries
 
@@ -171,10 +182,11 @@ def export(check_only: bool = False) -> None:
         raise ValueError("unsupported source atlas metadata")
     if not metadata.get("assets") or not metadata.get("sheets"):
         raise ValueError("source atlas metadata has no assets or sheets")
-    prop_profile_record = validate_prop_profile()
     for item in metadata["assets"]:
-        if item.get("kind") == "prop" and item.get("exportProfile") != prop_profile_record:
-            raise ValueError(f"{item['name']} has missing or stale {PROP_PROFILE_ID} provenance")
+        if item.get("kind") == "prop":
+            profile_id = item.get("exportProfile", {}).get("id", PROP_PROFILE_ID)
+            if item.get("exportProfile") != validate_prop_profile(profile_id):
+                raise ValueError(f"{item['name']} has missing or stale {profile_id} provenance")
     for sheet_name, dimensions in metadata["sheets"].items():
         with Image.open(ROOT / "art" / "assets" / sheet_name) as sheet:
             if sheet.mode != dimensions["mode"] or sheet.mode != "RGBA":

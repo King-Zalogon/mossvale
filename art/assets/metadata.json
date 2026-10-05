@@ -21,7 +21,7 @@
     },
     "source/props-atlas.png": {
       "width": 2000,
-      "height": 762,
+      "height": 1306,
       "mode": "RGBA"
     },
     "source/creature-combat-atlas.png": {
@@ -1029,6 +1029,258 @@
       }
     },
     {
+      "name": "prop-cider-press",
+      "src": "assets/props/prop-cider-press.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 251,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 778
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/cider-press.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "1cf7cae96fd8fd8cdcd525e4f2e0771de8c64817fa40a3239455eb1a26c2ecb5",
+        "promptSummary": "Compact abandoned wooden apple press with fallen apples and moss; no sign or text."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
+      "name": "prop-hanging-lantern",
+      "src": "assets/props/prop-hanging-lantern.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 138,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 267,
+        "y": 778
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/hanging-lantern.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "448170fd94bcf15dbd24e2ea4553e8d2b5ea461aea06a57391b01397cc3fbb74",
+        "promptSummary": "Warm amber lantern hanging from a simple hook on a short islet post; tightly contained light and no notice board."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
+      "name": "prop-heron-blind",
+      "src": "assets/props/prop-heron-blind.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 256,
+      "height": 208,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 421,
+        "y": 778
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/heron-blind.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "0cd56f05e7a8aaefc12f9bc7fc814a1587f3d04e4f7cfaa53f9cd48550eb7af3",
+        "promptSummary": "Low concealed reed-and-wood wildlife hide with a viewing gap; no readable notice."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
+      "name": "prop-icefall-ledge",
+      "src": "assets/props/prop-icefall-ledge.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 252,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 693,
+        "y": 778
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/icefall-ledge.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "4605bb4a1889fa422c5f68cbfef22e1965dd8ac18c7acf9c903b7848cb6acd68",
+        "promptSummary": "Compact snow-covered rock ledge beside a narrow frozen cascade."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
+      "name": "prop-orchard-wall-broken",
+      "src": "assets/props/prop-orchard-wall-broken.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 256,
+      "height": 104,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 961,
+        "y": 778
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/orchard-wall-broken.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "d8cb6a68a58220a3130b9b89b4d52cfa68e63168a1f5ef5cc6e4d43482fd9aa3",
+        "promptSummary": "Low mossy orchard wall with a clear central breach and loose stones; not a boulder pile."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
+      "name": "prop-quarry-alcove",
+      "src": "assets/props/prop-quarry-alcove.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 256,
+      "height": 203,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 1233,
+        "y": 778
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/quarry-alcove.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "c97e82f73c9f0eaf204f3f904567c6a506b5e2f5797ac8e4b2711d0d695993e5",
+        "promptSummary": "Shallow hand-cut recess in an upright quarry rock face with a few cut blocks."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
+      "name": "prop-rim-overlook",
+      "src": "assets/props/prop-rim-overlook.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 256,
+      "height": 138,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 1505,
+        "y": 778
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/rim-overlook.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "a7686c9a42fcedd5e3fad78a056c68d2fbb146f62f092ceac307d2ee3557854e",
+        "promptSummary": "Broad, low natural rock ledge on the basin rim with a flat viewing shelf."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
+      "name": "prop-sunstone-lookout",
+      "src": "assets/props/prop-sunstone-lookout.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 252,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 1050
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/sunstone-lookout.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "ec9aeef76604decfc7cf4b75bffcc2b9379779c001a2910b1bde077fdfc61008",
+        "promptSummary": "Warm red-amber cliffside shelf shaped for small creatures to bask; not a tall spire or marker."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
+      "name": "prop-well-ruined",
+      "src": "assets/props/prop-well-ruined.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 256,
+      "height": 212,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 268,
+        "y": 1050
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/well-ruined.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "ce2d85c58a959b4a742d04e3998287cea1e857edf5b9ba1ae7797010728693e4",
+        "promptSummary": "Low circular dry stone well with moss, empty opening, and a subtle nonverbal carving; no plaque."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
       "name": "rock-spire-red",
       "src": "assets/props/rock-spire-red.png",
       "folder": "props",
@@ -1122,6 +1374,34 @@
       "exportProfile": {
         "id": "prop-static-v1",
         "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "tree-oak-hollow",
+      "src": "assets/props/tree-oak-hollow.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 231,
+      "height": 256,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 540,
+        "y": 1050
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/tree-oak-hollow.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "sourceSha256": "4584e353307169290dd6acc7bcecb03fb5f3534940c6d0f260a10bc4a57568d2",
+        "promptSummary": "Versioned edit of the canonical oak prop with a subtle natural trunk hollow; existing tree-oak is unchanged."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
       }
     },
     {

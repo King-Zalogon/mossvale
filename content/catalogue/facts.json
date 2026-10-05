@@ -2,12 +2,12 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "65739e524c5e456ea0b95352c711b15565b3787ee368841db5e8712d89654f6b",
+    "art/assets/subjects.json": "64f749c838175e608023313539cd5bbf2d90dd497f077d213dfee0aec72cb761",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
     "art/characters/creature-combat-metadata.json": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
     "art/characters/creature-follower-metadata.json": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
-    "art/characters/export-profiles.json": "c621bfbf73729aa1e04eb92340788544d0761b1c782a622cfecf9b2322048623",
+    "art/characters/export-profiles.json": "036d7b40e9edbfd2adb6683b2b6cde99c7d8fa8dcc4c8d4813a2a8df14232d65",
     "art/characters/metadata.json": "b0f4b9f0f3015b8972d2cfce057f2f342284737e7feb03b10b251e0552298557",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
     "art/characters/visual-reviews.json": "e7914f4e79bbdcd48d8e1b1658b750a5b6ca1835f91b6f4e502b41cc5ffe5bf0",
@@ -64,9 +64,19 @@
     "dist/assets/props/chest-wooden.png": "49ed0d898d48f20978b35b1e7f764d4d0c8075d9732c9f1590bf9dfa77dea5d0",
     "dist/assets/props/cottage-tiled.png": "8cd1462618c46ded0bec9d75703ca30e2f492804a2050acd1c2c5dae7fed661b",
     "dist/assets/props/grass-tuft.png": "b0ffaab0fecf3a9e2d5e580ccd49ba343421b7ebadb4de99115d4418e0cf4087",
+    "dist/assets/props/prop-cider-press.png": "f3170aa88c9a67c73a789545d8036a337850138379175c7ff204184ea46649f6",
+    "dist/assets/props/prop-hanging-lantern.png": "76d963bf549f6b128b2087be437ceb4e0fd6ea1f4d36e15b2c05c739746f9c50",
+    "dist/assets/props/prop-heron-blind.png": "94be9bf33ac866ea3039723aa20c5014412215dcea2e194cf43bb63246868bc4",
+    "dist/assets/props/prop-icefall-ledge.png": "6595b74a7fd86f334309dee9d075d6e59823265966ac083a1fe0ea986d3e23a3",
+    "dist/assets/props/prop-orchard-wall-broken.png": "7d73efcd50f364a338309073207fe9b175cd80c5147abef30a941fb3777ec156",
+    "dist/assets/props/prop-quarry-alcove.png": "74616515de2406d313a3f7dafbeaec1a3d168f0e5685e2b304b440807e14756a",
+    "dist/assets/props/prop-rim-overlook.png": "553830b3ac09fad4f245720ba12bbb3fc8569f427148e05c157b5c5489da01ec",
+    "dist/assets/props/prop-sunstone-lookout.png": "1ba42961d26ee4c169a0cd24e953603e8ae2f5c43be39f1e42e5063ed470b637",
+    "dist/assets/props/prop-well-ruined.png": "27948f93243773fd59b53da1a0bdefb417685d63d2594327dde7577d8cb44d1d",
     "dist/assets/props/rock-spire-red.png": "5b887d757ca2efcf9fc1adee9cb467c63cc8832f21558b80756f2473ecf8419e",
     "dist/assets/props/shrine-crystal-stone.png": "4f881d3a70ee74c0b38e6367961160676259962c98ea637a7d83090917cc73e3",
     "dist/assets/props/signpost-wood.png": "444c43dd1b27ecbb4ba56346be4e1d38ced149f7fa677322dd6b86249d85e570",
+    "dist/assets/props/tree-oak-hollow.png": "a5cd55da79820383503b79f536448f12fb80a4223d6c52df09840d5014428bc1",
     "dist/assets/props/tree-oak.png": "1b8f8ceff2f31568c7d374e6b21d0015add6e68a89db38160bc5da281520cd14",
     "dist/assets/props/tree-pine-snow.png": "a8b182f77bedf48d4110e46332075acc260d782d8d7a7345aaa17dbabb88e1a9",
     "dist/assets/props/tree-pine.png": "073457a7476fd3dc2f4161747886b9667ac204a5a22299d087afa8de7e938459",
@@ -79,18 +89,18 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "920440a72e154d70587d41b8ef8431fbf8c67cae56eb20b34e5d285a6533e07a",
-    "dist/maps/frostveil-grove.json": "38bfada28868eb949b1fbf704ebd4d556bd517b0936c58f52f6eeda4ae4539e3",
+    "dist/maps/amber-ridge.json": "3e1cc5b5ef9b4a60c58e8143cc6c920a9a055fd0c74ce96e05f8aad671572491",
+    "dist/maps/frostveil-grove.json": "157332e3cfa12332dcee14373e12461cb7b0c23470e3c02bdb0f1f82dabd90d2",
     "dist/maps/frostveil-pass.json": "8ecebf6027a41f02043649ccbaa819902deea0451d3c4dcc2259364187501d5c",
-    "dist/maps/index.json": "bbd98ed1b72d2bc0388df6ed8f4eee8f9e34f989e463c985003767812571fb8c",
+    "dist/maps/index.json": "451ce5dd4b9af4c2e31da68c78d7adef5f1225f5d43c5faaeb9d178577f21247",
     "dist/maps/inventory.json": "a49b85797e882745725bb24f79f31ac82eca79d7bfe52ee7fa5fd987b6ef434f",
-    "dist/maps/meadow.json": "e080ecaf47a984712c62a270b3326bff76c6fa1d7d66dd7f976840c6c47e9500",
+    "dist/maps/meadow.json": "b145e1c413e8dc9e0af62341fb5d77c406f469504d2cc23879f4797c25952a58",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "b5381c71ca8c17d17d24ee85541b3f9a17b01c27ad48686637513d0ad12ab1a4",
-    "dist/maps/reedfen-wetlands.json": "0aea128dc3e1567a094f6c598a874641a285713067811a152306d6e5bfcc4296",
+    "dist/maps/orchard-ruins.json": "1fba96df4c6f8a9279300a6f293e991592bd7c132ec5d6b09b8311b38c6e5f60",
+    "dist/maps/reedfen-wetlands.json": "828f8ed3543197ee4b74dbba6da10b85d61a7e21e17679ef26376e2e4c23ce12",
     "dist/maps/registries.json": "a4522e27988e151ec65abd21cdcbd2e7edc07248f3b551a02090e2a56da1d281",
-    "dist/maps/stilt-isles.json": "3a3d58f02d31ffe37396a1db2d482acd44cf3381bdbfa9abae1e3dedf826bfc7",
-    "dist/maps/stone-basin.json": "6bea49b15fd1bb819b5b4875d555bc94ac8113469e9f9f0d961760e32e050844",
+    "dist/maps/stilt-isles.json": "cc67ddb5e4ac73f7e59d4a898e4af70a558443d48806d74b64786902eb7d17ec",
+    "dist/maps/stone-basin.json": "de64787627614d19ccdeb408d5647f6639538d9487214ad1f8214eff510fd497",
     "dist/maps/story.json": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927",
     "dist/maps/terrain-family-fixture.baked.json": "891d797e204f40410231c5a7cb946109c552f12f2d343065ae425fc92fdb51c6",
     "dist/maps/terrain-family-fixture.json": "ef38776760546b9c933eb6bfb27e3ac10e84994c2b1fa4d41d7a3f7935f1214e",
@@ -101,7 +111,7 @@
     "dist/src/controller.js": "4f8813bdd0202f270979c21e16bfc48dcba7d1151a732078a6a562889eb55994",
     "dist/src/creature-combat-preview.js": "5eb7767882d6e9d7bf3da271842e33eb618c49df046a38a1d2ccc10211169db5",
     "dist/src/creature-follower-preview.js": "99028ba5a8922578540dbe767ddfc496269c437d9a22690ffcb0558adcd87707",
-    "dist/src/data/assets.js": "b2ad240d007154932fdf124f5c41a6e452f99c34a1240434503d4e2f034f95d5",
+    "dist/src/data/assets.js": "10b9b8c45e24fa9e74987af5a214a14bff2ad5932d62415f5ca4991870df6bcc",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "ee3aa083a0ebd1e307261f380e7d4e51e8ae308510aecf83cbf316ce11af7eff",
@@ -182,7 +192,7 @@
     "tests/fixtures/packs/lantern-crossing/story.json": "337cf6e8d663798941c6911140d5fe8fb5ce781c189e12a944c198df04f0728e",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "75d159d36c460d947050537deb9a30d74a379b337a31475a4fee502d6ad60b11",
+  "sourceDigest": "a91f7e5fdfda64f7b5b393ed09588574b29814178a64b83f95d7937b21aafbdf",
   "exclusions": [
     {
       "family": "module-exports",
@@ -830,16 +840,16 @@
       "family": "landmark",
       "runtimeId": "mossvale/amber-ridge/lookout-note",
       "name": "mossvale/amber ridge/lookout note",
-      "description": "Read the sun-bleached note (sign) on Amber Ridge.",
+      "description": "Look from the Sunstone shelf (sign) on Amber Ridge.",
       "source": "dist/maps/amber-ridge.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "lookout-note",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "prop-sunstone-lookout",
         "at": [10.8, 11.6],
-        "w": 38,
-        "label": "Read the sun-bleached note",
+        "w": 56,
+        "label": "Look from the Sunstone shelf",
         "secret": true,
         "mapLabel": "Sunstone lookout",
         "text": "A lookout carved into the cliff. Voltkit love the bright trail; Pebblit prefer to bask where the grass is warm."
@@ -849,7 +859,7 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:prop-sunstone-lookout"]
     },
     {
       "id": "landmark:mossvale/amber-ridge/ranger",
@@ -1007,16 +1017,16 @@
       "family": "landmark",
       "runtimeId": "mossvale/frostveil-grove/icefall-note",
       "name": "mossvale/frostveil grove/icefall note",
-      "description": "Read the icefall carving (sign) on Frostveil Grove.",
+      "description": "Inspect the icefall ledge (sign) on Frostveil Grove.",
       "source": "dist/maps/frostveil-grove.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "icefall-note",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "prop-icefall-ledge",
         "at": [50.4, 38.2],
-        "w": 38,
-        "label": "Read the icefall carving",
+        "w": 52,
+        "label": "Inspect the icefall ledge",
         "secret": true,
         "mapLabel": "Icefall ledge",
         "text": "The lake path bends back to the pass. Frostowl keep watch above; Hushram shelter under the lower pines."
@@ -1026,7 +1036,7 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:prop-icefall-ledge"]
     },
     {
       "id": "landmark:mossvale/frostveil-grove/pass-waymark",
@@ -1322,16 +1332,16 @@
       "family": "landmark",
       "runtimeId": "mossvale/meadow/hollow-note",
       "name": "mossvale/meadow/hollow note",
-      "description": "Read the carved bark (sign) on Sunlit Trail.",
+      "description": "Inspect the hollow oak (sign) on Sunlit Trail.",
       "source": "dist/maps/meadow.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "hollow-note",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "tree-oak-hollow",
         "at": [44.2, 56.4],
-        "w": 38,
-        "label": "Read the carved bark",
+        "w": 62,
+        "label": "Inspect the hollow oak",
         "secret": true,
         "mapLabel": "Whispering hollow",
         "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching."
@@ -1341,23 +1351,23 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:tree-oak-hollow"]
     },
     {
       "id": "landmark:mossvale/meadow/old-well",
       "family": "landmark",
       "runtimeId": "mossvale/meadow/old-well",
       "name": "mossvale/meadow/old well",
-      "description": "Read the mossy plaque (sign) on Sunlit Trail.",
+      "description": "Inspect the old well (sign) on Sunlit Trail.",
       "source": "dist/maps/meadow.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "old-well",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "prop-well-ruined",
         "at": [60.4, 26.8],
-        "w": 38,
-        "label": "Read the mossy plaque",
+        "w": 46,
+        "label": "Inspect the old well",
         "secret": true,
         "mapLabel": "Old well",
         "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest."
@@ -1367,7 +1377,7 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:prop-well-ruined"]
     },
     {
       "id": "landmark:mossvale/meadow/ranger",
@@ -1507,16 +1517,16 @@
       "family": "landmark",
       "runtimeId": "mossvale/orchard-ruins/cider-press",
       "name": "mossvale/orchard ruins/cider press",
-      "description": "Read the weathered tag (sign) on The Ruined Orchard.",
+      "description": "Inspect the cider press (sign) on The Ruined Orchard.",
       "source": "dist/maps/orchard-ruins.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "cider-press",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "prop-cider-press",
         "at": [30.4, 44.4],
-        "w": 38,
-        "label": "Read the weathered tag",
+        "w": 54,
+        "label": "Inspect the cider press",
         "secret": true,
         "mapLabel": "Old cider press",
         "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
@@ -1526,23 +1536,23 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:prop-cider-press"]
     },
     {
       "id": "landmark:mossvale/orchard-ruins/fallen-wall",
       "family": "landmark",
       "runtimeId": "mossvale/orchard-ruins/fallen-wall",
       "name": "mossvale/orchard ruins/fallen wall",
-      "description": "Read the mossy stone (sign) on The Ruined Orchard.",
+      "description": "Inspect the broken orchard wall (sign) on The Ruined Orchard.",
       "source": "dist/maps/orchard-ruins.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "fallen-wall",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "prop-orchard-wall-broken",
         "at": [56.4, 27.4],
-        "w": 38,
-        "label": "Read the mossy stone",
+        "w": 68,
+        "label": "Inspect the broken orchard wall",
         "secret": true,
         "mapLabel": "Fallen wall",
         "text": "Part of the old orchard wall. The ruins keep going east, but the trail is safe."
@@ -1552,7 +1562,7 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:prop-orchard-wall-broken"]
     },
     {
       "id": "landmark:mossvale/orchard-ruins/orchard-ranger",
@@ -1683,16 +1693,16 @@
       "family": "landmark",
       "runtimeId": "mossvale/reedfen-wetlands/heron-blind",
       "name": "mossvale/reedfen wetlands/heron blind",
-      "description": "Read the weathered note (sign) on Reedfen Wetlands.",
+      "description": "Look through the heron hide (sign) on Reedfen Wetlands.",
       "source": "dist/maps/reedfen-wetlands.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "heron-blind",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "prop-heron-blind",
         "at": [16.4, 8.2],
-        "w": 38,
-        "label": "Read the weathered note",
+        "w": 46,
+        "label": "Look through the heron hide",
         "secret": true,
         "mapLabel": "Heron blind",
         "text": "A hide for watching herons. Someone scratched in the plank: the shrine guardian loves a strong current."
@@ -1702,7 +1712,7 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:prop-heron-blind"]
     },
     {
       "id": "landmark:mossvale/reedfen-wetlands/ranger",
@@ -1833,16 +1843,16 @@
       "family": "landmark",
       "runtimeId": "mossvale/stilt-isles/lantern-note",
       "name": "mossvale/stilt isles/lantern note",
-      "description": "Read the lantern note (sign) on Stilt Isles.",
+      "description": "Inspect the hanging lantern (sign) on Stilt Isles.",
       "source": "dist/maps/stilt-isles.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "lantern-note",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "prop-hanging-lantern",
         "at": [40.3, 39.2],
-        "w": 38,
-        "label": "Read the lantern note",
+        "w": 36,
+        "label": "Inspect the hanging lantern",
         "secret": true,
         "mapLabel": "Lantern islet",
         "text": "A hanging lantern for night crossings. Keep to the planks and the water keeps its distance."
@@ -1852,7 +1862,7 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:prop-hanging-lantern"]
     },
     {
       "id": "landmark:mossvale/stilt-isles/stilt-chest",
@@ -2091,16 +2101,16 @@
       "family": "landmark",
       "runtimeId": "mossvale/stone-basin/quarry-note",
       "name": "mossvale/stone basin/quarry note",
-      "description": "Read the chiselled note (sign) on Stone Basin.",
+      "description": "Inspect the quarry alcove (sign) on Stone Basin.",
       "source": "dist/maps/stone-basin.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "quarry-note",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "prop-quarry-alcove",
         "at": [6.6, 21.4],
-        "w": 38,
-        "label": "Read the chiselled note",
+        "w": 50,
+        "label": "Inspect the quarry alcove",
         "secret": true,
         "mapLabel": "Old quarry alcove",
         "text": "Cut by hand, a block at a time. The guardian above sleeps lightly: roll with its charge, do not stand against it."
@@ -2110,23 +2120,23 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:prop-quarry-alcove"]
     },
     {
       "id": "landmark:mossvale/stone-basin/vista-note",
       "family": "landmark",
       "runtimeId": "mossvale/stone-basin/vista-note",
       "name": "mossvale/stone basin/vista note",
-      "description": "Read the vista marker (sign) on Stone Basin.",
+      "description": "Look over the basin (sign) on Stone Basin.",
       "source": "dist/maps/stone-basin.json",
       "evidence": "tests/maps.test.mjs",
       "raw": {
         "id": "vista-note",
         "kind": "sign",
-        "sprite": "signpost-wood",
+        "sprite": "prop-rim-overlook",
         "at": [47.4, 8.6],
-        "w": 38,
-        "label": "Read the vista marker",
+        "w": 58,
+        "label": "Look over the basin",
         "secret": true,
         "mapLabel": "Rim vista",
         "text": "From the rim you can see the whole basin and the long road up to the shrine."
@@ -2136,7 +2146,7 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
-      "dependencies": ["visual:signpost-wood"]
+      "dependencies": ["visual:prop-rim-overlook"]
     },
     {
       "id": "landmark:ranger",
@@ -2670,10 +2680,10 @@
           {
             "id": "lookout-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-sunstone-lookout",
             "at": [10.8, 11.6],
-            "w": 38,
-            "label": "Read the sun-bleached note",
+            "w": 56,
+            "label": "Look from the Sunstone shelf",
             "secret": true,
             "mapLabel": "Sunstone lookout",
             "text": "A lookout carved into the cliff. Voltkit love the bright trail; Pebblit prefer to bask where the grass is warm."
@@ -3207,10 +3217,10 @@
           {
             "id": "icefall-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-icefall-ledge",
             "at": [50.4, 38.2],
-            "w": 38,
-            "label": "Read the icefall carving",
+            "w": 52,
+            "label": "Inspect the icefall ledge",
             "secret": true,
             "mapLabel": "Icefall ledge",
             "text": "The lake path bends back to the pass. Frostowl keep watch above; Hushram shelter under the lower pines."
@@ -4032,10 +4042,10 @@
           {
             "id": "old-well",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-well-ruined",
             "at": [60.4, 26.8],
-            "w": 38,
-            "label": "Read the mossy plaque",
+            "w": 46,
+            "label": "Inspect the old well",
             "secret": true,
             "mapLabel": "Old well",
             "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest."
@@ -4043,10 +4053,10 @@
           {
             "id": "hollow-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "tree-oak-hollow",
             "at": [44.2, 56.4],
-            "w": 38,
-            "label": "Read the carved bark",
+            "w": 62,
+            "label": "Inspect the hollow oak",
             "secret": true,
             "mapLabel": "Whispering hollow",
             "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching."
@@ -4736,10 +4746,10 @@
           {
             "id": "cider-press",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-cider-press",
             "at": [30.4, 44.4],
-            "w": 38,
-            "label": "Read the weathered tag",
+            "w": 54,
+            "label": "Inspect the cider press",
             "secret": true,
             "mapLabel": "Old cider press",
             "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
@@ -4747,10 +4757,10 @@
           {
             "id": "fallen-wall",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-orchard-wall-broken",
             "at": [56.4, 27.4],
-            "w": 38,
-            "label": "Read the mossy stone",
+            "w": 68,
+            "label": "Inspect the broken orchard wall",
             "secret": true,
             "mapLabel": "Fallen wall",
             "text": "Part of the old orchard wall. The ruins keep going east, but the trail is safe."
@@ -5322,10 +5332,10 @@
           {
             "id": "heron-blind",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-heron-blind",
             "at": [16.4, 8.2],
-            "w": 38,
-            "label": "Read the weathered note",
+            "w": 46,
+            "label": "Look through the heron hide",
             "secret": true,
             "mapLabel": "Heron blind",
             "text": "A hide for watching herons. Someone scratched in the plank: the shrine guardian loves a strong current."
@@ -5834,10 +5844,10 @@
           {
             "id": "lantern-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-hanging-lantern",
             "at": [40.3, 39.2],
-            "w": 38,
-            "label": "Read the lantern note",
+            "w": 36,
+            "label": "Inspect the hanging lantern",
             "secret": true,
             "mapLabel": "Lantern islet",
             "text": "A hanging lantern for night crossings. Keep to the planks and the water keeps its distance."
@@ -6259,10 +6269,10 @@
           {
             "id": "quarry-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-quarry-alcove",
             "at": [6.6, 21.4],
-            "w": 38,
-            "label": "Read the chiselled note",
+            "w": 50,
+            "label": "Inspect the quarry alcove",
             "secret": true,
             "mapLabel": "Old quarry alcove",
             "text": "Cut by hand, a block at a time. The guardian above sleeps lightly: roll with its charge, do not stand against it."
@@ -6270,10 +6280,10 @@
           {
             "id": "vista-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-rim-overlook",
             "at": [47.4, 8.6],
-            "w": 38,
-            "label": "Read the vista marker",
+            "w": 58,
+            "label": "Look over the basin",
             "secret": true,
             "mapLabel": "Rim vista",
             "text": "From the rim you can see the whole basin and the long road up to the shrine."
@@ -7314,17 +7324,17 @@
           {
             "id": "map:meadow",
             "path": "meadow.json",
-            "sha256": "e080ecaf47a984712c62a270b3326bff76c6fa1d7d66dd7f976840c6c47e9500"
+            "sha256": "b145e1c413e8dc9e0af62341fb5d77c406f469504d2cc23879f4797c25952a58"
           },
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "920440a72e154d70587d41b8ef8431fbf8c67cae56eb20b34e5d285a6533e07a"
+            "sha256": "3e1cc5b5ef9b4a60c58e8143cc6c920a9a055fd0c74ce96e05f8aad671572491"
           },
           {
             "id": "map:frostveil-grove",
             "path": "frostveil-grove.json",
-            "sha256": "38bfada28868eb949b1fbf704ebd4d556bd517b0936c58f52f6eeda4ae4539e3"
+            "sha256": "157332e3cfa12332dcee14373e12461cb7b0c23470e3c02bdb0f1f82dabd90d2"
           },
           {
             "id": "map:frostveil-pass",
@@ -7334,22 +7344,22 @@
           {
             "id": "map:reedfen-wetlands",
             "path": "reedfen-wetlands.json",
-            "sha256": "0aea128dc3e1567a094f6c598a874641a285713067811a152306d6e5bfcc4296"
+            "sha256": "828f8ed3543197ee4b74dbba6da10b85d61a7e21e17679ef26376e2e4c23ce12"
           },
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "b5381c71ca8c17d17d24ee85541b3f9a17b01c27ad48686637513d0ad12ab1a4"
+            "sha256": "1fba96df4c6f8a9279300a6f293e991592bd7c132ec5d6b09b8311b38c6e5f60"
           },
           {
             "id": "map:stilt-isles",
             "path": "stilt-isles.json",
-            "sha256": "3a3d58f02d31ffe37396a1db2d482acd44cf3381bdbfa9abae1e3dedf826bfc7"
+            "sha256": "cc67ddb5e4ac73f7e59d4a898e4af70a558443d48806d74b64786902eb7d17ec"
           },
           {
             "id": "map:stone-basin",
             "path": "stone-basin.json",
-            "sha256": "6bea49b15fd1bb819b5b4875d555bc94ac8113469e9f9f0d961760e32e050844"
+            "sha256": "de64787627614d19ccdeb408d5647f6639538d9487214ad1f8214eff510fd497"
           },
           {
             "id": "objectives:main",
@@ -12479,6 +12489,240 @@
       }
     },
     {
+      "id": "visual:prop-cider-press",
+      "family": "visual",
+      "runtimeId": "prop-cider-press",
+      "name": "prop-cider-press",
+      "description": "prop cider press",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-cider-press",
+        "kind": "prop",
+        "src": "assets/props/prop-cider-press.png",
+        "w": 251,
+        "h": 256,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "251 by 256 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/prop-cider-press.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:prop-hanging-lantern",
+      "family": "visual",
+      "runtimeId": "prop-hanging-lantern",
+      "name": "prop-hanging-lantern",
+      "description": "prop hanging lantern",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-hanging-lantern",
+        "kind": "prop",
+        "src": "assets/props/prop-hanging-lantern.png",
+        "w": 138,
+        "h": 256,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "138 by 256 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/prop-hanging-lantern.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:prop-heron-blind",
+      "family": "visual",
+      "runtimeId": "prop-heron-blind",
+      "name": "prop-heron-blind",
+      "description": "prop heron blind",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-heron-blind",
+        "kind": "prop",
+        "src": "assets/props/prop-heron-blind.png",
+        "w": 256,
+        "h": 208,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "256 by 208 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/prop-heron-blind.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:prop-icefall-ledge",
+      "family": "visual",
+      "runtimeId": "prop-icefall-ledge",
+      "name": "prop-icefall-ledge",
+      "description": "prop icefall ledge",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-icefall-ledge",
+        "kind": "prop",
+        "src": "assets/props/prop-icefall-ledge.png",
+        "w": 252,
+        "h": 256,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "252 by 256 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/prop-icefall-ledge.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:prop-orchard-wall-broken",
+      "family": "visual",
+      "runtimeId": "prop-orchard-wall-broken",
+      "name": "prop-orchard-wall-broken",
+      "description": "prop orchard wall broken",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-orchard-wall-broken",
+        "kind": "prop",
+        "src": "assets/props/prop-orchard-wall-broken.png",
+        "w": 256,
+        "h": 104,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "256 by 104 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/prop-orchard-wall-broken.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:prop-quarry-alcove",
+      "family": "visual",
+      "runtimeId": "prop-quarry-alcove",
+      "name": "prop-quarry-alcove",
+      "description": "prop quarry alcove",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-quarry-alcove",
+        "kind": "prop",
+        "src": "assets/props/prop-quarry-alcove.png",
+        "w": 256,
+        "h": 203,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "256 by 203 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/prop-quarry-alcove.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:prop-rim-overlook",
+      "family": "visual",
+      "runtimeId": "prop-rim-overlook",
+      "name": "prop-rim-overlook",
+      "description": "prop rim overlook",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-rim-overlook",
+        "kind": "prop",
+        "src": "assets/props/prop-rim-overlook.png",
+        "w": 256,
+        "h": 138,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "256 by 138 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/prop-rim-overlook.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:prop-sunstone-lookout",
+      "family": "visual",
+      "runtimeId": "prop-sunstone-lookout",
+      "name": "prop-sunstone-lookout",
+      "description": "prop sunstone lookout",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-sunstone-lookout",
+        "kind": "prop",
+        "src": "assets/props/prop-sunstone-lookout.png",
+        "w": 252,
+        "h": 256,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "252 by 256 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/prop-sunstone-lookout.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:prop-well-ruined",
+      "family": "visual",
+      "runtimeId": "prop-well-ruined",
+      "name": "prop-well-ruined",
+      "description": "prop well ruined",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-well-ruined",
+        "kind": "prop",
+        "src": "assets/props/prop-well-ruined.png",
+        "w": 256,
+        "h": 212,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "256 by 212 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/prop-well-ruined.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
       "id": "visual:rock-spire-red",
       "family": "visual",
       "runtimeId": "rock-spire-red",
@@ -12577,6 +12821,32 @@
       "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
       "animations": "No animation states declared for this static image.",
       "preview": "dist/assets/props/tree-oak.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:tree-oak-hollow",
+      "family": "visual",
+      "runtimeId": "tree-oak-hollow",
+      "name": "tree-oak-hollow",
+      "description": "tree oak hollow",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "tree-oak-hollow",
+        "kind": "prop",
+        "src": "assets/props/tree-oak-hollow.png",
+        "w": 231,
+        "h": 256,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "231 by 256 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/tree-oak-hollow.png",
       "animationMetadata": null,
       "identity": null,
       "review": [],

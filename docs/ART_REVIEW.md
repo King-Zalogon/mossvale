@@ -4,6 +4,8 @@ Issues [#91](https://github.com/King-Zalogon/mossvale/issues/91), [#92](https://
 
 ## Stable identities and provenance
 
+The ten static discoveries added for #195 have separate generated-source provenance in `art/assets/source/landmarks/manifest.json`, use the versioned `prop-landmark-v1` export profile, and retain pixel-editable crops in the prop atlas. Their map-scale review captures are in `art/assets/reviews/landmarks/`; `art/assets/landmark-visual-review.json` records per-object readability and keeps owner taste review distinct from technical review. Re-run `npm run test:browser` after changing a target map, asset, or renderer.
+
 `art/assets/subjects.json` gives the red-cap player and current creature art stable visual IDs, canonical reference asset paths and SHA-256 hashes, silhouette/body-plan notes, palette families, generated source hashes, runtime output hashes, and versioned export profile IDs with settings hashes. `npm run validate` checks those hashes and batch-to-reference links. Historical prompts that were not preserved, model versions not supplied by the tool, and absent seeds are marked unavailable instead of being guessed. A changed identity needs a new ID or an explicit revision.
 
 Check provenance before a review or export:

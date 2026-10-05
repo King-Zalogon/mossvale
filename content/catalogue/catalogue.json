@@ -1469,7 +1469,7 @@
       "id": "landmark:mossvale/amber-ridge/lookout-note",
       "kind": "interactable",
       "name": "mossvale/amber ridge/lookout note",
-      "summary": "Read the sun-bleached note (sign) on Amber Ridge.",
+      "summary": "Look from the Sunstone shelf (sign) on Amber Ridge.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -1479,10 +1479,10 @@
           "default": {
             "id": "lookout-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-sunstone-lookout",
             "at": [10.8, 11.6],
-            "w": 38,
-            "label": "Read the sun-bleached note",
+            "w": 56,
+            "label": "Look from the Sunstone shelf",
             "secret": true,
             "mapLabel": "Sunstone lookout",
             "text": "A lookout carved into the cliff. Voltkit love the bright trail; Pebblit prefer to bask where the grass is warm."
@@ -1490,13 +1490,13 @@
           "limits": "Configure through dist/maps/amber-ridge.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:prop-sunstone-lookout"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the sun-bleached note (sign) on Amber Ridge.",
+          "intent": "Look from the Sunstone shelf (sign) on Amber Ridge.",
           "usage": "Reference mossvale/amber-ridge/lookout-note in the existing format at dist/maps/amber-ridge.json.",
-          "expected": "Read the sun-bleached note (sign) on Amber Ridge."
+          "expected": "Look from the Sunstone shelf (sign) on Amber Ridge."
         }
       ],
       "references": ["dist/maps/amber-ridge.json"],
@@ -1790,7 +1790,7 @@
       "id": "landmark:mossvale/frostveil-grove/icefall-note",
       "kind": "interactable",
       "name": "mossvale/frostveil grove/icefall note",
-      "summary": "Read the icefall carving (sign) on Frostveil Grove.",
+      "summary": "Inspect the icefall ledge (sign) on Frostveil Grove.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -1800,10 +1800,10 @@
           "default": {
             "id": "icefall-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-icefall-ledge",
             "at": [50.4, 38.2],
-            "w": 38,
-            "label": "Read the icefall carving",
+            "w": 52,
+            "label": "Inspect the icefall ledge",
             "secret": true,
             "mapLabel": "Icefall ledge",
             "text": "The lake path bends back to the pass. Frostowl keep watch above; Hushram shelter under the lower pines."
@@ -1811,13 +1811,13 @@
           "limits": "Configure through dist/maps/frostveil-grove.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:prop-icefall-ledge"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the icefall carving (sign) on Frostveil Grove.",
+          "intent": "Inspect the icefall ledge (sign) on Frostveil Grove.",
           "usage": "Reference mossvale/frostveil-grove/icefall-note in the existing format at dist/maps/frostveil-grove.json.",
-          "expected": "Read the icefall carving (sign) on Frostveil Grove."
+          "expected": "Inspect the icefall ledge (sign) on Frostveil Grove."
         }
       ],
       "references": ["dist/maps/frostveil-grove.json"],
@@ -2369,7 +2369,7 @@
       "id": "landmark:mossvale/meadow/hollow-note",
       "kind": "interactable",
       "name": "mossvale/meadow/hollow note",
-      "summary": "Read the carved bark (sign) on Sunlit Trail.",
+      "summary": "Inspect the hollow oak (sign) on Sunlit Trail.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -2379,10 +2379,10 @@
           "default": {
             "id": "hollow-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "tree-oak-hollow",
             "at": [44.2, 56.4],
-            "w": 38,
-            "label": "Read the carved bark",
+            "w": 62,
+            "label": "Inspect the hollow oak",
             "secret": true,
             "mapLabel": "Whispering hollow",
             "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching."
@@ -2390,13 +2390,13 @@
           "limits": "Configure through dist/maps/meadow.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:tree-oak-hollow"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the carved bark (sign) on Sunlit Trail.",
+          "intent": "Inspect the hollow oak (sign) on Sunlit Trail.",
           "usage": "Reference mossvale/meadow/hollow-note in the existing format at dist/maps/meadow.json.",
-          "expected": "Read the carved bark (sign) on Sunlit Trail."
+          "expected": "Inspect the hollow oak (sign) on Sunlit Trail."
         }
       ],
       "references": ["dist/maps/meadow.json"],
@@ -2419,7 +2419,7 @@
       "id": "landmark:mossvale/meadow/old-well",
       "kind": "interactable",
       "name": "mossvale/meadow/old well",
-      "summary": "Read the mossy plaque (sign) on Sunlit Trail.",
+      "summary": "Inspect the old well (sign) on Sunlit Trail.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -2429,10 +2429,10 @@
           "default": {
             "id": "old-well",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-well-ruined",
             "at": [60.4, 26.8],
-            "w": 38,
-            "label": "Read the mossy plaque",
+            "w": 46,
+            "label": "Inspect the old well",
             "secret": true,
             "mapLabel": "Old well",
             "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest."
@@ -2440,13 +2440,13 @@
           "limits": "Configure through dist/maps/meadow.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:prop-well-ruined"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the mossy plaque (sign) on Sunlit Trail.",
+          "intent": "Inspect the old well (sign) on Sunlit Trail.",
           "usage": "Reference mossvale/meadow/old-well in the existing format at dist/maps/meadow.json.",
-          "expected": "Read the mossy plaque (sign) on Sunlit Trail."
+          "expected": "Inspect the old well (sign) on Sunlit Trail."
         }
       ],
       "references": ["dist/maps/meadow.json"],
@@ -2674,7 +2674,7 @@
       "id": "landmark:mossvale/orchard-ruins/cider-press",
       "kind": "interactable",
       "name": "mossvale/orchard ruins/cider press",
-      "summary": "Read the weathered tag (sign) on The Ruined Orchard.",
+      "summary": "Inspect the cider press (sign) on The Ruined Orchard.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -2684,10 +2684,10 @@
           "default": {
             "id": "cider-press",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-cider-press",
             "at": [30.4, 44.4],
-            "w": 38,
-            "label": "Read the weathered tag",
+            "w": 54,
+            "label": "Inspect the cider press",
             "secret": true,
             "mapLabel": "Old cider press",
             "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
@@ -2695,13 +2695,13 @@
           "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:prop-cider-press"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the weathered tag (sign) on The Ruined Orchard.",
+          "intent": "Inspect the cider press (sign) on The Ruined Orchard.",
           "usage": "Reference mossvale/orchard-ruins/cider-press in the existing format at dist/maps/orchard-ruins.json.",
-          "expected": "Read the weathered tag (sign) on The Ruined Orchard."
+          "expected": "Inspect the cider press (sign) on The Ruined Orchard."
         }
       ],
       "references": ["dist/maps/orchard-ruins.json"],
@@ -2724,7 +2724,7 @@
       "id": "landmark:mossvale/orchard-ruins/fallen-wall",
       "kind": "interactable",
       "name": "mossvale/orchard ruins/fallen wall",
-      "summary": "Read the mossy stone (sign) on The Ruined Orchard.",
+      "summary": "Inspect the broken orchard wall (sign) on The Ruined Orchard.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -2734,10 +2734,10 @@
           "default": {
             "id": "fallen-wall",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-orchard-wall-broken",
             "at": [56.4, 27.4],
-            "w": 38,
-            "label": "Read the mossy stone",
+            "w": 68,
+            "label": "Inspect the broken orchard wall",
             "secret": true,
             "mapLabel": "Fallen wall",
             "text": "Part of the old orchard wall. The ruins keep going east, but the trail is safe."
@@ -2745,13 +2745,13 @@
           "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:prop-orchard-wall-broken"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the mossy stone (sign) on The Ruined Orchard.",
+          "intent": "Inspect the broken orchard wall (sign) on The Ruined Orchard.",
           "usage": "Reference mossvale/orchard-ruins/fallen-wall in the existing format at dist/maps/orchard-ruins.json.",
-          "expected": "Read the mossy stone (sign) on The Ruined Orchard."
+          "expected": "Inspect the broken orchard wall (sign) on The Ruined Orchard."
         }
       ],
       "references": ["dist/maps/orchard-ruins.json"],
@@ -2994,7 +2994,7 @@
       "id": "landmark:mossvale/reedfen-wetlands/heron-blind",
       "kind": "interactable",
       "name": "mossvale/reedfen wetlands/heron blind",
-      "summary": "Read the weathered note (sign) on Reedfen Wetlands.",
+      "summary": "Look through the heron hide (sign) on Reedfen Wetlands.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -3004,10 +3004,10 @@
           "default": {
             "id": "heron-blind",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-heron-blind",
             "at": [16.4, 8.2],
-            "w": 38,
-            "label": "Read the weathered note",
+            "w": 46,
+            "label": "Look through the heron hide",
             "secret": true,
             "mapLabel": "Heron blind",
             "text": "A hide for watching herons. Someone scratched in the plank: the shrine guardian loves a strong current."
@@ -3015,13 +3015,13 @@
           "limits": "Configure through dist/maps/reedfen-wetlands.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:prop-heron-blind"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the weathered note (sign) on Reedfen Wetlands.",
+          "intent": "Look through the heron hide (sign) on Reedfen Wetlands.",
           "usage": "Reference mossvale/reedfen-wetlands/heron-blind in the existing format at dist/maps/reedfen-wetlands.json.",
-          "expected": "Read the weathered note (sign) on Reedfen Wetlands."
+          "expected": "Look through the heron hide (sign) on Reedfen Wetlands."
         }
       ],
       "references": ["dist/maps/reedfen-wetlands.json"],
@@ -3264,7 +3264,7 @@
       "id": "landmark:mossvale/stilt-isles/lantern-note",
       "kind": "interactable",
       "name": "mossvale/stilt isles/lantern note",
-      "summary": "Read the lantern note (sign) on Stilt Isles.",
+      "summary": "Inspect the hanging lantern (sign) on Stilt Isles.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -3274,10 +3274,10 @@
           "default": {
             "id": "lantern-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-hanging-lantern",
             "at": [40.3, 39.2],
-            "w": 38,
-            "label": "Read the lantern note",
+            "w": 36,
+            "label": "Inspect the hanging lantern",
             "secret": true,
             "mapLabel": "Lantern islet",
             "text": "A hanging lantern for night crossings. Keep to the planks and the water keeps its distance."
@@ -3285,13 +3285,13 @@
           "limits": "Configure through dist/maps/stilt-isles.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:prop-hanging-lantern"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the lantern note (sign) on Stilt Isles.",
+          "intent": "Inspect the hanging lantern (sign) on Stilt Isles.",
           "usage": "Reference mossvale/stilt-isles/lantern-note in the existing format at dist/maps/stilt-isles.json.",
-          "expected": "Read the lantern note (sign) on Stilt Isles."
+          "expected": "Inspect the hanging lantern (sign) on Stilt Isles."
         }
       ],
       "references": ["dist/maps/stilt-isles.json"],
@@ -3738,7 +3738,7 @@
       "id": "landmark:mossvale/stone-basin/quarry-note",
       "kind": "interactable",
       "name": "mossvale/stone basin/quarry note",
-      "summary": "Read the chiselled note (sign) on Stone Basin.",
+      "summary": "Inspect the quarry alcove (sign) on Stone Basin.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -3748,10 +3748,10 @@
           "default": {
             "id": "quarry-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-quarry-alcove",
             "at": [6.6, 21.4],
-            "w": 38,
-            "label": "Read the chiselled note",
+            "w": 50,
+            "label": "Inspect the quarry alcove",
             "secret": true,
             "mapLabel": "Old quarry alcove",
             "text": "Cut by hand, a block at a time. The guardian above sleeps lightly: roll with its charge, do not stand against it."
@@ -3759,13 +3759,13 @@
           "limits": "Configure through dist/maps/stone-basin.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:prop-quarry-alcove"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the chiselled note (sign) on Stone Basin.",
+          "intent": "Inspect the quarry alcove (sign) on Stone Basin.",
           "usage": "Reference mossvale/stone-basin/quarry-note in the existing format at dist/maps/stone-basin.json.",
-          "expected": "Read the chiselled note (sign) on Stone Basin."
+          "expected": "Inspect the quarry alcove (sign) on Stone Basin."
         }
       ],
       "references": ["dist/maps/stone-basin.json"],
@@ -3788,7 +3788,7 @@
       "id": "landmark:mossvale/stone-basin/vista-note",
       "kind": "interactable",
       "name": "mossvale/stone basin/vista note",
-      "summary": "Read the vista marker (sign) on Stone Basin.",
+      "summary": "Look over the basin (sign) on Stone Basin.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -3798,10 +3798,10 @@
           "default": {
             "id": "vista-note",
             "kind": "sign",
-            "sprite": "signpost-wood",
+            "sprite": "prop-rim-overlook",
             "at": [47.4, 8.6],
-            "w": 38,
-            "label": "Read the vista marker",
+            "w": 58,
+            "label": "Look over the basin",
             "secret": true,
             "mapLabel": "Rim vista",
             "text": "From the rim you can see the whole basin and the long road up to the shrine."
@@ -3809,13 +3809,13 @@
           "limits": "Configure through dist/maps/stone-basin.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:signpost-wood"],
+      "dependencies": ["visual:prop-rim-overlook"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
-          "intent": "Read the vista marker (sign) on Stone Basin.",
+          "intent": "Look over the basin (sign) on Stone Basin.",
           "usage": "Reference mossvale/stone-basin/vista-note in the existing format at dist/maps/stone-basin.json.",
-          "expected": "Read the vista marker (sign) on Stone Basin."
+          "expected": "Look over the basin (sign) on Stone Basin."
         }
       ],
       "references": ["dist/maps/stone-basin.json"],
@@ -14239,6 +14239,519 @@
       ]
     },
     {
+      "id": "visual:prop-cider-press",
+      "kind": "visual",
+      "name": "prop-cider-press",
+      "summary": "prop cider press",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "prop-cider-press",
+            "kind": "prop",
+            "src": "assets/props/prop-cider-press.png",
+            "w": 251,
+            "h": 256,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "prop cider press",
+          "usage": "Reference prop-cider-press in the existing format at dist/src/data/assets.js.",
+          "expected": "prop cider press"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "prop cider press",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "251 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset prop-cider-press is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/prop-cider-press.png",
+          "description": "prop cider press"
+        }
+      ]
+    },
+    {
+      "id": "visual:prop-hanging-lantern",
+      "kind": "visual",
+      "name": "prop-hanging-lantern",
+      "summary": "prop hanging lantern",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "prop-hanging-lantern",
+            "kind": "prop",
+            "src": "assets/props/prop-hanging-lantern.png",
+            "w": 138,
+            "h": 256,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "prop hanging lantern",
+          "usage": "Reference prop-hanging-lantern in the existing format at dist/src/data/assets.js.",
+          "expected": "prop hanging lantern"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "prop hanging lantern",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "138 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset prop-hanging-lantern is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/prop-hanging-lantern.png",
+          "description": "prop hanging lantern"
+        }
+      ]
+    },
+    {
+      "id": "visual:prop-heron-blind",
+      "kind": "visual",
+      "name": "prop-heron-blind",
+      "summary": "prop heron blind",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "prop-heron-blind",
+            "kind": "prop",
+            "src": "assets/props/prop-heron-blind.png",
+            "w": 256,
+            "h": 208,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "prop heron blind",
+          "usage": "Reference prop-heron-blind in the existing format at dist/src/data/assets.js.",
+          "expected": "prop heron blind"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "prop heron blind",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "256 by 208 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset prop-heron-blind is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/prop-heron-blind.png",
+          "description": "prop heron blind"
+        }
+      ]
+    },
+    {
+      "id": "visual:prop-icefall-ledge",
+      "kind": "visual",
+      "name": "prop-icefall-ledge",
+      "summary": "prop icefall ledge",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "prop-icefall-ledge",
+            "kind": "prop",
+            "src": "assets/props/prop-icefall-ledge.png",
+            "w": 252,
+            "h": 256,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "prop icefall ledge",
+          "usage": "Reference prop-icefall-ledge in the existing format at dist/src/data/assets.js.",
+          "expected": "prop icefall ledge"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "prop icefall ledge",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "252 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset prop-icefall-ledge is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/prop-icefall-ledge.png",
+          "description": "prop icefall ledge"
+        }
+      ]
+    },
+    {
+      "id": "visual:prop-orchard-wall-broken",
+      "kind": "visual",
+      "name": "prop-orchard-wall-broken",
+      "summary": "prop orchard wall broken",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "prop-orchard-wall-broken",
+            "kind": "prop",
+            "src": "assets/props/prop-orchard-wall-broken.png",
+            "w": 256,
+            "h": 104,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "prop orchard wall broken",
+          "usage": "Reference prop-orchard-wall-broken in the existing format at dist/src/data/assets.js.",
+          "expected": "prop orchard wall broken"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "prop orchard wall broken",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "256 by 104 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset prop-orchard-wall-broken is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/prop-orchard-wall-broken.png",
+          "description": "prop orchard wall broken"
+        }
+      ]
+    },
+    {
+      "id": "visual:prop-quarry-alcove",
+      "kind": "visual",
+      "name": "prop-quarry-alcove",
+      "summary": "prop quarry alcove",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "prop-quarry-alcove",
+            "kind": "prop",
+            "src": "assets/props/prop-quarry-alcove.png",
+            "w": 256,
+            "h": 203,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "prop quarry alcove",
+          "usage": "Reference prop-quarry-alcove in the existing format at dist/src/data/assets.js.",
+          "expected": "prop quarry alcove"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "prop quarry alcove",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "256 by 203 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset prop-quarry-alcove is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/prop-quarry-alcove.png",
+          "description": "prop quarry alcove"
+        }
+      ]
+    },
+    {
+      "id": "visual:prop-rim-overlook",
+      "kind": "visual",
+      "name": "prop-rim-overlook",
+      "summary": "prop rim overlook",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "prop-rim-overlook",
+            "kind": "prop",
+            "src": "assets/props/prop-rim-overlook.png",
+            "w": 256,
+            "h": 138,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "prop rim overlook",
+          "usage": "Reference prop-rim-overlook in the existing format at dist/src/data/assets.js.",
+          "expected": "prop rim overlook"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "prop rim overlook",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "256 by 138 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset prop-rim-overlook is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/prop-rim-overlook.png",
+          "description": "prop rim overlook"
+        }
+      ]
+    },
+    {
+      "id": "visual:prop-sunstone-lookout",
+      "kind": "visual",
+      "name": "prop-sunstone-lookout",
+      "summary": "prop sunstone lookout",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "prop-sunstone-lookout",
+            "kind": "prop",
+            "src": "assets/props/prop-sunstone-lookout.png",
+            "w": 252,
+            "h": 256,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "prop sunstone lookout",
+          "usage": "Reference prop-sunstone-lookout in the existing format at dist/src/data/assets.js.",
+          "expected": "prop sunstone lookout"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "prop sunstone lookout",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "252 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset prop-sunstone-lookout is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/prop-sunstone-lookout.png",
+          "description": "prop sunstone lookout"
+        }
+      ]
+    },
+    {
+      "id": "visual:prop-well-ruined",
+      "kind": "visual",
+      "name": "prop-well-ruined",
+      "summary": "prop well ruined",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "prop-well-ruined",
+            "kind": "prop",
+            "src": "assets/props/prop-well-ruined.png",
+            "w": 256,
+            "h": 212,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "prop well ruined",
+          "usage": "Reference prop-well-ruined in the existing format at dist/src/data/assets.js.",
+          "expected": "prop well ruined"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "prop well ruined",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "256 by 212 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset prop-well-ruined is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/prop-well-ruined.png",
+          "description": "prop well ruined"
+        }
+      ]
+    },
+    {
       "id": "visual:rock-spire-red",
       "kind": "visual",
       "name": "rock-spire-red",
@@ -14463,6 +14976,63 @@
         {
           "path": "dist/assets/props/tree-oak.png",
           "description": "tree oak"
+        }
+      ]
+    },
+    {
+      "id": "visual:tree-oak-hollow",
+      "kind": "visual",
+      "name": "tree-oak-hollow",
+      "summary": "tree oak hollow",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "tree-oak-hollow",
+            "kind": "prop",
+            "src": "assets/props/tree-oak-hollow.png",
+            "w": 231,
+            "h": 256,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "tree oak hollow",
+          "usage": "Reference tree-oak-hollow in the existing format at dist/src/data/assets.js.",
+          "expected": "tree oak hollow"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "tree oak hollow",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "231 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset tree-oak-hollow is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/tree-oak-hollow.png",
+          "description": "tree oak hollow"
         }
       ]
     },
