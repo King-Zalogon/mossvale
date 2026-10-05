@@ -101,6 +101,23 @@ try {
       return [name, {sprite: sprite.src, rows: sprite.frames.rowOrder, mirror: sprite.frames.mirror ?? {}}];
     }),
   );
+  // Independent reviewed source-row contracts for the directions that owners reported mislabeled.
+  const reviewedRows = {
+    emberkin: {north: 4, northeast: 3, east: 2, southeast: 7, south: 0, southwest: 1, west: 6, northwest: 5},
+    brooklet: {north: 0, northeast: 7, east: 5, southeast: 6, south: 4, southwest: 3, west: 2, northwest: 1},
+    voltkit: {north: 0, northeast: 1, east: 2, southeast: 4, south: 3, southwest: 7, west: 5, northwest: 6},
+    hushram: {north: 0, northeast: 1, east: 2, southeast: 7, south: 4, southwest: 3, west: 5, northwest: 6},
+    mushmallow: {north: 0, northeast: 1, east: 2, southeast: 5, south: 4, southwest: 3, west: 6, northwest: 7},
+  };
+  const reviewedMirrors = {emberkin: {southeast: 'southwest'}};
+  for (const [name, rows] of Object.entries(reviewedRows)) {
+    const sprite = assets.find(asset => asset.name === `creature-${name}-follower`);
+    assert.deepEqual(
+      Object.fromEntries(DIRECTIONS.map(direction => [direction, sprite.frames.rowOrder.indexOf(reviewedMirrors[name]?.[direction] ?? direction)])),
+      Object.fromEntries(DIRECTIONS.map(direction => [direction, rows[reviewedMirrors[name]?.[direction] ?? direction]])),
+      `${name} manifest row labels match independently reviewed source poses`,
+    );
+  }
   const directionKeys = [
     ['ArrowUp'],
     ['ArrowUp', 'ArrowRight'],
@@ -162,8 +179,8 @@ try {
       await page.waitForTimeout(450);
       const ownAtlas = await page.evaluate(src => window.followerAtlasDraws.filter(frame => frame.src.endsWith(src)), expected[name].sprite);
       const direction = DIRECTIONS[directionIndex];
-      const mirror = expected[name].mirror[direction];
-      const expectedRow = expected[name].rows.indexOf(mirror ?? direction);
+      const mirror = reviewedMirrors[name]?.[direction] ?? expected[name].mirror[direction];
+      const expectedRow = reviewedRows[name]?.[mirror ?? direction] ?? expected[name].rows.indexOf(mirror ?? direction);
       const directionFrames = ownAtlas.filter(frame => frame.row === expectedRow && frame.flipped === !!mirror);
       assert.ok(
         directionFrames.length,
@@ -201,9 +218,33 @@ try {
   );
   await page.evaluate(() => (window.followerAtlasDraws = []));
   await page.keyboard.down('ArrowRight');
-  await page.waitForTimeout(850);
+  const gaitSamples = await page.evaluate(async () => {
+    const samples = [];
+    for (let i = 0; i < 42; i++) {
+      await new Promise(requestAnimationFrame);
+      const motion = window.mossvale.getState().followerMotion;
+      samples.push({x: motion.x, y: motion.y, distance: motion.distance});
+    }
+    return samples;
+  });
   await page.keyboard.up('ArrowRight');
   await page.waitForTimeout(120);
+  const gaitSteps = gaitSamples.slice(1).map((sample, index) => ({
+    moved: Math.hypot(sample.x - gaitSamples[index].x, sample.y - gaitSamples[index].y),
+    distance: sample.distance - gaitSamples[index].distance,
+  }));
+  assert.ok(
+    gaitSteps.some(step => step.moved > 0.005),
+    'the follower visibly travels during the gait sample',
+  );
+  assert.ok(
+    gaitSteps.every(step => step.moved < 0.16),
+    'interpolated follower position has no visible snap between samples',
+  );
+  assert.ok(
+    gaitSteps.every(step => step.distance >= -1e-9),
+    'the distance-based walk phase never jitters backward',
+  );
   await page.keyboard.down('ArrowLeft');
   await page.waitForTimeout(850);
   await page.keyboard.up('ArrowLeft');

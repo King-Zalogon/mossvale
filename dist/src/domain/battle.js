@@ -126,6 +126,8 @@ export function lastEnemyAction(battle) {
 export function enemyAttack(save, battle, rng) {
   const action = nextEnemyAction(battle);
   const element = action === 'element';
+  const interrupted = action === 'charge' && battle.disruptCharge === true;
+  delete battle.disruptCharge;
   const eff = element ? effectiveness(battle.id, save.active) : 1;
   const attacks = action !== 'charge' && action !== 'brace';
   const foe = species[battle.id];
@@ -148,11 +150,13 @@ export function enemyAttack(save, battle, rng) {
   const counter = battle.guard && action === 'heavy' ? Math.round((unguarded - damage) * (tactic?.guardRiposteFactor ?? 0)) : 0;
   if (counter > 0) battle.hp = Math.max(0, battle.hp - counter);
   const recovered =
-    action === 'charge' && tactic?.recoveryOnCharge && battle.hp > 0 ? Math.min(battle.max - battle.hp, Math.ceil(battle.max * tactic.recoveryOnCharge)) : 0;
+    action === 'charge' && !interrupted && tactic?.recoveryOnCharge && battle.hp > 0
+      ? Math.min(battle.max - battle.hp, Math.ceil(battle.max * tactic.recoveryOnCharge))
+      : 0;
   battle.hp += recovered;
   battle.guard = false;
   battle.turn++;
-  return {damage, element, action, counter, recovered, defeated: battle.hp === 0};
+  return {damage, element, action, counter, recovered, interrupted, defeated: battle.hp === 0};
 }
 
 /** After an enemy hit: swap in a healthy companion, or report that the team is out. */
@@ -246,6 +250,7 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
       if (battle.focus < ELEMENT_COST) return null; // the special move needs Focus
       battle.focus -= ELEMENT_COST;
     } else gainFocus(battle);
+    battle.disruptCharge = action.kind === 'element' && nextEnemyAction(battle) === 'charge' && TACTICS[battle.tactic]?.chargeInterruptedBy === 'element';
     const strike = playerStrike(save, battle, action.kind, rng);
     push({type: 'strike', ...strike});
     if (strike.defeated) {

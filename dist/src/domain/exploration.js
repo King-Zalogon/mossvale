@@ -8,13 +8,17 @@ export const RUN_SPEED = 4.7;
 /** Row indices in the red-cap animation atlas. */
 export const DIRECTIONS = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
 export const FACING = Object.freeze(Object.fromEntries(DIRECTIONS.map((name, index) => [name, index])));
-export const WALK_FRAME_DISTANCE = 0.42;
+export const WALK_FRAME_DISTANCE = 0.56;
+export const FOLLOWER_FRAME_DISTANCE = 0.72;
 
 /** Sprite-sheet column for the current animation state; running advances faster through its greater travel. */
-export function playerFrame(distance, moving, reducedMotion = false) {
+export function playerFrame(distance, moving, reducedMotion = false, frameDistance = WALK_FRAME_DISTANCE) {
   if (!moving || reducedMotion) return 0;
-  return 1 + (Math.floor(Math.max(0, distance) / WALK_FRAME_DISTANCE) % 4);
+  return 1 + (Math.floor(Math.max(0, distance) / frameDistance) % 4);
 }
+
+/** Followers use the same walk cells at a slower cadence for their trailing pace. */
+export const followerFrame = (distance, moving, reducedMotion = false) => playerFrame(distance, moving, reducedMotion, FOLLOWER_FRAME_DISTANCE);
 
 /**
  * Atlas row and mirroring for the player sprite. The atlas's northwest row repeats the northeast pose (bill to the right),
@@ -102,7 +106,9 @@ function moveSlice(state, sx, sy, run, dt) {
   const resolved = candidates.reduce((best, candidate) => (error(candidate) < error(best) - 1e-9 ? candidate : best));
   player.x = resolved.x;
   player.y = resolved.y;
-  player.dir = facing(sx, sy);
+  const nextDir = facing(sx, sy);
+  if (player.dir !== nextDir) player.walkDistance = 0;
+  player.dir = nextDir;
   const distance = Math.hypot(player.x - before.x, player.y - before.y);
   if (distance > 0) {
     player.walkDistance = (player.walkDistance || 0) + distance;
@@ -119,14 +125,13 @@ function moveSlice(state, sx, sy, run, dt) {
   return null;
 }
 
-const TRAIL_SPACING = 0.1;
-const TRAIL_LENGTH = 40;
+const TRAIL_LENGTH = 80;
 
-/** Records the player's path (at TRAIL_SPACING intervals) so the companion can walk it. */
+/** Records every simulation step so interpolation keeps corners around collision boundaries. */
 export function pushTrail(trail, player) {
   if (!trail) return;
   const last = trail[0];
-  if (!last || Math.hypot(player.x - last.x, player.y - last.y) >= TRAIL_SPACING) {
+  if (!last || Math.hypot(player.x - last.x, player.y - last.y) > 1e-8) {
     trail.unshift({x: player.x, y: player.y});
     if (trail.length > TRAIL_LENGTH) trail.length = TRAIL_LENGTH;
   }
@@ -140,8 +145,24 @@ export function followerPoint(world, player, trail) {
   let along = 0;
   let prev = {x: player.x, y: player.y};
   for (const p of trail || []) {
-    along += Math.hypot(p.x - prev.x, p.y - prev.y);
-    if (along >= FOLLOW_GAP) return p;
+    const segment = Math.hypot(p.x - prev.x, p.y - prev.y);
+    if (segment > 0 && along + segment >= FOLLOW_GAP) {
+      const fraction = (FOLLOW_GAP - along) / segment;
+      const target = {x: prev.x + (p.x - prev.x) * fraction, y: prev.y + (p.y - prev.y) * fraction};
+      if (isWalkable(world, target.x, target.y)) return target;
+      // A short chord between two safe points can cut inside a curved prop boundary. Clamp to the walkable part.
+      let low = 0;
+      let high = fraction;
+      for (let i = 0; i < 10; i++) {
+        const middle = (low + high) / 2;
+        const x = prev.x + (p.x - prev.x) * middle;
+        const y = prev.y + (p.y - prev.y) * middle;
+        if (isWalkable(world, x, y)) low = middle;
+        else high = middle;
+      }
+      return {x: prev.x + (p.x - prev.x) * low, y: prev.y + (p.y - prev.y) * low};
+    }
+    along += segment;
     prev = p;
   }
   if (trail?.length) return trail.at(-1);

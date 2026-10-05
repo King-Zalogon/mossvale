@@ -658,7 +658,8 @@ export function createController(app) {
 
   /** One line describing the enemy's turn. */
   function enemyText(foe, e) {
-    if (e.action === 'charge') return `${foe.name} is gathering strength…${e.recovered ? ` The current restores ${e.recovered} HP.` : ''}`;
+    if (e.action === 'charge')
+      return `${foe.name} is gathering strength…${e.interrupted ? ' Your elemental pressure disrupts the recovery.' : e.recovered ? ` The current restores ${e.recovered} HP.` : ''}`;
     if (e.action === 'brace') return `${foe.name} braces itself. Quick strikes glance off; an elemental move breaks through.`;
     const hit =
       e.action === 'heavy'
