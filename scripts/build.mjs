@@ -29,7 +29,10 @@ function portalReturnUrl(value) {
     throw new Error('MOSSVALE_PORTAL_RETURN_URL must be an absolute HTTPS URL (or localhost HTTP URL for development), without credentials');
   return url.href;
 }
-const returnUrl = portalReturnUrl(process.env.MOSSVALE_PORTAL_RETURN_URL);
+const configuredReturnUrl = process.env.MOSSVALE_PORTAL_RETURN_URL;
+const returnUrl = portalReturnUrl(
+  configuredReturnUrl === undefined && process.env.VERCEL === '1' ? 'https://zalonline.vercel.app/dashboard' : configuredReturnUrl,
+);
 const argIndex = process.argv.indexOf('--pack');
 const selectedPack = argIndex >= 0 ? resolve(process.argv[argIndex + 1] ?? '') : process.env.BUILD_PACK ? resolve(process.env.BUILD_PACK) : null;
 const includes = process.argv.flatMap((arg, i) => (arg === '--include' ? [resolve(process.argv[i + 1] ?? '')] : []));
