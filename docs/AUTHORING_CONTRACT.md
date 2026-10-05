@@ -42,7 +42,7 @@ Use explicit “not applicable because…” for inapplicable fields rather than
 5. Run contract fixtures (`node --test tests/catalogue-contract.test.mjs`) and repository verification. Review descriptions against implementation: structural tests cannot certify their truth.
 6. In the PR list affected entries, generation commands, checks and local observations. If documentation is unchanged, give a scoped no-semantic-impact explanation; a random Markdown edit is not compliance.
 
-During bootstrap there is no full catalogue or diff gate yet. Document behavior in the owning technical doc and relevant teaching examples, state the catalogue follow-up, and do not assert #182/#183 are complete. Once their gates land, those checks apply to every resource update. No blanket exemptions or bypass switches.
+The current local producer and CI policy are documented in [CATALOGUE.md](CATALOGUE.md). Resource updates regenerate outputs and supply scoped PR impact records; no blanket exemptions or bypass switches exist. GitHub required-check administration remains a separate explicit limitation. Teaching fixtures remain separate from the complete generated catalogue.
 
 ## Reviewed examples and reuse boundaries
 
