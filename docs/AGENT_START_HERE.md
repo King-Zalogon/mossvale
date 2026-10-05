@@ -1,5 +1,7 @@
 # Agent start here
 
+Read the root [AGENTS.md](../AGENTS.md) and [authoring documentation contract](AUTHORING_CONTRACT.md). Their integration-only workflow supersedes historical main-targeting instructions.
+
 Start each coding task by checking `git status -sb`, fetching `origin`, reading the target issue and its comments, then checking the live [open issue queue](https://github.com/King-Zalogon/mossvale/issues?q=is%3Aissue+is%3Aopen) and [unassigned issues](https://github.com/King-Zalogon/mossvale/issues?q=is%3Aissue+is%3Aopen+no%3Aassignee). Confirm there is no active claim or pull request before taking work. The [handoff log](AGENT_HANDOFFS.md) records local branches and evidence; GitHub remains the authority for issue and PR status.
 
 ## Shared APIs and decisions

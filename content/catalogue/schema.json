@@ -1,0 +1,456 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Mossvale authoring catalogue format 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "sourceRevision", "purpose", "entries"],
+  "properties": {
+    "format": {
+      "const": 1
+    },
+    "sourceRevision": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "purpose": {
+      "enum": ["examples", "catalogue"]
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "name",
+          "summary",
+          "status",
+          "scope",
+          "configuration",
+          "dependencies",
+          "limits",
+          "examples",
+          "references",
+          "evidence",
+          "details"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*:[a-z0-9][a-z0-9./-]*$"
+          },
+          "kind": {
+            "enum": ["visual", "interactable", "item", "actor", "environment", "mechanic"]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": ["available", "experimental", "proposed", "deprecated", "removed"]
+          },
+          "scope": {
+            "enum": ["core", "optional-pack", "authoring-only"]
+          },
+          "configuration": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "type", "default", "limits"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "type": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "default": {},
+                "limits": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "limits": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "examples": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["intent", "usage", "expected"],
+              "properties": {
+                "intent": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "usage": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "expected": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "references": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\:])[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$"
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "assertion"],
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\:])[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$"
+                },
+                "assertion": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "previews": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "description"],
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\:])[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$"
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "details": {
+            "type": "object"
+          },
+          "replacement": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "visual"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "details": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["appearance", "style", "scale", "directions", "animations", "compatibleUses"],
+                  "properties": {
+                    "appearance": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "style": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "scale": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "directions": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "animations": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "compatibleUses": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "interactable"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "details": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["activation", "conditions", "actions", "rewards", "repetition", "persistence"],
+                  "properties": {
+                    "activation": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "conditions": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "actions": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "rewards": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "repetition": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "persistence": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "item"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "details": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["contexts", "targets", "consumption", "strength", "duration", "stacking", "persistence"],
+                  "properties": {
+                    "contexts": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "targets": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "consumption": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "strength": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "duration": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "stacking": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "persistence": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "actor"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "details": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["appearance", "behavior", "locomotion", "interactions"],
+                  "properties": {
+                    "appearance": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "behavior": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "locomotion": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "interactions": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "environment"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "details": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["biome", "connections", "walkability", "spawns", "access"],
+                  "properties": {
+                    "biome": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "connections": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "walkability": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "spawns": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "access": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "mechanic"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "details": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["trigger", "inputs", "sequence", "results", "cancellation", "errors", "persistence"],
+                  "properties": {
+                    "trigger": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "inputs": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sequence": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "cancellation": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "errors": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "persistence": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "enum": ["available", "experimental"]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "evidence": {
+                  "minItems": 1,
+                  "type": "array"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -28,3 +28,7 @@ GitHub issues and pull requests are authoritative for current status. Use this l
 `YYYY-MM-DD | #issue / bounded scope | owner lane | branch | head and base | checks or review evidence | blocker and next owner/action`
 
 When work is integrated, add the integration commit and mark the handoff complete. Do not treat a branch name or this log as proof that a GitHub issue is claimed, a PR is current, or CI is green; check the linked GitHub records.
+
+## #181 — authoring documentation contract
+
+Codex claim: `codex/181-authoring-contract`, created from main `4714b24`, aligned with integration `8083394`. Scope: format-1 catalogue schema, six teaching fixtures, contribution instructions and PR checklist, contract regressions. These fixtures are not complete resource coverage. #182/#183/#184/#185 consume this contract after integration; no game rules or artwork changed. PR targets integration only; final-head verification/CI is mandatory.
