@@ -31,22 +31,18 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the renderer’s 52 × 84 px size, NE/NW/SW alternate readable walk poses with measured boot travel of 9.6/9.6/12.8 px; the unchanged SE control measures 8.8 px. NW mirrors NE. Owner gameplay taste remains pending.",
+        "reason": "At 52 × 84 px gameplay scale, NE/NW/SW expose opposing stride poses with 8.4/8.4/12.8 px foot travel; West uses an independently generated opposite-leg pose. The runtime test checks walk and run playback, foot anchors and reduced motion. Owner gameplay taste remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["dist/character-preview.html", "art/characters/reviews/diagonal-walk-before-after.png"],
+      "evidence": ["dist/character-preview.html", "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "028dea5913b9f44df9c89cbe9259bae5efbdd239799c3dc051f032ce01121ecc"
-        },
-        {
-          "path": "art/characters/reviews/diagonal-walk-before-after.png",
-          "sha256": "31b0cb2852483c69a63b881680bacfcd5fc844b6a7a95b0d858ea1dd4baaba6f"
+          "sha256": "fa2c3aa7a5fab3ed5c38b83c8b578fd054482bca35eebc14c1362f927aa1845c"
         },
         {
           "path": "art/characters/source/person-red-cap-motion-northeast-v2.png",
-          "sha256": "0d0def87e7211180b62b6eab5710f1b10b6dd8284b358a05026edb1e9c2dc117"
+          "sha256": "855d50236e2dfd04be93e9116510f81cafd6c7eb2ddb3f15c610c502890893e1"
         },
         {
           "path": "art/characters/source/person-red-cap-motion-southwest-v2.png",
@@ -58,7 +54,7 @@
         },
         {
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "sha256": "f1ab1240e8d9680998a7287ac49065d1ffb72075a08ae1827f1c1dc5f5fe03fd"
+          "sha256": "ebecf6b243670ea66ba5151861789d8834e60171fa04d4b2d327b1a59912dd40"
         },
         {
           "path": "dist/assets/people/person-red-cap-north.png",
@@ -75,6 +71,10 @@
         {
           "path": "dist/character-preview.html",
           "sha256": "06976c5f19bb51b0c6fe6c9622fa388f0632e56e8b34ff64155b19ec37551c9c"
+        },
+        {
+          "path": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+          "sha256": "7fb022e876b5deb1c323bf6b81b97be92588159f0a630e031aee62eb96bf0463"
         }
       ]
     },

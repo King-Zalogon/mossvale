@@ -45,20 +45,35 @@ PLAYER_ROWS = [
     ('person-red-cap-motion-west-northwest.png', 1, None),
 ]
 
+# The generated northeast and southwest strips repeat their middle-leg pose in source columns 2–3 and put the
+# opposite passing pose in column 4. Reorder those four walk cells to alternate the leading leg at runtime.
+PLAYER_WALK_COLUMNS = {
+    1: (0, 1, 2, 4, 3),
+    5: (0, 1, 2, 4, 3),
+}
+PLAYER_WALK_FRAME_OVERRIDES = {6: {3: 'person-red-cap-motion-west-alternate-stride-v1.png'}}
+
 
 def export_player(source_dir=SOURCE):
     out = Image.new('RGBA', (5 * CELL[0], 8 * CELL[1]), (0, 0, 0, 0))
     sheets = {}
     for row, (base_name, base_row, walk_override) in enumerate(PLAYER_ROWS):
         for column in range(5):
-            filename, source_row = walk_override if column > 0 and walk_override else (base_name, base_row)
-            if filename not in sheets:
-                sheets[filename] = Image.open(source_dir / filename).convert('RGBA')
-            sheet = sheets[filename]
-            y0, y1 = round(source_row * sheet.height / 2), round((source_row + 1) * sheet.height / 2)
-            x0, x1 = round(column * sheet.width / 5), round((column + 1) * sheet.width / 5)
+            override = PLAYER_WALK_FRAME_OVERRIDES.get(row, {}).get(column) if column > 0 else None
+            if override:
+                source = Image.open(source_dir / override).convert('RGBA')
+                source_cell = source
+            else:
+                filename, source_row = walk_override if column > 0 and walk_override else (base_name, base_row)
+                if filename not in sheets:
+                    sheets[filename] = Image.open(source_dir / filename).convert('RGBA')
+                sheet = sheets[filename]
+                y0, y1 = round(source_row * sheet.height / 2), round((source_row + 1) * sheet.height / 2)
+                source_column = PLAYER_WALK_COLUMNS.get(row, range(5))[column]
+                x0, x1 = round(source_column * sheet.width / 5), round((source_column + 1) * sheet.width / 5)
+                source_cell = sheet.crop((x0, y0, x1, y1))
             cell = fit_person(
-                sheet.crop((x0, y0, x1, y1)),
+                source_cell,
                 PLAYER_PROFILE['maxSprite'][1],
                 max_width=PLAYER_PROFILE['maxSprite'][0],
                 alpha_threshold=PLAYER_PROFILE['alphaThreshold'],
