@@ -1,0 +1,24 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/maps/index.json",
+        "dist/maps/registries.json",
+        "dist/src/domain/battle.js",
+        "dist/src/save.js",
+        "dist/src/controller.js",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "docs/GUARDIANS.md",
+        "tests/guardians.test.mjs"
+      ],
+      "entries": ["mechanic:guardian-counterplay"],
+      "disposition": "updated",
+      "reason": "Adds pack-defined response bonuses to the four regional guardian tactics. A qualifying Guard, elemental interruption, brace break or resistant switch is recorded once, survives an interrupted battle reload, and pays a visible bonus only when the guardian is defeated.",
+      "evidence": ["tests/guardians.test.mjs", "docs/GUARDIANS.md"]
+    }
+  ]
+}

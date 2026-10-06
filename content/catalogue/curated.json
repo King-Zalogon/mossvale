@@ -505,6 +505,40 @@
         "errors": "Invalid records, unknown IDs, unsafe/missing paths and stale output fail checks.",
         "persistence": "Checked-in deterministic documentation, not adventure save data."
       }
+    },
+    {
+      "id": "mechanic:guardian-counterplay",
+      "kind": "mechanic",
+      "name": "Guardian counterplay rewards",
+      "summary": "Reward a readable response to a regional guardian's forecasted tactic when the fight is won.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": ["Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."],
+      "examples": [
+        {
+          "intent": "Guard a forecast heavy blow and earn the guardian response bonus on victory.",
+          "usage": "Configure counterplay in a tactic under dist/maps/registries.json and use the existing Guard action.",
+          "expected": "The victory result names the response and includes its bonus coins and XP."
+        }
+      ],
+      "references": ["dist/maps/registries.json", "dist/src/domain/battle.js", "dist/src/save.js", "dist/src/controller.js"],
+      "evidence": [
+        {
+          "path": "tests/guardians.test.mjs",
+          "assertion": "Guardian response qualification, payout, checkpoint persistence and invalid-ID filtering."
+        }
+      ],
+      "details": {
+        "trigger": "A configured Guard, elemental response or resistant switch matches the guardian's current forecast.",
+        "inputs": "The player's action, the current and previous tactic actions, and the active/selected matchup.",
+        "sequence": "Record each configured response once, continue the normal enemy reply, and add its configured bonus only when the guardian is defeated.",
+        "results": "The normal guardian reward plus the response bonus and a readable response label on the victory result.",
+        "cancellation": "A lost or abandoned fight pays no response bonus; a saved interrupted fight retains already recorded responses.",
+        "errors": "Unknown response IDs in a saved battle are discarded during normalization.",
+        "persistence": "Recorded response IDs are part of the existing battle checkpoint and remain compatible with older saves."
+      }
     }
   ],
   "exclusions": [
