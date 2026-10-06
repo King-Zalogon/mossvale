@@ -6,6 +6,7 @@ import {join} from 'node:path';
 import http from 'node:http';
 import {importArtBatch, makeManualHandoff, runMockAdapter, submitComfyWorkflow, validateArtJob} from '../scripts/lib/art-jobs.mjs';
 import {compileBrief, validateBrief} from '../scripts/compile-brief.mjs';
+import {makeGapReport, validateSceneScript} from '../scripts/scene-script.mjs';
 
 test('art job handoff validates targets and preserves source provenance', () => {
   const root = mkdtempSync(join(tmpdir(), 'mossvale-art-job-'));
@@ -128,4 +129,49 @@ test('structured adventure briefs compile to an isolated validated candidate and
   } finally {
     rmSync(root, {recursive: true, force: true});
   }
+});
+
+test('scene script examples validate against the pinned catalogue and report unsupported extension work', () => {
+  const catalogue = JSON.parse(readFileSync(new URL('../content/catalogue/catalogue.json', import.meta.url), 'utf8'));
+  const supported = JSON.parse(readFileSync(new URL('../content/scene-scripts/examples/supported-yard-conversation.json', import.meta.url), 'utf8'));
+  const extension = JSON.parse(readFileSync(new URL('../content/scene-scripts/examples/home-rest-extension-request.json', import.meta.url), 'utf8'));
+
+  assert.deepEqual(validateSceneScript(supported, catalogue).errors, []);
+  const extensionResult = validateSceneScript(extension, catalogue);
+  assert.deepEqual(extensionResult.errors, []);
+  assert.deepEqual(
+    extensionResult.gapReport.gaps.map(gap => gap.kind),
+    ['new-mechanic', 'new-art', 'new-mechanic'],
+  );
+  assert.match(extensionResult.gapReport.note, /do not add capabilities/);
+  assert.deepEqual(makeGapReport(extension).gaps, extensionResult.gapReport.gaps);
+});
+
+test('scene script validation rejects stale/missing capabilities, invalid speakers and dropped continuity', () => {
+  const catalogue = JSON.parse(readFileSync(new URL('../content/catalogue/catalogue.json', import.meta.url), 'utf8'));
+  const supported = JSON.parse(readFileSync(new URL('../content/scene-scripts/examples/supported-yard-conversation.json', import.meta.url), 'utf8'));
+  const invalid = structuredClone(supported);
+  invalid.catalogueSourceRevision = '0000000000000000000000000000000000000000';
+  invalid.uses.push({resourceId: 'mechanic:teleport-anywhere', purpose: 'bad ID'});
+  invalid.beats[0].speaker = 'unknown-speaker';
+  invalid.continuityIn.canonicalFacts.push({id: 'old-promise', statement: 'A promise made earlier.', status: 'active'});
+  invalid.continuityIn.flags.push({id: 'gate-open', value: true});
+
+  const {errors} = validateSceneScript(invalid, catalogue);
+  assert.ok(errors.some(error => error.includes('does not match catalogue')));
+  assert.ok(errors.some(error => error.includes('unknown catalogue ID mechanic:teleport-anywhere')));
+  assert.ok(errors.some(error => error.includes('missing participant unknown-speaker')));
+  assert.ok(errors.some(error => error.includes('must carry forward or resolve incoming canonical fact old-promise')));
+  assert.ok(errors.some(error => error.includes('omits persistent incoming flag gate-open')));
+});
+
+test('scene script validation rejects silent use of proposed capabilities and untested timed dialogue', () => {
+  const catalogue = JSON.parse(readFileSync(new URL('../content/catalogue/catalogue.json', import.meta.url), 'utf8'));
+  const supported = JSON.parse(readFileSync(new URL('../content/scene-scripts/examples/supported-yard-conversation.json', import.meta.url), 'utf8'));
+  const proposed = {...supported, uses: [...supported.uses, {resourceId: 'mechanic:timed-effects', purpose: 'Not implemented'}]};
+  const timed = structuredClone(supported);
+  timed.beats[0].advance = 'timed';
+
+  assert.ok(validateSceneScript(proposed, catalogue).errors.some(error => error.includes('proposed capabilities belong in requirements')));
+  assert.ok(validateSceneScript(timed, catalogue).errors.some(error => error.includes('needs a durationHint')));
 });

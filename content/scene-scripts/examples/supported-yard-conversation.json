@@ -1,0 +1,86 @@
+{
+  "format": 1,
+  "id": "hearth-yard-welcome",
+  "title": "A warm welcome at Hearth Hamlet",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "previousScene": null,
+  "setting": {
+    "biomeId": "biome:meadow",
+    "mapId": "map:hearth-hamlet/hearth-yard",
+    "mapIntent": "Use the existing small yard layout as a quiet first meeting; place the two speakers on reachable ground and leave the cottage and chest unobstructed.",
+    "environment": ["A quiet cottage yard", "Soft daylight", "A small wooden chest nearby"],
+    "placementConstraints": ["Do not place actors on water or solid building footprints", "Keep the chest reachable from the yard spawn"]
+  },
+  "participants": [
+    {
+      "id": "healer-wren",
+      "identity": "Healer Wren",
+      "resourceId": "visual:person-traveler",
+      "role": "welcoming healer",
+      "startingSituation": "At the cottage entrance, standing still."
+    },
+    {
+      "id": "yard-villager",
+      "identity": "A visiting villager",
+      "resourceId": "visual:person-red-cap-south",
+      "role": "neighbor who knows Wren",
+      "startingSituation": "Near the edge of the yard, standing still."
+    }
+  ],
+  "uses": [
+    {"resourceId": "mechanic:scene-dialogue", "purpose": "Show a short, manually advanced line from each existing map speaker."},
+    {"resourceId": "interactable:scene-event", "purpose": "Use the existing validated interaction/action flow for authored scene dialogue."},
+    {
+      "resourceId": "landmark:hearth-hamlet/hearth-yard/box",
+      "purpose": "Use the already-authored chest interaction and reward as an optional nearby activity."
+    },
+    {"resourceId": "visual:chest-wooden", "purpose": "Keep the existing chest appearance; no new art or behavior is requested."}
+  ],
+  "beats": [
+    {
+      "id": "wren-greeting",
+      "type": "dialogue",
+      "intent": "Wren greets the player and points out that the chest was left for travelers.",
+      "speaker": "healer-wren",
+      "text": "Welcome in. There are a few supplies in that chest for anyone setting out.",
+      "advance": "manual"
+    },
+    {
+      "id": "villager-reply",
+      "type": "dialogue",
+      "intent": "The villager warmly confirms that Wren keeps the yard open.",
+      "speaker": "yard-villager",
+      "text": "She always makes room for one more traveler.",
+      "advance": "manual"
+    },
+    {
+      "id": "open-chest",
+      "type": "player-action",
+      "intent": "The player may walk to the existing chest and interact with it.",
+      "interactionIntent": "Open the yard chest using the current chest interaction.",
+      "expectedResult": "The existing pack reward is granted once and its milestone persists after reload."
+    },
+    {
+      "id": "scene-complete",
+      "type": "result",
+      "intent": "The conversation ends; the player remains free to explore the yard.",
+      "expectedResult": "No one is moved automatically and the scene does not block normal controls."
+    }
+  ],
+  "requirements": [],
+  "completion": "Both dialogue lines can be read and manually advanced, the player can reach the chest, and the chest's existing reward is awarded at most once across save and reload.",
+  "continuityIn": {"characters": [], "flags": [], "items": [], "canonicalFacts": [], "decisions": [], "pendingThreads": []},
+  "continuityOut": {
+    "characters": [
+      {"id": "healer-wren", "identity": "Healer Wren", "location": "Hearth Hamlet cottage yard"},
+      {"id": "yard-villager", "identity": "A visiting villager", "location": "Hearth Hamlet cottage yard"}
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [
+      {"id": "wren-welcomes-travelers", "statement": "Healer Wren welcomes travelers and keeps supplies in the yard chest.", "status": "active"}
+    ],
+    "decisions": [],
+    "pendingThreads": ["The player may ask Wren about the road in a later scene."]
+  }
+}
