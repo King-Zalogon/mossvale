@@ -3,7 +3,16 @@
   "id": "mossvale",
   "name": "Mossvale",
   "brief": "Four biomes, twelve friends and a seal at every shrine.",
-  "maps": ["meadow", "amber-ridge", "frostveil-grove", "frostveil-pass", "reedfen-wetlands", "orchard-ruins", "stilt-isles", "stone-basin"],
+  "maps": [
+    "meadow",
+    "amber-ridge",
+    "frostveil-grove",
+    "frostveil-pass",
+    "reedfen-wetlands",
+    "orchard-ruins",
+    "stilt-isles",
+    "stone-basin"
+  ],
   "species": [
     "fernling",
     "emberkin",
@@ -18,7 +27,12 @@
     "sunskitter",
     "hushram"
   ],
-  "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
+  "milestones": [
+    "meadow.seal",
+    "amber-ridge.seal",
+    "frostveil-grove.seal",
+    "reedfen-wetlands.seal"
+  ],
   "ending": "story",
   "objectives": "objectives.json",
   "story": "story.json",
@@ -33,7 +47,7 @@
     {
       "id": "registry:main",
       "path": "registries.json",
-      "sha256": "a4522e27988e151ec65abd21cdcbd2e7edc07248f3b551a02090e2a56da1d281"
+      "sha256": "0aac64ec6c843e91ae690436288da4c30903a48529e0aa39dc59825a2bea1518"
     },
     {
       "id": "map:meadow",

@@ -346,6 +346,8 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     const id = typeof b.id === 'string' ? speciesIndex(b.id) : -1;
     const intIn = (v, min, max) => Number.isInteger(v) && v >= min && v <= max;
     if (id < 0 || !intIn(b.level, 1, 99) || !intIn(b.max, 1, 9999) || !intIn(b.hp, 1, b.max) || !intIn(b.turn, 0, 9999)) return null;
+    const tactic = b.boss === true && Object.hasOwn(TACTICS, b.tactic) ? b.tactic : undefined;
+    const knownResponses = new Set((TACTICS[tactic]?.counterplay ?? []).map(response => response.id));
     return {
       id,
       hp: b.hp,
@@ -355,8 +357,9 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       guard: b.guard === true,
       turn: b.turn,
       focus: intIn(b.focus, 0, FOCUS_MAX) ? b.focus : FOCUS_START,
-      tactic: b.boss === true && Object.hasOwn(TACTICS, b.tactic) ? b.tactic : undefined,
+      tactic,
       power: b.boss === true && typeof b.power === 'number' && b.power >= 0.5 && b.power <= 3 ? b.power : 1,
+      counterplay: Array.isArray(b.counterplay) ? [...new Set(b.counterplay.filter(id => knownResponses.has(id)))] : [],
     };
   }
 
