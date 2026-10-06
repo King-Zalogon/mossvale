@@ -61,6 +61,11 @@ test('spending everything cannot make the adventure unwinnable: rest restores a 
   assert.equal(usePotion(save), null); // ...or heal
   restAtCamp(save); // ...but the ranger is free
   assert.equal(throwOrb(save, battle), true);
+  const packSave = newSave();
+  packSave.inventory = {bag: {orb: packSave.orbs}};
+  const packRules = {supplies: {orbs: 'orb'}};
+  assert.equal(throwOrb(packSave, createBattle(packSave, seededRng(3), {id: 3, level: 6}), packRules), true);
+  assert.deepEqual([packSave.orbs, packSave.inventory.bag.orb], [11, 11]);
   battle.hp = 1;
   assert.equal(resolveTurn(save, createBattle(save, seededRng(2), {id: 3, level: 6}), {kind: 'attack'}, seededRng(2)) !== null, true);
 });
