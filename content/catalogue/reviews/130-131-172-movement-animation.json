@@ -41,11 +41,11 @@
       "evidence": ["tests/diagonal-walk.browser.mjs", "tests/follower-runtime.browser.mjs", "tests/movement.test.mjs", "art/characters/visual-reviews.json"]
     },
     {
-      "paths": ["dist/src/domain/battle.js", "tests/economy.test.mjs"],
-      "entries": ["item:mossvale/orb", "item:mossvale/moss-pearl"],
+      "paths": ["dist/src/input.js"],
+      "entries": ["mechanic:movement"],
       "disposition": "no-semantic-impact",
-      "reason": "Keep the existing mapped orb count synchronized when capture consumes an orb before applying a configured capture reward; this is a consistency fix for the already-authored inventory contract, with no new authorable item behavior.",
-      "evidence": ["tests/economy.test.mjs", "tests/startup.browser.mjs"]
+      "reason": "Apply the repository's required formatter to the integration-synced keyboard input module; this is whitespace-only and changes no movement behavior.",
+      "evidence": ["tests/diagonal-walk.browser.mjs"]
     }
   ]
 }

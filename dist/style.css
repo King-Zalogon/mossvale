@@ -884,7 +884,7 @@ canvas#buddy {
     max-height: calc(100% - 180px);
   }
 }
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 700px) {
   .viewport.environment-open .world-tag,
   .viewport.environment-open .objective-pin,
   .viewport.environment-open .minimap-box,
@@ -2209,7 +2209,7 @@ body.text-larger .heading {
     min-height: 44px;
   }
 }
-@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 700px) {
   header {
     height: 54px;
   }
@@ -2300,7 +2300,7 @@ body.text-larger .heading {
     font-size: 11px;
   }
 }
-@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 500px), (any-pointer: coarse) and (max-width: 600px) {
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 700px), (any-pointer: coarse) and (max-width: 600px) {
   .viewport.has-interaction .world-tag,
   .viewport.has-interaction .objective-pin,
   .viewport.speech-open .world-tag,
