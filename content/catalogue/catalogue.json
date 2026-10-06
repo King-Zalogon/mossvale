@@ -4776,7 +4776,10 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": ["A valid JSON map still needs playability/reachability review."],
+      "limits": [
+        "A valid JSON map still needs playability/reachability review.",
+        "Terrain-family shoreline details are experimental Map Workshop preview decoration; they do not alter source tile assets, baked collision, or shipped game maps."
+      ],
       "examples": [
         {
           "intent": "Edit validated map data and preview it through the existing game.",
@@ -4794,7 +4797,7 @@
       "details": {
         "trigger": "Open the local map editor.",
         "inputs": "Map JSON and existing asset/pack references.",
-        "sequence": "Edit, undo/redo, validate and export local candidate data.",
+        "sequence": "Edit, undo/redo, validate and export local candidate data; optionally preview topology and the grass/path/water fixture.",
         "results": "Validated JSON round trip and full-engine preview.",
         "cancellation": "Edits remain local until deliberately integrated.",
         "errors": "Invalid geometry/reference diagnostics come from canonical validators.",
