@@ -1,0 +1,23 @@
+{
+  "format": 1,
+  "objectives": [
+    {
+      "id": "open-trail-chest",
+      "step": "01",
+      "title": "Finish the trail",
+      "copy": "Hear the traveler’s story, then open the chest to finish this short adventure.",
+      "pin": "Talk to the traveler, then open the chest.",
+      "map": "start",
+      "done": {
+        "flag": "start.chest"
+      }
+    },
+    {
+      "id": "trail-complete",
+      "step": "02",
+      "title": "A small kindness",
+      "copy": "The trail is open to explore.",
+      "pin": "Keep exploring at your own pace."
+    }
+  ]
+}
