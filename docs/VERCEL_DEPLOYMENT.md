@@ -6,6 +6,8 @@ Mossvale production deploys from the `main` branch. Pull requests and all other 
 
 In the Vercel project dashboard, open **Settings → Environments → Production** and set **Production Branch** to `main`. This is a project-level setting and cannot be enforced by a repository file. Verify the displayed branch after changing it; repository checks cannot inspect this dashboard value.
 
+For the `mossvale` project in the `King-Zalogon` team, **Preview Deployments** is disabled at the project level. Pull requests and other non-production branches therefore do not create preview deployments. Keep this separate from the Production Branch setting: confirm that Production Branch remains `main` so pushes to `main` continue through the existing production build.
+
 ## Repository guard
 
 `vercel.json` defines an Ignored Build Step: commits whose `VERCEL_GIT_COMMIT_REF` is not `main` exit with code `0` (skip the build/deployment); `main` exits with code `1` (continue the existing Vercel build). Keep the existing framework and build settings unchanged when editing this guard.
