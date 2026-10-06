@@ -65,6 +65,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `main.js` | root | — |
 | `map-editor.js` | root | — |
 | `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
+| `render/terrain.js` | render | `createTerrainPainter`, `mix`, `terrainColors` |
 | `render/world.js` | render | `createWorldRenderer` |
 | `save.js` | root | `KEYS`, `LEGACY_PACK`, `VERSION`, `commitSaveTransaction`, `create`, `keysFor`, `packOf`, `readSaveItem`, `recoverSaveTransaction` |
 | `services/account.js` | services | `createAccountClient` |
