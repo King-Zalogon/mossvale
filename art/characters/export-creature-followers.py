@@ -20,7 +20,7 @@ SPECS = {
     "emberkin": {
         "source": "art/characters/source/creature-emberkin-follower-generated.png",
         "target": "dist/assets/creatures/creature-emberkin-follower.png",
-        "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
+        "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
     },
     "fernling": {
         "source": "art/characters/source/creature-fernling-follower-generated.png",
@@ -33,23 +33,23 @@ SPECS = {
     "brooklet": {
         "source": "art/characters/source/creature-brooklet-follower-generated.png",
         "target": "dist/assets/creatures/creature-brooklet-follower.png",
-        "rowOrder": ["north", "northwest", "west", "southwest", "south", "east", "southeast", "northeast"],
+        "rowOrder": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
         "mirrorRows": [5, 6],
     },
     "hushram": {
         "source": "art/characters/source/creature-hushram-follower-generated.png",
         "target": "dist/assets/creatures/creature-hushram-follower.png",
-        "rowOrder": ["north", "northeast", "east", "southwest", "south", "west", "northwest", "southeast"],
+        "rowOrder": ["north", "northeast", "east", "west", "south", "northwest", "southeast", "southwest"],
     },
     "voltkit": {
         "source": "art/characters/source/creature-voltkit-follower-generated.png",
         "target": "dist/assets/creatures/creature-voltkit-follower.png",
-        "rowOrder": ["north", "northeast", "east", "south", "southeast", "west", "northwest", "southwest"],
+        "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
     },
     "mushmallow": {
         "source": "art/characters/source/creature-mushmallow-follower-generated.png",
         "target": "dist/assets/creatures/creature-mushmallow-follower.png",
-        "rowOrder": ["north", "northeast", "east", "southwest", "south", "southeast", "west", "northwest"],
+        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     },
     "frostowl": {
         "source": "art/characters/source/creature-frostowl-follower-generated.png",

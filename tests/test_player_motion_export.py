@@ -24,6 +24,7 @@ class PlayerMotionExportTests(unittest.TestCase):
                 "person-red-cap-motion-west-northwest.png",
                 "person-red-cap-motion-northeast-v2.png",
                 "person-red-cap-motion-southwest-v2.png",
+                "person-red-cap-motion-west-alternate-stride-v1.png",
             ]
             file_ids = {name: index + 1 for index, name in enumerate(source_names)}
             for name, file_id in file_ids.items():
@@ -50,9 +51,11 @@ class PlayerMotionExportTests(unittest.TestCase):
             override_sources = {1: source_names[4], 5: source_names[5]}
             for row, (base_name, base_source_row) in enumerate(row_sources):
                 for column in range(5):
-                    filename = override_sources.get(row, base_name) if column > 0 else base_name
-                    source_row = 1 if column > 0 and row in override_sources else base_source_row
-                    expected = (file_ids[filename] * 20, 30 + source_row * 60, 40 + column * 30, 255)
+                    pose = EXPORTER.PLAYER_WALK_FRAME_OVERRIDES.get(row, {}).get(column) if column > 0 else None
+                    filename = pose or (override_sources.get(row, base_name) if column > 0 else base_name)
+                    source_row = 0 if pose else (1 if column > 0 and row in override_sources else base_source_row)
+                    source_column = 2 if pose else EXPORTER.PLAYER_WALK_COLUMNS.get(row, range(5))[column]
+                    expected = (file_ids[filename] * 20, 30 + source_row * 60, 40 + source_column * 30, 255)
                     self.assertEqual(atlas.getpixel((column * 160 + 80, row * 256 + 200)), expected, f"row {row}, column {column}")
 
     def test_export_syncs_only_the_player_crop_in_the_editable_people_atlas(self):

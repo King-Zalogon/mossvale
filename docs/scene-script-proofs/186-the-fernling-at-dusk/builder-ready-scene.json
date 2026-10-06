@@ -1,0 +1,120 @@
+{
+  "format": 1,
+  "id": "the-fernling-at-dusk",
+  "title": "The Fernling at Dusk",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "previousScene": null,
+  "setting": {
+    "biomeId": "biome:meadow",
+    "mapIntent": "An isolated candidate map using the meadow biome, existing map format, static landmark sprites, a scene-event dialogue trigger, and the existing chest contract.",
+    "environment": [
+      "visual:tree-oak"
+    ],
+    "placementConstraints": [
+      "Use a small pack-owned meadow map titled Sunlit Trail — Dusk; do not copy the shipped Mossvale map.",
+      "Keep the traveler and Fernling together in one quiet, accessible spot; no movement choreography.",
+      "The chest is optional and can be approached independently of the conversation."
+    ]
+  },
+  "participants": [
+    {
+      "id": "trail-traveler",
+      "identity": "A road-worn traveler in a patched green coat, carrying a rolled bedroll and a heavy pack.",
+      "resourceId": "visual:person-traveler",
+      "role": "A friendly stranger with a small puzzle about the trail's evening hush.",
+      "startingSituation": "Standing still as a static traveler landmark on reachable ground."
+    }
+  ],
+  "uses": [
+    {
+      "resourceId": "visual:person-traveler",
+      "purpose": "Show the traveler using the supplied traveler appearance."
+    },
+    {
+      "resourceId": "visual:chest-wooden",
+      "purpose": "Use the supplied wooden chest appearance for the optional chest."
+    },
+    {
+      "resourceId": "visual:cottage-tiled",
+      "purpose": "Place the existing tiled cottage sprite as scenery on the pack-owned dusk map."
+    },
+    {
+      "resourceId": "visual:tree-oak",
+      "purpose": "Place the existing oak sprite as scenery on the pack-owned dusk map."
+    },
+    {
+      "resourceId": "interactable:scene-event",
+      "purpose": "Present the three repeatable dialogue lines through the existing map scene-event action."
+    },
+    {
+      "resourceId": "landmark:sign",
+      "purpose": "Configure a static traveler sprite as a sign-role landmark, whose existing interaction displays dialogue without opening the ranger menu.",
+      "configurationIntent": "The trigger uses map landmark id traveler as its dialogue speaker."
+    }
+  ],
+  "beats": [
+    {
+      "id": "meet-traveler",
+      "type": "dialogue",
+      "intent": "The traveler welcomes the player and introduces the unusual quiet of the trail.",
+      "speaker": "trail-traveler",
+      "text": "Evening. Your companion usually stirs at every rustle, but tonight it is watching the hill.",
+      "advance": "manual"
+    },
+    {
+      "id": "ask-about-hush",
+      "type": "dialogue",
+      "intent": "The traveler shares a gentle, unresolved mystery without claiming a supernatural event.",
+      "speaker": "trail-traveler",
+      "text": "I heard a second set of footsteps after mine stopped. I looked back; the path was empty. Maybe the wind has learned our pace.",
+      "advance": "manual"
+    },
+    {
+      "id": "fernling-answer",
+      "type": "dialogue",
+      "intent": "The traveler takes comfort from their familiar's steady presence and leaves the mystery open.",
+      "speaker": "trail-traveler",
+      "text": "Your companion heard them too? Then I will not blame the wind just yet. Keep your ears open, friend.",
+      "advance": "manual"
+    },
+    {
+      "id": "optional-chest",
+      "type": "player-action",
+      "intent": "Allow the player to inspect and open the existing treasure chest if they choose.",
+      "interactionIntent": "Interact with the treasure chest on Sunlit Trail.",
+      "expectedResult": "The existing chest interaction offers its authored coins, potions, or orbs reward once; this optional interaction does not gate the conversation."
+    }
+  ],
+  "requirements": [],
+  "completion": "The conversation ends after the traveler's farewell. The player may leave or separately open the existing chest; the encounter requires no combat, movement choreography, new effects, or save-state assumptions.",
+  "continuityIn": {
+    "characters": [],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [],
+    "decisions": [],
+    "pendingThreads": []
+  },
+  "continuityOut": {
+    "characters": [
+      {
+        "id": "trail-traveler",
+        "identity": "A road-worn traveler accompanied by their familiar Fernling.",
+        "location": "Sunlit Trail; fixed position at the traveler landmark in this candidate."
+      }
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [
+      {
+        "id": "traveler-heard-footsteps",
+        "statement": "The traveler says they heard a second set of footsteps after their own stopped; the path appeared empty.",
+        "status": "active"
+      }
+    ],
+    "decisions": [],
+    "pendingThreads": [
+      "The unexplained footsteps on Sunlit Trail."
+    ]
+  }
+}

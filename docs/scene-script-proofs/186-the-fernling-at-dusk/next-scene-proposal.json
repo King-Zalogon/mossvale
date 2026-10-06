@@ -1,0 +1,106 @@
+{
+  "format": 1,
+  "id": "the-trail-after-dusk",
+  "title": "The trail after dusk",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "previousScene": {
+    "id": "the-fernling-at-dusk",
+    "summary": "At dusk, the traveler and the player’s companion heard unexplained footsteps on Sunlit Trail. The optional chest was opened; the traveler remains on the trail."
+  },
+  "setting": {
+    "biomeId": "biome:meadow",
+    "mapId": "map:hearth-hamlet/hearth-yard",
+    "mapIntent": "A later conversation in the existing Hearth Hamlet yard, carrying the unexplained footsteps as an unresolved rumor.",
+    "environment": [
+      "A quiet cottage yard"
+    ],
+    "placementConstraints": [
+      "Use the existing yard layout and dialogue interaction."
+    ]
+  },
+  "participants": [
+    {
+      "id": "healer-wren",
+      "identity": "Healer Wren",
+      "resourceId": "visual:person-gardener",
+      "role": "A healer who has heard travelers discuss the trail.",
+      "startingSituation": "At her existing cottage yard landmark."
+    }
+  ],
+  "uses": [
+    {
+      "resourceId": "mechanic:scene-dialogue",
+      "purpose": "Show a short manually advanced line from an existing map speaker."
+    },
+    {
+      "resourceId": "interactable:scene-event",
+      "purpose": "Present the authored dialogue through existing scene-event behavior."
+    },
+    {
+      "resourceId": "landmark:hearth-hamlet/hearth-yard/building",
+      "purpose": "Use the existing static healer landmark."
+    }
+  ],
+  "beats": [
+    {
+      "id": "wren-hears-the-rumor",
+      "type": "dialogue",
+      "intent": "Wren recognizes the traveler’s description but does not explain the footsteps.",
+      "speaker": "healer-wren",
+      "text": "A traveler mentioned footsteps on the trail after everyone had stopped. I have no answer yet, but I will keep listening.",
+      "advance": "manual"
+    }
+  ],
+  "requirements": [],
+  "completion": "Wren’s reply is heard; the footsteps remain unexplained and available for a later scene.",
+  "continuityIn": {
+    "characters": [
+      {
+        "id": "trail-traveler",
+        "identity": "A road-worn traveler accompanied by their familiar Fernling.",
+        "location": "Sunlit Trail; fixed position at the traveler landmark in this candidate."
+      }
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [
+      {
+        "id": "traveler-heard-footsteps",
+        "statement": "The traveler says they heard a second set of footsteps after their own stopped; the path appeared empty.",
+        "status": "active"
+      }
+    ],
+    "decisions": [],
+    "pendingThreads": [
+      "The unexplained footsteps on Sunlit Trail."
+    ]
+  },
+  "continuityOut": {
+    "characters": [
+      {
+        "id": "trail-traveler",
+        "identity": "A road-worn traveler accompanied by their familiar Fernling.",
+        "location": "Sunlit Trail; fixed position at the traveler landmark in this candidate."
+      },
+      {
+        "id": "healer-wren",
+        "identity": "Healer Wren",
+        "location": "Hearth Hamlet cottage yard"
+      }
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [
+      {
+        "id": "traveler-heard-footsteps",
+        "statement": "The traveler says they heard a second set of footsteps after their own stopped; the path appeared empty.",
+        "status": "active"
+      }
+    ],
+    "decisions": [],
+    "pendingThreads": [
+      "The unexplained footsteps on Sunlit Trail.",
+      "Whether Wren can learn who else was on the trail."
+    ]
+  }
+}

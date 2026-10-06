@@ -2,15 +2,15 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "64f749c838175e608023313539cd5bbf2d90dd497f077d213dfee0aec72cb761",
+    "art/assets/subjects.json": "8db1ecfc01422f2e1115ad69c9abe8a24b438c5a1d575d76d8262e46cb750391",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
     "art/characters/creature-combat-metadata.json": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
-    "art/characters/creature-follower-metadata.json": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+    "art/characters/creature-follower-metadata.json": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
     "art/characters/export-profiles.json": "036d7b40e9edbfd2adb6683b2b6cde99c7d8fa8dcc4c8d4813a2a8df14232d65",
-    "art/characters/metadata.json": "b0f4b9f0f3015b8972d2cfce057f2f342284737e7feb03b10b251e0552298557",
+    "art/characters/metadata.json": "bcd3e68aaf20363ff2b3199475bf105de96d0a5e952dc02d5c2584c6501ca472",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
-    "art/characters/visual-reviews.json": "e7914f4e79bbdcd48d8e1b1658b750a5b6ca1835f91b6f4e502b41cc5ffe5bf0",
+    "art/characters/visual-reviews.json": "eb0d57a2aac40d1ffd4b6de505f677bb4a217596d712d8bcf76a1a81756e113d",
     "content/catalogue/curated.json": "554a70e3cb69e2a0cd98a826d88386b4a5e5be319a6f1a7f0c3bad825a809ddb",
     "content/catalogue/schema.json": "8918ca5c174e7620b765d6d7081d79bc4b3d006b51d004f575cb24cbaf56016d",
     "content/catalogue/templates.json": "bb0d71d227a6ed155aa8d83353fb192463fbb01113891f58d95f6da867448d5a",
@@ -53,7 +53,7 @@
     "dist/assets/items/item-capture-orb.png": "67d9bc68c1b5d0b14812f2d7e4e25acda73c4094937ca18a5b371bc9d661526f",
     "dist/assets/people/person-gardener.png": "f498db00333f41c5339119d505fc1ac99590d1554c969528b74f39867d2b9016",
     "dist/assets/people/person-red-cap-east.png": "1ea752494f7897b5e512d5885f8c732a06590949c74450f6e6c8744ea4053850",
-    "dist/assets/people/person-red-cap-motion.png": "f1ab1240e8d9680998a7287ac49065d1ffb72075a08ae1827f1c1dc5f5fe03fd",
+    "dist/assets/people/person-red-cap-motion.png": "ebecf6b243670ea66ba5151861789d8834e60171fa04d4b2d327b1a59912dd40",
     "dist/assets/people/person-red-cap-north.png": "16c613be7720e0c9f231eca4f7e5181b709647afde0ab858a5efeafa4ddec6a8",
     "dist/assets/people/person-red-cap-south.png": "9088f1039cc08e0f0496d08ff942ec3de9b55bfee561c23e8e38b4326faacc51",
     "dist/assets/people/person-red-cap-west.png": "73b972aca231577c7a746b84585b004672c6bbb0271799f24e9832202874fadd",
@@ -111,7 +111,7 @@
     "dist/src/controller.js": "13f646c79c9a522036ef97da9b36c8cf45ec4736f6b08bb8d8d9224695cdd350",
     "dist/src/creature-combat-preview.js": "5eb7767882d6e9d7bf3da271842e33eb618c49df046a38a1d2ccc10211169db5",
     "dist/src/creature-follower-preview.js": "99028ba5a8922578540dbe767ddfc496269c437d9a22690ffcb0558adcd87707",
-    "dist/src/data/assets.js": "10b9b8c45e24fa9e74987af5a214a14bff2ad5932d62415f5ca4991870df6bcc",
+    "dist/src/data/assets.js": "2d309dc3d65df70668373595211887f87720f6393b11ef7c824e7b8f8733f638",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "ee3aa083a0ebd1e307261f380e7d4e51e8ae308510aecf83cbf316ce11af7eff",
@@ -130,7 +130,7 @@
     "dist/src/domain/discovery.js": "95932a033f54655867056d8ff046ccad4e0ac08824f16d2849b16aec99fb0974",
     "dist/src/domain/economy.js": "a95324abb3eb067fb2d665e93389f14f15f12dcd7979244022e132d60c4ad0cd",
     "dist/src/domain/events.js": "195cd9d65e5e0bd90659d15bca993d50c94eb7cde4a1d103c612ccdbda9761d3",
-    "dist/src/domain/exploration.js": "6bb493b67abe3b90fe19387ec1ca6f2c7d3d874739a9e753e8ce4366e1fff66e",
+    "dist/src/domain/exploration.js": "b48fad673af62b9ec49a76a5b626a05e52bf8a8b008fdbe8c2f0c473b0ba31aa",
     "dist/src/domain/inventory.js": "198e9b236379a419e9b316205dd458d83fa8fc5e9c799d73818efb14daeefbc8",
     "dist/src/domain/mapdata.js": "c23cc6c7d590d2c61c156ee48f9140127fb70ca87a04c7c8f6567610cc32141c",
     "dist/src/domain/objective-events.js": "7ea11e81899424623e230c55ddc90c42c77c9df88532b91832cf39d23991128e",
@@ -145,16 +145,16 @@
     "dist/src/domain/story.js": "76aca33499825ab396db075379a05ff5343bfeec2d82ec6eb715b6026372c381",
     "dist/src/domain/terrain-family.js": "e9828ed285b9ffd558a9f168fa71f5477ffd6ee75a1359a874bfcfcd7101476e",
     "dist/src/domain/world.js": "33283839346a885c8004cb5c5682d29e0d0f6758d36a5698b0eb85b3d3eca383",
-    "dist/src/input.js": "528d899e6131ae172fc7af50700415bb52e34a2c6331b3a5ab1a7fce79a289b3",
-    "dist/src/main.js": "737e54d8492e8cd1eb86414a059191a61bc99f14001217f70728db8a1e599fd2",
+    "dist/src/input.js": "5fcfee9d10977f8b022b2c29c8e40135b5ebba77adec92f48408f40cbfac8685",
+    "dist/src/main.js": "ed7ecdac5ece285cdf71acbf0b10fff13583db95589f65eb866431af4fe64ee1",
     "dist/src/map-editor.js": "3576290c93c19bcae04d453042d9140d4bcfcf389b7bb4adb8e1752eec48dded",
     "dist/src/render/sprites.js": "73808d069304f99b62614f4f0f8290b6e82a3e58a53718467df0fb26509a9916",
-    "dist/src/render/world.js": "65a8e73a3e38b1472dffc0c3c3af763f6d12ea5734425b9f1466c9ab87e8c465",
+    "dist/src/render/world.js": "5a1bfd3b8fa1169e68c2bbbfac469bc51e9bab099bd4f9d586284a77411c06be",
     "dist/src/save.js": "b77863a05ed0cb9172bdff19a1bb27fb5e9e72887836326b85f5934182694955",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
     "dist/src/services/audio.js": "84659f7c324bd09a6df2c0a287b8b62a1e97e7eade2c3d48e0f707631e49c717",
-    "dist/src/services/backup.js": "dd94cd1ee1749a2bd279e298cbbf3d5a973f56b329c1a7393e86c55be7306174",
+    "dist/src/services/backup.js": "094d90b8ab3fbdd2f9f50cb6567cce8cfa15b04dd6881f58dec3a71d339e4bbc",
     "dist/src/services/loader.js": "4e5dd72b52219a97166108dc44f26d40bc8e0934163d4beb6f34b4bf8f07b2ed",
     "dist/src/services/maps.js": "7e1b9868f6876ea003705836af184ad26c6fc57236029a087898d8b401ec60d6",
     "dist/src/services/persistence.js": "b1d0b466050e3dd87ba9dc31ab5ee2b010071b4dccf0485861386c0eb5f55a57",
@@ -190,9 +190,14 @@
     "tests/fixtures/packs/lantern-crossing/objectives.json": "cf5c3d9e45d692ba5b14c60566f3844ffb4948f282c0d3fc34c698f1263d6b8d",
     "tests/fixtures/packs/lantern-crossing/registries.json": "c5ef8f1ccaaafd48bb1f42aaeef3c527c7c00d4d4dd33ecc3f0c3b72b12c325d",
     "tests/fixtures/packs/lantern-crossing/story.json": "337cf6e8d663798941c6911140d5fe8fb5ce781c189e12a944c198df04f0728e",
+    "tests/fixtures/packs/the-fernling-at-dusk/index.json": "d67fabdfa85772251495f19bd316ed34c8c0768fbe4862a466f5214f00527037",
+    "tests/fixtures/packs/the-fernling-at-dusk/maps/start.json": "43e81ec42992aeedbb5dd2e91e861ea23b0f576e1106de33e9420ca740f1f823",
+    "tests/fixtures/packs/the-fernling-at-dusk/objectives.json": "842410f67e5c8bc358d8720b775b7479b7bc1b284303617735dd4923ae09d6f6",
+    "tests/fixtures/packs/the-fernling-at-dusk/registries.json": "01a8dc522f75d1ec5a80c9e4cf480b3fe9e06a4db8d4f3143d1e4ae12b5b4a67",
+    "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "1ee8cd179058ef3e25ad7a8523685b34d75698f191838d54000829171b2faa20",
+  "sourceDigest": "a38c89649cc6df21101cbbc51f03c71bb11417a9e25ecc2d531c5068120a230d",
   "exclusions": [
     {
       "family": "module-exports",
@@ -2201,6 +2206,61 @@
       "rewards": "No automatic reward solely from a sign image.",
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+    },
+    {
+      "id": "landmark:the-fernling-at-dusk/start/chest",
+      "family": "landmark",
+      "runtimeId": "the-fernling-at-dusk/start/chest",
+      "name": "the fernling at dusk/start/chest",
+      "description": "Open the trail chest (chest) on Sunlit Trail — Dusk.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/maps/start.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "chest",
+        "kind": "chest",
+        "sprite": "chest-wooden",
+        "at": [9, 5],
+        "w": 42,
+        "label": "Open the trail chest",
+        "flag": "start.chest",
+        "reward": {
+          "coins": 8,
+          "potions": 1,
+          "orbs": 2
+        }
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-wooden"]
+    },
+    {
+      "id": "landmark:the-fernling-at-dusk/start/traveler",
+      "family": "landmark",
+      "runtimeId": "the-fernling-at-dusk/start/traveler",
+      "name": "Traveler",
+      "description": "Traveler (sign) on Sunlit Trail — Dusk.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/maps/start.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "traveler",
+        "kind": "sign",
+        "sprite": "person-traveler",
+        "at": [6, 3],
+        "w": 37,
+        "name": "Traveler",
+        "tag": "TRAVELER",
+        "label": "Speak with the traveler",
+        "text": "Evening. Your companion usually stirs at every rustle, but tonight it is watching the hill."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:person-traveler"]
     },
     {
       "id": "map:bakery-row/bakery-lane",
@@ -6613,6 +6673,122 @@
       "spawns": "{\"camp\":[30,5]}"
     },
     {
+      "id": "map:the-fernling-at-dusk/start",
+      "family": "map",
+      "runtimeId": "the-fernling-at-dusk/start",
+      "name": "Sunlit Trail — Dusk",
+      "description": "Sunlit Trail — Dusk: 12 by 8 authored map.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/maps/start.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "format": 1,
+        "id": "start",
+        "name": "Sunlit Trail — Dusk",
+        "biome": "meadow",
+        "size": {
+          "w": 12,
+          "h": 8
+        },
+        "legend": {
+          ".": "void",
+          "g": "ground",
+          "p": "path",
+          "w": "water",
+          "t": "tallgrass"
+        },
+        "terrain": ["............", "..gggggggg..", "..ggttgggg..", "..gggggggg..", "..gggggggg..", "..gggggggg..", "..gggggggg..", "............"],
+        "spawns": {
+          "camp": [3, 5]
+        },
+        "landmarks": [
+          {
+            "id": "traveler",
+            "kind": "sign",
+            "sprite": "person-traveler",
+            "at": [6, 3],
+            "w": 37,
+            "name": "Traveler",
+            "tag": "TRAVELER",
+            "label": "Speak with the traveler",
+            "text": "Evening. Your companion usually stirs at every rustle, but tonight it is watching the hill."
+          },
+          {
+            "id": "chest",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [9, 5],
+            "w": 42,
+            "label": "Open the trail chest",
+            "flag": "start.chest",
+            "reward": {
+              "coins": 8,
+              "potions": 1,
+              "orbs": 2
+            }
+          }
+        ],
+        "exits": [],
+        "props": [
+          {
+            "sprite": "tree-oak",
+            "kind": "scenery",
+            "w": 48,
+            "at": [[2.4, 2.4]]
+          },
+          {
+            "sprite": "cottage-tiled",
+            "kind": "scenery",
+            "w": 58,
+            "at": [[9.2, 2]]
+          }
+        ],
+        "triggers": [
+          {
+            "id": "hush-conversation",
+            "at": [6, 5],
+            "radius": 0.5,
+            "on": "interact",
+            "once": false,
+            "events": [
+              {
+                "id": "trail-hush",
+                "repeatable": true,
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "traveler",
+                    "text": "Evening. Your companion usually stirs at every rustle, but tonight it is watching the hill."
+                  },
+                  {
+                    "type": "dialogue",
+                    "speaker": "traveler",
+                    "text": "I heard a second set of footsteps after mine stopped. I looked back; the path was empty. Maybe the wind has learned our pace."
+                  },
+                  {
+                    "type": "dialogue",
+                    "speaker": "traveler",
+                    "text": "Your companion heard them too? Then I will not blame the wind just yet. Keep your ears open, friend."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "zones": [
+          {
+            "id": "dusk-meadow",
+            "terrain": ["t"],
+            "pool": ["fernling"],
+            "level": [1, 1],
+            "distance": [4, 7]
+          }
+        ]
+      },
+      "biome": "meadow",
+      "connections": "[]",
+      "spawns": "{\"camp\":[3,5]}"
+    },
+    {
       "id": "move:briar-brace",
       "family": "move",
       "runtimeId": "briar-brace",
@@ -7166,6 +7342,74 @@
       }
     },
     {
+      "id": "narrative:the-fernling-at-dusk/objectives",
+      "family": "narrative",
+      "runtimeId": "the-fernling-at-dusk/objectives",
+      "name": "The Fernling at Dusk objectives",
+      "description": "Existing objectives data for The Fernling at Dusk; conditions/dialogue follow the shared vocabulary.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/objectives.json",
+      "evidence": "tests/objectives.test.mjs",
+      "raw": {
+        "name": "The Fernling at Dusk objectives",
+        "definition": {
+          "format": 1,
+          "objectives": [
+            {
+              "id": "open-trail-chest",
+              "step": "01",
+              "title": "Finish the trail",
+              "copy": "Hear the traveler’s story, then open the chest to finish this short adventure.",
+              "pin": "Talk to the traveler, then open the chest.",
+              "map": "start",
+              "done": {
+                "flag": "start.chest"
+              }
+            },
+            {
+              "id": "trail-complete",
+              "step": "02",
+              "title": "A small kindness",
+              "copy": "The trail is open to explore.",
+              "pin": "Keep exploring at your own pace."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "narrative:the-fernling-at-dusk/story",
+      "family": "narrative",
+      "runtimeId": "the-fernling-at-dusk/story",
+      "name": "The Fernling at Dusk story",
+      "description": "Existing story data for The Fernling at Dusk; conditions/dialogue follow the shared vocabulary.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/story.json",
+      "evidence": "tests/story.test.mjs",
+      "raw": {
+        "name": "The Fernling at Dusk story",
+        "definition": {
+          "format": 1,
+          "premise": {
+            "title": "The Fernling at Dusk",
+            "paragraphs": [
+              "A traveler pauses on Sunlit Trail with a Fernling at their side.",
+              "Hear the traveler’s story, then explore the trail at your own pace."
+            ],
+            "button": "Begin walking"
+          },
+          "ending": {
+            "when": {
+              "flag": "start.chest"
+            },
+            "title": "A small kindness",
+            "paragraphs": [
+              "The traveler’s chest is open, and the dusk trail is a little brighter. The unexplained footsteps remain a story for another evening."
+            ],
+            "button": "Keep exploring"
+          }
+        }
+      }
+    },
+    {
       "id": "pack:bakery-row",
       "family": "pack",
       "runtimeId": "bakery-row",
@@ -7375,6 +7619,56 @@
             "id": "inventory:main",
             "path": "inventory.json",
             "sha256": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pack:the-fernling-at-dusk",
+      "family": "pack",
+      "runtimeId": "the-fernling-at-dusk",
+      "name": "The Fernling at Dusk",
+      "description": "Meet a traveler, hear about the quiet trail, and open an optional chest.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/index.json",
+      "evidence": "tests/packs.test.mjs",
+      "raw": {
+        "format": 1,
+        "id": "the-fernling-at-dusk",
+        "name": "The Fernling at Dusk",
+        "brief": "Meet a traveler, hear about the quiet trail, and open an optional chest.",
+        "maps": ["start"],
+        "species": ["fernling"],
+        "milestones": ["start.chest"],
+        "ending": "story",
+        "registries": "registries.json",
+        "mapDirectory": "maps/",
+        "objectives": "objectives.json",
+        "story": "story.json",
+        "contentVersion": 1,
+        "requires": {
+          "engineVersion": 1,
+          "saveSchema": 5
+        },
+        "integrity": [
+          {
+            "id": "registry:main",
+            "path": "registries.json",
+            "sha256": "01a8dc522f75d1ec5a80c9e4cf480b3fe9e06a4db8d4f3143d1e4ae12b5b4a67"
+          },
+          {
+            "id": "map:start",
+            "path": "maps/start.json",
+            "sha256": "43e81ec42992aeedbb5dd2e91e861ea23b0f576e1106de33e9420ca740f1f823"
+          },
+          {
+            "id": "objectives:main",
+            "path": "objectives.json",
+            "sha256": "842410f67e5c8bc358d8720b775b7479b7bc1b284303617735dd4923ae09d6f6"
+          },
+          {
+            "id": "story:main",
+            "path": "story.json",
+            "sha256": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8"
           }
         ]
       }
@@ -7721,6 +8015,29 @@
       },
       "biome": "wetland",
       "dependencies": ["visual:cattail-clump"]
+    },
+    {
+      "id": "region:the-fernling-at-dusk/start",
+      "family": "region",
+      "runtimeId": "the-fernling-at-dusk/start",
+      "name": "Dusk Trail",
+      "description": "Meet a traveler, listen to a mystery and explore at your own pace.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "start",
+        "name": "Dusk Trail",
+        "short": "Dusk Trail",
+        "subtitle": "A quiet path at the edge of evening.",
+        "tag": "DUSK TRAIL",
+        "palette": ["#86ae70", "#97b76a", "#8aa55c", "#d6c08b", "#4e9c9a", "#577b48"],
+        "seal": "Trail mark",
+        "desc": "Meet a traveler, listen to a mystery and explore at your own pace.",
+        "preview": "tree-oak",
+        "biome": "meadow"
+      },
+      "biome": "meadow",
+      "dependencies": ["visual:tree-oak"]
     },
     {
       "id": "rules:bakery-row/battle",
@@ -8427,6 +8744,152 @@
             "heavy": "a heavy blow",
             "charge": "gathering strength",
             "brace": "bracing; your next strike after this will be halved"
+          }
+        }
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/battle",
+      "family": "rules",
+      "runtimeId": "the-fernling-at-dusk/battle",
+      "name": "The Fernling at Dusk battle",
+      "description": "Validated battle tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "The Fernling at Dusk battle",
+        "definition": {
+          "focusMax": 3,
+          "focusStart": 2,
+          "guardFactor": 0.35
+        }
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/economy",
+      "family": "rules",
+      "runtimeId": "the-fernling-at-dusk/economy",
+      "name": "The Fernling at Dusk economy",
+      "description": "Validated economy tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "The Fernling at Dusk economy",
+        "definition": {
+          "caps": {
+            "coins": 9999,
+            "potions": 99,
+            "orbs": 99
+          },
+          "restFloor": {
+            "orbs": 12,
+            "potions": 1
+          },
+          "shop": [],
+          "rewards": {
+            "wild": {
+              "coins": [0, 0],
+              "xp": 1
+            },
+            "guardianRepeat": {
+              "coins": 0,
+              "xp": 1
+            },
+            "capture": {
+              "coins": 0,
+              "xp": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/moves",
+      "family": "rules",
+      "runtimeId": "the-fernling-at-dusk/moves",
+      "name": "The Fernling at Dusk moves",
+      "description": "Validated moves tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "The Fernling at Dusk moves",
+        "definition": {
+          "elemental": {
+            "power": 16,
+            "upgradedPower": 20,
+            "focusCost": 1,
+            "focusGain": 1
+          },
+          "strongMultiplier": 1.6,
+          "weakMultiplier": 0.65
+        }
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/progression",
+      "family": "rules",
+      "runtimeId": "the-fernling-at-dusk/progression",
+      "name": "The Fernling at Dusk progression",
+      "description": "Validated progression tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "The Fernling at Dusk progression",
+        "definition": {
+          "xpPerLevel": 45,
+          "baseLevel": 5,
+          "maxLevel": 15,
+          "moveUpgradeLevel": 10,
+          "maxXp": 450,
+          "catchUpGap": 2,
+          "catchUpBonus": 1.5,
+          "benchShare": 0.5,
+          "partySize": 3
+        }
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/tactics",
+      "family": "rules",
+      "runtimeId": "the-fernling-at-dusk/tactics",
+      "name": "The Fernling at Dusk tactics",
+      "description": "Validated tactics tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "The Fernling at Dusk tactics",
+        "definition": {
+          "defaultPattern": ["strike", "element"],
+          "heavyFactor": 1.8,
+          "braceFactor": 0.5,
+          "patterns": {
+            "spore-guard": {
+              "name": "Spore guard",
+              "pattern": ["strike", "brace"],
+              "intro": "It curls behind a cloud of spores. Right after it braces, your attack is halved, so use that turn to Guard or heal and save your elemental move for when it opens up."
+            },
+            "rolling-charge": {
+              "name": "Rolling charge",
+              "pattern": ["strike", "charge", "heavy"],
+              "intro": "It gathers strength, then lands a heavy blow. Watch the line under the log and Guard when the heavy blow is next."
+            },
+            "frost-chorus": {
+              "name": "Frost chorus",
+              "pattern": ["element", "element", "strike"],
+              "intro": "It keeps using its elemental move. A teammate that resists it, or healing between volleys, makes the difference."
+            },
+            "tidal-current": {
+              "name": "Tidal current",
+              "pattern": ["element", "charge", "heavy"],
+              "intro": "A wave builds before the crash. Use the quiet turn to heal or prepare, then Guard when the line calls out the heavy blow."
+            }
+          },
+          "intentText": {
+            "strike": "a quick strike",
+            "element": "its elemental move",
+            "heavy": "a heavy blow (Guard softens it)",
+            "charge": "gathering strength",
+            "brace": "bracing (your next attack will be halved)"
           }
         }
       }
@@ -9418,6 +9881,38 @@
       "dependencies": ["visual:creature-voltkit"]
     },
     {
+      "id": "species:the-fernling-at-dusk/fernling",
+      "family": "species",
+      "runtimeId": "the-fernling-at-dusk/fernling",
+      "name": "Fernling",
+      "description": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "fernling",
+        "name": "Fernling",
+        "type": "Leaf",
+        "stats": {
+          "hp": 42,
+          "attack": 10,
+          "defense": 10
+        },
+        "move": "leaf-burst",
+        "biome": "meadow",
+        "role": "Balanced trailblazer",
+        "personality": "Curious and brave; it tests every new path before the rest of the team.",
+        "desc": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+        "encounterHint": "Start in the meadow tall grass, close to camp.",
+        "strong": [],
+        "weak": [],
+        "color": "#bade7e",
+        "hp": 42,
+        "sprite": "creature-fernling"
+      },
+      "sprite": "creature-fernling",
+      "dependencies": ["visual:creature-fernling"]
+    },
+    {
       "id": "terrain-art:bridge-reed-a",
       "family": "terrain-art",
       "runtimeId": "bridge-reed-a",
@@ -10021,6 +10516,19 @@
       }
     },
     {
+      "id": "type:the-fernling-at-dusk/leaf",
+      "family": "type",
+      "runtimeId": "the-fernling-at-dusk/leaf",
+      "name": "Leaf",
+      "description": "Leaf",
+      "source": "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "leaf",
+        "name": "Leaf"
+      }
+    },
+    {
       "id": "visual:boulder-mossy",
       "family": "visual",
       "runtimeId": "boulder-mossy",
@@ -10259,7 +10767,7 @@
           "frameHeight": 200,
           "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -10390,9 +10898,9 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["north", "northwest", "west", "southwest", "south", "east", "southeast", "northeast"],
+          "rowOrder": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -10532,7 +11040,7 @@
           "frameHeight": 200,
           "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -10670,12 +11178,12 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
+          "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
           "mirror": {
             "southeast": "southwest"
           },
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -10808,7 +11316,7 @@
           "frameHeight": 200,
           "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -10941,7 +11449,7 @@
           "frameHeight": 200,
           "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -11072,9 +11580,9 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["north", "northeast", "east", "southwest", "south", "west", "northwest", "southeast"],
+          "rowOrder": ["north", "northeast", "east", "west", "south", "northwest", "southeast", "southwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -11205,9 +11713,9 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["north", "northeast", "east", "southwest", "south", "southeast", "west", "northwest"],
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -11340,7 +11848,7 @@
           "frameHeight": 200,
           "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -11473,7 +11981,7 @@
           "frameHeight": 200,
           "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -11606,7 +12114,7 @@
           "frameHeight": 200,
           "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -11737,9 +12245,9 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["north", "northeast", "east", "south", "southeast", "west", "northwest", "southwest"],
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-          "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
       },
       "dimensions": "1000 by 1600 source pixels",
@@ -11892,8 +12400,22 @@
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
               "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
             }
-          ]
+          ],
+          "walkSourceColumnOrder": {
+            "northeast": [1, 2, 4, 3],
+            "southwest": [1, 2, 4, 3]
+          }
         },
         "npcs": [
           {
@@ -11993,8 +12515,22 @@
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
               "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
             }
-          ]
+          ],
+          "walkSourceColumnOrder": {
+            "northeast": [1, 2, 4, 3],
+            "southwest": [1, 2, 4, 3]
+          }
         },
         "npcs": [
           {
@@ -12060,7 +12596,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At the renderer’s 52 × 84 px size, NE/NW/SW alternate readable walk poses with measured boot travel of 9.6/9.6/12.8 px; the unchanged SE control measures 8.8 px. NW mirrors NE. Owner gameplay taste remains pending.",
+          "reason": "At 52 × 84 px gameplay scale, NE/NW/SW expose opposing stride poses with 8.4/8.4/12.8 px foot travel; West uses an independently generated opposite-leg pose. The runtime test checks walk and run playback, foot anchors and reduced motion. Owner gameplay taste remains pending.",
           "ownerTaste": "pending"
         }
       ],
@@ -12106,8 +12642,22 @@
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
               "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
             }
-          ]
+          ],
+          "walkSourceColumnOrder": {
+            "northeast": [1, 2, 4, 3],
+            "southwest": [1, 2, 4, 3]
+          }
         },
         "npcs": [
           {
@@ -12207,8 +12757,22 @@
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
               "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
             }
-          ]
+          ],
+          "walkSourceColumnOrder": {
+            "northeast": [1, 2, 4, 3],
+            "southwest": [1, 2, 4, 3]
+          }
         },
         "npcs": [
           {
@@ -12308,8 +12872,22 @@
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
               "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
             }
-          ]
+          ],
+          "walkSourceColumnOrder": {
+            "northeast": [1, 2, 4, 3],
+            "southwest": [1, 2, 4, 3]
+          }
         },
         "npcs": [
           {
@@ -12409,8 +12987,22 @@
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
               "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
             }
-          ]
+          ],
+          "walkSourceColumnOrder": {
+            "northeast": [1, 2, 4, 3],
+            "southwest": [1, 2, 4, 3]
+          }
         },
         "npcs": [
           {
@@ -12517,8 +13109,22 @@
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
               "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
             }
-          ]
+          ],
+          "walkSourceColumnOrder": {
+            "northeast": [1, 2, 4, 3],
+            "southwest": [1, 2, 4, 3]
+          }
         },
         "npcs": [
           {
