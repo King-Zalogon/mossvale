@@ -9,7 +9,8 @@ export const RUN_SPEED = 4.7;
 export const DIRECTIONS = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
 export const FACING = Object.freeze(Object.fromEntries(DIRECTIONS.map((name, index) => [name, index])));
 export const WALK_FRAME_DISTANCE = 0.56;
-export const FOLLOWER_FRAME_DISTANCE = 0.72;
+// Followers travel at the player's pace. Sharing the stride distance keeps both gaits phase-stable as zoom changes.
+export const FOLLOWER_FRAME_DISTANCE = WALK_FRAME_DISTANCE;
 
 /** Sprite-sheet column for the current animation state; running advances faster through its greater travel. */
 export function playerFrame(distance, moving, reducedMotion = false, frameDistance = WALK_FRAME_DISTANCE) {

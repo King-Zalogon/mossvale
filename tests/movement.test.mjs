@@ -80,7 +80,7 @@ test('idle and reduced motion hold the idle cell; walking advances by distance a
   assert.equal(playerFrame(WALK_FRAME_DISTANCE, true), 2);
   assert.equal(playerFrame(WALK_FRAME_DISTANCE * 4, true), 1);
   assert.equal(playerFrame(3, true, true), 0);
-  assert.equal(followerFrame(0.71, true), 1);
+  assert.equal(followerFrame(WALK_FRAME_DISTANCE - 0.01, true), 1);
   assert.equal(followerFrame(FOLLOWER_FRAME_DISTANCE, true), 2);
   assert.equal(followerFrame(FOLLOWER_FRAME_DISTANCE * 4, true), 1);
   assert.equal(followerFrame(3, true, true), 0);

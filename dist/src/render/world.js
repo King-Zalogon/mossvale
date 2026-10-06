@@ -3,7 +3,7 @@ import {species} from '../data/species.js';
 import {assets, spriteId} from '../data/assets.js';
 import {regions} from '../data/regions.js';
 import {TILE_H, TILE_W} from '../config.js';
-import {FACING, FOLLOWER_FRAME_DISTANCE, directionPose, followerFrame, movementFacing, playerFrame, playerSpritePose} from '../domain/exploration.js';
+import {FACING, directionPose, followerFrame, movementFacing, playerFrame, playerSpritePose} from '../domain/exploration.js';
 import {unlocked} from '../domain/rules.js';
 import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
 import {isKnown, isRevealed} from '../domain/discovery.js';
@@ -185,12 +185,9 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       const openedChest = o.kind === 'chest' && save.chests.includes(region);
       if (openedChest) drawSprite(ctx, o.id, s.x, s.y, o.w * zoom, {alpha: 0.45});
       else {
-        const bob =
-          o.kind === 'companion' && !v.reducedMotion
-            ? o.moving
-              ? Math.sin((followerMotion.distance * Math.PI * 2) / (FOLLOWER_FRAME_DISTANCE * 4)) * 0.7 * zoom
-              : Math.sin(now / 950) * 0.45 * zoom
-            : 0;
+        // Walking cells carry the gait. Keep feet anchored to the ground instead of adding a distance-driven
+        // subpixel bob that makes this small pixel-art sprite pop at every zoom level.
+        const bob = o.kind === 'companion' && !o.moving && !v.reducedMotion ? Math.sin(now / 950) * 0.45 * zoom : 0;
         const tint = region === 2 && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : region === 1 && o.kind === 'grass' ? 'sepia(.5)' : 'none';
         const options = {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1};
         if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});

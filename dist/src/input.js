@@ -33,23 +33,30 @@ export function installInput(app) {
       b.setPointerCapture(e.pointerId);
       ui.touch = b.dataset.dir.split(',').map(Number);
     };
-    b.onpointerup = b.onpointercancel = b.onlostpointercapture = e => {
-      if (activeTouchPointer !== e.pointerId) return;
-      activeTouchPointer = null;
-      ui.touch = null;
-    };
+    b.onpointerup =
+      b.onpointercancel =
+      b.onlostpointercapture =
+        e => {
+          if (activeTouchPointer !== e.pointerId) return;
+          activeTouchPointer = null;
+          ui.touch = null;
+        };
   }
   // Pointer capture keeps delivering movement to the pressed button. Resolve
   // the element under the finger so dragging across the pad changes direction.
-  window.addEventListener('pointermove', e => {
-    if (e.pointerId !== activeTouchPointer) return;
-    if (ui.modalMode || ui.paused || ui.speechActive) {
-      ui.touch = null;
-      return;
-    }
-    const target = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-dir]');
-    ui.touch = target?.closest('.touchpad') ? target.dataset.dir.split(',').map(Number) : null;
-  }, {passive: true});
+  window.addEventListener(
+    'pointermove',
+    e => {
+      if (e.pointerId !== activeTouchPointer) return;
+      if (ui.modalMode || ui.paused || ui.speechActive) {
+        ui.touch = null;
+        return;
+      }
+      const target = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-dir]');
+      ui.touch = target?.closest('.touchpad') ? target.dataset.dir.split(',').map(Number) : null;
+    },
+    {passive: true},
+  );
 
   window.addEventListener('keydown', e => {
     if (!ui.ready) return;
