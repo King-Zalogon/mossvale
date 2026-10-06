@@ -7,6 +7,20 @@ export const sprites = [];
 const tinted = new Map();
 const animationRuns = new WeakMap();
 
+const ELEMENT_COLORS = {
+  Leaf: '#bade7e',
+  Fire: '#ff9a5c',
+  Water: '#83dbe8',
+  Air: '#d1c7ff',
+  Spark: '#f7e36d',
+  Bloom: '#e99bd3',
+  Ice: '#b9e8ff',
+  Stone: '#c6b18e',
+  Mire: '#9bc47b',
+  Sand: '#f2c17b',
+  Frost: '#c7e8ff',
+};
+
 /** A copy of sprite `id` with the canvas `filter` baked in once. Applying `ctx.filter` per draw is re-rasterised every frame. */
 function tintedSprite(id, tint) {
   const key = id + '|' + tint;
@@ -83,16 +97,49 @@ export function drawCreature(canvasEl, speciesId, width = 105) {
   drawSprite(c, species[speciesId].sprite, c.canvas.width / 2, c.canvas.height - 7, width);
 }
 
+/** Draws a deterministic elemental burst over the regular attack frame. It keeps the existing atlas contract intact. */
+function drawElementBurst(c, speciesId, progress) {
+  const color = ELEMENT_COLORS[species[speciesId].type] ?? '#c5de88';
+  const cx = c.canvas.width / 2;
+  const cy = c.canvas.height * 0.48;
+  const radius = 18 + progress * 35;
+  c.save();
+  c.globalCompositeOperation = 'lighter';
+  c.globalAlpha = 0.72 * (1 - progress * 0.65);
+  c.strokeStyle = color;
+  c.lineWidth = 3;
+  c.beginPath();
+  c.arc(cx, cy, radius, 0, Math.PI * 2);
+  c.stroke();
+  c.fillStyle = color;
+  for (let i = 0; i < 6; i++) {
+    const angle = i * (Math.PI / 3) + progress * 2.4;
+    const distance = radius + 8;
+    const size = 3 + (i % 2);
+    c.beginPath();
+    c.arc(cx + Math.cos(angle) * distance, cy + Math.sin(angle) * distance, size, 0, Math.PI * 2);
+    c.fill();
+  }
+  c.restore();
+}
+
 /** Paints a creature combat state from its optional multi-frame sheet; other species keep the static portrait. */
 export function drawCreatureAnimated(canvasEl, speciesId, width = 105, state = 'idle', reducedMotion = false) {
   const name = `creature-${species[speciesId].id}-combat`;
   const sheetId = assets.findIndex(asset => asset.name === name);
   const frames = assets[sheetId]?.frames;
   const c = canvasEl?.getContext('2d');
-  if (!c || !frames) return drawCreature(canvasEl, speciesId, width);
+  if (!c || !frames) {
+    drawCreature(canvasEl, speciesId, width);
+    if (state === 'element') {
+      canvasEl.dataset.combatState = state;
+      drawElementBurst(c, speciesId, reducedMotion ? 0.45 : 0);
+    }
+    return;
+  }
 
   const rows = {idle: 0, attack: 1, hit: 2, faint: 3, capture: 4};
-  const row = rows[state] ?? 0;
+  const row = rows[state] ?? rows.attack;
   const run = {};
   animationRuns.set(canvasEl, run);
   canvasEl.classList.add('creature-sprite');
@@ -105,12 +152,13 @@ export function drawCreatureAnimated(canvasEl, speciesId, width = 105, state = '
     canvasEl.dataset.combatFrame = String(column);
     c.clearRect(0, 0, c.canvas.width, c.canvas.height);
     drawSprite(c, sheetId, c.canvas.width / 2, c.canvas.height - 7, width, {frame: {column, row}});
+    if (state === 'element') drawElementBurst(c, speciesId, Math.min(1, column / Math.max(1, frames.columns - 1)));
   };
   paint(state === 'idle' || reducedMotion ? (state === 'idle' ? 0 : 3) : 0);
   if (reducedMotion) return;
 
   const start = performance.now();
-  const delay = state === 'idle' ? 220 : state === 'attack' ? 105 : state === 'hit' ? 80 : state === 'faint' ? 160 : 130;
+  const delay = state === 'idle' ? 220 : state === 'element' ? 120 : state === 'attack' ? 105 : state === 'hit' ? 80 : state === 'faint' ? 160 : 130;
   const tick = now => {
     if (!canvasEl.isConnected || animationRuns.get(canvasEl) !== run) return;
     const elapsed = now - start;

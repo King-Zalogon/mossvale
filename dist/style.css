@@ -1068,6 +1068,9 @@ canvas#buddy {
 .fighter canvas.attack {
   animation: attack 0.4s;
 }
+.fighter canvas.element {
+  animation: element 0.55s;
+}
 .fighter canvas.catching {
   animation: creature-capture 0.72s steps(4, end) both;
 }
@@ -1076,6 +1079,7 @@ canvas#buddy {
   animation: creature-breathe 1.8s steps(2, end) infinite;
 }
 .fighter canvas.attack,
+.fighter canvas.element,
 .fighter canvas.hit,
 .fighter canvas.catching {
   animation-iteration-count: 1;
@@ -1414,6 +1418,18 @@ canvas#buddy {
   45%,
   65% {
     transform: translateX(18px) scale(1.04);
+  }
+}
+@keyframes element {
+  0%,
+  100% {
+    transform: translateX(0) scale(1);
+  }
+  35% {
+    transform: translateX(10px) scale(1.06);
+  }
+  70% {
+    transform: translateX(20px) scale(1.02);
   }
 }
 @keyframes creature-breathe {

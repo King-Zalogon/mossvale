@@ -682,7 +682,13 @@ export function createController(app) {
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
         player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.brokeBrace ? ' It broke through the brace!' : e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
-        frames.push({message: player, animation: 'attack', after: e.after, sfx: e.kind === 'element' ? 'element' : 'strike', wait: wait(650)});
+        frames.push({
+          message: player,
+          animation: e.kind === 'element' ? 'element' : 'attack',
+          after: e.after,
+          sfx: e.kind === 'element' ? 'element' : 'strike',
+          wait: wait(650),
+        });
       } else if (e.type === 'throw') {
         player = 'The creature broke free of the orb.';
         frames.push({message: 'The orb glows… will your new friend stay?', animation: 'capture', after: e.after, sfx: 'throw', wait: wait(850)});
