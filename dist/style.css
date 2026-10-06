@@ -187,19 +187,27 @@ h1 {
   pointer-events: none;
 }
 .toast {
+  z-index: 7;
   position: absolute;
-  bottom: 23px;
+  top: 18px;
+  bottom: auto;
   left: 50%;
   transform: translateX(-50%);
-  background: #153328ed;
-  border: 1px solid #6b875b;
-  border-radius: 7px;
-  padding: 12px 18px;
-  font-size: 13px;
-  max-width: 85%;
+  max-width: min(540px, calc(100% - 220px));
+  padding: 9px 14px;
+  border: 2px solid #293d31;
+  border-radius: 9px;
+  background: #fff8dc;
+  color: #25382d;
+  box-shadow:
+    0 4px 0 #293d3133,
+    0 8px 20px #14251e44;
+  font-size: 14px;
+  line-height: 1.4;
   text-align: center;
   transition: opacity 0.4s;
   pointer-events: none;
+  overflow-wrap: anywhere;
 }
 .interaction {
   position: absolute;
@@ -619,13 +627,6 @@ footer {
   .touchpad {
     display: grid;
   }
-  .toast {
-    bottom: 20px;
-    left: 63%;
-    max-width: 58%;
-    font-size: 11px;
-    padding: 9px;
-  }
   .world-tag {
     font-size: 9px;
     left: 12px;
@@ -822,10 +823,6 @@ canvas#buddy {
 .world-tag {
   font-size: 12px;
   letter-spacing: 1px;
-}
-.toast {
-  font-size: 14px;
-  bottom: 20px;
 }
 .interaction {
   font-size: 14px;
@@ -1603,15 +1600,6 @@ canvas#buddy {
   .touch-run {
     display: block;
   }
-  .toast {
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 138px;
-    max-width: 88%;
-    width: max-content;
-    font-size: 12px;
-    padding: 9px 12px;
-  }
   .interaction {
     bottom: 181px;
     font-size: 12px;
@@ -2288,14 +2276,6 @@ body.text-larger .heading {
   .zoom-controls {
     display: none;
   }
-  .toast {
-    bottom: 130px;
-    left: 50%;
-    max-width: min(68%, 520px);
-    transform: translateX(-50%);
-    font-size: 13px;
-    z-index: 6;
-  }
   .interaction {
     top: 14px;
     bottom: auto;
@@ -2598,4 +2578,36 @@ body[data-input-mode='desktop'] .game-footer > .keyboard-hint:first-child {
 }
 .game-footer {
   flex-wrap: wrap;
+}
+
+/* Short map guidance and discovery feedback shares the clear, light visual language of authored map notes. */
+.viewport.toast-open .world-tag,
+.viewport.toast-open .objective-pin {
+  display: none;
+}
+@media (max-width: 760px) {
+  .viewport.toast-open .minimap-box,
+  .viewport.toast-open .zoom-controls {
+    display: none;
+  }
+  .toast {
+    top: 12px;
+    max-width: calc(100% - 24px);
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+}
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 700px) {
+  .viewport.toast-open .minimap-box {
+    display: block;
+  }
+  .toast {
+    top: 12px;
+    left: 12px;
+    max-width: min(72%, calc(100% - 180px));
+    max-height: 56px;
+    overflow-y: auto;
+    transform: none;
+    text-align: left;
+  }
 }
