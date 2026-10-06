@@ -18,7 +18,10 @@
         }
       ],
       "dependencies": [],
-      "limits": ["No arbitrary movement or sleep choreography action.", "Scene event history is limited to 256 entries."],
+      "limits": [
+        "No arbitrary movement or sleep choreography action.",
+        "Scene event history is limited to 256 entries."
+      ],
       "examples": [
         {
           "intent": "Run validated dialogue, reward, flag or challenge actions on interaction.",
@@ -26,7 +29,9 @@
           "expected": "Run validated dialogue, reward, flag or challenge actions on interaction."
         }
       ],
-      "references": ["dist/src/domain/scenes.js"],
+      "references": [
+        "dist/src/domain/scenes.js"
+      ],
       "evidence": [
         {
           "path": "tests/scenes.test.mjs",
@@ -62,7 +67,9 @@
           "expected": "Consume one mapped potion and heal the active companion according to its pack definition."
         }
       ],
-      "references": ["dist/src/domain/battle.js"],
+      "references": [
+        "dist/src/domain/battle.js"
+      ],
       "evidence": [
         {
           "path": "tests/battle-actions.test.mjs",
@@ -80,40 +87,6 @@
       }
     },
     {
-      "id": "mechanic:scene-dialogue",
-      "kind": "mechanic",
-      "name": "Scene dialogue",
-      "summary": "Display authored scene dialogue with a validated speaker.",
-      "status": "available",
-      "scope": "optional-pack",
-      "configuration": [],
-      "dependencies": [],
-      "limits": ["Use the existing validated pack format; this fiche does not introduce new runtime behavior."],
-      "examples": [
-        {
-          "intent": "Display authored scene dialogue with a validated speaker.",
-          "usage": "Consult dist/src/domain/scenes.js and reuse the existing definition.",
-          "expected": "Display authored scene dialogue with a validated speaker."
-        }
-      ],
-      "references": ["dist/src/domain/scenes.js"],
-      "evidence": [
-        {
-          "path": "tests/speech.browser.mjs",
-          "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
-        }
-      ],
-      "details": {
-        "trigger": "Scene interaction.",
-        "inputs": "Dialogue text and optional speaker reference.",
-        "sequence": "Collect dialogue actions in order for the existing dialogue presentation.",
-        "results": "Speaker-associated dialogue lines; domain function itself does not draw balloons.",
-        "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
-        "errors": "Unknown speaker or text outside 1\u2013500 characters fails validation.",
-        "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
-      }
-    },
-    {
       "id": "mechanic:brief-scaffold",
       "kind": "mechanic",
       "name": "Structured brief scaffold",
@@ -122,7 +95,9 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": ["This does not turn every scene intent into a fully authored playable interaction."],
+      "limits": [
+        "This does not turn every scene intent into a fully authored playable interaction."
+      ],
       "examples": [
         {
           "intent": "Compile a brief into an isolated validated candidate pack scaffold.",
@@ -130,7 +105,9 @@
           "expected": "Compile a brief into an isolated validated candidate pack scaffold."
         }
       ],
-      "references": ["scripts/compile-brief.mjs"],
+      "references": [
+        "scripts/compile-brief.mjs"
+      ],
       "evidence": [
         {
           "path": "tests/authoring-tools.test.mjs",
@@ -148,71 +125,44 @@
       }
     },
     {
-      "id": "mechanic:inventory-transactions",
+      "id": "mechanic:catalogue-authoring",
       "kind": "mechanic",
-      "name": "Pack bag and storage",
-      "summary": "Buy, sell eligible valuables and move pack items between bag and storage.",
+      "name": "Local authoring catalogue",
+      "summary": "Generate and validate resource fiches from canonical records and reviewed templates.",
       "status": "available",
-      "scope": "optional-pack",
+      "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": ["Generic useInventory/rollDrop/gatherInventory domain helpers do not prove live exploration consumption or automatic loot."],
+      "limits": [
+        "Structural and diff checks do not prove prose accuracy; scoped exceptions require reviewer assessment."
+      ],
       "examples": [
         {
-          "intent": "Buy, sell eligible valuables and move pack items between bag and storage.",
-          "usage": "Use the existing contract documented at dist/src/domain/inventory.js.",
-          "expected": "Buy, sell eligible valuables and move pack items between bag and storage."
+          "intent": "Generate and validate resource fiches from canonical records and reviewed templates.",
+          "usage": "Run npm run catalogue:write then npm run catalogue:check.",
+          "expected": "Deterministic output and validated references."
         }
       ],
-      "references": ["dist/src/domain/inventory.js"],
+      "references": [
+        "scripts/catalogue.mjs",
+        "content/catalogue/schema.json",
+        "content/catalogue/templates.json",
+        "content/catalogue/curated.json"
+      ],
       "evidence": [
         {
-          "path": "tests/inventory.test.mjs",
-          "assertion": "Existing regression evidence for this capability."
+          "path": "tests/catalogue.test.mjs",
+          "assertion": "Deterministic generation, source freshness, references and diff-impact failure cases."
         }
       ],
       "details": {
-        "trigger": "Ranger inventory UI when selected pack enables inventory.",
-        "inputs": "Known item, quantity, validated prices/capacities and existing counts.",
-        "sequence": "Draft transaction validated and committed through existing persistence.",
-        "results": "All-or-nothing purchase, sale or storage transfer.",
-        "cancellation": "Failure preserves previous state.",
-        "errors": "Unknown item, insufficient supply/currency, full bag/storage or persistence failure refuse operation.",
-        "persistence": "Optional inventory is stored in v5 saves; supply mappings preserve legacy potion/orb counts."
-      }
-    },
-    {
-      "id": "mechanic:staged-objectives",
-      "kind": "mechanic",
-      "name": "Staged objectives and choices",
-      "summary": "Advance optional objectives from recorded events and select conditional dialogue choices.",
-      "status": "available",
-      "scope": "optional-pack",
-      "configuration": [],
-      "dependencies": [],
-      "limits": ["No arbitrary executable quest scripts or full narrative engine."],
-      "examples": [
-        {
-          "intent": "Advance optional objectives from recorded events and select conditional dialogue choices.",
-          "usage": "Use the existing contract documented at dist/src/domain/objective-events.js.",
-          "expected": "Advance optional objectives from recorded events and select conditional dialogue choices."
-        }
-      ],
-      "references": ["dist/src/domain/objective-events.js"],
-      "evidence": [
-        {
-          "path": "tests/objective-choices.browser.mjs",
-          "assertion": "Existing regression evidence for this capability."
-        }
-      ],
-      "details": {
-        "trigger": "Existing controller events or an eligible dialogue choice.",
-        "inputs": "Validated objective stages, conditions and event definitions.",
-        "sequence": "Record event, evaluate current stage, apply completion at most once.",
-        "results": "Stage progress and conditional choice results in existing UI.",
-        "cancellation": "Close/advance uses existing dialogue flow.",
-        "errors": "Unknown references/configuration fail owning validators.",
-        "persistence": "Objective progress and once-only rewards survive save/reload."
+        "trigger": "Authoring CLI invocation.",
+        "inputs": "Existing registries, audited templates and curated capabilities.",
+        "sequence": "Extract factual records, apply reviewed family descriptions, generate index/fiches/source hashes.",
+        "results": "Portable repository-local text/JSON index; visual browsing/export is a separate later step.",
+        "cancellation": "No runtime game state changes.",
+        "errors": "Invalid records, unknown IDs, unsafe/missing paths and stale output fail checks.",
+        "persistence": "Checked-in deterministic documentation, not adventure save data."
       }
     },
     {
@@ -224,7 +174,9 @@
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": ["This is not free-form flying, swimming or arbitrary companion interaction."],
+      "limits": [
+        "This is not free-form flying, swimming or arbitrary companion interaction."
+      ],
       "examples": [
         {
           "intent": "Optionally unlock a shallow-water route with a compatible companion.",
@@ -232,7 +184,9 @@
           "expected": "Optionally unlock a shallow-water route with a compatible companion."
         }
       ],
-      "references": ["dist/src/domain/world.js"],
+      "references": [
+        "dist/src/domain/world.js"
+      ],
       "evidence": [
         {
           "path": "tests/companion-route.browser.mjs",
@@ -250,6 +204,47 @@
       }
     },
     {
+      "id": "mechanic:elemental-combat-presentation",
+      "kind": "mechanic",
+      "name": "Elemental combat presentation",
+      "summary": "Show a distinct, type-colored elemental burst when a companion uses its special move.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "The burst reuses the optional five-state combat atlas and falls back to the static portrait when a pack has no combat sheet.",
+        "It does not change damage, timing, saves or battle outcomes."
+      ],
+      "examples": [
+        {
+          "intent": "Use the companion's elemental move during a battle.",
+          "usage": "Reuse the existing Element action; the presentation derives its color from the companion type.",
+          "expected": "The ally uses the elemental motion and a type-colored burst while the enemy receives the normal hit reaction."
+        }
+      ],
+      "references": [
+        "dist/src/controller.js",
+        "dist/src/render/sprites.js",
+        "dist/src/ui/battle-view.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/creature-combat.browser.mjs",
+          "assertion": "Battle playback distinguishes Quick strike and Element, and reduced motion pins the elemental presentation to one frame."
+        }
+      ],
+      "details": {
+        "trigger": "A resolved battle action with kind element.",
+        "inputs": "The existing companion type and optional five-state combat atlas.",
+        "sequence": "Render the attack row with a deterministic expanding type-colored burst and the elemental lunge motion.",
+        "results": "The ally's elemental move reads differently from Quick strike while the enemy receives the normal hit reaction.",
+        "cancellation": "The existing animation cancellation replaces the effect when the battle view changes.",
+        "errors": "Packs without combat atlases fall back to the static portrait; unsupported types use the shared green fallback color.",
+        "persistence": "Presentation-only; battle rules and saved outcomes are unchanged."
+      }
+    },
+    {
       "id": "mechanic:event-log",
       "kind": "mechanic",
       "name": "Deterministic event log",
@@ -258,7 +253,9 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["No general-purpose subscription/event bus is claimed."],
+      "limits": [
+        "No general-purpose subscription/event bus is claimed."
+      ],
       "examples": [
         {
           "intent": "Record ordered controller events for objectives, regression and debugging.",
@@ -266,7 +263,9 @@
           "expected": "Record ordered controller events for objectives, regression and debugging."
         }
       ],
-      "references": ["dist/src/domain/events.js"],
+      "references": [
+        "dist/src/domain/events.js"
+      ],
       "evidence": [
         {
           "path": "tests/integration.test.mjs",
@@ -284,37 +283,115 @@
       }
     },
     {
-      "id": "mechanic:save-recovery",
+      "id": "mechanic:guardian-counterplay",
       "kind": "mechanic",
-      "name": "Versioned pack saves",
-      "summary": "Persist adventure progress with checkpoints, migration and recovery.",
+      "name": "Guardian counterplay rewards",
+      "summary": "Reward a readable response to a regional guardian's forecasted tactic when the fight is won.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["Account checkpoint APIs need configured portal/database and are not a local catalogue prerequisite."],
+      "limits": [
+        "Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."
+      ],
       "examples": [
         {
-          "intent": "Persist adventure progress with checkpoints, migration and recovery.",
-          "usage": "Use the existing contract documented at dist/src/save.js.",
-          "expected": "Persist adventure progress with checkpoints, migration and recovery."
+          "intent": "Guard a forecast heavy blow and earn the guardian response bonus on victory.",
+          "usage": "Configure counterplay in a tactic under dist/maps/registries.json and use the existing Guard action.",
+          "expected": "The victory result names the response and includes its bonus coins and XP."
         }
       ],
-      "references": ["dist/src/save.js"],
+      "references": [
+        "dist/maps/registries.json",
+        "dist/src/domain/battle.js",
+        "dist/src/save.js",
+        "dist/src/controller.js"
+      ],
       "evidence": [
         {
-          "path": "tests/save-transaction.test.mjs",
+          "path": "tests/guardians.test.mjs",
+          "assertion": "Guardian response qualification, payout, checkpoint persistence and invalid-ID filtering."
+        }
+      ],
+      "details": {
+        "trigger": "A configured Guard, elemental response or resistant switch matches the guardian's current forecast.",
+        "inputs": "The player's action, the current and previous tactic actions, and the active/selected matchup.",
+        "sequence": "Record each configured response once, continue the normal enemy reply, and add its configured bonus only when the guardian is defeated.",
+        "results": "The normal guardian reward plus the response bonus and a readable response label on the victory result.",
+        "cancellation": "A lost or abandoned fight pays no response bonus; a saved interrupted fight retains already recorded responses.",
+        "errors": "Unknown response IDs in a saved battle are discarded during normalization.",
+        "persistence": "Recorded response IDs are part of the existing battle checkpoint and remain compatible with older saves."
+      }
+    },
+    {
+      "id": "mechanic:home-sleep",
+      "kind": "mechanic",
+      "name": "Animated home rest with a distinct temporary benefit",
+      "summary": "Proposed extension: Animated home rest with a distinct temporary benefit.",
+      "status": "proposed",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Motivating design request only; do not generate playable data that assumes support."
+      ],
+      "examples": [
+        {
+          "intent": "Proposed extension: Animated home rest with a distinct temporary benefit.",
+          "usage": "Use the existing contract documented at docs/AUTHORING_CONTRACT.md.",
+          "expected": "Proposed extension: Animated home rest with a distinct temporary benefit."
+        }
+      ],
+      "references": [
+        "docs/AUTHORING_CONTRACT.md"
+      ],
+      "evidence": [],
+      "details": {
+        "trigger": "Not implemented.",
+        "inputs": "Requires a new scoped specification.",
+        "sequence": "No executable sequence currently provided.",
+        "results": "Not selectable as an available capability.",
+        "cancellation": "Must define interruption behavior before implementation.",
+        "errors": "Report as a missing capability in the scene gap report.",
+        "persistence": "Must define compatible saved-state behavior before implementation."
+      }
+    },
+    {
+      "id": "mechanic:inventory-transactions",
+      "kind": "mechanic",
+      "name": "Pack bag and storage",
+      "summary": "Buy, sell eligible valuables and move pack items between bag and storage.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Generic useInventory/rollDrop/gatherInventory domain helpers do not prove live exploration consumption or automatic loot."
+      ],
+      "examples": [
+        {
+          "intent": "Buy, sell eligible valuables and move pack items between bag and storage.",
+          "usage": "Use the existing contract documented at dist/src/domain/inventory.js.",
+          "expected": "Buy, sell eligible valuables and move pack items between bag and storage."
+        }
+      ],
+      "references": [
+        "dist/src/domain/inventory.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/inventory.test.mjs",
           "assertion": "Existing regression evidence for this capability."
         }
       ],
       "details": {
-        "trigger": "Existing persistence boundary.",
-        "inputs": "Pack identity, validated runtime save and storage adapter.",
-        "sequence": "Normalize/serialize/commit through canonical codec and journal.",
-        "results": "Compatible progress recovery and pack-isolated save identity.",
-        "cancellation": "Failed writes preserve recovery data and report failure.",
-        "errors": "Invalid identities/schema do not silently overwrite unreadable progress.",
-        "persistence": "Schema v5; stable string IDs at storage boundary."
+        "trigger": "Ranger inventory UI when selected pack enables inventory.",
+        "inputs": "Known item, quantity, validated prices/capacities and existing counts.",
+        "sequence": "Draft transaction validated and committed through existing persistence.",
+        "results": "All-or-nothing purchase, sale or storage transfer.",
+        "cancellation": "Failure preserves previous state.",
+        "errors": "Unknown item, insufficient supply/currency, full bag/storage or persistence failure refuse operation.",
+        "persistence": "Optional inventory is stored in v5 saves; supply mappings preserve legacy potion/orb counts."
       }
     },
     {
@@ -326,7 +403,9 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": ["A valid JSON map still needs playability/reachability review."],
+      "limits": [
+        "A valid JSON map still needs playability/reachability review."
+      ],
       "examples": [
         {
           "intent": "Edit validated map data and preview it through the existing game.",
@@ -334,7 +413,9 @@
           "expected": "Edit validated map data and preview it through the existing game."
         }
       ],
-      "references": ["dist/map-editor.html"],
+      "references": [
+        "dist/map-editor.html"
+      ],
       "evidence": [
         {
           "path": "tests/editor.browser.mjs",
@@ -360,7 +441,9 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["No autonomous NPC schedules, free navigation commands or speed-potion mechanic."],
+      "limits": [
+        "No autonomous NPC schedules, free navigation commands or speed-potion mechanic."
+      ],
       "examples": [
         {
           "intent": "Move the player with footprint-aware collision and trail-following companions.",
@@ -368,7 +451,9 @@
           "expected": "Move the player with footprint-aware collision and trail-following companions."
         }
       ],
-      "references": ["dist/src/domain/exploration.js"],
+      "references": [
+        "dist/src/domain/exploration.js"
+      ],
       "evidence": [
         {
           "path": "tests/obstacle-sliding.browser.mjs",
@@ -386,35 +471,6 @@
       }
     },
     {
-      "id": "mechanic:timed-effects",
-      "kind": "mechanic",
-      "name": "Speed potions and multi-battle buffs",
-      "summary": "Proposed extension: Speed potions and multi-battle buffs.",
-      "status": "proposed",
-      "scope": "core",
-      "configuration": [],
-      "dependencies": [],
-      "limits": ["Motivating design request only; do not generate playable data that assumes support."],
-      "examples": [
-        {
-          "intent": "Proposed extension: Speed potions and multi-battle buffs.",
-          "usage": "Use the existing contract documented at docs/AUTHORING_CONTRACT.md.",
-          "expected": "Proposed extension: Speed potions and multi-battle buffs."
-        }
-      ],
-      "references": ["docs/AUTHORING_CONTRACT.md"],
-      "evidence": [],
-      "details": {
-        "trigger": "Not implemented.",
-        "inputs": "Requires a new scoped specification.",
-        "sequence": "No executable sequence currently provided.",
-        "results": "Not selectable as an available capability.",
-        "cancellation": "Must define interruption behavior before implementation.",
-        "errors": "Report as a missing capability in the scene gap report.",
-        "persistence": "Must define compatible saved-state behavior before implementation."
-      }
-    },
-    {
       "id": "mechanic:npc-navigation",
       "kind": "mechanic",
       "name": "Autonomous NPC movement and conversation choreography",
@@ -423,7 +479,9 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["Motivating design request only; do not generate playable data that assumes support."],
+      "limits": [
+        "Motivating design request only; do not generate playable data that assumes support."
+      ],
       "examples": [
         {
           "intent": "Proposed extension: Autonomous NPC movement and conversation choreography.",
@@ -431,7 +489,9 @@
           "expected": "Proposed extension: Autonomous NPC movement and conversation choreography."
         }
       ],
-      "references": ["docs/AUTHORING_CONTRACT.md"],
+      "references": [
+        "docs/AUTHORING_CONTRACT.md"
+      ],
       "evidence": [],
       "details": {
         "trigger": "Not implemented.",
@@ -444,23 +504,141 @@
       }
     },
     {
-      "id": "mechanic:home-sleep",
+      "id": "mechanic:save-recovery",
       "kind": "mechanic",
-      "name": "Animated home rest with a distinct temporary benefit",
-      "summary": "Proposed extension: Animated home rest with a distinct temporary benefit.",
+      "name": "Versioned pack saves",
+      "summary": "Persist adventure progress with checkpoints, migration and recovery.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Account checkpoint APIs need configured portal/database and are not a local catalogue prerequisite."
+      ],
+      "examples": [
+        {
+          "intent": "Persist adventure progress with checkpoints, migration and recovery.",
+          "usage": "Use the existing contract documented at dist/src/save.js.",
+          "expected": "Persist adventure progress with checkpoints, migration and recovery."
+        }
+      ],
+      "references": [
+        "dist/src/save.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/save-transaction.test.mjs",
+          "assertion": "Existing regression evidence for this capability."
+        }
+      ],
+      "details": {
+        "trigger": "Existing persistence boundary.",
+        "inputs": "Pack identity, validated runtime save and storage adapter.",
+        "sequence": "Normalize/serialize/commit through canonical codec and journal.",
+        "results": "Compatible progress recovery and pack-isolated save identity.",
+        "cancellation": "Failed writes preserve recovery data and report failure.",
+        "errors": "Invalid identities/schema do not silently overwrite unreadable progress.",
+        "persistence": "Schema v5; stable string IDs at storage boundary."
+      }
+    },
+    {
+      "id": "mechanic:scene-dialogue",
+      "kind": "mechanic",
+      "name": "Scene dialogue",
+      "summary": "Display authored scene dialogue with a validated speaker.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Use the existing validated pack format; this fiche does not introduce new runtime behavior."
+      ],
+      "examples": [
+        {
+          "intent": "Display authored scene dialogue with a validated speaker.",
+          "usage": "Consult dist/src/domain/scenes.js and reuse the existing definition.",
+          "expected": "Display authored scene dialogue with a validated speaker."
+        }
+      ],
+      "references": [
+        "dist/src/domain/scenes.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/speech.browser.mjs",
+          "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
+        }
+      ],
+      "details": {
+        "trigger": "Scene interaction.",
+        "inputs": "Dialogue text and optional speaker reference.",
+        "sequence": "Collect dialogue actions in order for the existing dialogue presentation.",
+        "results": "Speaker-associated dialogue lines; domain function itself does not draw balloons.",
+        "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
+        "errors": "Unknown speaker or text outside 1–500 characters fails validation.",
+        "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
+      }
+    },
+    {
+      "id": "mechanic:staged-objectives",
+      "kind": "mechanic",
+      "name": "Staged objectives and choices",
+      "summary": "Advance optional objectives from recorded events and select conditional dialogue choices.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "No arbitrary executable quest scripts or full narrative engine."
+      ],
+      "examples": [
+        {
+          "intent": "Advance optional objectives from recorded events and select conditional dialogue choices.",
+          "usage": "Use the existing contract documented at dist/src/domain/objective-events.js.",
+          "expected": "Advance optional objectives from recorded events and select conditional dialogue choices."
+        }
+      ],
+      "references": [
+        "dist/src/domain/objective-events.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/objective-choices.browser.mjs",
+          "assertion": "Existing regression evidence for this capability."
+        }
+      ],
+      "details": {
+        "trigger": "Existing controller events or an eligible dialogue choice.",
+        "inputs": "Validated objective stages, conditions and event definitions.",
+        "sequence": "Record event, evaluate current stage, apply completion at most once.",
+        "results": "Stage progress and conditional choice results in existing UI.",
+        "cancellation": "Close/advance uses existing dialogue flow.",
+        "errors": "Unknown references/configuration fail owning validators.",
+        "persistence": "Objective progress and once-only rewards survive save/reload."
+      }
+    },
+    {
+      "id": "mechanic:timed-effects",
+      "kind": "mechanic",
+      "name": "Speed potions and multi-battle buffs",
+      "summary": "Proposed extension: Speed potions and multi-battle buffs.",
       "status": "proposed",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["Motivating design request only; do not generate playable data that assumes support."],
+      "limits": [
+        "Motivating design request only; do not generate playable data that assumes support."
+      ],
       "examples": [
         {
-          "intent": "Proposed extension: Animated home rest with a distinct temporary benefit.",
+          "intent": "Proposed extension: Speed potions and multi-battle buffs.",
           "usage": "Use the existing contract documented at docs/AUTHORING_CONTRACT.md.",
-          "expected": "Proposed extension: Animated home rest with a distinct temporary benefit."
+          "expected": "Proposed extension: Speed potions and multi-battle buffs."
         }
       ],
-      "references": ["docs/AUTHORING_CONTRACT.md"],
+      "references": [
+        "docs/AUTHORING_CONTRACT.md"
+      ],
       "evidence": [],
       "details": {
         "trigger": "Not implemented.",
@@ -470,74 +648,6 @@
         "cancellation": "Must define interruption behavior before implementation.",
         "errors": "Report as a missing capability in the scene gap report.",
         "persistence": "Must define compatible saved-state behavior before implementation."
-      }
-    },
-    {
-      "id": "mechanic:catalogue-authoring",
-      "kind": "mechanic",
-      "name": "Local authoring catalogue",
-      "summary": "Generate and validate resource fiches from canonical records and reviewed templates.",
-      "status": "available",
-      "scope": "authoring-only",
-      "configuration": [],
-      "dependencies": [],
-      "limits": ["Structural and diff checks do not prove prose accuracy; scoped exceptions require reviewer assessment."],
-      "examples": [
-        {
-          "intent": "Generate and validate resource fiches from canonical records and reviewed templates.",
-          "usage": "Run npm run catalogue:write then npm run catalogue:check.",
-          "expected": "Deterministic output and validated references."
-        }
-      ],
-      "references": ["scripts/catalogue.mjs", "content/catalogue/schema.json", "content/catalogue/templates.json", "content/catalogue/curated.json"],
-      "evidence": [
-        {
-          "path": "tests/catalogue.test.mjs",
-          "assertion": "Deterministic generation, source freshness, references and diff-impact failure cases."
-        }
-      ],
-      "details": {
-        "trigger": "Authoring CLI invocation.",
-        "inputs": "Existing registries, audited templates and curated capabilities.",
-        "sequence": "Extract factual records, apply reviewed family descriptions, generate index/fiches/source hashes.",
-        "results": "Portable repository-local text/JSON index; visual browsing/export is a separate later step.",
-        "cancellation": "No runtime game state changes.",
-        "errors": "Invalid records, unknown IDs, unsafe/missing paths and stale output fail checks.",
-        "persistence": "Checked-in deterministic documentation, not adventure save data."
-      }
-    },
-    {
-      "id": "mechanic:guardian-counterplay",
-      "kind": "mechanic",
-      "name": "Guardian counterplay rewards",
-      "summary": "Reward a readable response to a regional guardian's forecasted tactic when the fight is won.",
-      "status": "available",
-      "scope": "core",
-      "configuration": [],
-      "dependencies": [],
-      "limits": ["Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."],
-      "examples": [
-        {
-          "intent": "Guard a forecast heavy blow and earn the guardian response bonus on victory.",
-          "usage": "Configure counterplay in a tactic under dist/maps/registries.json and use the existing Guard action.",
-          "expected": "The victory result names the response and includes its bonus coins and XP."
-        }
-      ],
-      "references": ["dist/maps/registries.json", "dist/src/domain/battle.js", "dist/src/save.js", "dist/src/controller.js"],
-      "evidence": [
-        {
-          "path": "tests/guardians.test.mjs",
-          "assertion": "Guardian response qualification, payout, checkpoint persistence and invalid-ID filtering."
-        }
-      ],
-      "details": {
-        "trigger": "A configured Guard, elemental response or resistant switch matches the guardian's current forecast.",
-        "inputs": "The player's action, the current and previous tactic actions, and the active/selected matchup.",
-        "sequence": "Record each configured response once, continue the normal enemy reply, and add its configured bonus only when the guardian is defeated.",
-        "results": "The normal guardian reward plus the response bonus and a readable response label on the victory result.",
-        "cancellation": "A lost or abandoned fight pays no response bonus; a saved interrupted fight retains already recorded responses.",
-        "errors": "Unknown response IDs in a saved battle are discarded during normalization.",
-        "persistence": "Recorded response IDs are part of the existing battle checkpoint and remain compatible with older saves."
       }
     }
   ],
