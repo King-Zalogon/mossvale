@@ -1,0 +1,89 @@
+{
+  "format": 1,
+  "id": "rest-at-home",
+  "title": "A safe night's rest",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "previousScene": {"id": "hearth-yard-welcome", "summary": "Wren welcomed the traveler and showed them the yard chest."},
+  "setting": {
+    "biomeId": "biome:meadow",
+    "mapId": "map:hearth-hamlet/hearth-yard",
+    "mapIntent": "The player returns to a home room with a visible bed and chooses to sleep; exact room geometry is for the builder to author and validate.",
+    "environment": ["Quiet home interior", "Bed", "Night fades into morning"],
+    "placementConstraints": ["The bed must be reachable and interactable", "The sleep interaction must not trigger accidentally on entering the room"]
+  },
+  "participants": [
+    {
+      "id": "player",
+      "identity": "The player character",
+      "resourceId": "visual:person-red-cap-south",
+      "role": "traveler",
+      "startingSituation": "Tired after returning home."
+    }
+  ],
+  "uses": [
+    {
+      "resourceId": "visual:person-red-cap-motion",
+      "purpose": "Reference the available player motion art; it does not provide a verified lying-down or wake-up animation."
+    },
+    {"resourceId": "mechanic:scene-dialogue", "purpose": "If an explanatory line is used, show it through the current manually advanced dialogue UI."}
+  ],
+  "beats": [
+    {"id": "choose-rest", "type": "player-action", "intent": "Player deliberately interacts with the bed to sleep."},
+    {
+      "id": "sleep-transition",
+      "type": "transition",
+      "intent": "Show the character settling into bed and waking at morning; do not imply these poses already exist."
+    },
+    {
+      "id": "apply-rest-benefit",
+      "type": "result",
+      "intent": "After sleeping, grant a configurable temporary party benefit that lasts for a clearly defined number of battles.",
+      "expectedResult": "The benefit survives save/reload, decrements only under its stated encounter rule, and cannot stack ambiguously."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "home-sleep-action",
+      "kind": "new-mechanic",
+      "description": "A deliberate bed interaction that sequences sleep/wake and safely cancels or retries if interrupted.",
+      "neededFor": "choose-rest and sleep-transition",
+      "priority": "required"
+    },
+    {
+      "id": "sleep-rest-animation",
+      "kind": "new-art",
+      "description": "Player sleep and wake poses aligned with the existing character sprite and foot/body anchors.",
+      "neededFor": "sleep-transition",
+      "priority": "optional"
+    },
+    {
+      "id": "persistent-battle-benefit",
+      "kind": "new-mechanic",
+      "description": "A configurable party effect with an explicit encounter counter, stacking/replacement rule, save migration, and flee/loss counting semantics.",
+      "neededFor": "apply-rest-benefit",
+      "priority": "required",
+      "dependsOn": ["home-sleep-action"]
+    }
+  ],
+  "completion": "Sleeping is optional, can be interrupted safely, and grants only the documented temporary benefit. Until the listed mechanics/art are implemented, this script is a proposal and must not be compiled or described as playable.",
+  "continuityIn": {
+    "characters": [{"id": "player", "identity": "The player character", "location": "Hearth Hamlet"}],
+    "flags": [{"id": "wren-welcomes-travelers", "value": true}],
+    "items": [{"resourceId": "item:mossvale/potion", "count": 1, "state": "held"}],
+    "canonicalFacts": [
+      {"id": "wren-welcomes-travelers", "statement": "Healer Wren welcomes travelers and keeps supplies in the yard chest.", "status": "active"}
+    ],
+    "decisions": [],
+    "pendingThreads": ["The player may ask Wren about the road in a later scene."]
+  },
+  "continuityOut": {
+    "characters": [{"id": "player", "identity": "The player character", "location": "Home bedroom"}],
+    "flags": [{"id": "wren-welcomes-travelers", "value": true}],
+    "items": [{"resourceId": "item:mossvale/potion", "count": 1, "state": "held"}],
+    "canonicalFacts": [
+      {"id": "wren-welcomes-travelers", "statement": "Healer Wren welcomes travelers and keeps supplies in the yard chest.", "status": "active"}
+    ],
+    "decisions": [],
+    "pendingThreads": ["The player may ask Wren about the road in a later scene."]
+  }
+}

@@ -5,9 +5,20 @@ import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCU
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
+import {claimInventory, inventoryToSupplies, rollDrop, syncInventorySupplies, useInventory} from './inventory.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
+
+function inventoryDrop(save, table, key, rng, rules) {
+  if (!rules || !save.inventory) return [];
+  const drop = rollDrop(rules, table, rng);
+  if (!drop) return [];
+  const result = claimInventory(save.inventory, key, [drop], rules);
+  if (!result.ok) return [];
+  Object.assign(save, inventoryToSupplies(save.inventory, save, rules));
+  return result.grants;
+}
 
 /** Shrine challenges follow the current party's average level; ordinary encounters never scale. */
 export function guardianLevel(save, guardian) {
@@ -65,8 +76,27 @@ export function createBattle(save, rng, {id, level: enemyLevel, boss = false, ta
     focus: FOCUS_START,
     tactic: boss ? tactic : undefined,
     power: boss ? power : 1,
+    counterplay: [],
     over: false,
   };
+}
+
+function counterplayFor(save, battle, action) {
+  if (!battle.boss) return [];
+  return (TACTICS[battle.tactic]?.counterplay ?? []).filter(response => {
+    if (response.action !== action.kind) return false;
+    if (response.next && nextEnemyAction(battle) !== response.next) return false;
+    if (response.previous && lastEnemyAction(battle) !== response.previous) return false;
+    if (response.resistant && (action.id === undefined || effectiveness(battle.id, action.id) >= effectiveness(battle.id, save.active))) return false;
+    return true;
+  });
+}
+
+function recordCounterplay(save, battle, action) {
+  const found = counterplayFor(save, battle, action);
+  if (!found.length) return;
+  battle.counterplay ??= [];
+  for (const response of found) if (!battle.counterplay.includes(response.id)) battle.counterplay.push(response.id);
 }
 
 export function captureChance(save, battle) {
@@ -103,10 +133,20 @@ export function usePotion(save) {
   return healed;
 }
 
+function useBattleItem(save, item, rules) {
+  if (!rules || !save.inventory) return null;
+  const healed = useInventory(save.inventory, item, {hp: companion(save).hp, maxHp: maxHP(save, save.active)}, rules);
+  if (!healed.ok) return null;
+  Object.assign(save, inventoryToSupplies(save.inventory, save, rules));
+  return healed;
+}
+
 /** Spends an orb; returns false if none is available or the target cannot be captured. */
-export function throwOrb(save, battle) {
+export function throwOrb(save, battle, rules) {
   if (battle.boss || save.orbs < 1) return false;
+  if (rules) syncInventorySupplies(save, rules);
   save.orbs--;
+  if (rules) syncInventorySupplies(save, rules);
   return true;
 }
 
@@ -174,20 +214,44 @@ export function resolveWin(save, battle, rng, ctx = {}) {
   const newSeal = battle.boss && !save.badges.includes(save.region);
   const seal = ctx.sealReward ?? {coins: 60, potions: 2, xp: 65}; // from the shrine in the map data
   const [lo, hi] = REWARDS.wild.coins;
-  const coins = newSeal ? seal.coins : battle.boss ? REWARDS.guardianRepeat.coins : lo + Math.floor(rng() * (hi - lo + 1));
-  const xp = newSeal ? seal.xp : battle.boss ? REWARDS.guardianRepeat.xp : REWARDS.wild.xp;
+  const responses = (TACTICS[battle.tactic]?.counterplay ?? []).filter(response => battle.counterplay?.includes(response.id));
+  const responseBonus = responses.reduce(
+    (sum, response) => ({
+      coins: sum.coins + (response.reward?.coins ?? 0),
+      potions: sum.potions + (response.reward?.potions ?? 0),
+      xp: sum.xp + (response.reward?.xp ?? 0),
+    }),
+    {coins: 0, potions: 0, xp: 0},
+  );
+  const coins = (newSeal ? seal.coins : battle.boss ? REWARDS.guardianRepeat.coins : lo + Math.floor(rng() * (hi - lo + 1))) + responseBonus.coins;
+  const xp = (newSeal ? seal.xp : battle.boss ? REWARDS.guardianRepeat.xp : REWARDS.wild.xp) + responseBonus.xp;
+  const itemRewards = battle.boss ? [] : inventoryDrop(save, 'wild-win', `defeat-${battle.id}-${save.wins + 1}`, rng, ctx.inventoryRules);
   save.wins++;
-  const got = grant(save, {coins, potions: newSeal ? seal.potions : 0});
+  const got = grant(save, {coins, potions: (newSeal ? seal.potions : 0) + responseBonus.potions});
+  if (ctx.inventoryRules) syncInventorySupplies(save, ctx.inventoryRules);
   const xpText = awardXP(save, xp).text;
   if (newSeal) {
     save.badges.push(save.region);
     healTeam(save);
   }
-  return {newSeal, reward: got.coins, xp, potions: got.potions, xpText, id: battle.id, boss: battle.boss};
+  return {
+    newSeal,
+    reward: got.coins,
+    xp,
+    potions: got.potions,
+    xpText,
+    id: battle.id,
+    boss: battle.boss,
+    responseLabels: responses.map(response => response.label),
+    responseCoins: responseBonus.coins,
+    responseXp: responseBonus.xp,
+    responsePotions: responseBonus.potions,
+    itemRewards,
+  };
 }
 
 /** Applies a successful capture. */
-export function resolveCapture(save, battle) {
+export function resolveCapture(save, battle, ctx = {}, rng = () => 0.5) {
   const id = battle.id;
   const isNew = !save.caught.includes(id);
   let joined = null;
@@ -198,10 +262,12 @@ export function resolveCapture(save, battle) {
     save.team[id] = {xp: Math.max(0, battle.level - BASE_LEVEL) * XP_PER_LEVEL, hp: 0};
     save.team[id].hp = maxHP(save, id);
   }
+  const itemRewards = inventoryDrop(save, 'capture', `capture-${battle.id}-${save.wins + 1}`, rng, ctx.inventoryRules);
   const xpText = awardXP(save, REWARDS.capture.xp).text;
   const got = grant(save, {coins: REWARDS.capture.coins});
+  if (ctx.inventoryRules) syncInventorySupplies(save, ctx.inventoryRules);
   save.wins++;
-  return {isNew, id, joined, xpText, coins: got.coins, xp: REWARDS.capture.xp};
+  return {isNew, id, joined, xpText, coins: got.coins, xp: REWARDS.capture.xp, itemRewards};
 }
 
 /** A lost battle: heal everyone; the controller moves the player to camp. */
@@ -228,6 +294,7 @@ export const battleCheckpoint = battle =>
         focus: battle.focus,
         tactic: battle.tactic,
         power: battle.power,
+        counterplay: battle.counterplay ?? [],
       }
     : null;
 
@@ -251,6 +318,7 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
       battle.focus -= ELEMENT_COST;
     } else gainFocus(battle);
     battle.disruptCharge = action.kind === 'element' && nextEnemyAction(battle) === 'charge' && TACTICS[battle.tactic]?.chargeInterruptedBy === 'element';
+    recordCounterplay(save, battle, action);
     const strike = playerStrike(save, battle, action.kind, rng);
     push({type: 'strike', ...strike});
     if (strike.defeated) {
@@ -258,22 +326,29 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
       push({type: 'win', ...resolveWin(save, battle, rng, ctx)});
     }
   } else if (action.kind === 'catch') {
-    if (!throwOrb(save, battle)) return null;
+    if (!throwOrb(save, battle, ctx.inventoryRules)) return null;
     push({type: 'throw'});
     if (rng() < captureChance(save, battle)) {
       ended = 'caught';
-      push({type: 'caught', ...resolveCapture(save, battle)});
+      push({type: 'caught', ...resolveCapture(save, battle, ctx, rng)});
     } else push({type: 'break-free'});
   } else if (action.kind === 'potion') {
-    const healed = usePotion(save);
+    const item = ctx.inventoryRules?.supplies?.potions;
+    const healed = item ? useBattleItem(save, item, ctx.inventoryRules) : usePotion(save);
     if (healed === null) return null;
-    push({type: 'potion', healed});
+    push({type: item ? 'item' : 'potion', item, healed: item ? healed.healed : healed});
+  } else if (action.kind === 'item') {
+    const healed = useBattleItem(save, action.id, ctx.inventoryRules);
+    if (healed === null) return null;
+    push({type: 'item', item: action.id, healed: healed.healed});
   } else if (action.kind === 'guard') {
     battle.guard = true;
     gainFocus(battle);
+    recordCounterplay(save, battle, action);
     push({type: 'guard'});
   } else if (action.kind === 'switch') {
     if (!save.party.includes(action.id) || action.id === save.active || companion(save, action.id).hp <= 0) return null;
+    recordCounterplay(save, battle, action);
     save.active = action.id;
     push({type: 'switch', id: action.id});
   } else return null;

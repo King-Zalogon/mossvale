@@ -423,20 +423,20 @@
       "id": "item:battle-potion",
       "kind": "item",
       "name": "Battle potion",
-      "summary": "Consume a potion in battle to heal the active companion by up to 24 HP.",
+      "summary": "Consume the configured battle potion in battle to heal the active companion by its pack-defined effect.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
       "limits": [
-        "Percentage-heal inventory metadata does not establish live percentage healing.",
+        "Healing is capped at the companion's maximum HP and requires an available mapped supply.",
         "Does not increase player speed or confer a three-battle buff."
       ],
       "examples": [
         {
-          "intent": "Consume a potion in battle to heal the active companion by up to 24 HP.",
+          "intent": "Consume a potion in battle to apply the selected pack's healing effect.",
           "usage": "Consult dist/src/domain/battle.js and reuse the existing definition.",
-          "expected": "Consume a potion in battle to heal the active companion by up to 24 HP."
+          "expected": "Consume one mapped potion and heal the active companion according to its pack definition."
         }
       ],
       "references": ["dist/src/domain/battle.js"],
@@ -450,7 +450,7 @@
         "contexts": "Battle action; no claim of an exploration-use interface.",
         "targets": "Active companion.",
         "consumption": "Consumes one available potion on successful use.",
-        "strength": "24 HP, capped by maximum HP.",
+        "strength": "Pack-defined effect, capped by maximum HP.",
         "duration": "Immediate healing; no ongoing effect.",
         "stacking": "Repeated uses heal again up to max HP; no buff stacking.",
         "persistence": "Remaining supplies and health use the existing battle/save transaction."
@@ -4526,6 +4526,40 @@
         "cancellation": "Follow existing lifecycle; no subscription bus is promised.",
         "errors": "Use existing event data contract.",
         "persistence": "Debug log is not a second save codec."
+      }
+    },
+    {
+      "id": "mechanic:guardian-counterplay",
+      "kind": "mechanic",
+      "name": "Guardian counterplay rewards",
+      "summary": "Reward a readable response to a regional guardian's forecasted tactic when the fight is won.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": ["Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."],
+      "examples": [
+        {
+          "intent": "Guard a forecast heavy blow and earn the guardian response bonus on victory.",
+          "usage": "Configure counterplay in a tactic under dist/maps/registries.json and use the existing Guard action.",
+          "expected": "The victory result names the response and includes its bonus coins and XP."
+        }
+      ],
+      "references": ["dist/maps/registries.json", "dist/src/domain/battle.js", "dist/src/save.js", "dist/src/controller.js"],
+      "evidence": [
+        {
+          "path": "tests/guardians.test.mjs",
+          "assertion": "Guardian response qualification, payout, checkpoint persistence and invalid-ID filtering."
+        }
+      ],
+      "details": {
+        "trigger": "A configured Guard, elemental response or resistant switch matches the guardian's current forecast.",
+        "inputs": "The player's action, the current and previous tactic actions, and the active/selected matchup.",
+        "sequence": "Record each configured response once, continue the normal enemy reply, and add its configured bonus only when the guardian is defeated.",
+        "results": "The normal guardian reward plus the response bonus and a readable response label on the victory result.",
+        "cancellation": "A lost or abandoned fight pays no response bonus; a saved interrupted fight retains already recorded responses.",
+        "errors": "Unknown response IDs in a saved battle are discarded during normalization.",
+        "persistence": "Recorded response IDs are part of the existing battle checkpoint and remain compatible with older saves."
       }
     },
     {

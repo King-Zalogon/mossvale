@@ -597,7 +597,10 @@ export function createController(app) {
     if (!b || b.busy || b.over || game.phase !== 'battle' || (ui.modalMode !== 'battle' && action.kind !== 'switch')) return;
     const s = save();
     const before = {active: s.active};
-    const turn = resolveTurn(s, b, action, rng, {sealReward: game.world.objects.find(o => o.kind === 'shrine')?.reward});
+    const turn = resolveTurn(s, b, action, rng, {
+      sealReward: game.world.objects.find(o => o.kind === 'shrine')?.reward,
+      inventoryRules: app.inventoryRules,
+    });
     if (!turn) return;
     emit('turn.resolved', {
       mapId: game.world.map.id,
@@ -611,7 +614,7 @@ export function createController(app) {
     if (turn.ended === 'caught') {
       const capture = turn.events.find(event => event.type === 'caught');
       emit('capture.completed', {species: species[b.id].id, isNew: capture.isNew, joined: capture.joined});
-      emit('reward.granted', {source: 'capture', species: species[b.id].id, coins: capture.coins, xp: capture.xp});
+      emit('reward.granted', {source: 'capture', species: species[b.id].id, coins: capture.coins, xp: capture.xp, itemRewards: capture.itemRewards});
     } else if (turn.ended === 'win') {
       const reward = turn.events.find(event => event.type === 'win');
       emit('reward.granted', {
@@ -620,6 +623,8 @@ export function createController(app) {
         coins: reward.reward,
         xp: reward.xp,
         newSeal: reward.newSeal,
+        counterplay: reward.responseLabels,
+        itemRewards: reward.itemRewards,
       });
     }
     b.busy = true;
@@ -683,8 +688,9 @@ export function createController(app) {
         frames.push({message: 'The orb glows… will your new friend stay?', animation: 'capture', after: e.after, sfx: 'throw', wait: wait(850)});
       } else if (e.type === 'break-free') {
         frames.push({message: 'The creature broke free of the orb!', animation: '', after: e.after, sfx: 'broke', wait: wait(650)});
-      } else if (e.type === 'potion') {
-        player = `${species[before.active].name} recovered ${e.healed} HP.`;
+      } else if (e.type === 'potion' || e.type === 'item') {
+        const itemName = e.item && app.inventoryRules?.items?.[e.item]?.name;
+        player = `${species[before.active].name} recovered ${e.healed} HP${itemName ? ` with ${itemName}` : ''}.`;
         frames.push({message: player, animation: '', after: e.after, sfx: 'heal', wait: wait(650)});
       } else if (e.type === 'guard') {
         player = `${species[before.active].name} braced for the next hit.`;
@@ -719,12 +725,16 @@ export function createController(app) {
 
   function recapFor(turn, b) {
     const last = turn.events.at(-1);
+    const itemText = rewards =>
+      rewards?.length ? ` · ${rewards.map(({item, quantity}) => `${quantity} ${app.inventoryRules?.items?.[item]?.name ?? item}`).join(', ')}` : '';
     if (turn.ended === 'win')
       return last.newSeal
-        ? `${regions[save().region].seal} awakened! +${last.reward} coins.`
-        : `You defeated ${species[b.id].name}: +${last.reward} coins, ${last.xp} XP.`;
+        ? `${regions[save().region].seal} awakened! +${last.reward} coins${itemText(last.itemRewards)}${last.responseLabels?.length ? ` · ${last.responseLabels.join(', ')}` : ''}.`
+        : `You defeated ${species[b.id].name}: +${last.reward} coins, ${last.xp} XP${itemText(last.itemRewards)}${last.responseLabels?.length ? ` · ${last.responseLabels.join(', ')}` : ''}.`;
     if (turn.ended === 'caught')
-      return last.isNew ? `${species[b.id].name} became your friend! +10 coins, 20 XP.` : `${species[b.id].name} was released happily: +10 coins, 20 XP.`;
+      return last.isNew
+        ? `${species[b.id].name} became your friend! +10 coins, 20 XP${itemText(last.itemRewards)}.`
+        : `${species[b.id].name} was released happily: +10 coins, 20 XP${itemText(last.itemRewards)}.`;
     return 'Your team was defeated and rested at camp. Everyone is healed.';
   }
 
@@ -744,7 +754,13 @@ export function createController(app) {
             : `All ${regions.length} shrines shine again. You’ve become a keeper of the Verdant Isles!`
           : `${species[b.id].name} retreated into the wild.`,
         id: b.id,
-        rewards: [last.reward + ' coins', last.xp + ' XP', ...(last.potions ? [`${last.potions} potions`] : [])],
+        rewards: [
+          last.reward + ' coins',
+          last.xp + ' XP',
+          ...(last.potions ? [`${last.potions} potions`] : []),
+          ...(last.responseCoins ? [`+${last.responseCoins} counterplay coins`] : []),
+          ...(last.itemRewards ?? []).map(({item, quantity}) => `${quantity} ${app.inventoryRules?.items?.[item]?.name ?? item}`),
+        ],
         note: last.xpText,
         button: next ? 'Visit ' + regions[s.region + 1].short : 'Back to the trail',
         onContinue: next ? () => travel(s.region + 1) : () => (close(), checkEnding()),
@@ -759,7 +775,11 @@ export function createController(app) {
             : 'Choose them from your companion team to travel and battle together.'
           : `You already befriended ${species[last.id].name}. This one heads home happily.`,
         id: last.id,
-        rewards: [`${last.coins} coins`, `${last.xp} XP`],
+        rewards: [
+          `${last.coins} coins`,
+          `${last.xp} XP`,
+          ...(last.itemRewards ?? []).map(({item, quantity}) => `${quantity} ${app.inventoryRules?.items?.[item]?.name ?? item}`),
+        ],
         note: last.xpText,
         button: 'Keep exploring',
         secondary: last.isNew ? 'Travel with ' + species[last.id].name : undefined,
