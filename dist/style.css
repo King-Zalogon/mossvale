@@ -349,6 +349,30 @@ h2 {
   color: #b9d982;
   font-size: 17px;
 }
+.optional-objectives {
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px solid #ffffff1f;
+}
+.optional-objectives[hidden] {
+  display: none;
+}
+.optional-objective {
+  display: grid;
+  gap: 2px;
+  margin: 7px 0 !important;
+  color: #b9cdb2;
+  font-size: 11px;
+  line-height: 1.35;
+}
+.optional-objective strong {
+  color: #d4ddc6;
+  font-size: 12px;
+}
+.optional-objective.rewarded strong,
+.optional-objective.complete strong {
+  color: #b9d982;
+}
 .journal {
   display: flex;
   align-items: center;
@@ -820,6 +844,59 @@ canvas#buddy {
   border-radius: 5px;
   max-width: 58%;
   pointer-events: none;
+}
+.environment-message {
+  position: absolute;
+  z-index: 7;
+  top: 108px;
+  left: 18px;
+  width: min(360px, calc(100% - 36px));
+  max-height: calc(100% - 132px);
+  overflow-y: auto;
+  padding: 9px 12px;
+  border: 2px solid #293d31;
+  border-radius: 10px;
+  background: #fff8dc;
+  color: #25382d;
+  box-shadow:
+    0 4px 0 #293d3133,
+    0 8px 20px #14251e44;
+  font-size: 14px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}
+.environment-message[hidden],
+.viewport.speech-open .environment-message {
+  display: none;
+}
+@media (max-width: 600px) {
+  .viewport.environment-open .world-tag,
+  .viewport.environment-open .objective-pin,
+  .viewport.environment-open .minimap-box,
+  .viewport.environment-open .zoom-controls {
+    display: none;
+  }
+  .viewport.environment-open .environment-message {
+    top: 12px;
+    left: 12px;
+    width: calc(100% - 24px);
+    max-height: calc(100% - 180px);
+  }
+}
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+  .viewport.environment-open .world-tag,
+  .viewport.environment-open .objective-pin,
+  .viewport.environment-open .minimap-box,
+  .viewport.environment-open .zoom-controls {
+    display: none;
+  }
+  .viewport.environment-open .environment-message {
+    top: 12px;
+    left: 12px;
+    width: min(72%, calc(100% - 110px));
+    max-height: 42px;
+  }
 }
 .minimap-box {
   position: absolute;
@@ -1465,6 +1542,14 @@ canvas#buddy {
     max-width: 59%;
     padding: 6px 8px;
   }
+  .environment-message {
+    top: 128px;
+    left: 12px;
+    width: calc(100% - 24px);
+    max-height: calc(100% - 210px);
+    padding: 7px 9px;
+    font-size: 12px;
+  }
   .minimap-box {
     top: 12px;
     right: 10px;
@@ -2029,6 +2114,17 @@ body.reduce-motion *::after {
   text-align: center;
   opacity: 0.85;
 }
+.menu-summary .build-label {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 8px;
+  border: 1px solid var(--line, #66806b);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
 .setting-row {
   display: flex;
   flex-wrap: wrap;
@@ -2091,8 +2187,8 @@ body.text-larger .game-footer,
 body.text-larger .heading {
   zoom: 1.3;
 }
-/* Comfortable touch targets. */
-@media (pointer: coarse) {
+/* Any coarse pointer keeps touch controls available when the primary pointer changes. */
+@media (any-pointer: coarse) {
   button,
   .touchpad button {
     min-height: 44px;
@@ -2113,7 +2209,7 @@ body.text-larger .heading {
     min-height: 44px;
   }
 }
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
   header {
     height: 54px;
   }
@@ -2195,8 +2291,16 @@ body.text-larger .heading {
   .game-footer {
     padding: 7px 10px;
   }
+  .environment-message {
+    top: 54px;
+    left: 12px;
+    width: min(72%, calc(100% - 110px));
+    max-height: 42px;
+    padding: 6px 8px;
+    font-size: 11px;
+  }
 }
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px), (pointer: coarse) and (max-width: 600px) {
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 500px), (any-pointer: coarse) and (max-width: 600px) {
   .viewport.has-interaction .world-tag,
   .viewport.has-interaction .objective-pin,
   .viewport.speech-open .world-tag,
@@ -2285,6 +2389,21 @@ body.text-larger .heading {
   color: white;
   font: inherit;
   font-weight: 700;
+}
+#speech-choices {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0;
+}
+#speech-choices[hidden] {
+  display: none;
+}
+#speech-choices button {
+  width: 100%;
+  margin: 0;
+  background: #e4efc8;
+  color: #25382d;
+  text-align: left;
 }
 @media (prefers-reduced-motion: reduce) {
   .speech-bubble,

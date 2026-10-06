@@ -75,7 +75,8 @@
   "spawns": {
     "camp": [4, 28],
     "stilt-return": [58.5, 44],
-    "shrine-landing": [48.5, 14.5]
+    "shrine-landing": [48.5, 14.5],
+    "shallow-cut-approach": [47.8, 42]
   },
   "landmarks": [
     {
@@ -142,6 +143,16 @@
       "text": "West: Frostveil Grove · North-east: the crystal shrine · South-east: the stilt isles · Gold: treasure"
     },
     {
+      "id": "shallow-cut-guide",
+      "kind": "sign",
+      "sprite": "signpost-wood",
+      "at": [45.4, 41.4],
+      "w": 38,
+      "label": "Read the shallow-cut marker",
+      "mapLabel": "Shallow-water cut",
+      "text": "Brooklet can lead across the shallow-water cut to Lantern Islet. The familiar boardwalk to Stilt Isles remains open for every companion."
+    },
+    {
       "id": "chest",
       "kind": "chest",
       "sprite": "chest-wooden",
@@ -159,10 +170,10 @@
     {
       "id": "heron-blind",
       "kind": "sign",
-      "sprite": "signpost-wood",
+      "sprite": "prop-heron-blind",
       "at": [16.4, 8.2],
-      "w": 38,
-      "label": "Read the weathered note",
+      "w": 46,
+      "label": "Look through the heron hide",
       "secret": true,
       "mapLabel": "Heron blind",
       "text": "A hide for watching herons. Someone scratched in the plank: the shrine guardian loves a strong current."
@@ -189,6 +200,24 @@
       "to": {
         "map": "stilt-isles",
         "spawn": "camp"
+      }
+    },
+    {
+      "id": "shallow-water-cut",
+      "sprite": "signpost-wood",
+      "at": [49, 42],
+      "w": 40,
+      "label": "Cross the shallow-water cut to Lantern Islet",
+      "to": {
+        "map": "stilt-isles",
+        "spawn": "lantern-cut"
+      },
+      "route": {
+        "id": "shallow-water-cut",
+        "requires": {"ability": "cross-shallow-water", "habitat": "wetland"},
+        "hint": "Brooklet can guide you over this shallow-water cut. Keep any active companion to use the marked route after you discover it.",
+        "unlockedText": "You discovered the shallow-water cut and found 12 coins. The route is now marked for your return.",
+        "reward": {"coins": 12}
       }
     }
   ],
@@ -503,7 +532,7 @@
       "once": true,
       "do": [
         {
-          "type": "toast",
+          "type": "environment",
           "text": "A reed whistle trills somewhere in the bed. The hush here is safe."
         }
       ]

@@ -13,6 +13,11 @@ const raw = sql => execFileSync('docker', [...docker, '-At'], {input: sql, encod
 raw('drop database if exists mossvale_account_test; create database mossvale_account_test;');
 const args = [...docker, '-d', 'mossvale_account_test', '-At'];
 const sql = statement => execFileSync('docker', args, {input: statement, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe']}).trim();
+const value = statement =>
+  sql(statement)
+    .split('\n')
+    .filter(line => !['BEGIN', 'SET', 'COMMIT'].includes(line))
+    .at(-1);
 const user = n => `00000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
 const as = (n, statement, role = 'authenticated') => `begin; set local role ${role}; set local "request.jwt.claim.sub" = '${user(n)}'; ${statement}; commit;`;
 const rejected = (statement, match) =>
@@ -24,13 +29,73 @@ sql(readFileSync(new URL('./fixtures/account/portal.sql', import.meta.url), 'utf
 const migration = readFileSync(new URL('../supabase/migrations/20261003_account_feedback.sql', import.meta.url), 'utf8');
 sql(migration);
 sql(migration); // safe reapplication
+const mcpMigration = readFileSync(new URL('../supabase/migrations/20261004_feedback_mcp.sql', import.meta.url), 'utf8');
+sql(mcpMigration);
+sql(mcpMigration); // safe reapplication
+const statusMigration = readFileSync(new URL('../supabase/migrations/20261005210000_feedback_review_status.sql', import.meta.url), 'utf8');
+sql(statusMigration);
+sql(statusMigration); // safe reapplication
+sql(`update public.portal_profiles set role = 'owner' where user_id = '${user(1)}'`);
 const submit = (id, message = 'Improve trails') => `select public.mossvale_submit_feedback('${id}', '${message}', 'mossvale', 'meadow', 'test')`;
 const id = randomUUID();
 sql(as(1, submit(id)));
 sql(as(1, submit(id)));
 assert.equal(sql('select count(*) from public.mossvale_feedback'), '1', 'same request retry does not duplicate');
+const sourceFeedbackId = sql(`select id from public.mossvale_feedback where request_id = '${id}'`);
+
+const mcpHash = 'a'.repeat(64);
+const createdTokenOutput = sql(as(1, `select public.mossvale_mcp_create_token('${mcpHash}', 'Codex')`));
+const createdMcpToken = JSON.parse(createdTokenOutput.split('\n').find(line => line.startsWith('{')));
+assert.match(createdMcpToken.id, /^[0-9a-f-]{36}$/i);
+const otherPackFeedbackId = sql(
+  `insert into public.mossvale_feedback(user_id,request_id,message,pack_id) values ('${user(2)}','${randomUUID()}','Another Mossvale adventure message','other-pack') returning id`,
+)
+  .split('\n')
+  .find(line => /^[0-9a-f-]{36}$/iu.test(line));
+assert.equal(value(`set role anon; select public.mossvale_mcp_authorize('${mcpHash}')`), 't', 'active owner token authorizes MCP access');
+assert.equal(value(`set role anon; select count(*) from public.mossvale_mcp_feedback_queue('${mcpHash}', 51, null, null)`), '2');
+assert.equal(value(`set role anon; select count(*) from public.mossvale_mcp_feedback_list('${mcpHash}', 51, null, null, 'new', null, null, null)`), '2');
+assert.equal(
+  value(`set role anon; select count(*) from public.mossvale_mcp_feedback_get('${mcpHash}', '${otherPackFeedbackId}')`),
+  '1',
+  'MCP includes Mossvale feedback from a different adventure pack',
+);
+assert.equal(value(`set role anon; select count(*) from public.mossvale_mcp_feedback_list('${mcpHash}', 51, null, null, 'accepted', null, null, null)`), '0');
+assert.equal(value(`set role anon; select review_status from public.mossvale_mcp_feedback_get('${mcpHash}', '${sourceFeedbackId}')`), 'new');
+const sourceFeedback = sql(
+  `select message || '|' || pack_id || '|' || coalesce(map_id, '') || '|' || coalesce(build, '') || '|' || created_at::text from public.mossvale_feedback where id = '${sourceFeedbackId}'`,
+);
+assert.equal(
+  value(`set role anon; select review_status from public.mossvale_mcp_feedback_set_status('${mcpHash}', '${sourceFeedbackId}', 'accepted')`),
+  'accepted',
+);
+assert.equal(
+  sql(
+    `select message || '|' || pack_id || '|' || coalesce(map_id, '') || '|' || coalesce(build, '') || '|' || created_at::text from public.mossvale_feedback where id = '${sourceFeedbackId}'`,
+  ),
+  sourceFeedback,
+  'status update preserves original feedback contents and context',
+);
+assert.equal(
+  sql(
+    `select previous_status || '|' || new_status || '|' || changed_by_user_id || '|' || mcp_token_id || '|' || mcp_token_label from public.mossvale_feedback_status_events`,
+  ),
+  `new|accepted|${user(1)}|${createdMcpToken.id}|Codex`,
+  'status audit uses database-verified owner and MCP token',
+);
+rejected(`set role anon; select * from public.mossvale_mcp_feedback_set_status('${mcpHash}', '${sourceFeedbackId}', 'invented')`, /invalid_mcp_request/);
+rejected(`set role anon; select count(*) from public.mossvale_feedback_status_events`, /permission denied/);
+assert.equal(value(as(1, 'select count(*) from public.mossvale_mcp_list_tokens()')), '1');
+assert.equal(sql(`select token_hash from public.mossvale_mcp_tokens where id = '${createdMcpToken.id}'`), mcpHash, 'database stores the token digest only');
+rejected(as(2, `select public.mossvale_mcp_create_token('${'b'.repeat(64)}', 'Member')`), /owner_required/);
+rejected(`set role anon; select * from public.mossvale_mcp_feedback_queue('${'c'.repeat(64)}', 51, null, null)`, /mcp_unauthorized/);
+rejected(`set role anon; select count(*) from public.mossvale_mcp_tokens`, /permission denied/);
+assert.equal(value(as(1, `select public.mossvale_mcp_revoke_token('${createdMcpToken.id}')`)), 't');
+assert.equal(value(`set role anon; select public.mossvale_mcp_authorize('${mcpHash}')`), 'f', 'revoked tokens stop authorizing MCP access');
+rejected(`set role anon; select * from public.mossvale_mcp_feedback_queue('${mcpHash}', 51, null, null)`, /mcp_unauthorized/);
+
 rejected(as(1, submit(id, 'Changed message')), /request_conflict/);
-assert.equal(sql(as(2, 'select count(*) from public.mossvale_feedback')).split('\n').includes('0'), true, 'other user cannot read the first message');
+assert.equal(value(as(2, `select count(*) from public.mossvale_feedback where id = '${sourceFeedbackId}'`)), '0', 'other user cannot read the first message');
 rejected(as(3, submit(randomUUID())), /access_denied/);
 rejected(`set role anon; ${submit(randomUUID())}`, /permission denied/);
 rejected(
@@ -75,4 +140,4 @@ assert.equal(sql(`set role service_role; select public.mossvale_review_lock('${l
 rejected(as(1, `select public.mossvale_review_lock('${lease2}')`), /permission denied/);
 assert.equal(sql(`set role service_role; select public.mossvale_review_lock('${lease1}',true)`).split('\n').at(-1), 't');
 assert.equal(sql(`set role service_role; select public.mossvale_review_lock('${lease2}')`).split('\n').at(-1), 't');
-console.log('ok PostgreSQL identity/RLS, idempotency, concurrent 10/day quota, UTC rollover, per-user revisions and reviewer leases');
+console.log('ok PostgreSQL identity/RLS, quotas, account saves, owner-bound MCP tools/status audit/revocation and review leases');

@@ -1,0 +1,220 @@
+{
+  "format": 1,
+  "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "purpose": "examples",
+  "entries": [
+    {
+      "id": "visual:chest-wooden",
+      "kind": "visual",
+      "name": "Wooden chest",
+      "summary": "Use the existing wooden chest artwork for a placed prop.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": ["Use the existing validated pack format; this fiche does not introduce new runtime behavior."],
+      "examples": [
+        {
+          "intent": "Use the existing wooden chest artwork for a placed prop.",
+          "usage": "Consult dist/src/data/assets.js and reuse the existing definition.",
+          "expected": "Use the existing wooden chest artwork for a placed prop."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
+        }
+      ],
+      "details": {
+        "appearance": "Wooden treasure chest.",
+        "style": "Existing Mossvale pixel artwork.",
+        "scale": "Manifest image 343 by 319 pixels; renderer controls displayed size.",
+        "directions": "One static asset; no directional poses declared.",
+        "animations": "No opening animation declared by this asset.",
+        "compatibleUses": "Visual prop; chest reward behavior comes from a landmark, not the PNG."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/chest-wooden.png",
+          "description": "Wooden chest representative image; see art review records for animation approval."
+        }
+      ]
+    },
+    {
+      "id": "interactable:scene-event",
+      "kind": "interactable",
+      "name": "Authored scene event",
+      "summary": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "repeatable",
+          "type": "boolean",
+          "default": null,
+          "limits": "Required explicit value; challenge requires true."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["No arbitrary movement or sleep choreography action.", "Scene event history is limited to 256 entries."],
+      "examples": [
+        {
+          "intent": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+          "usage": "Consult dist/src/domain/scenes.js and reuse the existing definition.",
+          "expected": "Run validated dialogue, reward, flag or challenge actions on interaction."
+        }
+      ],
+      "references": ["dist/src/domain/scenes.js"],
+      "evidence": [
+        {
+          "path": "tests/scenes.test.mjs",
+          "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing map scene interaction dispatch.",
+        "conditions": "Optional when condition evaluated through objective conditions.",
+        "actions": "Dialogue, reward, flag and challenge; challenge must be last.",
+        "rewards": "Scene rewards accept coins, potions and orbs, not arbitrary inventory item IDs.",
+        "repetition": "Explicit repeatable boolean; challenge events must be repeatable.",
+        "persistence": "Non-repeatable events use saved map/event keys; caller persists the action transaction."
+      }
+    },
+    {
+      "id": "item:battle-potion",
+      "kind": "item",
+      "name": "Battle potion",
+      "summary": "Consume a potion in battle to heal the active companion by up to 24 HP.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Percentage-heal inventory metadata does not establish live percentage healing.",
+        "Does not increase player speed or confer a three-battle buff."
+      ],
+      "examples": [
+        {
+          "intent": "Consume a potion in battle to heal the active companion by up to 24 HP.",
+          "usage": "Consult dist/src/domain/battle.js and reuse the existing definition.",
+          "expected": "Consume a potion in battle to heal the active companion by up to 24 HP."
+        }
+      ],
+      "references": ["dist/src/domain/battle.js"],
+      "evidence": [
+        {
+          "path": "tests/battle-actions.test.mjs",
+          "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
+        }
+      ],
+      "details": {
+        "contexts": "Battle action; no claim of an exploration-use interface.",
+        "targets": "Active companion.",
+        "consumption": "Consumes one available potion on successful use.",
+        "strength": "24 HP, capped by maximum HP.",
+        "duration": "Immediate healing; no ongoing effect.",
+        "stacking": "Repeated uses heal again up to max HP; no buff stacking.",
+        "persistence": "Remaining supplies and health use the existing battle/save transaction."
+      }
+    },
+    {
+      "id": "actor:fernling",
+      "kind": "actor",
+      "name": "Fernling",
+      "summary": "Select the existing Fernling species in a pack registry and encounters.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": [],
+      "limits": ["Use the existing validated pack format; this fiche does not introduce new runtime behavior."],
+      "examples": [
+        {
+          "intent": "Select the existing Fernling species in a pack registry and encounters.",
+          "usage": "Consult dist/maps/registries.json and reuse the existing definition.",
+          "expected": "Select the existing Fernling species in a pack registry and encounters."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
+        }
+      ],
+      "details": {
+        "appearance": "Use the existing Fernling portrait, combat and follower asset references.",
+        "behavior": "Existing companion and battle rules; authored availability comes from pack data.",
+        "locomotion": "Follower behavior uses existing trail following, not autonomous NPC pathfinding.",
+        "interactions": "Encounters, capture and companion selection through existing rules."
+      }
+    },
+    {
+      "id": "environment:meadow",
+      "kind": "environment",
+      "name": "Sunlit Trail",
+      "summary": "Reuse the existing meadow map as a reference for authoring an outdoor map.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": [],
+      "limits": ["Use the existing validated pack format; this fiche does not introduce new runtime behavior."],
+      "examples": [
+        {
+          "intent": "Reuse the existing meadow map as a reference for authoring an outdoor map.",
+          "usage": "Consult dist/maps/meadow.json and reuse the existing definition.",
+          "expected": "Reuse the existing meadow map as a reference for authoring an outdoor map."
+        }
+      ],
+      "references": ["dist/maps/meadow.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
+        }
+      ],
+      "details": {
+        "biome": "Meadow.",
+        "connections": "Read authored exits in the map; do not infer connections from names.",
+        "walkability": "Terrain, collision props and existing world walkability determine reachable positions.",
+        "spawns": "Authored spawn and encounter zones; geometry must pass map validation.",
+        "access": "Region/progression rules determine access."
+      }
+    },
+    {
+      "id": "mechanic:scene-dialogue",
+      "kind": "mechanic",
+      "name": "Scene dialogue",
+      "summary": "Display authored scene dialogue with a validated speaker.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": [],
+      "limits": ["Use the existing validated pack format; this fiche does not introduce new runtime behavior."],
+      "examples": [
+        {
+          "intent": "Display authored scene dialogue with a validated speaker.",
+          "usage": "Consult dist/src/domain/scenes.js and reuse the existing definition.",
+          "expected": "Display authored scene dialogue with a validated speaker."
+        }
+      ],
+      "references": ["dist/src/domain/scenes.js"],
+      "evidence": [
+        {
+          "path": "tests/speech.browser.mjs",
+          "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
+        }
+      ],
+      "details": {
+        "trigger": "Scene interaction.",
+        "inputs": "Dialogue text and optional speaker reference.",
+        "sequence": "Collect dialogue actions in order for the existing dialogue presentation.",
+        "results": "Speaker-associated dialogue lines; domain function itself does not draw balloons.",
+        "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
+        "errors": "Unknown speaker or text outside 1\u2013500 characters fails validation.",
+        "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
+      }
+    }
+  ]
+}

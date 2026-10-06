@@ -160,10 +160,10 @@
     {
       "id": "lookout-note",
       "kind": "sign",
-      "sprite": "signpost-wood",
+      "sprite": "prop-sunstone-lookout",
       "at": [10.8, 11.6],
-      "w": 38,
-      "label": "Read the sun-bleached note",
+      "w": 56,
+      "label": "Look from the Sunstone shelf",
       "secret": true,
       "mapLabel": "Sunstone lookout",
       "text": "A lookout carved into the cliff. Voltkit love the bright trail; Pebblit prefer to bask where the grass is warm."
@@ -516,7 +516,7 @@
       "once": true,
       "do": [
         {
-          "type": "toast",
+          "type": "environment",
           "text": "Your footsteps echo from a hollow in the rock. Nothing stirs here."
         }
       ]

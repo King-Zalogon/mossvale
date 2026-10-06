@@ -8,13 +8,33 @@ An original browser-playable creature-catching game with a 2D isometric world, p
 
 ## Play locally
 
-No build step or dependencies are required. From the repository root, run:
+Install dependencies once with `npm ci`, then run the local game server:
 
 ```sh
-python3 -m http.server 8080 --directory dist
+npm start
 ```
 
-Open <http://localhost:8080> in a browser. Any static web server can serve the `dist` directory.
+Open the URL printed in the terminal. The title and Escape menus show the current `Build #<short-commit>`; a `+` marks uncommitted changes. This Node server reads the checkout's Git metadata, so it identifies local code as well as hosted builds. A plain static server can still serve `dist/`, but without `version.json` it reports `development build`.
+
+## Quick integration test
+
+For a shortcut that survives branch switches, install once from this checkout:
+
+```sh
+npm run test:local:install
+```
+
+On Windows, paste **`%LOCALAPPDATA%\Mossvale\LocalTesting`** into Explorer's address bar and double-click **Test Integration.cmd**. Its full path is **`%LOCALAPPDATA%\Mossvale\LocalTesting\Test Integration.cmd`**; you can create a desktop shortcut pointing to it. The installer prints the expanded path on your PC. Both the script and repository-path configuration are copied outside Git, so branches without launcher files cannot remove them. Node and Git must remain installed. Reinstall after moving the checkout or Node, or to update the launcher itself. Delete only this installed folder to uninstall; this leaves the repo, test worktree and browser saves intact.
+
+macOS installs under `~/Library/Application Support/Mossvale/LocalTesting`; Linux uses `$XDG_DATA_HOME/mossvale/local-testing` or `~/.local/share/mossvale/local-testing`. Run the installed `test-integration.sh`. An alternative absolute folder can be specified with `npm run test:local:install -- --directory=...`; installation inside the checkout is refused. Keep this folder dedicated to the launcher.
+
+On Windows, double-click **Test Integration.cmd** (you can create a desktop shortcut to it). Alternatively run `npm run test:local`, or `./test-integration.sh` on macOS/Linux. Only Node 20.9+ and Git are needed; no npm install or Python is required for this launcher.
+
+It opens http://127.0.0.1:8080 when available. If Windows blocks that port or another process occupies it, the launcher tries 8081, 5173, 5174, 3000 and 3001 in that order and opens the selected address. The console prints the chosen port. An explicit `--port=N` requests only that port; it never silently changes an explicitly selected save origin. If your current checkout is `integration`, it serves that working copy, including your edits. Otherwise it fetches the latest `origin/integration` and serves an isolated detached worktree under Git's common directory (`mossvale-local-test`). Your branch and uncommitted work stay in place. Each launch prints the revision and served directory. Stop it with Ctrl+C before launching another revision. A Git-directory lock prevents concurrent launches even on different ports; after a crash, the error identifies the stale lock to remove only after confirming no launcher remains running. Missing remote branches or failed fetches stop the launcher; it never falls back to main or stale content. A dirty cached worktree must be preserved and cleaned manually before reuse.
+
+For another port, run `npm run test:local -- --port=8081`; use `--no-open` to suppress browser opening. Saves belong to the browser origin: changing hostname or port creates separate local progress. The server binds only to loopback and serves only `dist/`. This is the standalone game; account saves, login, MCP and feedback APIs need the configured portal (`npm run dev`, `.env.local` and the documented database migrations). No authentication or production restrictions are changed.
+
+The launcher files become available when this change is fetched. Until it is promoted to main, use the integration checkout or the PR branch to obtain them; thereafter a shortcut created in another checkout still selects integration automatically.
 
 ## Controls
 
@@ -62,20 +82,20 @@ The portal-hosted copy is a separate deployment from the existing hosted game. I
 
 In Vercel, import this repository as a Next.js project and add these environment variables for Production:
 
-| Variable                        | Value                                                                               |
-| ------------------------------- | ----------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`      | The Zalonline Supabase project URL                                                  |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | That project's publishable/anon key (never a secret/service-role key)               |
-| `MOSSVALE_GATE_SECRET`          | A private random value of at least 32 characters, such as `openssl rand -base64 32` |
-| `MOSSVALE_PORTAL_RETURN_URL`    | Optional public URL: `https://zalonline.vercel.app/dashboard`                       |
+| Variable                        | Value                                                                                            |
+| ------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_SUPABASE_URL`      | The Zalonline Supabase project URL                                                               |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | That project's publishable/anon key (never a secret/service-role key)                            |
+| `MOSSVALE_GATE_SECRET`          | A private random value of at least 32 characters, such as `openssl rand -base64 32`              |
+| `MOSSVALE_PORTAL_RETURN_URL`    | Optional public return URL override; Vercel defaults to `https://zalonline.vercel.app/dashboard` |
 
-Deploy, then upsert the project URL into `public.applications` with slug `mossvale`. Sign in with an existing Zalonline user; access follows the portal's per-user and group app grants. No Supabase service-role key belongs in Vercel. When `MOSSVALE_PORTAL_RETURN_URL` is configured, the in-game Esc menu shows **Return to dashboard** and saves the current adventure before opening that URL in the same tab. Leave it unset for standalone builds. It is a public navigation URL; never put credentials in it. Local autosaves remain in this browser. The Esc menu also provides explicit per-account/per-adventure Supabase checkpoints and feedback; apply the storage migration described in [account feedback and checkpoints](docs/FEEDBACK.md). The older hosted copy does not share these APIs.
+Deploy, then upsert the project URL into `public.applications` with slug `mossvale`. Sign in with an existing Zalonline user; access follows the portal's per-user and group app grants. No Supabase service-role key belongs in Vercel. Vercel builds show **Return to dashboard** in the in-game Esc menu and save the current adventure before opening `https://zalonline.vercel.app/dashboard` in the same tab. Set `MOSSVALE_PORTAL_RETURN_URL` to override the destination, or to an empty string to hide the button. Standalone builds omit it unless explicitly configured. It is a public navigation URL; never put credentials in it. Local autosaves remain in this browser. The Esc menu also provides explicit per-account/per-adventure Supabase checkpoints and feedback; apply the storage migration described in [account feedback and checkpoints](docs/FEEDBACK.md). The older hosted copy does not share these APIs.
 
 For local development of the portal wrapper, copy `.env.example` to `.env.local`, fill in the values, then run `npm run dev`. The original local game server remains `npm start`.
 
 ## Development and checks
 
-Node 20+ (CI uses 22). Install once with `npm ci`; serving the game needs no build (`npm start` or the command above).
+Node 20+ (CI uses 22). Install once with `npm ci`; serving the game needs no separate build (`npm start`).
 
 | Command                | What it runs                                                                                                                                                      |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |

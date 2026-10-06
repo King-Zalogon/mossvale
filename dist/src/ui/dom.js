@@ -2,6 +2,7 @@
 export const $ = selector => document.querySelector(selector);
 
 let toastTimer;
+let environmentMessageTimer;
 export function toast(message, duration = 5800) {
   const node = $('#toast');
   node.textContent = message;
@@ -11,6 +12,20 @@ export function toast(message, duration = 5800) {
   toastTimer = setTimeout(() => {
     node.style.opacity = '0';
     delete node.dataset.active;
+  }, duration);
+}
+
+/** Shows authored map ambience in its own light, non-blocking viewport card. */
+export function environmentalMessage(message, duration = 5800) {
+  const node = $('#environment-message');
+  const viewport = node.parentElement;
+  node.textContent = message;
+  node.hidden = false;
+  viewport.classList.add('environment-open');
+  clearTimeout(environmentMessageTimer);
+  environmentMessageTimer = setTimeout(() => {
+    node.hidden = true;
+    viewport.classList.remove('environment-open');
   }, duration);
 }
 

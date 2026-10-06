@@ -139,6 +139,31 @@
         {
           "text": "The shrines have been quiet for years. Perhaps a new friend from the tall grass could help wake them."
         }
+      ],
+      "choices": [
+        {
+          "id": "ask-about-trail",
+          "speaker": "ranger",
+          "target": "ranger",
+          "text": "Any advice for the trail?",
+          "reply": "Take your time, and keep an eye out for quiet places off the path."
+        },
+        {
+          "id": "ask-about-shrine",
+          "speaker": "ranger",
+          "target": "ranger",
+          "text": "The meadow shrine is awake. What should I do next?",
+          "reply": "Follow the orchard trail east. The other islands are waiting for you.",
+          "when": {"flag": "meadow.seal"}
+        },
+        {
+          "id": "ask-how-to-wake-shrine",
+          "speaker": "ranger",
+          "target": "ranger",
+          "text": "How can I wake the meadow shrine?",
+          "reply": "Make a friend in the tall grass, then visit the blue crystal north of camp.",
+          "when": {"not": {"flag": "meadow.seal"}}
+        }
       ]
     },
     {
@@ -167,10 +192,10 @@
     {
       "id": "old-well",
       "kind": "sign",
-      "sprite": "signpost-wood",
+      "sprite": "prop-well-ruined",
       "at": [60.4, 26.8],
-      "w": 38,
-      "label": "Read the mossy plaque",
+      "w": 46,
+      "label": "Inspect the old well",
       "secret": true,
       "mapLabel": "Old well",
       "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest."
@@ -178,10 +203,10 @@
     {
       "id": "hollow-note",
       "kind": "sign",
-      "sprite": "signpost-wood",
+      "sprite": "tree-oak-hollow",
       "at": [44.2, 56.4],
-      "w": 38,
-      "label": "Read the carved bark",
+      "w": 62,
+      "label": "Inspect the hollow oak",
       "secret": true,
       "mapLabel": "Whispering hollow",
       "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching."
@@ -730,7 +755,7 @@
       "once": true,
       "do": [
         {
-          "type": "toast",
+          "type": "environment",
           "text": "A narrow track slips under the oldest trees. It is quiet here, and it rejoins the south trail."
         }
       ]

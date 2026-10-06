@@ -24,6 +24,7 @@ try {
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(`http://localhost:${server.address().port}/?debug&seed=31`);
   await page.waitForSelector('#loading', {state: 'hidden'});
+  assert.equal(await page.evaluate(() => matchMedia('(any-pointer: coarse)').matches), true, 'touch remains discoverable through any-pointer on a phone');
   assert.equal(await page.locator('.touchpad').evaluate(node => getComputedStyle(node).display), 'grid', 'landscape startup exposes touch movement');
   assert.equal(await page.locator('#touch-run').evaluate(node => getComputedStyle(node).display), 'block', 'landscape startup exposes touch run');
   for (const viewport of [
@@ -195,6 +196,16 @@ try {
   });
   await cdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
   assert.equal(await page.locator('#touch-run').getAttribute('aria-pressed'), 'true', 'landscape touch toggles run');
+
+  // Header/menu and battle actions also stay tappable in the short-landscape layout.
+  await page.locator('#menu').tap();
+  await page.waitForSelector('#m-primary');
+  await page.locator('#m-primary').tap();
+  await page.waitForSelector('#modal', {state: 'hidden'});
+  await page.evaluate(() => window.mossvale.encounter(1));
+  await page.waitForSelector('#attack:not([disabled])');
+  await page.locator('#attack').tap();
+  await page.waitForFunction(() => window.mossvale.getState().battle?.busy === false && window.mossvale.getState().battle?.turn === 1);
   assert.deepEqual(errors, []);
   await context.close();
   console.log('ok 12-creature journal hints and touch interruption across portrait/landscape sizes');

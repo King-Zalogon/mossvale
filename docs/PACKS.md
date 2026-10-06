@@ -37,7 +37,7 @@ An optional `inventory` file adds pack-owned item definitions, supply mappings, 
 | --- | --- |
 | Maps | `maps` + `dist/maps/<id>.json` ([MAP_FORMAT.md](MAP_FORMAT.md)); optional reusable `prefabs` and `instances` ([PREFABS.md](PREFABS.md)) |
 | Species availability | `species`; zones and guardians may use only these, and each must be findable |
-| Species, type, region, move, economy, tactic and growth rules | `registries`; versioned pack data references art by shared asset ID |
+| Species, type, region, move, economy, tactic and growth rules | `registries`; versioned pack data references art by shared asset ID. A species may also define unique stable `abilities` and `habitats` tags for optional companion-route gates. |
 | Object and NPC roles | each landmark's `kind` (`ranger`, `cottage`, `sign`, `chest`, `shrine`), `name`, `tag`, `label`, `text`/`lines` |
 | Brief text | `brief` (and `name`) |
 | Milestone order | `milestones`; each must be earnable once the ones before it are done |
@@ -114,3 +114,14 @@ A build offers its adventures through `adventures.json` next to `index.html`:
    ```
 
    Set `BUILD_DIR` to choose an output folder. The artifact's `version.json` records engine version, pack ID/content version, save schema and source commit. The build stamps canonical file IDs and byte hashes into `maps/index.json`; at runtime all selected files must match before the save codec opens. After editing pack files, run `refresh-manifest`, review the generated changes, then run `validate-pack`. Referenced assets are checked against the manifest and all checked-in image files are validated before output is replaced. Keep the previous complete build folder as the rollback copy; restore it as a unit so the engine and its map data stay paired. Saves remain isolated by pack ID.
+
+
+## Second inventory adventure (#177, #99)
+
+Lantern Crossing now opts into its own hashed `inventory.json`, with Lantern tonic (4 coins, 20% heal effect definition), Spark orb (2 coins) and a selling-only Glow shard (6 coins). These IDs and prices differ from Mossvale. Its carry cap is 240 and stash cap is 8; the carry cap deliberately accommodates the old adventure's maximum 99 potions plus 99 orbs so adopting inventory cannot discard existing supplies. Content version 2 adds this optional data without changing save schema 5, pack identity, save keys or progression.
+
+Build it with `node scripts/build.mjs --pack tests/fixtures/packs/lantern-crossing`, then serve `build/` locally. Talk to Mira, advance the speech and open **Bag & ranger’s stash** to purchase a tonic or store/take an orb. Reload to check persistence. Use `npm start` to play the usual Mossvale `dist/` instead; its rules are unchanged. Hearth and Bakery still demonstrate packs without inventory.
+
+`tests/pack-build.browser.mjs` tests the independently packaged Lantern shop and stash, its supply-counter mapping and reload, alongside the existing capture/progression/adventure-switch/backup scenario. Inventory unit tests compare actual Mossvale/Lantern caps, unknown cross-pack IDs and persistence failures. Updating inventory data requires updating its SHA-256 entry in the manifest.
+
+This completes the second-pack proof, not all of #99: live percentage-healing item use, gathering and once-only combat item reward integration remain separate work. The tonic's effect metadata is not a claim that the existing fixed-HP battle potion action already applies percentage healing.

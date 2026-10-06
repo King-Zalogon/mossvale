@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "content/catalogue/curated.json",
+        "content/catalogue/examples.json",
+        "content/catalogue/schema.json",
+        "content/catalogue/templates.json",
+        "docs/AUTHORING_CONTRACT.md",
+        "scripts/catalogue.mjs",
+        "scripts/check-catalogue-impact.mjs",
+        "scripts/lib/catalogue-impact.mjs",
+        "scripts/lib/catalogue.mjs"
+      ],
+      "entries": ["mechanic:catalogue-authoring", "mechanic:brief-scaffold", "item:battle-potion"],
+      "disposition": "updated",
+      "reason": "Adds the #181 documentation contract and #182/#183 catalogue producer/validator; existing gameplay and art are unchanged. The curated descriptions expose current limits and proposed capabilities.",
+      "evidence": ["tests/catalogue-contract.test.mjs", "tests/catalogue.test.mjs", "docs/CATALOGUE.md"]
+    }
+  ]
+}

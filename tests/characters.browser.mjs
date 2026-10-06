@@ -38,7 +38,7 @@ try {
     await page.evaluate(() => [
       window.characterPreview.frameFor(0, false),
       window.characterPreview.frameFor(0, true),
-      window.characterPreview.frameFor(0.42, true),
+      window.characterPreview.frameFor(0.56, true),
       window.characterPreview.frameFor(2, true, true),
     ]),
     [0, 1, 2, 0],

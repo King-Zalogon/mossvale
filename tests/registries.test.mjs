@@ -20,11 +20,14 @@ test('pack registries are versioned, field-checked and bound to shared asset IDs
   assert.deepEqual(check(defaultRegistries), []);
   const invalid = structuredClone(defaultRegistries);
   invalid.species[0].sprite = 'missing-art';
+  invalid.species[2].abilities = ['Cross-Shallow-Water'];
+  invalid.species[2].habitats = ['wetland', 'wetland'];
   invalid.progression.partySize = 8;
   invalid.tactics.defaultPattern = ['teleport'];
   invalid.tactics.patterns['spore-guard'].braceQuickFactor = 0;
   const errors = check(invalid).join('\n');
   assert.match(errors, /unknown shared asset/);
+  assert.match(errors, /unique list of lowercase stable IDs/);
   assert.match(errors, /partySize/);
   assert.match(errors, /supported actions/);
   assert.match(errors, /braceQuickFactor/);

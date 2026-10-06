@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "issue": 195,
+  "reviewedOn": "2026-10-05",
+  "reviewer": "Codex visual inspection",
+  "technicalDecision": "accept",
+  "ownerTaste": "pending",
+  "context": "Each landmark was loaded in its authored map, the matching interaction label was asserted, and the actual renderer was checked at a 390×844 CSS-pixel phone viewport (device scale factor 1). Captures show the gameplay canvas at its responsive size with transient HUD overlays hidden so they do not mask the art.",
+  "entries": [
+    {
+      "map": "meadow",
+      "landmarkId": "old-well",
+      "sprite": "prop-well-ruined",
+      "sourceSha256": "ce2d85c58a959b4a742d04e3998287cea1e857edf5b9ba1ae7797010728693e4",
+      "runtimeSha256": "27948f93243773fd59b53da1a0bdefb417685d63d2594327dde7577d8cb44d1d",
+      "capture": "art/assets/reviews/landmarks/old-well.png",
+      "captureSha256": "4ad7dfdfda50746e33a06be56cf5e5bd375c1c378db02d3176a1336555c6c5d3",
+      "decision": "accept",
+      "observation": "The low stone ring and open center read as a dry well beside the player."
+    },
+    {
+      "map": "meadow",
+      "landmarkId": "hollow-note",
+      "sprite": "tree-oak-hollow",
+      "sourceSha256": "4584e353307169290dd6acc7bcecb03fb5f3534940c6d0f260a10bc4a57568d2",
+      "runtimeSha256": "a5cd55da79820383503b79f536448f12fb80a4223d6c52df09840d5014428bc1",
+      "capture": "art/assets/reviews/landmarks/hollow-note.png",
+      "captureSha256": "41c749519cf7a21e484f21b8b3cc28c9fe5699e731c55e3e71bcd654737c9340",
+      "decision": "accept",
+      "observation": "The mature canopy and visible trunk opening read as a distinctive hollow oak."
+    },
+    {
+      "map": "orchard-ruins",
+      "landmarkId": "cider-press",
+      "sprite": "prop-cider-press",
+      "sourceSha256": "1cf7cae96fd8fd8cdcd525e4f2e0771de8c64817fa40a3239455eb1a26c2ecb5",
+      "runtimeSha256": "f3170aa88c9a67c73a789545d8036a337850138379175c7ff204184ea46649f6",
+      "capture": "art/assets/reviews/landmarks/cider-press.png",
+      "captureSha256": "7489e683a244ef0499d9ef7e422b7fb7bcd9506ed4640e66cdb78bfb9265b7c0",
+      "decision": "accept",
+      "observation": "The upright frame, central screw and fallen apples read as a cider press."
+    },
+    {
+      "map": "orchard-ruins",
+      "landmarkId": "fallen-wall",
+      "sprite": "prop-orchard-wall-broken",
+      "sourceSha256": "d8cb6a68a58220a3130b9b89b4d52cfa68e63168a1f5ef5cc6e4d43482fd9aa3",
+      "runtimeSha256": "7d73efcd50f364a338309073207fe9b175cd80c5147abef30a941fb3777ec156",
+      "capture": "art/assets/reviews/landmarks/fallen-wall.png",
+      "captureSha256": "b45d947f9dc5c35810d444cb407a471eec7dad4c192ea071a33d43d1b5bb0c9f",
+      "decision": "accept",
+      "observation": "The low breached masonry reads as a broken orchard wall among the existing trees."
+    },
+    {
+      "map": "reedfen-wetlands",
+      "landmarkId": "heron-blind",
+      "sprite": "prop-heron-blind",
+      "sourceSha256": "0cd56f05e7a8aaefc12f9bc7fc814a1587f3d04e4f7cfaa53f9cd48550eb7af3",
+      "runtimeSha256": "94be9bf33ac866ea3039723aa20c5014412215dcea2e194cf43bb63246868bc4",
+      "capture": "art/assets/reviews/landmarks/heron-blind.png",
+      "captureSha256": "e6bcc3d9bd4eae4be3d03d30a3fbaa565a5324c1c06d81a724d6796912131af3",
+      "decision": "accept",
+      "observation": "The low reed screen and dark viewing slot read as a camouflaged wildlife hide."
+    },
+    {
+      "map": "stone-basin",
+      "landmarkId": "quarry-note",
+      "sprite": "prop-quarry-alcove",
+      "sourceSha256": "c97e82f73c9f0eaf204f3f904567c6a506b5e2f5797ac8e4b2711d0d695993e5",
+      "runtimeSha256": "74616515de2406d313a3f7dafbeaec1a3d168f0e5685e2b304b440807e14756a",
+      "capture": "art/assets/reviews/landmarks/quarry-note.png",
+      "captureSha256": "374af52fbb09802778bad654ca39fb6ab5966d6497733820fd0b8fa9e83ac970",
+      "decision": "accept",
+      "observation": "The cut rectangular recess and dressed blocks read as a hand-worked quarry alcove."
+    },
+    {
+      "map": "stone-basin",
+      "landmarkId": "vista-note",
+      "sprite": "prop-rim-overlook",
+      "sourceSha256": "a7686c9a42fcedd5e3fad78a056c68d2fbb146f62f092ceac307d2ee3557854e",
+      "runtimeSha256": "553830b3ac09fad4f245720ba12bbb3fc8569f427148e05c157b5c5489da01ec",
+      "capture": "art/assets/reviews/landmarks/vista-note.png",
+      "captureSha256": "637a52b9fda6490a5c4a589efe82f18a573d772ecdd3f9869c0c7bcdf468f504",
+      "decision": "accept",
+      "observation": "The broad flat rock shelf reads as a natural overlook beside the basin rim."
+    },
+    {
+      "map": "frostveil-grove",
+      "landmarkId": "icefall-note",
+      "sprite": "prop-icefall-ledge",
+      "sourceSha256": "4605bb4a1889fa422c5f68cbfef22e1965dd8ac18c7acf9c903b7848cb6acd68",
+      "runtimeSha256": "6595b74a7fd86f334309dee9d075d6e59823265966ac083a1fe0ea986d3e23a3",
+      "capture": "art/assets/reviews/landmarks/icefall-note.png",
+      "captureSha256": "5e156fb894beaf95ccc838079ccd8d4eb0a1f745c11554c060ee8ff9b2c4f84b",
+      "decision": "accept",
+      "observation": "The icy lip and blue cascade distinguish the ledge from surrounding pines and snow."
+    },
+    {
+      "map": "stilt-isles",
+      "landmarkId": "lantern-note",
+      "sprite": "prop-hanging-lantern",
+      "sourceSha256": "448170fd94bcf15dbd24e2ea4553e8d2b5ea461aea06a57391b01397cc3fbb74",
+      "runtimeSha256": "76d963bf549f6b128b2087be437ceb4e0fd6ea1f4d36e15b2c05c739746f9c50",
+      "capture": "art/assets/reviews/landmarks/lantern-note.png",
+      "captureSha256": "aa87f9f42538685aea0a306139112ec44f320dd8d98a3b0ba8b0e2624562640d",
+      "decision": "accept",
+      "observation": "The warm lantern on its short hooked post reads as a night-crossing light."
+    },
+    {
+      "map": "amber-ridge",
+      "landmarkId": "lookout-note",
+      "sprite": "prop-sunstone-lookout",
+      "sourceSha256": "ec9aeef76604decfc7cf4b75bffcc2b9379779c001a2910b1bde077fdfc61008",
+      "runtimeSha256": "1ba42961d26ee4c169a0cd24e953603e8ae2f5c43be39f1e42e5063ed470b637",
+      "capture": "art/assets/reviews/landmarks/lookout-note.png",
+      "captureSha256": "dfc11c7a872ab2c1fca2de677692ee0de82322d0bb66a71c74f26dbf6b07da13",
+      "decision": "accept",
+      "observation": "The low sun-warmed orange shelf reads as a basking lookout rather than a marker spire."
+    }
+  ]
+}

@@ -119,6 +119,7 @@ const app = {
   maps: [],
   mapsById: {},
   objectives: [],
+  eventObjectives: [],
   story: undefined,
   inventoryRules: undefined,
   skipPremise: (debug && !params.has('premise')) || !!editorPreviewId, // tests start in play; add &premise to see the opening card
@@ -306,7 +307,13 @@ Object.assign(actions, {
 });
 
 async function boot() {
-  if (!app.build) fetchBuild().then(info => (app.build = info)); // for the menu; never blocks play
+  if (!app.build) {
+    fetchBuild().then(info => {
+      app.build = info;
+      const label = document.querySelector('#build-label');
+      if (label) label.textContent = app.buildLabel();
+    }); // for the menu; never blocks play
+  }
   ui.ready = false;
   setBusy(true);
   loading.hidden = false;
@@ -401,7 +408,7 @@ async function boot() {
         onEvent: (type, data) => eventLog.emit(type, data),
       });
       if (loaded.status === 'transaction-pending') renderSaveStatus('unavailable', loaded.message);
-      const {maps, mapsById, objectives, story, errors} = buildAdventure(
+      const {maps, mapsById, objectives, eventObjectives, story, errors} = buildAdventure(
         rawMaps,
         {assets, species, regions, packId: rawPack.id},
         rawObjectives,
@@ -416,6 +423,7 @@ async function boot() {
       app.maps.push(...maps);
       Object.assign(app.mapsById, mapsById);
       app.objectives.push(...objectives);
+      app.eventObjectives.push(...eventObjectives);
       app.story = story;
       const boundedSave = codec.normalize(JSON.parse(codec.serialize(game.save)), false);
       game.save = boundedSave;
@@ -492,7 +500,8 @@ function loop(t) {
       const nearest = actions.nearest();
       // A sign toast or character bubble owns the reading area. Keep the
       // contextual prompt out of both overlays until the text is dismissed.
-      $('#interact').style.display = nearest && !ui.speechActive && $('#toast').dataset.active !== 'true' ? 'block' : 'none';
+      $('#interact').style.display =
+        nearest && !ui.speechActive && $('#toast').dataset.active !== 'true' && $('#environment-message').hidden ? 'block' : 'none';
       if (nearest) $('#interact').textContent = 'E · ' + nearest.label;
       document.querySelector('.viewport').classList.toggle('has-interaction', $('#interact').style.display === 'block');
     }

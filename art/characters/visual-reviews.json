@@ -12,12 +12,12 @@
     "beforeAfter": "Each species card shows its canonical portrait beside the generated combat states.",
     "contactSheetDigest": {
       "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-      "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
+      "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
     },
     "followerContactSheet": "art/characters/reviews/creature-follower-contact-sheet.png",
     "followerContactSheetDigest": {
       "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-      "sha256": "24f6843582415f8f9a2ff602639daef00f6d901851c8160c2de49aee703c792e"
+      "sha256": "acd26edfd81593483032e6111a4eb9b8a81a39c4bc8f58f5ac8fcca5ea078262"
     }
   },
   "subjects": [
@@ -26,23 +26,39 @@
       "asset": "person-red-cap-motion",
       "technical": {
         "status": "pass",
-        "source": "npm run verify / asset source atlas pixel checks"
+        "source": "npm run verify / real-map Playwright diagonal cycles and 52 × 84 px rendered foot-travel checks"
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "Eight facing rows retain the red cap, blue clothing and compact scale; NE/NW silhouette changes are expected for turned views, not identity failures.",
+        "reason": "At the renderer’s 52 × 84 px size, NE/NW/SW alternate readable walk poses with measured boot travel of 9.6/9.6/12.8 px; the unchanged SE control measures 8.8 px. NW mirrors NE. Owner gameplay taste remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["dist/character-preview.html"],
+      "evidence": ["dist/character-preview.html", "art/characters/reviews/diagonal-walk-before-after.png"],
       "reviewedFiles": [
+        {
+          "path": "art/assets/source/people-atlas.png",
+          "sha256": "028dea5913b9f44df9c89cbe9259bae5efbdd239799c3dc051f032ce01121ecc"
+        },
+        {
+          "path": "art/characters/reviews/diagonal-walk-before-after.png",
+          "sha256": "31b0cb2852483c69a63b881680bacfcd5fc844b6a7a95b0d858ea1dd4baaba6f"
+        },
+        {
+          "path": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+          "sha256": "0d0def87e7211180b62b6eab5710f1b10b6dd8284b358a05026edb1e9c2dc117"
+        },
+        {
+          "path": "art/characters/source/person-red-cap-motion-southwest-v2.png",
+          "sha256": "0bc1009b828738a92d49a1a0c85616a0ceb25f8238ff85712fc8be881f1a4dc3"
+        },
         {
           "path": "dist/assets/people/person-red-cap-east.png",
           "sha256": "1ea752494f7897b5e512d5885f8c732a06590949c74450f6e6c8744ea4053850"
         },
         {
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "sha256": "9a8c5376affa0b538964041baff4c0618780de1324dee6c815298f6ce9a61e57"
+          "sha256": "f1ab1240e8d9680998a7287ac49065d1ffb72075a08ae1827f1c1dc5f5fe03fd"
         },
         {
           "path": "dist/assets/people/person-red-cap-north.png",
@@ -58,7 +74,7 @@
         },
         {
           "path": "dist/character-preview.html",
-          "sha256": "0946906b268ec0999484661c0f7637679b90e6651b00f47957dfadafbd4e1cf5"
+          "sha256": "06976c5f19bb51b0c6fe6c9622fa388f0632e56e8b34ff64155b19ec37551c9c"
         }
       ]
     },
@@ -70,12 +86,12 @@
         "source": "npm run validate; 4x5 RGBA frame grid and common foot-line validator"
       },
       "visual": {
-        "decision": "rework",
+        "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "The small actual-scale contact sheet shows detached leaf/spark pixels below multiple faint-row poses; keep the source, revise those cells before calling this species art complete.",
+        "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -83,11 +99,15 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-combat.png",
-          "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64"
+          "sha256": "50c26219f530e42b350351364c71a7465ccb4c84706996f827d2d477154b0cfc"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-follower.png",
@@ -112,7 +132,7 @@
         "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -120,19 +140,23 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
         },
         {
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
           "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02"
         },
         {
-          "path": "dist/assets/creatures/creature-duskwing.png",
-          "sha256": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1"
-        },
-        {
           "path": "dist/assets/creatures/creature-duskwing-follower.png",
           "sha256": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae"
+        },
+        {
+          "path": "dist/assets/creatures/creature-duskwing.png",
+          "sha256": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1"
         }
       ]
     },
@@ -140,19 +164,31 @@
       "visualId": "creature-emberkin",
       "technical": {
         "status": "pass",
-        "source": "npm run verify / fixed 5x8 RGBA sheet, transparent cells and y=196 visible-foot anchor check"
+        "source": "npm run verify; combat/follower exporters validate transparency, frame bounds and bottom anchors"
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
+        "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "24f6843582415f8f9a2ff602639daef00f6d901851c8160c2de49aee703c792e"
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
+        },
+        {
+          "path": "dist/assets/creatures/creature-emberkin-combat.png",
+          "sha256": "dbe7f65ae28ad098d8e43521c3f6b092caed7c8f9d220682faa585f90f205b3b"
         },
         {
           "path": "dist/assets/creatures/creature-emberkin-follower.png",
@@ -163,7 +199,8 @@
           "sha256": "f7bd5e6dd44bf8fe44a7d708f48c8f8ef6946c4ea7e20f989f46266b92c97350"
         }
       ],
-      "assetVariant": "creature-emberkin-follower"
+      "assetVariant": "creature-emberkin-follower",
+      "asset": "creature-emberkin-combat"
     },
     {
       "visualId": "creature-fernling",
@@ -185,11 +222,11 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "24f6843582415f8f9a2ff602639daef00f6d901851c8160c2de49aee703c792e"
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-combat.png",
-          "sha256": "7097a10d47b4ddaf26ee4989b888d6b939423c271dffa8189ce38926286c6b64"
+          "sha256": "50c26219f530e42b350351364c71a7465ccb4c84706996f827d2d477154b0cfc"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-follower.png",
@@ -215,7 +252,7 @@
         "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -223,19 +260,23 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
         },
         {
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
           "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242"
         },
         {
-          "path": "dist/assets/creatures/creature-brooklet.png",
-          "sha256": "ba91ded862d7cc2cbe0096d9681d4942012cefabb9becb49974e1f89ce4676c5"
-        },
-        {
           "path": "dist/assets/creatures/creature-brooklet-follower.png",
           "sha256": "5b2c2a46344f9dd6bf23c92ddf623baf4004e71785bd87582f5f8e5adda1c7af"
+        },
+        {
+          "path": "dist/assets/creatures/creature-brooklet.png",
+          "sha256": "ba91ded862d7cc2cbe0096d9681d4942012cefabb9becb49974e1f89ce4676c5"
         }
       ]
     },
@@ -244,15 +285,15 @@
       "asset": "creature-hushram-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run validate; transparent 4x5 RGBA frame grid and common foot-anchor checks"
+        "source": "npm run verify; combat/follower exporters validate transparency, frame bounds and bottom anchors"
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the 115 px gameplay width, Hushram keeps its pale ram and crystalline ice-horn identity across all five readable combat states.",
+        "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png"],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -260,11 +301,19 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "176dc5c20adad2d02a3f6ea882d270ca1fed8f057c0c0c0af2c0df0b28217992"
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
         },
         {
           "path": "dist/assets/creatures/creature-hushram-combat.png",
           "sha256": "32a1817ed1f63bb330f4bd59f32355f9517f09a903e22dfd02d60a9e1d41bae4"
+        },
+        {
+          "path": "dist/assets/creatures/creature-hushram-follower.png",
+          "sha256": "59aee6fdfb97926de8a36acdf1c19e731c6ff08c7251b4c621e49b340ddf5606"
         },
         {
           "path": "dist/assets/creatures/creature-hushram.png",
@@ -293,11 +342,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "24f6843582415f8f9a2ff602639daef00f6d901851c8160c2de49aee703c792e"
-        },
-        {
-          "path": "art/characters/source/creature-duskwing-follower-generated.png",
-          "sha256": "be6a7f16f416553ed13fabc125d7272d484c822d204de4160f1c94c98ee7f275"
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
         },
         {
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
@@ -313,7 +358,7 @@
         },
         {
           "path": "dist/creature-follower-preview.html",
-          "sha256": "3dc96cf546572ac1055c4b3fe2353dfa8af7d448bd78af4a90532126506f3dc1"
+          "sha256": "47af0a0875188798ba8fac7a698fe4564070d662128948bcacb702052cd5dbe6"
         }
       ],
       "assetVariant": "creature-duskwing-follower"
@@ -339,11 +384,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "24f6843582415f8f9a2ff602639daef00f6d901851c8160c2de49aee703c792e"
-        },
-        {
-          "path": "art/characters/source/creature-brooklet-follower-generated.png",
-          "sha256": "b3cf23bca252599fa5062a25c0d0c92e8d28f01e6db453c1d03c85c50e2b9fa0"
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
         },
         {
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
@@ -359,10 +400,297 @@
         },
         {
           "path": "dist/creature-follower-preview.html",
-          "sha256": "3dc96cf546572ac1055c4b3fe2353dfa8af7d448bd78af4a90532126506f3dc1"
+          "sha256": "47af0a0875188798ba8fac7a698fe4564070d662128948bcacb702052cd5dbe6"
         }
       ],
       "assetVariant": "creature-brooklet-follower"
+    },
+    {
+      "visualId": "creature-voltkit",
+      "asset": "creature-voltkit-combat",
+      "technical": {
+        "status": "pass",
+        "source": "npm run verify; combat/follower exporters validate transparency, frame bounds and bottom anchors"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "At 115 px battle width, Voltkit keeps its gold/cream body, long ears, blue cheek mark and crystal tail across all five states. At 37 px, the eight-direction follower remains recognizable with aligned feet. Owner taste review remains pending.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
+        },
+        {
+          "path": "dist/assets/creatures/creature-voltkit-combat.png",
+          "sha256": "ce6faf852efddc2dc4b7ea80b5cc313b811d1f266ff4289cbafc49d1f22fdc36"
+        },
+        {
+          "path": "dist/assets/creatures/creature-voltkit-follower.png",
+          "sha256": "ce9ca12721e87fe13b6d8b527f589f1acb18328f9ed2de99f619b37a037711d6"
+        },
+        {
+          "path": "dist/assets/creatures/creature-voltkit.png",
+          "sha256": "04d97b8c53aa99d027d072abef780ecb20be01799b292333a1f547683c11eddc"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-mushmallow",
+      "asset": "creature-mushmallow-combat",
+      "technical": {
+        "status": "pass",
+        "source": "follower exporter verifies archived source, 5×8 layout, indexed runtime pixels and aligned feet; preview/browser checks cover all directions and five poses"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA at 37 px",
+        "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
+        },
+        {
+          "path": "dist/assets/creatures/creature-mushmallow-combat.png",
+          "sha256": "dc522312ac233dd35462e76dd2050067c058c7f70b3773fd12e92b2c38e02fcb"
+        },
+        {
+          "path": "dist/assets/creatures/creature-mushmallow-follower.png",
+          "sha256": "dbba4c4e2cd59345ab48c76432284f0d325d0537bda1e13d306b7c856a52520b"
+        },
+        {
+          "path": "dist/assets/creatures/creature-mushmallow.png",
+          "sha256": "3a140fbb9adeccfc96ae972cc6e8a7d871e3d6c080d8ecc663e362823fce5c0b"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-frostowl",
+      "asset": "creature-frostowl-combat",
+      "technical": {
+        "status": "pass",
+        "source": "follower exporter verifies archived source, 5×8 layout, indexed runtime pixels and aligned feet; preview/browser checks cover all directions and five poses"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA at 37 px",
+        "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
+        },
+        {
+          "path": "dist/assets/creatures/creature-frostowl-combat.png",
+          "sha256": "0ec81b187ff2be0cf4130a518c38bacee56d49e2ac1724f358537b0c710adb32"
+        },
+        {
+          "path": "dist/assets/creatures/creature-frostowl-follower.png",
+          "sha256": "a09a15efa0b45f6ab4ba2f5bfd5808722267f883e06cc86abffc41bbe022e6ab"
+        },
+        {
+          "path": "dist/assets/creatures/creature-frostowl.png",
+          "sha256": "e9815a89122b06f86d76723ed3bdf97158ee69b00707b7eb19b4c1003988e5d8"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-pebblit",
+      "asset": "creature-pebblit",
+      "technical": {
+        "status": "pass",
+        "source": "profile exports, alpha/cell checks, 115 px combat sheet and 37 px follower sheet"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
+        },
+        {
+          "path": "dist/assets/creatures/creature-pebblit-combat.png",
+          "sha256": "0c3c42916062ac05d210832e18835b9330e0904af5c288cd214c80114a58b189"
+        },
+        {
+          "path": "dist/assets/creatures/creature-pebblit-follower.png",
+          "sha256": "4c0d3ab3873a916aa341904e2e36137a83e19b7b3582d9640eb51657f5c1de8e"
+        },
+        {
+          "path": "dist/assets/creatures/creature-pebblit.png",
+          "sha256": "d102e65645174891f97606513a006c3089bd404e4ecebed18ab38e87b1ebde1d"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-bramblebuck",
+      "asset": "creature-bramblebuck",
+      "technical": {
+        "status": "pass",
+        "source": "profile exports, alpha/cell checks, 115 px combat sheet and 37 px follower sheet"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
+        },
+        {
+          "path": "dist/assets/creatures/creature-bramblebuck-combat.png",
+          "sha256": "3d08f6850e19de34e7ca45a22da5a568321b0df4c44b3f4de4d111758221064f"
+        },
+        {
+          "path": "dist/assets/creatures/creature-bramblebuck-follower.png",
+          "sha256": "5620e661b6efe3c603f69d76717aaf05040e2aae1ede9a6b777986af3f602d2d"
+        },
+        {
+          "path": "dist/assets/creatures/creature-bramblebuck.png",
+          "sha256": "27a7ea4200538dda70528db3f99978e14edd689c71730b1ba4bede6da6b1cfc6"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-siltkip",
+      "asset": "creature-siltkip",
+      "technical": {
+        "status": "pass",
+        "source": "profile exports, alpha/cell checks, 115 px combat sheet and 37 px follower sheet"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
+        },
+        {
+          "path": "dist/assets/creatures/creature-siltkip-combat.png",
+          "sha256": "3f9e2e60432c80b696e363f63378c6d7c1b6d773f1de73c6c077cbf4762abdb1"
+        },
+        {
+          "path": "dist/assets/creatures/creature-siltkip-follower.png",
+          "sha256": "3adf0dacc4e499eb63d10c336ef1f1c64f76aba6f983f5da8266eaa0410bab16"
+        },
+        {
+          "path": "dist/assets/creatures/creature-siltkip.png",
+          "sha256": "0b8402acc8fb02165db140b9581d426f17b0252c3e332b2f746a829201871c1e"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-sunskitter",
+      "asset": "creature-sunskitter",
+      "technical": {
+        "status": "pass",
+        "source": "profile exports, alpha/cell checks, 115 px combat sheet and 37 px follower sheet"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "be377d5284d240d3b6a4655e677adc6eed690015be9d22e8a6ab33633a93e1a7"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "60e7618864356dd6bba2b0cdfdcbf0e6af3ce7e8c76101c019daf66f52e49681"
+        },
+        {
+          "path": "dist/assets/creatures/creature-sunskitter-combat.png",
+          "sha256": "ba4bb37e396a8ca4fc41319937ebf23f44bba53ee76125838856303954b1bf88"
+        },
+        {
+          "path": "dist/assets/creatures/creature-sunskitter-follower.png",
+          "sha256": "39e8938acd0f663cb0b6c4862f99b78200347f2ce0238bdd0dad36eca34b6fa7"
+        },
+        {
+          "path": "dist/assets/creatures/creature-sunskitter.png",
+          "sha256": "7624554e2e1da7c543c2b8c8874ea9bbc4656847f4300c0e27a3d6aea1711148"
+        }
+      ]
     }
   ],
   "fixtures": [
@@ -407,15 +735,41 @@
   "coverage": [
     {
       "issue": "#85",
-      "status": "reviewed-at-scale",
-      "visualIds": ["creature-fernling", "creature-duskwing", "creature-brooklet", "creature-hushram"],
+      "status": "full-roster-reviewed-at-scale",
+      "visualIds": [
+        "creature-fernling",
+        "creature-emberkin",
+        "creature-duskwing",
+        "creature-brooklet",
+        "creature-hushram",
+        "creature-voltkit",
+        "creature-mushmallow",
+        "creature-frostowl",
+        "creature-pebblit",
+        "creature-bramblebuck",
+        "creature-siltkip",
+        "creature-sunskitter"
+      ],
       "creaturePortraitWidth": 115,
       "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png"
     },
     {
       "issue": "#90",
-      "status": "second-batch-reviewed-at-scale",
-      "visualIds": ["creature-emberkin", "creature-fernling", "creature-duskwing", "creature-brooklet"],
+      "status": "full-roster-reviewed-at-scale",
+      "visualIds": [
+        "creature-fernling",
+        "creature-emberkin",
+        "creature-duskwing",
+        "creature-brooklet",
+        "creature-hushram",
+        "creature-voltkit",
+        "creature-mushmallow",
+        "creature-frostowl",
+        "creature-pebblit",
+        "creature-bramblebuck",
+        "creature-siltkip",
+        "creature-sunskitter"
+      ],
       "followerWidth": 37,
       "contactSheet": "art/characters/reviews/creature-follower-contact-sheet.png"
     }
@@ -424,8 +778,8 @@
     {
       "issue": "#90",
       "profileId": "creature-follower-v1",
-      "status": "pending-art",
-      "reason": "Four of twelve roster species have dedicated directional follower sheets; eight species and owner gameplay review remain pending."
+      "status": "pending-owner-review",
+      "reason": "Dedicated 8-direction idle and four-frame follower sheets now cover all 12 species; owner gameplay taste review is still pending."
     }
   ]
 }

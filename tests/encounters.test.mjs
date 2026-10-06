@@ -5,7 +5,7 @@ import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {encounterDistance, rollWild} from '../dist/src/domain/battle.js';
 import {movePlayer} from '../dist/src/domain/exploration.js';
 import {seededRng} from '../dist/src/domain/rng.js';
-import {buildWorld, triggersAt} from '../dist/src/domain/world.js';
+import {buildWorld, triggersAt, zoneAt} from '../dist/src/domain/world.js';
 import {species} from '../dist/src/data/species.js';
 import {content, maps, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
@@ -105,7 +105,7 @@ test('encounters are spaced by the zone distance, with a grace period', () => {
     const d = encounterDistance(zone, rng);
     assert.ok(d >= zone.distance[0] && d <= zone.distance[1]);
   }
-  // Walking east through the tall grass: no encounter during the grace period, then roughly every 4-7 tiles.
+  // Walking east through the tall grass: no encounter during the grace period, then roughly every 5-7 tiles.
   const st = {world, player: {x: 15, y: 9, dir: 8}, pacing: {steps: 0, encounterAt: 5, encounterCooldown: 2}, trail: []};
   let firstAt = null;
   let t = 0;
@@ -133,7 +133,7 @@ test('a long walk through grass is not a stream of battles', () => {
       st.pacing.encounterAt = encounterDistance(world.map.zones[0], rng);
       st.pacing.encounterCooldown = GRACE_AFTER_BATTLE;
     }
-    tiles += Math.hypot(st.player.x - before.x, st.player.y - before.y);
+    if (zoneAt(world, Math.round(st.player.x), Math.round(st.player.y))) tiles += Math.hypot(st.player.x - before.x, st.player.y - before.y);
   }
   const perHundred = (encounters / tiles) * 100;
   assert.ok(perHundred > 5 && perHundred < 30, `${encounters} encounters over ${tiles.toFixed(0)} tiles (${perHundred.toFixed(1)} per 100)`);

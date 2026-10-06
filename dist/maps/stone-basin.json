@@ -129,10 +129,10 @@
     {
       "id": "quarry-note",
       "kind": "sign",
-      "sprite": "signpost-wood",
+      "sprite": "prop-quarry-alcove",
       "at": [6.6, 21.4],
-      "w": 38,
-      "label": "Read the chiselled note",
+      "w": 50,
+      "label": "Inspect the quarry alcove",
       "secret": true,
       "mapLabel": "Old quarry alcove",
       "text": "Cut by hand, a block at a time. The guardian above sleeps lightly: roll with its charge, do not stand against it."
@@ -140,10 +140,10 @@
     {
       "id": "vista-note",
       "kind": "sign",
-      "sprite": "signpost-wood",
+      "sprite": "prop-rim-overlook",
       "at": [47.4, 8.6],
-      "w": 38,
-      "label": "Read the vista marker",
+      "w": 58,
+      "label": "Look over the basin",
       "secret": true,
       "mapLabel": "Rim vista",
       "text": "From the rim you can see the whole basin and the long road up to the shrine."
@@ -461,7 +461,7 @@
       "once": true,
       "do": [
         {
-          "type": "toast",
+          "type": "environment",
           "text": "The chasm falls away below the rail. The path keeps you safe."
         }
       ]

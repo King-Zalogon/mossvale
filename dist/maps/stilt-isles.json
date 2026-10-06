@@ -61,7 +61,8 @@
     "...................................wwwwwwwwww..........................."
   ],
   "spawns": {
-    "camp": [4, 22]
+    "camp": [4, 22],
+    "lantern-cut": [44, 39]
   },
   "landmarks": [
     {
@@ -123,10 +124,10 @@
     {
       "id": "lantern-note",
       "kind": "sign",
-      "sprite": "signpost-wood",
+      "sprite": "prop-hanging-lantern",
       "at": [40.3, 39.2],
-      "w": 38,
-      "label": "Read the lantern note",
+      "w": 36,
+      "label": "Inspect the hanging lantern",
       "secret": true,
       "mapLabel": "Lantern islet",
       "text": "A hanging lantern for night crossings. Keep to the planks and the water keeps its distance."
@@ -153,6 +154,17 @@
       "to": {
         "map": "reedfen-wetlands",
         "spawn": "shrine-landing"
+      }
+    },
+    {
+      "id": "shallow-cut-return",
+      "sprite": "signpost-wood",
+      "at": [43, 39],
+      "w": 40,
+      "label": "Return through the shallow-water cut",
+      "to": {
+        "map": "reedfen-wetlands",
+        "spawn": "shallow-cut-approach"
       }
     }
   ],
@@ -387,7 +399,7 @@
       "once": true,
       "do": [
         {
-          "type": "toast",
+          "type": "environment",
           "text": "The high boardwalk hums underfoot. Reedfen's shrine is a short walk beyond."
         }
       ]

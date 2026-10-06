@@ -5,9 +5,11 @@ import {assets, spriteId} from '../dist/src/data/assets.js';
 import {
   DIRECTIONS,
   FACING,
+  FOLLOWER_FRAME_DISTANCE,
   WALK_FRAME_DISTANCE,
   directionPose,
   facing,
+  followerFrame,
   playerSpritePose,
   followerPoint,
   movementFacing,
@@ -78,6 +80,33 @@ test('idle and reduced motion hold the idle cell; walking advances by distance a
   assert.equal(playerFrame(WALK_FRAME_DISTANCE, true), 2);
   assert.equal(playerFrame(WALK_FRAME_DISTANCE * 4, true), 1);
   assert.equal(playerFrame(3, true, true), 0);
+  assert.equal(followerFrame(0.71, true), 1);
+  assert.equal(followerFrame(FOLLOWER_FRAME_DISTANCE, true), 2);
+  assert.equal(followerFrame(FOLLOWER_FRAME_DISTANCE * 4, true), 1);
+  assert.equal(followerFrame(3, true, true), 0);
+});
+
+test('changing facing restarts the walk cycle at a readable first step', () => {
+  const st = state(open, 19, 15);
+  walk(st, 0, 1, 0.2, 60);
+  assert.ok(st.player.walkDistance >= WALK_FRAME_DISTANCE);
+  assert.equal(playerFrame(st.player.walkDistance, true), 2);
+  movePlayer(st, 1, -1, false, 1 / 60);
+  assert.equal(st.player.dir, FACING.northeast);
+  assert.equal(playerFrame(st.player.walkDistance, true), 1);
+});
+
+test('the companion is interpolated at its exact trail gap instead of snapping between trail samples', () => {
+  const trail = [
+    {x: 9.4, y: 10},
+    {x: 9, y: 10},
+    {x: 8.6, y: 10},
+  ];
+  const first = followerPoint(open, {x: 10, y: 10}, trail);
+  assert.ok(Math.abs(Math.hypot(10 - first.x, 10 - first.y) - 1) < 1e-9);
+  const second = followerPoint(open, {x: 10.05, y: 10}, trail);
+  assert.ok(Math.abs(Math.hypot(10.05 - second.x, 10 - second.y) - 1) < 1e-9);
+  assert.ok(Math.abs(second.x - first.x - 0.05) < 1e-9, 'a newly interpolated point moves smoothly with the player');
 });
 
 test('run reuses the walk loop at a faster travel cadence and stopping resets its phase', () => {
@@ -140,6 +169,67 @@ test('props block with the same footprint', () => {
   const cottage = meadow.objects.find(o => o.kind === 'cottage');
   assert.equal(isWalkable(meadow, cottage.x, cottage.y), false);
   assert.equal(isWalkable(meadow, cottage.x + cottage.solid + PLAYER_RADIUS + 0.01, cottage.y), true);
+});
+
+test('screen diagonals slide around real cottage and tree collisions, and reverse input escapes cleanly', () => {
+  const cottage = meadow.objects.find(o => o.kind === 'cottage');
+  const tree = meadow.objects.find(o => o.kind === 'scenery' && Math.abs(o.x - 28.3) < 1e-6 && Math.abs(o.y - 30.4) < 1e-6);
+  assert.ok(cottage && tree, 'the reproduction points refer to real Meadow props');
+
+  const ends = [20, 30, 60, 144].map(fps => {
+    const st = state(meadow, 11.8, 9.1); // south of the cottage, where screen-up-right meets its collision ring
+    assert.equal(isWalkable(meadow, st.player.x, st.player.y), true);
+    walk(st, 1, -1, 1, fps);
+    assert.equal(isWalkable(meadow, st.player.x, st.player.y), true);
+    assert.ok(Math.hypot(st.player.x - 11.8, st.player.y - 9.1) > 2, `slides around the cottage at ${fps} fps`);
+    assert.ok(Math.hypot(st.player.x - cottage.x, st.player.y - cottage.y) >= cottage.solid + PLAYER_RADIUS - 1e-6);
+    return st.player;
+  });
+  for (const end of ends.slice(1)) assert.ok(Math.hypot(end.x - ends[0].x, end.y - ends[0].y) < 0.12, 'collision travel remains stable across frame rates');
+
+  const reversed = state(meadow, ends[2].x, ends[2].y);
+  walk(reversed, -1, 0, 0.25, 60); // screen-left releases the old stuck position without penetrating the cottage
+  assert.ok(Math.hypot(reversed.player.x - ends[2].x, reversed.player.y - ends[2].y) > 0.5);
+  assert.ok(isWalkable(meadow, reversed.player.x, reversed.player.y));
+
+  const aroundTree = state(meadow, 28.3, 29.3); // screen-up-right approaches an actual oak at [28.3, 30.4]
+  walk(aroundTree, 1, -1, 1, 60);
+  assert.ok(Math.hypot(aroundTree.player.x - 28.3, aroundTree.player.y - 29.3) > 0.5, 'continues along the tree edge');
+  assert.ok(Math.hypot(aroundTree.player.x - tree.x, aroundTree.player.y - tree.y) >= tree.solid + PLAYER_RADIUS - 1e-6);
+  assert.ok(isWalkable(meadow, aroundTree.player.x, aroundTree.player.y));
+});
+
+test('screen-space sliding preserves a passable narrow gap and does not squeeze through an undersized one', () => {
+  const obstacleWorld = objects =>
+    buildWorld({
+      size: {w: 20, h: 20},
+      tiles: [],
+      objects,
+      zones: [],
+      quiet: [],
+      spawns: {camp: {x: 5, y: 5}},
+      terrainAt: (x, y) => (x < 0 || y < 0 || x >= 20 || y >= 20 ? 'void' : 'ground'),
+    });
+  const narrow = obstacleWorld([
+    {x: 9, y: 10, solid: 0.35, kind: 'scenery'},
+    {x: 11, y: 10, solid: 0.35, kind: 'scenery'},
+  ]);
+  const throughGap = state(narrow, 10, 12);
+  walk(throughGap, 1, -1, 1, 60);
+  assert.ok(throughGap.player.y < 10, 'the 0.8-tile opening remains traversable with the player footprint');
+  assert.ok(isWalkable(narrow, throughGap.player.x, throughGap.player.y));
+
+  const tooNarrow = obstacleWorld([
+    {x: 9.6, y: 10, solid: 0.35, kind: 'scenery'},
+    {x: 10.4, y: 10, solid: 0.35, kind: 'scenery'},
+  ]);
+  assert.equal(isWalkable(tooNarrow, 10, 10), false);
+  const stopped = state(tooNarrow, 10, 12);
+  for (let i = 0; i < 24; i++) {
+    movePlayer(stopped, 1, -1, false, 1 / 60);
+    assert.ok(isWalkable(tooNarrow, stopped.player.x, stopped.player.y), 'every collision step stays outside solid props');
+  }
+  assert.ok(stopped.player.y > 10, 'the player cannot pass through the undersized opening');
 });
 
 test('the companion walks the path the player walked, so it is never on water or inside a prop', () => {

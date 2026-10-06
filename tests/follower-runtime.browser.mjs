@@ -26,7 +26,11 @@ try {
     window.followerAtlasDraws = [];
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (image, ...args) {
-      if (image?.src?.includes('-follower.png') || image?.src?.endsWith('/creature-hushram.png') || image?.src?.endsWith('/tree-oak.png')) {
+      if (
+        image?.src?.includes('-follower.png') ||
+        /\/creature-(mushmallow|frostowl|sunskitter)\.png$/.test(image?.src ?? '') ||
+        image?.src?.endsWith('/tree-oak.png')
+      ) {
         window.followerAtlasDraws.push({
           src: image.src,
           column: Math.round(args[0] / 200),
@@ -40,7 +44,20 @@ try {
   });
   await page.goto(`http://localhost:${server.address().port}/?debug&seed=131`);
   await page.waitForSelector('#loading', {state: 'hidden'});
-  const supported = ['emberkin', 'fernling'];
+  const supported = [
+    'emberkin',
+    'fernling',
+    'duskwing',
+    'brooklet',
+    'hushram',
+    'voltkit',
+    'mushmallow',
+    'frostowl',
+    'pebblit',
+    'bramblebuck',
+    'siltkip',
+    'sunskitter',
+  ];
   const ids = supported.map(name => species.findIndex(entry => entry.id === name));
   assert.ok(ids.every(id => id >= 0));
   await page.evaluate(([emberkin, fernling]) => {
@@ -84,6 +101,23 @@ try {
       return [name, {sprite: sprite.src, rows: sprite.frames.rowOrder, mirror: sprite.frames.mirror ?? {}}];
     }),
   );
+  // Independent reviewed source-row contracts for the directions that owners reported mislabeled.
+  const reviewedRows = {
+    emberkin: {north: 4, northeast: 3, east: 2, southeast: 7, south: 0, southwest: 1, west: 6, northwest: 5},
+    brooklet: {north: 0, northeast: 7, east: 5, southeast: 6, south: 4, southwest: 3, west: 2, northwest: 1},
+    voltkit: {north: 0, northeast: 1, east: 2, southeast: 4, south: 3, southwest: 7, west: 5, northwest: 6},
+    hushram: {north: 0, northeast: 1, east: 2, southeast: 7, south: 4, southwest: 3, west: 5, northwest: 6},
+    mushmallow: {north: 0, northeast: 1, east: 2, southeast: 5, south: 4, southwest: 3, west: 6, northwest: 7},
+  };
+  const reviewedMirrors = {emberkin: {southeast: 'southwest'}};
+  for (const [name, rows] of Object.entries(reviewedRows)) {
+    const sprite = assets.find(asset => asset.name === `creature-${name}-follower`);
+    assert.deepEqual(
+      Object.fromEntries(DIRECTIONS.map(direction => [direction, sprite.frames.rowOrder.indexOf(reviewedMirrors[name]?.[direction] ?? direction)])),
+      Object.fromEntries(DIRECTIONS.map(direction => [direction, rows[reviewedMirrors[name]?.[direction] ?? direction]])),
+      `${name} manifest row labels match independently reviewed source poses`,
+    );
+  }
   const directionKeys = [
     ['ArrowUp'],
     ['ArrowUp', 'ArrowRight'],
@@ -94,7 +128,7 @@ try {
     ['ArrowLeft'],
     ['ArrowUp', 'ArrowLeft'],
   ];
-  const fallbackId = species.findIndex(entry => entry.id === 'hushram');
+  const fallbackId = species.findIndex(entry => entry.id === 'sunskitter');
   const evidence = {};
   for (let speciesIndex = 0; speciesIndex < supported.length; speciesIndex++) {
     const name = supported[speciesIndex];
@@ -145,8 +179,8 @@ try {
       await page.waitForTimeout(450);
       const ownAtlas = await page.evaluate(src => window.followerAtlasDraws.filter(frame => frame.src.endsWith(src)), expected[name].sprite);
       const direction = DIRECTIONS[directionIndex];
-      const mirror = expected[name].mirror[direction];
-      const expectedRow = expected[name].rows.indexOf(mirror ?? direction);
+      const mirror = reviewedMirrors[name]?.[direction] ?? expected[name].mirror[direction];
+      const expectedRow = reviewedRows[name]?.[mirror ?? direction] ?? expected[name].rows.indexOf(mirror ?? direction);
       const directionFrames = ownAtlas.filter(frame => frame.row === expectedRow && frame.flipped === !!mirror);
       assert.ok(
         directionFrames.length,
@@ -184,9 +218,33 @@ try {
   );
   await page.evaluate(() => (window.followerAtlasDraws = []));
   await page.keyboard.down('ArrowRight');
-  await page.waitForTimeout(850);
+  const gaitSamples = await page.evaluate(async () => {
+    const samples = [];
+    for (let i = 0; i < 42; i++) {
+      await new Promise(requestAnimationFrame);
+      const motion = window.mossvale.getState().followerMotion;
+      samples.push({x: motion.x, y: motion.y, distance: motion.distance});
+    }
+    return samples;
+  });
   await page.keyboard.up('ArrowRight');
   await page.waitForTimeout(120);
+  const gaitSteps = gaitSamples.slice(1).map((sample, index) => ({
+    moved: Math.hypot(sample.x - gaitSamples[index].x, sample.y - gaitSamples[index].y),
+    distance: sample.distance - gaitSamples[index].distance,
+  }));
+  assert.ok(
+    gaitSteps.some(step => step.moved > 0.005),
+    'the follower visibly travels during the gait sample',
+  );
+  assert.ok(
+    gaitSteps.every(step => step.moved < 0.16),
+    'interpolated follower position has no visible snap between samples',
+  );
+  assert.ok(
+    gaitSteps.every(step => step.distance >= -1e-9),
+    'the distance-based walk phase never jitters backward',
+  );
   await page.keyboard.down('ArrowLeft');
   await page.waitForTimeout(850);
   await page.keyboard.up('ArrowLeft');
@@ -348,24 +406,40 @@ try {
   const reloadFrames = await page.evaluate(src => window.followerAtlasDraws.filter(frame => frame.src.endsWith(src)), expected.emberkin.sprite);
   assert.ok(reloadFrames.some(frame => frame.row === expected.emberkin.rows.indexOf(DIRECTIONS[afterReload.motion.dir])));
 
-  // Static fallback remains usable for a species whose directional atlas is not yet authored.
-  const fallback = fallbackId;
-  await page.evaluate(id => {
+  // Static fallback remains usable when a supported optional direction atlas fails to load.
+  const fallbackPage = await browser.newPage({viewport: {width: 1200, height: 850}});
+  const fallbackErrors = [];
+  fallbackPage.on('pageerror', error => fallbackErrors.push(error.message));
+  await fallbackPage.route('**/assets/creatures/creature-sunskitter-follower.png', route => route.abort());
+  await fallbackPage.addInitScript(() => {
+    window.followerAtlasDraws = [];
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (image, ...args) {
+      if (/\/creature-sunskitter(?:-follower)?\.png$/.test(image?.src ?? '')) window.followerAtlasDraws.push({src: image.src});
+      return drawImage.call(this, image, ...args);
+    };
+  });
+  await fallbackPage.goto(`http://localhost:${server.address().port}/?debug&seed=132`);
+  await fallbackPage.waitForSelector('#loading', {state: 'hidden'});
+  await fallbackPage.locator('#game').click();
+  await fallbackPage.evaluate(id => {
     const save = window.mossvale.getState().save;
     save.caught = [id];
     save.party = [id];
     save.active = id;
-  }, fallback);
-  await page.evaluate(() => (window.followerAtlasDraws = []));
-  await page.keyboard.down('ArrowUp');
-  await page.waitForTimeout(400);
-  await page.keyboard.up('ArrowUp');
-  const fallbackDraws = await page.evaluate(() => window.followerAtlasDraws);
-  assert.equal(fallbackDraws.filter(frame => frame.src.endsWith('creature-hushram-follower.png')).length, 0);
+    save.team = {[id]: {xp: 0, hp: 100}};
+  }, fallbackId);
+  await fallbackPage.evaluate(() => (window.followerAtlasDraws = []));
+  await fallbackPage.keyboard.down('ArrowUp');
+  await fallbackPage.waitForTimeout(500);
+  await fallbackPage.keyboard.up('ArrowUp');
+  const fallbackDraws = await fallbackPage.evaluate(() => window.followerAtlasDraws);
+  assert.equal(fallbackDraws.filter(frame => frame.src.endsWith('creature-sunskitter-follower.png')).length, 0);
   assert.ok(
-    fallbackDraws.some(frame => frame.src.endsWith('creature-hushram.png')),
-    'unfinished species keep portrait fallback',
+    fallbackDraws.some(frame => frame.src.endsWith('creature-sunskitter.png')),
+    'failed optional atlas keeps the portrait fallback',
   );
+  assert.deepEqual(fallbackErrors, []);
   assert.deepEqual(errors, []);
   console.log(`ok live follower renderer ${JSON.stringify(evidence)}; optional portrait fallback and page execution are healthy`);
 } finally {

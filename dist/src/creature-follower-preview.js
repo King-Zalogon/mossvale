@@ -4,6 +4,14 @@ const ROWS = {
   emberkin: ['south', 'southwest', 'east', 'northeast', 'north', 'west', 'northwest', 'southeast'],
   duskwing: DIRECTIONS,
   brooklet: ['north', 'northwest', 'west', 'southwest', 'south', 'southeast', 'east', 'northeast'],
+  hushram: DIRECTIONS,
+  voltkit: DIRECTIONS,
+  mushmallow: DIRECTIONS,
+  frostowl: DIRECTIONS,
+  pebblit: DIRECTIONS,
+  bramblebuck: DIRECTIONS,
+  siltkip: DIRECTIONS,
+  sunskitter: DIRECTIONS,
 };
 const VECTORS = [
   [-1, -1],
@@ -22,11 +30,27 @@ const sources = {
   fernling: load('../assets/creatures/creature-fernling-follower.png'),
   duskwing: load('../assets/creatures/creature-duskwing-follower.png'),
   brooklet: load('../assets/creatures/creature-brooklet-follower.png'),
+  hushram: load('../assets/creatures/creature-hushram-follower.png'),
+  voltkit: load('../assets/creatures/creature-voltkit-follower.png'),
+  mushmallow: load('../assets/creatures/creature-mushmallow-follower.png'),
+  frostowl: load('../assets/creatures/creature-frostowl-follower.png'),
+  pebblit: load('../assets/creatures/creature-pebblit-follower.png'),
+  bramblebuck: load('../assets/creatures/creature-bramblebuck-follower.png'),
+  siltkip: load('../assets/creatures/creature-siltkip-follower.png'),
+  sunskitter: load('../assets/creatures/creature-sunskitter-follower.png'),
   portrait: {
     emberkin: load('../assets/creatures/creature-emberkin.png'),
     fernling: load('../assets/creatures/creature-fernling.png'),
     duskwing: load('../assets/creatures/creature-duskwing.png'),
     brooklet: load('../assets/creatures/creature-brooklet.png'),
+    hushram: load('../assets/creatures/creature-hushram.png'),
+    voltkit: load('../assets/creatures/creature-voltkit.png'),
+    mushmallow: load('../assets/creatures/creature-mushmallow.png'),
+    frostowl: load('../assets/creatures/creature-frostowl.png'),
+    pebblit: load('../assets/creatures/creature-pebblit.png'),
+    bramblebuck: load('../assets/creatures/creature-bramblebuck.png'),
+    siltkip: load('../assets/creatures/creature-siltkip.png'),
+    sunskitter: load('../assets/creatures/creature-sunskitter.png'),
   },
   tree: load('../assets/props/tree-oak.png'),
 };
@@ -178,11 +202,11 @@ function drawStage() {
       ctx.restore();
     } else if (object.kind === 'player') {
       const moving = simulationTime % 960 < 700;
-      const column = moving && !calm.checked ? (Math.floor(player.distance / 0.42) % 4) + 1 : 0;
+      const column = moving && !calm.checked ? (Math.floor(player.distance / 0.56) % 4) + 1 : 0;
       drawFrame(ctx, sources.player, column, player.dir, p.x, p.y, 36, 5, 8, 160, 256);
     } else {
       const walking = simulationTime % 960 < 700;
-      const col = !calm.checked && walking ? (Math.floor(follower.distance / 0.42) % 4) + 1 : 0;
+      const col = !calm.checked && walking ? (Math.floor(follower.distance / 0.72) % 4) + 1 : 0;
       drawFrame(ctx, creature, col, ROWS[speciesSelect.value].indexOf(DIRECTIONS[follower.dir]), p.x, p.y, 37, 5, 8, 200, 200);
     }
   }

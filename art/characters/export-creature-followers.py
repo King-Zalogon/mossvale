@@ -2,9 +2,17 @@
 from argparse import ArgumentParser
 from collections import deque
 from html import escape
+from io import BytesIO
 import json
 from pathlib import Path
 from PIL import Image
+try:
+    from source_archive import source_bytes
+except ModuleNotFoundError:
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from source_archive import source_bytes
 
 ROOT = Path(__file__).resolve().parents[2]
 PROFILE_ID = "creature-follower-v1"
@@ -12,6 +20,7 @@ SPECS = {
     "emberkin": {
         "source": "art/characters/source/creature-emberkin-follower-generated.png",
         "target": "dist/assets/creatures/creature-emberkin-follower.png",
+        "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
     },
     "fernling": {
         "source": "art/characters/source/creature-fernling-follower-generated.png",
@@ -24,8 +33,45 @@ SPECS = {
     "brooklet": {
         "source": "art/characters/source/creature-brooklet-follower-generated.png",
         "target": "dist/assets/creatures/creature-brooklet-follower.png",
-        "rowOrder": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
+        "rowOrder": ["north", "northwest", "west", "southwest", "south", "east", "southeast", "northeast"],
         "mirrorRows": [5, 6],
+    },
+    "hushram": {
+        "source": "art/characters/source/creature-hushram-follower-generated.png",
+        "target": "dist/assets/creatures/creature-hushram-follower.png",
+        "rowOrder": ["north", "northeast", "east", "southwest", "south", "west", "northwest", "southeast"],
+    },
+    "voltkit": {
+        "source": "art/characters/source/creature-voltkit-follower-generated.png",
+        "target": "dist/assets/creatures/creature-voltkit-follower.png",
+        "rowOrder": ["north", "northeast", "east", "south", "southeast", "west", "northwest", "southwest"],
+    },
+    "mushmallow": {
+        "source": "art/characters/source/creature-mushmallow-follower-generated.png",
+        "target": "dist/assets/creatures/creature-mushmallow-follower.png",
+        "rowOrder": ["north", "northeast", "east", "southwest", "south", "southeast", "west", "northwest"],
+    },
+    "frostowl": {
+        "source": "art/characters/source/creature-frostowl-follower-generated.png",
+        "target": "dist/assets/creatures/creature-frostowl-follower.png",
+    },
+    "pebblit": {
+        "source": "art/characters/source/creature-pebblit-follower-generated.png",
+        "target": "dist/assets/creatures/creature-pebblit-follower.png",
+    },
+    "bramblebuck": {
+        "source": "art/characters/source/creature-bramblebuck-follower-generated.png",
+        "target": "dist/assets/creatures/creature-bramblebuck-follower.png",
+        "rowAlphaThreshold": 128,
+    },
+    "siltkip": {
+        "source": "art/characters/source/creature-siltkip-follower-generated.png",
+        "target": "dist/assets/creatures/creature-siltkip-follower.png",
+        "rowAlphaThreshold": 128,
+    },
+    "sunskitter": {
+        "source": "art/characters/source/creature-sunskitter-follower-generated.png",
+        "target": "dist/assets/creatures/creature-sunskitter-follower.png",
     },
 }
 
@@ -91,11 +137,12 @@ def generated_row_bounds(source, alpha_threshold, rows):
     return separators
 
 
-def build(source_path, frame_size, content_size, foot_y, alpha_threshold, minimum_component, spec):
-    with Image.open(source_path) as opened:
+def build(source_path, frame_size, content_size, foot_y, alpha_threshold, minimum_component, spec, root=None):
+    source_data = source_bytes(root, source_path.relative_to(root)) if root else Path(source_path).read_bytes()
+    with Image.open(BytesIO(source_data)) as opened:
         source = opened.convert("RGBA")
     columns, rows = 5, 8
-    xs, ys = bounds(source.width, columns), generated_row_bounds(source, alpha_threshold, rows)
+    xs, ys = bounds(source.width, columns), generated_row_bounds(source, spec.get("rowAlphaThreshold", alpha_threshold), rows)
     source_rows = spec.get("sourceRows", list(range(rows)))
     if len(source_rows) != rows or sorted(source_rows) != list(range(rows)):
         raise ValueError(f"{source_path}: sourceRows must map each source row exactly once")
@@ -128,9 +175,10 @@ def write_preview(root, preview_dir, prepared, frame_size):
     preview_dir = preview_dir if preview_dir.is_absolute() else root / preview_dir
     preview_dir.mkdir(parents=True, exist_ok=True)
     cards = []
-    for name, source_path, target, sheet, _same, _footprints in prepared:
-        source_name, output_name = f"../../source/{source_path.name}", f"{name}-normalized.png"
-        sheet.save(preview_dir / output_name, optimize=True)
+    for name, source_path, target, sheet, runtime, _same, _footprints in prepared:
+        source_name, output_name = f"{name}-generated-source.png", f"{name}-normalized.png"
+        (preview_dir / source_name).write_bytes(source_bytes(root, source_path.relative_to(root)))
+        runtime.save(preview_dir / output_name, optimize=True)
         cards.append(
             f'<section><h2>{escape(name)}</h2><div class="images"><figure><figcaption>Generated source</figcaption><img src="{source_name}"></figure>'
             f'<figure><figcaption>Normalized 5×8 atlas · {frame_size}px cells</figcaption><img src="{output_name}"></figure></div></section>'
@@ -160,28 +208,30 @@ def main():
         raise SystemExit(f"profile {PROFILE_ID} is not available for export")
     frame_w, frame_h = profile["frame"]
     content = profile["maxSprite"]
+    palette = profile.get("indexedOutput", {})
     prepared, errors = [], []
     for name, spec in SPECS.items():
         source = root / spec["source"]
         target = root / spec["target"]
-        sheet, footprints = build(source, frame_w, content[0], profile["footY"], profile["alphaThreshold"], profile["minimumComponentPixels"], spec)
+        sheet, footprints = build(source, frame_w, content[0], profile["footY"], profile["alphaThreshold"], profile["minimumComponentPixels"], spec, root=root)
+        runtime = sheet.quantize(colors=palette.get("colors", 256), method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE) if name in palette.get("species", []) else sheet
         same = False
         if target.is_file():
             with Image.open(target) as opened:
                 current = opened.convert("RGBA")
-            same = current.size == sheet.size and current.tobytes() == sheet.tobytes()
+            same = current.size == runtime.size and current.tobytes() == runtime.convert("RGBA").tobytes()
         if args.check and not same:
             errors.append(f"{spec['target']} differs from {PROFILE_ID} export")
-        prepared.append((name, source, target, sheet, same, footprints))
+        prepared.append((name, source, target, sheet, runtime, same, footprints))
     if not args.check:
-        for _name, _source, target, sheet, same, _footprints in prepared:
+        for _name, _source, target, _sheet, runtime, same, _footprints in prepared:
             if not same:
                 target.parent.mkdir(parents=True, exist_ok=True)
-                sheet.save(target, optimize=True)
+                runtime.save(target, optimize=True)
     if args.preview_dir:
         write_preview(root, args.preview_dir, prepared, frame_w)
-    for name, _source, target, sheet, _same, _footprints in prepared:
-        print(f"{'verified' if args.check else 'exported'} {target.relative_to(root)} ({sheet.width}x{sheet.height})")
+    for name, _source, target, _sheet, runtime, _same, _footprints in prepared:
+        print(f"{'verified' if args.check else 'exported'} {target.relative_to(root)} ({runtime.width}x{runtime.height})")
     if errors:
         raise SystemExit("; ".join(errors))
 

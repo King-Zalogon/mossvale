@@ -41,15 +41,15 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `createBattle`, `encounterDistance`, `enemyAttack`, `ensureHealthyCompanion`, `guardianLevel`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion` |
 | `domain/clock.js` | domain | `createTestClock` |
 | `domain/companion-routes.js` | domain | `availableCompanionRoutes`, `companionCanUseRoute`, `validateCompanionRoutes` |
-| `domain/composition.js` | domain | `compileComposition`, `validateBodyPlan` |
+| `domain/composition.js` | domain | `compileComposition`, `createCompositionArtBrief`, `validateBodyPlan` |
 | `domain/dialogue-choices.js` | domain | `availableDialogueChoices`, `selectDialogueChoice`, `validateDialogueChoices` |
 | `domain/discovery.js` | domain | `CELL`, `MAX_SEEN`, `SECRET_RANGE`, `VISION`, `cellGrid`, `compass`, `decodeEntry`, `discover`, `encodeEntry`, `entryFor`, `exploredShare`, `isKnown`, `isRevealed`, `landmarkLabel`, `reveal`, `toHex` |
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
 | `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
-| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `directionPose`, `facing`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
+| `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `FOLLOWER_FRAME_DISTANCE`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `directionPose`, `facing`, `followerFrame`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
 | `domain/inventory.js` | domain | `buyInventory`, `claimInventory`, `commitInventory`, `createInventory`, `deposit`, `gatherInventory`, `inventoryToSupplies`, `moveInventory`, `rollDrop`, `sellInventory`, `suppliesToInventory`, `syncInventorySupplies`, `useInventory`, `validateInventoryRules`, `withdraw` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
-| `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `validateObjectiveEvents`, `validateObjectiveState` |
+| `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `objectiveStageEventId`, `recordObjectiveEvent`, `restoreObjectiveState`, `validateObjectiveEvents`, `validateObjectiveState` |
 | `domain/objectives.js` | domain | `OBJECTIVES_FORMAT`, `collectFlags`, `currentObjective`, `holds`, `pickLine`, `validateLines`, `validateObjectives` |
 | `domain/pack.js` | domain | `PACK_FORMAT`, `milestonesOf`, `packFileEntries`, `validatePack`, `validatePackMetadata` |
 | `domain/phase.js` | domain | `PHASES`, `transition` |
@@ -59,7 +59,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/rules.js` | domain | `addToParty`, `addXP`, `awardXP`, `clampHealth`, `companion`, `effectiveness`, `elementPower`, `flagDone`, `healTeam`, `healthyParty`, `inParty`, `level`, `maxHP`, `moveName`, `moveUpgraded`, `normalizeParty`, `removeFromParty`, `reserve`, `setActive`, `setFlag`, `unlocked`, `xpProgress` |
 | `domain/scenes.js` | domain | `MAX_SCENE_EVENTS`, `SCENE_ACTIONS`, `applySceneActions`, `markSceneRun`, `sceneConditionHolds`, `sceneEventKey`, `sceneHasRun`, `validateSceneEvent` |
 | `domain/story.js` | domain | `HINT_EVENTS`, `MAX_HINTS`, `STORY_FORMAT`, `endingDue`, `markSeen`, `pendingHint`, `validateStory` |
-| `domain/terrain-family.js` | domain | `chooseTerrainVariant`, `terrainSeed`, `terrainVariant` |
+| `domain/terrain-family.js` | domain | `bakeTerrainFamily`, `chooseTerrainVariant`, `resolveTerrainFamilyCell`, `serializeTerrainFamilyBake`, `terrainSeed`, `terrainVariant`, `validateTerrainFamilyFixture` |
 | `domain/world.js` | domain | `INTERACTIVE_KINDS`, `buildWorld`, `isLand`, `isQuiet`, `isWalkable`, `nearestInteractive`, `nearestWalkable`, `objectsInBounds`, `rnd`, `spawnOf`, `terrainAt`, `tilesInBounds`, `triggersAt`, `zoneAt` |
 | `input.js` | root | `direction`, `installInput`, `isMoving` |
 | `main.js` | root | — |
@@ -81,8 +81,9 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
 | `ui/battle-view.js` | ui | `createBattleView` |
-| `ui/dom.js` | ui | `$`, `downloadText`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
+| `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
 | `ui/hud.js` | ui | `renderHud`, `renderRegion`, `renderSaveStatus` |
 | `ui/menus.js` | ui | `createMenus` |
 | `ui/speech.js` | ui | `createSpeech` |
+| `ui/terrain-family-preview.js` | ui | `drawTerrainFamilyFixture` |
 <!-- END GENERATED MODULE INVENTORY -->
