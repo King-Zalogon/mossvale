@@ -43,3 +43,7 @@ Codex claim: `codex/130-reduced-motion-facing`, created from main `4714b24` and 
 ## #182 / #183 — local catalogue and CI policy
 
 Codex claim: `codex/182-183-catalogue-ci`, created from main `4714b24`, aligned with integration `8083394` and carrying #181 head `c648f6b` as an explicit unmerged prerequisite. Scope: deterministic full resource collection, reviewed family descriptions/capabilities, safe references, source freshness and PR merge-base impact records. No gameplay rules or artwork changes. Catalogue visual browsing/export (#184) and scene script specification (#185) remain later work. Integration-only PR; required CI must pass before merge.
+
+## #185 — scene-script and continuity handoffs
+
+Codex claim: `codex/185-scene-script-continuity`, created from latest `origin/main` `ea08af9`, targeting `integration` and based on the merged #181/#182/#183 catalogue contract. Scope: format-1 non-executable scene intent schema, catalogue/source revision and reference validator, structured gap report, canonical continuity checks, copy-ready writer/builder prompts, supported scene and explicit home-rest extension request. Uses the shared catalogue IDs and local pack/map contracts; does not add runtime story execution or generated art. #184 can consume `content/scene-scripts/README.md` prompts and attach current catalogue fiches by stable ID; its export paths are deliberately not hardcoded here. Focused authoring regressions pass; full verification and integration CI remain pending.
