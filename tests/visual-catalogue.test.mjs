@@ -82,7 +82,15 @@ test('portable export rejects missing selection, traversal, overwrites and repo 
   writePortableContext({...options, output: existing, ids: ['visual:tree-oak']});
   assert.throws(() => writePortableContext({...options, output: existing, ids: ['visual:tree-oak']}), /already exists/);
   const link = join(temporary, 'repo-link');
-  symlinkSync(ROOT, link, 'dir');
+  try {
+    symlinkSync(ROOT, link, 'dir');
+  } catch (error) {
+    if (process.platform === 'win32' && ['EACCES', 'EPERM'].includes(error.code)) {
+      t.diagnostic('Skipping the symlink escape subcase because this Windows checkout lacks symlink privilege.');
+      return;
+    }
+    throw error;
+  }
   assert.throws(() => writePortableContext({...options, output: join(link, 'export'), ids: ['visual:tree-oak']}), /inside the repository/);
 });
 
