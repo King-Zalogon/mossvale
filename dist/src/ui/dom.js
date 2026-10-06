@@ -129,3 +129,4 @@ export function downloadText(filename, text, type = 'application/json') {
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+
