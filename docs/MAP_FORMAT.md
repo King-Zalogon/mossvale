@@ -1,6 +1,6 @@
 # Map and event data format (version 1)
 
-The browser authoring tool is available at `dist/map-editor.html`. It edits terrain, spawn points, and whole existing or newly placed entity records while preserving extra pack fields. “Play edited map” opens the selected map in the normal engine renderer in a fresh, read-only preview session. Run `npm run validate` after exporting; the CLI and game use the same map schema.
+The browser authoring tool is available at `dist/map-editor.html`. It edits terrain, spawn points, and whole existing or newly placed entity records while preserving extra pack fields. JSON imports are limited to 1 MB and oversized files are rejected before the browser reads them. “Play edited map” opens the selected map in the normal engine renderer in a fresh, read-only preview session. Run `npm run validate` after exporting; the CLI and game use the same map schema.
 
 Issue [#14](https://github.com/King-Zalogon/mossvale/issues/14). Maps are JSON files in `dist/maps/`, listed in `dist/maps/index.json` (the adventure pack manifest, see [PACKS.md](PACKS.md)). The runtime reads them at startup (`services/maps.js`), validates them (`domain/mapdata.js`) and compiles them (`domain/adventure.js`). No rule code names a specific map: change the data, not the engine.
 
