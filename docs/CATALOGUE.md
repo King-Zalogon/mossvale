@@ -47,7 +47,7 @@ Internal exports stay in the existing API inventory rather than becoming fictiti
 
 ## PR impact records
 
-Local freshness/schema/reference checks run inside `npm run validate`. PR CI additionally compares the branch with its merge base against `origin/integration`, using full checkout history. Missing history is an error, not an automatic skip. Renamed files are treated as removal/addition, preserving both impact paths. Local impact checks assess committed changes; commit the candidate before running them.
+Local freshness/schema/reference checks run inside `npm run validate`. PR CI additionally compares the branch with its merge base against `origin/integration`, using full checkout history. Missing history is an error, not an automatic skip. Renamed files are treated as removal/addition, preserving both impact paths. Local impact checks include committed branch changes, staged and unstaged edits, and non-ignored untracked files. Ignored files are excluded. This lets the command provide meaningful pre-commit feedback; PR CI still evaluates the committed branch against its merge base.
 
 Add or modify a JSON record under `content/catalogue/reviews/<issue>-<summary>.json`:
 
