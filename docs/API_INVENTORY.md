@@ -70,7 +70,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/account.js` | services | `createAccountClient` |
 | `services/adventures.js` | services | `ADVENTURE_KEY`, `CATALOG_FORMAT`, `DEFAULT_CATALOG`, `chooseAdventure`, `describeProgress`, `parseCatalog`, `peekProgress`, `readSelection`, `relocateLegacyPacks`, `writeSelection` |
 | `services/audio.js` | services | `createAudio` |
-| `services/backup.js` | services | `BACKUP_FORMAT`, `BACKUP_KIND`, `MAX_BACKUP_BYTES`, `exportBackup`, `exportFileName`, `importSave`, `parseBackup`, `readCheckpoint`, `restoreCheckpoint` |
+| `services/backup.js` | services | `BACKUP_FORMAT`, `BACKUP_KIND`, `MAX_BACKUP_BYTES`, `exportBackup`, `exportFileName`, `importSave`, `parseBackup`, `readBackupFile`, `readCheckpoint`, `restoreCheckpoint` |
 | `services/loader.js` | services | `TIMEOUT_MS`, `loadAssets`, `loadImage` |
 | `services/maps.js` | services | `fetchAdventure`, `fetchCatalog` |
 | `services/persistence.js` | services | `createPersistence` |

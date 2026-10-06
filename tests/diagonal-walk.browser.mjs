@@ -86,6 +86,7 @@ try {
     {name: 'northeast', keys: ['ArrowUp', 'ArrowRight'], dir: 1, sourceRow: 1, flipped: false},
     {name: 'southwest', keys: ['ArrowDown', 'ArrowLeft'], dir: 5, sourceRow: 5, flipped: false},
     {name: 'southeast', keys: ['ArrowDown', 'ArrowRight'], dir: 3, sourceRow: 3, flipped: false},
+    {name: 'west', keys: ['ArrowLeft'], dir: 6, sourceRow: 6, flipped: false},
   ];
   const safeStart = await page.evaluate(() => {
     const api = window.mossvale;
@@ -180,7 +181,17 @@ try {
       `${diagonal.name} keeps visible footwear in every walk cell`,
     );
     const span = Math.max(...positions) - Math.min(...positions);
-    assert.ok(span >= 7.5, `${diagonal.name} moves its visible feet at least 7.5 rendered pixels (got ${span.toFixed(1)})`);
+    const minimumFootTravel = diagonal.name === 'west' ? 4 : 7.5;
+    assert.ok(span >= minimumFootTravel, `${diagonal.name} moves its visible feet at least ${minimumFootTravel} rendered pixels (got ${span.toFixed(1)})`);
+    if (['northwest', 'northeast', 'southwest', 'west'].includes(diagonal.name)) {
+      const byColumn = Object.fromEntries(cells.map(metric => [metric.column, metric.footCenterX]));
+      const alternatingPair = Math.abs(byColumn[1] - byColumn[3]);
+      const minimumAlternation = diagonal.name === 'west' ? 2 : 6;
+      assert.ok(
+        alternatingPair >= minimumAlternation,
+        `${diagonal.name} visibly alternates its leading boot between the opposing stride poses at gameplay scale (delta ${alternatingPair.toFixed(1)} px)`,
+      );
+    }
     return {direction: diagonal.name, width: cells[0].width, height: cells[0].height, footTravelPx: Number(span.toFixed(1))};
   });
   for (const diagonal of diagonals) {

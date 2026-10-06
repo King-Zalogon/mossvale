@@ -189,6 +189,36 @@ try {
     timeout: 5000,
   });
   await cdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+
+  // Keep one finger down while crossing the pad: pointer capture must not
+  // leave movement stuck on the original direction button.
+  const eastBox = await page.locator('button[data-dir="1,0"]').boundingBox();
+  const westBox = await page.locator('button[data-dir="-1,0"]').boundingBox();
+  const dragStart = await page.evaluate(() => window.mossvale.getState().player);
+  await cdp.send('Input.dispatchTouchEvent', {
+    type: 'touchStart',
+    touchPoints: [{id: 5, x: eastBox.x + eastBox.width / 2, y: eastBox.y + eastBox.height / 2}],
+  });
+  try {
+    await page.waitForTimeout(250);
+    const afterEast = await page.evaluate(() => window.mossvale.getState().player);
+    const eastTravel = {x: afterEast.x - dragStart.x, y: afterEast.y - dragStart.y};
+    assert.ok(Math.hypot(eastTravel.x, eastTravel.y) > 0.08, 'drag begins moving east');
+    await cdp.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: [{id: 5, x: westBox.x + westBox.width / 2, y: westBox.y + westBox.height / 2}],
+    });
+    await page.waitForTimeout(300);
+    const afterWest = await page.evaluate(() => window.mossvale.getState().player);
+    const westTravel = {x: afterWest.x - afterEast.x, y: afterWest.y - afterEast.y};
+    assert.ok(
+      eastTravel.x * westTravel.x + eastTravel.y * westTravel.y < 0,
+      `drag changes movement direction without lifting (east ${JSON.stringify(eastTravel)}, west ${JSON.stringify(westTravel)})`,
+    );
+  } finally {
+    await cdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+  }
+
   const run = await page.locator('#touch-run').boundingBox();
   await cdp.send('Input.dispatchTouchEvent', {
     type: 'touchStart',

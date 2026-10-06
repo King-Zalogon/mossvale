@@ -263,10 +263,11 @@
           "west",
           "southwest",
           "south",
-          "east",
           "southeast",
+          "east",
           "northeast"
-        ]
+        ],
+        "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
       },
       "provenance": {
         "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
@@ -366,7 +367,8 @@
           "southwest",
           "west",
           "northwest"
-        ]
+        ],
+        "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
       },
       "provenance": {
         "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
@@ -425,10 +427,11 @@
           "east",
           "northeast",
           "north",
-          "northwest",
           "west",
+          "northwest",
           "southeast"
-        ]
+        ],
+        "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
       },
       "provenance": {
         "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
@@ -529,7 +532,8 @@
           "southwest",
           "west",
           "northwest"
-        ]
+        ],
+        "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
       },
       "provenance": {
         "editablePixelSource": "normalized creature follower atlas cell; export art/assets/source/creature-follower-atlas.png for exact runtime pixels",
@@ -925,7 +929,8 @@
           "walk-2",
           "walk-3",
           "walk-4"
-        ]
+        ],
+        "cadence": "advance each walk frame per 0.56 world units traveled; run reuses this cadence"
       },
       "provenance": {
         "editablePixelSource": "art/assets/source atlas cell",

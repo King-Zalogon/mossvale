@@ -40,8 +40,19 @@
         "sourceRow": 1,
         "columns": [1, 2, 3, 4],
         "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+      },
+      {
+        "direction": "west",
+        "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+        "sourceGrid": {"columns": 1, "rows": 1},
+        "columns": [3],
+        "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
       }
-    ]
+    ],
+    "walkSourceColumnOrder": {
+      "northeast": [1, 2, 4, 3],
+      "southwest": [1, 2, 4, 3]
+    }
   },
   "npcs": [
     {

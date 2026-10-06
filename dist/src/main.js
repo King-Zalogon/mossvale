@@ -18,7 +18,7 @@ import {FACING, followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
-import {exportBackup, exportFileName, importSave, parseBackup, readCheckpoint, restoreCheckpoint} from './services/backup.js';
+import {exportBackup, exportFileName, importSave, parseBackup, readBackupFile, readCheckpoint, restoreCheckpoint} from './services/backup.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
 import {fetchAdventure, fetchCatalog} from './services/maps.js';
 import {
@@ -277,11 +277,7 @@ Object.assign(actions, {
     toast('Save file downloaded. Import it in another browser to continue there.');
   },
   async readBackup(file) {
-    try {
-      return parseBackup(await file.text(), codec, app.adventures.list);
-    } catch {
-      return {ok: false, reason: 'That file could not be read.'};
-    }
+    return readBackupFile(file, codec, app.adventures.list);
   },
   applyImport(incoming) {
     if (!importSave({storage, codec, save: game.save, incoming}).ok)

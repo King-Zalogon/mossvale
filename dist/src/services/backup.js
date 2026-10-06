@@ -67,6 +67,16 @@ export function parseBackup(text, codec, adventures = []) {
   };
 }
 
+/** Reads a selected backup only after rejecting files that exceed the import limit. */
+export async function readBackupFile(file, codec, adventures = []) {
+  if (Number.isFinite(file?.size) && file.size > MAX_BACKUP_BYTES) return {ok: false, reason: 'That file is too large to be a Mossvale save.'};
+  try {
+    return parseBackup(await file.text(), codec, adventures);
+  } catch {
+    return {ok: false, reason: 'That file could not be read.'};
+  }
+}
+
 const stamp = () => new Date().toISOString();
 
 /** Replaces the current save with `incoming`, first archiving the current adventure (if it has progress). */
