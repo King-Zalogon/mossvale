@@ -36,6 +36,10 @@ When work is integrated, add the integration commit and mark the handoff complet
 
 Codex claim: `codex/181-authoring-contract`, created from main `4714b24`, aligned with integration `8083394`. Scope: format-1 catalogue schema, six teaching fixtures, contribution instructions and PR checklist, contract regressions. These fixtures are not complete resource coverage. #182/#183/#184/#185 consume this contract after integration; no game rules or artwork changed. PR targets integration only; final-head verification/CI is mandatory.
 
+## #130 — stabilize reduced-motion facing regression
+
+Codex claim: `codex/130-reduced-motion-facing`, created from main `4714b24` and aligned with integration `7ba8e16`. Scope: sample diagonal facing while both keys are held, then separately verify the reduced-motion idle pose; no runtime behavior or assets changed. Three focused browser runs passed; `CHROMIUM=/usr/bin/chromium npm run verify` and `npm run build` passed on this head. PR targets integration; confirm remote CI before merge.
+
 ## #182 / #183 — local catalogue and CI policy
 
 Codex claim: `codex/182-183-catalogue-ci`, created from main `4714b24`, aligned with integration `8083394` and carrying #181 head `c648f6b` as an explicit unmerged prerequisite. Scope: deterministic full resource collection, reviewed family descriptions/capabilities, safe references, source freshness and PR merge-base impact records. No gameplay rules or artwork changes. Catalogue visual browsing/export (#184) and scene script specification (#185) remain later work. Integration-only PR; required CI must pass before merge.
