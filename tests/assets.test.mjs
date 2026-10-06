@@ -222,7 +222,10 @@ test('editable portrait and prop atlases cover their runtime sprites and export 
   const metadata = JSON.parse(readFileSync(new URL('metadata.json', sourceRoot), 'utf8'));
   const sourceArchive = JSON.parse(readFileSync(new URL('../characters/source-archive.json', sourceRoot), 'utf8'));
   const profiles = JSON.parse(readFileSync(new URL('../characters/export-profiles.json', sourceRoot), 'utf8')).profiles;
-  const propProfileSha256 = createHash('sha256').update(JSON.stringify(profiles['prop-static-v1'])).digest('hex');
+  const propProfileSha256 = id => createHash('sha256').update(JSON.stringify(profiles[id])).digest('hex');
+  const landmarkSources = new Set(
+    JSON.parse(readFileSync(new URL('../art/assets/source/landmarks/manifest.json', import.meta.url), 'utf8')).assets.map(asset => asset.name),
+  );
   assert.equal(metadata.pixelPreserving, true);
   assert.equal(metadata.anchor, 'bottom-center');
   const separatelySourced = new Set([
@@ -256,7 +259,10 @@ test('editable portrait and prop atlases cover their runtime sprites and export 
     assert.equal(source.height, asset.h, source.name);
     assert.equal(source.anchor, asset.anchor, source.name);
     assert.equal(source.kind, asset.kind, source.name);
-    if (source.kind === 'prop') assert.deepEqual(source.exportProfile, {id: 'prop-static-v1', settingsSha256: propProfileSha256}, source.name);
+    if (source.kind === 'prop') {
+      const profileId = landmarkSources.has(source.name) ? 'prop-landmark-v1' : 'prop-static-v1';
+      assert.deepEqual(source.exportProfile, {id: profileId, settingsSha256: propProfileSha256(profileId)}, source.name);
+    }
     assert.ok(sheets.has(source.sheet), `${source.name} source sheet exists`);
     assert.ok(source.provenance.editablePixelSource, source.name);
     for (const ref of source.provenance.originalGeneratedReferences) {

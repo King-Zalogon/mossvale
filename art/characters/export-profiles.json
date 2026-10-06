@@ -93,6 +93,18 @@
       "resampling": "none",
       "palette": "preserve RGBA"
     },
+    "prop-landmark-v1": {
+      "category": "prop",
+      "status": "implemented",
+      "implementation": "art/assets/export-landmark-props.py; retained generated RGBA sources are threshold-trimmed and fitted once to a 256 px edge, then stored in the editable prop atlas",
+      "source": "art/assets/source/landmarks/manifest.json",
+      "maxPixelEdge": 256,
+      "alphaThreshold": 32,
+      "trim": "alpha content bounds after thresholding",
+      "resampling": "nearest-neighbor fit to maxPixelEdge",
+      "palette": "preserve 8-bit RGBA; no palette quantization",
+      "anchor": "bottom-center"
+    },
     "terrain-transition-v1": {
       "category": "terrain-transition",
       "status": "pending-terrain-art",

@@ -504,6 +504,16 @@ export const assets = [
     },
   },
   {name: 'cattail-clump', kind: 'prop', src: 'assets/props/cattail-clump.png', w: 301, h: 300, anchor: 'bottom-center', required: true},
+  {name: 'prop-cider-press', kind: 'prop', src: 'assets/props/prop-cider-press.png', w: 251, h: 256, anchor: 'bottom-center', required: true},
+  {name: 'prop-hanging-lantern', kind: 'prop', src: 'assets/props/prop-hanging-lantern.png', w: 138, h: 256, anchor: 'bottom-center', required: true},
+  {name: 'prop-heron-blind', kind: 'prop', src: 'assets/props/prop-heron-blind.png', w: 256, h: 208, anchor: 'bottom-center', required: true},
+  {name: 'prop-icefall-ledge', kind: 'prop', src: 'assets/props/prop-icefall-ledge.png', w: 252, h: 256, anchor: 'bottom-center', required: true},
+  {name: 'prop-orchard-wall-broken', kind: 'prop', src: 'assets/props/prop-orchard-wall-broken.png', w: 256, h: 104, anchor: 'bottom-center', required: true},
+  {name: 'prop-quarry-alcove', kind: 'prop', src: 'assets/props/prop-quarry-alcove.png', w: 256, h: 203, anchor: 'bottom-center', required: true},
+  {name: 'prop-rim-overlook', kind: 'prop', src: 'assets/props/prop-rim-overlook.png', w: 256, h: 138, anchor: 'bottom-center', required: true},
+  {name: 'prop-sunstone-lookout', kind: 'prop', src: 'assets/props/prop-sunstone-lookout.png', w: 252, h: 256, anchor: 'bottom-center', required: true},
+  {name: 'tree-oak-hollow', kind: 'prop', src: 'assets/props/tree-oak-hollow.png', w: 231, h: 256, anchor: 'bottom-center', required: true},
+  {name: 'prop-well-ruined', kind: 'prop', src: 'assets/props/prop-well-ruined.png', w: 256, h: 212, anchor: 'bottom-center', required: true},
 ];
 
 /** Index of an asset by name; used by content that refers to art (species, regions, direction sprites). Throws on a typo. */
