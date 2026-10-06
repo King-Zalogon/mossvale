@@ -3,15 +3,26 @@ export const $ = selector => document.querySelector(selector);
 
 let toastTimer;
 let environmentMessageTimer;
+function dismissToast() {
+  const node = $('#toast');
+  clearTimeout(toastTimer);
+  node.style.opacity = '0';
+  delete node.dataset.active;
+  node.parentElement.classList.remove('toast-open');
+}
+
 export function toast(message, duration = 5800) {
   const node = $('#toast');
+  clearTimeout(environmentMessageTimer);
+  $('#environment-message').hidden = true;
+  node.parentElement.classList.remove('environment-open');
   node.textContent = message;
   node.dataset.active = 'true';
   node.style.opacity = '1';
+  node.parentElement.classList.add('toast-open');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {
-    node.style.opacity = '0';
-    delete node.dataset.active;
+    dismissToast();
   }, duration);
 }
 
@@ -19,6 +30,7 @@ export function toast(message, duration = 5800) {
 export function environmentalMessage(message, duration = 5800) {
   const node = $('#environment-message');
   const viewport = node.parentElement;
+  dismissToast();
   node.textContent = message;
   node.hidden = false;
   viewport.classList.add('environment-open');
