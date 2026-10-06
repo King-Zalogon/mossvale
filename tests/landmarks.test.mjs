@@ -146,7 +146,7 @@ test('environmental exploration cues remain authored independently from landmark
       assert.equal(trigger.on, 'enter', `${id} remains discoverable by exploration`);
       assert.deepEqual(
         trigger.do.map(action => action.type),
-        ['toast'],
+        ['environment'],
         `${id} remains an atmosphere message, not a hidden route reveal`,
       );
       if (prop) {

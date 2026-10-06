@@ -95,7 +95,7 @@ def ridge():
             {'id': 'basin-stair', 'rect': [28, 48, 36, 54], 'label': 'Basin stair'},
         ],
         'triggers': [
-            {'id': 'echo-hollow', 'at': [24, 46], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'toast', 'text': 'Your footsteps echo from a hollow in the rock. Nothing stirs here.'}]},
+            {'id': 'echo-hollow', 'at': [24, 46], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'Your footsteps echo from a hollow in the rock. Nothing stirs here.'}]},
         ],
     }
     return data, g
@@ -156,7 +156,7 @@ def basin():
             {'id': 'rim-path', 'rect': [17, 13, 43, 17], 'label': 'North rim'},
         ],
         'triggers': [
-            {'id': 'chasm-edge', 'at': [30, 15], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'toast', 'text': 'The chasm falls away below the rail. The path keeps you safe.'}]},
+            {'id': 'chasm-edge', 'at': [30, 15], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'The chasm falls away below the rail. The path keeps you safe.'}]},
         ],
     }
     return data, g
