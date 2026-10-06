@@ -51,7 +51,7 @@ try {
 
   await touchPage.goto(`http://localhost:${server.address().port}/?debug&seed=172`);
   await touchPage.waitForSelector('#loading', {state: 'hidden'});
-  await touchPage.locator('#game').click();
+  await touchPage.locator('#game').tap();
   await touchPage.evaluate(() => Object.assign(window.mossvale.getState().player, {x: 28.3, y: 29.3}));
   const treeStart = await touchPage.evaluate(() => ({...window.mossvale.getState().player}));
   const upRight = touchPage.locator('button[data-dir="1,-1"]');

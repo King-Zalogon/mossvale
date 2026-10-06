@@ -18,10 +18,7 @@
         }
       ],
       "dependencies": [],
-      "limits": [
-        "No arbitrary movement or sleep choreography action.",
-        "Scene event history is limited to 256 entries."
-      ],
+      "limits": ["No arbitrary movement or sleep choreography action.", "Scene event history is limited to 256 entries."],
       "examples": [
         {
           "intent": "Run validated dialogue, reward, flag or challenge actions on interaction.",
@@ -29,9 +26,7 @@
           "expected": "Run validated dialogue, reward, flag or challenge actions on interaction."
         }
       ],
-      "references": [
-        "dist/src/domain/scenes.js"
-      ],
+      "references": ["dist/src/domain/scenes.js"],
       "evidence": [
         {
           "path": "tests/scenes.test.mjs",
@@ -67,9 +62,7 @@
           "expected": "Consume one mapped potion and heal the active companion according to its pack definition."
         }
       ],
-      "references": [
-        "dist/src/domain/battle.js"
-      ],
+      "references": ["dist/src/domain/battle.js"],
       "evidence": [
         {
           "path": "tests/battle-actions.test.mjs",
@@ -95,9 +88,7 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "This does not turn every scene intent into a fully authored playable interaction."
-      ],
+      "limits": ["This does not turn every scene intent into a fully authored playable interaction."],
       "examples": [
         {
           "intent": "Compile a brief into an isolated validated candidate pack scaffold.",
@@ -105,9 +96,7 @@
           "expected": "Compile a brief into an isolated validated candidate pack scaffold."
         }
       ],
-      "references": [
-        "scripts/compile-brief.mjs"
-      ],
+      "references": ["scripts/compile-brief.mjs"],
       "evidence": [
         {
           "path": "tests/authoring-tools.test.mjs",
@@ -133,9 +122,7 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Structural and diff checks do not prove prose accuracy; scoped exceptions require reviewer assessment."
-      ],
+      "limits": ["Structural and diff checks do not prove prose accuracy; scoped exceptions require reviewer assessment."],
       "examples": [
         {
           "intent": "Generate and validate resource fiches from canonical records and reviewed templates.",
@@ -143,12 +130,7 @@
           "expected": "Deterministic output and validated references."
         }
       ],
-      "references": [
-        "scripts/catalogue.mjs",
-        "content/catalogue/schema.json",
-        "content/catalogue/templates.json",
-        "content/catalogue/curated.json"
-      ],
+      "references": ["scripts/catalogue.mjs", "content/catalogue/schema.json", "content/catalogue/templates.json", "content/catalogue/curated.json"],
       "evidence": [
         {
           "path": "tests/catalogue.test.mjs",
@@ -174,9 +156,7 @@
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "This is not free-form flying, swimming or arbitrary companion interaction."
-      ],
+      "limits": ["This is not free-form flying, swimming or arbitrary companion interaction."],
       "examples": [
         {
           "intent": "Optionally unlock a shallow-water route with a compatible companion.",
@@ -184,9 +164,7 @@
           "expected": "Optionally unlock a shallow-water route with a compatible companion."
         }
       ],
-      "references": [
-        "dist/src/domain/world.js"
-      ],
+      "references": ["dist/src/domain/world.js"],
       "evidence": [
         {
           "path": "tests/companion-route.browser.mjs",
@@ -223,11 +201,7 @@
           "expected": "The ally uses the elemental motion and a type-colored burst while the enemy receives the normal hit reaction."
         }
       ],
-      "references": [
-        "dist/src/controller.js",
-        "dist/src/render/sprites.js",
-        "dist/src/ui/battle-view.js"
-      ],
+      "references": ["dist/src/controller.js", "dist/src/render/sprites.js", "dist/src/ui/battle-view.js"],
       "evidence": [
         {
           "path": "tests/creature-combat.browser.mjs",
@@ -253,9 +227,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "No general-purpose subscription/event bus is claimed."
-      ],
+      "limits": ["No general-purpose subscription/event bus is claimed."],
       "examples": [
         {
           "intent": "Record ordered controller events for objectives, regression and debugging.",
@@ -263,9 +235,7 @@
           "expected": "Record ordered controller events for objectives, regression and debugging."
         }
       ],
-      "references": [
-        "dist/src/domain/events.js"
-      ],
+      "references": ["dist/src/domain/events.js"],
       "evidence": [
         {
           "path": "tests/integration.test.mjs",
@@ -291,9 +261,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."
-      ],
+      "limits": ["Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."],
       "examples": [
         {
           "intent": "Guard a forecast heavy blow and earn the guardian response bonus on victory.",
@@ -301,12 +269,7 @@
           "expected": "The victory result names the response and includes its bonus coins and XP."
         }
       ],
-      "references": [
-        "dist/maps/registries.json",
-        "dist/src/domain/battle.js",
-        "dist/src/save.js",
-        "dist/src/controller.js"
-      ],
+      "references": ["dist/maps/registries.json", "dist/src/domain/battle.js", "dist/src/save.js", "dist/src/controller.js"],
       "evidence": [
         {
           "path": "tests/guardians.test.mjs",
@@ -332,9 +295,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Motivating design request only; do not generate playable data that assumes support."
-      ],
+      "limits": ["Motivating design request only; do not generate playable data that assumes support."],
       "examples": [
         {
           "intent": "Proposed extension: Animated home rest with a distinct temporary benefit.",
@@ -342,9 +303,7 @@
           "expected": "Proposed extension: Animated home rest with a distinct temporary benefit."
         }
       ],
-      "references": [
-        "docs/AUTHORING_CONTRACT.md"
-      ],
+      "references": ["docs/AUTHORING_CONTRACT.md"],
       "evidence": [],
       "details": {
         "trigger": "Not implemented.",
@@ -365,9 +324,7 @@
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Generic useInventory/rollDrop/gatherInventory domain helpers do not prove live exploration consumption or automatic loot."
-      ],
+      "limits": ["Generic useInventory/rollDrop/gatherInventory domain helpers do not prove live exploration consumption or automatic loot."],
       "examples": [
         {
           "intent": "Buy, sell eligible valuables and move pack items between bag and storage.",
@@ -375,9 +332,7 @@
           "expected": "Buy, sell eligible valuables and move pack items between bag and storage."
         }
       ],
-      "references": [
-        "dist/src/domain/inventory.js"
-      ],
+      "references": ["dist/src/domain/inventory.js"],
       "evidence": [
         {
           "path": "tests/inventory.test.mjs",
@@ -403,9 +358,7 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "A valid JSON map still needs playability/reachability review."
-      ],
+      "limits": ["A valid JSON map still needs playability/reachability review."],
       "examples": [
         {
           "intent": "Edit validated map data and preview it through the existing game.",
@@ -413,9 +366,7 @@
           "expected": "Edit validated map data and preview it through the existing game."
         }
       ],
-      "references": [
-        "dist/map-editor.html"
-      ],
+      "references": ["dist/map-editor.html"],
       "evidence": [
         {
           "path": "tests/editor.browser.mjs",
@@ -442,7 +393,8 @@
       "configuration": [],
       "dependencies": [],
       "limits": [
-        "No autonomous NPC schedules, free navigation commands or speed-potion mechanic."
+        "No autonomous NPC schedules, free navigation commands or speed-potion mechanic.",
+        "The movement HUD follows the primary pointer initially and actual movement input afterward; screen width alone does not choose touch controls."
       ],
       "examples": [
         {
@@ -451,23 +403,25 @@
           "expected": "Move the player with footprint-aware collision and trail-following companions."
         }
       ],
-      "references": [
-        "dist/src/domain/exploration.js"
-      ],
+      "references": ["dist/src/domain/exploration.js", "dist/src/input.js", "docs/MOVEMENT.md"],
       "evidence": [
         {
           "path": "tests/obstacle-sliding.browser.mjs",
           "assertion": "Existing regression evidence for this capability."
+        },
+        {
+          "path": "tests/input-mode.browser.mjs",
+          "assertion": "Actual keyboard, touch drag and mouse gestures verify contextual movement controls, hybrid capability, focus recovery and no stuck movement."
         }
       ],
       "details": {
         "trigger": "Keyboard or touch movement input.",
         "inputs": "Direction, run setting and injected elapsed time.",
-        "sequence": "Move with existing collision/sliding checks; push companion trail.",
+        "sequence": "Choose the temporary movement HUD from actual input, release held input on method changes, then move with existing collision/sliding checks and push the companion trail.",
         "results": "Player/follower exploration in authored maps.",
-        "cancellation": "Pause/dialogue/touch interruption uses existing controller/input rules.",
+        "cancellation": "Input-method changes, pause/dialogue and touch interruptions release movement using existing input/controller rules.",
         "errors": "Invalid positions remain blocked by world walkability.",
-        "persistence": "Player/map position persists through existing exploration save flow."
+        "persistence": "Player/map position persists through the existing exploration save flow; the input method is temporary presentation state, not adventure-save data."
       }
     },
     {
@@ -479,9 +433,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Motivating design request only; do not generate playable data that assumes support."
-      ],
+      "limits": ["Motivating design request only; do not generate playable data that assumes support."],
       "examples": [
         {
           "intent": "Proposed extension: Autonomous NPC movement and conversation choreography.",
@@ -489,9 +441,7 @@
           "expected": "Proposed extension: Autonomous NPC movement and conversation choreography."
         }
       ],
-      "references": [
-        "docs/AUTHORING_CONTRACT.md"
-      ],
+      "references": ["docs/AUTHORING_CONTRACT.md"],
       "evidence": [],
       "details": {
         "trigger": "Not implemented.",
@@ -512,9 +462,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Account checkpoint APIs need configured portal/database and are not a local catalogue prerequisite."
-      ],
+      "limits": ["Account checkpoint APIs need configured portal/database and are not a local catalogue prerequisite."],
       "examples": [
         {
           "intent": "Persist adventure progress with checkpoints, migration and recovery.",
@@ -522,9 +470,7 @@
           "expected": "Persist adventure progress with checkpoints, migration and recovery."
         }
       ],
-      "references": [
-        "dist/src/save.js"
-      ],
+      "references": ["dist/src/save.js"],
       "evidence": [
         {
           "path": "tests/save-transaction.test.mjs",
@@ -550,9 +496,7 @@
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Use the existing validated pack format; this fiche does not introduce new runtime behavior."
-      ],
+      "limits": ["Use the existing validated pack format; this fiche does not introduce new runtime behavior."],
       "examples": [
         {
           "intent": "Display authored scene dialogue with a validated speaker.",
@@ -560,9 +504,7 @@
           "expected": "Display authored scene dialogue with a validated speaker."
         }
       ],
-      "references": [
-        "dist/src/domain/scenes.js"
-      ],
+      "references": ["dist/src/domain/scenes.js"],
       "evidence": [
         {
           "path": "tests/speech.browser.mjs",
@@ -588,9 +530,7 @@
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "No arbitrary executable quest scripts or full narrative engine."
-      ],
+      "limits": ["No arbitrary executable quest scripts or full narrative engine."],
       "examples": [
         {
           "intent": "Advance optional objectives from recorded events and select conditional dialogue choices.",
@@ -598,9 +538,7 @@
           "expected": "Advance optional objectives from recorded events and select conditional dialogue choices."
         }
       ],
-      "references": [
-        "dist/src/domain/objective-events.js"
-      ],
+      "references": ["dist/src/domain/objective-events.js"],
       "evidence": [
         {
           "path": "tests/objective-choices.browser.mjs",
@@ -626,9 +564,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Motivating design request only; do not generate playable data that assumes support."
-      ],
+      "limits": ["Motivating design request only; do not generate playable data that assumes support."],
       "examples": [
         {
           "intent": "Proposed extension: Speed potions and multi-battle buffs.",
@@ -636,9 +572,7 @@
           "expected": "Proposed extension: Speed potions and multi-battle buffs."
         }
       ],
-      "references": [
-        "docs/AUTHORING_CONTRACT.md"
-      ],
+      "references": ["docs/AUTHORING_CONTRACT.md"],
       "evidence": [],
       "details": {
         "trigger": "Not implemented.",

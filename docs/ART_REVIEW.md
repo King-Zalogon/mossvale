@@ -39,3 +39,7 @@ For the player diagonal walk correction (#130), `tests/diagonal-walk.browser.mjs
 Open `dist/character-preview.html` for player and NPC facing art and `dist/creature-combat-preview.html` for the approved creature reference beside its combat rows at the 115 px gameplay width. The captured contact sheet is `art/characters/reviews/creature-combat-contact-sheet.png`. The Fernling faint row is recorded as rework because detached leaf/spark pixels remain visible; Duskwing passes this initial visual check. Owner taste review is pending for both.
 
 No visual score proves player enjoyment. Model-assisted review is optional authoring support; the recorded reason and human decision remain authoritative.
+
+## Scene quality and delivery standard
+
+See [the source-backed gameplay quality audit](QUALITY_REVIEW.md) and #245 for the next playable-slice quality bar. Evaluate ground, props, actors, animation and interface together at normal gameplay scale. Repeated noisy texture, mismatched source styles, unreadable action feedback or obstructive HUD can make a technically valid asset/scene unsuitable for delivery. PR #233's terrain compiler preview remains a prototype in draft; the owner's first-version acceptance does not establish production visual quality. Keep technical verification, visual judgment and full playable-flow acceptance as separate reported results.
