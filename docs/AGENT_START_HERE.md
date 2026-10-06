@@ -20,4 +20,4 @@ On the latest intended base, run `npm run verify`; run `npm run build` when the 
 
 ## Local authoring catalogue
 
-Read [CATALOGUE.md](CATALOGUE.md) and the generated [index](../content/catalogue/INDEX.md). Catalogue checks are part of validation; changed authorable resources need a scoped PR impact record. Local visual browsing/export and scene-script instructions remain later epic tasks.
+Read [CATALOGUE.md](CATALOGUE.md) and the generated [index](../content/catalogue/INDEX.md). Catalogue checks are part of validation; changed authorable resources need a scoped PR impact record. Use the documented local visual browser and portable export when a story writer needs to inspect resource art. Scene-script instructions and continuity handoffs are documented separately.
