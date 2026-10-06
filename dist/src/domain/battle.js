@@ -5,13 +5,16 @@ import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCU
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
-import {claimInventory, inventoryToSupplies, rollDrop, useInventory} from './inventory.js';
+import {claimInventory, inventoryToSupplies, rollDrop, syncInventorySupplies, useInventory} from './inventory.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
 
 function inventoryDrop(save, table, key, rng, rules) {
   if (!rules || !save.inventory) return [];
+  // Legacy battle actions (notably orb throws) update supply counters directly.
+  // Reconcile those counters before a reward writes the bag back into the save.
+  syncInventorySupplies(save, rules);
   const drop = rollDrop(rules, table, rng);
   if (!drop) return [];
   const result = claimInventory(save.inventory, key, [drop], rules);

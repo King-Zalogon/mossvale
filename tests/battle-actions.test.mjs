@@ -136,6 +136,7 @@ test('wild wins grant a once-only configured item drop', () => {
 test('capture rewards also persist and preserve the coin grant', () => {
   const save = newSave();
   save.team[0].hp = 1e6;
+  const orbsBefore = save.orbs;
   const battle = createBattle(save, rng, {id: NEUTRAL, level: 1});
   battle.hp = 0;
   const turn = resolveTurn(save, battle, {kind: 'catch'}, () => 0, {inventoryRules: rawInventoryRules()});
@@ -144,4 +145,6 @@ test('capture rewards also persist and preserve the coin grant', () => {
   assert.deepEqual(reward.itemRewards, [{item: 'moss-pearl', quantity: 1}]);
   assert.equal(save.inventory.bag['moss-pearl'], 1);
   assert.equal(save.coins, 10);
+  assert.equal(save.orbs, orbsBefore - 1);
+  assert.equal(save.inventory.bag.orb, orbsBefore - 1);
 });
