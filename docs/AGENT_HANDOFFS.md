@@ -52,3 +52,7 @@ Codex claim: `codex/185-scene-script-continuity`, created from latest `origin/ma
 ## #99 — optional inventory features
 
 Codex claim: `codex/99-optional-inventory-features`, created from latest `origin/main` `ea08af9`, aligned with `integration` `6ecaf0b`. Scope: pack-defined live percentage healing, once-only wild-win and capture item drops, legacy supply synchronization, result-screen reward feedback, pack fixture data, regression coverage and catalogue impact review. Selling and stash behavior remain the existing #152/#177 path; no save schema change. PR targets integration; run focused tests, `npm run verify`, and `npm run build`, then wait for required CI before integration.
+
+## #173 — distinct combat presentation handoff
+
+Codex claim: `codex/173-distinct-combat-animations`, created from latest `origin/main` `ea08af9`, aligned with `integration` `a281b92`. Scope: map the existing Element action to a distinct deterministic type-colored burst and lunge, preserve optional five-state atlas and static fallback behavior, cover reduced motion/cancellation through browser regression, and add catalogue impact evidence. Damage, timing, save data and rewards remain unchanged. Owner visual taste remains a final playtest gate; PR targets integration only.

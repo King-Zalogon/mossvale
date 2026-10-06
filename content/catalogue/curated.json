@@ -539,6 +539,43 @@
         "errors": "Unknown response IDs in a saved battle are discarded during normalization.",
         "persistence": "Recorded response IDs are part of the existing battle checkpoint and remain compatible with older saves."
       }
+    },
+    {
+      "id": "mechanic:elemental-combat-presentation",
+      "kind": "mechanic",
+      "name": "Elemental combat presentation",
+      "summary": "Show a distinct, type-colored elemental burst when a companion uses its special move.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "The burst reuses the optional five-state combat atlas and falls back to the static portrait when a pack has no combat sheet.",
+        "It does not change damage, timing, saves or battle outcomes."
+      ],
+      "examples": [
+        {
+          "intent": "Use the companion's elemental move during a battle.",
+          "usage": "Reuse the existing Element action; the presentation derives its color from the companion type.",
+          "expected": "The ally uses the elemental motion and a type-colored burst while the enemy receives the normal hit reaction."
+        }
+      ],
+      "references": ["dist/src/controller.js", "dist/src/render/sprites.js", "dist/src/ui/battle-view.js"],
+      "evidence": [
+        {
+          "path": "tests/creature-combat.browser.mjs",
+          "assertion": "Battle playback distinguishes Quick strike and Element, and reduced motion pins the elemental presentation to one frame."
+        }
+      ],
+      "details": {
+        "trigger": "A resolved battle action with kind element.",
+        "inputs": "The existing companion type and optional five-state combat atlas.",
+        "sequence": "Render the attack row with a deterministic expanding type-colored burst and the elemental lunge motion.",
+        "results": "The ally's elemental move reads differently from Quick strike while the enemy receives the normal hit reaction.",
+        "cancellation": "The existing animation cancellation replaces the effect when the battle view changes.",
+        "errors": "Packs without combat atlases fall back to the static portrait; unsupported types use the shared green fallback color.",
+        "persistence": "Presentation-only; battle rules and saved outcomes are unchanged."
+      }
     }
   ],
   "exclusions": [
