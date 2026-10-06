@@ -84,6 +84,31 @@ test('rolling charge: a charge turn, then a heavy blow that Guard softens', () =
   assert.deepEqual([charge.action, charge.damage], ['charge', 0]);
 });
 
+test('a winning guardian fight pays a one-time bonus for the declared response', () => {
+  const save = newSave();
+  save.team[0].hp = 1e6;
+  const b = createBattle(save, seededRng(1), spec(1));
+  b.turn = 2; // the heavy forecast is the response window
+  b.hp = 1; // the Guard riposte will finish the guardian
+  const before = save.coins;
+  const result = resolveTurn(save, b, {kind: 'guard'}, mid, {sealReward: {coins: 60, potions: 2, xp: 65}});
+  const win = result.events.find(event => event.type === 'win');
+  assert.equal(result.ended, 'win');
+  assert.deepEqual(win.responseLabels, ['Heavy blow guarded']);
+  assert.equal(win.responseCoins, 8);
+  assert.equal(save.coins, before + 68);
+  assert.ok(win.responseXp > 0);
+});
+
+test('counterplay is retained in a battle checkpoint and invalid response IDs are dropped', () => {
+  const save = newSave();
+  const b = createBattle(save, seededRng(1), spec(1));
+  b.counterplay = ['guard-heavy', 'not-a-response'];
+  save.battle = battleCheckpoint(b);
+  const back = codec.normalize(JSON.parse(codec.serialize(save)), false).battle;
+  assert.deepEqual(back.counterplay, ['guard-heavy']);
+});
+
 test('frost chorus keeps using the elemental move, so the matchup decides the damage', () => {
   const save = newSave();
   save.team[0].hp = 1e6;

@@ -9,6 +9,8 @@ Each shrine uses the shared battle actions with a pack-defined tactic and a visi
 | Frostveil Grove | Element, element, strike | The repeated elemental volley is 70% stronger. Switch to a healthy teammate that resists the element before it repeats. |
 | Reedfen Wetlands | Element, charge, heavy | The current restores up to 12% of its health while charging. An elemental hit while it gathers cancels that recovery; Guard the heavy blow that follows. |
 
+Successful responses now pay a small guardian bonus when the fight is won: breaking Meadow's brace, Guarding a forecast heavy blow, switching to a resistant teammate for Frostveil's repeated volley, disrupting Reedfen's recovery, and Guarding its crash each grant +8 coins and +10 XP once per fight. The response is declared in the tactic data, recorded in the battle checkpoint, and named on the victory result so a player can connect the forecast to the reward.
+
 Shrine levels are at least their map levels and rise to the rounded average level of the current party. The level is fixed when the battle begins and is already stored in the battle checkpoint, so refreshes resume the same fight. Ordinary wild encounters keep their configured levels. This lets a progressed party keep a meaningful shrine fight without scaling every encounter.
 
 ## Deterministic combat comparison

@@ -620,6 +620,7 @@ export function createController(app) {
         coins: reward.reward,
         xp: reward.xp,
         newSeal: reward.newSeal,
+        counterplay: reward.responseLabels,
       });
     }
     b.busy = true;
@@ -721,8 +722,8 @@ export function createController(app) {
     const last = turn.events.at(-1);
     if (turn.ended === 'win')
       return last.newSeal
-        ? `${regions[save().region].seal} awakened! +${last.reward} coins.`
-        : `You defeated ${species[b.id].name}: +${last.reward} coins, ${last.xp} XP.`;
+        ? `${regions[save().region].seal} awakened! +${last.reward} coins${last.responseLabels?.length ? ` · ${last.responseLabels.join(', ')}` : ''}.`
+        : `You defeated ${species[b.id].name}: +${last.reward} coins, ${last.xp} XP${last.responseLabels?.length ? ` · ${last.responseLabels.join(', ')}` : ''}.`;
     if (turn.ended === 'caught')
       return last.isNew ? `${species[b.id].name} became your friend! +10 coins, 20 XP.` : `${species[b.id].name} was released happily: +10 coins, 20 XP.`;
     return 'Your team was defeated and rested at camp. Everyone is healed.';
@@ -744,7 +745,12 @@ export function createController(app) {
             : `All ${regions.length} shrines shine again. You’ve become a keeper of the Verdant Isles!`
           : `${species[b.id].name} retreated into the wild.`,
         id: b.id,
-        rewards: [last.reward + ' coins', last.xp + ' XP', ...(last.potions ? [`${last.potions} potions`] : [])],
+        rewards: [
+          last.reward + ' coins',
+          last.xp + ' XP',
+          ...(last.potions ? [`${last.potions} potions`] : []),
+          ...(last.responseCoins ? [`+${last.responseCoins} counterplay coins`] : []),
+        ],
         note: last.xpText,
         button: next ? 'Visit ' + regions[s.region + 1].short : 'Back to the trail',
         onContinue: next ? () => travel(s.region + 1) : () => (close(), checkEnding()),
