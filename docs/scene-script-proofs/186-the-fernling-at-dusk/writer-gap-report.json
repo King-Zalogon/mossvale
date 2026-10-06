@@ -1,0 +1,17 @@
+{
+  "format": 1,
+  "sceneId": "the-fernling-at-dusk",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "gaps": [
+    {
+      "id": "stationary-traveler-placement",
+      "kind": "configuration",
+      "capabilityId": "interactable:scene-event",
+      "description": "The catalogue supplies a traveler visual and scene-event dialogue capability, but no verified actor-placement capability or contract for attaching this stationary traveler to a map scene event. Configure a stationary traveler using the supplied visual and existing dialogue interaction if the authoring system supports that combination; otherwise this encounter's traveler beat cannot be implemented from verified catalogue capabilities alone. No movement is needed.",
+      "neededFor": "Showing and speaking with the traveler on Sunlit Trail.",
+      "priority": "required",
+      "dependsOn": []
+    }
+  ],
+  "note": "Gap reports record authoring work requested by the scene; they do not add capabilities to the catalogue or make the scene playable."
+}
