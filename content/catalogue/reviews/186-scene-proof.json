@@ -1,0 +1,36 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "tests/fixtures/packs/the-fernling-at-dusk/index.json",
+        "tests/fixtures/packs/the-fernling-at-dusk/maps/start.json",
+        "tests/fixtures/packs/the-fernling-at-dusk/objectives.json",
+        "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+        "tests/fixtures/packs/the-fernling-at-dusk/story.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/facts.json",
+        "content/catalogue/INDEX.md"
+      ],
+      "entries": [
+        "landmark:the-fernling-at-dusk/start/chest",
+        "landmark:the-fernling-at-dusk/start/traveler",
+        "map:the-fernling-at-dusk/start",
+        "narrative:the-fernling-at-dusk/objectives",
+        "narrative:the-fernling-at-dusk/story",
+        "pack:the-fernling-at-dusk",
+        "region:the-fernling-at-dusk/start",
+        "rules:the-fernling-at-dusk/battle",
+        "rules:the-fernling-at-dusk/economy",
+        "rules:the-fernling-at-dusk/moves",
+        "rules:the-fernling-at-dusk/progression",
+        "rules:the-fernling-at-dusk/tactics",
+        "species:the-fernling-at-dusk/fernling",
+        "type:the-fernling-at-dusk/leaf"
+      ],
+      "disposition": "updated",
+      "reason": "Add one deliberately small optional adventure pack and regenerate canonical catalogue outputs to expose its actual map, storyteller, chest, single species and required pack rules. The generated entries describe this isolated fixture; scene-event, landmark, dialogue, save and reward behavior all reuse capabilities already available on the integration base.",
+      "evidence": ["tests/scene-proof.browser.mjs", "docs/scene-script-proofs/186-the-fernling-at-dusk/README.md", "docs/PACKS.md"]
+    }
+  ]
+}

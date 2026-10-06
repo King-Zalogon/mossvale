@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {DEFAULT_PATTERN, HEAVY_FACTOR, INTENT_TEXT, planOf, TACTICS} from '../dist/src/data/tactics.js';
+import {DEFAULT_PATTERN, GUARDIAN_HP_BONUS, HEAVY_FACTOR, INTENT_TEXT, planOf, TACTICS} from '../dist/src/data/tactics.js';
 import {
   battleCheckpoint,
   createBattle,
@@ -25,6 +25,7 @@ test('each region has its own tactic, and all of them are defined', () => {
   const tactics = maps.map((_, i) => guardian(i).tactic);
   assert.equal(new Set(tactics).size, maps.length);
   for (const t of tactics) assert.ok(TACTICS[t], t);
+  assert.ok(GUARDIAN_HP_BONUS >= 40, 'the pack gives guardian tactics enough health to appear');
   for (const a of Object.values(TACTICS).flatMap(t => t.pattern)) assert.ok(INTENT_TEXT[a], `no intent text for ${a}`);
   assert.deepEqual(planOf(undefined), DEFAULT_PATTERN); // wild creatures
 });
@@ -33,6 +34,8 @@ test('wild creatures keep the simple strike/element rhythm and never carry a tac
   const save = newSave();
   const wild = createBattle(save, seededRng(1), {id: 1, level: 6, tactic: 'spore-guard'});
   assert.equal(wild.tactic, undefined);
+  assert.equal(wild.max, createBattle(save, seededRng(1), {id: 1, level: 6, boss: false}).max);
+  assert.equal(createBattle(save, seededRng(1), {id: 1, level: 6, boss: true}).max - wild.max, GUARDIAN_HP_BONUS, 'pack guardian tuning never changes wild HP');
   const seen = [];
   for (let i = 0; i < 4; i++) {
     seen.push(nextEnemyAction(wild));
@@ -82,6 +85,31 @@ test('rolling charge: a charge turn, then a heavy blow that Guard softens', () =
   assert.ok(guarded.b.hp < createBattle(save, seededRng(1), spec(1)).hp, 'the riposte damages the guardian');
   const charge = enemyAttack(save, {...createBattle(save, seededRng(1), spec(1)), turn: 1}, mid);
   assert.deepEqual([charge.action, charge.damage], ['charge', 0]);
+});
+
+test('a winning guardian fight pays a one-time bonus for the declared response', () => {
+  const save = newSave();
+  save.team[0].hp = 1e6;
+  const b = createBattle(save, seededRng(1), spec(1));
+  b.turn = 2; // the heavy forecast is the response window
+  b.hp = 1; // the Guard riposte will finish the guardian
+  const before = save.coins;
+  const result = resolveTurn(save, b, {kind: 'guard'}, mid, {sealReward: {coins: 60, potions: 2, xp: 65}});
+  const win = result.events.find(event => event.type === 'win');
+  assert.equal(result.ended, 'win');
+  assert.deepEqual(win.responseLabels, ['Heavy blow guarded']);
+  assert.equal(win.responseCoins, 8);
+  assert.equal(save.coins, before + 68);
+  assert.ok(win.responseXp > 0);
+});
+
+test('counterplay is retained in a battle checkpoint and invalid response IDs are dropped', () => {
+  const save = newSave();
+  const b = createBattle(save, seededRng(1), spec(1));
+  b.counterplay = ['guard-heavy', 'not-a-response'];
+  save.battle = battleCheckpoint(b);
+  const back = codec.normalize(JSON.parse(codec.serialize(save)), false).battle;
+  assert.deepEqual(back.counterplay, ['guard-heavy']);
 });
 
 test('frost chorus keeps using the elemental move, so the matchup decides the damage', () => {
@@ -159,6 +187,14 @@ test('an unknown tactic in map data is reported', () => {
   assert.ok(buildAdventure(m, content, rawObjectives()).errors.some(e => e.includes('unknown tactic "sneeze"')));
 });
 
+test('guardians use a pack-configured HP window without changing ordinary encounters', () => {
+  const save = newSave();
+  const wild = createBattle(save, seededRng(1), {id: 0, level: 5});
+  const boss = createBattle(save, seededRng(1), {id: 0, level: 5, boss: true});
+  assert.equal(boss.max - wild.max, GUARDIAN_HP_BONUS);
+  assert.equal(GUARDIAN_HP_BONUS, 48);
+});
+
 // --- tactical guardian play across ordinary and advanced saves -----------------------------------------------
 const policies = {
   attackOnly: () => ({kind: 'attack'}),
@@ -196,8 +232,9 @@ function challenge(region, policy, seed, levels) {
   const shrine = shrineOf(region);
   const config = guardian(region);
   const b = createBattle(save, rng, {...config, level: guardianLevel(save, config), boss: true});
-  const stats = {result: 'stalled', damageTaken: 0, counterDamage: 0, recovered: 0, potionsUsed: 0, switches: 0};
+  const stats = {result: 'stalled', turns: 0, damageTaken: 0, counterDamage: 0, recovered: 0, potionsUsed: 0, switches: 0};
   for (let turns = 0; turns < 80 && !b.over; turns++) {
+    stats.turns++;
     const action = policy(save, b);
     if (action.kind === 'potion') stats.potionsUsed++;
     if (action.kind === 'switch') stats.switches++;
@@ -220,7 +257,7 @@ function challenge(region, policy, seed, levels) {
 test('all four guardians reward their distinct tactic while burst and matchup play remain viable', () => {
   const tries = 50;
   const report = [];
-  const average = rows => rows.reduce((sum, row) => sum + row.damageTaken, 0) / rows.length;
+  const average = (rows, key) => rows.reduce((sum, row) => sum + row[key], 0) / rows.length;
   for (let region = 0; region < maps.length; region++) {
     const arrival = Math.max(5, guardian(region).level - 1);
     const profiles = {arrival: [arrival, arrival, arrival], 'advanced starter': [15, 10, 10]};
@@ -234,12 +271,17 @@ test('all four guardians reward their distinct tactic while burst and matchup pl
         assert.ok(wins >= tries * 0.9, `${profile}/${maps[region].id}/${name}: ${wins}/${tries}`);
       }
       const attackWins = outcomes.attackOnly.filter(row => row.result === 'win').length;
+      assert.ok(attackWins >= tries * 0.9, `${profile}/${maps[region].id}: attack-only remains viable (${attackWins}/${tries})`);
       report.push(
-        `${profile}/${maps[region].id}: attack ${attackWins}/${tries} · burst ${outcomes.burst.filter(row => row.result === 'win').length}/${tries} · responsive ${outcomes.responsive.filter(row => row.result === 'win').length}/${tries} · damage ${average(outcomes.attackOnly).toFixed(1)}→${average(outcomes.responsive).toFixed(1)}`,
+        `${profile}/${maps[region].id}: attack ${attackWins}/${tries} · burst ${outcomes.burst.filter(row => row.result === 'win').length}/${tries} · responsive ${outcomes.responsive.filter(row => row.result === 'win').length}/${tries} · turns ${average(outcomes.attackOnly, 'turns').toFixed(1)}→${average(outcomes.responsive, 'turns').toFixed(1)} · damage ${average(outcomes.attackOnly, 'damageTaken').toFixed(1)}→${average(outcomes.responsive, 'damageTaken').toFixed(1)}`,
       );
       if (profile === 'advanced starter') {
-        const lessDamage = average(outcomes.responsive) <= average(outcomes.attackOnly) * 0.8;
-        assert.ok(lessDamage, `${maps[region].id}: responsive average damage ${average(outcomes.responsive)} vs attack-only ${average(outcomes.attackOnly)}`);
+        const lessDamage = average(outcomes.responsive, 'damageTaken') <= average(outcomes.attackOnly, 'damageTaken') * 0.8;
+        assert.ok(
+          lessDamage,
+          `${maps[region].id}: responsive average damage ${average(outcomes.responsive, 'damageTaken')} vs attack-only ${average(outcomes.attackOnly, 'damageTaken')}`,
+        );
+        assert.ok(average(outcomes.responsive, 'turns') >= 3, `${maps[region].id}: the tactic should have time to appear over multiple turns`);
       }
       if (profile === 'arrival' && region === 1)
         assert.ok(

@@ -1,0 +1,23 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/controller.js",
+        "dist/src/render/sprites.js",
+        "dist/src/ui/battle-view.js",
+        "dist/style.css",
+        "tests/creature-combat.browser.mjs",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/173-elemental-combat-presentation.json"
+      ],
+      "entries": ["mechanic:elemental-combat-presentation"],
+      "disposition": "updated",
+      "reason": "Maps the resolved Element action to a distinct type-colored elemental burst and lunge presentation while preserving the five-state atlas contract, static fallback, reduced-motion behavior and battle rules.",
+      "evidence": ["tests/creature-combat.browser.mjs"]
+    }
+  ]
+}

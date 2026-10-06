@@ -124,4 +124,4 @@ Build it with `node scripts/build.mjs --pack tests/fixtures/packs/lantern-crossi
 
 `tests/pack-build.browser.mjs` tests the independently packaged Lantern shop and stash, its supply-counter mapping and reload, alongside the existing capture/progression/adventure-switch/backup scenario. Inventory unit tests compare actual Mossvale/Lantern caps, unknown cross-pack IDs and persistence failures. Updating inventory data requires updating its SHA-256 entry in the manifest.
 
-This completes the second-pack proof, not all of #99: live percentage-healing item use, gathering and once-only combat item reward integration remain separate work. The tonic's effect metadata is not a claim that the existing fixed-HP battle potion action already applies percentage healing.
+The second-pack proof is complete. The live battle path now applies each pack's configured healing effect, rolls pack-owned drops after wild wins and captures, and records each reward through the existing once-only inventory claim keys. Selling remains available through the existing bag and stash UI; gathering and future loot sources can be added as separate tables without changing the save schema.

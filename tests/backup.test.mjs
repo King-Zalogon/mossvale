@@ -8,6 +8,7 @@ import {
   importSave,
   MAX_BACKUP_BYTES,
   parseBackup,
+  readBackupFile,
   readCheckpoint,
   restoreCheckpoint,
 } from '../dist/src/services/backup.js';
@@ -64,6 +65,29 @@ test('invalid, huge, wrong or future files are refused with a plain reason and n
     assert.match(r.reason, reason);
   }
   assert.equal(parseBackup(undefined, codec).ok, false);
+});
+
+test('oversized backup files are rejected before their contents are read', async () => {
+  let read = false;
+  const result = await readBackupFile(
+    {
+      size: MAX_BACKUP_BYTES + 1,
+      async text() {
+        read = true;
+        throw new Error('oversized file should never be read');
+      },
+    },
+    codec,
+  );
+  assert.deepEqual(result, {ok: false, reason: 'That file is too large to be a Mossvale save.'});
+  assert.equal(read, false);
+});
+
+test('backup files at the byte limit still use normal parse validation', async () => {
+  const text = codec.serialize(played());
+  const result = await readBackupFile({size: MAX_BACKUP_BYTES, text: async () => text}, codec);
+  assert.equal(result.ok, true);
+  assert.equal(codec.serialize(result.save), text);
 });
 
 test('hostile content is sanitized like any other save', () => {

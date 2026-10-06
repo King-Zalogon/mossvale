@@ -80,7 +80,7 @@ test('idle and reduced motion hold the idle cell; walking advances by distance a
   assert.equal(playerFrame(WALK_FRAME_DISTANCE, true), 2);
   assert.equal(playerFrame(WALK_FRAME_DISTANCE * 4, true), 1);
   assert.equal(playerFrame(3, true, true), 0);
-  assert.equal(followerFrame(0.71, true), 1);
+  assert.equal(followerFrame(WALK_FRAME_DISTANCE - 0.01, true), 1);
   assert.equal(followerFrame(FOLLOWER_FRAME_DISTANCE, true), 2);
   assert.equal(followerFrame(FOLLOWER_FRAME_DISTANCE * 4, true), 1);
   assert.equal(followerFrame(3, true, true), 0);
@@ -169,6 +169,20 @@ test('props block with the same footprint', () => {
   const cottage = meadow.objects.find(o => o.kind === 'cottage');
   assert.equal(isWalkable(meadow, cottage.x, cottage.y), false);
   assert.equal(isWalkable(meadow, cottage.x + cottage.solid + PLAYER_RADIUS + 0.01, cottage.y), true);
+});
+
+test('a blocked direction projects onto the tangent of a nearby cottage instead of stopping', () => {
+  const cottage = meadow.objects.find(o => o.kind === 'cottage');
+  const st = state(meadow, 14.3977, 8.4223); // just outside the cottage's east edge
+  assert.equal(isWalkable(meadow, st.player.x, st.player.y), true);
+  const before = {...st.player};
+  movePlayer(st, 0, -1, false, 1 / 60); // screen-up points diagonally into the cottage in world space
+  const dx = st.player.x - before.x;
+  const dy = st.player.y - before.y;
+  assert.ok(Math.hypot(dx, dy) > 0.02, 'keeps moving along the unblocked side of the wall');
+  assert.ok(dx > 0 && dy < 0, `follows the cottage tangent (${dx}, ${dy})`);
+  assert.ok(isWalkable(meadow, st.player.x, st.player.y), 'the slide keeps the player footprint clear');
+  assert.ok(Math.hypot(st.player.x - cottage.x, st.player.y - cottage.y) >= cottage.solid + PLAYER_RADIUS - 1e-6);
 });
 
 test('screen diagonals slide around real cottage and tree collisions, and reverse input escapes cleanly', () => {

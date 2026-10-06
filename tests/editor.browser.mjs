@@ -126,8 +126,21 @@ try {
   assert.deepEqual(largeRoundTrip.size, {w: 96, h: 96});
   assert.equal(largeRoundTrip.authoring.opaqueId, 'keep-this-field');
   assert.equal(largeRoundTrip.exits[0].id, large.exits[0].id);
+  const selectedBeforeOversizedImport = await page.locator('#map-name').textContent();
+  await page.evaluate(() => {
+    window.mapImportFileReads = 0;
+    const readText = File.prototype.text;
+    File.prototype.text = function (...args) {
+      window.mapImportFileReads++;
+      return readText.apply(this, args);
+    };
+  });
+  await page.locator('#file').setInputFiles({name: 'oversized-map.json', mimeType: 'application/json', buffer: Buffer.alloc(1_000_001, 32)});
+  await page.waitForFunction(() => document.querySelector('#validation')?.textContent.includes('maximum 1 MB'));
+  assert.equal(await page.evaluate(() => window.mapImportFileReads), 0, 'oversized map is rejected before File.text()');
+  assert.equal(await page.locator('#map-name').textContent(), selectedBeforeOversizedImport, 'rejected import leaves the selected map unchanged');
   assert.deepEqual(errors, []);
-  console.log('ok terrain and portal editing, undo/redo, validation, full-engine preview and large-map JSON round trip');
+  console.log('ok terrain and portal editing, undo/redo, validation, full-engine preview, large-map JSON round trip and pre-read import limit');
 } finally {
   await browser.close();
   server.close();

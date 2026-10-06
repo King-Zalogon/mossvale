@@ -114,6 +114,12 @@ test('sample visual subjects have hashed canonical references, exports and linke
     'west',
   ]);
   assert.ok(player.sourceBatches.every(batch => batch.referenceAssetIds.length && batch.exportAssetIds.includes('person-red-cap-motion')));
+  const additionalPlayerSources = player.sourceBatches.flatMap(batch => batch.additionalSources ?? []);
+  for (const source of additionalPlayerSources) {
+    assert.equal(sha256File(join(root, source.path)), source.sha256, `${source.id} generated pose hash`);
+    assert.ok(source.walkColumns?.length, `${source.id} identifies the runtime walk cell it supplies`);
+  }
+  assert.match(player.exportWorkflow.settings, /West walk cell 3 uses its separately retained generated opposite-stride source/);
   for (const creature of registry.subjects.filter(subject => subject.runtimeCombat)) {
     assert.deepEqual(creature.runtimeTreatments.states, ['idle', 'travel', 'hit', 'capture']);
     assert.equal(creature.runtimeTreatments.artPixelsChanged, false);

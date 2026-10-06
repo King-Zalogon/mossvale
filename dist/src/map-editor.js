@@ -12,6 +12,7 @@ import {drawTerrainFamilyFixture} from './ui/terrain-family-preview.js';
 
 const $ = selector => document.querySelector(selector);
 const mapsUrl = new URL('../maps/', import.meta.url);
+const MAX_IMPORT_BYTES = 1_000_000;
 const terrainColors = {'.': '#00000000', g: '#86ab68', p: '#d4c58c', t: '#4e7943', w: '#62a8ae'};
 const kinds = {prop: 'props', landmark: 'landmarks', exit: 'exits', zone: 'zones', trigger: 'triggers', instance: 'instances'};
 const canvas = $('#map-canvas');
@@ -434,6 +435,7 @@ $('#file').onchange = async event => {
   const file = event.target.files[0];
   if (!file) return;
   try {
+    if (file.size > MAX_IMPORT_BYTES) throw Error('Map file is too large (maximum 1 MB).');
     const value = JSON.parse(await file.text());
     if (!value || !value.id || !value.size || !value.terrain) throw Error('Expected a map JSON record.');
     const index = maps.findIndex(map => map.id === value.id);

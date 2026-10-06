@@ -242,6 +242,9 @@ kbd {
   color: #d7dec4;
   white-space: nowrap;
 }
+.game-footer #fullscreen + #pause {
+  margin-left: 0;
+}
 aside {
   display: flex;
   flex-direction: column;
@@ -884,7 +887,7 @@ canvas#buddy {
     max-height: calc(100% - 180px);
   }
 }
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 700px) {
   .viewport.environment-open .world-tag,
   .viewport.environment-open .objective-pin,
   .viewport.environment-open .minimap-box,
@@ -1065,6 +1068,9 @@ canvas#buddy {
 .fighter canvas.attack {
   animation: attack 0.4s;
 }
+.fighter canvas.element {
+  animation: element 0.55s;
+}
 .fighter canvas.catching {
   animation: creature-capture 0.72s steps(4, end) both;
 }
@@ -1073,6 +1079,7 @@ canvas#buddy {
   animation: creature-breathe 1.8s steps(2, end) infinite;
 }
 .fighter canvas.attack,
+.fighter canvas.element,
 .fighter canvas.hit,
 .fighter canvas.catching {
   animation-iteration-count: 1;
@@ -1411,6 +1418,18 @@ canvas#buddy {
   45%,
   65% {
     transform: translateX(18px) scale(1.04);
+  }
+}
+@keyframes element {
+  0%,
+  100% {
+    transform: translateX(0) scale(1);
+  }
+  35% {
+    transform: translateX(10px) scale(1.06);
+  }
+  70% {
+    transform: translateX(20px) scale(1.02);
   }
 }
 @keyframes creature-breathe {
@@ -2209,7 +2228,7 @@ body.text-larger .heading {
     min-height: 44px;
   }
 }
-@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 700px) {
   header {
     height: 54px;
   }
@@ -2242,7 +2261,8 @@ body.text-larger .heading {
     color: #aac194;
   }
   .viewport {
-    height: min(64vh, 420px);
+    height: min(72svh, 520px);
+    min-height: 230px;
     aspect-ratio: auto;
   }
   .location {
@@ -2291,6 +2311,56 @@ body.text-larger .heading {
   .game-footer {
     padding: 7px 10px;
   }
+  .game-frame:fullscreen,
+  .game-frame:-webkit-full-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: #102822;
+  }
+  .game-frame:fullscreen .location,
+  .game-frame:-webkit-full-screen .location {
+    display: none;
+  }
+  .game-frame:fullscreen .viewport,
+  .game-frame:-webkit-full-screen .viewport {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+  }
+  .game-frame:fullscreen .game-footer,
+  .game-frame:-webkit-full-screen .game-footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+    min-height: 48px;
+    padding: 5px max(12px, env(safe-area-inset-right)) max(5px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    background: linear-gradient(transparent, #102822d9);
+  }
+  .game-frame:fullscreen .game-footer > span:nth-child(2),
+  .game-frame:-webkit-full-screen .game-footer > span:nth-child(2),
+  .game-frame:fullscreen .game-footer > span:nth-child(4),
+  .game-frame:-webkit-full-screen .game-footer > span:nth-child(4) {
+    display: none;
+  }
+  .game-frame:fullscreen .game-footer #fullscreen,
+  .game-frame:-webkit-full-screen .game-footer #fullscreen {
+    margin-left: auto;
+  }
+  .game-frame:fullscreen .game-footer #pause,
+  .game-frame:-webkit-full-screen .game-footer #pause {
+    margin-left: 4px;
+  }
   .environment-message {
     top: 54px;
     left: 12px;
@@ -2300,7 +2370,7 @@ body.text-larger .heading {
     font-size: 11px;
   }
 }
-@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 500px), (any-pointer: coarse) and (max-width: 600px) {
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 700px), (any-pointer: coarse) and (max-width: 600px) {
   .viewport.has-interaction .world-tag,
   .viewport.has-interaction .objective-pin,
   .viewport.speech-open .world-tag,

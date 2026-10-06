@@ -350,6 +350,7 @@
     }
   },
   "tactics": {
+    "guardianHpBonus": 48,
     "defaultPattern": ["strike", "element"],
     "heavyFactor": 1.8,
     "braceFactor": 0.5,
@@ -359,18 +360,31 @@
         "pattern": ["strike", "brace"],
         "braceQuickFactor": 0.12,
         "braceElementFactor": 1.5,
+        "counterplay": [{"id": "break-brace", "action": "element", "previous": "brace", "label": "Brace broken", "reward": {"coins": 8, "xp": 10}}],
         "intro": "When the forecast says Brace, your action happens before it braces. After the brace, quick strikes glance off, but an elemental move breaks through. Watch the log for the brace, then answer with an elemental move."
       },
       "rolling-charge": {
         "name": "Rolling charge",
         "pattern": ["strike", "charge", "heavy"],
         "guardRiposteFactor": 1.0,
+        "counterplay": [{"id": "guard-heavy", "action": "guard", "next": "heavy", "label": "Heavy blow guarded", "reward": {"coins": 8, "xp": 10}}],
         "intro": "It gathers strength, then lands a heavy blow. Watch the line under the log and Guard when the heavy blow is next; a well-timed Guard counters it."
       },
       "frost-chorus": {
         "name": "Frost chorus",
         "pattern": ["element", "element", "strike"],
         "repeatElementFactor": 1.7,
+        "counterplay": [
+          {
+            "id": "switch-repeat-element",
+            "action": "switch",
+            "next": "element",
+            "previous": "element",
+            "resistant": true,
+            "label": "Elemental volley resisted",
+            "reward": {"coins": 8, "xp": 10}
+          }
+        ],
         "intro": "Its second elemental volley grows stronger. Switch to a teammate that resists the element before that repeat, or heal once the chorus breaks."
       },
       "tidal-current": {
@@ -379,6 +393,10 @@
         "guardRiposteFactor": 1.0,
         "recoveryOnCharge": 0.12,
         "chargeInterruptedBy": "element",
+        "counterplay": [
+          {"id": "disrupt-current", "action": "element", "next": "charge", "label": "Recovery disrupted", "reward": {"coins": 8, "xp": 10}},
+          {"id": "guard-crash", "action": "guard", "next": "heavy", "label": "Crash guarded", "reward": {"coins": 8, "xp": 10}}
+        ],
         "intro": "The current restores health as it gathers for a heavy blow. An elemental hit during the lull disrupts that recovery; Guard when the line calls out the crash."
       }
     },

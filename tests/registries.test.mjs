@@ -8,6 +8,7 @@ import {regions} from '../dist/src/data/regions.js';
 import {CAPS, SHOP} from '../dist/src/data/economy.js';
 import {PACK_ID} from '../dist/src/data/pack.js';
 import {configureRegistry} from '../dist/src/data/registry.js';
+import {GUARDIAN_HP_BONUS} from '../dist/src/data/tactics.js';
 import {validateRegistries} from '../dist/src/domain/registries.js';
 import {elementPower, maxHP} from '../dist/src/domain/rules.js';
 import {create} from '../dist/src/save.js';
@@ -25,12 +26,25 @@ test('pack registries are versioned, field-checked and bound to shared asset IDs
   invalid.progression.partySize = 8;
   invalid.tactics.defaultPattern = ['teleport'];
   invalid.tactics.patterns['spore-guard'].braceQuickFactor = 0;
+  invalid.tactics.guardianHpBonus = 201;
   const errors = check(invalid).join('\n');
   assert.match(errors, /unknown shared asset/);
   assert.match(errors, /unique list of lowercase stable IDs/);
   assert.match(errors, /partySize/);
   assert.match(errors, /supported actions/);
   assert.match(errors, /braceQuickFactor/);
+  assert.match(errors, /guardianHpBonus/);
+});
+
+test('guardian HP tuning is pack-owned and old registries keep the previous default', () => {
+  assert.equal(GUARDIAN_HP_BONUS, 48);
+  const old = structuredClone(defaultRegistries);
+  delete old.tactics.guardianHpBonus;
+  assert.deepEqual(check(old), []);
+  assert.deepEqual(configureRegistry({registries: old, packId: 'old-pack'}), []);
+  assert.equal(GUARDIAN_HP_BONUS, 18);
+  assert.deepEqual(configureRegistry({registries: defaultRegistries, packId: 'mossvale'}), []);
+  assert.equal(GUARDIAN_HP_BONUS, 48);
 });
 
 test('two packs install different species, region, economy and battle rules through the same engine modules', () => {

@@ -1,0 +1,51 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/domain/exploration.js",
+        "dist/src/render/world.js",
+        "dist/src/data/assets.js",
+        "art/characters/export.py",
+        "art/characters/export-creature-followers.py",
+        "art/characters/metadata.json",
+        "art/characters/creature-follower-metadata.json",
+        "art/characters/source/person-red-cap-motion-northeast-v2.png",
+        "art/characters/source/person-red-cap-motion-west-northwest.png",
+        "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+        "art/assets/subjects.json",
+        "art/assets/metadata.json",
+        "art/assets/source/people-atlas.png",
+        "art/characters/SOURCES.md",
+        "art/characters/visual-reviews.json",
+        "dist/assets/people/person-red-cap-motion.png",
+        "docs/MOVEMENT.md"
+      ],
+      "entries": [
+        "visual:person-red-cap-motion",
+        "visual:creature-emberkin-follower",
+        "visual:creature-fernling-follower",
+        "visual:creature-duskwing-follower",
+        "visual:creature-brooklet-follower",
+        "visual:creature-hushram-follower",
+        "visual:creature-voltkit-follower",
+        "visual:creature-mushmallow-follower",
+        "visual:creature-frostowl-follower",
+        "visual:creature-pebblit-follower",
+        "visual:creature-bramblebuck-follower",
+        "visual:creature-siltkip-follower",
+        "visual:creature-sunskitter-follower"
+      ],
+      "disposition": "updated",
+      "reason": "Correct player gait cell selection and west-facing opposing stride; correct the five owner-reported follower row mappings; synchronize the companion walk cadence with the player and remove its subpixel walking bob. Generated facts now describe the corrected frame metadata and cadence.",
+      "evidence": ["tests/diagonal-walk.browser.mjs", "tests/follower-runtime.browser.mjs", "tests/movement.test.mjs", "art/characters/visual-reviews.json"]
+    },
+    {
+      "paths": ["dist/src/input.js"],
+      "entries": ["mechanic:movement"],
+      "disposition": "no-semantic-impact",
+      "reason": "Apply the repository's required formatter to the integration-synced keyboard input module; this is whitespace-only and changes no movement behavior.",
+      "evidence": ["tests/diagonal-walk.browser.mjs"]
+    }
+  ]
+}
