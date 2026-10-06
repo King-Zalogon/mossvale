@@ -46,20 +46,20 @@
       "id": "item:battle-potion",
       "kind": "item",
       "name": "Battle potion",
-      "summary": "Consume a potion in battle to heal the active companion by up to 24 HP.",
+      "summary": "Consume the configured battle potion in battle to heal the active companion by its pack-defined effect.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
       "limits": [
-        "Percentage-heal inventory metadata does not establish live percentage healing.",
+        "Healing is capped at the companion's maximum HP and requires an available mapped supply.",
         "Does not increase player speed or confer a three-battle buff."
       ],
       "examples": [
         {
-          "intent": "Consume a potion in battle to heal the active companion by up to 24 HP.",
+          "intent": "Consume a potion in battle to apply the selected pack's healing effect.",
           "usage": "Consult dist/src/domain/battle.js and reuse the existing definition.",
-          "expected": "Consume a potion in battle to heal the active companion by up to 24 HP."
+          "expected": "Consume one mapped potion and heal the active companion according to its pack definition."
         }
       ],
       "references": ["dist/src/domain/battle.js"],
@@ -73,7 +73,7 @@
         "contexts": "Battle action; no claim of an exploration-use interface.",
         "targets": "Active companion.",
         "consumption": "Consumes one available potion on successful use.",
-        "strength": "24 HP, capped by maximum HP.",
+        "strength": "Pack-defined effect, capped by maximum HP.",
         "duration": "Immediate healing; no ongoing effect.",
         "stacking": "Repeated uses heal again up to max HP; no buff stacking.",
         "persistence": "Remaining supplies and health use the existing battle/save transaction."

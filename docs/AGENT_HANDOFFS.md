@@ -48,3 +48,7 @@ Codex claim: `codex/182-183-catalogue-ci`, created from main `4714b24`, aligned 
 ## #185 — scene-script and continuity handoffs
 
 Codex claim: `codex/185-scene-script-continuity`, created from latest `origin/main` `ea08af9`, targeting `integration` and based on the merged #181/#182/#183 catalogue contract. Scope: format-1 non-executable scene intent schema, catalogue/source revision and reference validator, structured gap report, canonical continuity checks, copy-ready writer/builder prompts, supported scene and explicit home-rest extension request. Uses the shared catalogue IDs and local pack/map contracts; does not add runtime story execution or generated art. #184 can consume `content/scene-scripts/README.md` prompts and attach current catalogue fiches by stable ID; its export paths are deliberately not hardcoded here. Focused authoring regressions pass; full verification and integration CI remain pending.
+
+## #99 — optional inventory features
+
+Codex claim: `codex/99-optional-inventory-features`, created from latest `origin/main` `ea08af9`, aligned with `integration` `6ecaf0b`. Scope: pack-defined live percentage healing, once-only wild-win and capture item drops, legacy supply synchronization, result-screen reward feedback, pack fixture data, regression coverage and catalogue impact review. Selling and stash behavior remain the existing #152/#177 path; no save schema change. PR targets integration; run focused tests, `npm run verify`, and `npm run build`, then wait for required CI before integration.

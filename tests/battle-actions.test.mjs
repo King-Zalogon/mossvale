@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR} from '../dist/src/config.js';
 import {battleCheckpoint, captureChance, createBattle, enemyAttack, playerStrike, resolveTurn} from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
-import {codec, newSave} from './helpers.mjs';
+import {codec, newSave, rawInventoryRules} from './helpers.mjs';
 
 // Fernling (Leaf) vs a Pebblit-like neutral foe would be Stone; use Duskwing (Air) = neutral for Leaf.
 const NEUTRAL = 3;
@@ -104,4 +104,44 @@ test('Focus survives a saved encounter; bad values fall back', () => {
   const raw = JSON.parse(codec.serialize(save));
   assert.equal(codec.normalize(raw, false).battle.focus, 1);
   for (const focus of [-1, 9, 1.5, 'x', undefined]) assert.equal(codec.normalize({...raw, battle: {...raw.battle, focus}}, false).battle.focus, FOCUS_START);
+});
+
+test('live battle potion uses the pack percentage and keeps legacy supply counts in sync', () => {
+  const save = newSave();
+  save.team[0].hp = 10;
+  const battle = createBattle(save, rng, {id: NEUTRAL, level: 1});
+  battle.hp = battle.max = 9999;
+  const before = save.inventory.bag.potion;
+  const turn = resolveTurn(save, battle, {kind: 'potion'}, rng, {inventoryRules: rawInventoryRules()});
+  const item = turn.events.find(event => event.type === 'item');
+  assert.equal(item.healed, 15);
+  assert.equal(save.inventory.bag.potion, before - 1);
+  assert.equal(save.potions, before - 1);
+  assert.ok(save.team[0].hp > 0 && save.team[0].hp < 25); // the enemy reply follows the same atomic round
+});
+
+test('wild wins grant a once-only configured item drop', () => {
+  const save = newSave();
+  save.team[0].hp = 1e6;
+  const battle = createBattle(save, rng, {id: NEUTRAL, level: 1});
+  battle.hp = 1;
+  const turn = resolveTurn(save, battle, {kind: 'attack'}, rng, {inventoryRules: rawInventoryRules()});
+  const reward = turn.events.find(event => event.type === 'win');
+  assert.equal(turn.ended, 'win');
+  assert.deepEqual(reward.itemRewards, [{item: 'moss-pearl', quantity: 1}]);
+  assert.equal(save.inventory.bag['moss-pearl'], 1);
+  assert.equal(save.inventory.claimed[`defeat-${NEUTRAL}-1`], true);
+});
+
+test('capture rewards also persist and preserve the coin grant', () => {
+  const save = newSave();
+  save.team[0].hp = 1e6;
+  const battle = createBattle(save, rng, {id: NEUTRAL, level: 1});
+  battle.hp = 0;
+  const turn = resolveTurn(save, battle, {kind: 'catch'}, () => 0, {inventoryRules: rawInventoryRules()});
+  const reward = turn.events.find(event => event.type === 'caught');
+  assert.equal(turn.ended, 'caught');
+  assert.deepEqual(reward.itemRewards, [{item: 'moss-pearl', quantity: 1}]);
+  assert.equal(save.inventory.bag['moss-pearl'], 1);
+  assert.equal(save.coins, 10);
 });
