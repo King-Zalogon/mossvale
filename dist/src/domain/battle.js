@@ -5,7 +5,7 @@ import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCU
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
-import {claimInventory, inventoryToSupplies, rollDrop, useInventory} from './inventory.js';
+import {claimInventory, inventoryToSupplies, rollDrop, syncInventorySupplies, useInventory} from './inventory.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
@@ -142,9 +142,11 @@ function useBattleItem(save, item, rules) {
 }
 
 /** Spends an orb; returns false if none is available or the target cannot be captured. */
-export function throwOrb(save, battle) {
+export function throwOrb(save, battle, rules) {
   if (battle.boss || save.orbs < 1) return false;
+  if (rules) syncInventorySupplies(save, rules);
   save.orbs--;
+  if (rules) syncInventorySupplies(save, rules);
   return true;
 }
 
@@ -226,6 +228,7 @@ export function resolveWin(save, battle, rng, ctx = {}) {
   const itemRewards = battle.boss ? [] : inventoryDrop(save, 'wild-win', `defeat-${battle.id}-${save.wins + 1}`, rng, ctx.inventoryRules);
   save.wins++;
   const got = grant(save, {coins, potions: (newSeal ? seal.potions : 0) + responseBonus.potions});
+  if (ctx.inventoryRules) syncInventorySupplies(save, ctx.inventoryRules);
   const xpText = awardXP(save, xp).text;
   if (newSeal) {
     save.badges.push(save.region);
@@ -262,6 +265,7 @@ export function resolveCapture(save, battle, ctx = {}, rng = () => 0.5) {
   const itemRewards = inventoryDrop(save, 'capture', `capture-${battle.id}-${save.wins + 1}`, rng, ctx.inventoryRules);
   const xpText = awardXP(save, REWARDS.capture.xp).text;
   const got = grant(save, {coins: REWARDS.capture.coins});
+  if (ctx.inventoryRules) syncInventorySupplies(save, ctx.inventoryRules);
   save.wins++;
   return {isNew, id, joined, xpText, coins: got.coins, xp: REWARDS.capture.xp, itemRewards};
 }
@@ -322,7 +326,7 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
       push({type: 'win', ...resolveWin(save, battle, rng, ctx)});
     }
   } else if (action.kind === 'catch') {
-    if (!throwOrb(save, battle)) return null;
+    if (!throwOrb(save, battle, ctx.inventoryRules)) return null;
     push({type: 'throw'});
     if (rng() < captureChance(save, battle)) {
       ended = 'caught';
