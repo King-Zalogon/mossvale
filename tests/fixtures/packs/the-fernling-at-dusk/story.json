@@ -1,0 +1,21 @@
+{
+  "format": 1,
+  "premise": {
+    "title": "The Fernling at Dusk",
+    "paragraphs": [
+      "A traveler pauses on Sunlit Trail with a Fernling at their side.",
+      "Hear the traveler’s story, then explore the trail at your own pace."
+    ],
+    "button": "Begin walking"
+  },
+  "ending": {
+    "when": {
+      "flag": "start.chest"
+    },
+    "title": "A small kindness",
+    "paragraphs": [
+      "The traveler’s chest is open, and the dusk trail is a little brighter. The unexplained footsteps remain a story for another evening."
+    ],
+    "button": "Keep exploring"
+  }
+}

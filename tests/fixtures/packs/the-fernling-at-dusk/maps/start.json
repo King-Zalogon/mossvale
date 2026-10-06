@@ -1,0 +1,145 @@
+{
+  "format": 1,
+  "id": "start",
+  "name": "Sunlit Trail — Dusk",
+  "biome": "meadow",
+  "size": {
+    "w": 12,
+    "h": 8
+  },
+  "legend": {
+    ".": "void",
+    "g": "ground",
+    "p": "path",
+    "w": "water",
+    "t": "tallgrass"
+  },
+  "terrain": [
+    "............",
+    "..gggggggg..",
+    "..ggttgggg..",
+    "..gggggggg..",
+    "..gggggggg..",
+    "..gggggggg..",
+    "..gggggggg..",
+    "............"
+  ],
+  "spawns": {
+    "camp": [
+      3,
+      5
+    ]
+  },
+  "landmarks": [
+    {
+      "id": "traveler",
+      "kind": "sign",
+      "sprite": "person-traveler",
+      "at": [
+        6,
+        3
+      ],
+      "w": 37,
+      "name": "Traveler",
+      "tag": "TRAVELER",
+      "label": "Speak with the traveler",
+      "text": "Evening. Your companion usually stirs at every rustle, but tonight it is watching the hill."
+    },
+    {
+      "id": "chest",
+      "kind": "chest",
+      "sprite": "chest-wooden",
+      "at": [
+        9,
+        5
+      ],
+      "w": 42,
+      "label": "Open the trail chest",
+      "flag": "start.chest",
+      "reward": {
+        "coins": 8,
+        "potions": 1,
+        "orbs": 2
+      }
+    }
+  ],
+  "exits": [],
+  "props": [
+    {
+      "sprite": "tree-oak",
+      "kind": "scenery",
+      "w": 48,
+      "at": [
+        [
+          2.4,
+          2.4
+        ]
+      ]
+    },
+    {
+      "sprite": "cottage-tiled",
+      "kind": "scenery",
+      "w": 58,
+      "at": [
+        [
+          9.2,
+          2.0
+        ]
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "id": "hush-conversation",
+      "at": [
+        6,
+        5
+      ],
+      "radius": 0.5,
+      "on": "interact",
+      "once": false,
+      "events": [
+        {
+          "id": "trail-hush",
+          "repeatable": true,
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "traveler",
+              "text": "Evening. Your companion usually stirs at every rustle, but tonight it is watching the hill."
+            },
+            {
+              "type": "dialogue",
+              "speaker": "traveler",
+              "text": "I heard a second set of footsteps after mine stopped. I looked back; the path was empty. Maybe the wind has learned our pace."
+            },
+            {
+              "type": "dialogue",
+              "speaker": "traveler",
+              "text": "Your companion heard them too? Then I will not blame the wind just yet. Keep your ears open, friend."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "zones": [
+    {
+      "id": "dusk-meadow",
+      "terrain": [
+        "t"
+      ],
+      "pool": [
+        "fernling"
+      ],
+      "level": [
+        1,
+        1
+      ],
+      "distance": [
+        4,
+        7
+      ]
+    }
+  ]
+}

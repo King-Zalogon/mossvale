@@ -1,0 +1,137 @@
+{
+  "format": 1,
+  "id": "the-fernling-at-dusk",
+  "title": "The Fernling at Dusk",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "previousScene": null,
+  "setting": {
+    "biomeId": "biome:meadow",
+    "mapId": "map:mossvale/meadow",
+    "mapIntent": "A brief meeting on Sunlit Trail, where a traveler pauses beside their familiar Fernling.",
+    "environment": ["visual:tree-oak", "visual:cottage-tiled"],
+    "placementConstraints": ["Use the existing Sunlit Trail map.", "Keep the traveler and Fernling together in one quiet, accessible spot; no movement choreography.", "The chest is optional and can be approached independently of the conversation."]
+  },
+  "participants": [
+    {
+      "id": "trail-traveler",
+      "identity": "A road-worn traveler in a patched green coat, carrying a rolled bedroll and a heavy pack.",
+      "resourceId": "visual:person-traveler",
+      "role": "A friendly stranger with a small puzzle about the trail's evening hush.",
+      "startingSituation": "Standing still on the trail beside their familiar Fernling; available for a short conversation."
+    },
+    {
+      "id": "fernling",
+      "identity": "Fernling, a small green fox with leaf-shaped ears and a broad leafy tail.",
+      "resourceId": "species:mossvale/fernling",
+      "role": "The traveler's familiar companion, present as a quiet witness to the conversation.",
+      "startingSituation": "Resting beside the traveler. It does not move or speak during this scene."
+    }
+  ],
+  "uses": [
+    {
+      "resourceId": "visual:person-traveler",
+      "purpose": "Show the traveler using the supplied traveler appearance."
+    },
+    {
+      "resourceId": "visual:creature-fernling",
+      "purpose": "Show the familiar using the supplied Fernling portrait appearance."
+    },
+    {
+      "resourceId": "interactable:scene-event",
+      "purpose": "Present the traveler's short repeatable dialogue interaction."
+    },
+    {
+      "resourceId": "landmark:mossvale/meadow/chest",
+      "purpose": "Offer the existing optional treasure chest interaction and its authored supply or coin reward."
+    },
+    {
+      "resourceId": "visual:chest-wooden",
+      "purpose": "Use the supplied wooden chest appearance for the optional chest."
+    },
+    {
+      "resourceId": "visual:cottage-tiled",
+      "purpose": "Provide quiet cottage scenery in the existing map setting."
+    },
+    {
+      "resourceId": "visual:tree-oak",
+      "purpose": "Provide oak scenery in the existing map setting."
+    }
+  ],
+  "beats": [
+    {
+      "id": "meet-traveler",
+      "type": "dialogue",
+      "intent": "The traveler welcomes the player and introduces the unusual quiet of the trail.",
+      "speaker": "Traveler",
+      "text": "Evening. This little one usually wakes at every rustle, but tonight it keeps listening to the hill.",
+      "advance": "manual"
+    },
+    {
+      "id": "ask-about-hush",
+      "type": "dialogue",
+      "intent": "The traveler shares a gentle, unresolved mystery without claiming a supernatural event.",
+      "speaker": "Traveler",
+      "text": "Fernling heard a second set of footsteps after mine stopped. I looked back; the path was empty. Maybe the wind has learned our pace.",
+      "advance": "manual"
+    },
+    {
+      "id": "fernling-answer",
+      "type": "dialogue",
+      "intent": "The traveler takes comfort from their familiar's steady presence and leaves the mystery open.",
+      "speaker": "Traveler",
+      "text": "There, a tail flick. That's its way of saying we should keep walking together. Safe trails to you, friend.",
+      "advance": "manual"
+    },
+    {
+      "id": "optional-chest",
+      "type": "player-action",
+      "intent": "Allow the player to inspect and open the existing treasure chest if they choose.",
+      "interactionIntent": "Interact with the treasure chest on Sunlit Trail.",
+      "expectedResult": "The existing chest interaction offers its authored coins, potions, or orbs reward once; this optional interaction does not gate the conversation."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "stationary-traveler-placement",
+      "kind": "configuration",
+      "description": "The catalogue supplies a traveler visual and scene-event dialogue capability, but no verified actor-placement capability or contract for attaching this stationary traveler to a map scene event. Configure a stationary traveler using the supplied visual and existing dialogue interaction if the authoring system supports that combination; otherwise this encounter's traveler beat cannot be implemented from verified catalogue capabilities alone. No movement is needed.",
+      "capabilityId": "interactable:scene-event",
+      "neededFor": "Showing and speaking with the traveler on Sunlit Trail.",
+      "priority": "required"
+    }
+  ],
+  "completion": "The conversation ends after the traveler's farewell. The player may leave or separately open the existing chest; the encounter requires no combat, movement choreography, new effects, or save-state assumptions.",
+  "continuityIn": {
+    "characters": [],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [],
+    "decisions": [],
+    "pendingThreads": []
+  },
+  "continuityOut": {
+    "characters": [
+      {
+        "id": "trail-traveler",
+        "identity": "A road-worn traveler accompanied by their familiar Fernling.",
+        "location": "Sunlit Trail; exact location unspecified."
+      },
+      {
+        "id": "fernling",
+        "identity": "The traveler's familiar Fernling, a small green fox with leaf-shaped ears and a broad leafy tail.",
+        "location": "Beside the traveler on Sunlit Trail; exact location unspecified."
+      }
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [
+      {
+        "id": "traveler-heard-footsteps",
+        "statement": "The traveler says Fernling heard a second set of footsteps after the traveler's own stopped; the path appeared empty.",
+        "status": "active"
+      }
+    ],
+    "decisions": [],
+    "pendingThreads": ["The unexplained footsteps on Sunlit Trail."]
+  }
+}
