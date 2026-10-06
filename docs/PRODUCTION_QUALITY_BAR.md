@@ -45,3 +45,15 @@ The route must use shipped assets and data. A test fixture may isolate the route
 ## Engineering boundary
 
 Keep battle rules pure and data-driven. Keep presentation replaceable and event-driven. Prefer a small authored vertical slice over adding more creatures, maps or effects before the existing slice is coherent. Follow-up work belongs in the concrete issues linked from #245.
+
+## Beyond the baseline: Mossvale's design identity
+
+The quality bar is only the floor. A professional Mossvale slice must also express a point of view that another creature RPG does not get by changing names and colors.
+
+- **Places have behavior.** A region's terrain, weather, inhabitants, encounters and rewards should reinforce one ecological idea. Traversal abilities, creature choices and route discoveries should change what the player can do there.
+- **Companions have reasons to exist.** A companion is not just a stat bundle or follower sprite. Its habitat, temperament, exploration ability, battle role and relationship with the player should create at least one meaningful decision.
+- **Challenges test understanding.** Guardians and encounters should teach a regional rule, then reward the player for recognizing and responding to it. A different label or larger health pool is not a new challenge.
+- **The world remembers.** A completed interaction, rescued character, opened route or discovered creature should produce a visible, persistent change in later play. State must survive save/reload and remain explainable in the journal.
+- **Content earns its cost.** Every new creature, map, quest or effect needs a player-facing purpose, a readable interaction, and a place in the progression loop. Do not add breadth to conceal a thin core loop.
+
+For each region, record a compact design matrix before production: premise, player question, system rule, teachable encounter, meaningful choice, consequence, reward, and next possibility. A region is ready only when those entries reinforce one another in play, not merely when the data validates.
