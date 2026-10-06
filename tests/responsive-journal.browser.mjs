@@ -232,6 +232,28 @@ try {
   await page.waitForSelector('#m-primary');
   await page.locator('#m-primary').tap();
   await page.waitForSelector('#modal', {state: 'hidden'});
+  const fullscreen = page.locator('#fullscreen');
+  assert.equal(await fullscreen.isVisible(), true, 'the browser-supported fullscreen option is available');
+  const beforeFullscreen = await page.evaluate(() => ({mapId: window.mossvale.getState().save.mapId, coins: window.mossvale.getState().save.coins}));
+  await fullscreen.tap();
+  await page.waitForFunction(() => document.fullscreenElement === document.querySelector('.game-frame'));
+  const immersiveBounds = await page.evaluate(() => ({
+    viewport: document.querySelector('.viewport').getBoundingClientRect().toJSON(),
+    frame: document.querySelector('.game-frame').getBoundingClientRect().toJSON(),
+    locationDisplay: getComputedStyle(document.querySelector('.location')).display,
+    screenHeight: innerHeight,
+    screenWidth: innerWidth,
+  }));
+  assert.equal(immersiveBounds.locationDisplay, 'none', 'fullscreen hides the location bar to recover play height');
+  assert.ok(immersiveBounds.viewport.height >= immersiveBounds.screenHeight - 1, 'fullscreen gives the game the complete viewport height');
+  assert.ok(immersiveBounds.frame.width >= immersiveBounds.screenWidth - 1, 'fullscreen uses the complete viewport width');
+  await fullscreen.tap();
+  await page.waitForFunction(() => document.fullscreenElement === null);
+  assert.deepEqual(
+    await page.evaluate(() => ({mapId: window.mossvale.getState().save.mapId, coins: window.mossvale.getState().save.coins})),
+    beforeFullscreen,
+    'entering and leaving fullscreen preserves progress',
+  );
   await page.evaluate(() => window.mossvale.encounter(1));
   await page.waitForSelector('#attack:not([disabled])');
   await page.locator('#attack').tap();
