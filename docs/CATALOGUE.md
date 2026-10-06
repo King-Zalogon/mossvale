@@ -1,10 +1,22 @@
 # Current local authoring catalogue
 
-Issues #182/#183, contract #181 and epic #180. This stage is repository-local; online access, Zalonline, visual browsing/export (#184) and scene script handoffs (#185) remain separate work.
+Issues #182/#183, contract #181 and epic #180. This stage is repository-local; online access and Zalonline remain out of scope. Visual browsing and portable writer-context export are available through #184. Scene script handoffs are covered separately by #185.
 
 ## Read and discover
 
-Start with [the compact index](../content/catalogue/INDEX.md); find a resource by name, element, appearance or ID. [catalogue.json](../content/catalogue/catalogue.json) contains complete fiches. [facts.json](../content/catalogue/facts.json) records extracted definitions, animation metadata, art identity/review data, exclusions and exact source hashes. The index does not attach every image: consult a fiche's safe relative preview path only when needed. A sprite atlas is not a cropped subject preview; #184 owns that presentation.
+Start with [the compact index](../content/catalogue/INDEX.md); find a resource by name, element, appearance or ID. [catalogue.json](../content/catalogue/catalogue.json) contains complete fiches. [facts.json](../content/catalogue/facts.json) records extracted definitions, animation metadata, art identity/review data, exclusions and exact source hashes. Use the visual browser below for cropped atlas previews and associated review sheets.
+
+For visual browsing, run `npm run catalogue:browse` and open the loopback URL printed by the command (default `http://127.0.0.1:4179/`). Stop it with Ctrl+C. It binds only to `127.0.0.1`, reads the current generated catalogue and serves only registered visual previews. Search across names, descriptions and IDs, then filter by visual kind, associated creature element, appearance tag or availability. Fiche data loads only after selecting a visual. Art identity tags come from reviewed metadata where available; otherwise the browser only shows the registered source kind, and it does not infer appearance from pixels or filenames. Atlas cards show a crop based on registered frame metadata; opening a fiche reveals the complete source sheet and documents its frame states. Creature follower/combat fiches also reuse their existing roster contact sheets, with their review/game scale stated in the caption. Full images load on demand. All controls use native keyboard-accessible inputs/buttons.
+
+Select one or more visuals in the browser's fiche panel and copy their stable IDs, then export a portable context folder:
+
+```sh
+npm run catalogue:export -- --out=/tmp/mossvale-writer-context --ids=visual:creature-emberkin,visual:creature-emberkin-follower
+```
+
+On Windows PowerShell, use for example `npm run catalogue:export -- --out="$env:TEMP/mossvale-writer-context" --ids=visual:creature-emberkin`. The export has `index.html`, the full text catalogue, writer instructions, a deterministic SHA-256 manifest and local copies of selected visuals' registered source previews plus any existing creature review sheets. Open its `index.html` offline, copy the folder to another machine, or upload it to a chat. A separate cloud assistant cannot read this computer's localhost or files that were not included in the upload. The source checkout's technical-reference paths are retained as authoring pointers; they are not copied source code. The export omits unselected images and does not include account, feedback or secret data. The parent directory must already exist. It refuses output paths within the checkout, symlinked parents, existing destinations, unknown IDs, missing files and unregistered previews. It stages output then renames the completed folder into place.
+
+To include every registered visual preview (currently a larger folder), run `npm run catalogue:export -- --out=/tmp/mossvale-writer-context --all`. Either `--all` or `--ids` is required to prevent accidentally preparing the full image set. Both modes include all text fiches, including proposed gaps; only entries marked available describe implemented behavior. The manifest records source revision and hashes of every included file except itself, so exports can be verified after moving them.
 
 IDs namespace registry records and pack identities: `visual:creature-fernling` selects artwork, `species:mossvale/fernling` selects gameplay species, and `map:mossvale/meadow` selects a map. No runtime/save identity was renamed. A landmark role is distinct from a specific placed landmark. A region/biome is not an exit graph. Definitions from fixture packs demonstrate reuse; the selected pack still controls what's present in one adventure.
 
@@ -19,7 +31,7 @@ node --test tests/catalogue-contract.test.mjs tests/catalogue.test.mjs
 npm run catalogue:impact -- --base origin/integration
 ```
 
-`catalogue:write` deterministically extracts the registered resources, applies reviewed family templates and curated capabilities, and writes the three generated files. Never edit those outputs by hand. `templates.json` holds common per-family explanations; `curated.json` holds explicit capabilities, proposed gaps, exclusions and audit baseline. Review both against real implementation before regeneration. A new resource family must gain a collector, a semantic template and coverage tests; an exported helper alone is not proof of an authorable capability.
+`catalogue:write` deterministically extracts the registered resources, applies reviewed family templates and curated capabilities, and writes the three generated files. Never edit those outputs by hand. `templates.json` holds common per-family explanations; `curated.json` holds explicit capabilities, proposed gaps, exclusions and audit baseline. Review both against real implementation before regeneration. A new resource family must gain a collector, a semantic template and coverage tests; an exported helper alone is not proof of an authorable capability. The browser and context exporter validate the generated files against canonical sources before serving or copying them; run `npm run catalogue:write`, review changes, then `npm run catalogue:check` after a legitimate catalogue update.
 
 Large map/story/prefab/rule configuration has a null fiche default: consult its canonical builder reference rather than embed full geometry in the writer fiche. Other definitions retain the existing record as their reuse starting value, not a promise of a universal engine default.
 
