@@ -1,0 +1,26 @@
+{
+  "format": 1,
+  "sceneId": "hearth-yard-proof",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "sourceScript": "examples/hearth-yard-proof.json",
+  "continuityOut": {
+    "characters": [
+      {"id": "healer-wren", "location": "Hearth Hamlet cottage yard"},
+      {"id": "yard-villager", "location": "Hearth Hamlet cottage yard"}
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [
+      {"id": "wren-welcomes-travelers", "status": "active"}
+    ],
+    "decisions": [],
+    "pendingThreads": ["The player may ask Wren about the road in a later scene."]
+  },
+  "nextSceneProposal": {
+    "title": "The road beyond Hearth Hamlet",
+    "carryForward": ["wren-welcomes-travelers", "healer-wren", "yard-villager"],
+    "opening": "Begin after the player leaves the cottage yard; keep the chest reward and the welcome fact resolved.",
+    "requestedCapabilities": [],
+    "gaps": []
+  }
+}
