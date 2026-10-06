@@ -71,3 +71,7 @@ Codex claim: `codex/99-optional-inventory-features`, created from latest `origin
 ## #186 — catalogue-to-script-to-playable-scene proof
 
 Codex claim: `codex/186-scene-proof`, created from `origin/main` `ea08af9` and synchronized through `origin/integration` `bc004d7`. Scope: preserve an independent writer context/prompt/output and original gap report; normalize documented authoring mismatches; author the isolated `the-fernling-at-dusk` fixture using shared runtime/assets; validate the pack and both scene handoffs; browser-check dialogue, reachable chest reward exactly once, pack ending and save/reload. The starter is random, so the scene addresses the active companion generically. No shipped Mossvale pack, engine system, or artwork changed. Focused tests pass; final repository verification and exact-head CI are pending. PR targets `integration`; owner playtest remains open.
+
+## #229 — guardian tactic pacing
+
+Codex claim: `codex/229-guardian-turn-window`, originally based on `origin/main` and synchronized with `origin/integration` `96c3e56`. Added bounded pack-level `tactics.guardianHpBonus` (Mossvale +48; old packs default to +18), leaving map generation and wild encounters unchanged. Added registry validation, backward-compatibility coverage, deterministic attack-only/responsive comparisons and play instructions in `docs/GUARDIANS.md`. Owner playtest is required before closing #23/#229.
