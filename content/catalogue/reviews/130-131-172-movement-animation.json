@@ -39,6 +39,13 @@
       "disposition": "updated",
       "reason": "Correct player gait cell selection and west-facing opposing stride; correct the five owner-reported follower row mappings; synchronize the companion walk cadence with the player and remove its subpixel walking bob. Generated facts now describe the corrected frame metadata and cadence.",
       "evidence": ["tests/diagonal-walk.browser.mjs", "tests/follower-runtime.browser.mjs", "tests/movement.test.mjs", "art/characters/visual-reviews.json"]
+    },
+    {
+      "paths": ["dist/src/domain/battle.js", "tests/economy.test.mjs"],
+      "entries": ["item:mossvale/orb", "item:mossvale/moss-pearl"],
+      "disposition": "no-semantic-impact",
+      "reason": "Keep the existing mapped orb count synchronized when capture consumes an orb before applying a configured capture reward; this is a consistency fix for the already-authored inventory contract, with no new authorable item behavior.",
+      "evidence": ["tests/economy.test.mjs", "tests/startup.browser.mjs"]
     }
   ]
 }
