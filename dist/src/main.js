@@ -546,6 +546,25 @@ $('#interact').onclick = actions.interact;
 $('#touch-e').onclick = actions.interact;
 $('#sound').onclick = () => actions.setSetting('sound', !app.audio.enabled);
 $('#menu').onclick = () => actions.menu();
+const fullscreenButton = $('#fullscreen');
+const gameFrame = document.querySelector('.game-frame');
+function syncFullscreenButton() {
+  const active = document.fullscreenElement === gameFrame;
+  fullscreenButton.textContent = active ? 'Exit fullscreen' : 'Fullscreen';
+  fullscreenButton.setAttribute('aria-label', active ? 'Exit fullscreen play' : 'Enter fullscreen play');
+  fullscreenButton.setAttribute('aria-pressed', String(active));
+  requestAnimationFrame(resize);
+}
+if (!document.fullscreenEnabled || typeof gameFrame.requestFullscreen !== 'function') fullscreenButton.hidden = true;
+fullscreenButton.onclick = async () => {
+  try {
+    if (document.fullscreenElement === gameFrame) await document.exitFullscreen();
+    else await gameFrame.requestFullscreen({navigationUI: 'hide'});
+  } catch {
+    toast('Fullscreen is unavailable in this browser.');
+  }
+};
+document.addEventListener('fullscreenchange', syncFullscreenButton);
 $('#pause').onclick = () => {
   if (game.battle || ui.modalMode) return;
   ui.paused = !ui.paused;

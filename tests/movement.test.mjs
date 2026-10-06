@@ -171,6 +171,20 @@ test('props block with the same footprint', () => {
   assert.equal(isWalkable(meadow, cottage.x + cottage.solid + PLAYER_RADIUS + 0.01, cottage.y), true);
 });
 
+test('a blocked direction projects onto the tangent of a nearby cottage instead of stopping', () => {
+  const cottage = meadow.objects.find(o => o.kind === 'cottage');
+  const st = state(meadow, 14.3977, 8.4223); // just outside the cottage's east edge
+  assert.equal(isWalkable(meadow, st.player.x, st.player.y), true);
+  const before = {...st.player};
+  movePlayer(st, 0, -1, false, 1 / 60); // screen-up points diagonally into the cottage in world space
+  const dx = st.player.x - before.x;
+  const dy = st.player.y - before.y;
+  assert.ok(Math.hypot(dx, dy) > 0.02, 'keeps moving along the unblocked side of the wall');
+  assert.ok(dx > 0 && dy < 0, `follows the cottage tangent (${dx}, ${dy})`);
+  assert.ok(isWalkable(meadow, st.player.x, st.player.y), 'the slide keeps the player footprint clear');
+  assert.ok(Math.hypot(st.player.x - cottage.x, st.player.y - cottage.y) >= cottage.solid + PLAYER_RADIUS - 1e-6);
+});
+
 test('screen diagonals slide around real cottage and tree collisions, and reverse input escapes cleanly', () => {
   const cottage = meadow.objects.find(o => o.kind === 'cottage');
   const tree = meadow.objects.find(o => o.kind === 'scenery' && Math.abs(o.x - 28.3) < 1e-6 && Math.abs(o.y - 30.4) < 1e-6);
