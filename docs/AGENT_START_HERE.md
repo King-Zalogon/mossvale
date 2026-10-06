@@ -16,7 +16,7 @@ Start each coding task by checking `git status -sb`, fetching `origin`, reading 
 
 Module lanes are summarized in [architecture](ARCHITECTURE.md#modules): core engineering owns save/config/controller/main, gameplay owns domain rules, world owns map/adventure behavior, content design owns registries and map data, client engineering owns services, and art/UI owns assets/rendering/presentation. Record a temporary claim and handoff in [AGENT_HANDOFFS.md](AGENT_HANDOFFS.md), including the exact branch and commit so overlapping edits are visible.
 
-On the latest intended base, run `npm run verify`; run `npm run build` when the change affects shipped output. Resolve stacked work in dependency order and rerun checks on the final integrated head; see [content integration](CONTENT_INTEGRATION.md). To play locally, serve `dist/` as described in [README](../README.md#play-locally).
+On the latest intended base, run `npm run verify`; run `npm run build` when the change affects shipped output. Resolve stacked work in dependency order and rerun checks on the final integrated head; see [content integration](CONTENT_INTEGRATION.md). To play locally, serve `dist/` as described in [README](../README.md#play-locally). Vercel deployment policy and the dashboard production-branch requirement are documented in [deployment](VERCEL_DEPLOYMENT.md).
 
 ## Local authoring catalogue
 

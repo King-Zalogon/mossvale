@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/map-editor.js", "tests/editor.browser.mjs", "docs/MAP_FORMAT.md", "content/catalogue/reviews/227-map-import-size.json"],
+      "entries": ["mechanic:map-editor"],
+      "disposition": "no-semantic-impact",
+      "reason": "Caps browser map imports before reading oversized files; accepted map data, validation rules, editing semantics and authorable capability remain unchanged.",
+      "evidence": ["tests/editor.browser.mjs", "docs/MAP_FORMAT.md"]
+    }
+  ]
+}
