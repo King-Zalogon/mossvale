@@ -5,9 +5,20 @@ import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCU
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
+import {claimInventory, inventoryToSupplies, rollDrop, useInventory} from './inventory.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
+
+function inventoryDrop(save, table, key, rng, rules) {
+  if (!rules || !save.inventory) return [];
+  const drop = rollDrop(rules, table, rng);
+  if (!drop) return [];
+  const result = claimInventory(save.inventory, key, [drop], rules);
+  if (!result.ok) return [];
+  Object.assign(save, inventoryToSupplies(save.inventory, save, rules));
+  return result.grants;
+}
 
 /** Shrine challenges follow the current party's average level; ordinary encounters never scale. */
 export function guardianLevel(save, guardian) {
@@ -122,6 +133,14 @@ export function usePotion(save) {
   return healed;
 }
 
+function useBattleItem(save, item, rules) {
+  if (!rules || !save.inventory) return null;
+  const healed = useInventory(save.inventory, item, {hp: companion(save).hp, maxHp: maxHP(save, save.active)}, rules);
+  if (!healed.ok) return null;
+  Object.assign(save, inventoryToSupplies(save.inventory, save, rules));
+  return healed;
+}
+
 /** Spends an orb; returns false if none is available or the target cannot be captured. */
 export function throwOrb(save, battle) {
   if (battle.boss || save.orbs < 1) return false;
@@ -204,6 +223,7 @@ export function resolveWin(save, battle, rng, ctx = {}) {
   );
   const coins = (newSeal ? seal.coins : battle.boss ? REWARDS.guardianRepeat.coins : lo + Math.floor(rng() * (hi - lo + 1))) + responseBonus.coins;
   const xp = (newSeal ? seal.xp : battle.boss ? REWARDS.guardianRepeat.xp : REWARDS.wild.xp) + responseBonus.xp;
+  const itemRewards = battle.boss ? [] : inventoryDrop(save, 'wild-win', `defeat-${battle.id}-${save.wins + 1}`, rng, ctx.inventoryRules);
   save.wins++;
   const got = grant(save, {coins, potions: (newSeal ? seal.potions : 0) + responseBonus.potions});
   const xpText = awardXP(save, xp).text;
@@ -223,11 +243,12 @@ export function resolveWin(save, battle, rng, ctx = {}) {
     responseCoins: responseBonus.coins,
     responseXp: responseBonus.xp,
     responsePotions: responseBonus.potions,
+    itemRewards,
   };
 }
 
 /** Applies a successful capture. */
-export function resolveCapture(save, battle) {
+export function resolveCapture(save, battle, ctx = {}, rng = () => 0.5) {
   const id = battle.id;
   const isNew = !save.caught.includes(id);
   let joined = null;
@@ -238,10 +259,11 @@ export function resolveCapture(save, battle) {
     save.team[id] = {xp: Math.max(0, battle.level - BASE_LEVEL) * XP_PER_LEVEL, hp: 0};
     save.team[id].hp = maxHP(save, id);
   }
+  const itemRewards = inventoryDrop(save, 'capture', `capture-${battle.id}-${save.wins + 1}`, rng, ctx.inventoryRules);
   const xpText = awardXP(save, REWARDS.capture.xp).text;
   const got = grant(save, {coins: REWARDS.capture.coins});
   save.wins++;
-  return {isNew, id, joined, xpText, coins: got.coins, xp: REWARDS.capture.xp};
+  return {isNew, id, joined, xpText, coins: got.coins, xp: REWARDS.capture.xp, itemRewards};
 }
 
 /** A lost battle: heal everyone; the controller moves the player to camp. */
@@ -304,12 +326,17 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
     push({type: 'throw'});
     if (rng() < captureChance(save, battle)) {
       ended = 'caught';
-      push({type: 'caught', ...resolveCapture(save, battle)});
+      push({type: 'caught', ...resolveCapture(save, battle, ctx, rng)});
     } else push({type: 'break-free'});
   } else if (action.kind === 'potion') {
-    const healed = usePotion(save);
+    const item = ctx.inventoryRules?.supplies?.potions;
+    const healed = item ? useBattleItem(save, item, ctx.inventoryRules) : usePotion(save);
     if (healed === null) return null;
-    push({type: 'potion', healed});
+    push({type: item ? 'item' : 'potion', item, healed: item ? healed.healed : healed});
+  } else if (action.kind === 'item') {
+    const healed = useBattleItem(save, action.id, ctx.inventoryRules);
+    if (healed === null) return null;
+    push({type: 'item', item: action.id, healed: healed.healed});
   } else if (action.kind === 'guard') {
     battle.guard = true;
     gainFocus(battle);
