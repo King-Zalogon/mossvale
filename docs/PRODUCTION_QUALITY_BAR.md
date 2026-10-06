@@ -57,3 +57,24 @@ The quality bar is only the floor. A professional Mossvale slice must also expre
 - **Content earns its cost.** Every new creature, map, quest or effect needs a player-facing purpose, a readable interaction, and a place in the progression loop. Do not add breadth to conceal a thin core loop.
 
 For each region, record a compact design matrix before production: premise, player question, system rule, teachable encounter, meaningful choice, consequence, reward, and next possibility. A region is ready only when those entries reinforce one another in play, not merely when the data validates.
+
+## Design lessons to apply
+
+The following lessons come from projects that document their design rather than only their implementation:
+
+- Pick one area in which the game intends to be unusually good. A postmortem from *Kingdoms of Amalur* describes committing early to combat as its differentiator and letting level scale and encounter space serve that goal. Mossvale needs the same discipline instead of treating every system as equally important.
+- Make the rules produce the story. *Cataclysm: Dark Days Ahead* keeps geography, resources and balance tied to its survival premise; its systems are not interchangeable decoration. Mossvale's regional ecology must change routes, companions, encounters and rewards together.
+- Make agency observable. The *Roadwarden* design deep dive frames role-playing as choices about resources, relationships and priorities whose consequences are reflected by the world. A dialogue option that only changes a line is not enough for a meaningful Mossvale choice.
+- Build authoring tools around iteration. Tuxemon's data, maps and scripts and Godosters' pure battle core, replaceable UI, content packs and integration scenes show how a small team can test and revise content without destabilizing the engine.
+
+### Provisional Mossvale north star
+
+Mossvale should be an **ecological companion RPG**: the player learns how each living region behaves, forms a relationship with companions who understand different parts of it, and uses that knowledge to make better traversal and battle decisions. This is a design hypothesis to validate in the vertical slice, not a claim that the current game already delivers it.
+
+Every proposed feature should answer three questions before implementation:
+
+1. What does it teach the player about this region or companion?
+2. What decision does it create that another feature cannot replace?
+3. What persistent consequence makes the decision matter later?
+
+If it cannot answer all three, it belongs in the backlog rather than in the next production slice.
