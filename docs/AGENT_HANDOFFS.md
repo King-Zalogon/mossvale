@@ -75,3 +75,7 @@ Codex claim: `codex/186-scene-proof`, created from `origin/main` `ea08af9` and s
 ## #229 — guardian tactic pacing
 
 Codex claim: `codex/229-guardian-turn-window`, originally based on `origin/main` and synchronized with `origin/integration` `96c3e56`. Added bounded pack-level `tactics.guardianHpBonus` (Mossvale +48; old packs default to +18), leaving map generation and wild encounters unchanged. Added registry validation, backward-compatibility coverage, deterministic attack-only/responsive comparisons and play instructions in `docs/GUARDIANS.md`. Owner playtest is required before closing #23/#229.
+## #232 — local catalogue impact feedback
+
+Codex claim: `codex/232-local-impact-working-tree`, created from latest `origin/main` and synchronized with `origin/integration` `92b89c4`. The local impact collector currently sees only merge-base-to-HEAD commits. Planned fix includes staged, unstaged and non-ignored untracked paths, preserving rename/deletion behavior and full-history CI. Add temporary repository regressions and document local vs PR checks. No authorable catalog data or game runtime behavior should change.
+
