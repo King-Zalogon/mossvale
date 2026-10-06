@@ -226,13 +226,11 @@ try {
     });
     for (const key of diagonal.keys) await page.keyboard.down(key);
     await page.waitForTimeout(250);
+    const facingWhileHeld = await page.evaluate(() => window.mossvale.getState().player.dir);
     for (const key of diagonal.keys) await page.keyboard.up(key);
-    const reduced = await page.evaluate(() => ({
-      dir: window.mossvale.getState().player.dir,
-      draws: window.playerAtlasDraws,
-    }));
-    assert.equal(reduced.dir, diagonal.dir, `reduced motion preserves ${diagonal.name} facing`);
-    const cells = reduced.draws.filter(frame => frame.row === diagonal.sourceRow && frame.flipped === diagonal.flipped);
+    const drawsAtIdle = await page.evaluate(() => window.playerAtlasDraws);
+    assert.equal(facingWhileHeld, diagonal.dir, `reduced motion preserves ${diagonal.name} facing while both keys are held`);
+    const cells = drawsAtIdle.filter(frame => frame.row === diagonal.sourceRow && frame.flipped === diagonal.flipped);
     assert.ok(cells.length > 0, `reduced motion draws ${diagonal.name} from the expected source row`);
     assert.deepEqual([...new Set(cells.map(frame => frame.column))], [0], `reduced motion holds the ${diagonal.name} idle pose`);
   }
