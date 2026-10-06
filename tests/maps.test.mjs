@@ -113,6 +113,26 @@ test('the Reedfen shallow-water cut is telegraphed, optional and keeps recovery 
   );
 });
 
+test('authored environmental messages are a valid trigger action separate from generic toasts', () => {
+  const source = rawMaps();
+  const errors = edit(raw => {
+    meadow(raw).triggers.push({
+      id: 'quiet-note',
+      at: [10, 10],
+      radius: 1,
+      on: 'enter',
+      do: [{type: 'environment', text: 'The grass stirs in a passing breeze.'}],
+    });
+  });
+  assert.deepEqual(errors, []);
+  for (const id of ['amber-ridge', 'meadow', 'reedfen-wetlands', 'stone-basin', 'stilt-isles', 'orchard-ruins']) {
+    assert.ok(
+      source.find(map => map.id === id).triggers.some(trigger => trigger.do?.some(action => action.type === 'environment')),
+      `${id} authors ambient copy as an environment action`,
+    );
+  }
+});
+
 test('snowy maps form a distinct, traversable pair with a safe return and optional cache', () => {
   const raw = rawMaps();
   const grove = raw.find(m => m.id === 'frostveil-grove');

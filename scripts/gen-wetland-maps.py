@@ -182,7 +182,7 @@ def reedfen():
         ],
         'quiet': quiet,
         'triggers': [
-            {'id': 'reed-whistle', 'at': [16, 44.5], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'toast', 'text': 'A reed whistle trills somewhere in the bed. The hush here is safe.'}]},
+            {'id': 'reed-whistle', 'at': [16, 44.5], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'A reed whistle trills somewhere in the bed. The hush here is safe.'}]},
         ],
     }
     return data, g
@@ -248,7 +248,7 @@ def stilts():
             {'id': 'lantern-walk', 'rect': [40, 36, 50, 41], 'label': 'Lantern walk'},
         ],
         'triggers': [
-            {'id': 'high-boardwalk', 'at': [52, 8], 'radius': 2.5, 'on': 'enter', 'once': True, 'do': [{'type': 'toast', 'text': 'The high boardwalk hums underfoot. Reedfen\'s shrine is a short walk beyond.'}]},
+            {'id': 'high-boardwalk', 'at': [52, 8], 'radius': 2.5, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'The high boardwalk hums underfoot. Reedfen\'s shrine is a short walk beyond.'}]},
         ],
     }
     return data, g

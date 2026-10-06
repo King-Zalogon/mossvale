@@ -127,7 +127,7 @@ def meadow():
             {'id': 'orchard-gate', 'rect': [60, 27, 70, 33], 'label': 'Orchard gate'},
         ],
         'triggers': [
-            {'id': 'quiet-grove', 'at': [28, 56.5], 'radius': 3, 'on': 'enter', 'once': True, 'do': [{'type': 'toast', 'text': 'A narrow track slips under the oldest trees. It is quiet here, and it rejoins the south trail.'}]},
+            {'id': 'quiet-grove', 'at': [28, 56.5], 'radius': 3, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'A narrow track slips under the oldest trees. It is quiet here, and it rejoins the south trail.'}]},
         ],
     }
     return data, g

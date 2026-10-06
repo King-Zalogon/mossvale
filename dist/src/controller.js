@@ -10,7 +10,7 @@ import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
 import {buildWorld, nearestInteractive, triggersAt, zoneAt} from './domain/world.js';
 import {GRACE_AFTER_BATTLE, GRACE_ON_ARRIVAL} from './config.js';
-import {$, hideModal, toast} from './ui/dom.js';
+import {$, environmentalMessage, hideModal, toast} from './ui/dom.js';
 import {TACTICS} from './data/tactics.js';
 import {spriteId} from './data/assets.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
@@ -431,6 +431,7 @@ export function createController(app) {
     }
     for (const a of t.actions) {
       if (a.type === 'toast') toast(a.text);
+      else if (a.type === 'environment') environmentalMessage(a.text);
       else if (a.type === 'battle') beginBattle({id: a.id, level: a.level}); // a scripted wild encounter
     }
     for (const event of t.events ?? []) {

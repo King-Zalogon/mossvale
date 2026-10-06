@@ -81,7 +81,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
 | `ui/battle-view.js` | ui | `createBattleView` |
-| `ui/dom.js` | ui | `$`, `downloadText`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
+| `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
 | `ui/hud.js` | ui | `renderHud`, `renderRegion`, `renderSaveStatus` |
 | `ui/menus.js` | ui | `createMenus` |
 | `ui/speech.js` | ui | `createSpeech` |

@@ -845,6 +845,59 @@ canvas#buddy {
   max-width: 58%;
   pointer-events: none;
 }
+.environment-message {
+  position: absolute;
+  z-index: 7;
+  top: 108px;
+  left: 18px;
+  width: min(360px, calc(100% - 36px));
+  max-height: calc(100% - 132px);
+  overflow-y: auto;
+  padding: 9px 12px;
+  border: 2px solid #293d31;
+  border-radius: 10px;
+  background: #fff8dc;
+  color: #25382d;
+  box-shadow:
+    0 4px 0 #293d3133,
+    0 8px 20px #14251e44;
+  font-size: 14px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}
+.environment-message[hidden],
+.viewport.speech-open .environment-message {
+  display: none;
+}
+@media (max-width: 600px) {
+  .viewport.environment-open .world-tag,
+  .viewport.environment-open .objective-pin,
+  .viewport.environment-open .minimap-box,
+  .viewport.environment-open .zoom-controls {
+    display: none;
+  }
+  .viewport.environment-open .environment-message {
+    top: 12px;
+    left: 12px;
+    width: calc(100% - 24px);
+    max-height: calc(100% - 180px);
+  }
+}
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+  .viewport.environment-open .world-tag,
+  .viewport.environment-open .objective-pin,
+  .viewport.environment-open .minimap-box,
+  .viewport.environment-open .zoom-controls {
+    display: none;
+  }
+  .viewport.environment-open .environment-message {
+    top: 12px;
+    left: 12px;
+    width: min(72%, calc(100% - 110px));
+    max-height: 42px;
+  }
+}
 .minimap-box {
   position: absolute;
   top: 16px;
@@ -1488,6 +1541,14 @@ canvas#buddy {
     left: 12px;
     max-width: 59%;
     padding: 6px 8px;
+  }
+  .environment-message {
+    top: 128px;
+    left: 12px;
+    width: calc(100% - 24px);
+    max-height: calc(100% - 210px);
+    padding: 7px 9px;
+    font-size: 12px;
   }
   .minimap-box {
     top: 12px;
@@ -2229,6 +2290,14 @@ body.text-larger .heading {
   }
   .game-footer {
     padding: 7px 10px;
+  }
+  .environment-message {
+    top: 54px;
+    left: 12px;
+    width: min(72%, calc(100% - 110px));
+    max-height: 42px;
+    padding: 6px 8px;
+    font-size: 11px;
   }
 }
 @media (any-pointer: coarse) and (orientation: landscape) and (max-height: 500px), (any-pointer: coarse) and (max-width: 600px) {

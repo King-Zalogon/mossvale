@@ -257,12 +257,12 @@ function validateOne(m, byId, ctx, errors) {
     } else if (!Array.isArray(t?.do) || !t.do.length) at(where + '.do', 'needs at least one action (or scene events)');
     else
       t.do.forEach((a, j) => {
-        if (a?.type === 'toast') {
-          if (typeof a.text !== 'string') at(`${where}.do[${j}]`, 'toast needs text');
+        if (a?.type === 'toast' || a?.type === 'environment') {
+          if (typeof a.text !== 'string') at(`${where}.do[${j}]`, `${a.type} needs text`);
         } else if (a?.type === 'battle') {
           species(`${where}.do[${j}].species`, a.species);
           if (!Number.isInteger(a.level) || a.level < 1 || a.level > 99) at(`${where}.do[${j}].level`, 'integer 1..99');
-        } else at(`${where}.do[${j}]`, 'action type must be "toast" or "battle"');
+        } else at(`${where}.do[${j}]`, 'action type must be "toast", "environment", or "battle"');
       });
     (t.events ?? []).forEach((event, j) => {
       errors.push(

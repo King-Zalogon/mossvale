@@ -500,7 +500,8 @@ function loop(t) {
       const nearest = actions.nearest();
       // A sign toast or character bubble owns the reading area. Keep the
       // contextual prompt out of both overlays until the text is dismissed.
-      $('#interact').style.display = nearest && !ui.speechActive && $('#toast').dataset.active !== 'true' ? 'block' : 'none';
+      $('#interact').style.display =
+        nearest && !ui.speechActive && $('#toast').dataset.active !== 'true' && $('#environment-message').hidden ? 'block' : 'none';
       if (nearest) $('#interact').textContent = 'E · ' + nearest.label;
       document.querySelector('.viewport').classList.toggle('has-interaction', $('#interact').style.display === 'block');
     }
