@@ -3,7 +3,7 @@ import {species} from '../data/species.js';
 import {moves} from '../data/moves.js';
 import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
 import {REWARDS} from '../data/economy.js';
-import {BRACE_FACTOR, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
+import {BRACE_FACTOR, GUARDIAN_HP_BONUS, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
 import {claimInventory, inventoryToSupplies, rollDrop, syncInventorySupplies, useInventory} from './inventory.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
@@ -61,7 +61,7 @@ export function encounterDistance(zone, rng) {
 
 /** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
 export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1}) {
-  const hp = species[id].stats.hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? 18 : 0);
+  const hp = species[id].stats.hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? GUARDIAN_HP_BONUS : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
   return {

@@ -36,7 +36,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `data/registry.js` | data | `configureRegistry` |
 | `data/sounds.js` | data | `AMBIENCE`, `SFX`, `VOLUMES` |
 | `data/species.js` | data | `replaceSpecies`, `species` |
-| `data/tactics.js` | data | `BRACE_FACTOR`, `DEFAULT_PATTERN`, `HEAVY_FACTOR`, `INTENT_TEXT`, `TACTICS`, `planOf`, `replaceTactics` |
+| `data/tactics.js` | data | `BRACE_FACTOR`, `DEFAULT_PATTERN`, `GUARDIAN_HP_BONUS`, `HEAVY_FACTOR`, `INTENT_TEXT`, `TACTICS`, `planOf`, `replaceTactics` |
 | `domain/adventure.js` | domain | `buildAdventure` |
 | `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `createBattle`, `encounterDistance`, `enemyAttack`, `ensureHealthyCompanion`, `guardianLevel`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion` |
 | `domain/clock.js` | domain | `createTestClock` |
