@@ -98,6 +98,8 @@ export function validateRegistries(raw, {assetNames}) {
       if (!Array.isArray(pattern) || !pattern.length || !pattern.every(action => ACTIONS.has(action)))
         at('tactics.' + key, 'needs a non-empty sequence of supported actions');
     for (const field of ['heavyFactor', 'braceFactor']) if (!finite(raw.tactics[field], 0.1, 10)) at('tactics.' + field, 'must be a positive bounded number');
+    if (raw.tactics.guardianHpBonus !== undefined && (!Number.isInteger(raw.tactics.guardianHpBonus) || !finite(raw.tactics.guardianHpBonus, 0, 200)))
+      at('tactics.guardianHpBonus', 'must be a whole number from 0 to 200');
     for (const [id, tactic] of Object.entries(raw.tactics.patterns)) {
       for (const [field, min, max] of [
         ['braceQuickFactor', 0.1, 1],

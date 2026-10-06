@@ -2,22 +2,10 @@
   "format": 1,
   "changes": [
     {
-      "paths": [
-        "dist/maps/index.json",
-        "dist/maps/registries.json",
-        "dist/src/domain/battle.js",
-        "dist/src/save.js",
-        "dist/src/controller.js",
-        "content/catalogue/curated.json",
-        "content/catalogue/catalogue.json",
-        "content/catalogue/INDEX.md",
-        "content/catalogue/facts.json",
-        "docs/GUARDIANS.md",
-        "tests/guardians.test.mjs"
-      ],
+      "paths": ["dist/maps/registries.json", "dist/src/data/tactics.js", "dist/src/domain/battle.js", "dist/src/domain/registries.js", "dist/maps/index.json"],
       "entries": ["mechanic:guardian-counterplay"],
       "disposition": "updated",
-      "reason": "Adds pack-defined response bonuses to the four regional guardian tactics. A qualifying Guard, elemental interruption, brace break or resistant switch is recorded once, survives an interrupted battle reload, and pays a visible bonus only when the guardian is defeated.",
+      "reason": "Adds pack-defined response bonuses to four guardian tactics and a bounded pack-level guardianHpBonus pacing setting. Older packs default to the previous +18 HP; wild encounters and saves are unchanged.",
       "evidence": ["tests/guardians.test.mjs", "docs/GUARDIANS.md"]
     }
   ]
