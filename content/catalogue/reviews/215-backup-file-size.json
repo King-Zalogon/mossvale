@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/main.js", "dist/src/services/backup.js", "tests/backup.test.mjs", "content/catalogue/reviews/215-backup-file-size.json"],
+      "entries": ["mechanic:save-recovery"],
+      "disposition": "no-semantic-impact",
+      "reason": "Rejects oversized selected backup files before reading file contents; accepted backup formats, save recovery rules and authorable capabilities remain unchanged.",
+      "evidence": ["tests/backup.test.mjs"]
+    }
+  ]
+}
