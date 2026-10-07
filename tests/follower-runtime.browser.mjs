@@ -293,6 +293,7 @@ try {
     [ids[0], clearStart],
   );
   await page.setViewportSize({width: 390, height: 844});
+  await page.locator('#game').tap(); // actual touch restores the movement HUD after keyboard play
   const northeastPad = page.locator('button[data-dir="1,-1"]');
   await northeastPad.waitFor({state: 'visible'});
   const pad = await northeastPad.boundingBox();

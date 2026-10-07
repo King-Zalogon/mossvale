@@ -51,7 +51,7 @@ try {
   assert.deepEqual(location, {x: 12, y: 13}, 'movement is locked while the speaker bubble is active');
   await page.keyboard.press('Enter');
   assert.equal(await page.locator('#speech-speaker').textContent(), 'You');
-  await page.locator('#touch-e').click();
+  await page.keyboard.press('Enter');
   assert.ok((await page.locator('#speech-text').textContent()).length > 250, 'long dialogue remains readable in a small viewport');
   box = await bounds();
   assert.ok(box.left >= 0 && box.right <= box.width && box.top >= 0 && box.bottom <= box.height, JSON.stringify(box));
