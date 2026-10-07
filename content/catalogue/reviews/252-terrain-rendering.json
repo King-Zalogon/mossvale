@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/render/terrain.js", "dist/src/render/world.js", "tests/terrain.test.mjs", "docs/QUALITY_PLAN.md"],
+      "entries": ["terrain:ground", "terrain:path", "terrain:tallgrass", "terrain:water"],
+      "disposition": "no-semantic-impact",
+      "reason": "The terrain painter changes only how existing terrain tokens are drawn (baked textures, soft transitions, shorelines). The tokens, their validators in dist/src/domain/mapdata.js, collision, spawns, exits and encounter filtering are untouched, and the fiches already state that appearance comes from map and region rendering and is independent of walkability.",
+      "evidence": ["tests/terrain.test.mjs", "tests/render-budget.test.mjs", "tests/maps.test.mjs"]
+    }
+  ]
+}

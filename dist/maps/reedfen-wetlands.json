@@ -140,7 +140,7 @@
       "w": 38,
       "label": "Read the trail sign",
       "mapLabel": "Trail sign",
-      "text": "West: Frostveil Grove · North-east: the crystal shrine · South-east: the stilt isles · Gold: treasure"
+      "text": "West: Frostveil Grove \u00b7 North-east: the crystal shrine \u00b7 South-east: the stilt isles \u00b7 Gold: treasure"
     },
     {
       "id": "shallow-cut-guide",
@@ -214,10 +214,15 @@
       },
       "route": {
         "id": "shallow-water-cut",
-        "requires": {"ability": "cross-shallow-water", "habitat": "wetland"},
+        "requires": {
+          "ability": "cross-shallow-water",
+          "habitat": "wetland"
+        },
         "hint": "Brooklet can guide you over this shallow-water cut. Keep any active companion to use the marked route after you discover it.",
         "unlockedText": "You discovered the shallow-water cut and found 12 coins. The route is now marked for your return.",
-        "reward": {"coins": 12}
+        "reward": {
+          "coins": 12
+        }
       }
     }
   ],
@@ -459,6 +464,152 @@
         [17.8, 14.5],
         [28.2, 48.8]
       ]
+    },
+    {
+      "sprite": "cattail-clump",
+      "kind": "scenery",
+      "w": 43,
+      "solid": 0.28,
+      "at": [
+        [28.5, 18.7],
+        [28.7, 19.4],
+        [29.4, 18.7],
+        [29.6, 19.4],
+        [30.3, 18.7],
+        [30.5, 19.4],
+        [31.2, 18.7],
+        [31.4, 19.4]
+      ],
+      "piece": "reed-bank-1"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [[30.3, 20.8]],
+      "piece": "reed-bank-1"
+    },
+    {
+      "sprite": "cattail-clump",
+      "kind": "scenery",
+      "w": 43,
+      "solid": 0.28,
+      "at": [
+        [35.5, 20.6],
+        [36.1, 19.9],
+        [36.4, 20.6],
+        [37.0, 19.9],
+        [37.3, 20.6],
+        [37.9, 19.9],
+        [38.2, 20.6],
+        [38.8, 19.9],
+        [39.1, 20.6]
+      ],
+      "piece": "reed-bank-2"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [[37.0, 22.0]],
+      "piece": "reed-bank-2"
+    },
+    {
+      "sprite": "cattail-clump",
+      "kind": "scenery",
+      "w": 43,
+      "solid": 0.28,
+      "at": [
+        [14.4, 14.9],
+        [14.6, 15.6],
+        [15.3, 14.9],
+        [15.5, 15.6],
+        [16.2, 14.9],
+        [16.4, 15.6],
+        [17.1, 14.9],
+        [17.3, 15.6],
+        [18.0, 14.9],
+        [18.2, 15.6]
+      ],
+      "piece": "reed-bank-3"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [[16.2, 17.0]],
+      "piece": "reed-bank-3"
+    },
+    {
+      "sprite": "cattail-clump",
+      "kind": "scenery",
+      "w": 43,
+      "solid": 0.28,
+      "at": [
+        [58.0, 31.0],
+        [58.2, 31.7],
+        [58.9, 31.0],
+        [59.1, 31.7],
+        [59.8, 31.0],
+        [60.0, 31.7],
+        [60.7, 31.0],
+        [60.9, 31.7]
+      ],
+      "piece": "reed-bank-4"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [[59.8, 33.1]],
+      "piece": "reed-bank-4"
+    },
+    {
+      "sprite": "cattail-clump",
+      "kind": "scenery",
+      "w": 43,
+      "solid": 0.28,
+      "at": [
+        [34.0, 33.7],
+        [34.7, 33.0],
+        [34.9, 33.7],
+        [35.6, 33.0],
+        [35.8, 33.7],
+        [36.5, 33.0],
+        [36.7, 33.7],
+        [37.4, 33.0],
+        [37.6, 33.7]
+      ],
+      "piece": "reed-bank-5"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [[35.6, 35.1]],
+      "piece": "reed-bank-5"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [
+        [52.6, 25.8],
+        [54.1, 26.3],
+        [53.2, 24.4]
+      ],
+      "piece": "cairn-6"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [51.5, 26.6],
+        [54.5, 25.2]
+      ],
+      "piece": "cairn-6"
     }
   ],
   "zones": [

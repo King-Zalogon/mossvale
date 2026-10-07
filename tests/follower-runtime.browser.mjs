@@ -161,7 +161,7 @@ try {
         followerMotion: window.mossvale.getState().followerMotion,
       }));
       for (const key of keys) await page.keyboard.down(key);
-      await page.waitForTimeout(850);
+      await page.waitForTimeout(1200); // allow the trail follower to reach two walk cells on a loaded CI browser
       const moved = await page.evaluate(() => ({
         player: {...window.mossvale.getState().player},
         followerMotion: window.mossvale.getState().followerMotion,

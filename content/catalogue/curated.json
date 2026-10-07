@@ -6,7 +6,7 @@
       "id": "interactable:scene-event",
       "kind": "interactable",
       "name": "Authored scene event",
-      "summary": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+      "summary": "Run validated dialogue, rewards, flags, challenges and bounded actor choreography on interaction.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -18,12 +18,16 @@
         }
       ],
       "dependencies": [],
-      "limits": ["No arbitrary movement or sleep choreography action.", "Scene event history is limited to 256 entries."],
+      "limits": [
+        "Choreography supports sequential moves, facing, three reaction cues and waits; no parallel groups or custom animation scripts.",
+        "Movement is limited to 128 steps and 4096 inspected cells per destination; waits to 5 seconds.",
+        "Scene event history is limited to 256 entries."
+      ],
       "examples": [
         {
-          "intent": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+          "intent": "Run validated dialogue, rewards, flags, challenges and bounded actor choreography on interaction.",
           "usage": "Consult dist/src/domain/scenes.js and reuse the existing definition.",
-          "expected": "Run validated dialogue, reward, flag or challenge actions on interaction."
+          "expected": "Resolve bounded actor actions and commit durable scene results before transient presentation."
         }
       ],
       "references": ["dist/src/domain/scenes.js"],
@@ -36,10 +40,10 @@
       "details": {
         "activation": "Existing map scene interaction dispatch.",
         "conditions": "Optional when condition evaluated through objective conditions.",
-        "actions": "Dialogue, reward, flag and challenge; challenge must be last.",
+        "actions": "Dialogue, reward, flag, challenge, move, face, wait and react; challenge must be last. See docs/SCENE_ACTIONS.md for choreography limits.",
         "rewards": "Scene rewards accept coins, potions and orbs, not arbitrary inventory item IDs.",
         "repetition": "Explicit repeatable boolean; challenge events must be repeatable.",
-        "persistence": "Non-repeatable events use saved map/event keys; caller persists the action transaction."
+        "persistence": "Non-repeatable events use saved map/event keys; rewards and flags commit before choreography and roll back if saving fails."
       }
     },
     {
@@ -519,6 +523,49 @@
         "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
         "errors": "Unknown speaker or text outside 1–500 characters fails validation.",
         "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
+      }
+    },
+    {
+      "id": "mechanic:scene-choreography",
+      "kind": "mechanic",
+      "name": "Scene choreography",
+      "summary": "Stage bounded actor movement, facing, reactions and waits before dialogue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": ["interactable:scene-event"],
+      "limits": [
+        "Sequential player and ranger movement only; no parallel groups or custom animation scripts.",
+        "Each destination is limited to 128 steps and 4096 inspected cells; waits are at most 5 seconds."
+      ],
+      "examples": [
+        {
+          "intent": "Stage two actors approaching and facing before a conversation.",
+          "usage": "Consult docs/SCENE_ACTIONS.md and validate the event against the map.",
+          "expected": "Supported moves complete, report blocked/cancelled explicitly, then show dialogue when the UI remains available."
+        }
+      ],
+      "references": [
+        "docs/SCENE_ACTIONS.md",
+        "dist/src/domain/scenes.js",
+        "dist/src/domain/scene-path.js",
+        "dist/src/controller.js",
+        "dist/src/render/world.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scenes.test.mjs",
+          "assertion": "Covers bounded routes, walkable destinations, actor validation and explicit arrival/block results."
+        }
+      ],
+      "details": {
+        "trigger": "Validated map scene event.",
+        "inputs": "Player and ranger landmark IDs, integer walkable destinations, supported face targets, notice/surprise/happy reactions, and bounded waits.",
+        "sequence": "Actions run in authored order; each movement settles before the next action.",
+        "results": "Movement reports arrived, blocked or cancelled. Player directions and four ranger facings use shipped sprite poses.",
+        "cancellation": "Pause, menu, map travel, battle, hidden tab and page exit release movement ownership and cancel timers.",
+        "errors": "Missing actor, invalid destination, blocked route or unsupported action is rejected or reported; no rescue teleport is used.",
+        "persistence": "One-time event keys, flags and rewards save before presentation; a failed save restores the prior save state."
       }
     },
     {
