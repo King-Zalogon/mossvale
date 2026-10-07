@@ -111,7 +111,7 @@ Both routes protect the family, reveal the water failure, make the eastward rout
 
 The stable outcomes below are **proposed narrative values**, not current runtime flag IDs: `orchard-outcome=water-first` and `orchard-outcome=family-first`. Preserve one outcome atomically with the resolution and expose it to Rowan's optional first conversation in Amber Ridge. Do not encode the choice in `orchard-ruins.chest`, `orchard-ruins.seal`, a species catch, or text that disappears on reload. A return trip should not be needed to hear the callback; visiting Amber Ridge after the resolution is the next-scene callback.
 
-Possible concise callback copy: **water-first:** “Mara's note says the lower row is flowing again. Keep east; Rowan marked a safe ridge approach.” **family-first:** “Mara's note says the young are safe in the dry hollow. The lower row still needs work; Rowan marked a safe ridge approach.” Both follow the same current Amber objective and point to the same gate. These conditional lines require the proposed outcome contract; today's `when` conditions cannot express them.
+Possible concise callback copy: **water-first:** “Mara's note says the lower row is flowing again. Follow the blue marker north toward the Ridge shrine.” **family-first:** “Mara's note says the young are safe in the dry hollow. The lower row still needs work; follow the blue marker north toward the Ridge shrine.” Both follow the same current Amber objective and point to the same gate. These conditional lines require the proposed outcome contract; today's `when` conditions cannot express them.
 
 ## Authoring beats, purposes, assets and implementation owners
 
