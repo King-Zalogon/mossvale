@@ -3,9 +3,19 @@
 import {species} from './data/species.js';
 import {moves} from './data/moves.js';
 import {regions} from './data/regions.js';
-import {maxHP} from './domain/rules.js';
+import {effectiveness, level, maxHP} from './domain/rules.js';
 import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, setFlag, unlocked} from './domain/rules.js';
-import {createBattle, encounterDistance, ensureHealthyCompanion, guardianLevel, resolveTurn, rollWild} from './domain/battle.js';
+import {
+  combatChoices,
+  createBattle,
+  encounterDistance,
+  guardianForecast,
+  ensureHealthyCompanion,
+  guardianLevel,
+  nextEnemyAction,
+  resolveTurn,
+  rollWild,
+} from './domain/battle.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
 import {buildWorld, isWalkable, nearestInteractive, triggersAt, zoneAt} from './domain/world.js';
@@ -13,7 +23,7 @@ import {findScenePath} from './domain/scene-path.js';
 import {movementFacing} from './domain/exploration.js';
 import {GRACE_AFTER_BATTLE, GRACE_ON_ARRIVAL} from './config.js';
 import {$, environmentalMessage, hideModal, toast} from './ui/dom.js';
-import {TACTICS} from './data/tactics.js';
+import {INTENT_TEXT, TACTICS} from './data/tactics.js';
 import {spriteId} from './data/assets.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
@@ -702,6 +712,7 @@ export function createController(app) {
     }
     timeline.cancel();
     game.battle = createBattle(s, rng, spec);
+    traceBattleStart(s, game.battle, false);
     emit(spec.boss ? 'challenge.started' : 'battle.started', {
       mapId: game.world.map.id,
       species: species[game.battle.id].id,
@@ -744,6 +755,7 @@ export function createController(app) {
       return false;
     }
     b.busy = false;
+    traceBattleStart(s, b, true);
     emit('battle.resumed', {mapId: s.mapId, species: species[b.id].id, turn: b.turn, boss: b.boss});
     renderBattle('Your encounter was waiting for you. Choose your next move.');
     return true;
@@ -753,17 +765,66 @@ export function createController(app) {
     performTurn({kind});
   }
 
+  function traceBattleStart(s, b, resumed) {
+    if (!app.combatTrace) return;
+    app.combatTrace.record('battle.started', {
+      resumed,
+      encounter: {mapId: game.world.map.id, speciesId: species[b.id].id, level: b.level, guardian: !!b.boss, tactic: b.tactic ?? null},
+      party: s.party.map(id => ({speciesId: species[id].id, level: level(s, id), hp: s.team[id].hp, maxHp: maxHP(s, id)})),
+      activeSpeciesId: species[s.active].id,
+      supplies: {potions: s.potions, orbs: s.orbs},
+    });
+  }
+
+  function combatDecisionContext(s, b) {
+    const active = companion(s);
+    const activeMaxHp = maxHP(s, s.active);
+    const options = combatChoices(s, b);
+    return {
+      turn: b.turn + 1,
+      encounter: species[b.id].id,
+      active: {speciesId: species[s.active].id, hp: active.hp, maxHp: activeMaxHp, level: level(s, s.active)},
+      enemy: {hp: b.hp, maxHp: b.max, level: b.level},
+      conditions: {focus: b.focus, guarding: b.guard, enemyAction: b.boss ? nextEnemyAction(b) : null, effectiveness: effectiveness(s.active, b.id)},
+      responseWindows: b.boss ? (guardianForecast(s, b)?.responses ?? []) : [],
+      intent: b.boss ? (INTENT_TEXT[nextEnemyAction(b)] ?? null) : null,
+      options,
+    };
+  }
+
+  function combatDecision(context, action, turn, s, b) {
+    if (!app.combatTrace || !context) return;
+    app.combatTrace.record('battle.decision', {
+      ...context,
+      chosen: action,
+      outcome: {
+        ended: turn.ended,
+        events: turn.events.map(event => ({
+          type: event.type,
+          damage: event.damage ?? null,
+          healed: event.healed ?? null,
+          counter: event.counter ?? null,
+          recovered: event.recovered ?? null,
+          reward: event.reward ?? null,
+        })),
+      },
+      after: {activeSpeciesId: species[s.active].id, activeHp: companion(s).hp, enemyHp: b.hp, focus: b.focus},
+    });
+  }
+
   /** Resolves a full round in the domain at once (and saves it), then replays it as timed frames. */
   function performTurn(action) {
     const b = game.battle;
     if (!b || b.busy || b.over || game.phase !== 'battle' || (ui.modalMode !== 'battle' && action.kind !== 'switch')) return;
     const s = save();
     const before = {active: s.active};
+    const decisionContext = app.combatTrace ? combatDecisionContext(s, b) : null;
     const turn = resolveTurn(s, b, action, rng, {
       sealReward: game.world.objects.find(o => o.kind === 'shrine')?.reward,
       inventoryRules: app.inventoryRules,
     });
     if (!turn) return;
+    combatDecision(decisionContext, action, turn, s, b);
     emit('turn.resolved', {
       mapId: game.world.map.id,
       species: species[b.id].id,
