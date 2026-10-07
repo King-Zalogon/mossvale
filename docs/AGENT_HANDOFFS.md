@@ -81,6 +81,10 @@ Codex claim: `codex/229-guardian-turn-window`, originally based on `origin/main`
 
 Codex claim: `codex/232-local-impact-working-tree`, created from latest `origin/main` and synchronized with `origin/integration` `92b89c4`. The local impact collector currently sees only merge-base-to-HEAD commits. Planned fix includes staged, unstaged and non-ignored untracked paths, preserving rename/deletion behavior and full-history CI. Add temporary repository regressions and document local vs PR checks. No authorable catalog data or game runtime behavior should change.
 
+## #255 — orchard mystery brief and capability map
+
+Codex claim: `codex/255-orchard-mystery`, created from latest `origin/main` `ea08af9`, then fast-forwarded to current `origin/integration` `75c9a0a` (#252/#253 terrain and #254 set pieces). Scope: source-checked orchard narrative/design brief, evidence/decision/persistence diagrams, playable pacing and test plan, plus beat-to-asset/pose/interaction and capability gap matrices. Documentation only; no pack/map/runtime claim or art approval. Linked research: #248; later runtime/content delivery is assigned to #256–#265. Focused review, `npm run verify`, PR CI and required review remain pending.
+
 ## #254 — authored set pieces
 
 Claude claim: `claude/254-landmarks`, from `origin/main` merged with `origin/integration` `24bf0f9`. Scope: deterministic scenery compositions (stone rings, groves, cairns, reed banks) in the eight adventure maps, using existing sprites only. Does not touch landmarks, exits, zones, quiet corridors or art. Checks run locally (CI unavailable): lint, `npm test` (only the pre-existing catalogue freshness test fails), every browser test (only pre-existing `catalogue-browser` and `environmental-message` fail), `catalogue:impact`, screenshots. Next: playfield/HUD must be coordinated with #251 (input controls) before editing layout.
