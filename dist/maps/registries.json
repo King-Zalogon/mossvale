@@ -361,14 +361,14 @@
         "braceQuickFactor": 0.12,
         "braceElementFactor": 1.5,
         "counterplay": [{"id": "break-brace", "action": "element", "previous": "brace", "label": "Brace broken", "reward": {"coins": 8, "xp": 10}}],
-        "intro": "When the forecast says Brace, your action happens before it braces. After the brace, quick strikes glance off, but an elemental move breaks through. Watch the log for the brace, then answer with an elemental move."
+        "intro": "Brace comes after your move and deals no damage. On your next turn, a Quick Strike is heavily reduced (3 damage minimum); an elemental move breaks through and costs 1 Focus. Guard does not protect you from a later move after the brace. If you are out of Focus, Quick Strike or Guard now to build 1 before you answer."
       },
       "rolling-charge": {
         "name": "Rolling charge",
         "pattern": ["strike", "charge", "heavy"],
         "guardRiposteFactor": 1.0,
         "counterplay": [{"id": "guard-heavy", "action": "guard", "next": "heavy", "label": "Heavy blow guarded", "reward": {"coins": 8, "xp": 10}}],
-        "intro": "It gathers strength, then lands a heavy blow. Watch the line under the log and Guard when the heavy blow is next; a well-timed Guard counters it."
+        "intro": "Charge comes after your move and deals no damage; the heavy blow follows on the guardian's next turn. Guard only lasts for the next enemy action, so save it for the heavy forecast. It reduces that hit by 65% and ripostes for the damage it prevented."
       },
       "frost-chorus": {
         "name": "Frost chorus",
@@ -385,7 +385,7 @@
             "reward": {"coins": 8, "xp": 10}
           }
         ],
-        "intro": "Its second elemental volley grows stronger. Switch to a teammate that resists the element before that repeat, or heal once the chorus breaks."
+        "intro": "The guardian uses two elemental moves in a row; the second has a 1.7× raw damage factor before matchup and defense. The enemy acts after your choice, so switch to a healthy teammate resistant to Ice before the second move is forecast. It will still attack the new teammate this turn."
       },
       "tidal-current": {
         "name": "Tidal current",
@@ -397,7 +397,7 @@
           {"id": "disrupt-current", "action": "element", "next": "charge", "label": "Recovery disrupted", "reward": {"coins": 8, "xp": 10}},
           {"id": "guard-crash", "action": "guard", "next": "heavy", "label": "Crash guarded", "reward": {"coins": 8, "xp": 10}}
         ],
-        "intro": "The current restores health as it gathers for a heavy blow. An elemental hit during the lull disrupts that recovery; Guard when the line calls out the crash."
+        "intro": "Charge comes after your move and deals no damage; if it survives, the current can restore up to 12% of its maximum HP. An elemental hit this turn (1 Focus) interrupts that recovery. Guarding the charge will not protect you next turn; Guard the heavy forecast to reduce its hit by 65% and riposte for the damage prevented."
       }
     },
     "intentText": {
@@ -405,7 +405,7 @@
       "element": "its elemental move",
       "heavy": "a heavy blow",
       "charge": "gathering strength",
-      "brace": "bracing; your next strike after this will be halved"
+      "brace": "bracing"
     }
   },
   "progression": {

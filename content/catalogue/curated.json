@@ -260,34 +260,41 @@
       "id": "mechanic:guardian-counterplay",
       "kind": "mechanic",
       "name": "Guardian counterplay rewards",
-      "summary": "Reward a readable response to a regional guardian's forecasted tactic when the fight is won.",
+      "summary": "Show the next guardian action and matchup-based damage, then reward a valid tactical response when the fight is won.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."],
+      "limits": [
+        "Damage is a random-roll range for the current active companion; switching changes the matchup and forecast.",
+        "Bonuses are granted once per qualifying response in one guardian fight; they do not make any single creature mandatory. A response that requires a later enemy action is not credited if the guardian is defeated first."
+      ],
       "examples": [
         {
-          "intent": "Guard a forecast heavy blow and earn the guardian response bonus on victory.",
+          "intent": "Read a guardian's next action, compare current and Guard damage, and choose a response before its turn.",
           "usage": "Configure counterplay in a tactic under dist/maps/registries.json and use the existing Guard action.",
-          "expected": "The victory result names the response and includes its bonus coins and XP."
+          "expected": "The forecast identifies action order, damage ranges, current Focus or response availability; a qualifying response is named with bonus coins and XP on victory."
         }
       ],
       "references": ["dist/maps/registries.json", "dist/src/domain/battle.js", "dist/src/save.js", "dist/src/controller.js"],
       "evidence": [
         {
           "path": "tests/guardians.test.mjs",
-          "assertion": "Guardian response qualification, payout, checkpoint persistence and invalid-ID filtering."
+          "assertion": "Damage-range parity with the resolver; brace, repeated-element, charge and heavy timing; response qualification, payout, checkpoint persistence and invalid-ID filtering."
+        },
+        {
+          "path": "tests/guardian-forecast.browser.mjs",
+          "assertion": "Forecast remains legible in keyboard, touch, reduced-motion and fullscreen browser states."
         }
       ],
       "details": {
-        "trigger": "A configured Guard, elemental response or resistant switch matches the guardian's current forecast.",
-        "inputs": "The player's action, the current and previous tactic actions, and the active/selected matchup.",
-        "sequence": "Record each configured response once, continue the normal enemy reply, and add its configured bonus only when the guardian is defeated.",
-        "results": "The normal guardian reward plus the response bonus and a readable response label on the victory result.",
-        "cancellation": "A lost or abandoned fight pays no response bonus; a saved interrupted fight retains already recorded responses.",
+        "trigger": "While a guardian battle is idle, the interface previews its next tactic action and any relevant response window.",
+        "inputs": "The deterministic tactic pattern position, species damage formula, current active matchup, Guard factor, Focus, party health and configured response conditions.",
+        "sequence": "Derive the upcoming action, unguarded and guarded random damage ranges, brace or charge effects and matching responses without mutating battle state. The existing resolver independently records only qualifying player actions and pays recorded bonuses on victory.",
+        "results": "The battle panel explains whether the guardian acts after the player's choice, the current ally's damage range, Guard reduction/riposte, Focus cost, next brace/charge consequence, and any available response reward.",
+        "cancellation": "The forecast is hidden while an action resolves or the battle ends. A lost or abandoned fight pays no response bonus; a saved interrupted fight retains recorded responses. A response requiring the guardian's next action is not recorded if the player's action defeats it first.",
         "errors": "Unknown response IDs in a saved battle are discarded during normalization.",
-        "persistence": "Recorded response IDs are part of the existing battle checkpoint and remain compatible with older saves."
+        "persistence": "The forecast is derived and adds no save fields. Recorded response IDs remain part of the existing battle checkpoint and compatible with older saves."
       }
     },
     {

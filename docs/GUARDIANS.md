@@ -1,15 +1,17 @@
 # Guardian challenge notes
 
-Each shrine uses the shared battle actions with a pack-defined tactic and a visible intent forecast. These are the four current decisions:
+Each shrine uses the shared battle actions with a pack-defined tactic. The battle view previews the enemy action that happens **after the player's current choice**, if the guardian survives it. Damage ranges use the current active companion and the same random-roll formula as resolution; changing matchup or choosing Guard changes the result.
 
 | Region | Pattern | Useful response |
 | --- | --- | --- |
-| Meadow | Strike, brace | The forecasted brace resolves after the player's action. After it braces, Quick strike deals 12% damage; an elemental move breaks through at 150%. |
-| Amber Ridge | Strike, charge, heavy | Guard when the heavy blow is forecast. It cuts damage and ripostes for all the damage prevented. |
-| Frostveil Grove | Element, element, strike | The repeated elemental volley is 70% stronger. Switch to a healthy teammate that resists the element before it repeats. |
-| Reedfen Wetlands | Element, charge, heavy | The current restores up to 12% of its health while charging. An elemental hit while it gathers cancels that recovery; Guard the heavy blow that follows. |
+| Meadow | Strike, brace | The brace happens after the current choice and deals no damage. On the next player turn, Quick Strike has a 0.12 damage factor (3 minimum); Element has a 1.5 factor and costs 1 Focus. Guard expires on the brace, though it still builds Focus. |
+| Amber Ridge | Strike, charge, heavy | Charge happens after the current choice and deals no damage; heavy is the next guardian action. Save Guard for heavy: damage is multiplied by 0.35 and the prevented amount is returned as riposte damage. Guard expires on charge. |
+| Frostveil Grove | Element, element, strike | The second consecutive Element move has a 1.7 raw damage factor before matchup/defense. Switch to a healthy resistant companion when the repeated Element is forecast; the attack still happens after the switch. |
+| Reedfen Wetlands | Element, charge, heavy | Charge happens after the current choice and deals no damage. If the guardian survives, it can recover up to 12% of its max HP; a 1-Focus Element during this player turn interrupts recovery. Save Guard for the following heavy action. |
 
-Successful responses now pay a small guardian bonus when the fight is won: breaking Meadow's brace, Guarding a forecast heavy blow, switching to a resistant teammate for Frostveil's repeated volley, disrupting Reedfen's recovery, and Guarding its crash each grant +8 coins and +10 XP once per fight. The response is declared in the tactic data, recorded in the battle checkpoint, and named on the victory result so a player can connect the forecast to the reward.
+Successful responses pay a small guardian bonus when the matching window actually occurs and the fight is won: breaking Meadow's already-active brace, Guarding a forecast heavy blow, switching to a healthy resistant teammate for Frostveil's repeated volley, interrupting Reedfen's charge, and Guarding its crash each grant +8 coins and +10 XP once per fight. Killing Reedfen before its charge resolves does not award an “interrupted recovery” bonus. The response is declared in tactic data, recorded in the battle checkpoint, and named on the victory result.
+
+The battle panel includes random damage ranges for the current active companion, then shows the lower range and riposte when Guard is selected as a hypothetical response. Damage estimates include enemy power, level, move multiplier, repeated-element factor, matchup, defense and rounding. A switch changes the target, so the displayed range is not a promise about a different teammate. The panel remains readable text with reduced motion enabled and during keyboard or touch play.
 
 Shrine levels are at least their map levels and rise to the rounded average level of the current party. The level is fixed when the battle begins and is already stored in the battle checkpoint, so refreshes resume the same fight. Ordinary wild encounters keep their configured levels. This lets a progressed party keep a meaningful shrine fight without scaling every encounter.
 
