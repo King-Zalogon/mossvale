@@ -7,6 +7,7 @@ import {MAX_MAP_SIZE} from './config.js';
 import * as save from './save.js';
 import {seededRng} from './domain/rng.js';
 import {createEventLog} from './domain/events.js';
+import {createCombatTrace} from './domain/combat-trace.js';
 import {createTestClock} from './domain/clock.js';
 import {effectiveness, level, maxHP} from './domain/rules.js';
 import {currentObjective} from './domain/objectives.js';
@@ -56,6 +57,8 @@ function getStorage() {
 
 const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
+const traceSeed = params.has('seed') && Number.isFinite(Number(params.get('seed'))) ? Number(params.get('seed')) >>> 0 : null;
+const combatTrace = debug && params.has('combatTrace') ? createCombatTrace() : null;
 const testClock = debug && params.has('clock') ? createTestClock(Number(params.get('clock')) || 0) : null;
 let uiClock = 0;
 const eventLog = createEventLog({
@@ -139,6 +142,7 @@ const app = {
   canStartOver: () => loaded.writable,
   persist,
   events: eventLog,
+  combatTrace,
   testClock,
 };
 app.menus = createMenus(app);
@@ -633,6 +637,21 @@ if (debug) {
     perf: () => perf,
     areaMap: () => app.areaMap.state,
     events: () => eventLog.read(),
+    combatTrace: () => combatTrace?.read() ?? [],
+    exportCombatTrace: () => {
+      if (!combatTrace) return false;
+      downloadText(
+        `mossvale-combat-trace-${new Date().toISOString().replaceAll(':', '-')}.json`,
+        combatTrace.export({
+          packId: app.adventures.current?.id ?? 'mossvale',
+          packContentVersion: app.build?.pack?.contentVersion ?? null,
+          build: app.build ?? {label: app.buildLabel()},
+          seed: traceSeed,
+        }),
+      );
+      return true;
+    },
+    clearCombatTrace: () => combatTrace?.clear() ?? false,
     advanceClock: milliseconds => testClock?.advance(milliseconds) ?? null,
   };
 }

@@ -108,7 +108,7 @@
     "dist/src/character-preview.js": "00058680f6a8971cc2cb974bf0c7d450b34a7d39ad1c28b5c37285a712973c54",
     "dist/src/compatibility.js": "cb16e68f3c5fefc86c7e6068f1f7a5e832e009647baa07641a4bd1ed06349ca3",
     "dist/src/config.js": "c060d2dd823e0d82ae9592256c4c80d5a72e486d120c6fdd60aecd5e9bdfb05d",
-    "dist/src/controller.js": "a0965031d9fa17d03f4945435526d5b533ad5909acd0c1f56e2fef04d333b472",
+    "dist/src/controller.js": "288b440bf293dac13d7f159ed1cc6dd8c5f120b5fbf44a77d69da57bd7069022",
     "dist/src/creature-combat-preview.js": "5eb7767882d6e9d7bf3da271842e33eb618c49df046a38a1d2ccc10211169db5",
     "dist/src/creature-follower-preview.js": "99028ba5a8922578540dbe767ddfc496269c437d9a22690ffcb0558adcd87707",
     "dist/src/data/assets.js": "2d309dc3d65df70668373595211887f87720f6393b11ef7c824e7b8f8733f638",
@@ -122,8 +122,9 @@
     "dist/src/data/species.js": "410945be3eae3097eadfd44210408df55c67229196cbff7e45b5d6419ad6a49a",
     "dist/src/data/tactics.js": "0ba459b0a97b7d3da40521b444254013c9ad21635b9f21911607d7315e2f07ea",
     "dist/src/domain/adventure.js": "9021f46291f6ee0f8ee29e4bd14f5057bb55d8ca47d0fe4c9e333e5a5742107b",
-    "dist/src/domain/battle.js": "c509d405c959a654732c8363b0a847506444e3ad40fe44721816eef674b0f0f3",
+    "dist/src/domain/battle.js": "87ed1448c97e92aff22f53d5462e540de86d2da7c2f51f49e55cd67b90679ce7",
     "dist/src/domain/clock.js": "91e9a8d65543697ed7862ee28c450b04bd1cf56d534308acc3bedbebff7108d5",
+    "dist/src/domain/combat-trace.js": "4c564af90c00892f81cb14da767ff14496106d53555843a567685a4595bfe32a",
     "dist/src/domain/companion-routes.js": "52d696611bb306ebe8b1a793f83a60dc4aab2c7c701141629d40e05816ef2bbc",
     "dist/src/domain/composition.js": "399d0e98563987f525505699880893fa92b61de353fe2b68e7f4dd9684a7a2ef",
     "dist/src/domain/dialogue-choices.js": "b7f71fced5776da813ca03f6ece00c86ca3c5dcb83d9aadeeb453b9c7fd5f85f",
@@ -147,7 +148,7 @@
     "dist/src/domain/terrain-family.js": "e9828ed285b9ffd558a9f168fa71f5477ffd6ee75a1359a874bfcfcd7101476e",
     "dist/src/domain/world.js": "33283839346a885c8004cb5c5682d29e0d0f6758d36a5698b0eb85b3d3eca383",
     "dist/src/input.js": "362b57a2241a9ab4c3f9e6cbd44aaff587dba57fc6964307af277664fd6d200a",
-    "dist/src/main.js": "ad1897fafce73b438548f5eb7ea00a9b2d8f0269ffe6bcd4bd2e268ba00c566f",
+    "dist/src/main.js": "eabd1c08ebd68a4f64e51d47af33b9be8c73682368550b3e4dd6ff43b4831c73",
     "dist/src/map-editor.js": "ba48bdb6ac640d98cc21ab82cff862dfa081ac84519d0d9bc59caa358c6d1149",
     "dist/src/render/sprites.js": "f1904009314275592c7a117491f4365ebb5249a396f2ab502369d7cf41caf66f",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
@@ -199,7 +200,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "efccd2980291fc58a73d726d2d5c83ff39f696f1eb03396b25df37ad9683978d",
+  "sourceDigest": "dfeca0ac8ed491b7192d1d3d7bea2bfd1e9243e5dc87f710081a0e338a136cf5",
   "exclusions": [
     {
       "family": "module-exports",
