@@ -403,7 +403,10 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["No autonomous NPC schedules, free navigation commands or speed-potion mechanic."],
+      "limits": [
+        "No autonomous NPC schedules, free navigation commands or speed-potion mechanic.",
+        "The movement HUD follows the primary pointer initially and actual movement input afterward; screen width alone does not choose touch controls."
+      ],
       "examples": [
         {
           "intent": "Move the player with footprint-aware collision and trail-following companions.",
@@ -411,21 +414,25 @@
           "expected": "Move the player with footprint-aware collision and trail-following companions."
         }
       ],
-      "references": ["dist/src/domain/exploration.js"],
+      "references": ["dist/src/domain/exploration.js", "dist/src/input.js", "docs/MOVEMENT.md"],
       "evidence": [
         {
           "path": "tests/obstacle-sliding.browser.mjs",
           "assertion": "Existing regression evidence for this capability."
+        },
+        {
+          "path": "tests/input-mode.browser.mjs",
+          "assertion": "Actual keyboard, touch drag and mouse gestures verify contextual movement controls, hybrid capability, focus recovery and no stuck movement."
         }
       ],
       "details": {
         "trigger": "Keyboard or touch movement input.",
         "inputs": "Direction, run setting and injected elapsed time.",
-        "sequence": "Move with existing collision/sliding checks; push companion trail.",
+        "sequence": "Choose the temporary movement HUD from actual input, release held input on method changes, then move with existing collision/sliding checks and push the companion trail.",
         "results": "Player/follower exploration in authored maps.",
-        "cancellation": "Pause/dialogue/touch interruption uses existing controller/input rules.",
+        "cancellation": "Input-method changes, pause/dialogue and touch interruptions release movement using existing input/controller rules.",
         "errors": "Invalid positions remain blocked by world walkability.",
-        "persistence": "Player/map position persists through existing exploration save flow."
+        "persistence": "Player/map position persists through the existing exploration save flow; the input method is temporary presentation state, not adventure-save data."
       }
     },
     {

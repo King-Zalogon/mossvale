@@ -2200,7 +2200,7 @@ body.text-larger .game-footer,
 body.text-larger .heading {
   zoom: 1.3;
 }
-/* Any coarse pointer keeps touch controls available when the primary pointer changes. */
+/* Coarse capability sets target sizes. Input mode determines movement control visibility. */
 @media (any-pointer: coarse) {
   button,
   .touchpad button {
@@ -2249,10 +2249,6 @@ body.text-larger .heading {
   .game-footer > span:first-child,
   .game-footer > span:nth-child(3) {
     display: none;
-  }
-  .game-footer::before {
-    content: 'Touch to move · tap E to interact';
-    color: #aac194;
   }
   .viewport {
     height: min(72svh, 520px);
@@ -2554,6 +2550,40 @@ body.text-larger .heading {
 .viewport.speech-open .toast,
 .viewport.speech-open .interaction {
   display: none;
+}
+
+/* Select controls from actual movement input, including on hybrid devices. */
+body:not([data-input-mode='touch']) .touchpad,
+body:not([data-input-mode='touch']) .touch-run,
+.touch-hint {
+  display: none;
+}
+body[data-input-mode='touch'] .touchpad {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+}
+body[data-input-mode='touch'] .touchpad button {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+}
+body[data-input-mode='touch'] .touch-run {
+  display: block;
+  min-height: 44px;
+}
+body[data-input-mode='touch'] .keyboard-hint {
+  display: none;
+}
+body[data-input-mode='touch'] .touch-hint {
+  display: inline;
+}
+
+body[data-input-mode='desktop'] .game-footer > .keyboard-hint:first-child {
+  display: inline;
+}
+.game-footer {
+  flex-wrap: wrap;
 }
 
 /* Short map guidance and discovery feedback shares the clear, light visual language of authored map notes. */
