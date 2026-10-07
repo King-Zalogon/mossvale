@@ -6,7 +6,7 @@
       "id": "interactable:scene-event",
       "kind": "interactable",
       "name": "Authored scene event",
-      "summary": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+      "summary": "Run validated dialogue, rewards, flags, challenges and bounded actor choreography on interaction.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -19,19 +19,18 @@
       ],
       "dependencies": [],
       "limits": [
-        "No arbitrary movement or sleep choreography action.",
+        "Choreography supports sequential moves, facing, three reaction cues and waits; no parallel groups or custom animation scripts.",
+        "Movement is limited to 128 steps and 4096 inspected cells per destination; waits to 5 seconds.",
         "Scene event history is limited to 256 entries."
       ],
       "examples": [
         {
-          "intent": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+          "intent": "Run validated dialogue, rewards, flags, challenges and bounded actor choreography on interaction.",
           "usage": "Consult dist/src/domain/scenes.js and reuse the existing definition.",
-          "expected": "Run validated dialogue, reward, flag or challenge actions on interaction."
+          "expected": "Resolve bounded actor actions and commit durable scene results before transient presentation."
         }
       ],
-      "references": [
-        "dist/src/domain/scenes.js"
-      ],
+      "references": ["dist/src/domain/scenes.js"],
       "evidence": [
         {
           "path": "tests/scenes.test.mjs",
@@ -41,10 +40,10 @@
       "details": {
         "activation": "Existing map scene interaction dispatch.",
         "conditions": "Optional when condition evaluated through objective conditions.",
-        "actions": "Dialogue, reward, flag and challenge; challenge must be last.",
+        "actions": "Dialogue, reward, flag, challenge, move, face, wait and react; challenge must be last. See docs/SCENE_ACTIONS.md for choreography limits.",
         "rewards": "Scene rewards accept coins, potions and orbs, not arbitrary inventory item IDs.",
         "repetition": "Explicit repeatable boolean; challenge events must be repeatable.",
-        "persistence": "Non-repeatable events use saved map/event keys; caller persists the action transaction."
+        "persistence": "Non-repeatable events use saved map/event keys; rewards and flags commit before choreography and roll back if saving fails."
       }
     },
     {
@@ -67,9 +66,7 @@
           "expected": "Consume one mapped potion and heal the active companion according to its pack definition."
         }
       ],
-      "references": [
-        "dist/src/domain/battle.js"
-      ],
+      "references": ["dist/src/domain/battle.js"],
       "evidence": [
         {
           "path": "tests/battle-actions.test.mjs",
@@ -95,9 +92,7 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "This does not turn every scene intent into a fully authored playable interaction."
-      ],
+      "limits": ["This does not turn every scene intent into a fully authored playable interaction."],
       "examples": [
         {
           "intent": "Compile a brief into an isolated validated candidate pack scaffold.",
@@ -105,9 +100,7 @@
           "expected": "Compile a brief into an isolated validated candidate pack scaffold."
         }
       ],
-      "references": [
-        "scripts/compile-brief.mjs"
-      ],
+      "references": ["scripts/compile-brief.mjs"],
       "evidence": [
         {
           "path": "tests/authoring-tools.test.mjs",
@@ -133,9 +126,7 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Structural and diff checks do not prove prose accuracy; scoped exceptions require reviewer assessment."
-      ],
+      "limits": ["Structural and diff checks do not prove prose accuracy; scoped exceptions require reviewer assessment."],
       "examples": [
         {
           "intent": "Generate and validate resource fiches from canonical records and reviewed templates.",
@@ -143,12 +134,7 @@
           "expected": "Deterministic output and validated references."
         }
       ],
-      "references": [
-        "scripts/catalogue.mjs",
-        "content/catalogue/schema.json",
-        "content/catalogue/templates.json",
-        "content/catalogue/curated.json"
-      ],
+      "references": ["scripts/catalogue.mjs", "content/catalogue/schema.json", "content/catalogue/templates.json", "content/catalogue/curated.json"],
       "evidence": [
         {
           "path": "tests/catalogue.test.mjs",
@@ -174,9 +160,7 @@
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "This is not free-form flying, swimming or arbitrary companion interaction."
-      ],
+      "limits": ["This is not free-form flying, swimming or arbitrary companion interaction."],
       "examples": [
         {
           "intent": "Optionally unlock a shallow-water route with a compatible companion.",
@@ -184,9 +168,7 @@
           "expected": "Optionally unlock a shallow-water route with a compatible companion."
         }
       ],
-      "references": [
-        "dist/src/domain/world.js"
-      ],
+      "references": ["dist/src/domain/world.js"],
       "evidence": [
         {
           "path": "tests/companion-route.browser.mjs",
@@ -223,11 +205,7 @@
           "expected": "The ally uses the elemental motion and a type-colored burst while the enemy receives the normal hit reaction."
         }
       ],
-      "references": [
-        "dist/src/controller.js",
-        "dist/src/render/sprites.js",
-        "dist/src/ui/battle-view.js"
-      ],
+      "references": ["dist/src/controller.js", "dist/src/render/sprites.js", "dist/src/ui/battle-view.js"],
       "evidence": [
         {
           "path": "tests/creature-combat.browser.mjs",
@@ -253,9 +231,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "No general-purpose subscription/event bus is claimed."
-      ],
+      "limits": ["No general-purpose subscription/event bus is claimed."],
       "examples": [
         {
           "intent": "Record ordered controller events for objectives, regression and debugging.",
@@ -263,9 +239,7 @@
           "expected": "Record ordered controller events for objectives, regression and debugging."
         }
       ],
-      "references": [
-        "dist/src/domain/events.js"
-      ],
+      "references": ["dist/src/domain/events.js"],
       "evidence": [
         {
           "path": "tests/integration.test.mjs",
@@ -291,9 +265,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."
-      ],
+      "limits": ["Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."],
       "examples": [
         {
           "intent": "Guard a forecast heavy blow and earn the guardian response bonus on victory.",
@@ -301,12 +273,7 @@
           "expected": "The victory result names the response and includes its bonus coins and XP."
         }
       ],
-      "references": [
-        "dist/maps/registries.json",
-        "dist/src/domain/battle.js",
-        "dist/src/save.js",
-        "dist/src/controller.js"
-      ],
+      "references": ["dist/maps/registries.json", "dist/src/domain/battle.js", "dist/src/save.js", "dist/src/controller.js"],
       "evidence": [
         {
           "path": "tests/guardians.test.mjs",
@@ -332,9 +299,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Motivating design request only; do not generate playable data that assumes support."
-      ],
+      "limits": ["Motivating design request only; do not generate playable data that assumes support."],
       "examples": [
         {
           "intent": "Proposed extension: Animated home rest with a distinct temporary benefit.",
@@ -342,9 +307,7 @@
           "expected": "Proposed extension: Animated home rest with a distinct temporary benefit."
         }
       ],
-      "references": [
-        "docs/AUTHORING_CONTRACT.md"
-      ],
+      "references": ["docs/AUTHORING_CONTRACT.md"],
       "evidence": [],
       "details": {
         "trigger": "Not implemented.",
@@ -365,9 +328,7 @@
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Generic useInventory/rollDrop/gatherInventory domain helpers do not prove live exploration consumption or automatic loot."
-      ],
+      "limits": ["Generic useInventory/rollDrop/gatherInventory domain helpers do not prove live exploration consumption or automatic loot."],
       "examples": [
         {
           "intent": "Buy, sell eligible valuables and move pack items between bag and storage.",
@@ -375,9 +336,7 @@
           "expected": "Buy, sell eligible valuables and move pack items between bag and storage."
         }
       ],
-      "references": [
-        "dist/src/domain/inventory.js"
-      ],
+      "references": ["dist/src/domain/inventory.js"],
       "evidence": [
         {
           "path": "tests/inventory.test.mjs",
@@ -403,9 +362,7 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "A valid JSON map still needs playability/reachability review."
-      ],
+      "limits": ["A valid JSON map still needs playability/reachability review."],
       "examples": [
         {
           "intent": "Edit validated map data and preview it through the existing game.",
@@ -413,9 +370,7 @@
           "expected": "Edit validated map data and preview it through the existing game."
         }
       ],
-      "references": [
-        "dist/map-editor.html"
-      ],
+      "references": ["dist/map-editor.html"],
       "evidence": [
         {
           "path": "tests/editor.browser.mjs",
@@ -441,9 +396,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "No autonomous NPC schedules, free navigation commands or speed-potion mechanic."
-      ],
+      "limits": ["No autonomous NPC schedules, free navigation commands or speed-potion mechanic."],
       "examples": [
         {
           "intent": "Move the player with footprint-aware collision and trail-following companions.",
@@ -451,9 +404,7 @@
           "expected": "Move the player with footprint-aware collision and trail-following companions."
         }
       ],
-      "references": [
-        "dist/src/domain/exploration.js"
-      ],
+      "references": ["dist/src/domain/exploration.js"],
       "evidence": [
         {
           "path": "tests/obstacle-sliding.browser.mjs",
@@ -479,9 +430,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Motivating design request only; do not generate playable data that assumes support."
-      ],
+      "limits": ["Motivating design request only; do not generate playable data that assumes support."],
       "examples": [
         {
           "intent": "Proposed extension: Autonomous NPC movement and conversation choreography.",
@@ -489,9 +438,7 @@
           "expected": "Proposed extension: Autonomous NPC movement and conversation choreography."
         }
       ],
-      "references": [
-        "docs/AUTHORING_CONTRACT.md"
-      ],
+      "references": ["docs/AUTHORING_CONTRACT.md"],
       "evidence": [],
       "details": {
         "trigger": "Not implemented.",
@@ -512,9 +459,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Account checkpoint APIs need configured portal/database and are not a local catalogue prerequisite."
-      ],
+      "limits": ["Account checkpoint APIs need configured portal/database and are not a local catalogue prerequisite."],
       "examples": [
         {
           "intent": "Persist adventure progress with checkpoints, migration and recovery.",
@@ -522,9 +467,7 @@
           "expected": "Persist adventure progress with checkpoints, migration and recovery."
         }
       ],
-      "references": [
-        "dist/src/save.js"
-      ],
+      "references": ["dist/src/save.js"],
       "evidence": [
         {
           "path": "tests/save-transaction.test.mjs",
@@ -550,9 +493,7 @@
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Use the existing validated pack format; this fiche does not introduce new runtime behavior."
-      ],
+      "limits": ["Use the existing validated pack format; this fiche does not introduce new runtime behavior."],
       "examples": [
         {
           "intent": "Display authored scene dialogue with a validated speaker.",
@@ -560,9 +501,7 @@
           "expected": "Display authored scene dialogue with a validated speaker."
         }
       ],
-      "references": [
-        "dist/src/domain/scenes.js"
-      ],
+      "references": ["dist/src/domain/scenes.js"],
       "evidence": [
         {
           "path": "tests/speech.browser.mjs",
@@ -580,6 +519,49 @@
       }
     },
     {
+      "id": "mechanic:scene-choreography",
+      "kind": "mechanic",
+      "name": "Scene choreography",
+      "summary": "Stage bounded actor movement, facing, reactions and waits before dialogue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": ["interactable:scene-event"],
+      "limits": [
+        "Sequential player and ranger movement only; no parallel groups or custom animation scripts.",
+        "Each destination is limited to 128 steps and 4096 inspected cells; waits are at most 5 seconds."
+      ],
+      "examples": [
+        {
+          "intent": "Stage two actors approaching and facing before a conversation.",
+          "usage": "Consult docs/SCENE_ACTIONS.md and validate the event against the map.",
+          "expected": "Supported moves complete, report blocked/cancelled explicitly, then show dialogue when the UI remains available."
+        }
+      ],
+      "references": [
+        "docs/SCENE_ACTIONS.md",
+        "dist/src/domain/scenes.js",
+        "dist/src/domain/scene-path.js",
+        "dist/src/controller.js",
+        "dist/src/render/world.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scenes.test.mjs",
+          "assertion": "Covers bounded routes, walkable destinations, actor validation and explicit arrival/block results."
+        }
+      ],
+      "details": {
+        "trigger": "Validated map scene event.",
+        "inputs": "Player and ranger landmark IDs, integer walkable destinations, supported face targets, notice/surprise/happy reactions, and bounded waits.",
+        "sequence": "Actions run in authored order; each movement settles before the next action.",
+        "results": "Movement reports arrived, blocked or cancelled. Player directions and four ranger facings use shipped sprite poses.",
+        "cancellation": "Pause, menu, map travel, battle, hidden tab and page exit release movement ownership and cancel timers.",
+        "errors": "Missing actor, invalid destination, blocked route or unsupported action is rejected or reported; no rescue teleport is used.",
+        "persistence": "One-time event keys, flags and rewards save before presentation; a failed save restores the prior save state."
+      }
+    },
+    {
       "id": "mechanic:staged-objectives",
       "kind": "mechanic",
       "name": "Staged objectives and choices",
@@ -588,9 +570,7 @@
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "No arbitrary executable quest scripts or full narrative engine."
-      ],
+      "limits": ["No arbitrary executable quest scripts or full narrative engine."],
       "examples": [
         {
           "intent": "Advance optional objectives from recorded events and select conditional dialogue choices.",
@@ -598,9 +578,7 @@
           "expected": "Advance optional objectives from recorded events and select conditional dialogue choices."
         }
       ],
-      "references": [
-        "dist/src/domain/objective-events.js"
-      ],
+      "references": ["dist/src/domain/objective-events.js"],
       "evidence": [
         {
           "path": "tests/objective-choices.browser.mjs",
@@ -626,9 +604,7 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "Motivating design request only; do not generate playable data that assumes support."
-      ],
+      "limits": ["Motivating design request only; do not generate playable data that assumes support."],
       "examples": [
         {
           "intent": "Proposed extension: Speed potions and multi-battle buffs.",
@@ -636,9 +612,7 @@
           "expected": "Proposed extension: Speed potions and multi-battle buffs."
         }
       ],
-      "references": [
-        "docs/AUTHORING_CONTRACT.md"
-      ],
+      "references": ["docs/AUTHORING_CONTRACT.md"],
       "evidence": [],
       "details": {
         "trigger": "Not implemented.",

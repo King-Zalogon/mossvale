@@ -269,6 +269,9 @@ function validateOne(m, byId, ctx, errors) {
         ...validateSceneEvent(event, {
           speciesIds: ctx.speciesIds,
           speakerIds: new Set((m.landmarks ?? []).map(landmark => landmark.id)),
+          actorIds: new Set((m.landmarks ?? []).filter(landmark => landmark.kind === 'ranger').map(landmark => landmark.id)),
+          mapSize: m.size,
+          walkable: (x, y) => rawSceneDestinationWalkable(m, x, y),
           mapId: m.id,
           mapIds: new Set(byId.keys()),
           where: `${where}.events[${j}]`,
@@ -281,6 +284,29 @@ function validateOne(m, byId, ctx, errors) {
         errors.push(`${where}.events[${j}]: challenges must use an interact trigger`);
     });
   });
+}
+
+function rawSceneDestinationWalkable(map, x, y) {
+  const legend = map.legend ?? TERRAIN;
+  const radius = PLAYER_RADIUS;
+  const clear = (tx, ty) => {
+    const cell = map.terrain?.[ty]?.[tx];
+    const terrain = cell === undefined ? 'void' : legend[cell];
+    if (terrain === 'void' || terrain === 'water') return false;
+    const solids = [
+      ...(map.landmarks ?? []).map(object => ({at: object.at, solid: object.solid})),
+      ...(map.props ?? []).flatMap(group => (group.at ?? []).map(at => ({at, solid: group.solid}))),
+    ];
+    return !solids.some(object => object.solid && Math.hypot(x - object.at[0], y - object.at[1]) < object.solid + radius);
+  };
+  for (const [dx, dy] of [
+    [-radius, -radius],
+    [radius, -radius],
+    [-radius, radius],
+    [radius, radius],
+  ])
+    if (!clear(Math.round(x + dx), Math.round(y + dy))) return false;
+  return true;
 }
 
 /** Builds the runtime shape. Input must already be valid. */

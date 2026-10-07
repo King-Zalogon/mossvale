@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "content/catalogue/curated.json",
+        "dist/src/controller.js",
+        "dist/src/domain/mapdata.js",
+        "dist/src/domain/scene-path.js",
+        "dist/src/domain/scenes.js",
+        "dist/src/input.js",
+        "dist/src/main.js",
+        "dist/src/render/world.js",
+        "docs/SCENE_ACTIONS.md"
+      ],
+      "entries": ["interactable:scene-event", "mechanic:scene-dialogue", "mechanic:scene-choreography"],
+      "disposition": "updated",
+      "reason": "Scene events now validate and stage bounded sequential movement, facing, reaction cues and waits. The catalogue contract records supported actor types, route bounds, explicit results, cancellation points and durable reward timing; map topology remains unchanged.",
+      "evidence": ["tests/scenes.test.mjs", "tests/maps.test.mjs", "tests/scene-choreography.browser.mjs", "docs/SCENE_ACTIONS.md"]
+    }
+  ]
+}
