@@ -1,6 +1,27 @@
 /* Optional locomotion/habitat route checks. Callers choose when a route is offered; no global physics changes. */
 const has = (values, value) => Array.isArray(values) && values.includes(value);
 
+export function companionRouteEventId(routeId) {
+  return `route-${routeId}`;
+}
+
+export function companionRouteDiscovered(save, mapId, routeId) {
+  return (save?.events ?? []).includes(`${mapId}/${companionRouteEventId(routeId)}`);
+}
+
+export function companionRouteVisible(save, mapId, object) {
+  const routeId = object?.route?.id ?? object?.routeHint;
+  return routeId === undefined || companionRouteDiscovered(save, mapId, routeId);
+}
+
+export function approachedWithinRadius(from, to, target, radius) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const lengthSquared = dx * dx + dy * dy;
+  const t = lengthSquared ? Math.max(0, Math.min(1, ((target.x - from.x) * dx + (target.y - from.y) * dy) / lengthSquared)) : 0;
+  return Math.hypot(target.x - (from.x + t * dx), target.y - (from.y + t * dy)) <= radius;
+}
+
 export function companionCanUseRoute(route, companion) {
   const requires = route?.requires;
   if (!requires) return true;

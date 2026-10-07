@@ -3124,6 +3124,7 @@
             "w": 38,
             "label": "Read the shallow-cut marker",
             "mapLabel": "Shallow-water cut",
+            "routeHint": "shallow-water-cut",
             "text": "Brooklet can lead across the shallow-water cut to Lantern Islet. The familiar boardwalk to Stilt Isles remains open for every companion."
           },
           "limits": "Configure through dist/maps/reedfen-wetlands.json; use its existing validator, not arbitrary new fields."
@@ -4610,34 +4611,37 @@
       "id": "mechanic:companion-route",
       "kind": "mechanic",
       "name": "Companion route gate",
-      "summary": "Optionally unlock a shallow-water route with a compatible companion.",
+      "summary": "Discover and unlock a concealed optional route by approaching it with a compatible companion.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": ["This is not free-form flying, swimming or arbitrary companion interaction."],
+      "limits": [
+        "Discovery uses a 2.5-tile approach radius and the active companion's authored ability/habitat tags.",
+        "This is not free-form flying, swimming or arbitrary companion interaction."
+      ],
       "examples": [
         {
-          "intent": "Optionally unlock a shallow-water route with a compatible companion.",
-          "usage": "Use the existing contract documented at dist/src/domain/world.js.",
-          "expected": "Optionally unlock a shallow-water route with a compatible companion."
+          "intent": "Discover a secret shortcut with the companion whose abilities fit the route.",
+          "usage": "Author an exit route in a map, optionally link clue signs with routeHint, then approach within 2.5 tiles while the matching companion is active.",
+          "expected": "The route, clue sign and map marker appear after discovery; the route event and reward are saved once, and the route remains usable with any companion."
         }
       ],
-      "references": ["dist/src/domain/world.js"],
+      "references": ["dist/src/domain/companion-routes.js", "docs/MAP_FORMAT.md", "dist/maps/reedfen-wetlands.json"],
       "evidence": [
         {
           "path": "tests/companion-route.browser.mjs",
-          "assertion": "Existing regression evidence for this capability."
+          "assertion": "Covers hidden/ineligible states, eligible approach, saved discovery/reward, reload and alternate-route recovery."
         }
       ],
       "details": {
-        "trigger": "Interact with the authored route gate.",
-        "inputs": "Required companion ability/habitat tags and validated route data.",
-        "sequence": "Check eligibility, unlock route and grant existing reward once.",
-        "results": "The optional route becomes traversable without removing the alternate path.",
+        "trigger": "Move within 2.5 tiles of the authored route with a matching active companion.",
+        "inputs": "Required companion ability/habitat tags, validated route data and optional linked sign routeHint.",
+        "sequence": "Keep the route, linked hints and map marker concealed until eligible approach; save its stable event and grant the reward once.",
+        "results": "The optional route and linked hint become visible and remain traversable by every companion without removing the alternate path.",
         "cancellation": "Ineligible companion keeps the normal boardwalk available.",
         "errors": "Unknown route references fail map validation.",
-        "persistence": "Unlock/reward use saved scene event keys."
+        "persistence": "Unlock/reward use saved scene event keys; legacy exploration markers alone do not reveal the route."
       }
     },
     {

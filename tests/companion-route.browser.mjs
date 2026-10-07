@@ -34,8 +34,9 @@ try {
   initial.visited = Array.from({length: wetlandRegion + 1}, (_, index) => index);
   initial.visitedMaps = [...new Set([...initial.visitedMaps, source.id])];
   initial.mapId = source.id;
-  initial.x = source.spawns['shallow-cut-approach'][0];
-  initial.y = source.spawns['shallow-cut-approach'][1];
+  initial.x = route.at[0] - 5;
+  initial.y = route.at[1];
+  initial.explored[source.id] = {cells: null, seen: [route.id, 'shallow-cut-guide']};
   initial.caught = [...new Set([...initial.caught, brooklet])];
   initial.seen = [...new Set([...initial.seen, brooklet])];
   initial.party = [...new Set([...initial.party, brooklet])].slice(0, 3);
@@ -54,22 +55,33 @@ try {
     await page.waitForSelector('#loading', {state: 'hidden'});
     const state = () => page.evaluate(() => window.mossvale.getState());
     assert.equal((await state()).world.map.id, source.id);
-    assert.match(await page.locator('#interact').textContent(), /shallow-water cut/i, 'the route is visibly labeled before unlocking');
+    assert.equal(await page.evaluate(() => window.mossvale.nearest()), null, 'the old route marker and hint are not interactable');
+    assert.equal((await state()).save.events.includes(eventKey), false, 'legacy exploration marks do not unlock the route');
 
-    await page.keyboard.press('e');
-    await page.waitForFunction(() => document.querySelector('#toast').textContent.includes('Brooklet'));
-    assert.equal((await state()).save.mapId, source.id, 'an incompatible active companion cannot cross');
-    assert.equal((await state()).save.events.includes(eventKey), false, 'a denied attempt does not unlock or pay');
-
-    await page.evaluate(id => (window.mossvale.getState().save.active = id), brooklet);
-    await page.waitForTimeout(300);
-    await page.keyboard.press('e');
-    await page.waitForFunction(id => window.mossvale.getState().save.mapId === id, destination.id);
+    const approach = async x =>
+      page.evaluate(x => {
+        window.mossvale.getState().player.x = x;
+        window.mossvale.explore();
+      }, x);
+    await approach(route.at[0] - 2);
+    assert.equal((await state()).save.events.includes(eventKey), false, 'approaching with an incompatible companion cannot reveal or unlock');
+    await page.evaluate(id => window.mossvale.selectCompanion(id), brooklet);
+    assert.equal((await state()).save.events.includes(eventKey), false, 'switching while already nearby is not itself an approach');
+    await approach(route.at[0] - 1.9);
+    await page.waitForFunction(key => window.mossvale.getState().save.events.includes(key), eventKey);
     let current = await state();
-    assert.deepEqual([current.player.x, current.player.y], destination.spawns[route.to.spawn]);
-    assert.equal(current.save.coins, 12);
+    assert.equal(current.save.coins, 12, 'eligible approach grants the once-only discovery reward');
     assert.equal(current.save.events.filter(event => event === eventKey).length, 1);
     assert.match(await page.locator('#toast').textContent(), /route is now marked/i);
+
+    await approach(route.at[0]);
+    assert.equal((await page.evaluate(() => window.mossvale.nearest()))?.ref, route.id, 'the unlocked marker becomes interactable');
+    await page.keyboard.press('e');
+    await page.waitForFunction(id => window.mossvale.getState().save.mapId === id, destination.id);
+    current = await state();
+    assert.deepEqual([current.player.x, current.player.y], destination.spawns[route.to.spawn]);
+    assert.equal(current.save.coins, 12, 'crossing does not pay the discovery reward again');
+    assert.equal(current.save.events.filter(event => event === eventKey).length, 1);
     const stored = () => page.evaluate(() => ({keys: Object.keys(localStorage), save: localStorage.getItem('mossvale-v3')}));
     const persisted = await stored();
     assert.ok(persisted.save?.includes(eventKey), `route unlock is written to the normal persistent save: ${JSON.stringify(persisted)}`);
@@ -81,7 +93,7 @@ try {
     assert.equal(current.save.events.filter(event => event === eventKey).length, 1);
     assert.equal(current.save.coins, 12);
 
-    await page.evaluate(id => (window.mossvale.getState().save.active = id), fernling);
+    await page.evaluate(id => window.mossvale.selectCompanion(id), fernling);
     await page.evaluate(({mapId, spawn}) => window.mossvale.travel(mapId, spawn), {mapId: source.id, spawn: 'shallow-cut-approach'});
     await page.waitForFunction(id => window.mossvale.getState().save.mapId === id, source.id);
     await page.waitForTimeout(300);
