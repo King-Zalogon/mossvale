@@ -26,7 +26,7 @@ export function installInput(app) {
   };
   for (const b of document.querySelectorAll('[data-dir]')) {
     b.onpointerdown = e => {
-      if (ui.modalMode || ui.paused || ui.speechActive) return;
+      if (ui.modalMode || ui.paused || ui.speechActive || ui.sceneBusy) return;
       e.preventDefault();
       if (activeTouchPointer !== null) return;
       activeTouchPointer = e.pointerId;
@@ -48,7 +48,7 @@ export function installInput(app) {
     'pointermove',
     e => {
       if (e.pointerId !== activeTouchPointer) return;
-      if (ui.modalMode || ui.paused || ui.speechActive) {
+      if (ui.modalMode || ui.paused || ui.speechActive || ui.sceneBusy) {
         ui.touch = null;
         return;
       }
@@ -86,6 +86,7 @@ export function installInput(app) {
       }
       return; // other keys can scroll the focused reading region without moving the player
     }
+    if (ui.sceneBusy && k !== 'escape') return;
     if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(k) && !ui.modalMode) e.preventDefault();
     if (ui.modalMode) {
       if (ui.modalMode === 'ranger' && ['1', '2', '3'].includes(k)) {

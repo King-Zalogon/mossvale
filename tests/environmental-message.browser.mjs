@@ -28,11 +28,12 @@ try {
     window.mossvale.travel('amber-ridge');
   });
   await page.waitForFunction(() => window.mossvale.getState().world.map.id === 'amber-ridge');
+  // Check the travel toast before waiting for the separate area message; the two have independent timers.
+  assert.equal(await page.locator('#toast').getAttribute('data-active'), 'true', 'the generic travel toast remains on its original channel');
+  assert.match(await page.locator('#toast').textContent(), /Amber Ridge/);
   await page.evaluate(() => Object.assign(window.mossvale.getState().player, {x: 24, y: 46}));
   await page.waitForSelector('#environment-message:not([hidden])');
   assert.match(await page.locator('#environment-message').textContent(), /Your footsteps echo/);
-  assert.equal(await page.locator('#toast').getAttribute('data-active'), 'true', 'the generic travel toast remains on its original channel');
-  assert.match(await page.locator('#toast').textContent(), /Amber Ridge/);
   assert.equal(await page.locator('#environment-message').getAttribute('aria-live'), 'polite');
 
   const geometry = async () =>
