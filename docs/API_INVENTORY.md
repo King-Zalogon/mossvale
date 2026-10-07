@@ -40,7 +40,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/adventure.js` | domain | `buildAdventure` |
 | `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `createBattle`, `encounterDistance`, `enemyAttack`, `enemyDamageRange`, `ensureHealthyCompanion`, `guardianForecast`, `guardianLevel`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion` |
 | `domain/clock.js` | domain | `createTestClock` |
-| `domain/companion-routes.js` | domain | `availableCompanionRoutes`, `companionCanUseRoute`, `validateCompanionRoutes` |
+| `domain/companion-routes.js` | domain | `approachedWithinRadius`, `availableCompanionRoutes`, `companionCanUseRoute`, `companionRouteDiscovered`, `companionRouteEventId`, `companionRouteVisible`, `validateCompanionRoutes` |
 | `domain/composition.js` | domain | `compileComposition`, `createCompositionArtBrief`, `validateBodyPlan` |
 | `domain/dialogue-choices.js` | domain | `availableDialogueChoices`, `selectDialogueChoice`, `validateDialogueChoices` |
 | `domain/discovery.js` | domain | `CELL`, `MAX_SEEN`, `SECRET_RANGE`, `VISION`, `cellGrid`, `compass`, `decodeEntry`, `discover`, `encodeEntry`, `entryFor`, `exploredShare`, `isKnown`, `isRevealed`, `landmarkLabel`, `reveal`, `toHex` |

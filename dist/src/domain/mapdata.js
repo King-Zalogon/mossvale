@@ -122,6 +122,7 @@ function validateOne(m, byId, ctx, errors) {
   const ids = new Set();
   const landmarkIds = new Set((m.landmarks ?? []).map(landmark => landmark?.id).filter(id => typeof id === 'string'));
   const routeEventIds = new Set();
+  const routeIds = new Set((m.exits ?? []).map(exit => exit?.route?.id).filter(id => typeof id === 'string'));
   (m.landmarks ?? []).forEach((l, i) => {
     const where = `landmarks[${i}] (${l?.id})`;
     if (!isObj(l) || typeof l.id !== 'string') return at(`landmarks[${i}]`, 'id required');
@@ -162,6 +163,8 @@ function validateOne(m, byId, ctx, errors) {
       );
     if (l.tag !== undefined && (typeof l.tag !== 'string' || l.tag.length > 16)) at(where + '.tag', 'tag is a short label (up to 16 characters)');
     if (l.secret !== undefined && typeof l.secret !== 'boolean') at(where + '.secret', 'true (hidden from the maps until found nearby) or false');
+    if (l.routeHint !== undefined && (!ID.test(l.routeHint) || !routeIds.has(l.routeHint)))
+      at(where + '.routeHint', 'must reference a companion route defined by an exit in this map');
     if (l.mapLabel !== undefined && (typeof l.mapLabel !== 'string' || !l.mapLabel || l.mapLabel.length > 24))
       at(where + '.mapLabel', 'the name shown on maps (1-24 characters)');
   });
@@ -343,6 +346,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
       tag: l.tag,
       secret: l.secret === true,
       mapLabel: l.mapLabel,
+      routeHint: l.routeHint,
       reward: l.reward,
       guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level, tactic: l.guardian.tactic, power: l.guardian.power},
     }),

@@ -161,7 +161,35 @@ try {
         followerMotion: window.mossvale.getState().followerMotion,
       }));
       for (const key of keys) await page.keyboard.down(key);
-      await page.waitForTimeout(1200); // allow the trail follower to reach two walk cells on a loaded CI browser
+      await page.waitForFunction(
+        ({start, direction}) => {
+          const game = window.mossvale.getState();
+          return Math.hypot(game.player.x - start.x, game.player.y - start.y) > 0.5 && game.player.dir === direction;
+        },
+        {start: before.player, direction: directionIndex},
+        {timeout: 10000},
+      );
+      await page.waitForFunction(
+        ({direction, id}) => {
+          const motion = window.mossvale.getState().followerMotion;
+          return motion.dir === direction && motion.id === id;
+        },
+        {direction: directionIndex, id: assets.findIndex(asset => asset.name === `creature-${name}-follower`)},
+        {timeout: 10000},
+      );
+      const direction = DIRECTIONS[directionIndex];
+      const mirror = reviewedMirrors[name]?.[direction] ?? expected[name].mirror[direction];
+      const expectedRow = reviewedRows[name]?.[mirror ?? direction] ?? expected[name].rows.indexOf(mirror ?? direction);
+      await page.waitForFunction(
+        ({src, row, flipped}) => {
+          const columns = window.followerAtlasDraws
+            .filter(frame => frame.src.endsWith(src) && frame.row === row && frame.flipped === flipped && frame.column > 0)
+            .map(frame => frame.column);
+          return new Set(columns).size >= 2;
+        },
+        {src: expected[name].sprite, row: expectedRow, flipped: !!mirror},
+        {timeout: 5000},
+      );
       const moved = await page.evaluate(() => ({
         player: {...window.mossvale.getState().player},
         followerMotion: window.mossvale.getState().followerMotion,
@@ -178,9 +206,6 @@ try {
       for (const key of keys) await page.keyboard.up(key);
       await page.waitForTimeout(450);
       const ownAtlas = await page.evaluate(src => window.followerAtlasDraws.filter(frame => frame.src.endsWith(src)), expected[name].sprite);
-      const direction = DIRECTIONS[directionIndex];
-      const mirror = reviewedMirrors[name]?.[direction] ?? expected[name].mirror[direction];
-      const expectedRow = reviewedRows[name]?.[mirror ?? direction] ?? expected[name].rows.indexOf(mirror ?? direction);
       const directionFrames = ownAtlas.filter(frame => frame.row === expectedRow && frame.flipped === !!mirror);
       assert.ok(
         directionFrames.length,
