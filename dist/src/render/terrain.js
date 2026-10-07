@@ -19,15 +19,25 @@ export const mix = (a, b, t) => {
   return toHex(x.map((v, i) => v + (y[i] - v) * t));
 };
 
+const dist = (a, b) => Math.hypot(...hex(a).map((v, i) => (v - hex(b)[i]) / 255));
+
+/** Moves `color` toward `target` until it is at least `min` away from every land color. */
+function separate(color, lands, target, min) {
+  let out = color;
+  for (let i = 0; i < 8 && lands.some(land => dist(out, land) < min); i++) out = mix(out, target, 0.15);
+  return out;
+}
+
 /** Derives every terrain color from a region palette so water always separates from land, whatever the biome. */
 export function terrainColors(palette) {
   const water = palette[4];
+  const lands = [palette[0], palette[1], palette[2], palette[3]];
   return {
     ground: [palette[0], palette[1]],
     grass: palette[2],
     path: palette[3],
-    shallow: mix(water, '#8fdad0', 0.28),
-    deep: mix(water, '#0f3550', 0.42),
+    shallow: separate(mix(water, '#8fdad0', 0.28), lands, '#1f78a0', 0.24),
+    deep: separate(mix(water, '#0f3550', 0.42), lands, '#0a2a44', 0.3),
     foam: '#f1fbf4',
     shore: mix(palette[3], '#fff3c4', 0.3),
     pathEdge: mix(palette[3], '#5a4a28', 0.4),
@@ -52,7 +62,7 @@ function mulberry32(seed) {
 }
 
 /** Smooth value noise in [0, 1): slow patches of lighter and darker ground instead of a per-tile checkerboard. */
-function patchNoise(x, y, region) {
+export function patchNoise(x, y, region) {
   const gx = Math.floor(x / 4);
   const gy = Math.floor(y / 4);
   const fx = (x / 4 - gx) ** 2 * (3 - 2 * (x / 4 - gx));
