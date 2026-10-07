@@ -19,11 +19,11 @@ import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
-import {discover, entryFor, landmarkLabel, reveal} from './domain/discovery.js';
+import {discover, entryFor, landmarkLabel, reveal, SECRET_RANGE} from './domain/discovery.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
 import {recordObjectiveEvent, restoreObjectiveState} from './domain/objective-events.js';
 import {availableDialogueChoices} from './domain/dialogue-choices.js';
-import {companionCanUseRoute} from './domain/companion-routes.js';
+import {approachedWithinRadius, companionCanUseRoute, companionRouteDiscovered, companionRouteVisible} from './domain/companion-routes.js';
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
@@ -342,14 +342,52 @@ export function createController(app) {
   }
 
   function nearest() {
-    return nearestInteractive(game.world, game.player);
+    const object = nearestInteractive(game.world, game.player);
+    return object && companionRouteVisible(save(), game.world.map.id, object) ? object : null;
   }
 
   /** Marks what the player can see as explored and notes landmarks they have come across (domain/discovery.js). */
   let exploredAt = '';
+  let previousRoutePosition = null;
+  function discoverRoute(o) {
+    const mapId = game.world.map.id;
+    const route = o.route;
+    if (companionRouteDiscovered(save(), mapId, route.id)) return true;
+    const before = structuredClone(save());
+    if (!markSceneRun(save(), mapId, `route-${route.id}`)) {
+      toast('This adventure has reached its saved event limit.');
+      return false;
+    }
+    const reward = grantReward(save(), route.reward);
+    if (!persist()) {
+      game.save = before;
+      toast('This route could not be saved, so it remains undiscovered.');
+      return false;
+    }
+    refresh();
+    emit('route.unlocked', {mapId, routeId: route.id});
+    emit('reward.granted', {source: 'route', target: o.ref ?? o.id, ...reward});
+    sfx('chest');
+    toast(route.unlockedText);
+    return true;
+  }
+
+  function discoverCompanionRoutes(map) {
+    const here = {mapId: map.id, x: game.player.x, y: game.player.y};
+    const previous = previousRoutePosition;
+    previousRoutePosition = here;
+    if (!previous || previous.mapId !== here.mapId || Math.hypot(here.x - previous.x, here.y - previous.y) < 1e-4) return;
+    for (const o of game.world.objects) {
+      if (!o.route || companionRouteDiscovered(save(), map.id, o.route.id)) continue;
+      if (!companionCanUseRoute(o.route, species[save().active])) continue;
+      if (approachedWithinRadius(previous, here, o, SECRET_RANGE)) discoverRoute(o);
+    }
+  }
+
   function explore() {
     const map = game.world.map;
     if (!map?.size) return;
+    discoverCompanionRoutes(map);
     const key = `${map.id}:${Math.floor(game.player.x / 2)},${Math.floor(game.player.y / 2)}`; // every couple of tiles, not every frame
     if (key === exploredAt) return;
     exploredAt = key;
@@ -357,7 +395,8 @@ export function createController(app) {
     const explored = (save().explored ??= {});
     const entry = entryFor(explored, map.id, w, h);
     reveal(entry, w, h, game.player.x, game.player.y);
-    for (const o of discover(entry, game.world.objects, game.player.x, game.player.y)) if (o.secret) toast(`You found something hidden: ${landmarkLabel(o)}.`);
+    const discoverable = game.world.objects.filter(o => !o.route && !o.routeHint);
+    for (const o of discover(entry, discoverable, game.player.x, game.player.y)) if (o.secret) toast(`You found something hidden: ${landmarkLabel(o)}.`);
   }
 
   let lastInteract = -Infinity;
@@ -404,26 +443,15 @@ export function createController(app) {
     } else if (o.kind === 'gate') {
       if (o.requires && !flagDone(s, o.requires)) toast(`This trail opens when you earn the ${sealOf(o.requires)}. Visit the blue shrine marker.`);
       else if (o.route) {
-        const eventId = `route-${o.route.id}`;
-        const discovered = sceneHasRun(s, game.world.map.id, eventId);
+        const discovered = companionRouteDiscovered(s, game.world.map.id, o.route.id);
         if (!discovered && !companionCanUseRoute(o.route, species[s.active])) {
           toast(o.route.hint);
           return;
         }
         if (!discovered) {
-          if (!markSceneRun(s, game.world.map.id, eventId)) {
-            toast('This adventure has reached its saved event limit.');
-            return;
-          }
-          const reward = grantReward(s, o.route.reward);
-          emit('route.unlocked', {mapId: game.world.map.id, routeId: o.route.id});
-          emit('reward.granted', {source: 'route', target: o.ref ?? o.id, ...reward});
+          if (!discoverRoute(o)) return;
         }
         travel(o.target, o.spawn);
-        if (!discovered) {
-          sfx('chest');
-          toast(o.route.unlockedText);
-        }
       } else travel(o.target, o.spawn);
     } else if (o.kind === 'shrine') shrine(o);
   }

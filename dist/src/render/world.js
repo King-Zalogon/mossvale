@@ -7,6 +7,7 @@ import {FACING, directionPose, followerFrame, movementFacing, playerFrame, playe
 import {unlocked} from '../domain/rules.js';
 import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
 import {isKnown, isRevealed} from '../domain/discovery.js';
+import {companionRouteDiscovered, companionRouteVisible} from '../domain/companion-routes.js';
 import {drawSprite, drawSpriteFrame, sprites} from './sprites.js';
 import {createTerrainPainter, terrainColors} from './terrain.js';
 
@@ -140,7 +141,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       column: playerFrame(player.walkDistance, v.moving, v.reducedMotion),
       ...playerSpritePose(player.dir),
     };
-    const visibleObjects = objectsInBounds(world, bounds);
+    const visibleObjects = objectsInBounds(world, bounds).filter(object => companionRouteVisible(save, world.map.id, object));
     stats = {visibleTiles: tiles.length, worldTiles: world.tiles.length, visibleObjects: visibleObjects.length, worldObjects: world.objects.length};
     const all = [...visibleObjects, follow, {x: player.x, y: player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player', frame: playerPose}].sort(
       (a, b) => a.x + a.y - b.x - b.y,
@@ -266,7 +267,9 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     mini.clearRect(0, 0, 120, 100);
     mini.drawImage(miniLayer, 0, 0);
     for (const o of world.objects) {
-      if (!['shrine', 'ranger', 'chest', 'gate'].includes(o.kind) || !isKnown(entry, o) || (o.kind === 'chest' && save.chests.includes(save.region))) continue;
+      if (!['shrine', 'ranger', 'chest', 'gate'].includes(o.kind) || !companionRouteVisible(save, world.map.id, o)) continue;
+      if (!isKnown(entry, o) && !(o.route && companionRouteDiscovered(save, world.map.id, o.route.id))) continue;
+      if (o.kind === 'chest' && save.chests.includes(save.region)) continue;
       const s = mp(o.x, o.y);
       mini.fillStyle = o.kind === 'shrine' ? '#80dcff' : o.kind === 'chest' ? '#f6c25b' : '#eff3d5';
       mini.fillRect(s.x - 2, s.y - 2, 4, 4);
