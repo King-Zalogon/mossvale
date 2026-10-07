@@ -484,7 +484,7 @@ function loop(t) {
   if (!document.hidden) {
     const {pacing} = game;
     pacing.encounterCooldown = Math.max(0, pacing.encounterCooldown - dt);
-    if (!ui.paused && !ui.modalMode && !ui.speechActive) {
+    if (!ui.paused && !ui.modalMode && !ui.speechActive && !ui.sceneBusy) {
       game.save.playTime += dt;
       const [sx, sy] = direction(ui);
       const run = ui.keys.shift || ui.touchRun;
@@ -514,7 +514,7 @@ function loop(t) {
       now: ui.now,
       paused: ui.paused,
       phase: game.phase,
-      moving: isMoving(ui) && !ui.modalMode && !ui.paused,
+      moving: (isMoving(ui) || ui.sceneMoving) && !ui.modalMode && !ui.paused,
       reducedMotion: app.motionReduced(),
     };
     const t0 = perf ? performance.now() : 0;
@@ -567,6 +567,7 @@ fullscreenButton.onclick = async () => {
 document.addEventListener('fullscreenchange', syncFullscreenButton);
 $('#pause').onclick = () => {
   if (game.battle || ui.modalMode) return;
+  actions.cancelSceneMotion();
   ui.paused = !ui.paused;
   app.audio.hold(ui.paused);
   $('#pause').textContent = ui.paused ? 'Resume' : 'Pause';
@@ -608,6 +609,8 @@ if (debug) {
       paused: ui.paused,
       phase: game.phase,
       modalMode: ui.modalMode,
+      sceneBusy: ui.sceneBusy,
+      sceneMoving: ui.sceneMoving,
       now: ui.now,
       followerMotion: renderer.followerMotion,
       trail: game.trail,

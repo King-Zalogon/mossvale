@@ -1,8 +1,9 @@
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
-import {mkdtempSync, readFileSync, rmSync} from 'node:fs';
+import {existsSync, mkdtempSync, readFileSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
-import {join} from 'node:path';
+import {join, relative, resolve, sep} from 'node:path';
+import http from 'node:http';
 import {pathToFileURL} from 'node:url';
 import {startCatalogueServer} from '../scripts/catalogue-visual.mjs';
 import {ROOT} from '../scripts/lib/catalogue.mjs';
@@ -50,6 +51,7 @@ try {
   assert.equal(await preview.getAttribute('loading'), 'lazy');
   assert.deepEqual(errors, []);
   const temp = mkdtempSync(join(tmpdir(), 'mossvale-catalogue-file-'));
+  let fileNavigationBlocked = false;
   try {
     const portable = join(temp, 'context');
     writePortableContext({
@@ -61,9 +63,30 @@ try {
       appScript: readFileSync(new URL('../scripts/catalogue-browser/app.js', import.meta.url), 'utf8'),
       stylesheet: readFileSync(new URL('../scripts/catalogue-browser/styles.css', import.meta.url), 'utf8'),
     });
-    const offline = await browser.newPage();
+    let offline = await browser.newPage();
     offline.on('pageerror', error => errors.push(error.message));
-    await offline.goto(pathToFileURL(join(portable, 'index.html')).href);
+    try {
+      await offline.goto(pathToFileURL(join(portable, 'index.html')).href);
+    } catch (error) {
+      if (!error.message.includes('ERR_BLOCKED_BY_ADMINISTRATOR')) throw error;
+      // Some managed Chromium builds prohibit file:// navigation. Serve only the temporary export locally so its
+      // self-contained routes/assets can still be exercised without falling back to the repository catalogue.
+      fileNavigationBlocked = true;
+      await offline.close();
+      offline = await browser.newPage();
+      offline.on('pageerror', error => errors.push(error.message));
+      const mime = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png'};
+      const offlineServer = http
+        .createServer((request, response) => {
+          const path = resolve(portable, '.' + decodeURIComponent(new URL(request.url, 'http://localhost').pathname));
+          const rel = relative(resolve(portable), path);
+          if (!rel || rel === '..' || rel.startsWith(`..${sep}`) || !existsSync(path)) return void response.writeHead(404).end();
+          response.writeHead(200, {'content-type': mime[path.split('.').pop()] ?? 'application/octet-stream'}).end(readFileSync(path));
+        })
+        .listen(0);
+      offline.once('close', () => offlineServer.close());
+      await offline.goto(`http://127.0.0.1:${offlineServer.address().port}/index.html`);
+    }
     await offline.waitForFunction(() => document.querySelectorAll('.card').length === 66);
     await offline.locator('#search').fill('tree oak');
     await offline.waitForFunction(() => document.querySelectorAll('.card').length >= 1);
@@ -73,7 +96,10 @@ try {
   } finally {
     rmSync(temp, {recursive: true, force: true});
   }
-  console.log('ok local visual catalogue filters, accessible selection/details, cropped atlas previews, lazy loading and portable file:// browsing');
+  console.log(
+    'ok local visual catalogue filters, accessible selection/details, cropped atlas previews, lazy loading and portable browsing' +
+      (fileNavigationBlocked ? ' (local static fallback: file:// blocked by browser policy)' : ' (file://)'),
+  );
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));

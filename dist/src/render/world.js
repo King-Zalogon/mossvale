@@ -173,7 +173,22 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
         else if (o.kind === 'companion' && assets[o.id]?.frames)
           drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
-        else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
+        else if (o.kind === 'ranger' && assets[o.id]?.frames?.columns === 4) {
+          const cardinalColumn = Math.round((o.sceneDir ?? FACING.south) / 2) % 4;
+          drawSpriteFrame(ctx, o.id, cardinalColumn, 0, s.x, s.y + bob, o.w * zoom, options);
+        } else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
+      }
+      if (o.sceneReaction && o.sceneReactionUntil > now) {
+        const mark = o.sceneReaction === 'happy' ? '♥' : o.sceneReaction === 'surprise' ? '!' : '…';
+        ctx.font = `bold ${Math.round(17 * zoom)}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#fff8d9';
+        ctx.strokeStyle = '#244632';
+        ctx.lineWidth = 3 * zoom;
+        const y = s.y - spriteHeight(o) - 15 * zoom;
+        ctx.strokeText(mark, s.x, y);
+        ctx.fillText(mark, s.x, y);
       }
       if (['ranger', 'shrine', 'chest', 'gate'].includes(o.kind) && !openedChest) {
         ctx.fillStyle = o.kind === 'shrine' ? '#a2ddf8' : o.kind === 'chest' ? '#f4ce81' : '#eef2c0';
