@@ -80,3 +80,7 @@ Codex claim: `codex/229-guardian-turn-window`, originally based on `origin/main`
 ## #232 — local catalogue impact feedback
 
 Codex claim: `codex/232-local-impact-working-tree`, created from latest `origin/main` and synchronized with `origin/integration` `92b89c4`. The local impact collector currently sees only merge-base-to-HEAD commits. Planned fix includes staged, unstaged and non-ignored untracked paths, preserving rename/deletion behavior and full-history CI. Add temporary repository regressions and document local vs PR checks. No authorable catalog data or game runtime behavior should change.
+
+## #254 — authored set pieces
+
+Claude claim: `claude/254-landmarks`, from `origin/main` merged with `origin/integration` `24bf0f9`. Scope: deterministic scenery compositions (stone rings, groves, cairns, reed banks) in the eight adventure maps, using existing sprites only. Does not touch landmarks, exits, zones, quiet corridors or art. Checks run locally (CI unavailable): lint, `npm test` (only the pre-existing catalogue freshness test fails), every browser test (only pre-existing `catalogue-browser` and `environmental-message` fail), `catalogue:impact`, screenshots. Next: playfield/HUD must be coordinated with #251 (input controls) before editing layout.

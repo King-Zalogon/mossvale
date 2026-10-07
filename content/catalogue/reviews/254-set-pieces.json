@@ -1,0 +1,33 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/maps/meadow.json",
+        "dist/maps/orchard-ruins.json",
+        "dist/maps/reedfen-wetlands.json",
+        "dist/maps/stilt-isles.json",
+        "dist/maps/amber-ridge.json",
+        "dist/maps/stone-basin.json",
+        "dist/maps/frostveil-grove.json",
+        "dist/maps/frostveil-pass.json",
+        "dist/maps/index.json",
+        "scripts/gen-set-pieces.py",
+        "tests/set-pieces.test.mjs"
+      ],
+      "entries": [
+        "map:mossvale/meadow",
+        "map:mossvale/orchard-ruins",
+        "map:mossvale/reedfen-wetlands",
+        "map:mossvale/stilt-isles",
+        "map:mossvale/amber-ridge",
+        "map:mossvale/stone-basin",
+        "map:mossvale/frostveil-grove",
+        "map:mossvale/frostveil-pass"
+      ],
+      "disposition": "no-semantic-impact",
+      "reason": "Set pieces add decorative scenery prop groups (stone rings, groves, cairns, reed banks) built from existing sprites. They are placed on open land clear of paths, quiet corridors, spawns, exits, landmarks and triggers, so routes, encounter zones, requirements, rewards and saves are unchanged; map fiches describe terrain, landmarks and routes, not scenery density.",
+      "evidence": ["tests/set-pieces.test.mjs", "tests/maps.test.mjs", "tests/playthrough.browser.mjs"]
+    }
+  ]
+}
