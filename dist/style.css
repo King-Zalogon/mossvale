@@ -2160,10 +2160,16 @@ body.reduce-motion *::after {
 }
 
 .battle-intent {
-  margin: 6px 0 0;
-  font-size: 13px;
-  opacity: 0.85;
-  text-align: center;
+  margin: 8px 0 0;
+  padding: 9px 12px;
+  border: 1px solid rgba(139, 209, 177, 0.48);
+  border-radius: 9px;
+  background: rgba(8, 30, 24, 0.78);
+  color: #e7f4e9;
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: left;
+  overflow-wrap: anywhere;
 }
 
 .story-copy {

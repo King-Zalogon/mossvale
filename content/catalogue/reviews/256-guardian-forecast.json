@@ -1,0 +1,27 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "content/catalogue/curated.json",
+        "dist/maps/registries.json",
+        "dist/maps/index.json",
+        "dist/src/domain/battle.js",
+        "dist/src/ui/battle-view.js",
+        "dist/style.css",
+        "tests/fixtures/packs/bakery/registries.json",
+        "tests/fixtures/packs/bakery/index.json",
+        "tests/fixtures/packs/hearth/registries.json",
+        "tests/fixtures/packs/hearth/index.json",
+        "tests/fixtures/packs/lantern-crossing/registries.json",
+        "tests/fixtures/packs/lantern-crossing/index.json",
+        "tests/fixtures/packs/the-fernling-at-dusk/registries.json",
+        "tests/fixtures/packs/the-fernling-at-dusk/index.json"
+      ],
+      "entries": ["mechanic:guardian-counterplay"],
+      "disposition": "updated",
+      "reason": "Guardian battles now show a derived forecast that shares the resolver's damage formula and explains action timing, damage ranges, Guard, Focus, brace/charge effects and available counterplay. Response qualification also skips a later-turn response when the guardian is defeated before that turn. Fixture guardian hints no longer duplicate old generic brace claims that conflicted with the configured rules; their pack manifest hashes were refreshed through the pack CLI.",
+      "evidence": ["tests/guardians.test.mjs", "tests/guardian-forecast.browser.mjs", "docs/BATTLE.md", "docs/GUARDIANS.md"]
+    }
+  ]
+}

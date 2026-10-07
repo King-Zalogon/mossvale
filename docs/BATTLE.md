@@ -15,16 +15,21 @@ Issue [#16](https://github.com/King-Zalogon/mossvale/issues/16). Rules are in `d
 
 The enemy alternates a plain strike and its elemental move; there are no status effects (deliberately: Focus is the one extra decision). Capture chance is `25% + 67% × missing enemy HP + 2.5% per level above the enemy`, capped at 96%, and is exactly what the button shows.
 
-## Guardian tactics (#23)
+## Guardian forecasts and tactics (#23, #256)
 
-Wild creatures strike and use their elemental move in turn. Each regional guardian follows a short repeating **tactic** from `dist/src/data/tactics.js`, chosen in the shrine's map data (`guardian: { species, level, tactic, power }`). While you fight a guardian, the line under the log tells you its next move, so the decision is yours, not a guess.
+Wild creatures strike and use their elemental move in turn. Each regional guardian follows a short repeating **tactic** from `dist/src/data/tactics.js`, chosen in the shrine's map data (`guardian: { species, level, tactic, power }`). A guardian forecast means **after your current choice**, the guardian takes its listed action; if your action defeats it, the reply does not happen. Damage is shown as a range for the current active companion because the enemy damage roll is random. Switching to a different type matchup changes that range. Guard covers only the one enemy action that follows the Guard choice.
 
 | Guardian | Tactic | Pattern | What it asks of you |
 | --- | --- | --- | --- |
-| Meadow (Mushmallow) | Spore guard | strike, brace | After it braces your next attack is halved: Guard or heal that turn, burst when it opens up |
-| Amber Ridge (Pebblit) | Rolling charge | strike, charge, heavy | The heavy blow is 1.8× a strike; Guard the turn it comes |
-| Frostveil Grove (Frostowl) | Frost chorus | element, element, strike | Its elemental hits make the matchup matter: bring a teammate that resists Ice, and heal |
+| Meadow (Mushmallow) | Spore guard | strike, brace | Brace follows your choice and deals no damage. After it braces, a Quick Strike uses a 0.12 damage factor (3 minimum); an Element move uses a 1.5 factor and costs 1 Focus. Those factors affect the next attack, not the action before the brace. Guard does not carry past a no-damage brace. |
+| Amber Ridge (Pebblit) | Rolling charge | strike, charge, heavy | Charge follows your choice and deals no damage; heavy follows on the guardian's next turn. Save Guard for the heavy forecast: it multiplies damage by 0.35 and returns the prevented damage (factor 1.0). Guarding charge itself protects against no hit and expires. |
+| Frostveil Grove (Frostowl) | Frost chorus | element, element, strike | The second consecutive Element move uses a 1.7 raw damage factor before matchup, defense and Guard. Switch to a healthy Ice-resistant teammate when that repeat is forecast; the enemy still attacks after you switch. |
+| Reedfen Wetlands (Siltkip) | Tidal current | element, charge, heavy | Charge follows your choice, deals no damage, and can restore up to 12% of maximum HP. An Element move chosen this turn (1 Focus) interrupts that recovery. Guard charge itself does not protect against the later heavy; Guard the heavy forecast to reduce damage and riposte. |
 
 `power` (0.5–3, default 1) scales a guardian's damage; the meadow and amber guardians use 1.5. The fourth biome's guardian will reuse these actions or add one to the vocabulary.
 
-Guardians can be retried freely: a defeat heals the team and returns you to camp, and the seal reward is only paid the first time. `tests/guardians.test.mjs` plays each guardian with three simple policies. At one level under the guardian, a Focus-burst policy and a read-the-intent policy both win most of the time, while plain striking fails the amber and frostveil guardians. (The bot only uses a Fernling, a Leaf creature that is weak against Ice, so the Frostveil numbers are a worst case.)
+The forecast panel is derived from the same tactic fields and damage formula as the battle resolver. It identifies reply timing, the current active target, a random damage range, Guard's reduced range/riposte, Focus costs, interruption windows and any configured response reward. A no-damage Brace or Charge consumes Guard's one-action protection; Guard still grants Focus. Element is unavailable at 0 Focus. The panel is static text and remains present with reduced motion.
+
+Successful responses pay a small bonus only when their matching window occurs and the fight is won: breaking Meadow's already-active brace, Guarding a forecast heavy blow, switching to a healthy resistant teammate for Frostveil's repeated volley, interrupting Reedfen's charge, and Guarding its crash each grant +8 coins and +10 XP once per fight. Killing Reedfen before its charge resolves does not award an “interrupted recovery” bonus. Response IDs remain in the existing battle checkpoint; no save schema change is needed.
+
+Guardians can be retried freely: a defeat heals the team and returns you to camp, and the seal reward is only paid the first time. `tests/guardians.test.mjs` compares attack-only, Focus-burst and responsive policies over 50 seeded fights per guardian and two synthetic team profiles. All three policies win all sampled fights; responsive play reduces incoming damage on the advanced profile. This test does not model player behavior or prove balance/enjoyment on a real save.

@@ -81,10 +81,11 @@ export function createBattle(save, rng, {id, level: enemyLevel, boss = false, ta
   };
 }
 
-function counterplayFor(save, battle, action) {
+function counterplayFor(save, battle, action, {enemyWillAct = true} = {}) {
   if (!battle.boss) return [];
   return (TACTICS[battle.tactic]?.counterplay ?? []).filter(response => {
     if (response.action !== action.kind) return false;
+    if (response.next && !enemyWillAct) return false;
     if (response.next && nextEnemyAction(battle) !== response.next) return false;
     if (response.previous && lastEnemyAction(battle) !== response.previous) return false;
     if (response.resistant && (action.id === undefined || effectiveness(battle.id, action.id) >= effectiveness(battle.id, save.active))) return false;
@@ -92,8 +93,8 @@ function counterplayFor(save, battle, action) {
   });
 }
 
-function recordCounterplay(save, battle, action) {
-  const found = counterplayFor(save, battle, action);
+function recordCounterplay(save, battle, action, options) {
+  const found = counterplayFor(save, battle, action, options);
   if (!found.length) return;
   battle.counterplay ??= [];
   for (const response of found) if (!battle.counterplay.includes(response.id)) battle.counterplay.push(response.id);
@@ -162,32 +163,125 @@ export function lastEnemyAction(battle) {
   return battle.turn > 0 ? plan[(battle.turn - 1) % plan.length] : null;
 }
 
-/** The enemy's turn on the active companion. Advances the turn. `action` says what it did ('charge' and 'brace' do no damage). */
-export function enemyAttack(save, battle, rng) {
-  const action = nextEnemyAction(battle);
+function enemyDamageForRoll(save, battle, action, roll, guarded) {
   const element = action === 'element';
-  const interrupted = action === 'charge' && battle.disruptCharge === true;
-  delete battle.disruptCharge;
-  const eff = element ? effectiveness(battle.id, save.active) : 1;
   const attacks = action !== 'charge' && action !== 'brace';
   const foe = species[battle.id];
   const defender = species[save.active];
   const tactic = battle.boss ? TACTICS[battle.tactic] : null;
   const repeatElement = element && lastEnemyAction(battle) === 'element';
   const raw =
-    (7 + (foe.stats.attack - 10) * 0.4 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) *
+    (7 + (foe.stats.attack - 10) * 0.4 + (battle.level - BASE_LEVEL) * 0.65 + roll * 3) *
     (element ? (moves[foe.move]?.power ?? 1) : 1) *
     (battle.boss ? 1.08 : 1) *
     (battle.power ?? 1) *
-    eff *
+    (element ? effectiveness(battle.id, save.active) : 1) *
     (action === 'heavy' ? HEAVY_FACTOR : 1) *
     (repeatElement ? (tactic?.repeatElementFactor ?? 1) : 1) *
     (1 - (defender.stats.defense - 10) / 100);
   const unguarded = attacks ? Math.max(2, Math.round(raw)) : 0;
-  const damage = attacks ? Math.max(2, Math.round(raw * (battle.guard ? GUARD_FACTOR : 1))) : 0;
+  const damage = attacks ? Math.max(2, Math.round(raw * (guarded ? GUARD_FACTOR : 1))) : 0;
+  const counter = guarded && action === 'heavy' ? Math.round((unguarded - damage) * (tactic?.guardRiposteFactor ?? 0)) : 0;
+  return {damage, counter, unguarded, element, raw};
+}
+
+/** The exact damage bounds for an enemy action, sharing its formula with enemyAttack. */
+export function enemyDamageRange(save, battle, action = nextEnemyAction(battle), guarded = false) {
+  if (!['strike', 'element', 'heavy'].includes(action)) return null;
+  const maxRoll = 1 - Number.EPSILON;
+  const low = enemyDamageForRoll(save, battle, action, 0, guarded);
+  const high = enemyDamageForRoll(save, battle, action, maxRoll, guarded);
+  let counter = {min: low.counter, max: high.counter};
+  if (guarded && action === 'heavy' && TACTICS[battle.tactic]?.guardRiposteFactor) {
+    // Rounded guarded and unguarded damage can make riposte damage briefly rise between endpoints.
+    // Sample both sides of every rounding boundary so the displayed range is exact, not just conservative.
+    const span = high.raw - low.raw;
+    const rolls = new Set([0, maxRoll]);
+    const thresholds = [];
+    for (let raw = Math.floor(low.raw) + 0.5; raw <= high.raw; raw += 1) thresholds.push(raw);
+    for (let guardedRaw = Math.floor(low.raw * GUARD_FACTOR) + 0.5; guardedRaw <= high.raw * GUARD_FACTOR; guardedRaw += 1)
+      thresholds.push(guardedRaw / GUARD_FACTOR);
+    for (const raw of thresholds) {
+      const at = (raw - low.raw) / span;
+      for (const offset of [-1e-9, 0, 1e-9]) {
+        const roll = at + offset;
+        if (roll >= 0 && roll <= maxRoll) rolls.add(roll);
+      }
+    }
+    const values = [...rolls].map(roll => enemyDamageForRoll(save, battle, action, roll, true).counter);
+    counter = {min: Math.min(...values), max: Math.max(...values)};
+  }
+  return {
+    damage: {min: low.damage, max: high.damage},
+    counter,
+    unguarded: {min: low.unguarded, max: high.unguarded},
+  };
+}
+
+function forecastResponses(save, battle, tactic, action, previous, future = false) {
+  return (tactic?.counterplay ?? [])
+    .filter(response => (!response.next || response.next === action) && (!response.previous || response.previous === previous))
+    .map(response => {
+      if (future) return {...response, available: null, targetIds: []};
+      if (response.action === 'element') return {...response, available: battle.focus >= ELEMENT_COST, targetIds: []};
+      if (response.action === 'switch') {
+        const current = effectiveness(battle.id, save.active);
+        const targetIds = save.party.filter(id => id !== save.active && companion(save, id).hp > 0 && effectiveness(battle.id, id) < current);
+        return {...response, available: targetIds.length > 0, targetIds};
+      }
+      return {...response, available: true, targetIds: []};
+    });
+}
+
+/** Structured, non-mutating facts for the guardian action that follows the player's choice. */
+export function guardianForecast(save, battle) {
+  if (!battle?.boss) return null;
+  const action = nextEnemyAction(battle);
+  const previous = lastEnemyAction(battle);
+  const tactic = TACTICS[battle.tactic];
+  const pattern = planOf(battle.tactic);
+  const nextAction = pattern[(battle.turn + 1) % pattern.length];
+  const brace = action === 'brace';
+  const charge = action === 'charge';
+  return {
+    action,
+    previous,
+    nextAction,
+    damage: enemyDamageRange(save, battle, action, false),
+    guardedDamage: enemyDamageRange(save, battle, action, true),
+    brace: brace
+      ? {
+          quickFactor: tactic?.braceQuickFactor ?? BRACE_FACTOR,
+          elementFactor: tactic?.braceElementFactor ?? BRACE_FACTOR,
+          elementCost: ELEMENT_COST,
+          focusGain: FOCUS_GAIN,
+        }
+      : null,
+    charge: charge
+      ? {
+          recoveryFactor: tactic?.recoveryOnCharge ?? 0,
+          recoveryMax: tactic?.recoveryOnCharge ? Math.ceil(battle.max * tactic.recoveryOnCharge) : 0,
+          interruptAction: tactic?.chargeInterruptedBy ?? null,
+          interruptCost: tactic?.chargeInterruptedBy === 'element' ? ELEMENT_COST : 0,
+          interruptAvailable: tactic?.chargeInterruptedBy === 'element' && battle.focus >= ELEMENT_COST,
+        }
+      : null,
+    repeatedElementFactor: action === 'element' && previous === 'element' && tactic?.repeatElementFactor > 1 ? tactic.repeatElementFactor : 1,
+    responses: forecastResponses(save, battle, tactic, action, previous),
+    followupResponses: forecastResponses(save, battle, tactic, nextAction, action, true),
+  };
+}
+
+/** The enemy's turn on the active companion. Advances the turn. `action` says what it did ('charge' and 'brace' do no damage). */
+export function enemyAttack(save, battle, rng) {
+  const action = nextEnemyAction(battle);
+  const interrupted = action === 'charge' && battle.disruptCharge === true;
+  delete battle.disruptCharge;
+  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  // Keep one draw per enemy turn, including brace/charge, so existing seeded battles stay deterministic.
+  const {damage, counter, element} = enemyDamageForRoll(save, battle, action, rng(), battle.guard);
   const c = companion(save);
   c.hp = Math.max(0, c.hp - damage);
-  const counter = battle.guard && action === 'heavy' ? Math.round((unguarded - damage) * (tactic?.guardRiposteFactor ?? 0)) : 0;
   if (counter > 0) battle.hp = Math.max(0, battle.hp - counter);
   const recovered =
     action === 'charge' && !interrupted && tactic?.recoveryOnCharge && battle.hp > 0
@@ -318,8 +412,8 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
       battle.focus -= ELEMENT_COST;
     } else gainFocus(battle);
     battle.disruptCharge = action.kind === 'element' && nextEnemyAction(battle) === 'charge' && TACTICS[battle.tactic]?.chargeInterruptedBy === 'element';
-    recordCounterplay(save, battle, action);
     const strike = playerStrike(save, battle, action.kind, rng);
+    recordCounterplay(save, battle, action, {enemyWillAct: !strike.defeated});
     push({type: 'strike', ...strike});
     if (strike.defeated) {
       ended = 'win';

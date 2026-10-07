@@ -13,5 +13,22 @@
   "milestones": [
     "bakery-lane.chest"
   ],
-  "registries": "registries.json"
+  "registries": "registries.json",
+  "contentVersion": 1,
+  "requires": {
+    "engineVersion": 1,
+    "saveSchema": 5
+  },
+  "integrity": [
+    {
+      "id": "registry:main",
+      "path": "registries.json",
+      "sha256": "64b87f81bca5ea889cd69f3217360065c9c1a43bc735ffd9976caeab2318912d"
+    },
+    {
+      "id": "map:bakery-lane",
+      "path": "bakery-lane.json",
+      "sha256": "56d9f8dbc8a413179ebb11b41307325d58700ac1303633675c4e3da38fc1124f"
+    }
+  ]
 }
