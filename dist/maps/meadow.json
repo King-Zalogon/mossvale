@@ -154,7 +154,9 @@
           "target": "ranger",
           "text": "The meadow shrine is awake. What should I do next?",
           "reply": "Follow the orchard trail east. The other islands are waiting for you.",
-          "when": {"flag": "meadow.seal"}
+          "when": {
+            "flag": "meadow.seal"
+          }
         },
         {
           "id": "ask-how-to-wake-shrine",
@@ -162,7 +164,11 @@
           "target": "ranger",
           "text": "How can I wake the meadow shrine?",
           "reply": "Make a friend in the tall grass, then visit the blue crystal north of camp.",
-          "when": {"not": {"flag": "meadow.seal"}}
+          "when": {
+            "not": {
+              "flag": "meadow.seal"
+            }
+          }
         }
       ]
     },
@@ -173,7 +179,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine · East: the long trail to the orchard · South: the pond trail and a quiet grove · Blue minimap marker: shrine"
+      "text": "North: crystal shrine \u00b7 East: the long trail to the orchard \u00b7 South: the pond trail and a quiet grove \u00b7 Blue minimap marker: shrine"
     },
     {
       "id": "chest",
@@ -693,6 +699,124 @@
         [40.5, 26.5],
         [37.8, 24.5]
       ]
+    },
+    {
+      "sprite": "tree-oak",
+      "kind": "scenery",
+      "w": 79,
+      "solid": 0.52,
+      "at": [
+        [26.5, 34.6],
+        [24.2, 32.8],
+        [24.2, 29.8],
+        [26.5, 28.0],
+        [29.4, 28.6],
+        [30.7, 31.3]
+      ],
+      "piece": "oak-grove-1"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [26.5, 31.6],
+        [28.0, 30.7],
+        [27.7, 32.2]
+      ],
+      "piece": "oak-grove-1"
+    },
+    {
+      "sprite": "tree-oak",
+      "kind": "scenery",
+      "w": 79,
+      "solid": 0.52,
+      "at": [
+        [13.3, 56.1],
+        [11.0, 54.3],
+        [11.0, 51.3],
+        [13.3, 49.5],
+        [16.2, 50.2],
+        [17.5, 52.8]
+      ],
+      "piece": "oak-grove-2"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [13.3, 53.1],
+        [14.8, 52.2],
+        [14.5, 53.7]
+      ],
+      "piece": "oak-grove-2"
+    },
+    {
+      "sprite": "tree-pine",
+      "kind": "scenery",
+      "w": 79,
+      "solid": 0.52,
+      "at": [
+        [46.2, 36.2],
+        [43.9, 34.3],
+        [43.9, 31.4],
+        [46.2, 29.6],
+        [49.1, 30.2],
+        [50.4, 32.9]
+      ],
+      "piece": "pine-grove-3"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [[47.2, 33.1]],
+      "piece": "pine-grove-3"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [
+        [60.4, 36.6],
+        [61.9, 37.1],
+        [61.0, 35.2]
+      ],
+      "piece": "cairn-4"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [59.3, 37.4],
+        [62.3, 36.0]
+      ],
+      "piece": "cairn-4"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [
+        [56.0, 54.3],
+        [57.5, 54.8],
+        [56.6, 52.9]
+      ],
+      "piece": "cairn-5"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [54.9, 55.1],
+        [57.9, 53.7]
+      ],
+      "piece": "cairn-5"
     }
   ],
   "zones": [
