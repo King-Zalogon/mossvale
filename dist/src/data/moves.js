@@ -12,4 +12,7 @@ export const moves = {
   'silt-surge': {name: 'Silt surge', power: 1, description: 'A balanced rush of water and mud.'},
   'glass-dash': {name: 'Glass dash', power: 1.18, description: 'A sharp, high-power pass from a fragile sprinter.'},
   'quiet-squall': {name: 'Quiet squall', power: 0.94, description: 'A controlled icy gust from a resilient guardian.'},
+  'seedline-sweep': {name: 'Seedline sweep', power: 0.95, description: 'A measured arc of the carried sedge blade.'},
+  'orchid-pounce': {name: 'Orchid pounce', power: 1.1, description: 'A sudden petal-limbed lunge with a precise landing.'},
+  'kiln-shoulder': {name: 'Kiln shoulder', power: 0.92, description: 'A steady, plate-braced strike from a patient defender.'},
 };

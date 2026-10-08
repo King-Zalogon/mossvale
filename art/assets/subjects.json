@@ -118,7 +118,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
@@ -505,7 +505,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -641,14 +641,14 @@
           "path": "dist/assets/creatures/creature-fernling-combat.png",
           "sha256": "50c26219f530e42b350351364c71a7465ccb4c84706996f827d2d477154b0cfc",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-fernling-follower",
           "path": "dist/assets/creatures/creature-fernling-follower.png",
           "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeTreatments": {
@@ -674,13 +674,13 @@
         "assetId": "creature-fernling-combat",
         "fallbackAssetId": "creature-fernling",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -710,7 +710,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a"
+        "sha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235"
       },
       "runtimeFollower": {
         "assetId": "creature-fernling-follower",
@@ -733,13 +733,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -807,7 +807,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "23c7d9afdb8e44b0cd270d24643e96ada207de2cfdbce46a33d2bc2c92b74b21"
+        "sha256": "2d2421b24e26393a0cff517ada2214c402ec55236ff92dc7168a4766b8667f14"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -939,14 +939,14 @@
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
           "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-duskwing-follower",
           "path": "dist/assets/creatures/creature-duskwing-follower.png",
           "sha256": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeTreatments": {
@@ -972,13 +972,13 @@
         "assetId": "creature-duskwing-combat",
         "fallbackAssetId": "creature-duskwing",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -1008,7 +1008,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a"
+        "sha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235"
       },
       "runtimeFollower": {
         "assetId": "creature-duskwing-follower",
@@ -1031,13 +1031,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -1105,11 +1105,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a"
+        "sha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1245,14 +1245,14 @@
           "path": "dist/assets/creatures/creature-emberkin-follower.png",
           "sha256": "eb58e50eee961389052c0a12cf6138faf824f7a83b4f1c2063d9269f8405de0f",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         },
         {
           "assetId": "creature-emberkin-combat",
           "path": "dist/assets/creatures/creature-emberkin-combat.png",
           "sha256": "dbe7f65ae28ad098d8e43521c3f6b092caed7c8f9d220682faa585f90f205b3b",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         }
       ],
       "requiredDirections": [
@@ -1286,13 +1286,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -1360,7 +1360,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "23c7d9afdb8e44b0cd270d24643e96ada207de2cfdbce46a33d2bc2c92b74b21"
+        "sha256": "2d2421b24e26393a0cff517ada2214c402ec55236ff92dc7168a4766b8667f14"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1492,14 +1492,14 @@
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
           "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-brooklet-follower",
           "path": "dist/assets/creatures/creature-brooklet-follower.png",
           "sha256": "5b2c2a46344f9dd6bf23c92ddf623baf4004e71785bd87582f5f8e5adda1c7af",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeTreatments": {
@@ -1525,13 +1525,13 @@
         "assetId": "creature-brooklet-combat",
         "fallbackAssetId": "creature-brooklet",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -1561,7 +1561,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a"
+        "sha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235"
       },
       "runtimeFollower": {
         "assetId": "creature-brooklet-follower",
@@ -1584,13 +1584,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -1658,7 +1658,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "23c7d9afdb8e44b0cd270d24643e96ada207de2cfdbce46a33d2bc2c92b74b21"
+        "sha256": "2d2421b24e26393a0cff517ada2214c402ec55236ff92dc7168a4766b8667f14"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1794,14 +1794,14 @@
           "path": "dist/assets/creatures/creature-hushram-combat.png",
           "sha256": "32a1817ed1f63bb330f4bd59f32355f9517f09a903e22dfd02d60a9e1d41bae4",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-hushram-follower",
           "path": "dist/assets/creatures/creature-hushram-follower.png",
           "sha256": "59aee6fdfb97926de8a36acdf1c19e731c6ff08c7251b4c621e49b340ddf5606",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeTreatments": {
@@ -1827,13 +1827,13 @@
         "assetId": "creature-hushram-combat",
         "fallbackAssetId": "creature-hushram",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -1872,13 +1872,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -1947,7 +1947,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "sourceBatches": [
         {
@@ -2080,14 +2080,14 @@
           "path": "dist/assets/creatures/creature-voltkit-combat.png",
           "sha256": "ce6faf852efddc2dc4b7ea80b5cc313b811d1f266ff4289cbafc49d1f22fdc36",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-voltkit-follower",
           "path": "dist/assets/creatures/creature-voltkit-follower.png",
           "sha256": "ce9ca12721e87fe13b6d8b527f589f1acb18328f9ed2de99f619b37a037711d6",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "exportWorkflow": {
@@ -2118,13 +2118,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -2191,11 +2191,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6"
+        "sha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -2335,27 +2335,27 @@
           "path": "dist/assets/creatures/creature-mushmallow-combat.png",
           "sha256": "dc522312ac233dd35462e76dd2050067c058c7f70b3773fd12e92b2c38e02fcb",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-mushmallow-follower",
           "path": "dist/assets/creatures/creature-mushmallow-follower.png",
           "sha256": "dbba4c4e2cd59345ab48c76432284f0d325d0537bda1e13d306b7c856a52520b",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-mushmallow-combat",
         "fallbackAssetId": "creature-mushmallow",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Crop the 4×5 source grid to fixed 288×288 frames, pad transparently and align visible feet to a common bottom anchor without resampling; encode runtime colors as a 256-color indexed PNG without dithering.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -2413,13 +2413,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -2486,11 +2486,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6"
+        "sha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -2630,27 +2630,27 @@
           "path": "dist/assets/creatures/creature-frostowl-combat.png",
           "sha256": "0ec81b187ff2be0cf4130a518c38bacee56d49e2ac1724f358537b0c710adb32",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-frostowl-follower",
           "path": "dist/assets/creatures/creature-frostowl-follower.png",
           "sha256": "a09a15efa0b45f6ab4ba2f5bfd5808722267f883e06cc86abffc41bbe022e6ab",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-frostowl-combat",
         "fallbackAssetId": "creature-frostowl",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Crop the 4×5 source grid to fixed 288×288 frames, pad transparently and align visible feet to a common bottom anchor without resampling; encode runtime colors as a 256-color indexed PNG without dithering.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -2708,13 +2708,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -2776,11 +2776,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6"
+        "sha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -2920,27 +2920,27 @@
           "path": "dist/assets/creatures/creature-pebblit-combat.png",
           "sha256": "0c3c42916062ac05d210832e18835b9330e0904af5c288cd214c80114a58b189",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-pebblit-follower",
           "path": "dist/assets/creatures/creature-pebblit-follower.png",
           "sha256": "4c0d3ab3873a916aa341904e2e36137a83e19b7b3582d9640eb51657f5c1de8e",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-pebblit-combat",
         "fallbackAssetId": "creature-pebblit",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -2998,13 +2998,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -3066,11 +3066,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6"
+        "sha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -3210,27 +3210,27 @@
           "path": "dist/assets/creatures/creature-bramblebuck-combat.png",
           "sha256": "3d08f6850e19de34e7ca45a22da5a568321b0df4c44b3f4de4d111758221064f",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-bramblebuck-follower",
           "path": "dist/assets/creatures/creature-bramblebuck-follower.png",
           "sha256": "5620e661b6efe3c603f69d76717aaf05040e2aae1ede9a6b777986af3f602d2d",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-bramblebuck-combat",
         "fallbackAssetId": "creature-bramblebuck",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -3288,13 +3288,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -3356,11 +3356,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6"
+        "sha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -3500,27 +3500,27 @@
           "path": "dist/assets/creatures/creature-siltkip-combat.png",
           "sha256": "3f9e2e60432c80b696e363f63378c6d7c1b6d773f1de73c6c077cbf4762abdb1",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-siltkip-follower",
           "path": "dist/assets/creatures/creature-siltkip-follower.png",
           "sha256": "3adf0dacc4e499eb63d10c336ef1f1c64f76aba6f983f5da8266eaa0410bab16",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-siltkip-combat",
         "fallbackAssetId": "creature-siltkip",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -3578,13 +3578,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     },
@@ -3646,11 +3646,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6"
+        "sha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -3790,27 +3790,27 @@
           "path": "dist/assets/creatures/creature-sunskitter-combat.png",
           "sha256": "ba4bb37e396a8ca4fc41319937ebf23f44bba53ee76125838856303954b1bf88",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         {
           "assetId": "creature-sunskitter-follower",
           "path": "dist/assets/creatures/creature-sunskitter-follower.png",
           "sha256": "39e8938acd0f663cb0b6c4862f99b78200347f2ce0238bdd0dad36eca34b6fa7",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-sunskitter-combat",
         "fallbackAssetId": "creature-sunskitter",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "792124741e80a56300e178418d1ded6156dacb9cbe56d57c69e932473566a18b",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
           "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "49afe7265321dbc6942b160c3221a8d6fe0bc4296dc2c44263e206b6b6e0843d"
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
         },
         "requiredStates": [
           "idle",
@@ -3868,13 +3868,1018 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
+        }
+      }
+    },
+    {
+      "id": "creature-sedgegnaw",
+      "revision": 1,
+      "identity": {
+        "silhouette": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+        "palette": [
+          "deep leaf green",
+          "sedge olive",
+          "warm amber",
+          "dark umber"
+        ],
+        "distinguishingFeatures": [
+          "segmented ant body",
+          "six readable legs",
+          "single narrow notched leaf sail",
+          "amber eyes"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-sedgegnaw",
+          "path": "art/assets/source/creature-additions-atlas.png",
+          "sha256": "f426ba2256e661f62f7bfc371cddbb7ef5364f5b8dff12455662f3a8d8447d22",
+          "cell": {
+            "x": 0,
+            "y": 0,
+            "width": 254,
+            "height": 264
+          }
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "available",
+          "value": "Codex image_gen built-in tool",
+          "evidence": "art/characters/SOURCES.md"
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The image generation tool did not provide provider metadata."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The image generation tool did not provide a model version."
+        },
+        "prompt": {
+          "status": "summary-only",
+          "summary": "Transparent full-body pixel-art portrait of Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax. Palette: deep leaf green, sedge olive, warm amber, dark umber. Readable defining features: segmented ant body; six readable legs; single narrow notched leaf sail; amber eyes. No scenery, typography, or ground shadow.",
+          "evidence": "art/characters/SOURCES.md",
+          "exactPromptStatus": "unavailable"
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "No generation seed was retained."
+        },
+        "generationReference": {
+          "status": "unavailable",
+          "reason": "The portrait was generated from text without a separate reference image."
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No generation masks were retained."
+        }
+      },
+      "sourceNotes": {
+        "path": "art/characters/SOURCES.md",
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
+      },
+      "sourceMetadata": {
+        "path": "art/characters/creature-combat-metadata.json",
+        "sha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0"
+      },
+      "exportWorkflow": {
+        "path": "art/characters/export-creature-portraits.py",
+        "sha256": "b60a8d5c3409cb8a015395df23a9507fd96fb98e24d3012a9a07f692c0fbd28d",
+        "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264×264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288×288 cell.",
+        "profileId": "creature-portrait-compact-v1",
+        "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      },
+      "sourceBatches": [
+        {
+          "id": "sedgegnaw-portrait-2026-10-08",
+          "path": "art/characters/source/creature-sedgegnaw-portrait-generated.png",
+          "sha256": "e0f9bc97a0aae918350aa16e620ef657060259baf830786b36706d419dd5ea3c",
+          "directions": [],
+          "referenceAssetIds": [],
+          "exportAssetIds": [
+            "creature-sedgegnaw"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Generate a standalone transparent isometric pixel-art creature portrait for sedgegnaw: Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax. Palette: deep leaf green, sedge olive, warm amber, dark umber. Distinctive features: segmented ant body; six readable legs; single narrow notched leaf sail; amber eyes. Whole body, compact scale, no ground shadow or scenery.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "unavailable",
+              "reason": "The portrait was generated from text without a separate reference image."
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "sedgegnaw-combat-2026-10-08",
+          "path": "art/characters/source/creature-sedgegnaw-combat-generated.png",
+          "sha256": "86df66c1b63d3d9dc49a535f41b171da1692f6c30c1bcd3cb9b32ce83ea41b8f",
+          "directions": [],
+          "referenceAssetIds": [
+            "creature-sedgegnaw"
+          ],
+          "exportAssetIds": [
+            "creature-sedgegnaw-combat"
+          ],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve sedgegnaw's canonical body plan and palette. Create a transparent 4×5 combat atlas with idle, attack, hit, faint and capture rows, four sequential frames per state, contained poses and a stable planted-feet line.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-sedgegnaw"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "sedgegnaw-follower-2026-10-08",
+          "path": "art/characters/source/creature-sedgegnaw-follower-generated.png",
+          "sha256": "0d5714fb1d58871b658c1ef47243647ba3059cb12129006e281ea981feeb8c21",
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-sedgegnaw"
+          ],
+          "exportAssetIds": [
+            "creature-sedgegnaw-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve sedgegnaw's canonical silhouette and key markings. Create a transparent 5×8 overworld follower atlas in N, NE, E, SE, S, SW, W, NW order; each row has idle plus four walking frames, consistent scale and planted-feet anchor.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-sedgegnaw"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "assetId": "creature-sedgegnaw",
+          "path": "dist/assets/creatures/creature-sedgegnaw.png",
+          "sha256": "71ff804584001161e7b17135b103dafd1ba15ebb7efbb82b43e0785ce4f407c1",
+          "profileId": "creature-portrait-compact-v1",
+          "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+        },
+        {
+          "assetId": "creature-sedgegnaw-combat",
+          "path": "dist/assets/creatures/creature-sedgegnaw-combat.png",
+          "sha256": "facee4ffee91342c0f7fcba77dd07b966745b23ce96d80f81674a6cd1efaa344",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
+        },
+        {
+          "assetId": "creature-sedgegnaw-follower",
+          "path": "dist/assets/creatures/creature-sedgegnaw-follower.png",
+          "sha256": "f4da82fb319cf9dab978e0ffe0ea8f9c49a0c44bf2e7792bfd6dc27e379db7d6",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
+        }
+      ],
+      "runtimeCombat": {
+        "assetId": "creature-sedgegnaw-combat",
+        "fallbackAssetId": "creature-sedgegnaw",
+        "contractPath": "art/characters/creature-combat-metadata.json",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-combat.py",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
+          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
+        },
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "artPixelsChanged": true
+      },
+      "runtimeTreatments": {
+        "assetId": "creature-sedgegnaw",
+        "scope": "static portrait fallback only",
+        "contractPath": "art/characters/creature-animation-metadata.json",
+        "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "artPixelsChanged": false
+      },
+      "runtimeFollower": {
+        "assetId": "creature-sedgegnaw-follower",
+        "fallbackAssetId": "creature-sedgegnaw",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
+          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
+        }
+      }
+    },
+    {
+      "id": "creature-petalunge",
+      "revision": 1,
+      "identity": {
+        "silhouette": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+        "palette": [
+          "pale blush",
+          "orchid cream",
+          "coral throat",
+          "moss green"
+        ],
+        "distinguishingFeatures": [
+          "narrow mantis head",
+          "paired petal-shaped forelimbs",
+          "coral throat marking",
+          "long angular legs"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-petalunge",
+          "path": "art/assets/source/creature-additions-atlas.png",
+          "sha256": "f426ba2256e661f62f7bfc371cddbb7ef5364f5b8dff12455662f3a8d8447d22",
+          "cell": {
+            "x": 270,
+            "y": 13,
+            "width": 264,
+            "height": 251
+          }
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "available",
+          "value": "Codex image_gen built-in tool",
+          "evidence": "art/characters/SOURCES.md"
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The image generation tool did not provide provider metadata."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The image generation tool did not provide a model version."
+        },
+        "prompt": {
+          "status": "summary-only",
+          "summary": "Transparent full-body pixel-art portrait of Slender orchid mantis with a tapered head and paired petal forelimbs. Palette: pale blush, orchid cream, coral throat, moss green. Readable defining features: narrow mantis head; paired petal-shaped forelimbs; coral throat marking; long angular legs. No scenery, typography, or ground shadow.",
+          "evidence": "art/characters/SOURCES.md",
+          "exactPromptStatus": "unavailable"
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "No generation seed was retained."
+        },
+        "generationReference": {
+          "status": "unavailable",
+          "reason": "The portrait was generated from text without a separate reference image."
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No generation masks were retained."
+        }
+      },
+      "sourceNotes": {
+        "path": "art/characters/SOURCES.md",
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
+      },
+      "sourceMetadata": {
+        "path": "art/characters/creature-combat-metadata.json",
+        "sha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0"
+      },
+      "exportWorkflow": {
+        "path": "art/characters/export-creature-portraits.py",
+        "sha256": "b60a8d5c3409cb8a015395df23a9507fd96fb98e24d3012a9a07f692c0fbd28d",
+        "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264×264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288×288 cell.",
+        "profileId": "creature-portrait-compact-v1",
+        "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      },
+      "sourceBatches": [
+        {
+          "id": "petalunge-portrait-2026-10-08",
+          "path": "art/characters/source/creature-petalunge-portrait-generated.png",
+          "sha256": "91c20f80eb9020ed87afc846d358d86c2974c97fcfa55823659d1bd42f7af106",
+          "directions": [],
+          "referenceAssetIds": [],
+          "exportAssetIds": [
+            "creature-petalunge"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Generate a standalone transparent isometric pixel-art creature portrait for petalunge: Slender orchid mantis with a tapered head and paired petal forelimbs. Palette: pale blush, orchid cream, coral throat, moss green. Distinctive features: narrow mantis head; paired petal-shaped forelimbs; coral throat marking; long angular legs. Whole body, compact scale, no ground shadow or scenery.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "unavailable",
+              "reason": "The portrait was generated from text without a separate reference image."
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "petalunge-combat-2026-10-08",
+          "path": "art/characters/source/creature-petalunge-combat-generated.png",
+          "sha256": "af401c659264b4d0218f4024201292ac943c3d03ead9f9c9b7e8253fcc9f89ff",
+          "directions": [],
+          "referenceAssetIds": [
+            "creature-petalunge"
+          ],
+          "exportAssetIds": [
+            "creature-petalunge-combat"
+          ],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve petalunge's canonical body plan and palette. Create a transparent 4×5 combat atlas with idle, attack, hit, faint and capture rows, four sequential frames per state, contained poses and a stable planted-feet line.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-petalunge"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "petalunge-follower-2026-10-08",
+          "path": "art/characters/source/creature-petalunge-follower-generated.png",
+          "sha256": "8c940f6e175f024240751555dc738c4de758bd4a3d3e015ca08a5b7f40c4464d",
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-petalunge"
+          ],
+          "exportAssetIds": [
+            "creature-petalunge-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve petalunge's canonical silhouette and key markings. Create a transparent 5×8 overworld follower atlas in N, NE, E, SE, S, SW, W, NW order; each row has idle plus four walking frames, consistent scale and planted-feet anchor.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-petalunge"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "assetId": "creature-petalunge",
+          "path": "dist/assets/creatures/creature-petalunge.png",
+          "sha256": "9cc0d091d3a7f5421f7bffbfadb8b18fb27d7958f5256a6f07fe1b59ef2b66fd",
+          "profileId": "creature-portrait-compact-v1",
+          "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+        },
+        {
+          "assetId": "creature-petalunge-combat",
+          "path": "dist/assets/creatures/creature-petalunge-combat.png",
+          "sha256": "7e39a6991e0104ccd69b60a07c6c5b42210eb990f01abc8eda126733377cb9fc",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
+        },
+        {
+          "assetId": "creature-petalunge-follower",
+          "path": "dist/assets/creatures/creature-petalunge-follower.png",
+          "sha256": "5f3234e585bcd48587920f339c98cf1834d1478b5685e274688176463fe9f6ac",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
+        }
+      ],
+      "runtimeCombat": {
+        "assetId": "creature-petalunge-combat",
+        "fallbackAssetId": "creature-petalunge",
+        "contractPath": "art/characters/creature-combat-metadata.json",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-combat.py",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
+          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
+        },
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "artPixelsChanged": true
+      },
+      "runtimeTreatments": {
+        "assetId": "creature-petalunge",
+        "scope": "static portrait fallback only",
+        "contractPath": "art/characters/creature-animation-metadata.json",
+        "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "artPixelsChanged": false
+      },
+      "runtimeFollower": {
+        "assetId": "creature-petalunge-follower",
+        "fallbackAssetId": "creature-petalunge",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
+          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
+        }
+      }
+    },
+    {
+      "id": "creature-cindercurl",
+      "revision": 1,
+      "identity": {
+        "silhouette": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+        "palette": [
+          "kiln terracotta",
+          "ember orange",
+          "charcoal brown",
+          "golden ember"
+        ],
+        "distinguishingFeatures": [
+          "layered armored plates",
+          "fine ember seam accents",
+          "separate curled tail shield",
+          "short planted feet"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-cindercurl",
+          "path": "art/assets/source/creature-additions-atlas.png",
+          "sha256": "f426ba2256e661f62f7bfc371cddbb7ef5364f5b8dff12455662f3a8d8447d22",
+          "cell": {
+            "x": 550,
+            "y": 53,
+            "width": 264,
+            "height": 211
+          }
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "available",
+          "value": "Codex image_gen built-in tool",
+          "evidence": "art/characters/SOURCES.md"
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The image generation tool did not provide provider metadata."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The image generation tool did not provide a model version."
+        },
+        "prompt": {
+          "status": "summary-only",
+          "summary": "Transparent full-body pixel-art portrait of Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail. Palette: kiln terracotta, ember orange, charcoal brown, golden ember. Readable defining features: layered armored plates; fine ember seam accents; separate curled tail shield; short planted feet. No scenery, typography, or ground shadow.",
+          "evidence": "art/characters/SOURCES.md",
+          "exactPromptStatus": "unavailable"
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "No generation seed was retained."
+        },
+        "generationReference": {
+          "status": "unavailable",
+          "reason": "The portrait was generated from text without a separate reference image."
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No generation masks were retained."
+        }
+      },
+      "sourceNotes": {
+        "path": "art/characters/SOURCES.md",
+        "sha256": "b33b167ea23bd4d26408475ed30337b32c0fa035e97eb2420dc4192237bfcb95"
+      },
+      "sourceMetadata": {
+        "path": "art/characters/creature-combat-metadata.json",
+        "sha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0"
+      },
+      "exportWorkflow": {
+        "path": "art/characters/export-creature-portraits.py",
+        "sha256": "b60a8d5c3409cb8a015395df23a9507fd96fb98e24d3012a9a07f692c0fbd28d",
+        "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264×264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288×288 cell.",
+        "profileId": "creature-portrait-compact-v1",
+        "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      },
+      "sourceBatches": [
+        {
+          "id": "cindercurl-portrait-2026-10-08",
+          "path": "art/characters/source/creature-cindercurl-portrait-generated.png",
+          "sha256": "7e7740986adc56af3db17b216ec2a0f688ae61a60f5b04a28cae5ab8da6dbd8b",
+          "directions": [],
+          "referenceAssetIds": [],
+          "exportAssetIds": [
+            "creature-cindercurl"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Generate a standalone transparent isometric pixel-art creature portrait for cindercurl: Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail. Palette: kiln terracotta, ember orange, charcoal brown, golden ember. Distinctive features: layered armored plates; fine ember seam accents; separate curled tail shield; short planted feet. Whole body, compact scale, no ground shadow or scenery.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "unavailable",
+              "reason": "The portrait was generated from text without a separate reference image."
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "cindercurl-combat-2026-10-08",
+          "path": "art/characters/source/creature-cindercurl-combat-generated.png",
+          "sha256": "ef452dd05792f118eedc4566b1017b80c5df56ad6bb38b57b6dc501f8f7b5155",
+          "directions": [],
+          "referenceAssetIds": [
+            "creature-cindercurl"
+          ],
+          "exportAssetIds": [
+            "creature-cindercurl-combat"
+          ],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve cindercurl's canonical body plan and palette. Create a transparent 4×5 combat atlas with idle, attack, hit, faint and capture rows, four sequential frames per state, contained poses and a stable planted-feet line.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-cindercurl"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "cindercurl-follower-2026-10-08",
+          "path": "art/characters/source/creature-cindercurl-follower-generated.png",
+          "sha256": "35eec6d816a2fb3aaf5f34777be90184e04d0007200c0bb94b0f7feb1d95772e",
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-cindercurl"
+          ],
+          "exportAssetIds": [
+            "creature-cindercurl-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Preserve cindercurl's canonical silhouette and key markings. Create a transparent 5×8 overworld follower atlas in N, NE, E, SE, S, SW, W, NW order; each row has idle plus four walking frames, consistent scale and planted-feet anchor.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-cindercurl"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "assetId": "creature-cindercurl",
+          "path": "dist/assets/creatures/creature-cindercurl.png",
+          "sha256": "7c1d989ec530db910095eb8d4a773e2f88fc668eac7422aab9d29abbb3b208ab",
+          "profileId": "creature-portrait-compact-v1",
+          "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+        },
+        {
+          "assetId": "creature-cindercurl-combat",
+          "path": "dist/assets/creatures/creature-cindercurl-combat.png",
+          "sha256": "1c03809059cf3e276cb10510dd71a7d4221c6c94ebf8dbbb2cf056162ab1dbd6",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
+        },
+        {
+          "assetId": "creature-cindercurl-follower",
+          "path": "dist/assets/creatures/creature-cindercurl-follower.png",
+          "sha256": "8fc23c0ae05f4874ac8b4e6873f3f031eb2c5ffafa976221b99736d4e348cfd5",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
+        }
+      ],
+      "runtimeCombat": {
+        "assetId": "creature-cindercurl-combat",
+        "fallbackAssetId": "creature-cindercurl",
+        "contractPath": "art/characters/creature-combat-metadata.json",
+        "contractSha256": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-combat.py",
+          "sha256": "17b2a81fb4697edf838e4d1e5a0e06dd130c2b444980776607bee28f6d9c8ae6",
+          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "1e69b86626058c6d569349590bf6fc5553ad4f2df5bfc62ce490afbe7affc915"
+        },
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "artPixelsChanged": true
+      },
+      "runtimeTreatments": {
+        "assetId": "creature-cindercurl",
+        "scope": "static portrait fallback only",
+        "contractPath": "art/characters/creature-animation-metadata.json",
+        "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "artPixelsChanged": false
+      },
+      "runtimeFollower": {
+        "assetId": "creature-cindercurl-follower",
+        "fallbackAssetId": "creature-cindercurl",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "653b5c5769ccc6c5a9bb9356f3cf7f7621a7f14fdbfcbf2da6fb44090ae8b7a5",
+          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "388e97ed119bb0b17874f02250fc3c5ab764e7beb133859d92cebf3a7fe76678"
         }
       }
     }

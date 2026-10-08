@@ -93,6 +93,33 @@
       "promptBrief": "Preserve Sunskitter's canonical species silhouette, markings and palette; transparent 4-column by 5-row combat atlas with idle, attack, hit, faint and capture actions in stable bottom-center anchored cells.",
       "originalSha256": "10333be09a3db8daaca27f3b1bf3435390dad79feebdc4f548871f2bbe77e852",
       "originalBytes": 2249854
+    },
+    "sedgegnaw": {
+      "generatedSource": "art/characters/source/creature-sedgegnaw-combat-generated.png",
+      "referenceAsset": "creature-sedgegnaw",
+      "promptBrief": "Preserve the sedgegnaw silhouette and palette; transparent four-column by five-row combat sheet with idle, attack, hit, faint and capture poses on stable bottom-center anchors.",
+      "sourceSize": [
+        1122,
+        1402
+      ]
+    },
+    "petalunge": {
+      "generatedSource": "art/characters/source/creature-petalunge-combat-generated.png",
+      "referenceAsset": "creature-petalunge",
+      "promptBrief": "Preserve the petalunge silhouette and palette; transparent four-column by five-row combat sheet with idle, attack, hit, faint and capture poses on stable bottom-center anchors.",
+      "sourceSize": [
+        1122,
+        1402
+      ]
+    },
+    "cindercurl": {
+      "generatedSource": "art/characters/source/creature-cindercurl-combat-generated.png",
+      "referenceAsset": "creature-cindercurl",
+      "promptBrief": "Preserve the cindercurl silhouette and palette; transparent four-column by five-row combat sheet with idle, attack, hit, faint and capture poses on stable bottom-center anchors.",
+      "sourceSize": [
+        1122,
+        1402
+      ]
     }
   },
   "frameOrder": [
@@ -273,6 +300,48 @@
       "rows": 5,
       "frame": [
         328,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-sedgegnaw-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-sedgegnaw-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-petalunge-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-petalunge-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-cindercurl-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-cindercurl-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
         288
       ],
       "anchor": "bottom-center"

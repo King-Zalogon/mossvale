@@ -56,6 +56,9 @@ try {
     'bramblebuck',
     'siltkip',
     'sunskitter',
+    'sedgegnaw',
+    'petalunge',
+    'cindercurl',
   ]) {
     await page.selectOption('#species', id);
     await page.waitForFunction(
@@ -92,6 +95,9 @@ try {
     'bramblebuck',
     'siltkip',
     'sunskitter',
+    'sedgegnaw',
+    'petalunge',
+    'cindercurl',
   ]) {
     const speciesId = species.findIndex(entry => entry.id === id);
     assert.notEqual(speciesId, -1);
@@ -112,7 +118,7 @@ try {
     assert.equal(await game.evaluate(() => window.mossvale.getState().save.active), speciesId);
   }
   assert.deepEqual(errors, []);
-  console.log('ok follower preview displays all eight directions and five frames for all twelve species; in-game path motion switches all twelve species');
+  console.log('ok follower preview displays all eight directions and five frames for all fifteen species; in-game path motion switches all fifteen species');
 } finally {
   await browser.close();
   server.close();

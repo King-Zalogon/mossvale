@@ -22,6 +22,9 @@ SPECS = {
     "bramblebuck": {"source": "art/characters/source/creature-bramblebuck-combat-generated.png", "target": "dist/assets/creatures/creature-bramblebuck-combat.png"},
     "siltkip": {"source": "art/characters/source/creature-siltkip-combat-generated.png", "target": "dist/assets/creatures/creature-siltkip-combat.png"},
     "sunskitter": {"source": "art/characters/source/creature-sunskitter-combat-generated.png", "target": "dist/assets/creatures/creature-sunskitter-combat.png"},
+    "sedgegnaw": {"source": "art/characters/source/creature-sedgegnaw-combat-generated.png", "target": "dist/assets/creatures/creature-sedgegnaw-combat.png"},
+    "petalunge": {"source": "art/characters/source/creature-petalunge-combat-generated.png", "target": "dist/assets/creatures/creature-petalunge-combat.png"},
+    "cindercurl": {"source": "art/characters/source/creature-cindercurl-combat-generated.png", "target": "dist/assets/creatures/creature-cindercurl-combat.png"},
 }
 
 

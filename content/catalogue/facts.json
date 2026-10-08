@@ -2,15 +2,15 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "b30242f0b790228e57de72a7c9c1e827f3978b8e50fad91f267febd4b8d219eb",
+    "art/assets/subjects.json": "fec60e5882a42e8ec651279511b88e8b2f0fd0cec95ef168fb27088dec5f9722",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-    "art/characters/creature-combat-metadata.json": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
-    "art/characters/creature-follower-metadata.json": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
-    "art/characters/export-profiles.json": "036d7b40e9edbfd2adb6683b2b6cde99c7d8fa8dcc4c8d4813a2a8df14232d65",
+    "art/characters/creature-combat-metadata.json": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
+    "art/characters/creature-follower-metadata.json": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
+    "art/characters/export-profiles.json": "5137e6616cafa797e71df17c999977cb0ba3f1556334976166b2f5f7c89518b9",
     "art/characters/metadata.json": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
-    "art/characters/visual-reviews.json": "258e9dd968476230d6a3b8b0a58ae2207f2af57fd2db34156acfa022ba88afb2",
+    "art/characters/visual-reviews.json": "48686b903d1851f5b898cca805685d25f16004926898e16dc2b38e82ceb33abe",
     "content/catalogue/curated.json": "8a4eb6102c9ef90fd0899565581516f9282e1611f88e891c9a74f01c4c5b7f42",
     "content/catalogue/schema.json": "8918ca5c174e7620b765d6d7081d79bc4b3d006b51d004f575cb24cbaf56016d",
     "content/catalogue/templates.json": "bb0d71d227a6ed155aa8d83353fb192463fbb01113891f58d95f6da867448d5a",
@@ -20,6 +20,9 @@
     "dist/assets/creatures/creature-brooklet-combat.png": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242",
     "dist/assets/creatures/creature-brooklet-follower.png": "5b2c2a46344f9dd6bf23c92ddf623baf4004e71785bd87582f5f8e5adda1c7af",
     "dist/assets/creatures/creature-brooklet.png": "ba91ded862d7cc2cbe0096d9681d4942012cefabb9becb49974e1f89ce4676c5",
+    "dist/assets/creatures/creature-cindercurl-combat.png": "1c03809059cf3e276cb10510dd71a7d4221c6c94ebf8dbbb2cf056162ab1dbd6",
+    "dist/assets/creatures/creature-cindercurl-follower.png": "8fc23c0ae05f4874ac8b4e6873f3f031eb2c5ffafa976221b99736d4e348cfd5",
+    "dist/assets/creatures/creature-cindercurl.png": "7c1d989ec530db910095eb8d4a773e2f88fc668eac7422aab9d29abbb3b208ab",
     "dist/assets/creatures/creature-duskwing-combat.png": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02",
     "dist/assets/creatures/creature-duskwing-follower.png": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae",
     "dist/assets/creatures/creature-duskwing.png": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1",
@@ -41,6 +44,12 @@
     "dist/assets/creatures/creature-pebblit-combat.png": "0c3c42916062ac05d210832e18835b9330e0904af5c288cd214c80114a58b189",
     "dist/assets/creatures/creature-pebblit-follower.png": "4c0d3ab3873a916aa341904e2e36137a83e19b7b3582d9640eb51657f5c1de8e",
     "dist/assets/creatures/creature-pebblit.png": "d102e65645174891f97606513a006c3089bd404e4ecebed18ab38e87b1ebde1d",
+    "dist/assets/creatures/creature-petalunge-combat.png": "7e39a6991e0104ccd69b60a07c6c5b42210eb990f01abc8eda126733377cb9fc",
+    "dist/assets/creatures/creature-petalunge-follower.png": "5f3234e585bcd48587920f339c98cf1834d1478b5685e274688176463fe9f6ac",
+    "dist/assets/creatures/creature-petalunge.png": "9cc0d091d3a7f5421f7bffbfadb8b18fb27d7958f5256a6f07fe1b59ef2b66fd",
+    "dist/assets/creatures/creature-sedgegnaw-combat.png": "facee4ffee91342c0f7fcba77dd07b966745b23ce96d80f81674a6cd1efaa344",
+    "dist/assets/creatures/creature-sedgegnaw-follower.png": "f4da82fb319cf9dab978e0ffe0ea8f9c49a0c44bf2e7792bfd6dc27e379db7d6",
+    "dist/assets/creatures/creature-sedgegnaw.png": "71ff804584001161e7b17135b103dafd1ba15ebb7efbb82b43e0785ce4f407c1",
     "dist/assets/creatures/creature-siltkip-combat.png": "3f9e2e60432c80b696e363f63378c6d7c1b6d773f1de73c6c077cbf4762abdb1",
     "dist/assets/creatures/creature-siltkip-follower.png": "3adf0dacc4e499eb63d10c336ef1f1c64f76aba6f983f5da8266eaa0410bab16",
     "dist/assets/creatures/creature-siltkip.png": "0b8402acc8fb02165db140b9581d426f17b0252c3e332b2f746a829201871c1e",
@@ -89,16 +98,16 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "71607271a826ff0999385b0193bc861c381a1b019e4f12045084f150076dbe50",
+    "dist/maps/amber-ridge.json": "71e104292399dce77090aa2fc82707f14fe882b2a2a516e7c83bb586deaac78a",
     "dist/maps/frostveil-grove.json": "2f2723360040a1f3e39a20e687101d6c501f24d558f8d86bcb0a66cce0be17c1",
     "dist/maps/frostveil-pass.json": "beac5f7e2d3efd86b7096885a27094ce3c27e5be106cf15cb01119dffa129207",
-    "dist/maps/index.json": "791b6c181f9c218fd568f4a339d86bbe47576e325fc38cdf967b4804d590b39e",
+    "dist/maps/index.json": "8b6dfeb67fdfd6fc8fdf1e03368cc9be52a1e7410625081f0315aa572f51f418",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
-    "dist/maps/meadow.json": "f8c3bcd8e324f8be89a3125f391993547eca7d963254619ac659aef65aa1362e",
+    "dist/maps/meadow.json": "49f76257b9e58b2a1a394861fe39d781e9781d1288f91f36c26129cd5732cc73",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "59a397c0d62184afe439e8c25ff3f6705bdbfe50f70e20494d551c674849a0ef",
+    "dist/maps/orchard-ruins.json": "07f67584197d7c2689014cd432f5612653971df917707f86c06978daf7bf058b",
     "dist/maps/reedfen-wetlands.json": "63971ba23d813faef014a79a00626a7f34addfa19a801739359434f244e2f1ea",
-    "dist/maps/registries.json": "ee5a8200b8662b73b7a11289564e90228c13713ff62181a99ab74b5f09e58bbf",
+    "dist/maps/registries.json": "1494e5c75a561cf32055a61fac3a5f17524cf68697bf8e6809ea4b091057fde9",
     "dist/maps/stilt-isles.json": "9c2345294cc2ebf00d4ef8f9fe51fd291a6de1b140ae69e868d818a9ff17aeb5",
     "dist/maps/stone-basin.json": "1f14e40c42af96e02dc4d427537e523baba4d1dc46fb52f7227ffcff1688d3d9",
     "dist/maps/story.json": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927",
@@ -109,19 +118,19 @@
     "dist/src/compatibility.js": "cb16e68f3c5fefc86c7e6068f1f7a5e832e009647baa07641a4bd1ed06349ca3",
     "dist/src/config.js": "c060d2dd823e0d82ae9592256c4c80d5a72e486d120c6fdd60aecd5e9bdfb05d",
     "dist/src/controller.js": "288b440bf293dac13d7f159ed1cc6dd8c5f120b5fbf44a77d69da57bd7069022",
-    "dist/src/creature-combat-preview.js": "5eb7767882d6e9d7bf3da271842e33eb618c49df046a38a1d2ccc10211169db5",
-    "dist/src/creature-follower-preview.js": "99028ba5a8922578540dbe767ddfc496269c437d9a22690ffcb0558adcd87707",
-    "dist/src/data/assets.js": "2d309dc3d65df70668373595211887f87720f6393b11ef7c824e7b8f8733f638",
+    "dist/src/creature-combat-preview.js": "8b57236e977ee3308a5a4af84f2b25cf181b8120bc36c4e8a67fcb1f1ccc17b5",
+    "dist/src/creature-follower-preview.js": "9f8fa77161df05adc90773e62141eb8d47dc3bee8cbcddb28997264b5f3b3731",
+    "dist/src/data/assets.js": "c7ca50b03ccd655f3eb21b103ea00b0e77f7d9577e15223e5ab5af323c3bb536",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
-    "dist/src/data/moves.js": "ee3aa083a0ebd1e307261f380e7d4e51e8ae308510aecf83cbf316ce11af7eff",
+    "dist/src/data/moves.js": "2010b1575621e5ec5d5e5cb5831fff6793a5ae8b105e9f5d8b7052c8fd595ebe",
     "dist/src/data/pack.js": "9fd30dbf4b643265515252efacae23a0e18507c5eb1649ad39eabf0ed436ff5c",
     "dist/src/data/regions.js": "dd20e32162860c8112f38d5f7509414f611b3f28e0649fdd72386630ff753c72",
     "dist/src/data/registry.js": "b380fbc26e56195e7713078f63f60fd504f8bf0df8cbb06e1baa754f80ba3f78",
     "dist/src/data/sounds.js": "907dfbb8b9b96d676ebd1e6ca518d05d820f54d660bbf62132346daddbc3b0da",
     "dist/src/data/species.js": "410945be3eae3097eadfd44210408df55c67229196cbff7e45b5d6419ad6a49a",
     "dist/src/data/tactics.js": "0ba459b0a97b7d3da40521b444254013c9ad21635b9f21911607d7315e2f07ea",
-    "dist/src/domain/adventure.js": "9021f46291f6ee0f8ee29e4bd14f5057bb55d8ca47d0fe4c9e333e5a5742107b",
+    "dist/src/domain/adventure.js": "c8db517e9cefa05ef7d4223dd1573d3bcaa0966e35a23d6c8ceb48e640566e68",
     "dist/src/domain/battle.js": "87ed1448c97e92aff22f53d5462e540de86d2da7c2f51f49e55cd67b90679ce7",
     "dist/src/domain/clock.js": "91e9a8d65543697ed7862ee28c450b04bd1cf56d534308acc3bedbebff7108d5",
     "dist/src/domain/combat-trace.js": "4c564af90c00892f81cb14da767ff14496106d53555843a567685a4595bfe32a",
@@ -200,7 +209,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "11cebcd8a7c462946bf4851fc677b92b7de66adde3f1804753598d38d6b5c67c",
+  "sourceDigest": "f206936ba1e382e41ff57d7d5cce1f3c528d9dc5e17ceab4f1dcbbb9500054db",
   "exclusions": [
     {
       "family": "module-exports",
@@ -3183,6 +3192,10 @@
               {
                 "species": "pebblit",
                 "weight": 3
+              },
+              {
+                "species": "cindercurl",
+                "weight": 2
               }
             ],
             "level": [8, 10],
@@ -5032,6 +5045,10 @@
               {
                 "species": "fernling",
                 "weight": 2
+              },
+              {
+                "species": "sedgegnaw",
+                "weight": 2
               }
             ],
             "level": [6, 7],
@@ -5678,6 +5695,10 @@
               },
               {
                 "species": "duskwing",
+                "weight": 1
+              },
+              {
+                "species": "petalunge",
                 "weight": 1
               }
             ],
@@ -7725,6 +7746,21 @@
       "power": "1"
     },
     {
+      "id": "move:kiln-shoulder",
+      "family": "move",
+      "runtimeId": "kiln-shoulder",
+      "name": "Kiln shoulder",
+      "description": "A steady, plate-braced strike from a patient defender.",
+      "source": "dist/src/data/moves.js",
+      "evidence": "tests/battle-actions.test.mjs",
+      "raw": {
+        "name": "Kiln shoulder",
+        "power": 0.92,
+        "description": "A steady, plate-braced strike from a patient defender."
+      },
+      "power": "0.92"
+    },
+    {
       "id": "move:leaf-burst",
       "family": "move",
       "runtimeId": "leaf-burst",
@@ -7738,6 +7774,21 @@
         "description": "A dependable burst of sharp leaves."
       },
       "power": "1"
+    },
+    {
+      "id": "move:orchid-pounce",
+      "family": "move",
+      "runtimeId": "orchid-pounce",
+      "name": "Orchid pounce",
+      "description": "A sudden petal-limbed lunge with a precise landing.",
+      "source": "dist/src/data/moves.js",
+      "evidence": "tests/battle-actions.test.mjs",
+      "raw": {
+        "name": "Orchid pounce",
+        "power": 1.1,
+        "description": "A sudden petal-limbed lunge with a precise landing."
+      },
+      "power": "1.1"
     },
     {
       "id": "move:quiet-squall",
@@ -7768,6 +7819,21 @@
         "description": "A steady wave that travels around obstacles."
       },
       "power": "1"
+    },
+    {
+      "id": "move:seedline-sweep",
+      "family": "move",
+      "runtimeId": "seedline-sweep",
+      "name": "Seedline sweep",
+      "description": "A measured arc of the carried sedge blade.",
+      "source": "dist/src/data/moves.js",
+      "evidence": "tests/battle-actions.test.mjs",
+      "raw": {
+        "name": "Seedline sweep",
+        "power": 0.95,
+        "description": "A measured arc of the carried sedge blade."
+      },
+      "power": "0.95"
     },
     {
       "id": "move:silt-surge",
@@ -8403,14 +8469,14 @@
       "family": "pack",
       "runtimeId": "mossvale",
       "name": "Mossvale",
-      "description": "Four biomes, twelve friends and a seal at every shrine.",
+      "description": "Four biomes, fifteen friends and a seal at every shrine.",
       "source": "dist/maps/index.json",
       "evidence": "tests/packs.test.mjs",
       "raw": {
         "format": 1,
         "id": "mossvale",
         "name": "Mossvale",
-        "brief": "Four biomes, twelve friends and a seal at every shrine.",
+        "brief": "Four biomes, fifteen friends and a seal at every shrine.",
         "maps": ["meadow", "amber-ridge", "frostveil-grove", "frostveil-pass", "reedfen-wetlands", "orchard-ruins", "stilt-isles", "stone-basin"],
         "species": [
           "fernling",
@@ -8424,7 +8490,10 @@
           "bramblebuck",
           "siltkip",
           "sunskitter",
-          "hushram"
+          "hushram",
+          "sedgegnaw",
+          "petalunge",
+          "cindercurl"
         ],
         "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
         "ending": "story",
@@ -8432,7 +8501,7 @@
         "story": "story.json",
         "inventory": "inventory.json",
         "registries": "registries.json",
-        "contentVersion": 2,
+        "contentVersion": 3,
         "requires": {
           "engineVersion": 1,
           "saveSchema": 5
@@ -8441,17 +8510,17 @@
           {
             "id": "registry:main",
             "path": "registries.json",
-            "sha256": "ee5a8200b8662b73b7a11289564e90228c13713ff62181a99ab74b5f09e58bbf"
+            "sha256": "1494e5c75a561cf32055a61fac3a5f17524cf68697bf8e6809ea4b091057fde9"
           },
           {
             "id": "map:meadow",
             "path": "meadow.json",
-            "sha256": "f8c3bcd8e324f8be89a3125f391993547eca7d963254619ac659aef65aa1362e"
+            "sha256": "49f76257b9e58b2a1a394861fe39d781e9781d1288f91f36c26129cd5732cc73"
           },
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "71607271a826ff0999385b0193bc861c381a1b019e4f12045084f150076dbe50"
+            "sha256": "71e104292399dce77090aa2fc82707f14fe882b2a2a516e7c83bb586deaac78a"
           },
           {
             "id": "map:frostveil-grove",
@@ -8471,7 +8540,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "59a397c0d62184afe439e8c25ff3f6705bdbfe50f70e20494d551c674849a0ef"
+            "sha256": "07f67584197d7c2689014cd432f5612653971df917707f86c06978daf7bf058b"
           },
           {
             "id": "map:stilt-isles",
@@ -10440,6 +10509,38 @@
       "dependencies": ["visual:creature-brooklet"]
     },
     {
+      "id": "species:mossvale/cindercurl",
+      "family": "species",
+      "runtimeId": "mossvale/cindercurl",
+      "name": "Cindercurl",
+      "description": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail.",
+      "source": "dist/maps/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "cindercurl",
+        "name": "Cindercurl",
+        "type": "Fire",
+        "stats": {
+          "hp": 52,
+          "attack": 8,
+          "defense": 17
+        },
+        "move": "kiln-shoulder",
+        "biome": "badlands",
+        "role": "Kiln-plate bulwark",
+        "personality": "Patient and self-possessed; it folds its ember-warm plates around a trusted companion.",
+        "desc": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail.",
+        "encounterHint": "Look for heat shimmer near the reachable eastern ridge grass.",
+        "strong": ["Leaf", "Ice", "Bloom", "Frost"],
+        "weak": ["Water", "Stone", "Mire", "Sand"],
+        "color": "#c96a3b",
+        "hp": 52,
+        "sprite": "creature-cindercurl"
+      },
+      "sprite": "creature-cindercurl",
+      "dependencies": ["visual:creature-cindercurl"]
+    },
+    {
       "id": "species:mossvale/duskwing",
       "family": "species",
       "runtimeId": "mossvale/duskwing",
@@ -10662,6 +10763,70 @@
       },
       "sprite": "creature-pebblit",
       "dependencies": ["visual:creature-pebblit"]
+    },
+    {
+      "id": "species:mossvale/petalunge",
+      "family": "species",
+      "runtimeId": "mossvale/petalunge",
+      "name": "Petalunge",
+      "description": "A slender orchid mantis with a narrow head and paired petal forelimbs.",
+      "source": "dist/maps/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "petalunge",
+        "name": "Petalunge",
+        "type": "Bloom",
+        "stats": {
+          "hp": 38,
+          "attack": 14,
+          "defense": 7
+        },
+        "move": "orchid-pounce",
+        "biome": "meadow",
+        "role": "Orchard ambusher",
+        "personality": "Still and watchful; it waits among fallen petals before making one clean leap.",
+        "desc": "A slender orchid mantis with a narrow head and paired petal forelimbs.",
+        "encounterHint": "Search the orchard's flowered edge; watch for a petal-shaped silhouette.",
+        "strong": ["Water", "Mire"],
+        "weak": ["Fire", "Frost"],
+        "color": "#e9b5a3",
+        "hp": 38,
+        "sprite": "creature-petalunge"
+      },
+      "sprite": "creature-petalunge",
+      "dependencies": ["visual:creature-petalunge"]
+    },
+    {
+      "id": "species:mossvale/sedgegnaw",
+      "family": "species",
+      "runtimeId": "mossvale/sedgegnaw",
+      "name": "Sedgegnaw",
+      "description": "A six-legged leaf-cutter ant with amber eyes and a notched sedge-leaf sail.",
+      "source": "dist/maps/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "sedgegnaw",
+        "name": "Sedgegnaw",
+        "type": "Leaf",
+        "stats": {
+          "hp": 46,
+          "attack": 8,
+          "defense": 14
+        },
+        "move": "seedline-sweep",
+        "biome": "meadow",
+        "role": "Seed-trail defender",
+        "personality": "Careful and persistent; it carries a narrow sedge leaf to mark safe paths through the grass.",
+        "desc": "A six-legged leaf-cutter ant with amber eyes and a notched sedge-leaf sail.",
+        "encounterHint": "Watch Meadow seed-trail grass; a quiet cache can draw it to the edge.",
+        "strong": ["Water", "Stone", "Mire"],
+        "weak": ["Fire", "Ice", "Frost"],
+        "color": "#8eb64f",
+        "hp": 46,
+        "sprite": "creature-sedgegnaw"
+      },
+      "sprite": "creature-sedgegnaw",
+      "dependencies": ["visual:creature-sedgegnaw"]
     },
     {
       "id": "species:mossvale/siltkip",
@@ -11811,6 +11976,139 @@
       "characterMetadata": null
     },
     {
+      "id": "visual:creature-cindercurl",
+      "family": "visual",
+      "runtimeId": "creature-cindercurl",
+      "name": "creature-cindercurl",
+      "description": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-cindercurl",
+        "kind": "creature",
+        "src": "assets/creatures/creature-cindercurl.png",
+        "w": 264,
+        "h": 211,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "264 by 211 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/creatures/creature-cindercurl.png",
+      "animationMetadata": null,
+      "identity": {
+        "silhouette": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+        "palette": ["kiln terracotta", "ember orange", "charcoal brown", "golden ember"],
+        "distinguishingFeatures": ["layered armored plates", "fine ember seam accents", "separate curled tail shield", "short planted feet"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-cindercurl-combat",
+      "family": "visual",
+      "runtimeId": "creature-cindercurl-combat",
+      "name": "creature-cindercurl-combat",
+      "description": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-cindercurl-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-cindercurl-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "columnOrder": [0, 1, 2, 3],
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          }
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-cindercurl-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-cindercurl-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center"
+      },
+      "identity": {
+        "silhouette": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+        "palette": ["kiln terracotta", "ember orange", "charcoal brown", "golden ember"],
+        "distinguishingFeatures": ["layered armored plates", "fine ember seam accents", "separate curled tail shield", "short planted feet"]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending.",
+          "ownerTaste": "pending"
+        }
+      ],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-cindercurl-follower",
+      "family": "visual",
+      "runtimeId": "creature-cindercurl-follower",
+      "name": "creature-cindercurl-follower",
+      "description": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-cindercurl-follower",
+        "kind": "creature",
+        "src": "assets/creatures/creature-cindercurl-follower.png",
+        "w": 1000,
+        "h": 1600,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 5,
+          "rows": 8,
+          "frameWidth": 200,
+          "frameHeight": 200,
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+        }
+      },
+      "dimensions": "1000 by 1600 source pixels",
+      "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+      "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+      "preview": "dist/assets/creatures/creature-cindercurl-follower.png",
+      "animationMetadata": {
+        "sourceSize": [992, 1586],
+        "output": "dist/assets/creatures/creature-cindercurl-follower.png",
+        "frame": [200, 200],
+        "columns": 5,
+        "rows": 8,
+        "anchor": "bottom-center",
+        "feetY": 196
+      },
+      "identity": {
+        "silhouette": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+        "palette": ["kiln terracotta", "ember orange", "charcoal brown", "golden ember"],
+        "distinguishingFeatures": ["layered armored plates", "fine ember seam accents", "separate curled tail shield", "short planted feet"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
       "id": "visual:creature-duskwing",
       "family": "visual",
       "runtimeId": "creature-duskwing",
@@ -12747,6 +13045,272 @@
         "silhouette": "Canonical Pebblit creature silhouette, preserved across combat reactions and eight travel directions.",
         "palette": ["canonical source palette"],
         "distinguishingFeatures": ["Pebblit face and silhouette", "species-specific markings and colors"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-petalunge",
+      "family": "visual",
+      "runtimeId": "creature-petalunge",
+      "name": "creature-petalunge",
+      "description": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-petalunge",
+        "kind": "creature",
+        "src": "assets/creatures/creature-petalunge.png",
+        "w": 264,
+        "h": 251,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "264 by 251 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/creatures/creature-petalunge.png",
+      "animationMetadata": null,
+      "identity": {
+        "silhouette": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+        "palette": ["pale blush", "orchid cream", "coral throat", "moss green"],
+        "distinguishingFeatures": ["narrow mantis head", "paired petal-shaped forelimbs", "coral throat marking", "long angular legs"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-petalunge-combat",
+      "family": "visual",
+      "runtimeId": "creature-petalunge-combat",
+      "name": "creature-petalunge-combat",
+      "description": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-petalunge-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-petalunge-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "columnOrder": [0, 1, 2, 3],
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          }
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-petalunge-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-petalunge-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center"
+      },
+      "identity": {
+        "silhouette": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+        "palette": ["pale blush", "orchid cream", "coral throat", "moss green"],
+        "distinguishingFeatures": ["narrow mantis head", "paired petal-shaped forelimbs", "coral throat marking", "long angular legs"]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending.",
+          "ownerTaste": "pending"
+        }
+      ],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-petalunge-follower",
+      "family": "visual",
+      "runtimeId": "creature-petalunge-follower",
+      "name": "creature-petalunge-follower",
+      "description": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-petalunge-follower",
+        "kind": "creature",
+        "src": "assets/creatures/creature-petalunge-follower.png",
+        "w": 1000,
+        "h": 1600,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 5,
+          "rows": 8,
+          "frameWidth": 200,
+          "frameHeight": 200,
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+        }
+      },
+      "dimensions": "1000 by 1600 source pixels",
+      "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+      "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+      "preview": "dist/assets/creatures/creature-petalunge-follower.png",
+      "animationMetadata": {
+        "sourceSize": [992, 1586],
+        "output": "dist/assets/creatures/creature-petalunge-follower.png",
+        "frame": [200, 200],
+        "columns": 5,
+        "rows": 8,
+        "anchor": "bottom-center",
+        "feetY": 196
+      },
+      "identity": {
+        "silhouette": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+        "palette": ["pale blush", "orchid cream", "coral throat", "moss green"],
+        "distinguishingFeatures": ["narrow mantis head", "paired petal-shaped forelimbs", "coral throat marking", "long angular legs"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-sedgegnaw",
+      "family": "visual",
+      "runtimeId": "creature-sedgegnaw",
+      "name": "creature-sedgegnaw",
+      "description": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-sedgegnaw",
+        "kind": "creature",
+        "src": "assets/creatures/creature-sedgegnaw.png",
+        "w": 254,
+        "h": 264,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "254 by 264 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/creatures/creature-sedgegnaw.png",
+      "animationMetadata": null,
+      "identity": {
+        "silhouette": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+        "palette": ["deep leaf green", "sedge olive", "warm amber", "dark umber"],
+        "distinguishingFeatures": ["segmented ant body", "six readable legs", "single narrow notched leaf sail", "amber eyes"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-sedgegnaw-combat",
+      "family": "visual",
+      "runtimeId": "creature-sedgegnaw-combat",
+      "name": "creature-sedgegnaw-combat",
+      "description": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-sedgegnaw-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-sedgegnaw-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "columnOrder": [0, 1, 2, 3],
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          }
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-sedgegnaw-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-sedgegnaw-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center"
+      },
+      "identity": {
+        "silhouette": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+        "palette": ["deep leaf green", "sedge olive", "warm amber", "dark umber"],
+        "distinguishingFeatures": ["segmented ant body", "six readable legs", "single narrow notched leaf sail", "amber eyes"]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending.",
+          "ownerTaste": "pending"
+        }
+      ],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-sedgegnaw-follower",
+      "family": "visual",
+      "runtimeId": "creature-sedgegnaw-follower",
+      "name": "creature-sedgegnaw-follower",
+      "description": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-sedgegnaw-follower",
+        "kind": "creature",
+        "src": "assets/creatures/creature-sedgegnaw-follower.png",
+        "w": 1000,
+        "h": 1600,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 5,
+          "rows": 8,
+          "frameWidth": 200,
+          "frameHeight": 200,
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+        }
+      },
+      "dimensions": "1000 by 1600 source pixels",
+      "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+      "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+      "preview": "dist/assets/creatures/creature-sedgegnaw-follower.png",
+      "animationMetadata": {
+        "sourceSize": [992, 1586],
+        "output": "dist/assets/creatures/creature-sedgegnaw-follower.png",
+        "frame": [200, 200],
+        "columns": 5,
+        "rows": 8,
+        "anchor": "bottom-center",
+        "feetY": 196
+      },
+      "identity": {
+        "silhouette": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+        "palette": ["deep leaf green", "sedge olive", "warm amber", "dark umber"],
+        "distinguishingFeatures": ["segmented ant body", "six readable legs", "single narrow notched leaf sail", "amber eyes"]
       },
       "review": [],
       "characterMetadata": null

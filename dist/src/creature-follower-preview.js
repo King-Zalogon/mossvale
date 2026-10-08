@@ -12,6 +12,9 @@ const ROWS = {
   bramblebuck: DIRECTIONS,
   siltkip: DIRECTIONS,
   sunskitter: DIRECTIONS,
+  sedgegnaw: DIRECTIONS,
+  petalunge: DIRECTIONS,
+  cindercurl: DIRECTIONS,
 };
 const VECTORS = [
   [-1, -1],
@@ -38,6 +41,9 @@ const sources = {
   bramblebuck: load('../assets/creatures/creature-bramblebuck-follower.png'),
   siltkip: load('../assets/creatures/creature-siltkip-follower.png'),
   sunskitter: load('../assets/creatures/creature-sunskitter-follower.png'),
+  sedgegnaw: load('../assets/creatures/creature-sedgegnaw-follower.png'),
+  petalunge: load('../assets/creatures/creature-petalunge-follower.png'),
+  cindercurl: load('../assets/creatures/creature-cindercurl-follower.png'),
   portrait: {
     emberkin: load('../assets/creatures/creature-emberkin.png'),
     fernling: load('../assets/creatures/creature-fernling.png'),
@@ -51,6 +57,9 @@ const sources = {
     bramblebuck: load('../assets/creatures/creature-bramblebuck.png'),
     siltkip: load('../assets/creatures/creature-siltkip.png'),
     sunskitter: load('../assets/creatures/creature-sunskitter.png'),
+    sedgegnaw: load('../assets/creatures/creature-sedgegnaw.png'),
+    petalunge: load('../assets/creatures/creature-petalunge.png'),
+    cindercurl: load('../assets/creatures/creature-cindercurl.png'),
   },
   tree: load('../assets/props/tree-oak.png'),
 };
@@ -206,7 +215,7 @@ function drawStage() {
       drawFrame(ctx, sources.player, column, player.dir, p.x, p.y, 36, 5, 8, 160, 256);
     } else {
       const walking = simulationTime % 960 < 700;
-      const col = !calm.checked && walking ? (Math.floor(follower.distance / 0.72) % 4) + 1 : 0;
+      const col = !calm.checked && walking ? (Math.floor(follower.distance / 0.56) % 4) + 1 : 0;
       drawFrame(ctx, creature, col, ROWS[speciesSelect.value].indexOf(DIRECTIONS[follower.dir]), p.x, p.y, 37, 5, 8, 200, 200);
     }
   }

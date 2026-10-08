@@ -58,7 +58,7 @@ test('the pin points at the target map when you are elsewhere, and lines fill in
   save.mapId = 'amber-ridge';
   assert.equal(now(save).pin, 'Follow the blue shrine marker north');
   save.badges = [0, 1, 2, 3];
-  assert.equal(now(save).lines[1][1], 'Befriend every species if you like (2 / 12)');
+  assert.equal(now(save).lines[1][1], 'Befriend every species if you like (2 / 15)');
 });
 
 test('conditions: all, not, visited, seen, flags and unknown keys', () => {

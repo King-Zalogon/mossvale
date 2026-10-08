@@ -100,6 +100,9 @@ test('sample visual subjects have hashed canonical references, exports and linke
       'creature-bramblebuck',
       'creature-siltkip',
       'creature-sunskitter',
+      'creature-sedgegnaw',
+      'creature-petalunge',
+      'creature-cindercurl',
     ],
   );
   const player = registry.subjects[0];
@@ -132,6 +135,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
   assert.deepEqual(followers.map(subject => subject.id).toSorted(), [
     'creature-bramblebuck',
     'creature-brooklet',
+    'creature-cindercurl',
     'creature-duskwing',
     'creature-emberkin',
     'creature-fernling',
@@ -139,6 +143,8 @@ test('sample visual subjects have hashed canonical references, exports and linke
     'creature-hushram',
     'creature-mushmallow',
     'creature-pebblit',
+    'creature-petalunge',
+    'creature-sedgegnaw',
     'creature-siltkip',
     'creature-sunskitter',
     'creature-voltkit',
