@@ -92,11 +92,11 @@
     "dist/maps/amber-ridge.json": "71607271a826ff0999385b0193bc861c381a1b019e4f12045084f150076dbe50",
     "dist/maps/frostveil-grove.json": "2f2723360040a1f3e39a20e687101d6c501f24d558f8d86bcb0a66cce0be17c1",
     "dist/maps/frostveil-pass.json": "beac5f7e2d3efd86b7096885a27094ce3c27e5be106cf15cb01119dffa129207",
-    "dist/maps/index.json": "791b6c181f9c218fd568f4a339d86bbe47576e325fc38cdf967b4804d590b39e",
+    "dist/maps/index.json": "99e4e252abea2c4c5802fd004989de34fc7e316919ce6148663720854d29105e",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "f8c3bcd8e324f8be89a3125f391993547eca7d963254619ac659aef65aa1362e",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "59a397c0d62184afe439e8c25ff3f6705bdbfe50f70e20494d551c674849a0ef",
+    "dist/maps/orchard-ruins.json": "d244c86f185dcfcf036986f822b4d84ab5bdc2c84cc712c1b509bfcd47849d31",
     "dist/maps/reedfen-wetlands.json": "63971ba23d813faef014a79a00626a7f34addfa19a801739359434f244e2f1ea",
     "dist/maps/registries.json": "ee5a8200b8662b73b7a11289564e90228c13713ff62181a99ab74b5f09e58bbf",
     "dist/maps/stilt-isles.json": "9c2345294cc2ebf00d4ef8f9fe51fd291a6de1b140ae69e868d818a9ff17aeb5",
@@ -135,7 +135,7 @@
     "dist/src/domain/inventory.js": "198e9b236379a419e9b316205dd458d83fa8fc5e9c799d73818efb14daeefbc8",
     "dist/src/domain/mapdata.js": "b053b4828598df01a3b8b14869ef76a383bda03c84a5bd9c0f24aef8d78d08ae",
     "dist/src/domain/objective-events.js": "7ea11e81899424623e230c55ddc90c42c77c9df88532b91832cf39d23991128e",
-    "dist/src/domain/objectives.js": "4e2086779b44e74edaac208c55fc4301b181b5998db7a4896650258ad658fe05",
+    "dist/src/domain/objectives.js": "84b5cfbe307efdc1dcf55b04a07a898f88cdb9da9d3d1c870d4a3618ea9a5410",
     "dist/src/domain/pack.js": "77730dcfa0a58ed1caf0fa966ed509bae2670f9dfde4f2b7be4bdffa98cd2151",
     "dist/src/domain/phase.js": "6fd79be41cfbe4563a4d88310b34de76d111f42a4332c943e895e88f25b0ad24",
     "dist/src/domain/prefabs.js": "ec6197536df38efc412166f36e628f90695c403e828e36093612977ed6cb5c02",
@@ -200,7 +200,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "dfeca0ac8ed491b7192d1d3d7bea2bfd1e9243e5dc87f710081a0e338a136cf5",
+  "sourceDigest": "12d52e08012e37971ab875175f91929c5b2c8c88d42696828ef76361d3e1aadb",
   "exclusions": [
     {
       "family": "module-exports",
@@ -5704,6 +5704,178 @@
         ],
         "triggers": [
           {
+            "id": "orchard-mara-brief",
+            "at": [7, 15],
+            "radius": 1.5,
+            "on": "interact",
+            "events": [
+              {
+                "id": "mara-water-loss",
+                "repeatable": false,
+                "when": {
+                  "flag": "meadow.seal"
+                },
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "orchard-ranger",
+                    "text": "The lower row is dry again. The feeder board is scraped, but the old channel was failing before that. Find where the water went."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "orchard-sluice-clue",
+            "at": [56, 27],
+            "radius": 1.5,
+            "on": "interact",
+            "events": [
+              {
+                "id": "sluice-old-mark",
+                "repeatable": false,
+                "when": {
+                  "event": "orchard-ruins/mara-water-loss"
+                },
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "narrator",
+                    "text": "The split timber is dark and soft. This break has lasted through more than one rain. Brighter scrapes cut through the old mud toward the lower row."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "orchard-press-clue",
+            "at": [30, 44],
+            "radius": 1.5,
+            "on": "interact",
+            "events": [
+              {
+                "id": "press-repair-record",
+                "repeatable": false,
+                "when": {
+                  "event": "orchard-ruins/mara-water-loss"
+                },
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "narrator",
+                    "text": "The press marks stop before last harvest. The flow had already dropped before the newest Bramblebuck visit."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "orchard-den-reveal",
+            "at": [42, 36],
+            "radius": 1.7,
+            "on": "interact",
+            "events": [
+              {
+                "id": "den-family-seen",
+                "repeatable": false,
+                "when": {
+                  "all": [
+                    {
+                      "event": "orchard-ruins/mara-water-loss"
+                    },
+                    {
+                      "any": [
+                        {
+                          "event": "orchard-ruins/sluice-old-mark"
+                        },
+                        {
+                          "event": "orchard-ruins/press-repair-record"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "narrator",
+                    "text": "Wet tracks return to a damp hollow. The adult Bramblebuck watches you, then turns back toward the young. The den is where the water is reaching them."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "orchard-water-bypass",
+            "at": [49, 41],
+            "radius": 1.5,
+            "on": "interact",
+            "events": [
+              {
+                "id": "outcome-water-first",
+                "repeatable": false,
+                "when": {
+                  "all": [
+                    {
+                      "event": "orchard-ruins/den-family-seen"
+                    },
+                    {
+                      "not": {
+                        "event": "orchard-ruins/outcome-family-first"
+                      }
+                    }
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "narrator",
+                    "text": "You open the shared bypass. Water returns to the lower row, and the family settles into the dry upper nook."
+                  },
+                  {
+                    "type": "reward",
+                    "coins": 10
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "orchard-dry-hollow",
+            "at": [44, 34],
+            "radius": 1.5,
+            "on": "interact",
+            "events": [
+              {
+                "id": "outcome-family-first",
+                "repeatable": false,
+                "when": {
+                  "all": [
+                    {
+                      "event": "orchard-ruins/den-family-seen"
+                    },
+                    {
+                      "not": {
+                        "event": "orchard-ruins/outcome-water-first"
+                      }
+                    }
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "narrator",
+                    "text": "You guide the young to the dry hollow first. The adult follows, leaving Mara the slower channel repair."
+                  },
+                  {
+                    "type": "reward",
+                    "coins": 10
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "id": "hidden-cut-through",
             "at": [13, 15],
             "radius": 1.2,
@@ -8471,7 +8643,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "59a397c0d62184afe439e8c25ff3f6705bdbfe50f70e20494d551c674849a0ef"
+            "sha256": "d244c86f185dcfcf036986f822b4d84ab5bdc2c84cc712c1b509bfcd47849d31"
           },
           {
             "id": "map:stilt-isles",
