@@ -7,7 +7,9 @@ import {FACING, directionPose, followerFrame, movementFacing, playerFrame, playe
 import {unlocked} from '../domain/rules.js';
 import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
 import {isKnown, isRevealed} from '../domain/discovery.js';
+import {companionRouteDiscovered, companionRouteVisible} from '../domain/companion-routes.js';
 import {drawSprite, drawSpriteFrame, sprites} from './sprites.js';
+import {createTerrainPainter, terrainColors} from './terrain.js';
 
 const raw = (x, y) => ({x: ((x - y) * TILE_W) / 2, y: ((x + y) * TILE_H) / 2});
 
@@ -17,6 +19,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
   let view;
   let stats = {visibleTiles: 0, worldTiles: 0, visibleObjects: 0, worldObjects: 0};
   let followerMotion = null;
+  const terrain = createTerrainPainter();
 
   const visibleBounds = () => {
     const centerY = canvas.height * 0.49;
@@ -56,19 +59,6 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     ctx.closePath();
     ctx.fill();
   };
-  const diamond = (s, color) => {
-    const w = (TILE_W / 2) * view.zoom;
-    const h = (TILE_H / 2) * view.zoom;
-    poly(
-      [
-        {x: s.x, y: s.y - h},
-        {x: s.x + w, y: s.y},
-        {x: s.x, y: s.y + h},
-        {x: s.x - w, y: s.y},
-      ],
-      color,
-    );
-  };
   const shadow = (s, w = 16) => {
     ctx.fillStyle = '#17372538';
     ctx.beginPath();
@@ -99,6 +89,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     ctx.imageSmoothingEnabled = false;
     ctx.fillStyle = palette[0];
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const colors = terrainColors(palette);
     const bounds = visibleBounds();
     const tiles = tilesInBounds(world, {...bounds, minX: bounds.minX + 8, maxX: bounds.maxX - 8, minY: bounds.minY + 8, maxY: bounds.maxY - 8});
     for (const t of tiles) {
@@ -119,17 +110,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
           palette[5],
         );
       }
-      diamond(s, t.water ? palette[4] : t.path ? palette[3] : t.grass ? palette[2] : rnd(t.x, t.y, region) > 0.5 ? palette[1] : palette[0]);
-      if (t.water) {
-        ctx.fillStyle = '#b7e2dd99';
-        ctx.fillRect(s.x - 13 * zoom + Math.sin(now / 1300 + t.x) * 2 * zoom, s.y, 16 * zoom, zoom);
-        ctx.fillRect(s.x + 7 * zoom, s.y + 5 * zoom, 8 * zoom, zoom);
-      } else {
-        for (let i = 0; i < 2; i++) {
-          ctx.fillStyle = t.path ? '#6a643c35' : region === 2 ? '#829fa755' : '#54783c55';
-          ctx.fillRect(s.x + (-17 + rnd(t.x + i, t.y, region) * 34) * zoom, s.y + (-6 + rnd(t.y + i, t.x, region) * 12) * zoom, 2 * zoom, zoom);
-        }
-      }
+      terrain.drawTile(ctx, world, t, s, zoom, now, region, colors);
     }
     const baseId = species[save.active].sprite;
     const followerName = `${assets[baseId].name}-follower`;
@@ -160,7 +141,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       column: playerFrame(player.walkDistance, v.moving, v.reducedMotion),
       ...playerSpritePose(player.dir),
     };
-    const visibleObjects = objectsInBounds(world, bounds);
+    const visibleObjects = objectsInBounds(world, bounds).filter(object => companionRouteVisible(save, world.map.id, object));
     stats = {visibleTiles: tiles.length, worldTiles: world.tiles.length, visibleObjects: visibleObjects.length, worldObjects: world.objects.length};
     const all = [...visibleObjects, follow, {x: player.x, y: player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player', frame: playerPose}].sort(
       (a, b) => a.x + a.y - b.x - b.y,
@@ -193,7 +174,22 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
         else if (o.kind === 'companion' && assets[o.id]?.frames)
           drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
-        else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
+        else if (o.kind === 'ranger' && assets[o.id]?.frames?.columns === 4) {
+          const cardinalColumn = Math.round((o.sceneDir ?? FACING.south) / 2) % 4;
+          drawSpriteFrame(ctx, o.id, cardinalColumn, 0, s.x, s.y + bob, o.w * zoom, options);
+        } else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
+      }
+      if (o.sceneReaction && o.sceneReactionUntil > now) {
+        const mark = o.sceneReaction === 'happy' ? '♥' : o.sceneReaction === 'surprise' ? '!' : '…';
+        ctx.font = `bold ${Math.round(17 * zoom)}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#fff8d9';
+        ctx.strokeStyle = '#244632';
+        ctx.lineWidth = 3 * zoom;
+        const y = s.y - spriteHeight(o) - 15 * zoom;
+        ctx.strokeText(mark, s.x, y);
+        ctx.fillText(mark, s.x, y);
       }
       if (['ranger', 'shrine', 'chest', 'gate'].includes(o.kind) && !openedChest) {
         ctx.fillStyle = o.kind === 'shrine' ? '#a2ddf8' : o.kind === 'chest' ? '#f4ce81' : '#eef2c0';
@@ -271,7 +267,9 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     mini.clearRect(0, 0, 120, 100);
     mini.drawImage(miniLayer, 0, 0);
     for (const o of world.objects) {
-      if (!['shrine', 'ranger', 'chest', 'gate'].includes(o.kind) || !isKnown(entry, o) || (o.kind === 'chest' && save.chests.includes(save.region))) continue;
+      if (!['shrine', 'ranger', 'chest', 'gate'].includes(o.kind) || !companionRouteVisible(save, world.map.id, o)) continue;
+      if (!isKnown(entry, o) && !(o.route && companionRouteDiscovered(save, world.map.id, o.route.id))) continue;
+      if (o.kind === 'chest' && save.chests.includes(save.region)) continue;
       const s = mp(o.x, o.y);
       mini.fillStyle = o.kind === 'shrine' ? '#80dcff' : o.kind === 'chest' ? '#f6c25b' : '#eff3d5';
       mini.fillRect(s.x - 2, s.y - 2, 4, 4);

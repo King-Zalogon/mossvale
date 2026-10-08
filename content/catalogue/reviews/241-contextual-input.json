@@ -1,0 +1,32 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/facts.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/reviews/241-contextual-input.json",
+        "dist/src/input.js",
+        "dist/index.html",
+        "dist/style.css",
+        "docs/MOVEMENT.md",
+        "docs/ART_REVIEW.md",
+        "docs/QUALITY_REVIEW.md",
+        "docs/quality-review/241-desktop-before.png",
+        "docs/quality-review/241-desktop-after.png",
+        "docs/quality-review/241-phone-portrait.png",
+        "docs/quality-review/241-phone-landscape.png",
+        "tests/input-mode.browser.mjs",
+        "tests/obstacle-sliding.browser.mjs",
+        "tests/follower-runtime.browser.mjs",
+        "package.json"
+      ],
+      "entries": ["mechanic:movement"],
+      "disposition": "updated",
+      "reason": "Movement HUD follows actual movement input after its primary-pointer startup choice. The existing movement fiche now documents contextual controls, held-input release, focus recovery and temporary UI state. Supporting browser captures and the source-backed quality audit do not add gameplay rules or approve unfinished terrain art.",
+      "evidence": ["tests/input-mode.browser.mjs", "docs/MOVEMENT.md", "docs/QUALITY_REVIEW.md"]
+    }
+  ]
+}

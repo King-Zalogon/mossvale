@@ -6,7 +6,13 @@ import {buildWorld, isWalkable, triggersAt, zoneAt} from '../dist/src/domain/wor
 import {rollWild} from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
 import {movePlayer} from '../dist/src/domain/exploration.js';
-import {availableCompanionRoutes, validateCompanionRoutes} from '../dist/src/domain/companion-routes.js';
+import {
+  approachedWithinRadius,
+  availableCompanionRoutes,
+  companionRouteDiscovered,
+  companionRouteVisible,
+  validateCompanionRoutes,
+} from '../dist/src/domain/companion-routes.js';
 import {content, mapsById, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
 const edit = fn => {
@@ -60,12 +66,14 @@ test('the meadow pair has a safe loop, a shortcut discovery and a gated onward t
   assert.equal(mapsById['orchard-ruins'].objects.find(o => o.ref === 'east-to-ridge').targetRegion, 1);
 });
 
-test('the Reedfen shallow-water cut is telegraphed, optional and keeps recovery open for every starter', () => {
+test('the Reedfen shallow-water cut is concealed until eligible approach and keeps recovery open for every starter', () => {
   const wetlands = rawMaps().find(map => map.id === 'reedfen-wetlands');
   const stiltIsles = rawMaps().find(map => map.id === 'stilt-isles');
   const routeExit = wetlands.exits.find(exit => exit.route?.id === 'shallow-water-cut');
   assert.ok(routeExit, 'large wetland map includes an optional cut');
-  assert.match(wetlands.landmarks.find(landmark => landmark.id === 'shallow-cut-guide').text, /Brooklet/);
+  const guide = wetlands.landmarks.find(landmark => landmark.id === 'shallow-cut-guide');
+  assert.match(guide.text, /Brooklet/);
+  assert.equal(guide.routeHint, routeExit.route.id, 'the guidance sign shares the route discovery state');
   assert.deepEqual(routeExit.route.requires, {ability: 'cross-shallow-water', habitat: 'wetland'});
   assert.deepEqual(routeExit.to, {map: 'stilt-isles', spawn: 'lantern-cut'});
   assert.ok(stiltIsles.spawns[routeExit.to.spawn]);
@@ -104,6 +112,10 @@ test('the Reedfen shallow-water cut is telegraphed, optional and keeps recovery 
     [],
   );
   has(
+    edit(raw => (raw.find(map => map.id === 'reedfen-wetlands').landmarks.find(landmark => landmark.id === 'shallow-cut-guide').routeHint = 'missing-route')),
+    'routeHint: must reference a companion route defined by an exit',
+  );
+  has(
     edit(raw => (raw.find(map => map.id === 'reedfen-wetlands').exits.find(exit => exit.route).route.requires.ability = 'Cross-Water')),
     'stable ability ID',
   );
@@ -111,6 +123,21 @@ test('the Reedfen shallow-water cut is telegraphed, optional and keeps recovery 
     edit(raw => (raw.find(map => map.id === 'reedfen-wetlands').exits.find(exit => exit.route).route.reward.coins = -1)),
     'must be an integer from 0 to 999',
   );
+});
+
+test('companion route visibility uses its saved unlock event and a bounded approach radius', () => {
+  const gate = {route: {id: 'shallow-water-cut'}};
+  const hint = {routeHint: 'shallow-water-cut'};
+  const unopened = {events: [], explored: {'reedfen-wetlands': {seen: ['shallow-water-cut', 'shallow-cut-guide']}}};
+  const opened = {events: ['reedfen-wetlands/route-shallow-water-cut']};
+  assert.equal(companionRouteDiscovered(unopened, 'reedfen-wetlands', gate.route.id), false);
+  assert.equal(companionRouteVisible(unopened, 'reedfen-wetlands', gate), false, 'legacy discovery bits alone do not reveal the route');
+  assert.equal(companionRouteVisible(unopened, 'reedfen-wetlands', hint), false, 'linked guidance stays hidden too');
+  assert.equal(companionRouteDiscovered(opened, 'reedfen-wetlands', gate.route.id), true);
+  assert.equal(companionRouteVisible(opened, 'reedfen-wetlands', gate), true);
+  assert.equal(approachedWithinRadius({x: 0, y: 0}, {x: 3, y: 0}, {x: 3, y: 0}, 2.5), true);
+  assert.equal(approachedWithinRadius({x: 0, y: 0}, {x: 0.49, y: 0}, {x: 3, y: 0}, 2.5), false);
+  assert.equal(approachedWithinRadius({x: 0, y: 0}, {x: 6, y: 0}, {x: 3, y: 0}, 2.5), true, 'fast movement still detects crossing the range');
 });
 
 test('authored environmental messages are a valid trigger action separate from generic toasts', () => {

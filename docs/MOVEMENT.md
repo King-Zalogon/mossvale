@@ -12,3 +12,9 @@ Issue [#15](https://github.com/King-Zalogon/mossvale/issues/15). Code: `dist/src
 - **Zoom.** The zoom you choose is saved and survives resizing; without a saved zoom the default depends on screen width.
 
 Not changed: walk/run speeds (tune from play feedback), camera follow smoothing, and camera bounds (the island is small and the player cannot leave it).
+
+## Movement controls and input method
+
+The movement HUD initially uses the browser's primary pointer: coarse starts with touch controls; fine starts with desktop instructions. Available touch hardware alone does not force the pad onto a touchscreen laptop's keyboard/mouse session. Actual touch or pen presses reveal the pad and Run. Mouse presses and keyboard movement switch to desktop presentation; keyboard reading/menu navigation does not change the movement method. The screen width controls layout, not which input method is active.
+
+Changing movement method releases held keys/captured touch movement, and focus moves from a hidden pad/Run button back to the canvas. Run preferences remain intact. Mode is temporary UI state and does not change the save format. Phone rotation and fullscreen retain the current method; touch dragging still changes direction continuously. Browser regression: `tests/input-mode.browser.mjs`; responsive/fullscreen regression: `tests/responsive-journal.browser.mjs`. The hybrid case combines emulated fine/coarse capabilities with real Chromium touch/key events; physical hardware coverage remains #35.

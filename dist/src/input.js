@@ -20,13 +20,39 @@ export function installInput(app) {
     activeTouchPointer = null;
   };
 
+  // Capability chooses the initial layout; actual play chooses subsequent input mode.
+  // A touchscreen laptop must not overlay its pad on a keyboard/mouse session.
+  const primaryTouch = window.matchMedia('(pointer: coarse)');
+  let hasSelectedInput = false;
+  const setInputMode = mode => {
+    if (document.body.dataset.inputMode === mode) return;
+    releaseAll();
+    document.body.dataset.inputMode = mode;
+    const focused = document.activeElement;
+    if (mode === 'desktop' && (focused?.closest('.touchpad') || focused?.id === 'touch-run')) $('#game').focus({preventScroll: true});
+  };
+  const updateCapability = () => {
+    if (!hasSelectedInput) setInputMode(primaryTouch.matches ? 'touch' : 'desktop');
+  };
+  updateCapability();
+  primaryTouch.addEventListener?.('change', updateCapability);
+  window.addEventListener(
+    'pointerdown',
+    e => {
+      if (!['touch', 'pen', 'mouse'].includes(e.pointerType) || (e.sourceCapabilities?.firesTouchEvents && e.pointerType === 'mouse')) return;
+      hasSelectedInput = true;
+      setInputMode(e.pointerType === 'mouse' ? 'desktop' : 'touch');
+    },
+    {capture: true, passive: true},
+  );
+
   $('#touch-run').onclick = () => {
     ui.touchRun = !ui.touchRun;
     $('#touch-run').setAttribute('aria-pressed', String(ui.touchRun));
   };
   for (const b of document.querySelectorAll('[data-dir]')) {
     b.onpointerdown = e => {
-      if (ui.modalMode || ui.paused || ui.speechActive) return;
+      if (ui.modalMode || ui.paused || ui.speechActive || ui.sceneBusy) return;
       e.preventDefault();
       if (activeTouchPointer !== null) return;
       activeTouchPointer = e.pointerId;
@@ -48,7 +74,7 @@ export function installInput(app) {
     'pointermove',
     e => {
       if (e.pointerId !== activeTouchPointer) return;
-      if (ui.modalMode || ui.paused || ui.speechActive) {
+      if (ui.modalMode || ui.paused || ui.speechActive || ui.sceneBusy) {
         ui.touch = null;
         return;
       }
@@ -61,6 +87,11 @@ export function installInput(app) {
   window.addEventListener('keydown', e => {
     if (!ui.ready) return;
     const k = e.key.toLowerCase();
+    // Navigating a reading/menu panel does not replace the movement method.
+    if (!ui.modalMode && !ui.speechActive && !e.ctrlKey && !e.metaKey && !e.altKey && (MOVE_KEYS.includes(k) || k === 'shift')) {
+      hasSelectedInput = true;
+      setInputMode('desktop');
+    }
     if (ui.speechActive) {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (k === 'tab') {
@@ -86,6 +117,7 @@ export function installInput(app) {
       }
       return; // other keys can scroll the focused reading region without moving the player
     }
+    if (ui.sceneBusy && k !== 'escape') return;
     if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(k) && !ui.modalMode) e.preventDefault();
     if (ui.modalMode) {
       if (ui.modalMode === 'ranger' && ['1', '2', '3'].includes(k)) {

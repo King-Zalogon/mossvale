@@ -383,7 +383,7 @@
       "id": "interactable:scene-event",
       "kind": "interactable",
       "name": "Authored scene event",
-      "summary": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+      "summary": "Run validated dialogue, rewards, flags, challenges and bounded actor choreography on interaction.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -395,12 +395,16 @@
         }
       ],
       "dependencies": [],
-      "limits": ["No arbitrary movement or sleep choreography action.", "Scene event history is limited to 256 entries."],
+      "limits": [
+        "Choreography supports sequential moves, facing, three reaction cues and waits; no parallel groups or custom animation scripts.",
+        "Movement is limited to 128 steps and 4096 inspected cells per destination; waits to 5 seconds.",
+        "Scene event history is limited to 256 entries."
+      ],
       "examples": [
         {
-          "intent": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+          "intent": "Run validated dialogue, rewards, flags, challenges and bounded actor choreography on interaction.",
           "usage": "Consult dist/src/domain/scenes.js and reuse the existing definition.",
-          "expected": "Run validated dialogue, reward, flag or challenge actions on interaction."
+          "expected": "Resolve bounded actor actions and commit durable scene results before transient presentation."
         }
       ],
       "references": ["dist/src/domain/scenes.js"],
@@ -413,10 +417,10 @@
       "details": {
         "activation": "Existing map scene interaction dispatch.",
         "conditions": "Optional when condition evaluated through objective conditions.",
-        "actions": "Dialogue, reward, flag and challenge; challenge must be last.",
+        "actions": "Dialogue, reward, flag, challenge, move, face, wait and react; challenge must be last. See docs/SCENE_ACTIONS.md for choreography limits.",
         "rewards": "Scene rewards accept coins, potions and orbs, not arbitrary inventory item IDs.",
         "repetition": "Explicit repeatable boolean; challenge events must be repeatable.",
-        "persistence": "Non-repeatable events use saved map/event keys; caller persists the action transaction."
+        "persistence": "Non-repeatable events use saved map/event keys; rewards and flags commit before choreography and roll back if saving fails."
       }
     },
     {
@@ -3120,6 +3124,7 @@
             "w": 38,
             "label": "Read the shallow-cut marker",
             "mapLabel": "Shallow-water cut",
+            "routeHint": "shallow-water-cut",
             "text": "Brooklet can lead across the shallow-water cut to Lantern Islet. The familiar boardwalk to Stilt Isles remains open for every companion."
           },
           "limits": "Configure through dist/maps/reedfen-wetlands.json; use its existing validator, not arbitrary new fields."
@@ -4606,34 +4611,37 @@
       "id": "mechanic:companion-route",
       "kind": "mechanic",
       "name": "Companion route gate",
-      "summary": "Optionally unlock a shallow-water route with a compatible companion.",
+      "summary": "Discover and unlock a concealed optional route by approaching it with a compatible companion.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": ["This is not free-form flying, swimming or arbitrary companion interaction."],
+      "limits": [
+        "Discovery uses a 2.5-tile approach radius and the active companion's authored ability/habitat tags.",
+        "This is not free-form flying, swimming or arbitrary companion interaction."
+      ],
       "examples": [
         {
-          "intent": "Optionally unlock a shallow-water route with a compatible companion.",
-          "usage": "Use the existing contract documented at dist/src/domain/world.js.",
-          "expected": "Optionally unlock a shallow-water route with a compatible companion."
+          "intent": "Discover a secret shortcut with the companion whose abilities fit the route.",
+          "usage": "Author an exit route in a map, optionally link clue signs with routeHint, then approach within 2.5 tiles while the matching companion is active.",
+          "expected": "The route, clue sign and map marker appear after discovery; the route event and reward are saved once, and the route remains usable with any companion."
         }
       ],
-      "references": ["dist/src/domain/world.js"],
+      "references": ["dist/src/domain/companion-routes.js", "docs/MAP_FORMAT.md", "dist/maps/reedfen-wetlands.json"],
       "evidence": [
         {
           "path": "tests/companion-route.browser.mjs",
-          "assertion": "Existing regression evidence for this capability."
+          "assertion": "Covers hidden/ineligible states, eligible approach, saved discovery/reward, reload and alternate-route recovery."
         }
       ],
       "details": {
-        "trigger": "Interact with the authored route gate.",
-        "inputs": "Required companion ability/habitat tags and validated route data.",
-        "sequence": "Check eligibility, unlock route and grant existing reward once.",
-        "results": "The optional route becomes traversable without removing the alternate path.",
+        "trigger": "Move within 2.5 tiles of the authored route with a matching active companion.",
+        "inputs": "Required companion ability/habitat tags, validated route data and optional linked sign routeHint.",
+        "sequence": "Keep the route, linked hints and map marker concealed until eligible approach; save its stable event and grant the reward once.",
+        "results": "The optional route and linked hint become visible and remain traversable by every companion without removing the alternate path.",
         "cancellation": "Ineligible companion keeps the normal boardwalk available.",
         "errors": "Unknown route references fail map validation.",
-        "persistence": "Unlock/reward use saved scene event keys."
+        "persistence": "Unlock/reward use saved scene event keys; legacy exploration markers alone do not reveal the route."
       }
     },
     {
@@ -4711,34 +4719,41 @@
       "id": "mechanic:guardian-counterplay",
       "kind": "mechanic",
       "name": "Guardian counterplay rewards",
-      "summary": "Reward a readable response to a regional guardian's forecasted tactic when the fight is won.",
+      "summary": "Show the next guardian action and matchup-based damage, then reward a valid tactical response when the fight is won.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["Bonuses are granted once per declared response in one guardian fight; they do not make any single creature mandatory."],
+      "limits": [
+        "Damage is a random-roll range for the current active companion; switching changes the matchup and forecast.",
+        "Bonuses are granted once per qualifying response in one guardian fight; they do not make any single creature mandatory. A response that requires a later enemy action is not credited if the guardian is defeated first."
+      ],
       "examples": [
         {
-          "intent": "Guard a forecast heavy blow and earn the guardian response bonus on victory.",
+          "intent": "Read a guardian's next action, compare current and Guard damage, and choose a response before its turn.",
           "usage": "Configure counterplay in a tactic under dist/maps/registries.json and use the existing Guard action.",
-          "expected": "The victory result names the response and includes its bonus coins and XP."
+          "expected": "The forecast identifies action order, damage ranges, current Focus or response availability; a qualifying response is named with bonus coins and XP on victory."
         }
       ],
       "references": ["dist/maps/registries.json", "dist/src/domain/battle.js", "dist/src/save.js", "dist/src/controller.js"],
       "evidence": [
         {
           "path": "tests/guardians.test.mjs",
-          "assertion": "Guardian response qualification, payout, checkpoint persistence and invalid-ID filtering."
+          "assertion": "Damage-range parity with the resolver; brace, repeated-element, charge and heavy timing; response qualification, payout, checkpoint persistence and invalid-ID filtering."
+        },
+        {
+          "path": "tests/guardian-forecast.browser.mjs",
+          "assertion": "Forecast remains legible in keyboard, touch, reduced-motion and fullscreen browser states."
         }
       ],
       "details": {
-        "trigger": "A configured Guard, elemental response or resistant switch matches the guardian's current forecast.",
-        "inputs": "The player's action, the current and previous tactic actions, and the active/selected matchup.",
-        "sequence": "Record each configured response once, continue the normal enemy reply, and add its configured bonus only when the guardian is defeated.",
-        "results": "The normal guardian reward plus the response bonus and a readable response label on the victory result.",
-        "cancellation": "A lost or abandoned fight pays no response bonus; a saved interrupted fight retains already recorded responses.",
+        "trigger": "While a guardian battle is idle, the interface previews its next tactic action and any relevant response window.",
+        "inputs": "The deterministic tactic pattern position, species damage formula, current active matchup, Guard factor, Focus, party health and configured response conditions.",
+        "sequence": "Derive the upcoming action, unguarded and guarded random damage ranges, brace or charge effects and matching responses without mutating battle state. The existing resolver independently records only qualifying player actions and pays recorded bonuses on victory.",
+        "results": "The battle panel explains whether the guardian acts after the player's choice, the current ally's damage range, Guard reduction/riposte, Focus cost, next brace/charge consequence, and any available response reward.",
+        "cancellation": "The forecast is hidden while an action resolves or the battle ends. A lost or abandoned fight pays no response bonus; a saved interrupted fight retains recorded responses. A response requiring the guardian's next action is not recorded if the player's action defeats it first.",
         "errors": "Unknown response IDs in a saved battle are discarded during normalization.",
-        "persistence": "Recorded response IDs are part of the existing battle checkpoint and remain compatible with older saves."
+        "persistence": "The forecast is derived and adds no save fields. Recorded response IDs remain part of the existing battle checkpoint and compatible with older saves."
       }
     },
     {
@@ -4813,10 +4828,7 @@
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": [
-        "A valid JSON map still needs playability/reachability review.",
-        "Terrain-family shoreline details are experimental Map Workshop preview decoration; they do not alter source tile assets, baked collision, or shipped game maps."
-      ],
+      "limits": ["A valid JSON map still needs playability/reachability review."],
       "examples": [
         {
           "intent": "Edit validated map data and preview it through the existing game.",
@@ -4834,7 +4846,7 @@
       "details": {
         "trigger": "Open the local map editor.",
         "inputs": "Map JSON and existing asset/pack references.",
-        "sequence": "Edit, undo/redo, validate and export local candidate data; optionally preview topology and the grass/path/water fixture.",
+        "sequence": "Edit, undo/redo, validate and export local candidate data.",
         "results": "Validated JSON round trip and full-engine preview.",
         "cancellation": "Edits remain local until deliberately integrated.",
         "errors": "Invalid geometry/reference diagnostics come from canonical validators.",
@@ -4850,7 +4862,10 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["No autonomous NPC schedules, free navigation commands or speed-potion mechanic."],
+      "limits": [
+        "No autonomous NPC schedules, free navigation commands or speed-potion mechanic.",
+        "The movement HUD follows the primary pointer initially and actual movement input afterward; screen width alone does not choose touch controls."
+      ],
       "examples": [
         {
           "intent": "Move the player with footprint-aware collision and trail-following companions.",
@@ -4858,21 +4873,25 @@
           "expected": "Move the player with footprint-aware collision and trail-following companions."
         }
       ],
-      "references": ["dist/src/domain/exploration.js"],
+      "references": ["dist/src/domain/exploration.js", "dist/src/input.js", "docs/MOVEMENT.md"],
       "evidence": [
         {
           "path": "tests/obstacle-sliding.browser.mjs",
           "assertion": "Existing regression evidence for this capability."
+        },
+        {
+          "path": "tests/input-mode.browser.mjs",
+          "assertion": "Actual keyboard, touch drag and mouse gestures verify contextual movement controls, hybrid capability, focus recovery and no stuck movement."
         }
       ],
       "details": {
         "trigger": "Keyboard or touch movement input.",
         "inputs": "Direction, run setting and injected elapsed time.",
-        "sequence": "Move with existing collision/sliding checks; push companion trail.",
+        "sequence": "Choose the temporary movement HUD from actual input, release held input on method changes, then move with existing collision/sliding checks and push the companion trail.",
         "results": "Player/follower exploration in authored maps.",
-        "cancellation": "Pause/dialogue/touch interruption uses existing controller/input rules.",
+        "cancellation": "Input-method changes, pause/dialogue and touch interruptions release movement using existing input/controller rules.",
         "errors": "Invalid positions remain blocked by world walkability.",
-        "persistence": "Player/map position persists through existing exploration save flow."
+        "persistence": "Player/map position persists through the existing exploration save flow; the input method is temporary presentation state, not adventure-save data."
       }
     },
     {
@@ -4936,6 +4955,49 @@
         "cancellation": "Failed writes preserve recovery data and report failure.",
         "errors": "Invalid identities/schema do not silently overwrite unreadable progress.",
         "persistence": "Schema v5; stable string IDs at storage boundary."
+      }
+    },
+    {
+      "id": "mechanic:scene-choreography",
+      "kind": "mechanic",
+      "name": "Scene choreography",
+      "summary": "Stage bounded actor movement, facing, reactions and waits before dialogue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": ["interactable:scene-event"],
+      "limits": [
+        "Sequential player and ranger movement only; no parallel groups or custom animation scripts.",
+        "Each destination is limited to 128 steps and 4096 inspected cells; waits are at most 5 seconds."
+      ],
+      "examples": [
+        {
+          "intent": "Stage two actors approaching and facing before a conversation.",
+          "usage": "Consult docs/SCENE_ACTIONS.md and validate the event against the map.",
+          "expected": "Supported moves complete, report blocked/cancelled explicitly, then show dialogue when the UI remains available."
+        }
+      ],
+      "references": [
+        "docs/SCENE_ACTIONS.md",
+        "dist/src/domain/scenes.js",
+        "dist/src/domain/scene-path.js",
+        "dist/src/controller.js",
+        "dist/src/render/world.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scenes.test.mjs",
+          "assertion": "Covers bounded routes, walkable destinations, actor validation and explicit arrival/block results."
+        }
+      ],
+      "details": {
+        "trigger": "Validated map scene event.",
+        "inputs": "Player and ranger landmark IDs, integer walkable destinations, supported face targets, notice/surprise/happy reactions, and bounded waits.",
+        "sequence": "Actions run in authored order; each movement settles before the next action.",
+        "results": "Movement reports arrived, blocked or cancelled. Player directions and four ranger facings use shipped sprite poses.",
+        "cancellation": "Pause, menu, map travel, battle, hidden tab and page exit release movement ownership and cancel timers.",
+        "errors": "Missing actor, invalid destination, blocked route or unsupported action is rejected or reported; no rescue teleport is used.",
+        "persistence": "One-time event keys, flags and rewards save before presentation; a failed save restores the prior save state."
       }
     },
     {

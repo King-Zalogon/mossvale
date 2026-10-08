@@ -140,7 +140,7 @@
       "w": 38,
       "label": "Read the trail sign",
       "mapLabel": "Trail sign",
-      "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: the next island · Gold: treasure"
+      "text": "North: crystal shrine (narrow cut or the long east trail) \u00b7 South: Stone Basin \u00b7 East: the next island \u00b7 Gold: treasure"
     },
     {
       "id": "chest",
@@ -438,6 +438,131 @@
         [28.8, 33.8],
         [50.2, 41.5]
       ]
+    },
+    {
+      "sprite": "rock-spire-red",
+      "kind": "scenery",
+      "w": 71,
+      "solid": 0.36,
+      "at": [
+        [33.0, 33.0],
+        [31.1, 34.8],
+        [28.6, 34.0],
+        [28.0, 31.5],
+        [29.9, 29.7],
+        [32.4, 30.5]
+      ],
+      "piece": "standing-stones-1"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [[30.5, 32.3]],
+      "piece": "standing-stones-1"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [[30.5, 33.3]],
+      "piece": "standing-stones-1"
+    },
+    {
+      "sprite": "rock-spire-red",
+      "kind": "scenery",
+      "w": 71,
+      "solid": 0.36,
+      "at": [
+        [43.6, 26.3],
+        [39.2, 27.3],
+        [38.6, 24.7],
+        [40.5, 23.0],
+        [43.0, 23.7]
+      ],
+      "piece": "standing-stones-2"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [[41.1, 25.5]],
+      "piece": "standing-stones-2"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [[41.1, 26.5]],
+      "piece": "standing-stones-2"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [
+        [44.9, 33.1],
+        [46.4, 33.6],
+        [45.5, 31.7]
+      ],
+      "piece": "cairn-3"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [43.8, 33.9],
+        [46.8, 32.5]
+      ],
+      "piece": "cairn-3"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [
+        [11.2, 42.5],
+        [12.7, 43.0],
+        [11.8, 41.1]
+      ],
+      "piece": "cairn-4"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [10.1, 43.3],
+        [13.1, 41.9]
+      ],
+      "piece": "cairn-4"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [
+        [27.3, 22.1],
+        [28.8, 22.6],
+        [27.9, 20.7]
+      ],
+      "piece": "cairn-5"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [26.2, 22.9],
+        [29.2, 21.5]
+      ],
+      "piece": "cairn-5"
     }
   ],
   "zones": [

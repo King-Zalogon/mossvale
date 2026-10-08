@@ -4,7 +4,9 @@ import {DEFAULT_PATTERN, GUARDIAN_HP_BONUS, HEAVY_FACTOR, INTENT_TEXT, planOf, T
 import {
   battleCheckpoint,
   createBattle,
+  enemyDamageRange,
   enemyAttack,
+  guardianForecast,
   guardianLevel,
   lastEnemyAction,
   nextEnemyAction,
@@ -13,6 +15,7 @@ import {
 } from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
 import {companion, effectiveness, healTeam, level, maxHP} from '../dist/src/domain/rules.js';
+import {species} from '../dist/src/data/species.js';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {codec, content, maps, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
@@ -62,8 +65,125 @@ test('spore guard: bracing punishes quick strikes but an elemental move breaks t
   assert.ok(Math.abs(braced.damage / open.damage - TACTICS['spore-guard'].braceQuickFactor) < 0.2, `${braced.damage}/${open.damage}`);
   assert.equal(element.brokeBrace, true);
   assert.ok(element.damage > braced.damage * 3, `${element.damage}/${braced.damage}`);
-  assert.match(TACTICS['spore-guard'].intro, /After the brace, quick strikes glance off/);
-  assert.match(INTENT_TEXT.brace, /after this will be halved/);
+  assert.match(TACTICS['spore-guard'].intro, /Brace comes after your move.*Quick Strike is heavily reduced/);
+  assert.equal(INTENT_TEXT.brace, 'bracing', 'the forecast label is neutral; mechanical details come from the tactic rules');
+});
+
+test('guardian forecasts use the resolver formula for every damaging action and Guard range', () => {
+  for (let region = 0; region < maps.length; region++) {
+    const baseSave = newSave();
+    const config = guardian(region);
+    const baseBattle = createBattle(baseSave, seededRng(1), spec(region));
+    baseBattle.hp = baseBattle.max = 5000;
+    const pattern = planOf(config.tactic);
+    for (let turn = 0; turn < pattern.length; turn++) {
+      baseBattle.turn = turn;
+      const action = nextEnemyAction(baseBattle);
+      const forecast = guardianForecast(baseSave, baseBattle);
+      assert.equal(forecast.action, action);
+      assert.equal(forecast.nextAction, pattern[(turn + 1) % pattern.length]);
+      const normal = enemyDamageRange(baseSave, baseBattle, action, false);
+      const guarded = enemyDamageRange(baseSave, baseBattle, action, true);
+      if (!normal) {
+        assert.equal(forecast.damage, null, `${config.tactic} ${action} has no damage`);
+        continue;
+      }
+      assert.deepEqual(forecast.damage, normal);
+      assert.deepEqual(forecast.guardedDamage, guarded);
+      for (let seed = 1; seed <= 12; seed++) {
+        for (const guarding of [false, true]) {
+          const save = newSave();
+          const battle = createBattle(save, seededRng(1), spec(region));
+          battle.hp = battle.max = 5000;
+          battle.turn = turn;
+          battle.guard = guarding;
+          const hit = enemyAttack(save, battle, seededRng(seed));
+          const expected = guarding ? guarded : normal;
+          assert.ok(hit.damage >= expected.damage.min && hit.damage <= expected.damage.max, `${config.tactic}/${action} seed ${seed}: ${hit.damage}`);
+          assert.ok(
+            hit.counter >= expected.counter.min && hit.counter <= expected.counter.max,
+            `${config.tactic}/${action} counter seed ${seed}: ${hit.counter}`,
+          );
+        }
+      }
+    }
+  }
+});
+
+test('forecast identifies post-choice windows, Focus availability, and the next response', () => {
+  const save = newSave();
+  const meadow = createBattle(save, seededRng(1), spec(0));
+  meadow.turn = 1;
+  let forecast = guardianForecast(save, meadow);
+  assert.deepEqual([forecast.action, forecast.nextAction, forecast.damage], ['brace', 'strike', null]);
+  assert.deepEqual([forecast.brace.quickFactor, forecast.brace.elementFactor, forecast.brace.elementCost], [0.12, 1.5, 1]);
+  assert.equal(forecast.followupResponses[0].id, 'break-brace');
+  meadow.turn = 2; // brace has resolved, so Element can now break it
+  forecast = guardianForecast(save, meadow);
+  assert.equal(forecast.responses.find(response => response.id === 'break-brace').available, true);
+  meadow.focus = 0;
+  assert.equal(guardianForecast(save, meadow).responses.find(response => response.id === 'break-brace').available, false);
+
+  const tidal = createBattle(save, seededRng(1), spec(3));
+  tidal.turn = 1;
+  tidal.focus = 0;
+  forecast = guardianForecast(save, tidal);
+  assert.equal(forecast.action, 'charge');
+  assert.equal(forecast.charge.recoveryMax, Math.ceil(tidal.max * 0.12));
+  assert.equal(forecast.charge.interruptAvailable, false);
+  assert.equal(forecast.responses.find(response => response.id === 'disrupt-current').available, false);
+  assert.equal(forecast.followupResponses.find(response => response.id === 'guard-crash').action, 'guard');
+});
+
+test('all advertised guardian responses earn their configured one-time victory bonus only in the matching window', () => {
+  const meadowSave = newSave();
+  const meadow = createBattle(meadowSave, seededRng(1), spec(0));
+  meadow.turn = 2; // the previous enemy action was Brace
+  meadow.hp = 1;
+  const meadowResult = resolveTurn(meadowSave, meadow, {kind: 'element'}, mid);
+  const meadowWin = meadowResult.events.find(event => event.type === 'win');
+  assert.deepEqual(meadowWin.responseLabels, ['Brace broken']);
+  assert.deepEqual([meadowWin.responseCoins, meadowWin.responseXp], [8, 10]);
+
+  const frostSave = newSave();
+  const enemy = guardian(2).id;
+  const resistant = species.findIndex((_, id) => effectiveness(enemy, id) < effectiveness(enemy, frostSave.active));
+  assert.notEqual(resistant, -1, 'the roster includes an Ice-resistant teammate');
+  frostSave.party = [frostSave.active, resistant];
+  frostSave.caught = [...new Set([...frostSave.caught, resistant])];
+  frostSave.team[resistant] = {xp: 0, hp: maxHP(frostSave, resistant)};
+  const frost = createBattle(frostSave, seededRng(1), spec(2));
+  frost.turn = 1; // the second consecutive Element is forecast
+  frost.hp = frost.max - 40;
+  const switchTurn = resolveTurn(frostSave, frost, {kind: 'switch', id: resistant}, mid);
+  assert.ok(frost.counterplay.includes('switch-repeat-element'));
+  frost.hp = 1;
+  const frostWin = resolveTurn(frostSave, frost, {kind: 'attack'}, mid).events.find(event => event.type === 'win');
+  assert.deepEqual(frostWin.responseLabels, ['Elemental volley resisted']);
+  assert.deepEqual([frostWin.responseCoins, frostWin.responseXp], [8, 10]);
+  assert.ok(switchTurn.events.some(event => event.type === 'enemy' && event.action === 'element'));
+
+  const tidalSave = newSave();
+  const tidal = createBattle(tidalSave, seededRng(1), spec(3));
+  tidal.turn = 1;
+  tidal.hp = tidal.max - 40;
+  const interrupted = resolveTurn(tidalSave, tidal, {kind: 'element'}, mid);
+  assert.ok(interrupted.events.some(event => event.type === 'enemy' && event.interrupted && event.recovered === 0));
+  assert.ok(tidal.counterplay.includes('disrupt-current'));
+  tidalSave.battle = battleCheckpoint(tidal);
+  const restored = codec.normalize(JSON.parse(codec.serialize(tidalSave)), false);
+  restored.battle.hp = 1;
+  const tidalWin = resolveTurn(restored, restored.battle, {kind: 'attack'}, mid).events.find(event => event.type === 'win');
+  assert.deepEqual(tidalWin.responseLabels, ['Recovery disrupted']);
+  assert.deepEqual([tidalWin.responseCoins, tidalWin.responseXp], [8, 10]);
+
+  const killedSave = newSave();
+  const killed = createBattle(killedSave, seededRng(1), spec(3));
+  killed.turn = 1;
+  killed.hp = 1;
+  const killedWin = resolveTurn(killedSave, killed, {kind: 'element'}, mid).events.find(event => event.type === 'win');
+  assert.deepEqual(killedWin.responseLabels, [], 'a defeated guardian never entered its charge window');
+  assert.deepEqual([killedWin.responseCoins, killedWin.responseXp], [0, 0]);
 });
 
 test('rolling charge: a charge turn, then a heavy blow that Guard softens', () => {

@@ -1,0 +1,20 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/controller.js",
+        "dist/src/domain/battle.js",
+        "dist/src/domain/combat-trace.js",
+        "dist/src/main.js",
+        "content/catalogue/facts.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/reviews/257-combat-decision-traces.json"
+      ],
+      "entries": ["rules:mossvale/battle"],
+      "disposition": "no-semantic-impact",
+      "reason": "Adds opt-in local diagnostics and a pure projection of existing legal battle actions. The report exercises current rules but does not change authored battle options, battle resolution, saves, rewards, or random-number consumption; the existing battle fiche remains accurate.",
+      "evidence": ["docs/BATTLE.md", "tests/combat-analysis.test.mjs", "tests/combat-trace.browser.mjs"]
+    }
+  ]
+}

@@ -3,25 +3,37 @@
 import {species} from './data/species.js';
 import {moves} from './data/moves.js';
 import {regions} from './data/regions.js';
-import {maxHP} from './domain/rules.js';
+import {effectiveness, level, maxHP} from './domain/rules.js';
 import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, setFlag, unlocked} from './domain/rules.js';
-import {createBattle, encounterDistance, ensureHealthyCompanion, guardianLevel, resolveTurn, rollWild} from './domain/battle.js';
+import {
+  combatChoices,
+  createBattle,
+  encounterDistance,
+  guardianForecast,
+  ensureHealthyCompanion,
+  guardianLevel,
+  nextEnemyAction,
+  resolveTurn,
+  rollWild,
+} from './domain/battle.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
-import {buildWorld, nearestInteractive, triggersAt, zoneAt} from './domain/world.js';
+import {buildWorld, isWalkable, nearestInteractive, triggersAt, zoneAt} from './domain/world.js';
+import {findScenePath} from './domain/scene-path.js';
+import {movementFacing} from './domain/exploration.js';
 import {GRACE_AFTER_BATTLE, GRACE_ON_ARRIVAL} from './config.js';
 import {$, environmentalMessage, hideModal, toast} from './ui/dom.js';
-import {TACTICS} from './data/tactics.js';
+import {INTENT_TEXT, TACTICS} from './data/tactics.js';
 import {spriteId} from './data/assets.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
-import {discover, entryFor, landmarkLabel, reveal} from './domain/discovery.js';
+import {discover, entryFor, landmarkLabel, reveal, SECRET_RANGE} from './domain/discovery.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
 import {recordObjectiveEvent, restoreObjectiveState} from './domain/objective-events.js';
 import {availableDialogueChoices} from './domain/dialogue-choices.js';
-import {companionCanUseRoute} from './domain/companion-routes.js';
+import {approachedWithinRadius, companionCanUseRoute, companionRouteDiscovered, companionRouteVisible} from './domain/companion-routes.js';
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
@@ -40,6 +52,7 @@ export function createController(app) {
   };
   const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
   const timeline = (app.timeline = createTimeline());
+  let sceneMotion = null;
   const speech = createSpeech({ui, canvas, onEvent: emit});
   const wait = ms => (app.motionReduced() ? 250 : ms);
 
@@ -166,6 +179,7 @@ export function createController(app) {
   }
 
   function close() {
+    cancelSceneMotion();
     if (game.battle?.busy || timeline.active || ui.modalMode === 'title') return; // the title screen is left with a choice, not Escape
     if (game.battle && ui.modalMode === 'battle') {
       flee();
@@ -187,6 +201,7 @@ export function createController(app) {
   }
 
   function travel(id, spawn = 'camp') {
+    cancelSceneMotion();
     const s = save();
     const fromMap = s.mapId;
     const map = typeof id === 'number' ? maps[id] : mapsById[id];
@@ -337,14 +352,52 @@ export function createController(app) {
   }
 
   function nearest() {
-    return nearestInteractive(game.world, game.player);
+    const object = nearestInteractive(game.world, game.player);
+    return object && companionRouteVisible(save(), game.world.map.id, object) ? object : null;
   }
 
   /** Marks what the player can see as explored and notes landmarks they have come across (domain/discovery.js). */
   let exploredAt = '';
+  let previousRoutePosition = null;
+  function discoverRoute(o) {
+    const mapId = game.world.map.id;
+    const route = o.route;
+    if (companionRouteDiscovered(save(), mapId, route.id)) return true;
+    const before = structuredClone(save());
+    if (!markSceneRun(save(), mapId, `route-${route.id}`)) {
+      toast('This adventure has reached its saved event limit.');
+      return false;
+    }
+    const reward = grantReward(save(), route.reward);
+    if (!persist()) {
+      game.save = before;
+      toast('This route could not be saved, so it remains undiscovered.');
+      return false;
+    }
+    refresh();
+    emit('route.unlocked', {mapId, routeId: route.id});
+    emit('reward.granted', {source: 'route', target: o.ref ?? o.id, ...reward});
+    sfx('chest');
+    toast(route.unlockedText);
+    return true;
+  }
+
+  function discoverCompanionRoutes(map) {
+    const here = {mapId: map.id, x: game.player.x, y: game.player.y};
+    const previous = previousRoutePosition;
+    previousRoutePosition = here;
+    if (!previous || previous.mapId !== here.mapId || Math.hypot(here.x - previous.x, here.y - previous.y) < 1e-4) return;
+    for (const o of game.world.objects) {
+      if (!o.route || companionRouteDiscovered(save(), map.id, o.route.id)) continue;
+      if (!companionCanUseRoute(o.route, species[save().active])) continue;
+      if (approachedWithinRadius(previous, here, o, SECRET_RANGE)) discoverRoute(o);
+    }
+  }
+
   function explore() {
     const map = game.world.map;
     if (!map?.size) return;
+    discoverCompanionRoutes(map);
     const key = `${map.id}:${Math.floor(game.player.x / 2)},${Math.floor(game.player.y / 2)}`; // every couple of tiles, not every frame
     if (key === exploredAt) return;
     exploredAt = key;
@@ -352,7 +405,8 @@ export function createController(app) {
     const explored = (save().explored ??= {});
     const entry = entryFor(explored, map.id, w, h);
     reveal(entry, w, h, game.player.x, game.player.y);
-    for (const o of discover(entry, game.world.objects, game.player.x, game.player.y)) if (o.secret) toast(`You found something hidden: ${landmarkLabel(o)}.`);
+    const discoverable = game.world.objects.filter(o => !o.route && !o.routeHint);
+    for (const o of discover(entry, discoverable, game.player.x, game.player.y)) if (o.secret) toast(`You found something hidden: ${landmarkLabel(o)}.`);
   }
 
   let lastInteract = -Infinity;
@@ -399,26 +453,15 @@ export function createController(app) {
     } else if (o.kind === 'gate') {
       if (o.requires && !flagDone(s, o.requires)) toast(`This trail opens when you earn the ${sealOf(o.requires)}. Visit the blue shrine marker.`);
       else if (o.route) {
-        const eventId = `route-${o.route.id}`;
-        const discovered = sceneHasRun(s, game.world.map.id, eventId);
+        const discovered = companionRouteDiscovered(s, game.world.map.id, o.route.id);
         if (!discovered && !companionCanUseRoute(o.route, species[s.active])) {
           toast(o.route.hint);
           return;
         }
         if (!discovered) {
-          if (!markSceneRun(s, game.world.map.id, eventId)) {
-            toast('This adventure has reached its saved event limit.');
-            return;
-          }
-          const reward = grantReward(s, o.route.reward);
-          emit('route.unlocked', {mapId: game.world.map.id, routeId: o.route.id});
-          emit('reward.granted', {source: 'route', target: o.ref ?? o.id, ...reward});
+          if (!discoverRoute(o)) return;
         }
         travel(o.target, o.spawn);
-        if (!discovered) {
-          sfx('chest');
-          toast(o.route.unlockedText);
-        }
       } else travel(o.target, o.spawn);
     } else if (o.kind === 'shrine') shrine(o);
   }
@@ -437,13 +480,22 @@ export function createController(app) {
     for (const event of t.events ?? []) {
       if (!event.repeatable && sceneHasRun(save(), game.world.map.id, event.id)) continue;
       if (!sceneConditionHolds(event, save(), objCtx)) continue;
+      const before = structuredClone(save());
       if (!event.repeatable && !markSceneRun(save(), game.world.map.id, event.id)) {
         toast('This adventure has reached its saved event limit.');
         continue;
       }
       const result = applySceneActions(save(), event, {setFlag: flag => setFlag(save(), flag)});
       if (result.reward) grantReward(save(), result.reward);
-      if (result.dialogue.length) {
+      if (!persist()) {
+        game.save = before;
+        refresh();
+        toast('That scene could not be saved, so its progress and rewards were rolled back.');
+        continue;
+      } // durable results are committed before cancellable scene presentation begins
+      const mapId = game.world.map.id;
+      const present = () => {
+        if (mapId !== game.world.map.id || ui.paused || ui.modalMode || !result.dialogue.length) return;
         const lines = result.dialogue.map(line => {
           const actor = line.speaker === 'player' ? null : game.world.objects.find(object => object.ref === line.speaker);
           return {...line, name: actor?.name ?? (line.speaker === 'player' ? 'You' : line.speaker === 'narrator' ? 'Mossvale' : actor?.kind)};
@@ -453,9 +505,128 @@ export function createController(app) {
           const actor = game.world.objects.find(object => object.ref === line.speaker);
           return actor ? app.projectWorld(actor.x, actor.y) : null;
         });
+      };
+      const continueEvent = async () => {
+        let status = {status: 'arrived'};
+        if (result.choreography.length) status = await playSceneChoreography(result.choreography, mapId);
+        emit('scene.choreography', {mapId, eventId: event.id, status: status.status, actor: status.actor});
+        present();
+        if (result.challenge && mapId === game.world.map.id && !ui.paused && !ui.modalMode) beginBattle(result.challenge);
+      };
+      if (result.choreography.length) void continueEvent();
+      else {
+        present();
+        if (result.challenge) beginBattle(result.challenge);
       }
-      if (result.challenge) beginBattle(result.challenge);
-      persist();
+    }
+  }
+
+  function sceneActor(id) {
+    if (id === 'player') return game.player;
+    return game.world.objects.find(object => object.ref === id && object.kind === 'ranger') ?? null;
+  }
+
+  function cancelSceneMotion() {
+    const task = sceneMotion;
+    if (!task) return;
+    task.cancelled = true;
+    clearTimeout(task.timer);
+    task.releaseDelay?.();
+    sceneMotion = null;
+    ui.sceneBusy = false;
+    ui.sceneMoving = false;
+    ui.keys = {};
+    ui.touch = null;
+    for (const object of game.world.objects) object.sceneMoving = false;
+  }
+
+  async function playSceneChoreography(actions, mapId) {
+    cancelSceneMotion();
+    const task = {cancelled: false, timer: null, releaseDelay: null};
+    sceneMotion = task;
+    ui.sceneBusy = true;
+    ui.sceneMoving = false;
+    ui.keys = {};
+    ui.touch = null;
+    const delay = ms =>
+      new Promise(resolve => {
+        task.releaseDelay = resolve;
+        task.timer = setTimeout(() => {
+          task.releaseDelay = null;
+          resolve();
+        }, ms);
+      });
+    try {
+      for (const action of actions) {
+        if (task.cancelled || game.world.map.id !== mapId) return {status: 'cancelled', actor: action.actor};
+        if (action.type === 'wait') {
+          await delay(app.motionReduced() ? Math.min(action.ms, 80) : action.ms);
+          continue;
+        }
+        const actor = sceneActor(action.actor);
+        if (!actor) return {status: 'blocked', actor: action.actor};
+        if (action.type === 'face') {
+          const target = sceneActor(action.target);
+          if (!target) return {status: 'blocked', actor: action.actor};
+          const dir = movementFacing(target.x - actor.x, target.y - actor.y);
+          if (dir !== null) {
+            if (action.actor === 'player') actor.dir = dir;
+            else actor.sceneDir = dir;
+          }
+          continue;
+        }
+        if (action.type === 'react') {
+          actor.sceneReaction = action.pose;
+          actor.sceneReactionUntil = ui.now + (app.motionReduced() ? 400 : 900);
+          continue;
+        }
+        if (action.type !== 'move') continue;
+        const route = findScenePath(game.world, actor, action.to);
+        if (route.status !== 'arrived') return {status: 'blocked', actor: action.actor};
+        const waypoints = [...route.path];
+        if (!waypoints.length && Math.hypot(action.to[0] - actor.x, action.to[1] - actor.y) > 0.01) waypoints.push({x: action.to[0], y: action.to[1]});
+        for (const point of waypoints) {
+          const from = {x: actor.x, y: actor.y};
+          if (!isWalkable(game.world, point.x, point.y)) return {status: 'blocked', actor: action.actor};
+          const others = ['player', ...game.world.objects.filter(object => object.kind === 'ranger').map(object => object.ref)]
+            .filter(id => id !== action.actor)
+            .map(sceneActor)
+            .filter(Boolean);
+          if (others.some(other => Math.hypot(other.x - point.x, other.y - point.y) < 0.34)) return {status: 'blocked', actor: action.actor};
+          const distance = Math.hypot(point.x - from.x, point.y - from.y);
+          const duration = app.motionReduced() ? 1 : Math.max(90, Math.min(320, distance * 190));
+          const start = performance.now();
+          let lastProgress = 0;
+          actor.sceneMoving = true;
+          ui.sceneMoving = action.actor === 'player';
+          while (true) {
+            await delay(app.motionReduced() ? duration : 32);
+            if (task.cancelled || game.world.map.id !== mapId) return {status: 'cancelled', actor: action.actor};
+            const progress = Math.min(1, app.motionReduced() ? 1 : (performance.now() - start) / duration);
+            actor.x = from.x + (point.x - from.x) * progress;
+            actor.y = from.y + (point.y - from.y) * progress;
+            const dir = movementFacing(point.x - from.x, point.y - from.y);
+            if (dir !== null) {
+              if (action.actor === 'player') {
+                actor.dir = dir;
+                actor.walkDistance = (actor.walkDistance ?? 0) + distance * (progress - lastProgress);
+              } else actor.sceneDir = dir;
+            }
+            lastProgress = progress;
+            if (progress >= 1) break;
+          }
+        }
+        actor.sceneMoving = false;
+        ui.sceneMoving = false;
+      }
+      return {status: 'arrived'};
+    } finally {
+      if (sceneMotion === task) {
+        sceneMotion = null;
+        ui.sceneBusy = false;
+        ui.sceneMoving = false;
+        for (const object of game.world.objects) object.sceneMoving = false;
+      }
     }
   }
 
@@ -531,6 +702,7 @@ export function createController(app) {
   }
 
   function beginBattle(spec) {
+    cancelSceneMotion();
     if (game.battle || !transition(game, 'battle')) return;
     const s = save();
     if (!ensureHealthyCompanion(s)) {
@@ -540,6 +712,7 @@ export function createController(app) {
     }
     timeline.cancel();
     game.battle = createBattle(s, rng, spec);
+    traceBattleStart(s, game.battle, false);
     emit(spec.boss ? 'challenge.started' : 'battle.started', {
       mapId: game.world.map.id,
       species: species[game.battle.id].id,
@@ -582,6 +755,7 @@ export function createController(app) {
       return false;
     }
     b.busy = false;
+    traceBattleStart(s, b, true);
     emit('battle.resumed', {mapId: s.mapId, species: species[b.id].id, turn: b.turn, boss: b.boss});
     renderBattle('Your encounter was waiting for you. Choose your next move.');
     return true;
@@ -591,17 +765,66 @@ export function createController(app) {
     performTurn({kind});
   }
 
+  function traceBattleStart(s, b, resumed) {
+    if (!app.combatTrace) return;
+    app.combatTrace.record('battle.started', {
+      resumed,
+      encounter: {mapId: game.world.map.id, speciesId: species[b.id].id, level: b.level, guardian: !!b.boss, tactic: b.tactic ?? null},
+      party: s.party.map(id => ({speciesId: species[id].id, level: level(s, id), hp: s.team[id].hp, maxHp: maxHP(s, id)})),
+      activeSpeciesId: species[s.active].id,
+      supplies: {potions: s.potions, orbs: s.orbs},
+    });
+  }
+
+  function combatDecisionContext(s, b) {
+    const active = companion(s);
+    const activeMaxHp = maxHP(s, s.active);
+    const options = combatChoices(s, b);
+    return {
+      turn: b.turn + 1,
+      encounter: species[b.id].id,
+      active: {speciesId: species[s.active].id, hp: active.hp, maxHp: activeMaxHp, level: level(s, s.active)},
+      enemy: {hp: b.hp, maxHp: b.max, level: b.level},
+      conditions: {focus: b.focus, guarding: b.guard, enemyAction: b.boss ? nextEnemyAction(b) : null, effectiveness: effectiveness(s.active, b.id)},
+      responseWindows: b.boss ? (guardianForecast(s, b)?.responses ?? []) : [],
+      intent: b.boss ? (INTENT_TEXT[nextEnemyAction(b)] ?? null) : null,
+      options,
+    };
+  }
+
+  function combatDecision(context, action, turn, s, b) {
+    if (!app.combatTrace || !context) return;
+    app.combatTrace.record('battle.decision', {
+      ...context,
+      chosen: action,
+      outcome: {
+        ended: turn.ended,
+        events: turn.events.map(event => ({
+          type: event.type,
+          damage: event.damage ?? null,
+          healed: event.healed ?? null,
+          counter: event.counter ?? null,
+          recovered: event.recovered ?? null,
+          reward: event.reward ?? null,
+        })),
+      },
+      after: {activeSpeciesId: species[s.active].id, activeHp: companion(s).hp, enemyHp: b.hp, focus: b.focus},
+    });
+  }
+
   /** Resolves a full round in the domain at once (and saves it), then replays it as timed frames. */
   function performTurn(action) {
     const b = game.battle;
     if (!b || b.busy || b.over || game.phase !== 'battle' || (ui.modalMode !== 'battle' && action.kind !== 'switch')) return;
     const s = save();
     const before = {active: s.active};
+    const decisionContext = app.combatTrace ? combatDecisionContext(s, b) : null;
     const turn = resolveTurn(s, b, action, rng, {
       sealReward: game.world.objects.find(o => o.kind === 'shrine')?.reward,
       inventoryRules: app.inventoryRules,
     });
     if (!turn) return;
+    combatDecision(decisionContext, action, turn, s, b);
     emit('turn.resolved', {
       mapId: game.world.map.id,
       species: species[b.id].id,
@@ -823,11 +1046,13 @@ export function createController(app) {
 
   /** Called when the tab is hidden or the page is leaving: skip animations, keep the (already saved) state. */
   function flushPlayback() {
+    cancelSceneMotion();
     timeline.flush();
   }
 
   Object.assign(actions, {
     close,
+    cancelSceneMotion,
     travel,
     selectCompanion,
     partyEdit,
@@ -871,8 +1096,9 @@ export function createController(app) {
       ),
     renderBattle,
     party: () => menus.party(),
-    worldMap: () => menus.worldMap(),
-    journal: () => menus.journal(),
+    worldMap: () => (cancelSceneMotion(), menus.worldMap()),
+    journal: () => (cancelSceneMotion(), menus.journal()),
+    menu: () => (cancelSceneMotion(), menus.mainMenu()),
   });
   return actions;
 }

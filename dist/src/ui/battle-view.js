@@ -2,7 +2,7 @@
 import {species} from '../data/species.js';
 import {regions} from '../data/regions.js';
 import {companion, effectiveness, level, maxHP, moveName} from '../domain/rules.js';
-import {captureChance, lastEnemyAction, nextEnemyAction} from '../domain/battle.js';
+import {captureChance, guardianForecast} from '../domain/battle.js';
 import {INTENT_TEXT, TACTICS} from '../data/tactics.js';
 import {ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, GUARD_FACTOR} from '../config.js';
 import {drawCreatureAnimated} from '../render/sprites.js';
@@ -10,6 +10,70 @@ import {$, header, openModal} from './dom.js';
 
 const button = (id, title, detail, disabled = false, extra = '') =>
   `<button id="${id}" ${disabled ? 'disabled' : ''} class="${extra}">${title}<small>${detail}</small></button>`;
+
+const rangeText = range => (range.min === range.max ? `${range.min}` : `${range.min}–${range.max}`);
+
+function responseText(response, timing = '') {
+  const action =
+    response.action === 'guard'
+      ? 'Guard'
+      : response.action === 'element'
+        ? 'use an Element move'
+        : response.action === 'switch'
+          ? 'switch to a healthy resistant companion'
+          : response.action;
+  const reward = [
+    response.reward?.coins ? `${response.reward.coins} coins` : '',
+    response.reward?.xp ? `${response.reward.xp} XP` : '',
+    response.reward?.potions ? `${response.reward.potions} potions` : '',
+  ].filter(Boolean);
+  const bonus = reward.length ? `; +${reward.join(' and ')} once if you win` : '';
+  if (response.available === false && response.action === 'element')
+    return `${timing}${response.label}: Element costs ${response.cost ?? 1} Focus, and none is available for this turn.`;
+  if (response.available === false && response.action === 'switch')
+    return `${timing}${response.label}: no healthy resistant companion is available to switch to.`;
+  return `${timing}${action}: ${response.label}${bonus}.`;
+}
+
+function guardianForecastText(forecast, allyName, foeName) {
+  const lines = [`After your choice, if ${foeName} survives, it will use ${INTENT_TEXT[forecast.action] ?? forecast.action}.`];
+  if (forecast.damage) {
+    lines.push(
+      `${allyName} takes ${rangeText(forecast.damage.damage)} damage if they stay active; Guard reduces it to ${rangeText(forecast.guardedDamage.damage)}.`,
+      'Ranges include the random roll and current matchup/defense; switching changes them.',
+    );
+    if (forecast.guardedDamage.counter.max > 0) lines.push(`Guard riposte: ${rangeText(forecast.guardedDamage.counter)} damage to the guardian.`);
+  }
+  if (forecast.repeatedElementFactor > 1)
+    lines.push(`This is the second consecutive Element move: ×${forecast.repeatedElementFactor} raw damage before matchup and defense.`);
+  else if (forecast.action === 'element' && forecast.nextAction === 'element')
+    lines.push('A second consecutive Element move follows next turn and will use the stronger volley factor.');
+  if (forecast.brace) {
+    lines.push(
+      `Brace deals no damage now; it affects your next turn. Quick Strike uses a ×${forecast.brace.quickFactor} factor (3 damage minimum), while Element uses ×${forecast.brace.elementFactor} and costs ${forecast.brace.elementCost} Focus. Guard's protection expires on the brace, though it still builds ${forecast.brace.focusGain} Focus.`,
+    );
+    if (forecast.followupResponses.length) lines.push(...forecast.followupResponses.map(response => responseText(response, 'After the brace, ')));
+    if (forecast.brace.focusGain && forecast.brace.elementCost)
+      lines.push('At 0 Focus, Quick Strike or Guard now can build the Focus needed for an Element after the brace.');
+  }
+  if (forecast.charge) {
+    lines.push('Charge deals no damage; Guard used now expires before the next enemy action.');
+    if (forecast.charge.recoveryFactor)
+      lines.push(
+        `If it survives, it can recover up to ${Math.round(forecast.charge.recoveryFactor * 100)}% of maximum HP (at most ${forecast.charge.recoveryMax} HP).`,
+      );
+    if (forecast.charge.interruptAction === 'element')
+      lines.push(
+        forecast.charge.interruptAvailable
+          ? `An Element move this turn (costs ${forecast.charge.interruptCost} Focus) interrupts that recovery.`
+          : `Element costs ${forecast.charge.interruptCost} Focus; at 0 Focus you cannot interrupt this charge this turn.`,
+      );
+    if (forecast.nextAction === 'heavy') lines.push('A heavy blow follows on its next turn; save Guard for that forecast.');
+  }
+  if (forecast.responses.length) lines.push(...forecast.responses.map(response => responseText(response, 'Response: ')));
+  if (forecast.followupResponses.length && !forecast.brace) lines.push(...forecast.followupResponses.map(response => responseText(response, 'Next turn: ')));
+  return lines.join(' ');
+}
 
 export function createBattleView(app) {
   const {game, ui, actions} = app;
@@ -34,20 +98,14 @@ export function createBattleView(app) {
       potionDefinition?.effect?.type === 'heal-percent'
         ? `Restore ${potionDefinition.effect.percent}% HP · ${potionCount} left`
         : `Restore 24 HP · ${potionCount} left`;
-    const intentAction = nextEnemyAction(b);
-    const intentHint =
-      intentAction === 'brace' && tactic?.braceElementFactor > 1
-        ? ' (Element breaks through)'
-        : intentAction === 'charge' && tactic?.recoveryOnCharge
-          ? ` (restores up to ${Math.ceil(b.max * tactic.recoveryOnCharge)} HP; elemental hit interrupts it)`
-          : intentAction === 'heavy' && tactic?.guardRiposteFactor
-            ? ' (Guard counters this blow)'
-            : intentAction === 'element' && lastEnemyAction(b) === 'element' && tactic?.repeatElementFactor > 1
-              ? ' (the repeated volley grows stronger)'
-              : '';
+    const forecast = guardianForecast(save, b);
+    const forecastMarkup =
+      forecast && !b.busy
+        ? `<div class="battle-intent" role="status" aria-live="polite" aria-label="Guardian forecast">${guardianForecastText(forecast, a.name, s.name)}</div>`
+        : '';
     openModal(
       ui,
-      `${header(b.boss ? 'SHRINE GUARDIAN' : 'WILD ENCOUNTER', b.boss ? 'A shrine begins to stir.' : s.name + ' crossed your path.', false)}<div class="battle-top"><span>Focus <b aria-label="${focus} of ${FOCUS_MAX} focus">${pips}</b> · ${a.type} ${eff > 1 ? 'is strong against' : eff < 1 ? 'is weaker against' : 'meets'} ${s.type}</span><span class="${b.boss ? 'boss-label' : ''}">${b.boss ? regions[save.region].seal : 'Turn ' + (b.turn + 1)}</span></div><div class="battle-scene"><div class="fighter"><canvas id="fight-buddy" class="${animation === 'attack' ? 'attack' : animation === 'element' ? 'element' : animation === 'enemy' ? 'hit' : ''}" width="160" height="145"></canvas><div class="name-line">${a.name} · Lv. ${level(save, active)}</div><div class="bar"><i style="width:${(mineHp / maxHP(save, active)) * 100}%;background:${a.color}"></i></div><small>${mineHp} / ${maxHP(save, active)} HP</small></div><div class="fighter"><canvas id="fight-wild" class="${animation === 'attack' || animation === 'element' ? 'hit' : animation === 'capture' ? 'catching' : ''}" width="160" height="145"></canvas><div class="name-line">${s.name} · Lv. ${b.level}</div><small class="capture-status">${save.caught.includes(b.id) ? '✓ Already befriended' : 'Not yet befriended'}</small><div class="bar"><i style="width:${(enemyHp / b.max) * 100}%;background:${s.color}"></i></div><small>${enemyHp} / ${b.max} HP</small></div></div><div class="battle-log" role="status" aria-live="polite">${message}</div>${b.boss && !b.over ? `<div class="battle-intent">Next: ${s.name} is ${INTENT_TEXT[intentAction]}${intentHint}.</div>` : ''}<div class="battle-actions">${button('attack', '1 · Quick strike', `Reliable damage · +${FOCUS_GAIN} Focus`, b.busy)}${button('element', '2 · ' + moveName(save, active), `${eff > 1 ? 'Super effective!' : eff < 1 ? 'Less effective' : 'Elemental attack'} · costs ${ELEMENT_COST} Focus`, b.busy || focus < ELEMENT_COST)}${button('catch', '3 · Capture orb', b.boss ? 'Guardians cannot be caught' : Math.round(captureChance(save, b) * 100) + '% chance · ' + save.orbs + ' left', b.busy || b.boss || save.orbs === 0, 'capture-button')}${button('potion', '4 · Potion', potionDetail, b.busy || potionCount === 0 || mineHp === maxHP(save, active))}${button('guard', '5 · Guard', `Take ${Math.round((1 - GUARD_FACTOR) * 100)}% less next hit${tactic?.guardRiposteFactor ? ' · counter heavy blows' : ''} · +${FOCUS_GAIN} Focus`, b.busy)}${button('switch', '6 · Switch friend', 'Choose a companion', b.busy || save.party.filter(i => companion(save, i).hp > 0).length < 2)}</div><div class="battle-subactions"><button id="flee" ${b.busy ? 'disabled' : ''}>Leave encounter <kbd>Esc</kbd></button><span>${b.boss ? 'Win to awaken the shrine' : 'Weaken it before you catch it'}</span></div>`,
+      `${header(b.boss ? 'SHRINE GUARDIAN' : 'WILD ENCOUNTER', b.boss ? 'A shrine begins to stir.' : s.name + ' crossed your path.', false)}<div class="battle-top"><span>Focus <b aria-label="${focus} of ${FOCUS_MAX} focus">${pips}</b> · ${a.type} ${eff > 1 ? 'is strong against' : eff < 1 ? 'is weaker against' : 'meets'} ${s.type}</span><span class="${b.boss ? 'boss-label' : ''}">${b.boss ? regions[save.region].seal : 'Turn ' + (b.turn + 1)}</span></div><div class="battle-scene"><div class="fighter"><canvas id="fight-buddy" class="${animation === 'attack' ? 'attack' : animation === 'element' ? 'element' : animation === 'enemy' ? 'hit' : ''}" width="160" height="145"></canvas><div class="name-line">${a.name} · Lv. ${level(save, active)}</div><div class="bar"><i style="width:${(mineHp / maxHP(save, active)) * 100}%;background:${a.color}"></i></div><small>${mineHp} / ${maxHP(save, active)} HP</small></div><div class="fighter"><canvas id="fight-wild" class="${animation === 'attack' || animation === 'element' ? 'hit' : animation === 'capture' ? 'catching' : ''}" width="160" height="145"></canvas><div class="name-line">${s.name} · Lv. ${b.level}</div><small class="capture-status">${save.caught.includes(b.id) ? '✓ Already befriended' : 'Not yet befriended'}</small><div class="bar"><i style="width:${(enemyHp / b.max) * 100}%;background:${s.color}"></i></div><small>${enemyHp} / ${b.max} HP</small></div></div><div class="battle-log" role="status" aria-live="polite">${message}</div>${forecastMarkup}<div class="battle-actions">${button('attack', '1 · Quick strike', `Reliable damage · +${FOCUS_GAIN} Focus`, b.busy)}${button('element', '2 · ' + moveName(save, active), `${eff > 1 ? 'Super effective!' : eff < 1 ? 'Less effective' : 'Elemental attack'} · costs ${ELEMENT_COST} Focus`, b.busy || focus < ELEMENT_COST)}${button('catch', '3 · Capture orb', b.boss ? 'Guardians cannot be caught' : Math.round(captureChance(save, b) * 100) + '% chance · ' + save.orbs + ' left', b.busy || b.boss || save.orbs === 0, 'capture-button')}${button('potion', '4 · Potion', potionDetail, b.busy || potionCount === 0 || mineHp === maxHP(save, active))}${button('guard', '5 · Guard', `Take ${Math.round((1 - GUARD_FACTOR) * 100)}% less next hit${tactic?.guardRiposteFactor ? ' · counter heavy blows' : ''} · +${FOCUS_GAIN} Focus`, b.busy)}${button('switch', '6 · Switch friend', 'Choose a companion', b.busy || save.party.filter(i => companion(save, i).hp > 0).length < 2)}</div><div class="battle-subactions"><button id="flee" ${b.busy ? 'disabled' : ''}>Leave encounter <kbd>Esc</kbd></button><span>${b.boss ? 'Win to awaken the shrine' : 'Weaken it before you catch it'}</span></div>`,
       'battle',
       s.name + ' encounter',
     );
