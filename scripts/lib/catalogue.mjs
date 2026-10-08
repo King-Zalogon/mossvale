@@ -151,6 +151,8 @@ export function collectFacts() {
         biome: map.biome ?? 'No explicit biome tag; consult the selected pack region.',
         connections: JSON.stringify(map.exits?.map(exit => ({id: exit.id, to: exit.to})) ?? []),
         spawns: JSON.stringify(map.spawns),
+        cardPreview: map.preview ?? 'No dedicated Island-card preview is configured.',
+        dependencies: map.preview ? [`visual:${map.preview}`] : [],
         evidence: 'tests/maps.test.mjs',
       });
       for (const landmark of map.landmarks ?? []) {

@@ -22,6 +22,7 @@ Map files and `src/data/regions.js` are linked by `id`: each region needs a map 
   "format": 1,
   "id": "meadow", // lowercase-kebab-case, unique, stable
   "name": "Mossvale Meadow",
+  "preview": "tree-oak", // optional registered sprite for this map's Island card; no gameplay or save effect
   "size": { "w": 25, "h": 25 }, // each dimension 4..128; at most 16,384 tiles total
   "legend": { ".": "void", "g": "ground", "p": "path", "w": "water", "t": "tallgrass" },
   "terrain": ["...25 chars...", "..."], // exactly h rows of w characters
@@ -41,6 +42,8 @@ Map files and `src/data/regions.js` are linked by `id`: each region needs a map 
 Collection fields (`landmarks`, `exits`, `props`, `zones`, `triggers`) must be arrays when provided. Malformed values return a map/field error before compilation.
 
 Coordinates are tile units; `[x, y]` may be fractional (props are offset from the grid).
+
+An optional `preview` names one registered asset shown on this map's Island card. Choose a non-secret, recognizable landmark or habitat prop; the card still obeys its existing visibility and travel rules. This is presentation metadata only: it does not change map access, route discovery, or save data.
 
 ## Sections
 

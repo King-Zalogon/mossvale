@@ -21,6 +21,16 @@ test('catalogue deterministically covers canonical resources, real pack variants
   assert.ok(ids.has('item:lantern-crossing/lantern-tonic'));
   assert.equal(data.entries.find(entry => entry.id === 'mechanic:npc-navigation').status, 'proposed');
   assert.match(data.entries.find(entry => entry.id === 'item:mossvale/potion').details.strength, /24/);
+  for (const [mapId, assetId] of [
+    ['frostveil-pass', 'prop-icefall-ledge'],
+    ['orchard-ruins', 'prop-cider-press'],
+    ['stilt-isles', 'prop-heron-blind'],
+    ['stone-basin', 'prop-quarry-alcove'],
+  ]) {
+    const entry = data.entries.find(item => item.id === `map:mossvale/${mapId}`);
+    assert.deepEqual(entry.dependencies, [`visual:${assetId}`]);
+    assert.match(entry.details.cardPreview, new RegExp(assetId));
+  }
 });
 
 test('missing schema fields, duplicate identities, dangling references and absent previews fail', async () => {

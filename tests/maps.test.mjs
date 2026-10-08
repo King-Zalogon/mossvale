@@ -45,6 +45,26 @@ test('the shipped maps validate', () => {
     'stilt-isles',
     'stone-basin',
   ]);
+  assert.deepEqual(
+    Object.fromEntries(
+      Object.entries(mapsById)
+        .filter(([, map]) => map.preview !== undefined)
+        .map(([id, map]) => [id, map.preview]),
+    ),
+    {
+      'frostveil-pass': content.assets.findIndex(asset => asset.name === 'prop-icefall-ledge'),
+      'orchard-ruins': content.assets.findIndex(asset => asset.name === 'prop-cider-press'),
+      'stilt-isles': content.assets.findIndex(asset => asset.name === 'prop-heron-blind'),
+      'stone-basin': content.assets.findIndex(asset => asset.name === 'prop-quarry-alcove'),
+    },
+  );
+});
+
+test('optional map-card previews must reference a registered sprite', () => {
+  const errors = edit(raw => {
+    raw.find(map => map.id === 'stone-basin').preview = 'missing-map-preview';
+  });
+  has(errors, 'map stone-basin: preview: unknown sprite "missing-map-preview"');
 });
 
 test('the meadow pair has a safe loop, a shortcut discovery and a gated onward trail', () => {
