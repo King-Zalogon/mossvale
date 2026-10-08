@@ -61,7 +61,21 @@
           "resourceId": {"$ref": "#/definitions/catalogueId"},
           "role": {"type": "string", "minLength": 1},
           "startingSituation": {"type": "string", "minLength": 1},
-          "movementIntent": {"type": "string"}
+          "movementIntent": {"type": "string"},
+          "traits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "required"],
+              "properties": {
+                "id": {"$ref": "#/definitions/id"},
+                "required": {"type": "boolean"},
+                "value": {"type": "string", "minLength": 1}
+              }
+            }
+          },
+          "binding": {"$ref": "#/definitions/binding"}
         }
       }
     },
@@ -173,7 +187,63 @@
           }
         },
         "decisions": {"type": "array", "items": {"type": "string", "minLength": 1}},
-        "pendingThreads": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        "pendingThreads": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "obligations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "kind", "statement", "status", "sourceSceneId"],
+            "properties": {
+              "id": {"$ref": "#/definitions/id"},
+              "kind": {"enum": ["promise", "question", "relationship", "unknown"]},
+              "statement": {"type": "string", "minLength": 1},
+              "status": {"enum": ["active", "advanced", "resolved", "superseded"]},
+              "sourceSceneId": {"$ref": "#/definitions/id"},
+              "resolution": {"type": "string"}
+            }
+          }
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "from", "to", "state", "sourceSceneId"],
+            "properties": {
+              "id": {"$ref": "#/definitions/id"},
+              "from": {"$ref": "#/definitions/id"},
+              "to": {"$ref": "#/definitions/id"},
+              "state": {"type": "string", "minLength": 1},
+              "sourceSceneId": {"$ref": "#/definitions/id"}
+            }
+          }
+        },
+        "dramaticDirection": {"type": "string", "minLength": 1},
+        "intentionalUnknowns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "statement", "sourceSceneId"],
+            "properties": {
+              "id": {"$ref": "#/definitions/id"},
+              "statement": {"type": "string", "minLength": 1},
+              "sourceSceneId": {"$ref": "#/definitions/id"}
+            }
+          }
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "identityId", "required"],
+      "properties": {
+        "owner": {"enum": ["player", "companion", "npc", "world"]},
+        "identityId": {"$ref": "#/definitions/id"},
+        "required": {"type": "boolean"},
+        "fallbackResourceId": {"$ref": "#/definitions/catalogueId"}
       }
     }
   }

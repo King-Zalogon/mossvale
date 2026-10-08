@@ -175,3 +175,67 @@ test('scene script validation rejects silent use of proposed capabilities and un
   assert.ok(validateSceneScript(proposed, catalogue).errors.some(error => error.includes('proposed capabilities belong in requirements')));
   assert.ok(validateSceneScript(timed, catalogue).errors.some(error => error.includes('needs a durationHint')));
 });
+
+test('scene continuity carries obligations through a three-scene handoff and resolves them once', () => {
+  const catalogue = JSON.parse(readFileSync(new URL('../content/catalogue/catalogue.json', import.meta.url), 'utf8'));
+  const base = JSON.parse(readFileSync(new URL('../content/scene-scripts/examples/supported-yard-conversation.json', import.meta.url), 'utf8'));
+  const scene = (id, previousScene = null) => ({
+    ...structuredClone(base),
+    id,
+    title: id,
+    previousScene,
+    participants: [
+      {...base.participants[0], id: 'healer-wren', binding: {owner: 'npc', identityId: 'healer-wren', required: true}},
+      {
+        ...base.participants[1],
+        id: 'yard-villager',
+        binding: {owner: 'npc', identityId: 'yard-villager', required: false, fallbackResourceId: 'visual:person-red-cap-south'},
+      },
+    ],
+  });
+  const first = scene('continuity-one');
+  first.continuityOut.obligations = [
+    {id: 'missing-bell', kind: 'question', statement: 'Who rang the bell after dusk?', status: 'active', sourceSceneId: 'continuity-one'},
+  ];
+  first.continuityOut.relationships = [{id: 'wren-villager', from: 'healer-wren', to: 'yard-villager', state: 'trusting', sourceSceneId: 'continuity-one'}];
+  first.continuityOut.intentionalUnknowns = [{id: 'bell-source', statement: 'The bell source is deliberately unknown.', sourceSceneId: 'continuity-one'}];
+  const second = scene('continuity-two', {id: 'continuity-one', summary: 'The bell question remains open.'});
+  second.continuityIn = structuredClone(first.continuityOut);
+  second.continuityOut = structuredClone(second.continuityIn);
+  second.continuityOut.obligations[0].status = 'advanced';
+  second.continuityOut.obligations[0].statement = 'The bell rang after dusk, but its source is still unknown.';
+  const third = scene('continuity-three', {id: 'continuity-two', summary: 'The bell question was investigated.'});
+  third.continuityIn = structuredClone(second.continuityOut);
+  third.continuityOut = structuredClone(third.continuityIn);
+  third.continuityOut.obligations[0].status = 'resolved';
+  third.continuityOut.obligations[0].resolution = 'The old yard bell was triggered by wind through the loose rope.';
+  third.continuityOut.intentionalUnknowns = [];
+
+  assert.deepEqual(validateSceneScript(first, catalogue).errors, []);
+  assert.deepEqual(validateSceneScript(second, catalogue).errors, []);
+  assert.deepEqual(validateSceneScript(third, catalogue).errors, []);
+  assert.equal(third.continuityOut.obligations[0].status, 'resolved');
+});
+
+test('scene continuity rejects missing optional bindings and reintroduced obligations', () => {
+  const catalogue = JSON.parse(readFileSync(new URL('../content/catalogue/catalogue.json', import.meta.url), 'utf8'));
+  const supported = JSON.parse(readFileSync(new URL('../content/scene-scripts/examples/supported-yard-conversation.json', import.meta.url), 'utf8'));
+  const invalid = structuredClone(supported);
+  invalid.participants[0].binding = {owner: 'companion', identityId: 'fernling', required: false};
+  invalid.continuityIn.obligations = [
+    {
+      id: 'old-promise',
+      kind: 'promise',
+      statement: 'Return the borrowed compass.',
+      status: 'resolved',
+      sourceSceneId: 'prior-scene',
+      resolution: 'The compass was returned.',
+    },
+  ];
+  invalid.continuityOut.obligations = [
+    {id: 'old-promise', kind: 'promise', statement: 'Return the borrowed compass.', status: 'active', sourceSceneId: invalid.id},
+  ];
+  const {errors} = validateSceneScript(invalid, catalogue);
+  assert.ok(errors.some(error => error.includes('requires fallbackResourceId')));
+  assert.ok(errors.some(error => error.includes('reopens an incoming resolved obligation')));
+});

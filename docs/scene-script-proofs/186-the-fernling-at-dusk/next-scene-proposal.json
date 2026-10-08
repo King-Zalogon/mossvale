@@ -24,7 +24,25 @@
       "identity": "Healer Wren",
       "resourceId": "visual:person-gardener",
       "role": "A healer who has heard travelers discuss the trail.",
-      "startingSituation": "At her existing cottage yard landmark."
+      "startingSituation": "At her existing cottage yard landmark.",
+      "binding": {
+        "owner": "npc",
+        "identityId": "healer-wren",
+        "required": true
+      }
+    },
+    {
+      "id": "trail-companion",
+      "identity": "The player's Fernling companion, carrying the unresolved trail question onward.",
+      "resourceId": "species:hearth-hamlet/fernling",
+      "role": "The player's current companion and witness.",
+      "startingSituation": "Following the player in the yard.",
+      "binding": {
+        "owner": "companion",
+        "identityId": "companion-fernling",
+        "required": false,
+        "fallbackResourceId": "visual:creature-fernling"
+      }
     }
   ],
   "uses": [
@@ -70,6 +88,15 @@
         "status": "active"
       }
     ],
+    "obligations": [
+      {
+        "id": "unexplained-footsteps",
+        "kind": "question",
+        "statement": "Who made the second set of footsteps after the traveler stopped?",
+        "status": "active",
+        "sourceSceneId": "the-fernling-at-dusk"
+      }
+    ],
     "decisions": [],
     "pendingThreads": [
       "The unexplained footsteps on Sunlit Trail."
@@ -86,6 +113,11 @@
         "id": "healer-wren",
         "identity": "Healer Wren",
         "location": "Hearth Hamlet cottage yard"
+      },
+      {
+        "id": "trail-companion",
+        "identity": "The player's Fernling companion, carrying the unresolved trail question onward.",
+        "location": "Hearth Hamlet cottage yard"
       }
     ],
     "flags": [],
@@ -95,6 +127,15 @@
         "id": "traveler-heard-footsteps",
         "statement": "The traveler says they heard a second set of footsteps after their own stopped; the path appeared empty.",
         "status": "active"
+      }
+    ],
+    "obligations": [
+      {
+        "id": "unexplained-footsteps",
+        "kind": "question",
+        "statement": "Who made the second set of footsteps after the traveler stopped?",
+        "status": "advanced",
+        "sourceSceneId": "the-fernling-at-dusk"
       }
     ],
     "decisions": [],

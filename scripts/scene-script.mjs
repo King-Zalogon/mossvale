@@ -40,6 +40,12 @@ export function validateSceneScript(script, catalogue) {
   addUniqueErrors(script.continuityOut?.characters ?? [], '/continuityOut/characters', errors);
   addUniqueErrors(script.continuityOut?.flags ?? [], '/continuityOut/flags', errors);
   addUniqueErrors(script.continuityOut?.canonicalFacts ?? [], '/continuityOut/canonicalFacts', errors);
+  for (const continuityName of ['continuityIn', 'continuityOut']) {
+    const continuity = script[continuityName] ?? {};
+    addUniqueErrors(continuity.obligations ?? [], `/${continuityName}/obligations`, errors);
+    addUniqueErrors(continuity.relationships ?? [], `/${continuityName}/relationships`, errors);
+    addUniqueErrors(continuity.intentionalUnknowns ?? [], `/${continuityName}/intentionalUnknowns`, errors);
+  }
 
   const checkResource = (id, path, acceptedKinds = null, allowNonAvailable = false) => {
     const entry = entries.get(id);
@@ -59,6 +65,23 @@ export function validateSceneScript(script, catalogue) {
   if (script.setting?.mapId) checkResource(script.setting.mapId, '/setting/mapId', ['map']);
   for (const [index, participant] of participants.entries())
     checkResource(participant.resourceId, `/participants/${index}/resourceId`, ['visual', 'actor', 'species', 'landmark']);
+  const bindingIds = new Set();
+  for (const [index, participant] of participants.entries()) {
+    if (participant.binding) {
+      const {identityId, owner, required, fallbackResourceId} = participant.binding;
+      if (bindingIds.has(identityId)) errors.push(`/participants/${index}/binding/identityId duplicates ${identityId}`);
+      bindingIds.add(identityId);
+      if (!required && !fallbackResourceId) errors.push(`/participants/${index}/binding requires fallbackResourceId when required is false`);
+      if (fallbackResourceId)
+        checkResource(fallbackResourceId, `/participants/${index}/binding/fallbackResourceId`, ['visual', 'actor', 'species', 'landmark']);
+      if (owner === 'player' && identityId !== 'player') errors.push(`/participants/${index}/binding player owner must use identityId player`);
+      if (owner === 'companion' && !identityId.startsWith('companion-'))
+        errors.push(`/participants/${index}/binding companion owner must use a companion-* identityId`);
+    }
+    for (const [traitIndex, trait] of (participant.traits ?? []).entries()) {
+      if (trait.required && !trait.value?.trim()) errors.push(`/participants/${index}/traits/${traitIndex} required trait needs a value`);
+    }
+  }
   for (const [index, use] of (script.uses ?? []).entries()) checkResource(use.resourceId, `/uses/${index}/resourceId`);
   for (const [index, item] of [...(script.continuityIn?.items ?? []), ...(script.continuityOut?.items ?? [])].entries())
     checkResource(item.resourceId, `/continuity/items/${index}/resourceId`, ['item']);
@@ -100,6 +123,47 @@ export function validateSceneScript(script, catalogue) {
   for (const [id, value] of incomingFlags)
     if (outputFlags.has(id) && outputFlags.get(id) !== value && !(script.beats ?? []).some(beat => beat.expectedResult?.includes(id)))
       errors.push(`/continuityOut/flags changes ${id} without a beat documenting that transition`);
+
+  const incomingObligations = new Map((script.continuityIn?.obligations ?? []).map(obligation => [obligation.id, obligation]));
+  const outgoingObligations = new Map((script.continuityOut?.obligations ?? []).map(obligation => [obligation.id, obligation]));
+  for (const [id, obligation] of incomingObligations) {
+    const outgoing = outgoingObligations.get(id);
+    if (!outgoing) errors.push(`/continuityOut/obligations must carry or resolve incoming obligation ${id}`);
+    else if (['resolved', 'superseded'].includes(obligation.status) && !['resolved', 'superseded'].includes(outgoing.status))
+      errors.push(`/continuityOut/obligations/${id} reopens an incoming ${obligation.status} obligation`);
+    else if (['resolved', 'superseded'].includes(outgoing.status) && !outgoing.resolution?.trim())
+      errors.push(`/continuityOut/obligations/${id} needs a resolution when marked ${outgoing.status}`);
+    else if (outgoing.sourceSceneId !== obligation.sourceSceneId)
+      errors.push(`/continuityOut/obligations/${id} must preserve sourceSceneId ${obligation.sourceSceneId}`);
+  }
+  for (const [id, obligation] of outgoingObligations) {
+    if (!incomingObligations.has(id) && obligation.sourceSceneId !== script.id)
+      errors.push(`/continuityOut/obligations/${id} introduces a new obligation with sourceSceneId ${obligation.sourceSceneId}; use ${script.id}`);
+    if (['resolved', 'superseded'].includes(obligation.status) && !obligation.resolution?.trim())
+      errors.push(`/continuityOut/obligations/${id} needs a resolution when marked ${obligation.status}`);
+  }
+  const incomingRelationships = new Map((script.continuityIn?.relationships ?? []).map(item => [item.id, item]));
+  const outgoingRelationships = new Map((script.continuityOut?.relationships ?? []).map(item => [item.id, item]));
+  const characterIds = new Set([
+    ...(script.continuityIn?.characters ?? []).map(character => character.id),
+    ...(script.continuityOut?.characters ?? []).map(character => character.id),
+    ...participants.map(participant => participant.id),
+  ]);
+  for (const [id, relationship] of outgoingRelationships) {
+    if (!characterIds.has(relationship.from) || !characterIds.has(relationship.to))
+      errors.push(`/continuityOut/relationships/${id} references an unknown character binding`);
+    if (!incomingRelationships.has(id) && relationship.sourceSceneId !== script.id)
+      errors.push(`/continuityOut/relationships/${id} introduces a new relationship with sourceSceneId ${relationship.sourceSceneId}; use ${script.id}`);
+  }
+  for (const id of incomingRelationships.keys()) {
+    if (!outgoingRelationships.has(id)) errors.push(`/continuityOut/relationships must carry incoming relationship ${id} or explicitly replace it`);
+  }
+  for (const unknown of script.continuityOut?.intentionalUnknowns ?? []) {
+    if (unknown.sourceSceneId !== script.id && !script.continuityIn?.intentionalUnknowns?.some(item => item.id === unknown.id))
+      errors.push(`/continuityOut/intentionalUnknowns/${unknown.id} introduces a new unknown with sourceSceneId ${unknown.sourceSceneId}; use ${script.id}`);
+  }
+  if (!script.continuityIn?.obligations && !script.continuityOut?.obligations)
+    warnings.push('legacy continuity has no durable obligations; new scenes should declare obligations explicitly');
 
   return {errors, warnings, gapReport: makeGapReport(script)};
 }
