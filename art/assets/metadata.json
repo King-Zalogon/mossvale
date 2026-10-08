@@ -33,6 +33,21 @@
       "width": 2016,
       "height": 3216,
       "mode": "RGBA"
+    },
+    "source/creature-additions-atlas.png": {
+      "width": 814,
+      "height": 264,
+      "mode": "RGBA"
+    },
+    "source/creature-combat-new-atlas.png": {
+      "width": 3488,
+      "height": 1440,
+      "mode": "RGBA"
+    },
+    "source/creature-follower-new-atlas.png": {
+      "width": 3032,
+      "height": 1600,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -177,6 +192,46 @@
       }
     },
     {
+      "name": "creature-bramblebuck-combat",
+      "src": "assets/creatures/creature-bramblebuck-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 5792,
+        "width": 1152,
+        "height": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-bramblebuck-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
       "name": "creature-brooklet",
       "src": "assets/creatures/creature-brooklet.png",
       "folder": "creatures",
@@ -275,6 +330,114 @@
           "art/characters/source/creature-brooklet-follower-generated.png"
         ],
         "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-cindercurl",
+      "src": "assets/creatures/creature-cindercurl.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 264,
+      "height": 211,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 550,
+        "y": 53,
+        "width": 264,
+        "height": 211
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-cindercurl-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-cindercurl-combat",
+      "src": "assets/creatures/creature-cindercurl-combat.png",
+      "width": 1152,
+      "height": 1440,
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 2336,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-cindercurl-combat-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-cindercurl-follower",
+      "src": "assets/creatures/creature-cindercurl-follower.png",
+      "width": 1000,
+      "height": 1600,
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 2032,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-cindercurl-follower-generated.png"
+        ]
       }
     },
     {
@@ -739,6 +902,262 @@
       }
     },
     {
+      "name": "creature-pebblit-combat",
+      "src": "assets/creatures/creature-pebblit-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1184,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 4352,
+        "width": 1184,
+        "height": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-pebblit-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-petalunge",
+      "src": "assets/creatures/creature-petalunge.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 264,
+      "height": 251,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 270,
+        "y": 13,
+        "width": 264,
+        "height": 251
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-petalunge-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-petalunge-combat",
+      "src": "assets/creatures/creature-petalunge-combat.png",
+      "width": 1152,
+      "height": 1440,
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 1168,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-petalunge-combat-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-petalunge-follower",
+      "src": "assets/creatures/creature-petalunge-follower.png",
+      "width": 1000,
+      "height": 1600,
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 1016,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-petalunge-follower-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-sedgegnaw",
+      "src": "assets/creatures/creature-sedgegnaw.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 254,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0,
+        "width": 254,
+        "height": 264
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sedgegnaw-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-sedgegnaw-combat",
+      "src": "assets/creatures/creature-sedgegnaw-combat.png",
+      "width": 1152,
+      "height": 1440,
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sedgegnaw-combat-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-sedgegnaw-follower",
+      "src": "assets/creatures/creature-sedgegnaw-follower.png",
+      "width": 1000,
+      "height": 1600,
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sedgegnaw-follower-generated.png"
+        ]
+      }
+    },
+    {
       "name": "creature-siltkip",
       "src": "assets/creatures/creature-siltkip.png",
       "folder": "creatures",
@@ -759,6 +1178,46 @@
       }
     },
     {
+      "name": "creature-siltkip-combat",
+      "src": "assets/creatures/creature-siltkip-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 7232,
+        "width": 1152,
+        "height": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-siltkip-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
       "name": "creature-sunskitter",
       "src": "assets/creatures/creature-sunskitter.png",
       "folder": "creatures",
@@ -776,6 +1235,46 @@
         "editablePixelSource": "art/assets/source atlas cell",
         "originalGeneratedReferences": [],
         "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "creature-sunskitter-combat",
+      "src": "assets/creatures/creature-sunskitter-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1312,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 8672,
+        "width": 1312,
+        "height": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sunskitter-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
       }
     },
     {
@@ -1455,166 +1954,6 @@
       "exportProfile": {
         "id": "prop-static-v1",
         "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      }
-    },
-    {
-      "name": "creature-pebblit-combat",
-      "src": "assets/creatures/creature-pebblit-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1184,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-combat-atlas.png",
-      "cell": {
-        "x": 0,
-        "y": 4352,
-        "width": 1184,
-        "height": 1440
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ]
-      },
-      "provenance": {
-        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-pebblit-combat-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      }
-    },
-    {
-      "name": "creature-bramblebuck-combat",
-      "src": "assets/creatures/creature-bramblebuck-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-combat-atlas.png",
-      "cell": {
-        "x": 0,
-        "y": 5792,
-        "width": 1152,
-        "height": 1440
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ]
-      },
-      "provenance": {
-        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-bramblebuck-combat-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      }
-    },
-    {
-      "name": "creature-siltkip-combat",
-      "src": "assets/creatures/creature-siltkip-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-combat-atlas.png",
-      "cell": {
-        "x": 0,
-        "y": 7232,
-        "width": 1152,
-        "height": 1440
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ]
-      },
-      "provenance": {
-        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-siltkip-combat-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      }
-    },
-    {
-      "name": "creature-sunskitter-combat",
-      "src": "assets/creatures/creature-sunskitter-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1312,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-combat-atlas.png",
-      "cell": {
-        "x": 0,
-        "y": 8672,
-        "width": 1312,
-        "height": 1440
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ]
-      },
-      "provenance": {
-        "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-sunskitter-combat-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
       }
     }
   ]

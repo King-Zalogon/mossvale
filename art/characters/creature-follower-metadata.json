@@ -80,6 +80,24 @@
       "promptBrief": "Preserve Sunskitter's canonical species silhouette, markings and palette; transparent 5-column by 8-row directional follower atlas with an idle and four walk poses for N, NE, E, SE, S, SW, W and NW.",
       "originalSha256": "df8b86f72f707d0b4e6296c50a4fc434981f93a3f436056b45534a506d8be202",
       "originalBytes": 2148839
+    },
+    "sedgegnaw": {
+      "generatedSource": "art/characters/source/creature-sedgegnaw-follower-generated.png",
+      "referenceAsset": "creature-sedgegnaw",
+      "promptBrief": "Preserve the sedgegnaw silhouette and palette; transparent five-column by eight-row directional follower sheet with idle and four walk poses in N, NE, E, SE, S, SW, W, NW order.",
+      "sourceSize": [992, 1586]
+    },
+    "petalunge": {
+      "generatedSource": "art/characters/source/creature-petalunge-follower-generated.png",
+      "referenceAsset": "creature-petalunge",
+      "promptBrief": "Preserve the petalunge silhouette and palette; transparent five-column by eight-row directional follower sheet with idle and four walk poses in N, NE, E, SE, S, SW, W, NW order.",
+      "sourceSize": [992, 1586]
+    },
+    "cindercurl": {
+      "generatedSource": "art/characters/source/creature-cindercurl-follower-generated.png",
+      "referenceAsset": "creature-cindercurl",
+      "promptBrief": "Preserve the cindercurl silhouette and palette; transparent five-column by eight-row directional follower sheet with idle and four walk poses in N, NE, E, SE, S, SW, W, NW order.",
+      "sourceSize": [992, 1586]
     }
   },
   "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
@@ -101,7 +119,10 @@
     "creature-pebblit-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-bramblebuck-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-siltkip-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-    "creature-sunskitter-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+    "creature-sunskitter-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-sedgegnaw-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-petalunge-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-cindercurl-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
   },
   "sprites": {
     "creature-emberkin-follower": {
@@ -211,6 +232,33 @@
       "rows": 8,
       "anchor": "bottom-center",
       "feetY": 196
+    },
+    "creature-sedgegnaw-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-sedgegnaw-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-petalunge-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-petalunge-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-cindercurl-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-cindercurl-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
     }
   },
   "anchor": "bottom-center",
@@ -222,5 +270,5 @@
     "stopping": "hold idle column 0 and retain last facing",
     "reducedMotion": "hold idle column 0 and retain last facing"
   },
-  "fallback": "Species without a creature-<species>-follower atlas use their static portrait until a later #90 batch."
+  "fallback": "All fifteen current species have directional atlases; if an optional atlas fails, the renderer falls back to the species static portrait."
 }

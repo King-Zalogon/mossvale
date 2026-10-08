@@ -468,12 +468,11 @@
       "w": 79,
       "solid": 0.52,
       "at": [
-        [51.5, 50.1],
-        [49.2, 48.3],
-        [49.2, 45.3],
-        [51.5, 43.5],
-        [54.4, 44.1],
-        [55.6, 46.8]
+        [11.1, 50.3],
+        [11.1, 47.3],
+        [13.4, 45.5],
+        [16.3, 46.1],
+        [17.6, 48.8]
       ],
       "piece": "oak-grove-2"
     },
@@ -482,33 +481,11 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [51.4, 47.1],
-        [52.9, 46.2],
-        [52.6, 47.7]
+        [13.4, 49.1],
+        [14.9, 48.2],
+        [14.6, 49.7]
       ],
       "piece": "oak-grove-2"
-    },
-    {
-      "sprite": "boulder-mossy",
-      "kind": "scenery",
-      "w": 49,
-      "solid": 0.42,
-      "at": [
-        [14.2, 48.8],
-        [15.7, 49.3],
-        [14.8, 47.4]
-      ],
-      "piece": "cairn-3"
-    },
-    {
-      "sprite": "bush-flowering",
-      "kind": "flower",
-      "w": 32,
-      "at": [
-        [13.1, 49.6],
-        [16.1, 48.2]
-      ],
-      "piece": "cairn-3"
     },
     {
       "sprite": "boulder-mossy",
@@ -520,7 +497,7 @@
         [34.1, 21.4],
         [33.2, 19.5]
       ],
-      "piece": "cairn-4"
+      "piece": "cairn-3"
     },
     {
       "sprite": "bush-flowering",
@@ -529,6 +506,28 @@
       "at": [
         [31.5, 21.7],
         [34.5, 20.3]
+      ],
+      "piece": "cairn-3"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [
+        [55.6, 49.2],
+        [57.1, 49.7],
+        [56.2, 47.8]
+      ],
+      "piece": "cairn-4"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [54.5, 50.0],
+        [57.5, 48.6]
       ],
       "piece": "cairn-4"
     },
@@ -559,7 +558,18 @@
     {
       "id": "old-orchard-grass",
       "terrain": ["t"],
-      "pool": ["fernling", "emberkin", "bramblebuck", "duskwing"],
+      "pool": [
+        {
+          "species": "fernling",
+          "behavior": "wary"
+        },
+        "emberkin",
+        {
+          "species": "bramblebuck",
+          "behavior": "territorial"
+        },
+        "duskwing"
+      ],
       "level": [5, 7],
       "rect": [0, 0, 24, 24]
     },
@@ -576,7 +586,8 @@
       "pool": [
         {
           "species": "bramblebuck",
-          "weight": 4
+          "weight": 4,
+          "behavior": "territorial"
         },
         {
           "species": "emberkin",
@@ -584,10 +595,15 @@
         },
         {
           "species": "fernling",
-          "weight": 2
+          "weight": 2,
+          "behavior": "wary"
         },
         {
           "species": "duskwing",
+          "weight": 1
+        },
+        {
+          "species": "petalunge",
           "weight": 1
         }
       ],
@@ -613,6 +629,178 @@
     }
   ],
   "triggers": [
+    {
+      "id": "orchard-mara-brief",
+      "at": [7, 15],
+      "radius": 1.5,
+      "on": "interact",
+      "events": [
+        {
+          "id": "mara-water-loss",
+          "repeatable": false,
+          "when": {
+            "flag": "meadow.seal"
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "orchard-ranger",
+              "text": "The lower row is dry again. The feeder board is scraped, but the old channel was failing before that. Find where the water went."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orchard-sluice-clue",
+      "at": [56, 27],
+      "radius": 1.5,
+      "on": "interact",
+      "events": [
+        {
+          "id": "sluice-old-mark",
+          "repeatable": false,
+          "when": {
+            "event": "orchard-ruins/mara-water-loss"
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "narrator",
+              "text": "The split timber is dark and soft. This break has lasted through more than one rain. Brighter scrapes cut through the old mud toward the lower row."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orchard-press-clue",
+      "at": [30, 44],
+      "radius": 1.5,
+      "on": "interact",
+      "events": [
+        {
+          "id": "press-repair-record",
+          "repeatable": false,
+          "when": {
+            "event": "orchard-ruins/mara-water-loss"
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "narrator",
+              "text": "The press marks stop before last harvest. The flow had already dropped before the newest Bramblebuck visit."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orchard-den-reveal",
+      "at": [42, 36],
+      "radius": 1.7,
+      "on": "interact",
+      "events": [
+        {
+          "id": "den-family-seen",
+          "repeatable": false,
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/mara-water-loss"
+              },
+              {
+                "any": [
+                  {
+                    "event": "orchard-ruins/sluice-old-mark"
+                  },
+                  {
+                    "event": "orchard-ruins/press-repair-record"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "narrator",
+              "text": "Wet tracks return to a damp hollow. The adult Bramblebuck watches you, then turns back toward the young. The den is where the water is reaching them."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orchard-water-bypass",
+      "at": [49, 41],
+      "radius": 1.5,
+      "on": "interact",
+      "events": [
+        {
+          "id": "outcome-water-first",
+          "repeatable": false,
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/den-family-seen"
+              },
+              {
+                "not": {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "narrator",
+              "text": "You open the shared bypass. Water returns to the lower row, and the family settles into the dry upper nook."
+            },
+            {
+              "type": "reward",
+              "coins": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orchard-dry-hollow",
+      "at": [44, 34],
+      "radius": 1.5,
+      "on": "interact",
+      "events": [
+        {
+          "id": "outcome-family-first",
+          "repeatable": false,
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/den-family-seen"
+              },
+              {
+                "not": {
+                  "event": "orchard-ruins/outcome-water-first"
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "narrator",
+              "text": "You guide the young to the dry hollow first. The adult follows, leaving Mara the slower channel repair."
+            },
+            {
+              "type": "reward",
+              "coins": 10
+            }
+          ]
+        }
+      ]
+    },
     {
       "id": "hidden-cut-through",
       "at": [13, 15],

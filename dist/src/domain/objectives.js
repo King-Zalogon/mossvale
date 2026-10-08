@@ -1,6 +1,6 @@
 /* Goals and short NPC lines as data (dist/maps/objectives.json). Deliberately tiny: a chain of objectives, each
    finished by one condition, plus optional lines picked by condition. No branching, no scripting.
-   Conditions: {flag}, {met}, {caught: N | "all"}, {seen: N | "all"}, {visited: mapId}, {all: [...]}, {not: cond}. */
+   Conditions: {flag}, {event}, {met}, {caught: N | "all"}, {seen: N | "all"}, {visited: mapId}, {all: [...]}, {any: [...]}, {not: cond}. */
 import {flagDone} from './rules.js';
 
 export const OBJECTIVES_FORMAT = 1;
@@ -10,6 +10,7 @@ const FLAG = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/;
 export function holds(cond, save, ctx) {
   if (!cond || typeof cond !== 'object') return true; // no condition means "always"
   if ('flag' in cond) return flagDone(save, cond.flag);
+  if ('event' in cond) return typeof cond.event === 'string' && (save.events ?? []).includes(cond.event);
   if ('met' in cond) return save.met === cond.met;
   if ('caught' in cond) return save.caught.length >= (cond.caught === 'all' ? ctx.speciesCount : cond.caught);
   if ('seen' in cond) return save.seen.length >= (cond.seen === 'all' ? ctx.speciesCount : cond.seen);
@@ -18,6 +19,7 @@ export function holds(cond, save, ctx) {
     return save.visitedMaps?.includes(cond.visited) === true || (region >= 0 && save.visited.includes(region));
   }
   if ('all' in cond) return cond.all.every(c => holds(c, save, ctx));
+  if ('any' in cond) return cond.any.some(c => holds(c, save, ctx));
   if ('not' in cond) return !holds(cond.not, save, ctx);
   return false;
 }
@@ -59,15 +61,24 @@ export function validateObjectives(data, {mapIds}) {
     const [k] = keys;
     if (k === 'flag') {
       if (!FLAG.test(c.flag) || !mapIds.has(c.flag.split('.')[0])) at(where, `flag "${c.flag}" must be <map-id>.seal or <map-id>.chest of an existing map`);
+    } else if (k === 'event') {
+      const parts = typeof c.event === 'string' ? c.event.split('/') : [];
+      if (
+        parts.length !== 2 ||
+        !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(parts[0] ?? '') ||
+        !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(parts[1] ?? '') ||
+        !mapIds.has(parts[0])
+      )
+        at(where, 'event must name an existing map and stable event id');
     } else if (k === 'met') {
       if (typeof c.met !== 'boolean') at(where, 'met must be true or false');
     } else if (k === 'caught' || k === 'seen') {
       if (!(c[k] === 'all' || (Number.isInteger(c[k]) && c[k] >= 0))) at(where, `${k} must be a count or "all"`);
     } else if (k === 'visited') {
       if (!mapIds.has(c.visited)) at(where, `visited names unknown map "${c.visited}"`);
-    } else if (k === 'all') {
-      if (!Array.isArray(c.all)) at(where, 'all must be a list');
-      else c.all.forEach((x, i) => checkCond(`${where}.all[${i}]`, x));
+    } else if (k === 'all' || k === 'any') {
+      if (!Array.isArray(c[k]) || !c[k].length) at(where, `${k} must be a non-empty list`);
+      else c[k].forEach((x, i) => checkCond(`${where}.${k}[${i}]`, x));
     } else if (k === 'not') checkCond(where + '.not', c.not);
     else at(where, `unknown condition "${k}"`);
   };

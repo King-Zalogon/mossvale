@@ -2,7 +2,7 @@
   "format": 1,
   "id": "mossvale",
   "name": "Mossvale",
-  "brief": "Four biomes, twelve friends and a seal at every shrine.",
+  "brief": "Four biomes, fifteen friends and a seal at every shrine.",
   "maps": ["meadow", "amber-ridge", "frostveil-grove", "frostveil-pass", "reedfen-wetlands", "orchard-ruins", "stilt-isles", "stone-basin"],
   "species": [
     "fernling",
@@ -16,7 +16,10 @@
     "bramblebuck",
     "siltkip",
     "sunskitter",
-    "hushram"
+    "hushram",
+    "sedgegnaw",
+    "petalunge",
+    "cindercurl"
   ],
   "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
   "ending": "story",
@@ -24,7 +27,7 @@
   "story": "story.json",
   "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 2,
+  "contentVersion": 3,
   "requires": {
     "engineVersion": 1,
     "saveSchema": 5
@@ -33,17 +36,17 @@
     {
       "id": "registry:main",
       "path": "registries.json",
-      "sha256": "ee5a8200b8662b73b7a11289564e90228c13713ff62181a99ab74b5f09e58bbf"
+      "sha256": "1494e5c75a561cf32055a61fac3a5f17524cf68697bf8e6809ea4b091057fde9"
     },
     {
       "id": "map:meadow",
       "path": "meadow.json",
-      "sha256": "f8c3bcd8e324f8be89a3125f391993547eca7d963254619ac659aef65aa1362e"
+      "sha256": "a57709a1a39da36ab82089520396b5d3d626f919782f8b244a15e9daf1e1972e"
     },
     {
       "id": "map:amber-ridge",
       "path": "amber-ridge.json",
-      "sha256": "71607271a826ff0999385b0193bc861c381a1b019e4f12045084f150076dbe50"
+      "sha256": "71e104292399dce77090aa2fc82707f14fe882b2a2a516e7c83bb586deaac78a"
     },
     {
       "id": "map:frostveil-grove",
@@ -58,12 +61,12 @@
     {
       "id": "map:reedfen-wetlands",
       "path": "reedfen-wetlands.json",
-      "sha256": "63971ba23d813faef014a79a00626a7f34addfa19a801739359434f244e2f1ea"
+      "sha256": "effa2297a3b3ab4c01d8079c79b193bf164310447c310076a7f5e93f656effb9"
     },
     {
       "id": "map:orchard-ruins",
       "path": "orchard-ruins.json",
-      "sha256": "59a397c0d62184afe439e8c25ff3f6705bdbfe50f70e20494d551c674849a0ef"
+      "sha256": "919f82f2f3a55936c02d0d45035af2b0250c01095159f72a70cfae157e2c28d7"
     },
     {
       "id": "map:stilt-isles",

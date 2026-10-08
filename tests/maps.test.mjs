@@ -60,7 +60,7 @@ test('the meadow pair has a safe loop, a shortcut discovery and a gated onward t
   assert.equal(orchardOnward.requires, 'meadow.seal');
   assert.equal(orchardMap.landmarks.find(l => l.kind === 'ranger').name, 'Orchard Keeper Mara');
   assert.equal(meadowMap.landmarks.find(l => l.kind === 'chest').flag, 'meadow.chest');
-  assert.equal(orchardMap.triggers[0].id, 'hidden-cut-through');
+  assert.equal(orchardMap.triggers.find(trigger => trigger.id === 'hidden-cut-through')?.id, 'hidden-cut-through');
   assert.notDeepEqual(meadowMap.terrain, orchardMap.terrain);
   assert.equal(mapsById['orchard-ruins'].biome, 'meadow');
   assert.equal(mapsById['orchard-ruins'].objects.find(o => o.ref === 'east-to-ridge').targetRegion, 1);
@@ -330,7 +330,7 @@ test('an author can change an encounter zone without touching code', () => {
 
 test('zones can be limited to a rectangle', () => {
   const raw = rawMaps();
-  meadow(raw).zones = [{id: 'north-only', terrain: ['t'], rect: [0, 0, 24, 7], pool: ['fernling', 'emberkin', 'bramblebuck'], level: [5, 5]}];
+  meadow(raw).zones = [{id: 'north-only', terrain: ['t'], rect: [0, 0, 24, 7], pool: ['fernling', 'emberkin', 'bramblebuck', 'sedgegnaw'], level: [5, 5]}];
   const {maps, errors} = buildAdventure(raw, content);
   assert.deepEqual(errors, []);
   const world = buildWorld(maps[0]);
@@ -428,7 +428,7 @@ test('the badlands pair is two large maps with a loop of safe exits and alternat
   );
   assert.equal(ridge.exits.find(e => e.id === 'east').requires, 'amber-ridge.seal');
   const species = new Set([ridge, basin].flatMap(m => m.zones).flatMap(z => z.pool.map(p => p.species ?? p)));
-  assert.deepEqual([...species].sort(), ['pebblit', 'sunskitter', 'voltkit']);
+  assert.deepEqual([...species].sort(), ['cindercurl', 'pebblit', 'sunskitter', 'voltkit']);
   assert.equal([ridge, basin].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);
   for (const m of [ridge, basin]) {
     assert.ok(
@@ -478,8 +478,9 @@ test('the orchard keeps its original island and grows into a large map with a lo
   assert.ok(walkable(orchardMap) >= 4 * 365, 'several times the original ~365 walkable tiles');
   // the original island keeps its coordinates, so saves and the hidden cut-through still point at the right places
   assert.deepEqual(orchardMap.spawns.camp, [3, 12]);
-  assert.equal(orchardMap.triggers[0].id, 'hidden-cut-through');
-  assert.deepEqual(orchardMap.triggers[0].at, [13, 15]);
+  const shortcut = orchardMap.triggers.find(trigger => trigger.id === 'hidden-cut-through');
+  assert.equal(shortcut?.id, 'hidden-cut-through');
+  assert.deepEqual(shortcut?.at, [13, 15]);
   const gate = orchardMap.exits.find(e => e.to.map === 'amber-ridge');
   assert.equal(gate.requires, 'meadow.seal');
   assert.ok(gate.at[0] > 50, 'the gate to Amber Ridge is at the far east end');

@@ -20,12 +20,19 @@ try {
   assert.equal((await page.request.get(`${origin}/fiche?id=actor%3Anot-a-visual`)).status(), 404);
   assert.equal((await page.request.get(`${origin}/asset?path=docs%2FFEEDBACK.md`)).status(), 404);
   assert.equal((await page.request.post(origin, {data: 'unexpected'})).status(), 405);
-  await page.waitForFunction(() => document.querySelectorAll('.card').length === 66);
-  assert.match(await page.locator('#result-count').textContent(), /66 of 66 visual resources/);
+  await page.waitForFunction(() => document.querySelectorAll('.card').length === 75);
+  assert.match(await page.locator('#result-count').textContent(), /75 of 75 visual resources/);
   assert.equal(await page.locator('#element option').count(), 13);
   await page.locator('#element').selectOption({label: 'Fire'});
-  await page.waitForFunction(() => document.querySelectorAll('.card').length === 3);
-  assert.deepEqual(await page.locator('.card-title').allTextContents(), ['creature-emberkin', 'creature-emberkin-combat', 'creature-emberkin-follower']);
+  await page.waitForFunction(() => document.querySelectorAll('.card').length === 6);
+  assert.deepEqual(await page.locator('.card-title').allTextContents(), [
+    'creature-cindercurl',
+    'creature-cindercurl-combat',
+    'creature-cindercurl-follower',
+    'creature-emberkin',
+    'creature-emberkin-combat',
+    'creature-emberkin-follower',
+  ]);
   await page.locator('#search').fill('flame-shaped curled tail');
   await page.waitForFunction(() => document.querySelectorAll('.card').length === 3);
   await page.locator('#search').fill('creature-emberkin-follower');
@@ -87,7 +94,7 @@ try {
       offline.once('close', () => offlineServer.close());
       await offline.goto(`http://127.0.0.1:${offlineServer.address().port}/index.html`);
     }
-    await offline.waitForFunction(() => document.querySelectorAll('.card').length === 66);
+    await offline.waitForFunction(() => document.querySelectorAll('.card').length === 75);
     await offline.locator('#search').fill('tree oak');
     await offline.waitForFunction(() => document.querySelectorAll('.card').length >= 1);
     assert.equal(await offline.locator('#search').inputValue(), 'tree oak');
