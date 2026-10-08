@@ -90,6 +90,8 @@ class VisualReviewEvidenceTests(unittest.TestCase):
             "creature-sedgegnaw",
             "creature-petalunge",
             "creature-cindercurl",
+            "creature-sunsifter",
+            "creature-rillume",
         ]
         for species in follower_ids:
             reference = f"art/references/{species}.png"
