@@ -2,6 +2,12 @@
 
 Owner review: 2026-10-06. Inspected baseline: integration `748c887a8b245e7338609a31ab2e94d6cff79c59`. Follow-up quality work belongs to [#245](https://github.com/King-Zalogon/mossvale/issues/245); this audit and the first input-presentation correction belong to [#241](https://github.com/King-Zalogon/mossvale/issues/241). #236's claimed dialogue implementation remains with its existing owner. The duplicate planning issue #247 was consolidated into #245.
 
+## #245 browser proof update — 2026-10-08
+
+`tests/playthrough.browser.mjs` now completes its deterministic meadow guardian route after interrupting and reloading the live battle. The route uses the shipped dialogue, keyboard locomotion, interaction/challenge UI and battle controls; it finishes through ordinary battle actions, confirms the once-only seal/reward, returns to exploration, reloads again and confirms the completed state does not resume as a battle. The proof is captured at 1280×800 in [the earned-seal view](quality-review/245-meadow-seal-earned.png) and [the restored exploration view](quality-review/245-exploration-restored.png). Reproduce with `npm run build:game && CHROMIUM=/usr/bin/chromium node tests/playthrough.browser.mjs`; the test prints the full seven-capture path list.
+
+This is reproducible gameplay-scale evidence for one shipped route, not proof that every #245 bar is complete. The browser fixture seeds a save with a second companion and uses the debug clock to make deterministic route timing; it does not stand in for a fresh-save ten-minute human playtest. The current scene still uses existing terrain, battle art and story content; the captures expose remaining art/layout polish. Owner review remains necessary for subjective feel and visual acceptance.
+
 The terrain-family fixture in PR #233 is a technical prototype. The owner's earlier acceptance of a first version does not establish a professional visual standard. That PR is in draft. Large collections of completed checkboxes, source hashes and passing browser tests cannot establish good art, animation, pacing or interface composition.
 
 ## Research applied to this game
