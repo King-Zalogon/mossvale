@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/ui/speech.js", "dist/style.css", "docs/SCENE_ACTIONS.md", "tests/dialogue-layout.browser.mjs", "tests/scene-proof.browser.mjs"],
+      "entries": ["interactable:scene-event"],
+      "disposition": "no-semantic-impact",
+      "reason": "This changes only the presentation of existing NPC and landmark dialogue: lower-center placement, speaker clearance, touch input ownership, overflow scrolling and the visible advance action. Scene definitions, authored text fields, interaction triggers, rewards and persistence keep their existing behavior.",
+      "evidence": ["tests/dialogue-layout.browser.mjs", "tests/speech.browser.mjs", "tests/responsive-journal.browser.mjs", "tests/scene-proof.browser.mjs"]
+    }
+  ]
+}

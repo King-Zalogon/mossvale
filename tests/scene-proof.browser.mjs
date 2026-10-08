@@ -89,6 +89,7 @@ try {
     await page.click('#speech-next');
   }
   await page.waitForSelector('#speech-bubble[hidden]', {state: 'hidden'});
+  await page.waitForTimeout(350); // allow the interaction debounce to expire after scripted rapid advances
 
   // Interact with the reachable chest and prove its reward and milestone survive reload exactly once.
   const beforeChest = await page.evaluate(() => {

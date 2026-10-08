@@ -2255,6 +2255,10 @@ body.text-larger .heading {
     min-height: 230px;
     aspect-ratio: auto;
   }
+  .viewport.speech-open {
+    height: min(82svh, 520px);
+    min-height: 320px;
+  }
   .location {
     height: 46px;
     padding: 7px 10px;
@@ -2363,8 +2367,7 @@ body.text-larger .heading {
   }
   .viewport.speech-open .touchpad,
   .viewport.speech-open .touch-run {
-    opacity: 0.28;
-    pointer-events: none;
+    display: none;
   }
   .interaction {
     top: 12px;
@@ -2377,13 +2380,17 @@ body.text-larger .heading {
   overflow-wrap: anywhere;
 }
 
-/* Character dialogue stays in the game viewport and points toward its current speaker. */
+/* Speech lives at the lower center of the playable map without covering map controls or its speaker. */
 .speech-bubble {
   position: absolute;
   z-index: 8;
-  width: min(340px, calc(100% - 24px));
-  max-height: calc(100% - 24px);
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(420px, calc(100% - 24px));
+  max-height: var(--speech-max-height, calc(100% - 48px));
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 12px 14px 10px;
   border: 2px solid #293d31;
   border-radius: 13px;
@@ -2393,29 +2400,6 @@ body.text-larger .heading {
     0 5px 0 #293d3133,
     0 10px 26px #14251e55;
   font-size: 1rem;
-}
-.speech-bubble::after {
-  position: absolute;
-  left: var(--tail-x, 50%);
-  bottom: -10px;
-  width: 16px;
-  height: 16px;
-  border-right: 2px solid #293d31;
-  border-bottom: 2px solid #293d31;
-  background: #fff8dc;
-  content: '';
-  transform: rotate(45deg);
-}
-.speech-bubble.speech-fallback::after {
-  display: none;
-}
-.speech-bubble.speech-tail-top::after {
-  top: -10px;
-  bottom: auto;
-  border: 0;
-  border-top: 2px solid #293d31;
-  border-left: 2px solid #293d31;
-  transform: rotate(45deg);
 }
 .speech-bubble[hidden] {
   display: none;
@@ -2432,6 +2416,8 @@ body.text-larger .heading {
   line-height: 1.45;
 }
 .speech-bubble button {
+  position: sticky;
+  bottom: 0;
   display: block;
   margin-left: auto;
   padding: 5px 12px;
@@ -2458,8 +2444,7 @@ body.text-larger .heading {
   text-align: left;
 }
 @media (prefers-reduced-motion: reduce) {
-  .speech-bubble,
-  .speech-bubble::after {
+  .speech-bubble {
     scroll-behavior: auto;
     transition: none;
   }
