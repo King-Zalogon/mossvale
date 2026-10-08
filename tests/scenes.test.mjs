@@ -45,6 +45,30 @@ test('map scene actions validate references and reject unsafe challenge semantic
   assert.deepEqual(validateMaps(raw, {spriteNames: names, speciesIds}), []);
 });
 
+test('challenge events can author a bounded encounter objective', () => {
+  const event = {
+    id: 'protect-the-nest',
+    repeatable: true,
+    actions: [
+      {
+        type: 'challenge',
+        species: 'duskwing',
+        level: 5,
+        objective: {
+          id: 'protect-nest',
+          kind: 'survive',
+          turns: 2,
+          title: 'Protect the nest',
+          description: 'Hold the line for two turns.',
+          reward: {coins: 5, potions: 1, xp: 7},
+        },
+      },
+    ],
+  };
+  assert.deepEqual(validateSceneEvent(event, {speciesIds, mapId: 'meadow', mapIds: new Set(['meadow']), where: 'event'}), []);
+  assert.deepEqual(applySceneActions(newSave(), event, {setFlag() {}}).challenge.objective, event.actions[0].objective);
+});
+
 test('one-time scene effects and reward flags persist together; repeatable conditions remain reusable', () => {
   const save = newSave();
   const result = applySceneActions(save, validEvent, {setFlag: flag => setFlag(save, flag)});

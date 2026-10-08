@@ -141,6 +141,17 @@ export function validateRegistries(raw, {assetNames}) {
     )
       at('battle.relay', 'needs integer focusCost/duration from 1 to 3 and an elementFactor from 1 to 2.5');
   }
+  if (raw.battle?.encounterObjectives !== undefined) {
+    const survive = raw.battle.encounterObjectives?.survive;
+    if (
+      !object(survive) ||
+      !Number.isInteger(survive.maxTurns) ||
+      !finite(survive.maxTurns, 1, 32) ||
+      !Number.isInteger(survive.rewardCap) ||
+      !finite(survive.rewardCap, 0, 9999)
+    )
+      at('battle.encounterObjectives.survive', 'needs integer maxTurns from 1 to 32 and rewardCap from 0 to 9999');
+  }
   if (
     !object(raw.battle) ||
     !finite(raw.battle.focusMax, 1, 20) ||

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, RELAY_FOCUS_COST} from '../dist/src/config.js';
-import {battleCheckpoint, captureChance, createBattle, enemyAttack, playerStrike, resolveTurn} from '../dist/src/domain/battle.js';
+import {battleCheckpoint, captureChance, createBattle, enemyAttack, playerStrike, resolveTurn, validateEncounterObjective} from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
 import {codec, newSave, rawInventoryRules} from './helpers.mjs';
 
@@ -139,6 +139,38 @@ test('relay expires after its bounded window and cannot be stacked', () => {
   assert.equal(battle.condition, null);
   assert.equal(resolveTurn(save, battle, {kind: 'switch', id: 1}, rng)?.events[0].type, 'switch');
   assert.equal(battle.relayReady, false);
+});
+
+test('a survive objective exposes progress, persists in the checkpoint and pays once when explicitly completed', () => {
+  const save = newSave();
+  save.team[0].hp = 1e6;
+  const objective = {
+    id: 'protect-nest',
+    kind: 'survive',
+    turns: 2,
+    title: 'Protect the nest',
+    description: 'Hold the line.',
+    reward: {coins: 5, potions: 1, xp: 7},
+  };
+  const battle = createBattle(save, rng, {id: NEUTRAL, level: 1, objective});
+  assert.equal(battle.objective.status, 'active');
+  assert.equal(resolveTurn(save, battle, {kind: 'guard'}, rng)?.events.at(-1).type, 'objective-progress');
+  assert.equal(battle.objective.progress, 1);
+  save.battle = battleCheckpoint(battle);
+  assert.deepEqual(codec.normalize(JSON.parse(codec.serialize(save)), false).battle.objective, battle.objective);
+  assert.equal(resolveTurn(save, battle, {kind: 'attack'}, rng)?.events.at(-1).ready, true);
+  assert.equal(battle.objective.status, 'ready');
+  const beforeCoins = save.coins;
+  const completed = resolveTurn(save, battle, {kind: 'objective'}, rng);
+  assert.equal(completed.ended, 'objective');
+  assert.equal(save.coins, beforeCoins + 5);
+  assert.equal(save.events.includes('battle-objective:protect-nest'), true);
+  assert.equal(resolveTurn(save, battle, {kind: 'objective'}, rng), null);
+});
+
+test('encounter objectives reject unbounded or malformed authoring data', () => {
+  assert.deepEqual(validateEncounterObjective(null), []);
+  assert.ok(validateEncounterObjective({kind: 'survive', id: 'Bad Id', turns: 99, title: '', description: '', reward: {coins: -1}}).length >= 4);
 });
 
 test('live battle potion uses the pack percentage and keeps legacy supply counts in sync', () => {
