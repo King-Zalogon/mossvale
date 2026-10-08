@@ -1,0 +1,29 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "art/assets/source/people-atlas.png",
+        "art/assets/subjects.json",
+        "art/characters/SOURCES.md",
+        "art/characters/export.py",
+        "art/characters/metadata.json",
+        "art/characters/reviews/239-player-idle-before-after.png",
+        "art/characters/source/person-red-cap-neutral-idle-v1.png",
+        "art/characters/visual-reviews.json",
+        "dist/assets/people/person-red-cap-motion.png"
+      ],
+      "entries": ["visual:person-red-cap-motion"],
+      "disposition": "updated",
+      "reason": "The existing player visual fiche now records the reviewed neutral rest pose, eight-direction source mapping, unchanged walk cadence, updated runtime export, and actual-game-scale before/after evidence. The asset keeps its stable visual ID and renderer contract; no gameplay capability, save field, map content, or pack requirement is added.",
+      "evidence": [
+        "tests/test_player_motion_export.py",
+        "tests/characters.browser.mjs",
+        "tests/diagonal-walk.browser.mjs",
+        "tests/input-mode.browser.mjs",
+        "art/characters/reviews/239-player-idle-before-after.png",
+        "dist/player-idle-review.html"
+      ]
+    }
+  ]
+}

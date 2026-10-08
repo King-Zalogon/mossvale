@@ -19,6 +19,19 @@ const load = async page => {
 };
 const padIsVisible = page => page.locator('.touchpad').isVisible();
 const position = page => page.evaluate(() => ({...window.mossvale.getState().player}));
+const capturePlayerAtlas = page =>
+  page.addInitScript(() => {
+    window.playerAtlasFrames = [];
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (image, ...args) {
+      const result = drawImage.call(this, image, ...args);
+      if (image?.src?.includes('/person-red-cap-motion.png') && args.length >= 8) {
+        window.playerAtlasFrames.push({column: Math.round(args[0] / 160), row: Math.round(args[1] / 256), height: args[7]});
+        if (window.playerAtlasFrames.length > 120) window.playerAtlasFrames.shift();
+      }
+      return result;
+    };
+  });
 const review = async (page, name) => {
   if (!process.env.MOSSVALE_INPUT_REVIEW_DIR) return;
   mkdirSync(process.env.MOSSVALE_INPUT_REVIEW_DIR, {recursive: true});
@@ -123,8 +136,41 @@ try {
     assert.ok(bounds.minTarget >= 44);
     await review(phone, size.width === 390 ? 'phone-portrait' : 'phone-landscape');
   }
+
+  const touchWalk = await browser.newPage({viewport: {width: 390, height: 844}, hasTouch: true, isMobile: true});
+  await capturePlayerAtlas(touchWalk);
+  await load(touchWalk);
+  assert.equal(await padIsVisible(touchWalk), true);
+  await touchWalk.locator('#game').tap();
+  const touchStart = await position(touchWalk);
+  const touchCdp = await touchWalk.context().newCDPSession(touchWalk);
+  const northButton = await touchWalk.locator('[data-dir="0,-1"]').boundingBox();
+  const northPoint = {id: 1, x: northButton.x + northButton.width / 2, y: northButton.y + northButton.height / 2};
+  await touchCdp.send('Input.dispatchTouchEvent', {type: 'touchStart', touchPoints: [northPoint]});
+  await touchWalk.waitForFunction(p => Math.hypot(window.mossvale.getState().player.x - p.x, window.mossvale.getState().player.y - p.y) > 0.2, touchStart);
+  await touchWalk.waitForFunction(() => window.playerAtlasFrames.some(frame => frame.column > 0));
+  await touchCdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+  await touchWalk.waitForTimeout(180);
+  const touchStopped = await position(touchWalk);
+  await touchWalk.waitForTimeout(180);
+  const touchAfterStop = await position(touchWalk);
+  assert.ok(Math.hypot(touchAfterStop.x - touchStopped.x, touchAfterStop.y - touchStopped.y) < 0.02, 'releasing touch stops movement');
+  assert.deepEqual(
+    await touchWalk.evaluate(() => {
+      const {column, row} = window.playerAtlasFrames.at(-1);
+      return {column, row};
+    }),
+    {column: 0, row: 0},
+    'touch release returns to north idle',
+  );
+  const touchHeightDelta = await touchWalk.evaluate(() => {
+    const frames = window.playerAtlasFrames.filter(frame => frame.row === 0);
+    return Math.max(...frames.map(frame => frame.height)) - Math.min(...frames.map(frame => frame.height));
+  });
+  assert.ok(touchHeightDelta < 0.01, `touch walk-to-idle keeps a fixed sprite size (${touchHeightDelta})`);
+  await touchCdp.detach();
   assert.deepEqual(errors, []);
-  console.log('ok desktop, narrow window, hybrid touch/keyboard/mouse takeover, captured drag cancellation and phone portrait/landscape input HUD');
+  console.log('ok desktop, narrow window, hybrid input takeover, touch walk-to-idle release and stable player anchor, phone portrait/landscape input HUD');
 } finally {
   await browser.close();
   server.close();
