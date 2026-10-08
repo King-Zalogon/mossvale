@@ -3,6 +3,7 @@ import {chromium} from 'playwright';
 import http from 'node:http';
 import {existsSync, readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {playerSpritePose} from '../dist/src/domain/exploration.js';
 
 const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png'};
@@ -174,10 +175,11 @@ try {
         transitions: sequence.length - 1,
       });
       await page.waitForTimeout(120);
-      const stopped = await page.evaluate(() => window.playerAtlasDraws.at(-1));
-      assert.equal(stopped?.column, 0, `${diagonal.name} settles on the idle cell after stopping`);
-      assert.equal(stopped?.row, diagonal.sourceRow, `${diagonal.name} keeps its facing after stopping`);
-      assert.equal(stopped?.flipped, diagonal.flipped, `${diagonal.name} keeps its direction mirror after stopping`);
+      const stopped = await page.evaluate(() => ({frame: window.playerAtlasDraws.at(-1), dir: window.mossvale.getState().player.dir}));
+      const stoppedPose = playerSpritePose(stopped.dir);
+      assert.equal(stopped.frame?.column, 0, `${diagonal.name} settles on the idle cell after stopping`);
+      assert.equal(stopped.frame?.row, stoppedPose.row, `${diagonal.name} idle uses the player's retained final facing`);
+      assert.equal(stopped.frame?.flipped, stoppedPose.flip, `${diagonal.name} idle keeps the final facing mirror`);
     }
   }
 
