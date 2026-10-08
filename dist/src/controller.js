@@ -799,6 +799,7 @@ export function createController(app) {
         effectiveness: effectiveness(s.active, b.id),
         temporary: b.condition ? {...b.condition} : null,
         relayReady: b.relayReady === true,
+        objective: b.objective ? {id: b.objective.id, progress: b.objective.progress, turns: b.objective.turns, status: b.objective.status} : null,
       },
       responseWindows: b.boss ? (guardianForecast(s, b)?.responses ?? []) : [],
       intent: b.boss ? (INTENT_TEXT[nextEnemyAction(b)] ?? null) : null,
@@ -862,6 +863,15 @@ export function createController(app) {
         newSeal: reward.newSeal,
         counterplay: reward.responseLabels,
         itemRewards: reward.itemRewards,
+      });
+    } else if (turn.ended === 'objective') {
+      const objective = turn.events.find(event => event.type === 'objective-complete');
+      emit('reward.granted', {
+        source: 'encounter-objective',
+        species: species[b.id].id,
+        objective: objective.id,
+        coins: objective.reward,
+        xp: objective.xp,
       });
     }
     b.busy = true;
@@ -944,6 +954,16 @@ export function createController(app) {
       } else if (e.type === 'setup') {
         player = `${species[before.active].name} prepared a relay for a teammate.`;
         frames.push({message: player, animation: '', after: e.after, sfx: 'guard', wait: wait(650)});
+      } else if (e.type === 'objective-progress') {
+        frames.push({
+          message: e.ready ? `Objective ready: ${b.objective.title}.` : `Objective progress: ${e.progress}/${e.target} turns protected.`,
+          animation: '',
+          after: e.after,
+          sfx: 'guard',
+          wait: wait(500),
+        });
+      } else if (e.type === 'objective-complete') {
+        frames.push({message: `${e.title} complete.`, animation: 'attack', after: e.after, sfx: 'win', wait: wait(650)});
       } else if (e.type === 'enemy') {
         const foe = species[b.id];
         frames.push({
@@ -981,6 +1001,7 @@ export function createController(app) {
       return last.isNew
         ? `${species[b.id].name} became your friend! +10 coins, 20 XP${itemText(last.itemRewards)}.`
         : `${species[b.id].name} was released happily: +10 coins, 20 XP${itemText(last.itemRewards)}.`;
+    if (turn.ended === 'objective') return `${last.title} complete: +${last.reward} coins, ${last.xp} XP.`;
     return 'Your team was defeated and rested at camp. Everyone is healed.';
   }
 
@@ -1010,6 +1031,17 @@ export function createController(app) {
         note: last.xpText,
         button: next ? 'Visit ' + regions[s.region + 1].short : 'Back to the trail',
         onContinue: next ? () => travel(s.region + 1) : () => (close(), checkEnding()),
+      });
+    } else if (turn.ended === 'objective') {
+      sfx('win');
+      showResult({
+        title: last.title,
+        copy: last.description,
+        id: b.id,
+        rewards: [`${last.reward} coins`, `${last.xp} XP`, ...(last.potions ? [`${last.potions} potions`] : [])],
+        note: last.xpText,
+        button: 'Keep exploring',
+        onContinue: () => (close(), checkEnding()),
       });
     } else if (turn.ended === 'caught') {
       sfx('caught');

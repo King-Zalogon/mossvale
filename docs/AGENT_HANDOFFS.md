@@ -107,6 +107,7 @@ Claimed on `codex/257-combat-decision-traces`, created from `origin/main` `ea08a
 
 | 2026-10-08 | #258 narrative continuity and role handoffs | Authoring / scenes | `codex/258-narrative-continuity` | Created from `origin/main` `04584f0`; refreshed through `origin/integration` `80725f6` | Claiming durable obligations, participant bindings/fallbacks, contradiction validation and three-scene regression | Implement, verify and open PR to integration; #263 and #264 follow after integration. |
 | 2026-10-08 | #263 bounded battle conditions and setup interaction | Gameplay / battle | `codex/263-battle-conditions` | Created from `origin/main` `04584f0`; refreshed through `origin/integration` `ea03058` | Claiming one bounded condition, setup/use actions, checkpoint persistence and matched-policy regressions | Implement, verify and open PR to integration. |
+| 2026-10-08 | #264 authored encounter objectives | Gameplay / encounters | `codex/264-encounter-objectives` | Created from `origin/main` `04584f0`; refreshed through `origin/integration` `205c333` | Claiming bounded survive-and-preserve objective, visible progress, one-time reward and retry/save regressions | Implement, verify and open PR to integration. |
 
 ## #243 — Island map card previews
 
