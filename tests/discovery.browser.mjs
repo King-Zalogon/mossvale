@@ -78,6 +78,51 @@ const areaState = page => page.evaluate(() => window.mossvale.areaMap());
 const places = page => page.locator('.area-place').allTextContents();
 
 try {
+  // --- all eight Island map cards have distinct, loaded previews on desktop and phones ---------------------
+  {
+    const {page, errors, ctx} = await open();
+    await page.click('#worldmap');
+    await page.waitForSelector('.region-card');
+    assert.equal(await page.locator('.region-card').count(), 8, 'all four hubs and four secondary maps are shown');
+    for (const [id, label] of [
+      ['region-art-0', 'Mossvale Meadow'],
+      ['region-art-1', 'Amber Ridge'],
+      ['region-art-2', 'Frostveil Grove'],
+      ['region-art-3', 'Reedfen Wetlands'],
+      ['map-art-frostveil-pass', 'Blueglass Pass'],
+      ['map-art-orchard-ruins', 'The Ruined Orchard'],
+      ['map-art-stilt-isles', 'Stilt Isles'],
+      ['map-art-stone-basin', 'Stone Basin'],
+    ]) {
+      const canvas = page.locator(`#${id}`);
+      assert.equal(await canvas.getAttribute('aria-label'), `${label} preview`);
+      const pixels = await canvas.evaluate(node => {
+        const {data} = node.getContext('2d').getImageData(0, 0, node.width, node.height);
+        let count = 0;
+        for (let i = 3; i < data.length; i += 4) if (data[i]) count++;
+        return count;
+      });
+      assert.ok(pixels > 80, `${label} preview is actually drawn`);
+    }
+    assert.ok((await page.locator('.region-card.locked').count()) > 0, 'locked destinations remain marked');
+    assert.ok((await page.locator('.region-card.locked button:disabled').count()) > 0, 'locked destinations remain unavailable');
+    assert.deepEqual(errors, []);
+    await ctx.close();
+
+    const phone = await open({viewport: {width: 390, height: 844}});
+    await phone.page.click('#worldmap');
+    await phone.page.waitForSelector('.region-card');
+    assert.equal(await phone.page.locator('.region-card').count(), 8);
+    assert.equal(await phone.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'no horizontal page overflow');
+    for (const id of ['#map-art-frostveil-pass', '#map-art-orchard-ruins', '#map-art-stilt-isles', '#map-art-stone-basin']) {
+      const box = await phone.page.locator(id).boundingBox();
+      assert.ok(box.width >= 60 && box.height >= 60, `${id} remains visible at phone size`);
+    }
+    assert.deepEqual(phone.errors, []);
+    await phone.ctx.close();
+    console.log('ok eight distinct Island map previews on desktop and phone; travel locks preserved');
+  }
+
   // --- walking reveals the map, the minimap follows, it survives a reload ---------------------------------
   {
     const {page, errors, ctx} = await open();

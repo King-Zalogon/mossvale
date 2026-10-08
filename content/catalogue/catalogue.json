@@ -4105,6 +4105,7 @@
       "details": {
         "biome": "meadow",
         "connections": "[]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[3,5]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4144,6 +4145,7 @@
       "details": {
         "biome": "meadow",
         "connections": "[]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[3,5]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4183,6 +4185,7 @@
       "details": {
         "biome": "No explicit biome tag; consult the selected pack region.",
         "connections": "[]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[3,5]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4222,6 +4225,7 @@
       "details": {
         "biome": "badlands",
         "connections": "[{\"id\":\"west\",\"to\":{\"map\":\"orchard-ruins\",\"spawn\":\"ridge-return\"}},{\"id\":\"east\",\"to\":{\"map\":\"frostveil-grove\",\"spawn\":\"camp\"}},{\"id\":\"down-to-basin\",\"to\":{\"map\":\"stone-basin\",\"spawn\":\"camp\"}}]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[4,28],\"east-return\":[57.5,28],\"basin-landing\":[49.5,9.6],\"basin-return\":[32,50]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4261,6 +4265,7 @@
       "details": {
         "biome": "snowy-forest",
         "connections": "[{\"id\":\"west\",\"to\":{\"map\":\"amber-ridge\",\"spawn\":\"east-return\"}},{\"id\":\"east\",\"to\":{\"map\":\"reedfen-wetlands\",\"spawn\":\"camp\"}},{\"id\":\"to-frostveil-pass\",\"to\":{\"map\":\"frostveil-pass\",\"spawn\":\"camp\"}}]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[12,13],\"pass-return\":[30.5,19.5],\"east-return\":[59.5,12]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4281,7 +4286,7 @@
           "limits": "Configure through dist/maps/frostveil-pass.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": [],
+      "dependencies": ["visual:prop-icefall-ledge"],
       "limits": ["Coordinates and connections belong to the referenced map file; do not copy a summary as executable map data."],
       "examples": [
         {
@@ -4300,6 +4305,7 @@
       "details": {
         "biome": "snowy-forest",
         "connections": "[{\"id\":\"grove-return\",\"to\":{\"map\":\"frostveil-grove\",\"spawn\":\"pass-return\"}}]",
+        "cardPreview": "prop-icefall-ledge",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[5,24]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4339,6 +4345,7 @@
       "details": {
         "biome": "meadow",
         "connections": "[{\"id\":\"east\",\"to\":{\"map\":\"orchard-ruins\",\"spawn\":\"camp\"}}]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[12,13],\"orchard-return\":[65.5,30]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4359,7 +4366,7 @@
           "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": [],
+      "dependencies": ["visual:prop-cider-press"],
       "limits": ["Coordinates and connections belong to the referenced map file; do not copy a summary as executable map data."],
       "examples": [
         {
@@ -4378,6 +4385,7 @@
       "details": {
         "biome": "meadow",
         "connections": "[{\"id\":\"back-to-meadow\",\"to\":{\"map\":\"meadow\",\"spawn\":\"orchard-return\"}},{\"id\":\"east-to-ridge\",\"to\":{\"map\":\"amber-ridge\",\"spawn\":\"camp\"}}]",
+        "cardPreview": "prop-cider-press",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[3,12],\"ridge-return\":[58.5,14]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4417,6 +4425,7 @@
       "details": {
         "biome": "wetland",
         "connections": "[{\"id\":\"west\",\"to\":{\"map\":\"frostveil-grove\",\"spawn\":\"east-return\"}},{\"id\":\"east-to-stilts\",\"to\":{\"map\":\"stilt-isles\",\"spawn\":\"camp\"}},{\"id\":\"shallow-water-cut\",\"to\":{\"map\":\"stilt-isles\",\"spawn\":\"lantern-cut\"}}]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[4,28],\"stilt-return\":[58.5,44],\"shrine-landing\":[48.5,14.5],\"shallow-cut-approach\":[47.8,42]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4437,7 +4446,7 @@
           "limits": "Configure through dist/maps/stilt-isles.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": [],
+      "dependencies": ["visual:prop-heron-blind"],
       "limits": ["Coordinates and connections belong to the referenced map file; do not copy a summary as executable map data."],
       "examples": [
         {
@@ -4456,6 +4465,7 @@
       "details": {
         "biome": "wetland",
         "connections": "[{\"id\":\"back-to-reedfen\",\"to\":{\"map\":\"reedfen-wetlands\",\"spawn\":\"stilt-return\"}},{\"id\":\"north-landing\",\"to\":{\"map\":\"reedfen-wetlands\",\"spawn\":\"shrine-landing\"}},{\"id\":\"shallow-cut-return\",\"to\":{\"map\":\"reedfen-wetlands\",\"spawn\":\"shallow-cut-approach\"}}]",
+        "cardPreview": "prop-heron-blind",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[4,22],\"lantern-cut\":[44,39]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4476,7 +4486,7 @@
           "limits": "Configure through dist/maps/stone-basin.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": [],
+      "dependencies": ["visual:prop-quarry-alcove"],
       "limits": ["Coordinates and connections belong to the referenced map file; do not copy a summary as executable map data."],
       "examples": [
         {
@@ -4495,6 +4505,7 @@
       "details": {
         "biome": "badlands",
         "connections": "[{\"id\":\"back-to-ridge\",\"to\":{\"map\":\"amber-ridge\",\"spawn\":\"basin-return\"}},{\"id\":\"east-gate\",\"to\":{\"map\":\"amber-ridge\",\"spawn\":\"basin-landing\"}}]",
+        "cardPreview": "prop-quarry-alcove",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[30,5]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
@@ -4534,6 +4545,7 @@
       "details": {
         "biome": "meadow",
         "connections": "[]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[3,5]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
