@@ -101,7 +101,7 @@ export function createBattleView(app) {
     const forecast = guardianForecast(save, b);
     const forecastMarkup =
       forecast && !b.busy
-        ? `<div class="battle-intent" role="status" aria-live="polite" aria-label="Guardian forecast">${guardianForecastText(forecast, a.name, s.name)}</div>`
+        ? `<div class="battle-intent" role="status" aria-live="polite" aria-label="Encounter forecast">${guardianForecastText(forecast, a.name, s.name)}</div>`
         : '';
     openModal(
       ui,

@@ -98,6 +98,21 @@ test('zone data validation: weights and walking distance', () => {
   );
 });
 
+test('authored creature behaviors survive map compilation and shape the encounter', async () => {
+  const orchard = mapsById['orchard-ruins'];
+  const wilds = orchard.zones.find(zone => zone.id === 'orchard-wilds');
+  assert.deepEqual(wilds.behaviors, ['territorial', 'curious', 'wary', 'curious', 'curious']);
+  const save = newSave();
+  save.seen = [...Array(species.length).keys()];
+  const bramble = rollWild(save, () => 0.05, wilds);
+  assert.equal(bramble.behavior, 'territorial');
+  const {createBattle, captureChance} = await import('../dist/src/domain/battle.js');
+  const territorial = createBattle(save, seededRng(1), {id: bramble.id, level: 6, behavior: bramble.behavior});
+  assert.equal(territorial.tactic, 'rolling-charge');
+  const curious = createBattle(save, seededRng(1), {id: bramble.id, level: 6, behavior: 'curious'});
+  assert.ok(captureChance(save, curious) > captureChance(save, territorial));
+});
+
 test('encounters are spaced by the zone distance, with a grace period', () => {
   assert.ok(GRACE_AFTER_BATTLE >= 3 && GRACE_ON_ARRIVAL >= 2);
   const world = buildWorld(maps[0]);

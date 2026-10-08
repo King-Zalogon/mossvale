@@ -50,7 +50,8 @@ export function rollWild(save, rng, zone) {
   const candidates = missing.length && rng() < UNSEEN_PREFERENCE ? missing : zone.pool;
   const id = weightedPick(zone, candidates, rng);
   const level = zone.level[0] + Math.floor(rng() * (zone.level[1] - zone.level[0] + 1));
-  return {id, level};
+  const poolIndex = zone.pool.indexOf(id);
+  return {id, level, behavior: zone.behaviors?.[poolIndex] ?? 'curious'};
 }
 
 /** How far to walk in `zone` before the next encounter. */
@@ -60,7 +61,7 @@ export function encounterDistance(zone, rng) {
 }
 
 /** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
-export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1}) {
+export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1, behavior = 'curious'}) {
   const hp = species[id].stats.hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? GUARDIAN_HP_BONUS : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
@@ -74,7 +75,8 @@ export function createBattle(save, rng, {id, level: enemyLevel, boss = false, ta
     guard: false,
     turn: 0,
     focus: FOCUS_START,
-    tactic: boss ? tactic : undefined,
+    tactic: boss ? tactic : behavior === 'territorial' ? 'rolling-charge' : behavior === 'wary' ? 'spore-guard' : undefined,
+    behavior,
     power: boss ? power : 1,
     counterplay: [],
     over: false,
@@ -102,7 +104,11 @@ function recordCounterplay(save, battle, action, options) {
 
 export function captureChance(save, battle) {
   if (battle.boss) return 0;
-  return Math.min(0.96, 0.25 + (1 - battle.hp / battle.max) * 0.67 + Math.max(0, level(save, save.active) - battle.level) * 0.025);
+  const temperament = battle.behavior === 'curious' ? 0.08 : battle.behavior === 'wary' ? -0.04 : 0;
+  return Math.min(
+    0.96,
+    Math.max(0.05, 0.25 + temperament + (1 - battle.hp / battle.max) * 0.67 + Math.max(0, level(save, save.active) - battle.level) * 0.025),
+  );
 }
 
 /** Player-visible actions and exact availability at the start of a turn; does not mutate save or battle. */
@@ -138,7 +144,7 @@ export function playerStrike(save, battle, kind, rng) {
   const eff = kind === 'element' ? effectiveness(save.active, battle.id) : 1;
   const base = kind === 'element' ? elementPower(save, save.active) : species[save.active].stats.attack;
   const braced = lastEnemyAction(battle) === 'brace';
-  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  const tactic = TACTICS[battle.tactic] ?? null;
   const braceFactor = braced ? (kind === 'element' ? (tactic?.braceElementFactor ?? BRACE_FACTOR) : (tactic?.braceQuickFactor ?? BRACE_FACTOR)) : 1;
   const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff * braceFactor));
   battle.hp = Math.max(0, battle.hp - damage);
@@ -196,7 +202,7 @@ function enemyDamageForRoll(save, battle, action, roll, guarded) {
   const attacks = action !== 'charge' && action !== 'brace';
   const foe = species[battle.id];
   const defender = species[save.active];
-  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  const tactic = TACTICS[battle.tactic] ?? null;
   const repeatElement = element && lastEnemyAction(battle) === 'element';
   const raw =
     (7 + (foe.stats.attack - 10) * 0.4 + (battle.level - BASE_LEVEL) * 0.65 + roll * 3) *
@@ -263,7 +269,7 @@ function forecastResponses(save, battle, tactic, action, previous, future = fals
 
 /** Structured, non-mutating facts for the guardian action that follows the player's choice. */
 export function guardianForecast(save, battle) {
-  if (!battle?.boss) return null;
+  if (!battle?.boss && !battle?.tactic) return null;
   const action = nextEnemyAction(battle);
   const previous = lastEnemyAction(battle);
   const tactic = TACTICS[battle.tactic];
@@ -305,7 +311,7 @@ export function enemyAttack(save, battle, rng) {
   const action = nextEnemyAction(battle);
   const interrupted = action === 'charge' && battle.disruptCharge === true;
   delete battle.disruptCharge;
-  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  const tactic = TACTICS[battle.tactic] ?? null;
   // Keep one draw per enemy turn, including brace/charge, so existing seeded battles stay deterministic.
   const {damage, counter, element} = enemyDamageForRoll(save, battle, action, rng(), battle.guard);
   const c = companion(save);
@@ -415,6 +421,7 @@ export const battleCheckpoint = battle =>
         turn: battle.turn,
         focus: battle.focus,
         tactic: battle.tactic,
+        behavior: battle.behavior,
         power: battle.power,
         counterplay: battle.counterplay ?? [],
       }

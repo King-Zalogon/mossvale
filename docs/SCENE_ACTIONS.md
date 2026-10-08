@@ -2,6 +2,8 @@
 
 Map trigger events use a bounded data vocabulary. Scene actions are validated with the map, compiled by `domain/scenes.js`, and presented by the controller; authored packs never provide JavaScript callbacks.
 
+Scene `when` conditions may reference a completed one-time scene with `{ "event": "map-id/event-id" }`. Combine independent clues with `all`, alternatives with `any`, and exclusions with `not`. Event keys are the same stable IDs persisted in the save event journal; they do not add a second save format.
+
 ## Actor and route actions
 
 Movable actor IDs are `player` and ranger landmark IDs on the current map. Destinations are integer tile coordinates, must be walkable under the map collision rules, and cannot be outside the map. A move uses deterministic eight-direction pathfinding, refuses diagonal corner cutting, and is limited to 128 steps and 4096 inspected cells. If a route cannot be found, the action returns `blocked`; the actor stays where it is. If already on the requested tile, it returns `arrived` immediately without a teleport.
