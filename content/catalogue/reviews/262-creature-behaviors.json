@@ -1,0 +1,24 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/maps/meadow.json",
+        "dist/maps/orchard-ruins.json",
+        "dist/maps/reedfen-wetlands.json",
+        "dist/maps/index.json",
+        "dist/src/domain/mapdata.js",
+        "dist/src/domain/battle.js",
+        "dist/src/save.js",
+        "dist/src/controller.js",
+        "dist/src/ui/battle-view.js",
+        "docs/MAP_FORMAT.md",
+        "tests/encounters.test.mjs"
+      ],
+      "entries": ["rules:mossvale/battle", "species:mossvale/fernling", "species:mossvale/bramblebuck", "species:mossvale/brooklet"],
+      "disposition": "updated",
+      "reason": "Three existing species now have authored, bounded roles in their home zones: Fernling is wary and uses a brace pattern, Bramblebuck is territorial and telegraphs a charge, and Brooklet is curious with a friendlier capture window. The behavior is visible before the battle, stored in the existing battle checkpoint, and keeps ordinary capture, defeat and recovery rules intact.",
+      "evidence": ["tests/encounters.test.mjs", "tests/guardians.test.mjs", "docs/MAP_FORMAT.md"]
+    }
+  ]
+}

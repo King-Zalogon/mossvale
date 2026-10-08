@@ -721,8 +721,15 @@ export function createController(app) {
     });
     refresh();
     sfx(spec.boss ? 'guardian' : 'encounter');
+    const behaviorText = spec.boss
+      ? ''
+      : spec.behavior === 'wary'
+        ? ' It keeps its distance and watches for an opening.'
+        : spec.behavior === 'territorial'
+          ? ' It guards its ground and is preparing a heavy charge.'
+          : ' It approaches with bright, curious eyes.';
     renderBattle(
-      `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}${spec.boss ? '' : tip('first-battle')}${healthyParty(save()).length > 1 ? tip('can-switch') : ''}`,
+      `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared!${behaviorText} ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}${spec.boss ? '' : tip('first-battle')}${healthyParty(save()).length > 1 ? tip('can-switch') : ''}`,
     );
   }
 
