@@ -77,22 +77,32 @@ try {
   await battle.waitForSelector('#loading', {state: 'hidden'});
   const sedgegnaw = species.findIndex(entry => entry.id === 'sedgegnaw');
   const cindercurl = species.findIndex(entry => entry.id === 'cindercurl');
+  const emberkin = species.findIndex(entry => entry.id === 'emberkin');
   assert.notEqual(sedgegnaw, -1);
   assert.notEqual(cindercurl, -1);
   await battle.evaluate(
-    ({starter, foe}) => {
+    ({starter, teammate, foe}) => {
       const save = window.mossvale.getState().save;
-      save.caught = [starter];
-      save.party = [starter];
+      save.caught = [starter, teammate];
+      save.party = [starter, teammate];
       save.active = starter;
-      save.team = {[starter]: {xp: 0, hp: 100}};
+      save.team = {[starter]: {xp: 0, hp: 100}, [teammate]: {xp: 0, hp: 100}};
       window.mossvale.encounter(foe);
     },
-    {starter: sedgegnaw, foe: cindercurl},
+    {starter: sedgegnaw, teammate: cindercurl, foe: emberkin},
   );
   await battle.waitForSelector('#fight-wild');
   assert.equal(await battle.locator('#fight-buddy').getAttribute('data-combat-state'), 'idle');
   assert.equal(await battle.locator('#fight-wild').getAttribute('data-combat-state'), 'idle');
+  await battle.evaluate(() => (window.mossvale.getState().battle.hp = 9999));
+  await battle.click('#setup');
+  await battle.waitForFunction(() => document.querySelector('.battle-intent[role="status"]')?.textContent.includes('Relay prepared'));
+  await battle.click('#switch');
+  await battle.click(`[data-select="${cindercurl}"]`);
+  await battle.waitForFunction(() => document.querySelector('.battle-log')?.textContent.includes('joined the encounter'));
+  assert.equal(await battle.locator('#fight-buddy').getAttribute('data-combat-state'), 'idle');
+  await battle.click('#element');
+  await battle.waitForFunction(() => document.querySelector('.battle-log')?.textContent.includes('relay amplified'));
   await battle.evaluate(() => (window.mossvale.getState().battle.hp = 9999));
   await battle.click('#attack');
   await battle.waitForFunction(() => document.querySelector('#fight-buddy')?.dataset.combatState === 'attack');

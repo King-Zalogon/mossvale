@@ -1,7 +1,20 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
 import {moves} from '../data/moves.js';
-import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
+import {
+  BASE_LEVEL,
+  UNSEEN_PREFERENCE,
+  ELEMENT_COST,
+  FOCUS_GAIN,
+  FOCUS_MAX,
+  FOCUS_START,
+  GUARD_FACTOR,
+  PARTY_SIZE,
+  XP_PER_LEVEL,
+  RELAY_FOCUS_COST,
+  RELAY_DURATION,
+  RELAY_ELEMENT_FACTOR,
+} from '../config.js';
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, GUARDIAN_HP_BONUS, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
@@ -79,6 +92,8 @@ export function createBattle(save, rng, {id, level: enemyLevel, boss = false, ta
     behavior,
     power: boss ? power : 1,
     counterplay: [],
+    condition: null,
+    relayReady: false,
     over: false,
   };
 }
@@ -131,6 +146,18 @@ export function combatChoices(save, battle) {
     },
     {kind: 'guard', available: !battle.over},
     {
+      kind: 'setup',
+      available: !battle.over && battle.focus >= RELAY_FOCUS_COST && !battle.condition && !battle.relayReady && targets.length > 0,
+      reason:
+        battle.condition || battle.relayReady
+          ? 'The relay is already prepared.'
+          : targets.length === 0
+            ? 'A healthy teammate is needed to prepare a relay.'
+            : battle.focus < RELAY_FOCUS_COST
+              ? `Requires ${RELAY_FOCUS_COST} Focus.`
+              : null,
+    },
+    {
       kind: 'switch',
       available: !battle.over && targets.length > 0,
       reason: targets.length ? null : 'No healthy teammate is available to switch in.',
@@ -146,7 +173,10 @@ export function playerStrike(save, battle, kind, rng) {
   const braced = lastEnemyAction(battle) === 'brace';
   const tactic = TACTICS[battle.tactic] ?? null;
   const braceFactor = braced ? (kind === 'element' ? (tactic?.braceElementFactor ?? BRACE_FACTOR) : (tactic?.braceQuickFactor ?? BRACE_FACTOR)) : 1;
-  const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff * braceFactor));
+  const prepared = battle.relayReady;
+  const relayFactor = prepared && kind === 'element' ? RELAY_ELEMENT_FACTOR : 1;
+  const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff * braceFactor * relayFactor));
+  if (prepared) battle.relayReady = false;
   battle.hp = Math.max(0, battle.hp - damage);
   return {
     kind,
@@ -154,6 +184,7 @@ export function playerStrike(save, battle, kind, rng) {
     eff,
     braced,
     brokeBrace: braced && kind === 'element' && braceFactor > 1,
+    prepared,
     move: kind === 'element' ? moveName(save, save.active) : 'Quick strike',
     defeated: battle.hp === 0,
   };
@@ -324,6 +355,10 @@ export function enemyAttack(save, battle, rng) {
   battle.hp += recovered;
   battle.guard = false;
   battle.turn++;
+  if (battle.condition) {
+    battle.condition.remaining--;
+    if (battle.condition.remaining <= 0) battle.condition = null;
+  }
   return {damage, element, action, counter, recovered, interrupted, defeated: battle.hp === 0};
 }
 
@@ -424,6 +459,8 @@ export const battleCheckpoint = battle =>
         behavior: battle.behavior,
         power: battle.power,
         counterplay: battle.counterplay ?? [],
+        condition: battle.condition ? {...battle.condition} : null,
+        relayReady: battle.relayReady === true,
       }
     : null;
 
@@ -475,10 +512,20 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
     gainFocus(battle);
     recordCounterplay(save, battle, action);
     push({type: 'guard'});
+  } else if (action.kind === 'setup') {
+    if (battle.focus < RELAY_FOCUS_COST || battle.condition || battle.relayReady || save.party.every(id => id === save.active || companion(save, id).hp <= 0))
+      return null;
+    battle.focus -= RELAY_FOCUS_COST;
+    battle.condition = {id: 'relay', remaining: RELAY_DURATION, source: save.active};
+    push({type: 'setup', condition: {...battle.condition}});
   } else if (action.kind === 'switch') {
     if (!save.party.includes(action.id) || action.id === save.active || companion(save, action.id).hp <= 0) return null;
     recordCounterplay(save, battle, action);
     save.active = action.id;
+    if (battle.condition?.id === 'relay') {
+      battle.condition = null;
+      battle.relayReady = true;
+    }
     push({type: 'switch', id: action.id});
   } else return null;
   if (!ended) {
