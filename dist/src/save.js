@@ -371,6 +371,15 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       behavior,
       power: b.boss === true && typeof b.power === 'number' && b.power >= 0.5 && b.power <= 3 ? b.power : 1,
       counterplay: Array.isArray(b.counterplay) ? [...new Set(b.counterplay.filter(id => knownResponses.has(id)))] : [],
+      condition:
+        b.condition?.id === 'relay' &&
+        intIn(b.condition.remaining, 1, 2) &&
+        Number.isInteger(b.condition.source) &&
+        b.condition.source >= 0 &&
+        b.condition.source < species.length
+          ? {id: 'relay', remaining: b.condition.remaining, source: b.condition.source}
+          : null,
+      relayReady: b.relayReady === true,
     };
   }
 

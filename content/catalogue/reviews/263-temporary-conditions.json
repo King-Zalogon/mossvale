@@ -1,0 +1,24 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/domain/battle.js",
+        "dist/src/config.js",
+        "dist/src/domain/registries.js",
+        "dist/src/controller.js",
+        "dist/maps/registries.json",
+        "dist/maps/index.json",
+        "dist/src/save.js",
+        "dist/src/ui/battle-view.js",
+        "docs/BATTLE.md",
+        "tests/battle-actions.test.mjs",
+        "content/catalogue/reviews/263-temporary-conditions.json"
+      ],
+      "entries": ["rules:mossvale/battle"],
+      "disposition": "updated",
+      "reason": "Adds one optional, bounded relay condition to the existing battle contract. It consumes one Focus, lasts at most two enemy replies, arms only after a switch and amplifies one elemental move; older encounters and the existing two-action packs remain legal. The condition is persisted through the canonical battle checkpoint.",
+      "evidence": ["docs/BATTLE.md", "tests/battle-actions.test.mjs"]
+    }
+  ]
+}
