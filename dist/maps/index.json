@@ -3,16 +3,7 @@
   "id": "mossvale",
   "name": "Mossvale",
   "brief": "Four biomes, fifteen friends and a seal at every shrine.",
-  "maps": [
-    "meadow",
-    "amber-ridge",
-    "frostveil-grove",
-    "frostveil-pass",
-    "reedfen-wetlands",
-    "orchard-ruins",
-    "stilt-isles",
-    "stone-basin"
-  ],
+  "maps": ["meadow", "amber-ridge", "frostveil-grove", "frostveil-pass", "reedfen-wetlands", "orchard-ruins", "stilt-isles", "stone-basin"],
   "species": [
     "fernling",
     "emberkin",
@@ -30,12 +21,7 @@
     "petalunge",
     "cindercurl"
   ],
-  "milestones": [
-    "meadow.seal",
-    "amber-ridge.seal",
-    "frostveil-grove.seal",
-    "reedfen-wetlands.seal"
-  ],
+  "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
   "ending": "story",
   "objectives": "objectives.json",
   "story": "story.json",
@@ -70,7 +56,7 @@
     {
       "id": "map:frostveil-pass",
       "path": "frostveil-pass.json",
-      "sha256": "beac5f7e2d3efd86b7096885a27094ce3c27e5be106cf15cb01119dffa129207"
+      "sha256": "bc1f728ff350674d83840c38a91939fff60350820c7c63f183c317c6a17175e6"
     },
     {
       "id": "map:reedfen-wetlands",
@@ -80,17 +66,17 @@
     {
       "id": "map:orchard-ruins",
       "path": "orchard-ruins.json",
-      "sha256": "919f82f2f3a55936c02d0d45035af2b0250c01095159f72a70cfae157e2c28d7"
+      "sha256": "3c20dbd55780d2fa97ed41a1d407b67dffabab8f71e402fafffedbc19b9f9806"
     },
     {
       "id": "map:stilt-isles",
       "path": "stilt-isles.json",
-      "sha256": "9c2345294cc2ebf00d4ef8f9fe51fd291a6de1b140ae69e868d818a9ff17aeb5"
+      "sha256": "eb639a2b3fb2917da3a3fb8921e3c2f5d93d2458928932aa912969da61e2ea2f"
     },
     {
       "id": "map:stone-basin",
       "path": "stone-basin.json",
-      "sha256": "1f14e40c42af96e02dc4d427537e523baba4d1dc46fb52f7227ffcff1688d3d9"
+      "sha256": "4f9b1746b0d8db32eb12a91493a19735834c2b4635bef5188a529ffd1ea92215"
     },
     {
       "id": "objectives:main",

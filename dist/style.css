@@ -1264,6 +1264,18 @@ canvas#buddy {
 .region-card:nth-child(3) .region-preview {
   background: linear-gradient(160deg, #b6dce833, #7991ba33);
 }
+.region-card[data-biome='meadow'] .region-preview {
+  background: linear-gradient(160deg, #9eb86d66, #d6c08b55);
+}
+.region-card[data-biome='snowy-forest'] .region-preview {
+  background: linear-gradient(160deg, #d7eef166, #6d9cab55);
+}
+.region-card[data-biome='wetland'] .region-preview {
+  background: linear-gradient(160deg, #78aaa066, #4c929766);
+}
+.region-card[data-biome='badlands'] .region-preview {
+  background: linear-gradient(160deg, #d8a67366, #986f4855);
+}
 .region-card h3 {
   font-size: 16px;
   font-family: 'Space Grotesk';

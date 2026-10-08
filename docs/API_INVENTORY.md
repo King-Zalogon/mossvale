@@ -23,7 +23,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `build-config.js` | root | `PORTAL_RETURN_URL` |
 | `character-preview.js` | root | — |
 | `compatibility.js` | root | `ENGINE_VERSION`, `SAVE_SCHEMA_VERSION` |
-| `config.js` | root | `BASE_LEVEL`, `BENCH_SHARE`, `CATCH_UP_BONUS`, `CATCH_UP_GAP`, `ELEMENT_COST`, `ELEMENT_POWER`, `FOCUS_GAIN`, `FOCUS_MAX`, `FOCUS_START`, `FOLLOW_GAP`, `GRACE_AFTER_BATTLE`, `GRACE_ON_ARRIVAL`, `GUARD_FACTOR`, `MAX_LEVEL`, `MAX_MAP_SIZE`, `MAX_XP`, `MOVE_STEP`, `MOVE_UPGRADE_LEVEL`, `PARTY_SIZE`, `PLAYER_RADIUS`, `TILE_H`, `TILE_W`, `TYPE_ADVANTAGE`, `TYPE_DISADVANTAGE`, `UNSEEN_PREFERENCE`, `UPGRADED_ELEMENT_POWER`, `XP_PER_LEVEL`, `configurePackRules` |
+| `config.js` | root | `BASE_LEVEL`, `BENCH_SHARE`, `CATCH_UP_BONUS`, `CATCH_UP_GAP`, `ELEMENT_COST`, `ELEMENT_POWER`, `FOCUS_GAIN`, `FOCUS_MAX`, `FOCUS_START`, `FOLLOW_GAP`, `GRACE_AFTER_BATTLE`, `GRACE_ON_ARRIVAL`, `GUARD_FACTOR`, `MAX_LEVEL`, `MAX_MAP_SIZE`, `MAX_XP`, `MOVE_STEP`, `MOVE_UPGRADE_LEVEL`, `PARTY_SIZE`, `PLAYER_RADIUS`, `RELAY_DURATION`, `RELAY_ELEMENT_FACTOR`, `RELAY_FOCUS_COST`, `TILE_H`, `TILE_W`, `TYPE_ADVANTAGE`, `TYPE_DISADVANTAGE`, `UNSEEN_PREFERENCE`, `UPGRADED_ELEMENT_POWER`, `XP_PER_LEVEL`, `configurePackRules` |
 | `controller.js` | root | `createController` |
 | `creature-combat-preview.js` | root | — |
 | `creature-follower-preview.js` | root | — |

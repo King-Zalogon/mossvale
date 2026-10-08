@@ -116,6 +116,7 @@ function validateOne(m, byId, ctx, errors) {
     if (!ctx.speciesIds.has(id)) at(where, `unknown species "${id}"`);
   };
 
+  if (m.preview !== undefined) sprite('preview', m.preview);
   if (!isObj(m.spawns) || !isPoint(m.spawns.camp) || !inside(m.spawns.camp)) at('spawns.camp', 'a "camp" spawn [x, y] inside the map is required');
   else for (const [name, p] of Object.entries(m.spawns)) if (!inside(p)) at(`spawns.${name}`, 'must be [x, y] inside the map');
 
@@ -395,7 +396,20 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     })),
   }));
   const quiet = (m.quiet ?? []).map(q => ({id: q.id, rect: q.rect, label: q.label}));
-  return {id: m.id, biome: m.biome, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers, quiet};
+  return {
+    id: m.id,
+    biome: m.biome,
+    name: m.name,
+    preview: m.preview === undefined ? undefined : spriteIndex(m.preview),
+    size: m.size,
+    terrainAt,
+    tiles,
+    objects,
+    spawns,
+    zones,
+    triggers,
+    quiet,
+  };
 }
 
 /** Semantic checks that need the compiled map: spawn safety, exits on land, reachable goals. */

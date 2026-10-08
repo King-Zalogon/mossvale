@@ -1,0 +1,33 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/maps/frostveil-pass.json",
+        "dist/maps/orchard-ruins.json",
+        "dist/maps/stilt-isles.json",
+        "dist/maps/stone-basin.json",
+        "dist/maps/index.json",
+        "dist/src/domain/mapdata.js",
+        "dist/src/ui/menus.js",
+        "scripts/lib/catalogue.mjs",
+        "content/catalogue/templates.json",
+        "content/catalogue/schema.json",
+        "docs/MAP_FORMAT.md"
+      ],
+      "entries": [
+        "map:mossvale/frostveil-pass",
+        "map:mossvale/orchard-ruins",
+        "map:mossvale/stilt-isles",
+        "map:mossvale/stone-basin",
+        "visual:prop-icefall-ledge",
+        "visual:prop-cider-press",
+        "visual:prop-heron-blind",
+        "visual:prop-quarry-alcove"
+      ],
+      "disposition": "updated",
+      "reason": "Maps now declare a validated, non-secret Island-card preview asset. Map fiches expose that preview and its visual dependency; the update adds presentation metadata only and leaves progression, travel, and save identity unchanged.",
+      "evidence": ["tests/maps.test.mjs", "tests/discovery.browser.mjs", "tests/catalogue.test.mjs", "docs/MAP_FORMAT.md"]
+    }
+  ]
+}
