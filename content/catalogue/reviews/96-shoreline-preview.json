@@ -3,8 +3,6 @@
   "changes": [
     {
       "paths": [
-        "content/catalogue/curated.json",
-        "content/catalogue/catalogue.json",
         "content/catalogue/facts.json",
         "content/catalogue/INDEX.md",
         "content/catalogue/reviews/96-shoreline-preview.json",
@@ -12,10 +10,15 @@
         "tests/editor.browser.mjs",
         "docs/GRAFTWORKS_PROTOTYPES.md"
       ],
-      "entries": ["mechanic:map-editor"],
+      "entries": [
+        "mechanic:map-editor"
+      ],
       "disposition": "updated",
       "reason": "Documents and previews experimental inshore detail in the Map Workshop terrain-family canvas; the details are preview-only and do not alter source tile files, baked data, collision or shipped maps.",
-      "evidence": ["tests/editor.browser.mjs", "docs/GRAFTWORKS_PROTOTYPES.md"]
+      "evidence": [
+        "tests/editor.browser.mjs",
+        "docs/GRAFTWORKS_PROTOTYPES.md"
+      ]
     }
   ]
 }
