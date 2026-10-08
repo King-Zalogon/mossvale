@@ -5323,6 +5323,51 @@
       }
     },
     {
+      "id": "move:kiln-shoulder",
+      "kind": "mechanic",
+      "name": "Kiln shoulder",
+      "summary": "A steady, plate-braced strike from a patient defender.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "Kiln shoulder",
+            "power": 0.92,
+            "description": "A steady, plate-braced strike from a patient defender."
+          },
+          "limits": "Configure through dist/src/data/moves.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "A steady, plate-braced strike from a patient defender.",
+          "usage": "Reference kiln-shoulder in the existing format at dist/src/data/moves.js.",
+          "expected": "A steady, plate-braced strike from a patient defender."
+        }
+      ],
+      "references": ["dist/src/data/moves.js"],
+      "evidence": [
+        {
+          "path": "tests/battle-actions.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Elemental battle action for a species naming this move.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "A steady, plate-braced strike from a patient defender. Shared multiplier: 0.92.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
+      }
+    },
+    {
       "id": "move:leaf-burst",
       "kind": "mechanic",
       "name": "Leaf burst",
@@ -5362,6 +5407,51 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "A dependable burst of sharp leaves. Shared multiplier: 1.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
+      }
+    },
+    {
+      "id": "move:orchid-pounce",
+      "kind": "mechanic",
+      "name": "Orchid pounce",
+      "summary": "A sudden petal-limbed lunge with a precise landing.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "Orchid pounce",
+            "power": 1.1,
+            "description": "A sudden petal-limbed lunge with a precise landing."
+          },
+          "limits": "Configure through dist/src/data/moves.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "A sudden petal-limbed lunge with a precise landing.",
+          "usage": "Reference orchid-pounce in the existing format at dist/src/data/moves.js.",
+          "expected": "A sudden petal-limbed lunge with a precise landing."
+        }
+      ],
+      "references": ["dist/src/data/moves.js"],
+      "evidence": [
+        {
+          "path": "tests/battle-actions.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Elemental battle action for a species naming this move.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "A sudden petal-limbed lunge with a precise landing. Shared multiplier: 1.1.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
@@ -5452,6 +5542,51 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "A steady wave that travels around obstacles. Shared multiplier: 1.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
+      }
+    },
+    {
+      "id": "move:seedline-sweep",
+      "kind": "mechanic",
+      "name": "Seedline sweep",
+      "summary": "A measured arc of the carried sedge blade.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "Seedline sweep",
+            "power": 0.95,
+            "description": "A measured arc of the carried sedge blade."
+          },
+          "limits": "Configure through dist/src/data/moves.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "A measured arc of the carried sedge blade.",
+          "usage": "Reference seedline-sweep in the existing format at dist/src/data/moves.js.",
+          "expected": "A measured arc of the carried sedge blade."
+        }
+      ],
+      "references": ["dist/src/data/moves.js"],
+      "evidence": [
+        {
+          "path": "tests/battle-actions.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Elemental battle action for a species naming this move.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "A measured arc of the carried sedge blade. Shared multiplier: 0.95.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
@@ -6010,7 +6145,7 @@
       "id": "pack:mossvale",
       "kind": "mechanic",
       "name": "Mossvale",
-      "summary": "Four biomes, twelve friends and a seal at every shrine.",
+      "summary": "Four biomes, fifteen friends and a seal at every shrine.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -6025,9 +6160,9 @@
       "limits": ["Use the existing validated format; no new runtime behavior is implied."],
       "examples": [
         {
-          "intent": "Four biomes, twelve friends and a seal at every shrine.",
+          "intent": "Four biomes, fifteen friends and a seal at every shrine.",
           "usage": "Reference mossvale in the existing format at dist/maps/index.json.",
-          "expected": "Four biomes, twelve friends and a seal at every shrine."
+          "expected": "Four biomes, fifteen friends and a seal at every shrine."
         }
       ],
       "references": ["dist/maps/index.json"],
@@ -9129,6 +9264,64 @@
       }
     },
     {
+      "id": "species:mossvale/cindercurl",
+      "kind": "actor",
+      "name": "Cindercurl",
+      "summary": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cindercurl",
+            "name": "Cindercurl",
+            "type": "Fire",
+            "stats": {
+              "hp": 52,
+              "attack": 8,
+              "defense": 17
+            },
+            "move": "kiln-shoulder",
+            "biome": "badlands",
+            "role": "Kiln-plate bulwark",
+            "personality": "Patient and self-possessed; it folds its ember-warm plates around a trusted companion.",
+            "desc": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail.",
+            "encounterHint": "Look for heat shimmer near the reachable eastern ridge grass.",
+            "strong": ["Leaf", "Ice", "Bloom", "Frost"],
+            "weak": ["Water", "Stone", "Mire", "Sand"],
+            "color": "#c96a3b",
+            "hp": 52,
+            "sprite": "creature-cindercurl"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-cindercurl"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail.",
+          "usage": "Reference mossvale/cindercurl in the existing format at dist/maps/registries.json.",
+          "expected": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail. Portrait reference: creature-cindercurl.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
       "id": "species:mossvale/duskwing",
       "kind": "actor",
       "name": "Duskwing",
@@ -9529,6 +9722,122 @@
       ],
       "details": {
         "appearance": "A patient tortoise with a sun-warmed crystal shell. Portrait reference: creature-pebblit.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/petalunge",
+      "kind": "actor",
+      "name": "Petalunge",
+      "summary": "A slender orchid mantis with a narrow head and paired petal forelimbs.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "petalunge",
+            "name": "Petalunge",
+            "type": "Bloom",
+            "stats": {
+              "hp": 38,
+              "attack": 14,
+              "defense": 7
+            },
+            "move": "orchid-pounce",
+            "biome": "meadow",
+            "role": "Orchard ambusher",
+            "personality": "Still and watchful; it waits among fallen petals before making one clean leap.",
+            "desc": "A slender orchid mantis with a narrow head and paired petal forelimbs.",
+            "encounterHint": "Search the orchard's flowered edge; watch for a petal-shaped silhouette.",
+            "strong": ["Water", "Mire"],
+            "weak": ["Fire", "Frost"],
+            "color": "#e9b5a3",
+            "hp": 38,
+            "sprite": "creature-petalunge"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-petalunge"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A slender orchid mantis with a narrow head and paired petal forelimbs.",
+          "usage": "Reference mossvale/petalunge in the existing format at dist/maps/registries.json.",
+          "expected": "A slender orchid mantis with a narrow head and paired petal forelimbs."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A slender orchid mantis with a narrow head and paired petal forelimbs. Portrait reference: creature-petalunge.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/sedgegnaw",
+      "kind": "actor",
+      "name": "Sedgegnaw",
+      "summary": "A six-legged leaf-cutter ant with amber eyes and a notched sedge-leaf sail.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "sedgegnaw",
+            "name": "Sedgegnaw",
+            "type": "Leaf",
+            "stats": {
+              "hp": 46,
+              "attack": 8,
+              "defense": 14
+            },
+            "move": "seedline-sweep",
+            "biome": "meadow",
+            "role": "Seed-trail defender",
+            "personality": "Careful and persistent; it carries a narrow sedge leaf to mark safe paths through the grass.",
+            "desc": "A six-legged leaf-cutter ant with amber eyes and a notched sedge-leaf sail.",
+            "encounterHint": "Watch Meadow seed-trail grass; a quiet cache can draw it to the edge.",
+            "strong": ["Water", "Stone", "Mire"],
+            "weak": ["Fire", "Ice", "Frost"],
+            "color": "#8eb64f",
+            "hp": 46,
+            "sprite": "creature-sedgegnaw"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-sedgegnaw"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A six-legged leaf-cutter ant with amber eyes and a notched sedge-leaf sail.",
+          "usage": "Reference mossvale/sedgegnaw in the existing format at dist/maps/registries.json.",
+          "expected": "A six-legged leaf-cutter ant with amber eyes and a notched sedge-leaf sail."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A six-legged leaf-cutter ant with amber eyes and a notched sedge-leaf sail. Portrait reference: creature-sedgegnaw.",
         "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
         "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
         "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
@@ -12530,6 +12839,198 @@
       ]
     },
     {
+      "id": "visual:creature-cindercurl",
+      "kind": "visual",
+      "name": "creature-cindercurl",
+      "summary": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-cindercurl",
+            "kind": "creature",
+            "src": "assets/creatures/creature-cindercurl.png",
+            "w": 264,
+            "h": 211,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+          "usage": "Reference creature-cindercurl in the existing format at dist/src/data/assets.js.",
+          "expected": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "264 by 211 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-cindercurl is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-cindercurl.png",
+          "description": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-cindercurl-combat",
+      "kind": "visual",
+      "name": "creature-cindercurl-combat",
+      "summary": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-cindercurl-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-cindercurl-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "columnOrder": [0, 1, 2, 3],
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              }
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+          "usage": "Reference creature-cindercurl-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-cindercurl-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-cindercurl-combat.png",
+          "description": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-cindercurl-follower",
+      "kind": "visual",
+      "name": "creature-cindercurl-follower",
+      "summary": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-cindercurl-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-cindercurl-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+          "usage": "Reference creature-cindercurl-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-cindercurl-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-cindercurl-follower.png",
+          "description": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail."
+        }
+      ]
+    },
+    {
       "id": "visual:creature-duskwing",
       "kind": "visual",
       "name": "creature-duskwing",
@@ -13873,6 +14374,390 @@
         {
           "path": "dist/assets/creatures/creature-pebblit-follower.png",
           "description": "Canonical Pebblit creature silhouette, preserved across combat reactions and eight travel directions."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-petalunge",
+      "kind": "visual",
+      "name": "creature-petalunge",
+      "summary": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-petalunge",
+            "kind": "creature",
+            "src": "assets/creatures/creature-petalunge.png",
+            "w": 264,
+            "h": 251,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+          "usage": "Reference creature-petalunge in the existing format at dist/src/data/assets.js.",
+          "expected": "Slender orchid mantis with a tapered head and paired petal forelimbs."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "264 by 251 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-petalunge is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-petalunge.png",
+          "description": "Slender orchid mantis with a tapered head and paired petal forelimbs."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-petalunge-combat",
+      "kind": "visual",
+      "name": "creature-petalunge-combat",
+      "summary": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-petalunge-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-petalunge-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "columnOrder": [0, 1, 2, 3],
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              }
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+          "usage": "Reference creature-petalunge-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Slender orchid mantis with a tapered head and paired petal forelimbs."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-petalunge-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-petalunge-combat.png",
+          "description": "Slender orchid mantis with a tapered head and paired petal forelimbs."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-petalunge-follower",
+      "kind": "visual",
+      "name": "creature-petalunge-follower",
+      "summary": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-petalunge-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-petalunge-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+          "usage": "Reference creature-petalunge-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Slender orchid mantis with a tapered head and paired petal forelimbs."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-petalunge-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-petalunge-follower.png",
+          "description": "Slender orchid mantis with a tapered head and paired petal forelimbs."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-sedgegnaw",
+      "kind": "visual",
+      "name": "creature-sedgegnaw",
+      "summary": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-sedgegnaw",
+            "kind": "creature",
+            "src": "assets/creatures/creature-sedgegnaw.png",
+            "w": 254,
+            "h": 264,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+          "usage": "Reference creature-sedgegnaw in the existing format at dist/src/data/assets.js.",
+          "expected": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "254 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-sedgegnaw is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-sedgegnaw.png",
+          "description": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-sedgegnaw-combat",
+      "kind": "visual",
+      "name": "creature-sedgegnaw-combat",
+      "summary": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-sedgegnaw-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-sedgegnaw-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "columnOrder": [0, 1, 2, 3],
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              }
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+          "usage": "Reference creature-sedgegnaw-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-sedgegnaw-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-sedgegnaw-combat.png",
+          "description": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-sedgegnaw-follower",
+      "kind": "visual",
+      "name": "creature-sedgegnaw-follower",
+      "summary": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-sedgegnaw-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-sedgegnaw-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+          "usage": "Reference creature-sedgegnaw-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-sedgegnaw-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-sedgegnaw-follower.png",
+          "description": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax."
         }
       ]
     },

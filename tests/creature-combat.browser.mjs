@@ -25,7 +25,7 @@ try {
   await page.goto(`http://localhost:${server.address().port}/creature-combat-preview.html`);
   await page.waitForFunction(
     () =>
-      document.querySelectorAll('.creature canvas').length === 240 &&
+      document.querySelectorAll('.creature canvas').length === 300 &&
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
         [...canvas.getContext('2d').getImageData(0, 0, 160, 160).data].some((value, index) => index % 4 === 3 && value > 0),
       ),
@@ -43,6 +43,9 @@ try {
     'Bramblebuck',
     'Siltkip',
     'Sunskitter',
+    'Sedgegnaw',
+    'Petalunge',
+    'Cindercurl',
   ]);
   assert.equal(await page.locator('.reference img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), true);
   assert.deepEqual(
@@ -53,9 +56,9 @@ try {
         return counts;
       }, {}),
     ),
-    {idle: 48, attack: 48, hit: 48, faint: 48, capture: 48},
+    {idle: 60, attack: 60, hit: 60, faint: 60, capture: 60},
   );
-  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 60}, () => ['1', '2', '3', '4']).flat());
+  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 75}, () => ['1', '2', '3', '4']).flat());
   assert.equal(
     await page.evaluate(() =>
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
@@ -72,10 +75,10 @@ try {
   battle.on('pageerror', error => errors.push(error.message));
   await battle.goto(`http://localhost:${server.address().port}/?debug&seed=3`);
   await battle.waitForSelector('#loading', {state: 'hidden'});
-  const mushmallow = species.findIndex(entry => entry.id === 'mushmallow');
-  const frostowl = species.findIndex(entry => entry.id === 'frostowl');
-  assert.notEqual(mushmallow, -1);
-  assert.notEqual(frostowl, -1);
+  const sedgegnaw = species.findIndex(entry => entry.id === 'sedgegnaw');
+  const cindercurl = species.findIndex(entry => entry.id === 'cindercurl');
+  assert.notEqual(sedgegnaw, -1);
+  assert.notEqual(cindercurl, -1);
   await battle.evaluate(
     ({starter, foe}) => {
       const save = window.mossvale.getState().save;
@@ -85,7 +88,7 @@ try {
       save.team = {[starter]: {xp: 0, hp: 100}};
       window.mossvale.encounter(foe);
     },
-    {starter: mushmallow, foe: frostowl},
+    {starter: sedgegnaw, foe: cindercurl},
   );
   await battle.waitForSelector('#fight-wild');
   assert.equal(await battle.locator('#fight-buddy').getAttribute('data-combat-state'), 'idle');
@@ -103,7 +106,7 @@ try {
   assert.match(await battle.locator('#fight-buddy').getAttribute('class'), /element/);
   await battle.waitForSelector('#result-continue');
   assert.deepEqual(errors, []);
-  console.log('ok all twelve transparent combat atlases preview every state and battle playback attacks/faints without changing rules');
+  console.log('ok all fifteen transparent combat atlases preview every state and battle playback attacks/faints without changing rules');
 } finally {
   await browser.close();
   server.close();

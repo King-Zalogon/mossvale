@@ -15,16 +15,21 @@ import {codec, newSave, objCtx, rawMaps, rawObjectives} from './helpers.mjs';
 const idOf = id => species.findIndex(s => s.id === id);
 const story = JSON.parse(readFileSync(new URL('../dist/maps/story.json', import.meta.url), 'utf8'));
 
-test('the twelve stable species form three primary residents in each of four biomes', () => {
-  assert.equal(species.length, 12);
+test('the fifteen stable species stay findable in their four home biomes', () => {
+  assert.equal(species.length, 15);
   assert.equal(new Set(species.map(s => s.id)).size, species.length);
   assert.deepEqual(
-    species.slice(0, 8).map(s => s.id),
-    ['fernling', 'emberkin', 'brooklet', 'duskwing', 'voltkit', 'mushmallow', 'frostowl', 'pebblit'],
+    species.slice(0, 12).map(s => s.id),
+    ['fernling', 'emberkin', 'brooklet', 'duskwing', 'voltkit', 'mushmallow', 'frostowl', 'pebblit', 'bramblebuck', 'siltkip', 'sunskitter', 'hushram'],
+  );
+  assert.deepEqual(
+    species.slice(12).map(s => s.id),
+    ['sedgegnaw', 'petalunge', 'cindercurl'],
   );
   assert.equal(biomes.length, 4);
+  const residentCounts = {meadow: 5, wetland: 3, badlands: 4, 'snowy-forest': 3};
   for (const biome of biomes) {
-    assert.equal(species.filter(s => s.biome === biome.id).length, 3, biome.id);
+    assert.equal(species.filter(s => s.biome === biome.id).length, residentCounts[biome.id], biome.id);
     assert.ok(
       regions.some(r => r.biome === biome.id),
       `${biome.id} needs a playable region`,
@@ -52,6 +57,12 @@ test('each species has a distinct battle role, move, and habitat clue', () => {
   }
   assert.ok(moves['glass-dash'].power > moves['leaf-burst'].power);
   assert.ok(moves['briar-brace'].power < moves['leaf-burst'].power);
+  assert.ok(species.find(s => s.id === 'sedgegnaw').stats.defense > species.find(s => s.id === 'fernling').stats.defense);
+  assert.ok(species.find(s => s.id === 'sedgegnaw').stats.attack < species.find(s => s.id === 'fernling').stats.attack);
+  assert.ok(species.find(s => s.id === 'petalunge').stats.attack > species.find(s => s.id === 'bramblebuck').stats.attack);
+  assert.ok(species.find(s => s.id === 'petalunge').stats.defense < species.find(s => s.id === 'bramblebuck').stats.defense);
+  assert.ok(species.find(s => s.id === 'cindercurl').stats.defense > species.find(s => s.id === 'emberkin').stats.defense);
+  assert.ok(species.find(s => s.id === 'cindercurl').stats.attack < species.find(s => s.id === 'emberkin').stats.attack);
 });
 
 test('different stats and move definitions create distinct battle choices', () => {
@@ -77,17 +88,24 @@ test('different stats and move definitions create distinct battle choices', () =
   assert.ok(incoming(idOf('brooklet')) < incoming(idOf('duskwing')), 'Brooklet should take less damage than Duskwing');
 });
 
-test('new species keep their stable IDs through a save round trip', () => {
-  const save = newSave();
-  const newId = idOf('sunskitter');
-  save.caught.push(newId);
-  save.seen.push(newId);
-  save.team[newId] = {xp: 90, hp: 31};
-  const raw = codec.serialize(save);
-  assert.ok(JSON.parse(raw).caught.includes('sunskitter'));
-  const back = codec.normalize(JSON.parse(raw), false);
-  assert.equal(species[back.caught.find(i => species[i].id === 'sunskitter')].id, 'sunskitter');
-  assert.equal(back.team[newId].xp, 90);
+test('the new creatures keep stable IDs in discovery, party and save round trips', () => {
+  for (const speciesId of ['sedgegnaw', 'petalunge', 'cindercurl']) {
+    const save = newSave();
+    const newId = idOf(speciesId);
+    save.caught.push(newId);
+    save.seen.push(newId);
+    save.party = [newId];
+    save.active = newId;
+    save.team[newId] = {xp: 90, hp: 31};
+    const raw = codec.serialize(save);
+    const serialized = JSON.parse(raw);
+    assert.ok(serialized.caught.includes(speciesId));
+    assert.ok(serialized.seen.includes(speciesId));
+    assert.ok(serialized.party.includes(speciesId));
+    const back = codec.normalize(serialized, false);
+    assert.equal(species[back.caught.find(i => species[i].id === speciesId)].id, speciesId);
+    assert.equal(back.team[newId].xp, 90);
+  }
 });
 
 test('all four seals finish the story without requiring the optional species collection', () => {

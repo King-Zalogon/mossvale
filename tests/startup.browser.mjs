@@ -193,7 +193,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   await page.waitForSelector('#m-primary');
   await page.waitForFunction(() => document.querySelector('#build-label')?.textContent === 'Build #abcdef0 · 2026-10-01');
   assert.equal(await page.textContent('#m-primary'), 'Continue');
-  assert.match(await page.textContent('#modal'), /2 of 12 friends · 1 seal · 10 min played/);
+  assert.match(await page.textContent('#modal'), /2 of 15 friends · 1 seal · 10 min played/);
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('#m-primary').isVisible(), true, 'the title screen is not dismissed by Escape');
   await page.click('#m-settings');
@@ -235,7 +235,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   await reloading('#m-confirm-restore');
   await page.waitForSelector('#m-primary');
   assert.equal(await page.textContent('#m-primary'), 'Continue');
-  assert.match(await page.textContent('#modal'), /2 of 12 friends/);
+  assert.match(await page.textContent('#modal'), /2 of 15 friends/);
   assert.deepEqual(errors, []);
   console.log('ok title, settings, new game and restore');
 }

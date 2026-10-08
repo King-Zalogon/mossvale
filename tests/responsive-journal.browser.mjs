@@ -1,4 +1,4 @@
-// Exercise the 12-entry habitat journal and touch interruption in portrait and landscape emulation.
+// Exercise the 15-entry habitat journal and touch interruption in portrait and landscape emulation.
 import {chromium} from 'playwright';
 import http from 'node:http';
 import {readFileSync, existsSync} from 'node:fs';
@@ -50,7 +50,7 @@ try {
         overflowX: Math.max(modal.scrollWidth - modal.clientWidth, document.documentElement.scrollWidth - innerWidth),
       };
     });
-    assert.deepEqual(journal, {count: 12, unknown: 0, missingHint: 0, overflowX: 0}, `${viewport.width}×${viewport.height}`);
+    assert.deepEqual(journal, {count: 15, unknown: 0, missingHint: 0, overflowX: 0}, `${viewport.width}×${viewport.height}`);
     await page.keyboard.press('Escape');
     await page.waitForSelector('#modal', {state: 'hidden'});
   }
@@ -260,7 +260,7 @@ try {
   await page.waitForFunction(() => window.mossvale.getState().battle?.busy === false && window.mossvale.getState().battle?.turn === 1);
   assert.deepEqual(errors, []);
   await context.close();
-  console.log('ok 12-creature journal hints and touch interruption across portrait/landscape sizes');
+  console.log('ok 15-creature journal hints and touch interruption across portrait/landscape sizes');
 } finally {
   await browser.close();
   server.close();

@@ -15,6 +15,9 @@ const kinds = [
   'bramblebuck',
   'siltkip',
   'sunskitter',
+  'sedgegnaw',
+  'petalunge',
+  'cindercurl',
 ];
 const states = ['idle', 'attack', 'hit', 'faint', 'capture'];
 const host = document.querySelector('#species');

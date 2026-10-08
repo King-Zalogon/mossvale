@@ -330,7 +330,7 @@ test('an author can change an encounter zone without touching code', () => {
 
 test('zones can be limited to a rectangle', () => {
   const raw = rawMaps();
-  meadow(raw).zones = [{id: 'north-only', terrain: ['t'], rect: [0, 0, 24, 7], pool: ['fernling', 'emberkin', 'bramblebuck'], level: [5, 5]}];
+  meadow(raw).zones = [{id: 'north-only', terrain: ['t'], rect: [0, 0, 24, 7], pool: ['fernling', 'emberkin', 'bramblebuck', 'sedgegnaw'], level: [5, 5]}];
   const {maps, errors} = buildAdventure(raw, content);
   assert.deepEqual(errors, []);
   const world = buildWorld(maps[0]);
@@ -428,7 +428,7 @@ test('the badlands pair is two large maps with a loop of safe exits and alternat
   );
   assert.equal(ridge.exits.find(e => e.id === 'east').requires, 'amber-ridge.seal');
   const species = new Set([ridge, basin].flatMap(m => m.zones).flatMap(z => z.pool.map(p => p.species ?? p)));
-  assert.deepEqual([...species].sort(), ['pebblit', 'sunskitter', 'voltkit']);
+  assert.deepEqual([...species].sort(), ['cindercurl', 'pebblit', 'sunskitter', 'voltkit']);
   assert.equal([ridge, basin].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);
   for (const m of [ridge, basin]) {
     assert.ok(

@@ -63,7 +63,12 @@ export function validateObjectives(data, {mapIds}) {
       if (!FLAG.test(c.flag) || !mapIds.has(c.flag.split('.')[0])) at(where, `flag "${c.flag}" must be <map-id>.seal or <map-id>.chest of an existing map`);
     } else if (k === 'event') {
       const parts = typeof c.event === 'string' ? c.event.split('/') : [];
-      if (parts.length !== 2 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(parts[0] ?? '') || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(parts[1] ?? '') || !mapIds.has(parts[0]))
+      if (
+        parts.length !== 2 ||
+        !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(parts[0] ?? '') ||
+        !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(parts[1] ?? '') ||
+        !mapIds.has(parts[0])
+      )
         at(where, 'event must name an existing map and stable event id');
     } else if (k === 'met') {
       if (typeof c.met !== 'boolean') at(where, 'met must be true or false');

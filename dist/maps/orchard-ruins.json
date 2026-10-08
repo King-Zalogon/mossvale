@@ -468,12 +468,11 @@
       "w": 79,
       "solid": 0.52,
       "at": [
-        [51.5, 50.1],
-        [49.2, 48.3],
-        [49.2, 45.3],
-        [51.5, 43.5],
-        [54.4, 44.1],
-        [55.6, 46.8]
+        [11.1, 50.3],
+        [11.1, 47.3],
+        [13.4, 45.5],
+        [16.3, 46.1],
+        [17.6, 48.8]
       ],
       "piece": "oak-grove-2"
     },
@@ -482,33 +481,11 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [51.4, 47.1],
-        [52.9, 46.2],
-        [52.6, 47.7]
+        [13.4, 49.1],
+        [14.9, 48.2],
+        [14.6, 49.7]
       ],
       "piece": "oak-grove-2"
-    },
-    {
-      "sprite": "boulder-mossy",
-      "kind": "scenery",
-      "w": 49,
-      "solid": 0.42,
-      "at": [
-        [14.2, 48.8],
-        [15.7, 49.3],
-        [14.8, 47.4]
-      ],
-      "piece": "cairn-3"
-    },
-    {
-      "sprite": "bush-flowering",
-      "kind": "flower",
-      "w": 32,
-      "at": [
-        [13.1, 49.6],
-        [16.1, 48.2]
-      ],
-      "piece": "cairn-3"
     },
     {
       "sprite": "boulder-mossy",
@@ -520,7 +497,7 @@
         [34.1, 21.4],
         [33.2, 19.5]
       ],
-      "piece": "cairn-4"
+      "piece": "cairn-3"
     },
     {
       "sprite": "bush-flowering",
@@ -529,6 +506,28 @@
       "at": [
         [31.5, 21.7],
         [34.5, 20.3]
+      ],
+      "piece": "cairn-3"
+    },
+    {
+      "sprite": "boulder-mossy",
+      "kind": "scenery",
+      "w": 49,
+      "solid": 0.42,
+      "at": [
+        [55.6, 49.2],
+        [57.1, 49.7],
+        [56.2, 47.8]
+      ],
+      "piece": "cairn-4"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [54.5, 50.0],
+        [57.5, 48.6]
       ],
       "piece": "cairn-4"
     },
@@ -559,7 +558,18 @@
     {
       "id": "old-orchard-grass",
       "terrain": ["t"],
-      "pool": [{"species": "fernling", "behavior": "wary"}, "emberkin", {"species": "bramblebuck", "behavior": "territorial"}, "duskwing"],
+      "pool": [
+        {
+          "species": "fernling",
+          "behavior": "wary"
+        },
+        "emberkin",
+        {
+          "species": "bramblebuck",
+          "behavior": "territorial"
+        },
+        "duskwing"
+      ],
       "level": [5, 7],
       "rect": [0, 0, 24, 24]
     },
@@ -590,6 +600,10 @@
         },
         {
           "species": "duskwing",
+          "weight": 1
+        },
+        {
+          "species": "petalunge",
           "weight": 1
         }
       ],
@@ -624,7 +638,9 @@
         {
           "id": "mara-water-loss",
           "repeatable": false,
-          "when": {"flag": "meadow.seal"},
+          "when": {
+            "flag": "meadow.seal"
+          },
           "actions": [
             {
               "type": "dialogue",
@@ -644,7 +660,9 @@
         {
           "id": "sluice-old-mark",
           "repeatable": false,
-          "when": {"event": "orchard-ruins/mara-water-loss"},
+          "when": {
+            "event": "orchard-ruins/mara-water-loss"
+          },
           "actions": [
             {
               "type": "dialogue",
@@ -664,7 +682,9 @@
         {
           "id": "press-repair-record",
           "repeatable": false,
-          "when": {"event": "orchard-ruins/mara-water-loss"},
+          "when": {
+            "event": "orchard-ruins/mara-water-loss"
+          },
           "actions": [
             {
               "type": "dialogue",
@@ -686,8 +706,19 @@
           "repeatable": false,
           "when": {
             "all": [
-              {"event": "orchard-ruins/mara-water-loss"},
-              {"any": [{"event": "orchard-ruins/sluice-old-mark"}, {"event": "orchard-ruins/press-repair-record"}]}
+              {
+                "event": "orchard-ruins/mara-water-loss"
+              },
+              {
+                "any": [
+                  {
+                    "event": "orchard-ruins/sluice-old-mark"
+                  },
+                  {
+                    "event": "orchard-ruins/press-repair-record"
+                  }
+                ]
+              }
             ]
           },
           "actions": [
@@ -709,14 +740,28 @@
         {
           "id": "outcome-water-first",
           "repeatable": false,
-          "when": {"all": [{"event": "orchard-ruins/den-family-seen"}, {"not": {"event": "orchard-ruins/outcome-family-first"}}]},
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/den-family-seen"
+              },
+              {
+                "not": {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              }
+            ]
+          },
           "actions": [
             {
               "type": "dialogue",
               "speaker": "narrator",
               "text": "You open the shared bypass. Water returns to the lower row, and the family settles into the dry upper nook."
             },
-            {"type": "reward", "coins": 10}
+            {
+              "type": "reward",
+              "coins": 10
+            }
           ]
         }
       ]
@@ -730,14 +775,28 @@
         {
           "id": "outcome-family-first",
           "repeatable": false,
-          "when": {"all": [{"event": "orchard-ruins/den-family-seen"}, {"not": {"event": "orchard-ruins/outcome-water-first"}}]},
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/den-family-seen"
+              },
+              {
+                "not": {
+                  "event": "orchard-ruins/outcome-water-first"
+                }
+              }
+            ]
+          },
           "actions": [
             {
               "type": "dialogue",
               "speaker": "narrator",
               "text": "You guide the young to the dry hollow first. The adult follows, leaving Mara the slower channel repair."
             },
-            {"type": "reward", "coins": 10}
+            {
+              "type": "reward",
+              "coins": 10
+            }
           ]
         }
       ]
