@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/domain/objectives.js"],
+      "entries": ["interactable:scene-event"],
+      "disposition": "no-semantic-impact",
+      "reason": "Prettier only wrapped the existing event-condition validation across lines. Accepted objective shapes, validation order, diagnostics and runtime behavior are unchanged.",
+      "evidence": ["tests/objectives.test.mjs", "dist/src/domain/objectives.js"]
+    }
+  ]
+}
