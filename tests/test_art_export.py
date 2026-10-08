@@ -13,7 +13,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPORTER = ROOT / "art/characters/export-creature-combat.py"
-SPECIES = ["emberkin", "voltkit", "fernling", "duskwing", "brooklet", "hushram", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl"]
+SPECIES = ["emberkin", "voltkit", "fernling", "duskwing", "brooklet", "hushram", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume"]
 
 
 def png_chunk(name, payload):

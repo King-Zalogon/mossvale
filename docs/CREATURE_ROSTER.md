@@ -1,6 +1,6 @@
 # Creature roster (#24)
 
-The roster now has 15 stable species IDs. The original twelve IDs and their order stay unchanged so existing saves still resolve; Sedgegnaw, Petalunge and Cindercurl are appended. Every species is findable in a home-biome encounter zone. The current distribution is Meadow 5, Wetland 3, Rocky Badlands 4 and Snowy Forest 3 while the wider creature portfolio continues. The field journal reveals personality, battle role, base stats, elemental move, and a habitat clue after discovery.
+The roster now has 17 stable species IDs. The original twelve IDs and their order stay unchanged so existing saves still resolve; Sedgegnaw, Petalunge, Cindercurl, Sunsifter and Rillume are appended. Every species is findable in a home-biome encounter zone. The current distribution is Meadow 5, Wetland 4, Rocky Badlands 5 and Snowy Forest 3 while the wider creature portfolio continues. The field journal reveals personality, battle role, base stats, elemental move, and a habitat clue after discovery.
 
 | Biome | Species | Role | Base HP / ATK / DEF | Elemental move | Field clue |
 | --- | --- | --- | ---: | --- | --- |
@@ -12,10 +12,12 @@ The roster now has 15 stable species IDs. The original twelve IDs and their orde
 | Wetland | Brooklet | Steady all-rounder | 46 / 9 / 12 | Ripple rush | Listen for splashes in Reedfen's reed-ringed pools. |
 | Wetland | Mushmallow | Patient bulwark | 48 / 8 / 15 | Spore cloud | Check the damp grass around Reedfen's quiet water. |
 | Wetland | Siltkip | Matchup scout | 44 / 10 / 12 | Silt surge | Watch the shallow pools; its tail often appears first. |
+| Wetland | Rillume | Resonant striker | 42 / 13 / 9 | Bell pulse | Look in Reedfen's safe bank grass for a blue core beneath a clear bell. |
 | Rocky badlands | Voltkit | Glass-cannon sprinter | 39 / 13 / 6 | Static leap | Follow the bright sandstone trail into Amber Ridge grass. |
 | Rocky badlands | Pebblit | Stalwart wall | 52 / 8 / 16 | Stone tumble | Amber Ridge's warm grass is its favourite place to bask. |
 | Rocky badlands | Sunskitter | High-risk attacker | 36 / 14 / 6 | Glass dash | Search the rocky grass where the sun reaches Amber Ridge first. |
 | Rocky badlands | Cindercurl | Kiln-plate bulwark | 52 / 8 / 17 | Kiln shoulder | Look for a heat shimmer near the reachable east ridge grass; no creature ability is needed. |
+| Rocky badlands | Sunsifter | Patient ridge bruiser | 48 / 11 / 12 | Dune rake | Search Amber Ridge's east grass for a broad gold brow lifting the sand. |
 | Snowy forest | Duskwing | Fast opportunist | 38 / 11 / 8 | Gust spiral | Search Frostveil's high grass, especially at dusk. |
 | Snowy forest | Frostowl | Elemental duelist | 43 / 10 / 11 | Frost feather | Look among Frostveil's snow-laced trees and tall grass. |
 | Snowy forest | Hushram | Steady guardian | 50 / 8 / 17 | Quiet squall | Look for curled blue horns in sheltered Frostveil grass. |
@@ -29,6 +31,8 @@ The four transparent sprites use the existing Fernling sprite as a style referen
 The first three-creature expansion batch adds three transparent portraits, three 4×5 battle atlases and three 5×8 follower atlases. Sedgegnaw keeps the six-legged leaf-cutter ant silhouette and a narrow notched seed-sail; Petalunge is a pale orchid mantis with paired petal forelimbs and a low ambush stance; Cindercurl is a plated pangolin with a curled shield-tail and short grounded steps. Their source PNGs and generation briefs are retained in `art/characters/source/`; `art/characters/creature-combat-metadata.json`, `art/characters/creature-follower-metadata.json`, and `art/assets/metadata.json` record source paths, frame order, output dimensions, anchors and hashes. Portraits are normalized on a 288×288 bottom-center guide and then trimmed tightly for runtime: Sedgegnaw 254×264, Petalunge 264×251, and Cindercurl 264×211. Combat cells are 288×288 with idle/attack/hit/faint/capture rows. Follower cells are 200×200, directions N/NE/E/SE/S/SW/W/NW and columns idle plus four walk frames; feet sit at y=196 and cadence is 0.56 world units per frame. The retained source PNGs are linked to their canonical portrait IDs in `art/assets/subjects.json`.
 
 These encounter additions use existing battle actions and current maps only. Sedgegnaw appears in Meadow seed-trail grass, Petalunge in the Ruined Orchard flower-edge grass, and Cindercurl in accessible Amber Ridge grass. No new movement ability or story gate is required. Their art has passed source/export and small-scale technical inspection; owner visual and gameplay acceptance remain pending.
+
+Sunsifter extends the Rocky Badlands with a broad golden shovel brow, ridged amber shell and six short digging legs; its Sand role is slower and sturdier than Sunskitter while remaining less defensive than Pebblit. Rillume extends the Wetland with a clear jelly bell, dark blue core and four thick ribbon lobes; its Water role trades Brooklet's bulk for a stronger focused strike. Each uses a distinct existing-rule move and is an optional encounter in reachable grass: Sunsifter in Amber Ridge's eastern grass, Rillume in Reedfen's safe-bank shallows. Their portrait, combat and follower sources and prompt summaries are pinned for issues #290 and #291. Owner taste and gameplay acceptance remain pending.
 
 ## Playable coverage
 

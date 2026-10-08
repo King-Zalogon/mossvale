@@ -2,23 +2,7 @@ import {assets, spriteId} from './data/assets.js';
 import {species} from './data/species.js';
 import {drawSprite, sprites} from './render/sprites.js';
 
-const kinds = [
-  'fernling',
-  'emberkin',
-  'duskwing',
-  'brooklet',
-  'hushram',
-  'voltkit',
-  'mushmallow',
-  'frostowl',
-  'pebblit',
-  'bramblebuck',
-  'siltkip',
-  'sunskitter',
-  'sedgegnaw',
-  'petalunge',
-  'cindercurl',
-];
+const kinds = species.map(entry => entry.id);
 const states = ['idle', 'attack', 'hit', 'faint', 'capture'];
 const host = document.querySelector('#species');
 const calm = document.querySelector('#calm');

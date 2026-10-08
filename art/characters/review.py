@@ -24,6 +24,8 @@ FOLLOWER_IDS = {
     "creature-sedgegnaw",
     "creature-petalunge",
     "creature-cindercurl",
+    "creature-sunsifter",
+    "creature-rillume",
 }
 COMBAT_IDS = {
     "creature-fernling",
@@ -41,6 +43,8 @@ COMBAT_IDS = {
     "creature-sedgegnaw",
     "creature-petalunge",
     "creature-cindercurl",
+    "creature-sunsifter",
+    "creature-rillume",
 }
 
 
@@ -151,9 +155,9 @@ def validate_reviews(root):
         not follower_gap
         or follower_gap.get("status") != "pending-owner-review"
         or not follower_gap.get("reason")
-        or profiles.get(follower_gap.get("profileId"), {}).get("status") != "implemented-fifth-batch"
+        or profiles.get(follower_gap.get("profileId"), {}).get("status") != "implemented-sixth-batch"
     ):
-        raise SystemExit("#90 must separate completed 15-species art coverage from pending owner review")
+        raise SystemExit("#90 must separate completed 17-species art coverage from pending owner review")
     reviewed_ids = {record.get("visualId") for record in data.get("subjects", [])}
     combat_coverage = next((item for item in data.get("coverage", []) if item.get("issue") == "#85"), None)
     if (

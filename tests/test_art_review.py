@@ -132,7 +132,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                     "visual": {"decision": decision, "reason": "Fixture decision is recorded.", "silhouetteChanged": fixture_id == "valid-turned-pose"},
                 }
             )
-        profiles = {"creature-follower-v1": {"status": "implemented-fifth-batch"}}
+        profiles = {"creature-follower-v1": {"status": "implemented-sixth-batch"}}
         (self.root / "art/characters/export-profiles.json").write_text(json.dumps({"profiles": profiles}))
         subject_path = self.root / "art/assets/subjects.json"
         subject_path.parent.mkdir(parents=True, exist_ok=True)
@@ -196,7 +196,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                 for species in ids
             ],
         }
-        self.assertEqual(REVIEW_MODULE.validate_directional_coverage(data, set(ids)), 15)
+        self.assertEqual(REVIEW_MODULE.validate_directional_coverage(data, set(ids)), 17)
         data["coverage"][0]["followerWidth"] = 115
         with self.assertRaisesRegex(SystemExit, "37 px"):
             REVIEW_MODULE.validate_directional_coverage(data, set(ids))
@@ -207,7 +207,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
         self.assertEqual(data[:8], b"\x89PNG\r\n\x1a\n")
         width, height = struct.unpack(">II", data[16:24])
         self.assertEqual(width, 1412)
-        self.assertEqual(height, 1744, "15 species at four columns require four full card rows")
+        self.assertEqual(height, 2174, "17 species at four columns require five full card rows")
 
     def test_current_evidence_passes_then_stale_art_requires_a_new_visual_review(self):
         current = self.run_reviewer()

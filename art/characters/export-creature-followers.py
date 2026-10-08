@@ -85,6 +85,14 @@ SPECS = {
         "source": "art/characters/source/creature-cindercurl-follower-generated.png",
         "target": "dist/assets/creatures/creature-cindercurl-follower.png",
     },
+    "sunsifter": {
+        "source": "art/characters/source/creature-sunsifter-follower-generated.png",
+        "target": "dist/assets/creatures/creature-sunsifter-follower.png",
+    },
+    "rillume": {
+        "source": "art/characters/source/creature-rillume-follower-generated.png",
+        "target": "dist/assets/creatures/creature-rillume-follower.png",
+    },
 }
 
 

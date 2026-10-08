@@ -25,6 +25,8 @@ SPECS = {
     "sedgegnaw": {"source": "art/characters/source/creature-sedgegnaw-combat-generated.png", "target": "dist/assets/creatures/creature-sedgegnaw-combat.png"},
     "petalunge": {"source": "art/characters/source/creature-petalunge-combat-generated.png", "target": "dist/assets/creatures/creature-petalunge-combat.png"},
     "cindercurl": {"source": "art/characters/source/creature-cindercurl-combat-generated.png", "target": "dist/assets/creatures/creature-cindercurl-combat.png"},
+    "sunsifter": {"source": "art/characters/source/creature-sunsifter-combat-generated.png", "target": "dist/assets/creatures/creature-sunsifter-combat.png"},
+    "rillume": {"source": "art/characters/source/creature-rillume-combat-generated.png", "target": "dist/assets/creatures/creature-rillume-combat.png"},
 }
 
 

@@ -15,4 +15,6 @@ export const moves = {
   'seedline-sweep': {name: 'Seedline sweep', power: 0.95, description: 'A measured arc of the carried sedge blade.'},
   'orchid-pounce': {name: 'Orchid pounce', power: 1.1, description: 'A sudden petal-limbed lunge with a precise landing.'},
   'kiln-shoulder': {name: 'Kiln shoulder', power: 0.92, description: 'A steady, plate-braced strike from a patient defender.'},
+  'dune-rake': {name: 'Dune rake', power: 1.02, description: 'A shovel-brow sweep that trades speed for a reliable Sand hit.'},
+  'bell-pulse': {name: 'Bell pulse', power: 1.06, description: 'A focused burst carried through a clear, resonant bell.'},
 };

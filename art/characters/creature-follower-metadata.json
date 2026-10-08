@@ -2,7 +2,7 @@
   "version": 1,
   "profileId": "creature-follower-v1",
   "sourceReferences": {
-    "generatedOn": "2026-10-03",
+    "generatedOn": "2026-10-08",
     "emberkin": {
       "generatedSource": "art/characters/source/creature-emberkin-follower-generated.png",
       "revisionSource": "art/characters/source/creature-emberkin-follower-initial.png",
@@ -98,6 +98,18 @@
       "referenceAsset": "creature-cindercurl",
       "promptBrief": "Preserve the cindercurl silhouette and palette; transparent five-column by eight-row directional follower sheet with idle and four walk poses in N, NE, E, SE, S, SW, W, NW order.",
       "sourceSize": [992, 1586]
+    },
+    "sunsifter": {
+      "generatedSource": "art/characters/source/creature-sunsifter-follower-generated.png",
+      "referenceAsset": "creature-sunsifter",
+      "promptBrief": "Use the canonical Sunsifter portrait for identity and Sedgegnaw’s existing sheet for scale and pixel treatment. Make eight readable directions with alternating short digging steps; transparent 5×8 grid, idle plus four walk cells, stable foot line.",
+      "sourceSize": [992, 1585]
+    },
+    "rillume": {
+      "generatedSource": "art/characters/source/creature-rillume-follower-generated.png",
+      "referenceAsset": "creature-rillume",
+      "promptBrief": "Preserve Rillume’s clear bell, dark core and four thick ribbon lobes in all eight directions. Give the lobes a restrained alternating float gait; transparent 5×8 grid, idle plus four walk cells, stable bottom-center anchor.",
+      "sourceSize": [992, 1586]
     }
   },
   "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
@@ -122,7 +134,9 @@
     "creature-sunskitter-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-sedgegnaw-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-petalunge-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-    "creature-cindercurl-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+    "creature-cindercurl-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-sunsifter-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-rillume-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
   },
   "sprites": {
     "creature-emberkin-follower": {
@@ -259,6 +273,24 @@
       "rows": 8,
       "anchor": "bottom-center",
       "feetY": 196
+    },
+    "creature-sunsifter-follower": {
+      "sourceSize": [993, 1584],
+      "output": "dist/assets/creatures/creature-sunsifter-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-rillume-follower": {
+      "sourceSize": [992, 1586],
+      "output": "dist/assets/creatures/creature-rillume-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
     }
   },
   "anchor": "bottom-center",
@@ -270,5 +302,5 @@
     "stopping": "hold idle column 0 and retain last facing",
     "reducedMotion": "hold idle column 0 and retain last facing"
   },
-  "fallback": "All fifteen current species have directional atlases; if an optional atlas fails, the renderer falls back to the species static portrait."
+  "fallback": "All seventeen current species have directional atlases; if an optional atlas fails, the renderer falls back to the species static portrait."
 }

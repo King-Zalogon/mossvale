@@ -2,15 +2,15 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "fec60e5882a42e8ec651279511b88e8b2f0fd0cec95ef168fb27088dec5f9722",
+    "art/assets/subjects.json": "9c87bb2a3c35b39013388d7fede5a3f5f666ebd4703c0aad1d31f335ce65b6c7",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-    "art/characters/creature-combat-metadata.json": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
-    "art/characters/creature-follower-metadata.json": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
-    "art/characters/export-profiles.json": "5137e6616cafa797e71df17c999977cb0ba3f1556334976166b2f5f7c89518b9",
+    "art/characters/creature-combat-metadata.json": "87802fd27e8114797ed08f77dfe74d534c9a4ff5e55c10b7dcec9624755299f1",
+    "art/characters/creature-follower-metadata.json": "f91dc6ea1540cd48146f8ad88328e82fbdff695d3d5c29f13952db84c88700f8",
+    "art/characters/export-profiles.json": "1e678bddc46fb27e8fef206d450aa268a3674e8941c349c7f2bfc4095312b513",
     "art/characters/metadata.json": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
-    "art/characters/visual-reviews.json": "48686b903d1851f5b898cca805685d25f16004926898e16dc2b38e82ceb33abe",
+    "art/characters/visual-reviews.json": "b4220be8831f08fa8627d1ee8bc89865025d210a50cf35281748ac421098f19b",
     "content/catalogue/curated.json": "8a4eb6102c9ef90fd0899565581516f9282e1611f88e891c9a74f01c4c5b7f42",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "7d8194ba6ded41ae517b90bccbcb742ae6184bc90654aa0136e3818cf1047d3f",
@@ -47,12 +47,18 @@
     "dist/assets/creatures/creature-petalunge-combat.png": "7e39a6991e0104ccd69b60a07c6c5b42210eb990f01abc8eda126733377cb9fc",
     "dist/assets/creatures/creature-petalunge-follower.png": "5f3234e585bcd48587920f339c98cf1834d1478b5685e274688176463fe9f6ac",
     "dist/assets/creatures/creature-petalunge.png": "9cc0d091d3a7f5421f7bffbfadb8b18fb27d7958f5256a6f07fe1b59ef2b66fd",
+    "dist/assets/creatures/creature-rillume-combat.png": "38189f28587315b665578bd44b4d4d6c55d5802ff17ca28c0cfa11e81d7b469a",
+    "dist/assets/creatures/creature-rillume-follower.png": "a614da0f3ee3acd61954bdd0676c6b951318dd71dd62e8d45c4b78eacd06d7ca",
+    "dist/assets/creatures/creature-rillume.png": "23302b86eb1b9034f4ac037fa13263407031774b8ad434dd17311b1f832da567",
     "dist/assets/creatures/creature-sedgegnaw-combat.png": "facee4ffee91342c0f7fcba77dd07b966745b23ce96d80f81674a6cd1efaa344",
     "dist/assets/creatures/creature-sedgegnaw-follower.png": "f4da82fb319cf9dab978e0ffe0ea8f9c49a0c44bf2e7792bfd6dc27e379db7d6",
     "dist/assets/creatures/creature-sedgegnaw.png": "71ff804584001161e7b17135b103dafd1ba15ebb7efbb82b43e0785ce4f407c1",
     "dist/assets/creatures/creature-siltkip-combat.png": "3f9e2e60432c80b696e363f63378c6d7c1b6d773f1de73c6c077cbf4762abdb1",
     "dist/assets/creatures/creature-siltkip-follower.png": "3adf0dacc4e499eb63d10c336ef1f1c64f76aba6f983f5da8266eaa0410bab16",
     "dist/assets/creatures/creature-siltkip.png": "0b8402acc8fb02165db140b9581d426f17b0252c3e332b2f746a829201871c1e",
+    "dist/assets/creatures/creature-sunsifter-combat.png": "0ccc02755bad86cb86bc20160378176e8c004e887b9e3c31971e4338928f69e7",
+    "dist/assets/creatures/creature-sunsifter-follower.png": "8d6548b7ce7aeebc133f76734664b06bf81b871ad55275bbb667efe72c4b9dd7",
+    "dist/assets/creatures/creature-sunsifter.png": "c23329b12af4fe88a452fc82e44f91a6709740edc5f77b9cdc4387e0325cd0f4",
     "dist/assets/creatures/creature-sunskitter-combat.png": "ba4bb37e396a8ca4fc41319937ebf23f44bba53ee76125838856303954b1bf88",
     "dist/assets/creatures/creature-sunskitter-follower.png": "39e8938acd0f663cb0b6c4862f99b78200347f2ce0238bdd0dad36eca34b6fa7",
     "dist/assets/creatures/creature-sunskitter.png": "7624554e2e1da7c543c2b8c8874ea9bbc4656847f4300c0e27a3d6aea1711148",
@@ -98,16 +104,16 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "71e104292399dce77090aa2fc82707f14fe882b2a2a516e7c83bb586deaac78a",
+    "dist/maps/amber-ridge.json": "012f51f60373c4f2f90059aaacd77e73caa5116aad77bc56fbf793d80c7f1c55",
     "dist/maps/frostveil-grove.json": "2f2723360040a1f3e39a20e687101d6c501f24d558f8d86bcb0a66cce0be17c1",
     "dist/maps/frostveil-pass.json": "bc1f728ff350674d83840c38a91939fff60350820c7c63f183c317c6a17175e6",
-    "dist/maps/index.json": "5543537287ea0f1c38d738ec9e029511550f3d56835d46d014b448a079490435",
+    "dist/maps/index.json": "9943e07f0ccd3767820d448ceb3c3d528f2f9faa8563fe08c26eb99637f12b52",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "a57709a1a39da36ab82089520396b5d3d626f919782f8b244a15e9daf1e1972e",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
     "dist/maps/orchard-ruins.json": "3c20dbd55780d2fa97ed41a1d407b67dffabab8f71e402fafffedbc19b9f9806",
-    "dist/maps/reedfen-wetlands.json": "effa2297a3b3ab4c01d8079c79b193bf164310447c310076a7f5e93f656effb9",
-    "dist/maps/registries.json": "34ab9a499d24b8c0b8c282ac5652456f628211af7d5fa8d9d356609620beb10b",
+    "dist/maps/reedfen-wetlands.json": "8c6064aa0f0d4b48df34b58c8630daf4cdf8fefb70013fdd59debb007bb73e98",
+    "dist/maps/registries.json": "c8668a4df0221cfb990feefcad7a449478aade07567eca61a1caf09567852ef7",
     "dist/maps/stilt-isles.json": "eb639a2b3fb2917da3a3fb8921e3c2f5d93d2458928932aa912969da61e2ea2f",
     "dist/maps/stone-basin.json": "4f9b1746b0d8db32eb12a91493a19735834c2b4635bef5188a529ffd1ea92215",
     "dist/maps/story.json": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927",
@@ -118,12 +124,12 @@
     "dist/src/compatibility.js": "cb16e68f3c5fefc86c7e6068f1f7a5e832e009647baa07641a4bd1ed06349ca3",
     "dist/src/config.js": "8c60c45a799c27fdddd30c02f08ca85c903900668f8b8a0d143b7445ecb8fff4",
     "dist/src/controller.js": "18f3f8f6c729c04d2fdc0f65c49e870a1eff2e9c13e90d7bc316bc71759d02b5",
-    "dist/src/creature-combat-preview.js": "8b57236e977ee3308a5a4af84f2b25cf181b8120bc36c4e8a67fcb1f1ccc17b5",
-    "dist/src/creature-follower-preview.js": "9f8fa77161df05adc90773e62141eb8d47dc3bee8cbcddb28997264b5f3b3731",
-    "dist/src/data/assets.js": "c7ca50b03ccd655f3eb21b103ea00b0e77f7d9577e15223e5ab5af323c3bb536",
+    "dist/src/creature-combat-preview.js": "bfaab53a46a71486d8639c1f740cdf95061db68b9bb16fd8e43dd1bfb3d3a039",
+    "dist/src/creature-follower-preview.js": "b5828b919a5dd5dd2712487ce5659079383a8170a8d8f59beea391a912ab5b3b",
+    "dist/src/data/assets.js": "d2729dba2f4787df0b3e44c80d5e6e585a4866519708aa2c9a360a41ded1ef47",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
-    "dist/src/data/moves.js": "2010b1575621e5ec5d5e5cb5831fff6793a5ae8b105e9f5d8b7052c8fd595ebe",
+    "dist/src/data/moves.js": "8979bfda82b92eb77c77d7e1f3405cd00fb82a7134edf0ea0ba88d58824d2108",
     "dist/src/data/pack.js": "9fd30dbf4b643265515252efacae23a0e18507c5eb1649ad39eabf0ed436ff5c",
     "dist/src/data/regions.js": "dd20e32162860c8112f38d5f7509414f611b3f28e0649fdd72386630ff753c72",
     "dist/src/data/registry.js": "b380fbc26e56195e7713078f63f60fd504f8bf0df8cbb06e1baa754f80ba3f78",
@@ -209,7 +215,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "234c9c0db81129af566da854fd4ae3db1c6e1de5271eec69fa67461903302801",
+  "sourceDigest": "6128bf1c14110125250fdf6e01e6e16794359a9342b703ed25e01c6987aa9a79",
   "exclusions": [
     {
       "family": "module-exports",
@@ -3201,6 +3207,10 @@
               },
               {
                 "species": "cindercurl",
+                "weight": 2
+              },
+              {
+                "species": "sunsifter",
                 "weight": 2
               }
             ],
@@ -6606,6 +6616,10 @@
                 "species": "mushmallow",
                 "weight": 4
               },
+              {
+                "species": "rillume",
+                "weight": 2
+              },
               "siltkip"
             ],
             "level": [11, 12],
@@ -7896,6 +7910,21 @@
       "dependencies": []
     },
     {
+      "id": "move:bell-pulse",
+      "family": "move",
+      "runtimeId": "bell-pulse",
+      "name": "Bell pulse",
+      "description": "A focused burst carried through a clear, resonant bell.",
+      "source": "dist/src/data/moves.js",
+      "evidence": "tests/battle-actions.test.mjs",
+      "raw": {
+        "name": "Bell pulse",
+        "power": 1.06,
+        "description": "A focused burst carried through a clear, resonant bell."
+      },
+      "power": "1.06"
+    },
+    {
       "id": "move:briar-brace",
       "family": "move",
       "runtimeId": "briar-brace",
@@ -7909,6 +7938,21 @@
         "description": "A measured thorn volley from a sturdy defender."
       },
       "power": "0.9"
+    },
+    {
+      "id": "move:dune-rake",
+      "family": "move",
+      "runtimeId": "dune-rake",
+      "name": "Dune rake",
+      "description": "A shovel-brow sweep that trades speed for a reliable Sand hit.",
+      "source": "dist/src/data/moves.js",
+      "evidence": "tests/battle-actions.test.mjs",
+      "raw": {
+        "name": "Dune rake",
+        "power": 1.02,
+        "description": "A shovel-brow sweep that trades speed for a reliable Sand hit."
+      },
+      "power": "1.02"
     },
     {
       "id": "move:ember-spark",
@@ -8694,14 +8738,14 @@
       "family": "pack",
       "runtimeId": "mossvale",
       "name": "Mossvale",
-      "description": "Four biomes, fifteen friends and a seal at every shrine.",
+      "description": "Four biomes, seventeen friends and a seal at every shrine.",
       "source": "dist/maps/index.json",
       "evidence": "tests/packs.test.mjs",
       "raw": {
         "format": 1,
         "id": "mossvale",
         "name": "Mossvale",
-        "brief": "Four biomes, fifteen friends and a seal at every shrine.",
+        "brief": "Four biomes, seventeen friends and a seal at every shrine.",
         "maps": ["meadow", "amber-ridge", "frostveil-grove", "frostveil-pass", "reedfen-wetlands", "orchard-ruins", "stilt-isles", "stone-basin"],
         "species": [
           "fernling",
@@ -8718,7 +8762,9 @@
           "hushram",
           "sedgegnaw",
           "petalunge",
-          "cindercurl"
+          "cindercurl",
+          "sunsifter",
+          "rillume"
         ],
         "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
         "ending": "story",
@@ -8726,7 +8772,7 @@
         "story": "story.json",
         "inventory": "inventory.json",
         "registries": "registries.json",
-        "contentVersion": 3,
+        "contentVersion": 4,
         "requires": {
           "engineVersion": 1,
           "saveSchema": 5
@@ -8735,7 +8781,7 @@
           {
             "id": "registry:main",
             "path": "registries.json",
-            "sha256": "34ab9a499d24b8c0b8c282ac5652456f628211af7d5fa8d9d356609620beb10b"
+            "sha256": "c8668a4df0221cfb990feefcad7a449478aade07567eca61a1caf09567852ef7"
           },
           {
             "id": "map:meadow",
@@ -8745,7 +8791,7 @@
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "71e104292399dce77090aa2fc82707f14fe882b2a2a516e7c83bb586deaac78a"
+            "sha256": "012f51f60373c4f2f90059aaacd77e73caa5116aad77bc56fbf793d80c7f1c55"
           },
           {
             "id": "map:frostveil-grove",
@@ -8760,7 +8806,7 @@
           {
             "id": "map:reedfen-wetlands",
             "path": "reedfen-wetlands.json",
-            "sha256": "effa2297a3b3ab4c01d8079c79b193bf164310447c310076a7f5e93f656effb9"
+            "sha256": "8c6064aa0f0d4b48df34b58c8630daf4cdf8fefb70013fdd59debb007bb73e98"
           },
           {
             "id": "map:orchard-ruins",
@@ -11033,6 +11079,38 @@
       "dependencies": ["visual:creature-petalunge"]
     },
     {
+      "id": "species:mossvale/rillume",
+      "family": "species",
+      "runtimeId": "mossvale/rillume",
+      "name": "Rillume",
+      "description": "A bright jelly friend whose deep blue core glows beneath a clear bell and four flowing ribbons.",
+      "source": "dist/maps/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "rillume",
+        "name": "Rillume",
+        "type": "Water",
+        "stats": {
+          "hp": 42,
+          "attack": 13,
+          "defense": 9
+        },
+        "move": "bell-pulse",
+        "biome": "wetland",
+        "role": "Resonant striker",
+        "personality": "Gentle and observant; it rings a soft pulse when a new friend joins the water's edge.",
+        "desc": "A bright jelly friend whose deep blue core glows beneath a clear bell and four flowing ribbons.",
+        "encounterHint": "Look in Reedfen's safe bank grass for a blue core beneath a clear bell.",
+        "strong": ["Fire", "Stone", "Sand"],
+        "weak": ["Leaf", "Spark", "Bloom"],
+        "color": "#62c9d9",
+        "hp": 42,
+        "sprite": "creature-rillume"
+      },
+      "sprite": "creature-rillume",
+      "dependencies": ["visual:creature-rillume"]
+    },
+    {
       "id": "species:mossvale/sedgegnaw",
       "family": "species",
       "runtimeId": "mossvale/sedgegnaw",
@@ -11095,6 +11173,38 @@
       },
       "sprite": "creature-siltkip",
       "dependencies": ["visual:creature-siltkip"]
+    },
+    {
+      "id": "species:mossvale/sunsifter",
+      "family": "species",
+      "runtimeId": "mossvale/sunsifter",
+      "name": "Sunsifter",
+      "description": "A stocky scarab that sifts the warm ridge soil with its broad golden brow.",
+      "source": "dist/maps/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "sunsifter",
+        "name": "Sunsifter",
+        "type": "Sand",
+        "stats": {
+          "hp": 48,
+          "attack": 11,
+          "defense": 12
+        },
+        "move": "dune-rake",
+        "biome": "badlands",
+        "role": "Patient ridge bruiser",
+        "personality": "Steady and determined; it turns loose sand with its brow to uncover food for smaller trail friends.",
+        "desc": "A stocky scarab that sifts the warm ridge soil with its broad golden brow.",
+        "encounterHint": "Search Amber Ridge's east grass for a broad gold brow lifting the sand.",
+        "strong": ["Spark", "Ice", "Frost"],
+        "weak": ["Water", "Mire", "Bloom"],
+        "color": "#d9953f",
+        "hp": 48,
+        "sprite": "creature-sunsifter"
+      },
+      "sprite": "creature-sunsifter",
+      "dependencies": ["visual:creature-sunsifter"]
     },
     {
       "id": "species:mossvale/sunskitter",
@@ -13419,6 +13529,139 @@
       "characterMetadata": null
     },
     {
+      "id": "visual:creature-rillume",
+      "family": "visual",
+      "runtimeId": "creature-rillume",
+      "name": "creature-rillume",
+      "description": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-rillume",
+        "kind": "creature",
+        "src": "assets/creatures/creature-rillume.png",
+        "w": 241,
+        "h": 264,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "241 by 264 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/creatures/creature-rillume.png",
+      "animationMetadata": null,
+      "identity": {
+        "silhouette": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+        "palette": ["turquoise", "clear aqua", "deep blue core", "navy outline"],
+        "distinguishingFeatures": ["clear scalloped bell", "deep blue center core", "four thick flowing ribbon lobes"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-rillume-combat",
+      "family": "visual",
+      "runtimeId": "creature-rillume-combat",
+      "name": "creature-rillume-combat",
+      "description": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-rillume-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-rillume-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "columnOrder": [0, 1, 2, 3],
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          }
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-rillume-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-rillume-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center"
+      },
+      "identity": {
+        "silhouette": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+        "palette": ["turquoise", "clear aqua", "deep blue core", "navy outline"],
+        "distinguishingFeatures": ["clear scalloped bell", "deep blue center core", "four thick flowing ribbon lobes"]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; owner taste and gameplay acceptance remain pending.",
+          "ownerTaste": "pending"
+        }
+      ],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-rillume-follower",
+      "family": "visual",
+      "runtimeId": "creature-rillume-follower",
+      "name": "creature-rillume-follower",
+      "description": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-rillume-follower",
+        "kind": "creature",
+        "src": "assets/creatures/creature-rillume-follower.png",
+        "w": 1000,
+        "h": 1600,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 5,
+          "rows": 8,
+          "frameWidth": 200,
+          "frameHeight": 200,
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+        }
+      },
+      "dimensions": "1000 by 1600 source pixels",
+      "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+      "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+      "preview": "dist/assets/creatures/creature-rillume-follower.png",
+      "animationMetadata": {
+        "sourceSize": [992, 1586],
+        "output": "dist/assets/creatures/creature-rillume-follower.png",
+        "frame": [200, 200],
+        "columns": 5,
+        "rows": 8,
+        "anchor": "bottom-center",
+        "feetY": 196
+      },
+      "identity": {
+        "silhouette": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+        "palette": ["turquoise", "clear aqua", "deep blue core", "navy outline"],
+        "distinguishingFeatures": ["clear scalloped bell", "deep blue center core", "four thick flowing ribbon lobes"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
       "id": "visual:creature-sedgegnaw",
       "family": "visual",
       "runtimeId": "creature-sedgegnaw",
@@ -13680,6 +13923,139 @@
         "silhouette": "Canonical Siltkip creature silhouette, preserved across combat reactions and eight travel directions.",
         "palette": ["canonical source palette"],
         "distinguishingFeatures": ["Siltkip face and silhouette", "species-specific markings and colors"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-sunsifter",
+      "family": "visual",
+      "runtimeId": "creature-sunsifter",
+      "name": "creature-sunsifter",
+      "description": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-sunsifter",
+        "kind": "creature",
+        "src": "assets/creatures/creature-sunsifter.png",
+        "w": 264,
+        "h": 182,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "264 by 182 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/creatures/creature-sunsifter.png",
+      "animationMetadata": null,
+      "identity": {
+        "silhouette": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+        "palette": ["warm amber", "golden shovel brow", "orange shell", "dark brown"],
+        "distinguishingFeatures": ["broad shovel brow", "six compact articulated legs", "three ridges across the amber shell"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-sunsifter-combat",
+      "family": "visual",
+      "runtimeId": "creature-sunsifter-combat",
+      "name": "creature-sunsifter-combat",
+      "description": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-sunsifter-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-sunsifter-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "columnOrder": [0, 1, 2, 3],
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          }
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-sunsifter-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-sunsifter-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center"
+      },
+      "identity": {
+        "silhouette": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+        "palette": ["warm amber", "golden shovel brow", "orange shell", "dark brown"],
+        "distinguishingFeatures": ["broad shovel brow", "six compact articulated legs", "three ridges across the amber shell"]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; owner taste and gameplay acceptance remain pending.",
+          "ownerTaste": "pending"
+        }
+      ],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-sunsifter-follower",
+      "family": "visual",
+      "runtimeId": "creature-sunsifter-follower",
+      "name": "creature-sunsifter-follower",
+      "description": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-sunsifter-follower",
+        "kind": "creature",
+        "src": "assets/creatures/creature-sunsifter-follower.png",
+        "w": 1000,
+        "h": 1600,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 5,
+          "rows": 8,
+          "frameWidth": 200,
+          "frameHeight": 200,
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+        }
+      },
+      "dimensions": "1000 by 1600 source pixels",
+      "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+      "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+      "preview": "dist/assets/creatures/creature-sunsifter-follower.png",
+      "animationMetadata": {
+        "sourceSize": [993, 1584],
+        "output": "dist/assets/creatures/creature-sunsifter-follower.png",
+        "frame": [200, 200],
+        "columns": 5,
+        "rows": 8,
+        "anchor": "bottom-center",
+        "feetY": 196
+      },
+      "identity": {
+        "silhouette": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+        "palette": ["warm amber", "golden shovel brow", "orange shell", "dark brown"],
+        "distinguishingFeatures": ["broad shovel brow", "six compact articulated legs", "three ridges across the amber shell"]
       },
       "review": [],
       "characterMetadata": null
