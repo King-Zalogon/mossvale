@@ -219,8 +219,12 @@ function validateOne(m, byId, ctx, errors) {
       z.pool.forEach(entry => {
         const id = typeof entry === 'string' ? entry : entry?.species;
         species(where + '.pool', id);
-        if (typeof entry === 'object' && entry !== null && !(Number.isFinite(entry.weight) && entry.weight > 0 && entry.weight <= 100))
-          at(where + '.pool', `weight for "${id}" must be a number above 0 and at most 100`);
+        if (typeof entry === 'object' && entry !== null) {
+          if (entry.weight !== undefined && !(Number.isFinite(entry.weight) && entry.weight > 0 && entry.weight <= 100))
+            at(where + '.pool', `weight for "${id}" must be a number above 0 and at most 100`);
+          if (entry.behavior !== undefined && !['wary', 'territorial', 'curious'].includes(entry.behavior))
+            at(where + '.pool', `behavior for "${id}" must be wary, territorial or curious`);
+        }
       });
     if (
       z?.distance !== undefined &&
@@ -372,6 +376,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     terrain: z.terrain.map(ch => TERRAIN[ch]),
     rect: z.rect,
     pool: z.pool.map(e => speciesIndex(typeof e === 'string' ? e : e.species)),
+    behaviors: z.pool.map(e => (typeof e === 'string' ? 'curious' : (e.behavior ?? 'curious'))),
     weights: z.pool.map(e => (typeof e === 'string' ? 1 : e.weight)),
     level: z.level,
     distance: z.distance ?? [4, 7],
