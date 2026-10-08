@@ -11,7 +11,8 @@ The Map Workshop’s Show topology toggle outlines neighboring terrain boundarie
 1. Edit `dist/maps/<id>.json`.
 2. `npm run validate` checks every map; errors name the map, field and problem (e.g. `map meadow: exits[0] (east).to.spawn: map "amber-ridge" has no spawn "cellar"`).
 3. `npm run map:preview -- meadow` prints an ASCII preview (terrain, solid objects, spawns, landmarks, exits, encounter pool).
-4. Open the game with `python3 -m http.server 8080 --directory dist` (or `npm start`) and walk it. Use `map-editor.html` for a visual editing and preview workflow.
+4. `npm run maps:design-report` creates a spatial route report and annotated SVG for every shipped map; see [how to read and act on it](MAP_DESIGN_REPORT.md).
+5. Open the game with `python3 -m http.server 8080 --directory dist` (or `npm start`) and walk it. Use `map-editor.html` for a visual editing and preview workflow.
 
 Map files and `src/data/regions.js` are linked by `id`: each region needs a map with the same id (and vice versa). Region ids are saved and must never change.
 

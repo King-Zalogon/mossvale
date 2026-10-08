@@ -2,7 +2,8 @@
 import {species} from '../data/species.js';
 import {regions} from '../data/regions.js';
 import {companion, effectiveness, level, maxHP, moveName} from '../domain/rules.js';
-import {captureChance, guardianForecast, RELAY_FOCUS_COST} from '../domain/battle.js';
+import {captureChance, guardianForecast} from '../domain/battle.js';
+import {RELAY_FOCUS_COST} from '../config.js';
 import {INTENT_TEXT, TACTICS} from '../data/tactics.js';
 import {ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, GUARD_FACTOR} from '../config.js';
 import {drawCreatureAnimated} from '../render/sprites.js';
