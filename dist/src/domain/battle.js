@@ -14,6 +14,8 @@ import {
   RELAY_FOCUS_COST,
   RELAY_DURATION,
   RELAY_ELEMENT_FACTOR,
+  OBJECTIVE_MAX_TURNS,
+  OBJECTIVE_REWARD_CAP,
 } from '../config.js';
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, GUARDIAN_HP_BONUS, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
@@ -31,6 +33,40 @@ function inventoryDrop(save, table, key, rng, rules) {
   if (!result.ok) return [];
   Object.assign(save, inventoryToSupplies(save.inventory, save, rules));
   return result.grants;
+}
+
+const OBJECTIVE_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+export function validateEncounterObjective(objective) {
+  const errors = [];
+  if (objective === undefined || objective === null) return errors;
+  if (!objective || typeof objective !== 'object' || Array.isArray(objective)) return ['objective must be an object'];
+  if (typeof objective.id !== 'string' || !OBJECTIVE_ID.test(objective.id)) errors.push('objective.id must be lowercase kebab-case');
+  if (objective.kind !== 'survive') errors.push('objective.kind must be survive');
+  if (!Number.isInteger(objective.turns) || objective.turns < 1 || objective.turns > OBJECTIVE_MAX_TURNS)
+    errors.push(`objective.turns must be an integer from 1 to ${OBJECTIVE_MAX_TURNS}`);
+  if (typeof objective.title !== 'string' || !objective.title.trim()) errors.push('objective.title is required');
+  if (typeof objective.description !== 'string' || !objective.description.trim()) errors.push('objective.description is required');
+  const reward = objective.reward ?? {};
+  for (const key of ['coins', 'potions', 'xp'])
+    if (!Number.isInteger(reward[key] ?? 0) || reward[key] < 0 || reward[key] > OBJECTIVE_REWARD_CAP)
+      errors.push(`objective.reward.${key} must be an integer from 0 to ${OBJECTIVE_REWARD_CAP}`);
+  return errors;
+}
+
+function normalizeObjective(objective) {
+  if (objective === undefined || objective === null) return null;
+  if (validateEncounterObjective(objective).length) return null;
+  return {
+    id: objective.id,
+    kind: 'survive',
+    turns: objective.turns,
+    title: objective.title,
+    description: objective.description,
+    reward: {coins: objective.reward?.coins ?? 0, potions: objective.reward?.potions ?? 0, xp: objective.reward?.xp ?? 0},
+    progress: 0,
+    status: 'active',
+  };
 }
 
 /** Shrine challenges follow the current party's average level; ordinary encounters never scale. */
@@ -74,7 +110,7 @@ export function encounterDistance(zone, rng) {
 }
 
 /** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
-export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1, behavior = 'curious'}) {
+export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1, behavior = 'curious', objective}) {
   const hp = species[id].stats.hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? GUARDIAN_HP_BONUS : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
@@ -94,6 +130,7 @@ export function createBattle(save, rng, {id, level: enemyLevel, boss = false, ta
     counterplay: [],
     condition: null,
     relayReady: false,
+    objective: normalizeObjective(objective),
     over: false,
   };
 }
@@ -156,6 +193,14 @@ export function combatChoices(save, battle) {
             : battle.focus < RELAY_FOCUS_COST
               ? `Requires ${RELAY_FOCUS_COST} Focus.`
               : null,
+    },
+    {
+      kind: 'objective',
+      available: !battle.over && battle.objective?.status === 'ready',
+      reason:
+        battle.objective?.status === 'active'
+          ? `Complete ${battle.objective.turns - battle.objective.progress} more turn${battle.objective.turns - battle.objective.progress === 1 ? '' : 's'}.`
+          : null,
     },
     {
       kind: 'switch',
@@ -461,6 +506,7 @@ export const battleCheckpoint = battle =>
         counterplay: battle.counterplay ?? [],
         condition: battle.condition ? {...battle.condition} : null,
         relayReady: battle.relayReady === true,
+        objective: battle.objective ? {...battle.objective, reward: {...battle.objective.reward}} : null,
       }
     : null;
 
@@ -478,7 +524,27 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
   const events = [];
   const push = event => events.push({...event, after: snapshot(save, battle)});
   let ended = null;
-  if (action.kind === 'attack' || action.kind === 'element') {
+  if (action.kind === 'objective') {
+    const objective = battle.objective;
+    const marker = objective ? `battle-objective:${objective.id}` : null;
+    save.events ??= [];
+    if (!objective || objective.status !== 'ready' || (marker && save.events.includes(marker)) || save.events.length >= 256) return null;
+    const reward = grant(save, {coins: objective.reward.coins, potions: objective.reward.potions});
+    const xpText = awardXP(save, objective.reward.xp).text;
+    save.events.push(marker);
+    objective.status = 'claimed';
+    const result = {
+      id: objective.id,
+      title: objective.title,
+      description: objective.description,
+      reward: reward.coins,
+      potions: reward.potions,
+      xp: objective.reward.xp,
+      xpText,
+    };
+    ended = 'objective';
+    push({type: 'objective-complete', ...result});
+  } else if (action.kind === 'attack' || action.kind === 'element') {
     if (action.kind === 'element') {
       if (battle.focus < ELEMENT_COST) return null; // the special move needs Focus
       battle.focus -= ELEMENT_COST;
@@ -540,6 +606,11 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
       else if (faint.status === 'lost') {
         ended = 'loss';
         push({type: 'loss', ...resolveLoss(save)});
+      }
+      if (!ended && battle.objective?.kind === 'survive' && battle.objective.status === 'active') {
+        battle.objective.progress = Math.min(battle.objective.turns, battle.turn);
+        if (battle.objective.progress >= battle.objective.turns) battle.objective.status = 'ready';
+        push({type: 'objective-progress', progress: battle.objective.progress, target: battle.objective.turns, ready: battle.objective.status === 'ready'});
       }
     }
   }

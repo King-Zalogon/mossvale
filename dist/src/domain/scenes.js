@@ -1,5 +1,6 @@
 /* A deliberately small, data-only vocabulary for reusable map interactions. */
 import {holds, validateLines} from './objectives.js';
+import {OBJECTIVE_MAX_TURNS, OBJECTIVE_REWARD_CAP} from '../config.js';
 
 export const SCENE_ACTIONS = ['dialogue', 'reward', 'flag', 'challenge', 'move', 'face', 'wait', 'react'];
 export const MAX_SCENE_EVENTS = 256;
@@ -58,6 +59,18 @@ export function validateSceneEvent(event, {speciesIds, speakerIds = new Set(), a
         if (!speciesIds.has(action.species)) at(`${field}.species`, `unknown species "${action.species}"`);
         if (!Number.isInteger(action.level) || action.level < 1 || action.level > 99) at(`${field}.level`, 'integer 1..99');
         if (event.repeatable !== true) at(field, 'challenges must be explicitly repeatable so a loss cannot consume the interaction');
+        if (action.objective) {
+          const objective = action.objective;
+          if (objective.kind !== 'survive') at(`${field}.objective.kind`, 'must be survive');
+          if (typeof objective.id !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(objective.id)) at(`${field}.objective.id`, 'must be lowercase kebab-case');
+          if (!Number.isInteger(objective.turns) || objective.turns < 1 || objective.turns > OBJECTIVE_MAX_TURNS)
+            at(`${field}.objective.turns`, `must be an integer from 1 to ${OBJECTIVE_MAX_TURNS}`);
+          for (const key of ['title', 'description'])
+            if (typeof objective[key] !== 'string' || !objective[key].trim()) at(`${field}.objective.${key}`, 'is required');
+          for (const key of ['coins', 'potions', 'xp'])
+            if (!Number.isInteger(objective.reward?.[key] ?? 0) || objective.reward[key] < 0 || objective.reward[key] > OBJECTIVE_REWARD_CAP)
+              at(`${field}.objective.reward.${key}`, `must be an integer from 0 to ${OBJECTIVE_REWARD_CAP}`);
+        }
       } else if (action.type === 'move') {
         if (action.actor !== 'player' && !actorIds.has(action.actor)) at(`${field}.actor`, 'must be player or a movable actor landmark id');
         if (!Array.isArray(action.to) || action.to.length !== 2 || !action.to.every(Number.isInteger)) at(`${field}.to`, 'must be an integer [x, y] map tile');
@@ -89,7 +102,8 @@ export function applySceneActions(save, event, context) {
     else if (action.type === 'reward') {
       result.reward = action;
     } else if (action.type === 'flag') context.setFlag(action.flag);
-    else if (action.type === 'challenge') result.challenge = {id: action.species, level: action.level};
+    else if (action.type === 'challenge')
+      result.challenge = {id: action.species, level: action.level, objective: action.objective ? structuredClone(action.objective) : undefined};
   }
   return result;
 }

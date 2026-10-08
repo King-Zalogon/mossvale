@@ -1,0 +1,26 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/domain/battle.js",
+        "dist/src/domain/scenes.js",
+        "dist/src/config.js",
+        "dist/src/domain/registries.js",
+        "dist/src/controller.js",
+        "dist/src/save.js",
+        "dist/src/ui/battle-view.js",
+        "dist/maps/registries.json",
+        "dist/maps/index.json",
+        "docs/BATTLE.md",
+        "tests/battle-actions.test.mjs",
+        "tests/scenes.test.mjs",
+        "content/catalogue/reviews/264-encounter-objectives.json"
+      ],
+      "entries": ["rules:mossvale/battle"],
+      "disposition": "updated",
+      "reason": "Adds a pack-authored survive objective to scene challenges. The objective is bounded by registry settings, advances after completed enemy replies, persists in the battle checkpoint and pays a once-only reward only after the player explicitly completes it.",
+      "evidence": ["docs/BATTLE.md", "tests/battle-actions.test.mjs", "tests/scenes.test.mjs"]
+    }
+  ]
+}
