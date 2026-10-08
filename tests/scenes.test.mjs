@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {validateMaps} from '../dist/src/domain/mapdata.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun, validateSceneEvent} from '../dist/src/domain/scenes.js';
+import {holds, validateObjectives} from '../dist/src/domain/objectives.js';
 import {isWalkable, buildWorld} from '../dist/src/domain/world.js';
 import {findScenePath} from '../dist/src/domain/scene-path.js';
 import {setFlag} from '../dist/src/domain/rules.js';
@@ -58,6 +59,21 @@ test('one-time scene effects and reward flags persist together; repeatable condi
   assert.equal(sceneConditionHolds({when: {met: false}}, restored, {speciesCount: 2, regions: [{id: 'meadow'}]}), true);
   markSceneRun(restored, 'meadow', validEvent.id);
   assert.equal(restored.events.length, 1);
+});
+
+test('story conditions can branch on saved scene events without adding save fields', () => {
+  const save = {events: ['orchard-ruins/sluice-old-mark']};
+  const ctx = {speciesCount: 3, regions: [{id: 'meadow'}]};
+  assert.equal(holds({event: 'orchard-ruins/sluice-old-mark'}, save, ctx), true);
+  assert.equal(holds({any: [{event: 'orchard-ruins/press-repair-record'}, {event: 'orchard-ruins/sluice-old-mark'}]}, save, ctx), true);
+  assert.equal(holds({all: [{event: 'orchard-ruins/sluice-old-mark'}, {not: {event: 'orchard-ruins/outcome-family-first'}}]}, save, ctx), true);
+  assert.deepEqual(
+    validateObjectives(
+      {format: 1, objectives: [{id: 'x', step: 'x', title: 'x', copy: 'x', pin: 'x', done: {any: [{event: 'orchard-ruins/sluice-old-mark'}]}}]},
+      {mapIds: new Set(['orchard-ruins'])},
+    ),
+    [],
+  );
 });
 
 test('dialogue resolves stable reusable speaker ids and rejects unknown ones', () => {
