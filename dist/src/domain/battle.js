@@ -3,11 +3,22 @@ import {species} from '../data/species.js';
 import {moves} from '../data/moves.js';
 import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
 import {REWARDS} from '../data/economy.js';
-import {BRACE_FACTOR, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
+import {BRACE_FACTOR, GUARDIAN_HP_BONUS, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
+import {claimInventory, inventoryToSupplies, rollDrop, syncInventorySupplies, useInventory} from './inventory.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
 export const POTION_HEAL = 24;
+
+function inventoryDrop(save, table, key, rng, rules) {
+  if (!rules || !save.inventory) return [];
+  const drop = rollDrop(rules, table, rng);
+  if (!drop) return [];
+  const result = claimInventory(save.inventory, key, [drop], rules);
+  if (!result.ok) return [];
+  Object.assign(save, inventoryToSupplies(save.inventory, save, rules));
+  return result.grants;
+}
 
 /** Shrine challenges follow the current party's average level; ordinary encounters never scale. */
 export function guardianLevel(save, guardian) {
@@ -50,7 +61,7 @@ export function encounterDistance(zone, rng) {
 
 /** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
 export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1}) {
-  const hp = species[id].stats.hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? 18 : 0);
+  const hp = species[id].stats.hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? GUARDIAN_HP_BONUS : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
   return {
@@ -65,13 +76,61 @@ export function createBattle(save, rng, {id, level: enemyLevel, boss = false, ta
     focus: FOCUS_START,
     tactic: boss ? tactic : undefined,
     power: boss ? power : 1,
+    counterplay: [],
     over: false,
   };
+}
+
+function counterplayFor(save, battle, action, {enemyWillAct = true} = {}) {
+  if (!battle.boss) return [];
+  return (TACTICS[battle.tactic]?.counterplay ?? []).filter(response => {
+    if (response.action !== action.kind) return false;
+    if (response.next && !enemyWillAct) return false;
+    if (response.next && nextEnemyAction(battle) !== response.next) return false;
+    if (response.previous && lastEnemyAction(battle) !== response.previous) return false;
+    if (response.resistant && (action.id === undefined || effectiveness(battle.id, action.id) >= effectiveness(battle.id, save.active))) return false;
+    return true;
+  });
+}
+
+function recordCounterplay(save, battle, action, options) {
+  const found = counterplayFor(save, battle, action, options);
+  if (!found.length) return;
+  battle.counterplay ??= [];
+  for (const response of found) if (!battle.counterplay.includes(response.id)) battle.counterplay.push(response.id);
 }
 
 export function captureChance(save, battle) {
   if (battle.boss) return 0;
   return Math.min(0.96, 0.25 + (1 - battle.hp / battle.max) * 0.67 + Math.max(0, level(save, save.active) - battle.level) * 0.025);
+}
+
+/** Player-visible actions and exact availability at the start of a turn; does not mutate save or battle. */
+export function combatChoices(save, battle) {
+  const active = companion(save);
+  const full = active.hp >= maxHP(save, save.active);
+  const targets = save.party.filter(id => id !== save.active && companion(save, id).hp > 0);
+  return [
+    {kind: 'attack', available: !battle.over},
+    {kind: 'element', available: !battle.over && battle.focus >= ELEMENT_COST, reason: battle.focus >= ELEMENT_COST ? null : `Requires ${ELEMENT_COST} Focus.`},
+    {
+      kind: 'catch',
+      available: !battle.over && !battle.boss && save.orbs > 0,
+      reason: battle.boss ? 'Guardians cannot be captured.' : save.orbs < 1 ? 'No capture orbs available.' : null,
+    },
+    {
+      kind: 'potion',
+      available: !battle.over && save.potions > 0 && !full,
+      reason: save.potions < 1 ? 'No potions available.' : full ? 'Active companion is at full HP.' : null,
+    },
+    {kind: 'guard', available: !battle.over},
+    {
+      kind: 'switch',
+      available: !battle.over && targets.length > 0,
+      reason: targets.length ? null : 'No healthy teammate is available to switch in.',
+      targets: targets.map(id => species[id].id),
+    },
+  ];
 }
 
 /** The player's attack. kind: 'attack' (quick strike) | 'element'. Mutates battle.hp. */
@@ -103,10 +162,20 @@ export function usePotion(save) {
   return healed;
 }
 
+function useBattleItem(save, item, rules) {
+  if (!rules || !save.inventory) return null;
+  const healed = useInventory(save.inventory, item, {hp: companion(save).hp, maxHp: maxHP(save, save.active)}, rules);
+  if (!healed.ok) return null;
+  Object.assign(save, inventoryToSupplies(save.inventory, save, rules));
+  return healed;
+}
+
 /** Spends an orb; returns false if none is available or the target cannot be captured. */
-export function throwOrb(save, battle) {
+export function throwOrb(save, battle, rules) {
   if (battle.boss || save.orbs < 1) return false;
+  if (rules) syncInventorySupplies(save, rules);
   save.orbs--;
+  if (rules) syncInventorySupplies(save, rules);
   return true;
 }
 
@@ -122,32 +191,125 @@ export function lastEnemyAction(battle) {
   return battle.turn > 0 ? plan[(battle.turn - 1) % plan.length] : null;
 }
 
-/** The enemy's turn on the active companion. Advances the turn. `action` says what it did ('charge' and 'brace' do no damage). */
-export function enemyAttack(save, battle, rng) {
-  const action = nextEnemyAction(battle);
+function enemyDamageForRoll(save, battle, action, roll, guarded) {
   const element = action === 'element';
-  const interrupted = action === 'charge' && battle.disruptCharge === true;
-  delete battle.disruptCharge;
-  const eff = element ? effectiveness(battle.id, save.active) : 1;
   const attacks = action !== 'charge' && action !== 'brace';
   const foe = species[battle.id];
   const defender = species[save.active];
   const tactic = battle.boss ? TACTICS[battle.tactic] : null;
   const repeatElement = element && lastEnemyAction(battle) === 'element';
   const raw =
-    (7 + (foe.stats.attack - 10) * 0.4 + (battle.level - BASE_LEVEL) * 0.65 + rng() * 3) *
+    (7 + (foe.stats.attack - 10) * 0.4 + (battle.level - BASE_LEVEL) * 0.65 + roll * 3) *
     (element ? (moves[foe.move]?.power ?? 1) : 1) *
     (battle.boss ? 1.08 : 1) *
     (battle.power ?? 1) *
-    eff *
+    (element ? effectiveness(battle.id, save.active) : 1) *
     (action === 'heavy' ? HEAVY_FACTOR : 1) *
     (repeatElement ? (tactic?.repeatElementFactor ?? 1) : 1) *
     (1 - (defender.stats.defense - 10) / 100);
   const unguarded = attacks ? Math.max(2, Math.round(raw)) : 0;
-  const damage = attacks ? Math.max(2, Math.round(raw * (battle.guard ? GUARD_FACTOR : 1))) : 0;
+  const damage = attacks ? Math.max(2, Math.round(raw * (guarded ? GUARD_FACTOR : 1))) : 0;
+  const counter = guarded && action === 'heavy' ? Math.round((unguarded - damage) * (tactic?.guardRiposteFactor ?? 0)) : 0;
+  return {damage, counter, unguarded, element, raw};
+}
+
+/** The exact damage bounds for an enemy action, sharing its formula with enemyAttack. */
+export function enemyDamageRange(save, battle, action = nextEnemyAction(battle), guarded = false) {
+  if (!['strike', 'element', 'heavy'].includes(action)) return null;
+  const maxRoll = 1 - Number.EPSILON;
+  const low = enemyDamageForRoll(save, battle, action, 0, guarded);
+  const high = enemyDamageForRoll(save, battle, action, maxRoll, guarded);
+  let counter = {min: low.counter, max: high.counter};
+  if (guarded && action === 'heavy' && TACTICS[battle.tactic]?.guardRiposteFactor) {
+    // Rounded guarded and unguarded damage can make riposte damage briefly rise between endpoints.
+    // Sample both sides of every rounding boundary so the displayed range is exact, not just conservative.
+    const span = high.raw - low.raw;
+    const rolls = new Set([0, maxRoll]);
+    const thresholds = [];
+    for (let raw = Math.floor(low.raw) + 0.5; raw <= high.raw; raw += 1) thresholds.push(raw);
+    for (let guardedRaw = Math.floor(low.raw * GUARD_FACTOR) + 0.5; guardedRaw <= high.raw * GUARD_FACTOR; guardedRaw += 1)
+      thresholds.push(guardedRaw / GUARD_FACTOR);
+    for (const raw of thresholds) {
+      const at = (raw - low.raw) / span;
+      for (const offset of [-1e-9, 0, 1e-9]) {
+        const roll = at + offset;
+        if (roll >= 0 && roll <= maxRoll) rolls.add(roll);
+      }
+    }
+    const values = [...rolls].map(roll => enemyDamageForRoll(save, battle, action, roll, true).counter);
+    counter = {min: Math.min(...values), max: Math.max(...values)};
+  }
+  return {
+    damage: {min: low.damage, max: high.damage},
+    counter,
+    unguarded: {min: low.unguarded, max: high.unguarded},
+  };
+}
+
+function forecastResponses(save, battle, tactic, action, previous, future = false) {
+  return (tactic?.counterplay ?? [])
+    .filter(response => (!response.next || response.next === action) && (!response.previous || response.previous === previous))
+    .map(response => {
+      if (future) return {...response, available: null, targetIds: []};
+      if (response.action === 'element') return {...response, available: battle.focus >= ELEMENT_COST, targetIds: []};
+      if (response.action === 'switch') {
+        const current = effectiveness(battle.id, save.active);
+        const targetIds = save.party.filter(id => id !== save.active && companion(save, id).hp > 0 && effectiveness(battle.id, id) < current);
+        return {...response, available: targetIds.length > 0, targetIds};
+      }
+      return {...response, available: true, targetIds: []};
+    });
+}
+
+/** Structured, non-mutating facts for the guardian action that follows the player's choice. */
+export function guardianForecast(save, battle) {
+  if (!battle?.boss) return null;
+  const action = nextEnemyAction(battle);
+  const previous = lastEnemyAction(battle);
+  const tactic = TACTICS[battle.tactic];
+  const pattern = planOf(battle.tactic);
+  const nextAction = pattern[(battle.turn + 1) % pattern.length];
+  const brace = action === 'brace';
+  const charge = action === 'charge';
+  return {
+    action,
+    previous,
+    nextAction,
+    damage: enemyDamageRange(save, battle, action, false),
+    guardedDamage: enemyDamageRange(save, battle, action, true),
+    brace: brace
+      ? {
+          quickFactor: tactic?.braceQuickFactor ?? BRACE_FACTOR,
+          elementFactor: tactic?.braceElementFactor ?? BRACE_FACTOR,
+          elementCost: ELEMENT_COST,
+          focusGain: FOCUS_GAIN,
+        }
+      : null,
+    charge: charge
+      ? {
+          recoveryFactor: tactic?.recoveryOnCharge ?? 0,
+          recoveryMax: tactic?.recoveryOnCharge ? Math.ceil(battle.max * tactic.recoveryOnCharge) : 0,
+          interruptAction: tactic?.chargeInterruptedBy ?? null,
+          interruptCost: tactic?.chargeInterruptedBy === 'element' ? ELEMENT_COST : 0,
+          interruptAvailable: tactic?.chargeInterruptedBy === 'element' && battle.focus >= ELEMENT_COST,
+        }
+      : null,
+    repeatedElementFactor: action === 'element' && previous === 'element' && tactic?.repeatElementFactor > 1 ? tactic.repeatElementFactor : 1,
+    responses: forecastResponses(save, battle, tactic, action, previous),
+    followupResponses: forecastResponses(save, battle, tactic, nextAction, action, true),
+  };
+}
+
+/** The enemy's turn on the active companion. Advances the turn. `action` says what it did ('charge' and 'brace' do no damage). */
+export function enemyAttack(save, battle, rng) {
+  const action = nextEnemyAction(battle);
+  const interrupted = action === 'charge' && battle.disruptCharge === true;
+  delete battle.disruptCharge;
+  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  // Keep one draw per enemy turn, including brace/charge, so existing seeded battles stay deterministic.
+  const {damage, counter, element} = enemyDamageForRoll(save, battle, action, rng(), battle.guard);
   const c = companion(save);
   c.hp = Math.max(0, c.hp - damage);
-  const counter = battle.guard && action === 'heavy' ? Math.round((unguarded - damage) * (tactic?.guardRiposteFactor ?? 0)) : 0;
   if (counter > 0) battle.hp = Math.max(0, battle.hp - counter);
   const recovered =
     action === 'charge' && !interrupted && tactic?.recoveryOnCharge && battle.hp > 0
@@ -174,20 +336,44 @@ export function resolveWin(save, battle, rng, ctx = {}) {
   const newSeal = battle.boss && !save.badges.includes(save.region);
   const seal = ctx.sealReward ?? {coins: 60, potions: 2, xp: 65}; // from the shrine in the map data
   const [lo, hi] = REWARDS.wild.coins;
-  const coins = newSeal ? seal.coins : battle.boss ? REWARDS.guardianRepeat.coins : lo + Math.floor(rng() * (hi - lo + 1));
-  const xp = newSeal ? seal.xp : battle.boss ? REWARDS.guardianRepeat.xp : REWARDS.wild.xp;
+  const responses = (TACTICS[battle.tactic]?.counterplay ?? []).filter(response => battle.counterplay?.includes(response.id));
+  const responseBonus = responses.reduce(
+    (sum, response) => ({
+      coins: sum.coins + (response.reward?.coins ?? 0),
+      potions: sum.potions + (response.reward?.potions ?? 0),
+      xp: sum.xp + (response.reward?.xp ?? 0),
+    }),
+    {coins: 0, potions: 0, xp: 0},
+  );
+  const coins = (newSeal ? seal.coins : battle.boss ? REWARDS.guardianRepeat.coins : lo + Math.floor(rng() * (hi - lo + 1))) + responseBonus.coins;
+  const xp = (newSeal ? seal.xp : battle.boss ? REWARDS.guardianRepeat.xp : REWARDS.wild.xp) + responseBonus.xp;
+  const itemRewards = battle.boss ? [] : inventoryDrop(save, 'wild-win', `defeat-${battle.id}-${save.wins + 1}`, rng, ctx.inventoryRules);
   save.wins++;
-  const got = grant(save, {coins, potions: newSeal ? seal.potions : 0});
+  const got = grant(save, {coins, potions: (newSeal ? seal.potions : 0) + responseBonus.potions});
+  if (ctx.inventoryRules) syncInventorySupplies(save, ctx.inventoryRules);
   const xpText = awardXP(save, xp).text;
   if (newSeal) {
     save.badges.push(save.region);
     healTeam(save);
   }
-  return {newSeal, reward: got.coins, xp, potions: got.potions, xpText, id: battle.id, boss: battle.boss};
+  return {
+    newSeal,
+    reward: got.coins,
+    xp,
+    potions: got.potions,
+    xpText,
+    id: battle.id,
+    boss: battle.boss,
+    responseLabels: responses.map(response => response.label),
+    responseCoins: responseBonus.coins,
+    responseXp: responseBonus.xp,
+    responsePotions: responseBonus.potions,
+    itemRewards,
+  };
 }
 
 /** Applies a successful capture. */
-export function resolveCapture(save, battle) {
+export function resolveCapture(save, battle, ctx = {}, rng = () => 0.5) {
   const id = battle.id;
   const isNew = !save.caught.includes(id);
   let joined = null;
@@ -198,10 +384,12 @@ export function resolveCapture(save, battle) {
     save.team[id] = {xp: Math.max(0, battle.level - BASE_LEVEL) * XP_PER_LEVEL, hp: 0};
     save.team[id].hp = maxHP(save, id);
   }
+  const itemRewards = inventoryDrop(save, 'capture', `capture-${battle.id}-${save.wins + 1}`, rng, ctx.inventoryRules);
   const xpText = awardXP(save, REWARDS.capture.xp).text;
   const got = grant(save, {coins: REWARDS.capture.coins});
+  if (ctx.inventoryRules) syncInventorySupplies(save, ctx.inventoryRules);
   save.wins++;
-  return {isNew, id, joined, xpText, coins: got.coins, xp: REWARDS.capture.xp};
+  return {isNew, id, joined, xpText, coins: got.coins, xp: REWARDS.capture.xp, itemRewards};
 }
 
 /** A lost battle: heal everyone; the controller moves the player to camp. */
@@ -228,6 +416,7 @@ export const battleCheckpoint = battle =>
         focus: battle.focus,
         tactic: battle.tactic,
         power: battle.power,
+        counterplay: battle.counterplay ?? [],
       }
     : null;
 
@@ -252,28 +441,36 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
     } else gainFocus(battle);
     battle.disruptCharge = action.kind === 'element' && nextEnemyAction(battle) === 'charge' && TACTICS[battle.tactic]?.chargeInterruptedBy === 'element';
     const strike = playerStrike(save, battle, action.kind, rng);
+    recordCounterplay(save, battle, action, {enemyWillAct: !strike.defeated});
     push({type: 'strike', ...strike});
     if (strike.defeated) {
       ended = 'win';
       push({type: 'win', ...resolveWin(save, battle, rng, ctx)});
     }
   } else if (action.kind === 'catch') {
-    if (!throwOrb(save, battle)) return null;
+    if (!throwOrb(save, battle, ctx.inventoryRules)) return null;
     push({type: 'throw'});
     if (rng() < captureChance(save, battle)) {
       ended = 'caught';
-      push({type: 'caught', ...resolveCapture(save, battle)});
+      push({type: 'caught', ...resolveCapture(save, battle, ctx, rng)});
     } else push({type: 'break-free'});
   } else if (action.kind === 'potion') {
-    const healed = usePotion(save);
+    const item = ctx.inventoryRules?.supplies?.potions;
+    const healed = item ? useBattleItem(save, item, ctx.inventoryRules) : usePotion(save);
     if (healed === null) return null;
-    push({type: 'potion', healed});
+    push({type: item ? 'item' : 'potion', item, healed: item ? healed.healed : healed});
+  } else if (action.kind === 'item') {
+    const healed = useBattleItem(save, action.id, ctx.inventoryRules);
+    if (healed === null) return null;
+    push({type: 'item', item: action.id, healed: healed.healed});
   } else if (action.kind === 'guard') {
     battle.guard = true;
     gainFocus(battle);
+    recordCounterplay(save, battle, action);
     push({type: 'guard'});
   } else if (action.kind === 'switch') {
     if (!save.party.includes(action.id) || action.id === save.active || companion(save, action.id).hp <= 0) return null;
+    recordCounterplay(save, battle, action);
     save.active = action.id;
     push({type: 'switch', id: action.id});
   } else return null;

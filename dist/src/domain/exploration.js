@@ -1,6 +1,6 @@
 /* Pure movement and encounter pacing. */
-import {FOLLOW_GAP, MOVE_STEP} from '../config.js';
-import {isWalkable, nearestWalkable, zoneAt} from './world.js';
+import {FOLLOW_GAP, MOVE_STEP, PLAYER_RADIUS} from '../config.js';
+import {isWalkable, nearestWalkable, objectsInBounds, zoneAt} from './world.js';
 
 export const WALK_SPEED = 2.8;
 export const RUN_SPEED = 4.7;
@@ -9,7 +9,8 @@ export const RUN_SPEED = 4.7;
 export const DIRECTIONS = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
 export const FACING = Object.freeze(Object.fromEntries(DIRECTIONS.map((name, index) => [name, index])));
 export const WALK_FRAME_DISTANCE = 0.56;
-export const FOLLOWER_FRAME_DISTANCE = 0.72;
+// Followers travel at the player's pace. Sharing the stride distance keeps both gaits phase-stable as zoom changes.
+export const FOLLOWER_FRAME_DISTANCE = WALK_FRAME_DISTANCE;
 
 /** Sprite-sheet column for the current animation state; running advances faster through its greater travel. */
 export function playerFrame(distance, moving, reducedMotion = false, frameDistance = WALK_FRAME_DISTANCE) {
@@ -102,6 +103,35 @@ function moveSlice(state, sx, sy, run, dt) {
     return candidate;
   };
   const candidates = [resolve([worldX, worldY]), resolve([worldY, worldX]), resolve([horizontal, vertical]), resolve([vertical, horizontal])];
+  // Axis separation can still stop at a curved prop when every fixed axis
+  // component points into it. Add the true tangent of nearby circular props
+  // so the player can keep moving along a house or tree boundary.
+  const searchRadius = (world.maxSolid ?? 0) + PLAYER_RADIUS + Math.hypot(target.x - before.x, target.y - before.y);
+  const nearby = objectsInBounds(world, {
+    minX: before.x - searchRadius,
+    minY: before.y - searchRadius,
+    maxX: before.x + searchRadius,
+    maxY: before.y + searchRadius,
+  });
+  const dx = target.x - before.x;
+  const dy = target.y - before.y;
+  for (const object of nearby) {
+    if (!object.solid) continue;
+    const nx = before.x - object.x;
+    const ny = before.y - object.y;
+    const distance = Math.hypot(nx, ny);
+    const radius = object.solid + PLAYER_RADIUS;
+    if (distance < 1e-9 || distance > radius + Math.hypot(dx, dy)) continue;
+    const normalX = nx / distance;
+    const normalY = ny / distance;
+    const intoWall = dx * normalX + dy * normalY;
+    if (intoWall >= 0) continue;
+    const slideX = dx - intoWall * normalX;
+    const slideY = dy - intoWall * normalY;
+    if (Math.hypot(slideX, slideY) < 1e-8) continue;
+    const slide = {x: before.x + slideX, y: before.y + slideY};
+    if (isWalkable(world, slide.x, slide.y)) candidates.push(slide);
+  }
   const error = candidate => Math.hypot(target.x - candidate.x, target.y - candidate.y);
   const resolved = candidates.reduce((best, candidate) => (error(candidate) < error(best) - 1e-9 ? candidate : best));
   player.x = resolved.x;

@@ -383,7 +383,7 @@
       "id": "interactable:scene-event",
       "kind": "interactable",
       "name": "Authored scene event",
-      "summary": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+      "summary": "Run validated dialogue, rewards, flags, challenges and bounded actor choreography on interaction.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -395,12 +395,16 @@
         }
       ],
       "dependencies": [],
-      "limits": ["No arbitrary movement or sleep choreography action.", "Scene event history is limited to 256 entries."],
+      "limits": [
+        "Choreography supports sequential moves, facing, three reaction cues and waits; no parallel groups or custom animation scripts.",
+        "Movement is limited to 128 steps and 4096 inspected cells per destination; waits to 5 seconds.",
+        "Scene event history is limited to 256 entries."
+      ],
       "examples": [
         {
-          "intent": "Run validated dialogue, reward, flag or challenge actions on interaction.",
+          "intent": "Run validated dialogue, rewards, flags, challenges and bounded actor choreography on interaction.",
           "usage": "Consult dist/src/domain/scenes.js and reuse the existing definition.",
-          "expected": "Run validated dialogue, reward, flag or challenge actions on interaction."
+          "expected": "Resolve bounded actor actions and commit durable scene results before transient presentation."
         }
       ],
       "references": ["dist/src/domain/scenes.js"],
@@ -413,30 +417,30 @@
       "details": {
         "activation": "Existing map scene interaction dispatch.",
         "conditions": "Optional when condition evaluated through objective conditions.",
-        "actions": "Dialogue, reward, flag and challenge; challenge must be last.",
+        "actions": "Dialogue, reward, flag, challenge, move, face, wait and react; challenge must be last. See docs/SCENE_ACTIONS.md for choreography limits.",
         "rewards": "Scene rewards accept coins, potions and orbs, not arbitrary inventory item IDs.",
         "repetition": "Explicit repeatable boolean; challenge events must be repeatable.",
-        "persistence": "Non-repeatable events use saved map/event keys; caller persists the action transaction."
+        "persistence": "Non-repeatable events use saved map/event keys; rewards and flags commit before choreography and roll back if saving fails."
       }
     },
     {
       "id": "item:battle-potion",
       "kind": "item",
       "name": "Battle potion",
-      "summary": "Consume a potion in battle to heal the active companion by up to 24 HP.",
+      "summary": "Consume the configured battle potion in battle to heal the active companion by its pack-defined effect.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
       "limits": [
-        "Percentage-heal inventory metadata does not establish live percentage healing.",
+        "Healing is capped at the companion's maximum HP and requires an available mapped supply.",
         "Does not increase player speed or confer a three-battle buff."
       ],
       "examples": [
         {
-          "intent": "Consume a potion in battle to heal the active companion by up to 24 HP.",
+          "intent": "Consume a potion in battle to apply the selected pack's healing effect.",
           "usage": "Consult dist/src/domain/battle.js and reuse the existing definition.",
-          "expected": "Consume a potion in battle to heal the active companion by up to 24 HP."
+          "expected": "Consume one mapped potion and heal the active companion according to its pack definition."
         }
       ],
       "references": ["dist/src/domain/battle.js"],
@@ -450,7 +454,7 @@
         "contexts": "Battle action; no claim of an exploration-use interface.",
         "targets": "Active companion.",
         "consumption": "Consumes one available potion on successful use.",
-        "strength": "24 HP, capped by maximum HP.",
+        "strength": "Pack-defined effect, capped by maximum HP.",
         "duration": "Immediate healing; no ongoing effect.",
         "stacking": "Repeated uses heal again up to max HP; no buff stacking.",
         "persistence": "Remaining supplies and health use the existing battle/save transaction."
@@ -3120,6 +3124,7 @@
             "w": 38,
             "label": "Read the shallow-cut marker",
             "mapLabel": "Shallow-water cut",
+            "routeHint": "shallow-water-cut",
             "text": "Brooklet can lead across the shallow-water cut to Lantern Islet. The familiar boardwalk to Stilt Isles remains open for every companion."
           },
           "limits": "Configure through dist/maps/reedfen-wetlands.json; use its existing validator, not arbitrary new fields."
@@ -3964,6 +3969,109 @@
       }
     },
     {
+      "id": "landmark:the-fernling-at-dusk/start/chest",
+      "kind": "interactable",
+      "name": "the fernling at dusk/start/chest",
+      "summary": "Open the trail chest (chest) on Sunlit Trail — Dusk.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "chest",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [9, 5],
+            "w": 42,
+            "label": "Open the trail chest",
+            "flag": "start.chest",
+            "reward": {
+              "coins": 8,
+              "potions": 1,
+              "orbs": 2
+            }
+          },
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/maps/start.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-wooden"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail chest (chest) on Sunlit Trail — Dusk.",
+          "usage": "Reference the-fernling-at-dusk/start/chest in the existing format at tests/fixtures/packs/the-fernling-at-dusk/maps/start.json.",
+          "expected": "Open the trail chest (chest) on Sunlit Trail — Dusk."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/maps/start.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:the-fernling-at-dusk/start/traveler",
+      "kind": "interactable",
+      "name": "Traveler",
+      "summary": "Traveler (sign) on Sunlit Trail — Dusk.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "traveler",
+            "kind": "sign",
+            "sprite": "person-traveler",
+            "at": [6, 3],
+            "w": 37,
+            "name": "Traveler",
+            "tag": "TRAVELER",
+            "label": "Speak with the traveler",
+            "text": "Evening. Your companion usually stirs at every rustle, but tonight it is watching the hill."
+          },
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/maps/start.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:person-traveler"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Traveler (sign) on Sunlit Trail — Dusk.",
+          "usage": "Reference the-fernling-at-dusk/start/traveler in the existing format at tests/fixtures/packs/the-fernling-at-dusk/maps/start.json.",
+          "expected": "Traveler (sign) on Sunlit Trail — Dusk."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/maps/start.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
       "id": "map:bakery-row/bakery-lane",
       "kind": "environment",
       "name": "Bakery Row",
@@ -4393,6 +4501,45 @@
       }
     },
     {
+      "id": "map:the-fernling-at-dusk/start",
+      "kind": "environment",
+      "name": "Sunlit Trail — Dusk",
+      "summary": "Sunlit Trail — Dusk: 12 by 8 authored map.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/maps/start.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Coordinates and connections belong to the referenced map file; do not copy a summary as executable map data."],
+      "examples": [
+        {
+          "intent": "Sunlit Trail — Dusk: 12 by 8 authored map.",
+          "usage": "Reference the-fernling-at-dusk/start in the existing format at tests/fixtures/packs/the-fernling-at-dusk/maps/start.json.",
+          "expected": "Sunlit Trail — Dusk: 12 by 8 authored map."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/maps/start.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "biome": "meadow",
+        "connections": "[]",
+        "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
+        "spawns": "{\"camp\":[3,5]}",
+        "access": "Pack progression/region and exit conditions determine access; validate all required routes."
+      }
+    },
+    {
       "id": "mechanic:brief-scaffold",
       "kind": "mechanic",
       "name": "Structured brief scaffold",
@@ -4464,34 +4611,74 @@
       "id": "mechanic:companion-route",
       "kind": "mechanic",
       "name": "Companion route gate",
-      "summary": "Optionally unlock a shallow-water route with a compatible companion.",
+      "summary": "Discover and unlock a concealed optional route by approaching it with a compatible companion.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [],
       "dependencies": [],
-      "limits": ["This is not free-form flying, swimming or arbitrary companion interaction."],
+      "limits": [
+        "Discovery uses a 2.5-tile approach radius and the active companion's authored ability/habitat tags.",
+        "This is not free-form flying, swimming or arbitrary companion interaction."
+      ],
       "examples": [
         {
-          "intent": "Optionally unlock a shallow-water route with a compatible companion.",
-          "usage": "Use the existing contract documented at dist/src/domain/world.js.",
-          "expected": "Optionally unlock a shallow-water route with a compatible companion."
+          "intent": "Discover a secret shortcut with the companion whose abilities fit the route.",
+          "usage": "Author an exit route in a map, optionally link clue signs with routeHint, then approach within 2.5 tiles while the matching companion is active.",
+          "expected": "The route, clue sign and map marker appear after discovery; the route event and reward are saved once, and the route remains usable with any companion."
         }
       ],
-      "references": ["dist/src/domain/world.js"],
+      "references": ["dist/src/domain/companion-routes.js", "docs/MAP_FORMAT.md", "dist/maps/reedfen-wetlands.json"],
       "evidence": [
         {
           "path": "tests/companion-route.browser.mjs",
-          "assertion": "Existing regression evidence for this capability."
+          "assertion": "Covers hidden/ineligible states, eligible approach, saved discovery/reward, reload and alternate-route recovery."
         }
       ],
       "details": {
-        "trigger": "Interact with the authored route gate.",
-        "inputs": "Required companion ability/habitat tags and validated route data.",
-        "sequence": "Check eligibility, unlock route and grant existing reward once.",
-        "results": "The optional route becomes traversable without removing the alternate path.",
+        "trigger": "Move within 2.5 tiles of the authored route with a matching active companion.",
+        "inputs": "Required companion ability/habitat tags, validated route data and optional linked sign routeHint.",
+        "sequence": "Keep the route, linked hints and map marker concealed until eligible approach; save its stable event and grant the reward once.",
+        "results": "The optional route and linked hint become visible and remain traversable by every companion without removing the alternate path.",
         "cancellation": "Ineligible companion keeps the normal boardwalk available.",
         "errors": "Unknown route references fail map validation.",
-        "persistence": "Unlock/reward use saved scene event keys."
+        "persistence": "Unlock/reward use saved scene event keys; legacy exploration markers alone do not reveal the route."
+      }
+    },
+    {
+      "id": "mechanic:elemental-combat-presentation",
+      "kind": "mechanic",
+      "name": "Elemental combat presentation",
+      "summary": "Show a distinct, type-colored elemental burst when a companion uses its special move.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "The burst reuses the optional five-state combat atlas and falls back to the static portrait when a pack has no combat sheet.",
+        "It does not change damage, timing, saves or battle outcomes."
+      ],
+      "examples": [
+        {
+          "intent": "Use the companion's elemental move during a battle.",
+          "usage": "Reuse the existing Element action; the presentation derives its color from the companion type.",
+          "expected": "The ally uses the elemental motion and a type-colored burst while the enemy receives the normal hit reaction."
+        }
+      ],
+      "references": ["dist/src/controller.js", "dist/src/render/sprites.js", "dist/src/ui/battle-view.js"],
+      "evidence": [
+        {
+          "path": "tests/creature-combat.browser.mjs",
+          "assertion": "Battle playback distinguishes Quick strike and Element, and reduced motion pins the elemental presentation to one frame."
+        }
+      ],
+      "details": {
+        "trigger": "A resolved battle action with kind element.",
+        "inputs": "The existing companion type and optional five-state combat atlas.",
+        "sequence": "Render the attack row with a deterministic expanding type-colored burst and the elemental lunge motion.",
+        "results": "The ally's elemental move reads differently from Quick strike while the enemy receives the normal hit reaction.",
+        "cancellation": "The existing animation cancellation replaces the effect when the battle view changes.",
+        "errors": "Packs without combat atlases fall back to the static portrait; unsupported types use the shared green fallback color.",
+        "persistence": "Presentation-only; battle rules and saved outcomes are unchanged."
       }
     },
     {
@@ -4526,6 +4713,47 @@
         "cancellation": "Follow existing lifecycle; no subscription bus is promised.",
         "errors": "Use existing event data contract.",
         "persistence": "Debug log is not a second save codec."
+      }
+    },
+    {
+      "id": "mechanic:guardian-counterplay",
+      "kind": "mechanic",
+      "name": "Guardian counterplay rewards",
+      "summary": "Show the next guardian action and matchup-based damage, then reward a valid tactical response when the fight is won.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Damage is a random-roll range for the current active companion; switching changes the matchup and forecast.",
+        "Bonuses are granted once per qualifying response in one guardian fight; they do not make any single creature mandatory. A response that requires a later enemy action is not credited if the guardian is defeated first."
+      ],
+      "examples": [
+        {
+          "intent": "Read a guardian's next action, compare current and Guard damage, and choose a response before its turn.",
+          "usage": "Configure counterplay in a tactic under dist/maps/registries.json and use the existing Guard action.",
+          "expected": "The forecast identifies action order, damage ranges, current Focus or response availability; a qualifying response is named with bonus coins and XP on victory."
+        }
+      ],
+      "references": ["dist/maps/registries.json", "dist/src/domain/battle.js", "dist/src/save.js", "dist/src/controller.js"],
+      "evidence": [
+        {
+          "path": "tests/guardians.test.mjs",
+          "assertion": "Damage-range parity with the resolver; brace, repeated-element, charge and heavy timing; response qualification, payout, checkpoint persistence and invalid-ID filtering."
+        },
+        {
+          "path": "tests/guardian-forecast.browser.mjs",
+          "assertion": "Forecast remains legible in keyboard, touch, reduced-motion and fullscreen browser states."
+        }
+      ],
+      "details": {
+        "trigger": "While a guardian battle is idle, the interface previews its next tactic action and any relevant response window.",
+        "inputs": "The deterministic tactic pattern position, species damage formula, current active matchup, Guard factor, Focus, party health and configured response conditions.",
+        "sequence": "Derive the upcoming action, unguarded and guarded random damage ranges, brace or charge effects and matching responses without mutating battle state. The existing resolver independently records only qualifying player actions and pays recorded bonuses on victory.",
+        "results": "The battle panel explains whether the guardian acts after the player's choice, the current ally's damage range, Guard reduction/riposte, Focus cost, next brace/charge consequence, and any available response reward.",
+        "cancellation": "The forecast is hidden while an action resolves or the battle ends. A lost or abandoned fight pays no response bonus; a saved interrupted fight retains recorded responses. A response requiring the guardian's next action is not recorded if the player's action defeats it first.",
+        "errors": "Unknown response IDs in a saved battle are discarded during normalization.",
+        "persistence": "The forecast is derived and adds no save fields. Recorded response IDs remain part of the existing battle checkpoint and compatible with older saves."
       }
     },
     {
@@ -4634,7 +4862,10 @@
       "scope": "core",
       "configuration": [],
       "dependencies": [],
-      "limits": ["No autonomous NPC schedules, free navigation commands or speed-potion mechanic."],
+      "limits": [
+        "No autonomous NPC schedules, free navigation commands or speed-potion mechanic.",
+        "The movement HUD follows the primary pointer initially and actual movement input afterward; screen width alone does not choose touch controls."
+      ],
       "examples": [
         {
           "intent": "Move the player with footprint-aware collision and trail-following companions.",
@@ -4642,21 +4873,25 @@
           "expected": "Move the player with footprint-aware collision and trail-following companions."
         }
       ],
-      "references": ["dist/src/domain/exploration.js"],
+      "references": ["dist/src/domain/exploration.js", "dist/src/input.js", "docs/MOVEMENT.md"],
       "evidence": [
         {
           "path": "tests/obstacle-sliding.browser.mjs",
           "assertion": "Existing regression evidence for this capability."
+        },
+        {
+          "path": "tests/input-mode.browser.mjs",
+          "assertion": "Actual keyboard, touch drag and mouse gestures verify contextual movement controls, hybrid capability, focus recovery and no stuck movement."
         }
       ],
       "details": {
         "trigger": "Keyboard or touch movement input.",
         "inputs": "Direction, run setting and injected elapsed time.",
-        "sequence": "Move with existing collision/sliding checks; push companion trail.",
+        "sequence": "Choose the temporary movement HUD from actual input, release held input on method changes, then move with existing collision/sliding checks and push the companion trail.",
         "results": "Player/follower exploration in authored maps.",
-        "cancellation": "Pause/dialogue/touch interruption uses existing controller/input rules.",
+        "cancellation": "Input-method changes, pause/dialogue and touch interruptions release movement using existing input/controller rules.",
         "errors": "Invalid positions remain blocked by world walkability.",
-        "persistence": "Player/map position persists through existing exploration save flow."
+        "persistence": "Player/map position persists through the existing exploration save flow; the input method is temporary presentation state, not adventure-save data."
       }
     },
     {
@@ -4720,6 +4955,49 @@
         "cancellation": "Failed writes preserve recovery data and report failure.",
         "errors": "Invalid identities/schema do not silently overwrite unreadable progress.",
         "persistence": "Schema v5; stable string IDs at storage boundary."
+      }
+    },
+    {
+      "id": "mechanic:scene-choreography",
+      "kind": "mechanic",
+      "name": "Scene choreography",
+      "summary": "Stage bounded actor movement, facing, reactions and waits before dialogue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": ["interactable:scene-event"],
+      "limits": [
+        "Sequential player and ranger movement only; no parallel groups or custom animation scripts.",
+        "Each destination is limited to 128 steps and 4096 inspected cells; waits are at most 5 seconds."
+      ],
+      "examples": [
+        {
+          "intent": "Stage two actors approaching and facing before a conversation.",
+          "usage": "Consult docs/SCENE_ACTIONS.md and validate the event against the map.",
+          "expected": "Supported moves complete, report blocked/cancelled explicitly, then show dialogue when the UI remains available."
+        }
+      ],
+      "references": [
+        "docs/SCENE_ACTIONS.md",
+        "dist/src/domain/scenes.js",
+        "dist/src/domain/scene-path.js",
+        "dist/src/controller.js",
+        "dist/src/render/world.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scenes.test.mjs",
+          "assertion": "Covers bounded routes, walkable destinations, actor validation and explicit arrival/block results."
+        }
+      ],
+      "details": {
+        "trigger": "Validated map scene event.",
+        "inputs": "Player and ranger landmark IDs, integer walkable destinations, supported face targets, notice/surprise/happy reactions, and bounded waits.",
+        "sequence": "Actions run in authored order; each movement settles before the next action.",
+        "results": "Movement reports arrived, blocked or cancelled. Player directions and four ranger facings use shipped sprite poses.",
+        "cancellation": "Pause, menu, map travel, battle, hidden tab and page exit release movement ownership and cancel timers.",
+        "errors": "Missing actor, invalid destination, blocked route or unsupported action is rejected or reported; no rescue teleport is used.",
+        "persistence": "One-time event keys, flags and rewards save before presentation; a failed save restores the prior save state."
       }
     },
     {
@@ -5524,6 +5802,88 @@
       }
     },
     {
+      "id": "narrative:the-fernling-at-dusk/objectives",
+      "kind": "mechanic",
+      "name": "The Fernling at Dusk objectives",
+      "summary": "Existing objectives data for The Fernling at Dusk; conditions/dialogue follow the shared vocabulary.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/objectives.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Existing objectives data for The Fernling at Dusk; conditions/dialogue follow the shared vocabulary.",
+          "usage": "Reference the-fernling-at-dusk/objectives in the existing format at tests/fixtures/packs/the-fernling-at-dusk/objectives.json.",
+          "expected": "Existing objectives data for The Fernling at Dusk; conditions/dialogue follow the shared vocabulary."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/objectives.json"],
+      "evidence": [
+        {
+          "path": "tests/objectives.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Use current validated The Fernling at Dusk objectives objective/story definitions. Script intent must be translated into supported actions.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "narrative:the-fernling-at-dusk/story",
+      "kind": "mechanic",
+      "name": "The Fernling at Dusk story",
+      "summary": "Existing story data for The Fernling at Dusk; conditions/dialogue follow the shared vocabulary.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/story.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Existing story data for The Fernling at Dusk; conditions/dialogue follow the shared vocabulary.",
+          "usage": "Reference the-fernling-at-dusk/story in the existing format at tests/fixtures/packs/the-fernling-at-dusk/story.json.",
+          "expected": "Existing story data for The Fernling at Dusk; conditions/dialogue follow the shared vocabulary."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/story.json"],
+      "evidence": [
+        {
+          "path": "tests/story.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Use current validated The Fernling at Dusk story objective/story definitions. Script intent must be translated into supported actions.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
       "id": "pack:bakery-row",
       "kind": "mechanic",
       "name": "Bakery Row",
@@ -5682,6 +6042,47 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Independent pack Mossvale, with the referenced registries/maps and existing runtime.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "pack:the-fernling-at-dusk",
+      "kind": "mechanic",
+      "name": "The Fernling at Dusk",
+      "summary": "Meet a traveler, hear about the quiet trail, and open an optional chest.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/index.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Meet a traveler, hear about the quiet trail, and open an optional chest.",
+          "usage": "Reference the-fernling-at-dusk in the existing format at tests/fixtures/packs/the-fernling-at-dusk/index.json.",
+          "expected": "Meet a traveler, hear about the quiet trail, and open an optional chest."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/index.json"],
+      "evidence": [
+        {
+          "path": "tests/packs.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Independent pack The Fernling at Dusk, with the referenced registries/maps and existing runtime.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Stable pack identity isolates saves and recovery."
@@ -6152,6 +6553,56 @@
       ],
       "details": {
         "biome": "wetland",
+        "connections": "Region metadata groups maps; it is not a map exit graph.",
+        "walkability": "Region appearance/palette does not grant walkability; consult map collision data.",
+        "spawns": "Placed by map spawn definitions, not this region entry.",
+        "access": "Existing milestone/progression rules; see pack manifest."
+      }
+    },
+    {
+      "id": "region:the-fernling-at-dusk/start",
+      "kind": "environment",
+      "name": "Dusk Trail",
+      "summary": "Meet a traveler, listen to a mystery and explore at your own pace.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "start",
+            "name": "Dusk Trail",
+            "short": "Dusk Trail",
+            "subtitle": "A quiet path at the edge of evening.",
+            "tag": "DUSK TRAIL",
+            "palette": ["#86ae70", "#97b76a", "#8aa55c", "#d6c08b", "#4e9c9a", "#577b48"],
+            "seal": "Trail mark",
+            "desc": "Meet a traveler, listen to a mystery and explore at your own pace.",
+            "preview": "tree-oak",
+            "biome": "meadow"
+          },
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:tree-oak"],
+      "limits": ["Keep region and map IDs distinct even when their strings coincide."],
+      "examples": [
+        {
+          "intent": "Meet a traveler, listen to a mystery and explore at your own pace.",
+          "usage": "Reference the-fernling-at-dusk/start in the existing format at tests/fixtures/packs/the-fernling-at-dusk/registries.json.",
+          "expected": "Meet a traveler, listen to a mystery and explore at your own pace."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "biome": "meadow",
         "connections": "Region metadata groups maps; it is not a map exit graph.",
         "walkability": "Region appearance/palette does not grant walkability; consult map collision data.",
         "spawns": "Placed by map spawn definitions, not this region entry.",
@@ -6973,6 +7424,211 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Configure the existing validated Mossvale tactics registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/battle",
+      "kind": "mechanic",
+      "name": "The Fernling at Dusk battle",
+      "summary": "Validated battle tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated battle tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+          "usage": "Reference the-fernling-at-dusk/battle in the existing format at tests/fixtures/packs/the-fernling-at-dusk/registries.json.",
+          "expected": "Validated battle tuning for The Fernling at Dusk; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated The Fernling at Dusk battle registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/economy",
+      "kind": "mechanic",
+      "name": "The Fernling at Dusk economy",
+      "summary": "Validated economy tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated economy tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+          "usage": "Reference the-fernling-at-dusk/economy in the existing format at tests/fixtures/packs/the-fernling-at-dusk/registries.json.",
+          "expected": "Validated economy tuning for The Fernling at Dusk; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated The Fernling at Dusk economy registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/moves",
+      "kind": "mechanic",
+      "name": "The Fernling at Dusk moves",
+      "summary": "Validated moves tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated moves tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+          "usage": "Reference the-fernling-at-dusk/moves in the existing format at tests/fixtures/packs/the-fernling-at-dusk/registries.json.",
+          "expected": "Validated moves tuning for The Fernling at Dusk; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated The Fernling at Dusk moves registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/progression",
+      "kind": "mechanic",
+      "name": "The Fernling at Dusk progression",
+      "summary": "Validated progression tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated progression tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+          "usage": "Reference the-fernling-at-dusk/progression in the existing format at tests/fixtures/packs/the-fernling-at-dusk/registries.json.",
+          "expected": "Validated progression tuning for The Fernling at Dusk; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated The Fernling at Dusk progression registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:the-fernling-at-dusk/tactics",
+      "kind": "mechanic",
+      "name": "The Fernling at Dusk tactics",
+      "summary": "Validated tactics tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated tactics tuning for The Fernling at Dusk; configure existing rules, not new mechanics.",
+          "usage": "Reference the-fernling-at-dusk/tactics in the existing format at tests/fixtures/packs/the-fernling-at-dusk/registries.json.",
+          "expected": "Validated tactics tuning for The Fernling at Dusk; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated The Fernling at Dusk tactics registry rules. Do not introduce new effects solely by naming them.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Stable pack identity isolates saves and recovery."
@@ -9053,6 +9709,64 @@
       }
     },
     {
+      "id": "species:the-fernling-at-dusk/fernling",
+      "kind": "actor",
+      "name": "Fernling",
+      "summary": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "fernling",
+            "name": "Fernling",
+            "type": "Leaf",
+            "stats": {
+              "hp": 42,
+              "attack": 10,
+              "defense": 10
+            },
+            "move": "leaf-burst",
+            "biome": "meadow",
+            "role": "Balanced trailblazer",
+            "personality": "Curious and brave; it tests every new path before the rest of the team.",
+            "desc": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+            "encounterHint": "Start in the meadow tall grass, close to camp.",
+            "strong": [],
+            "weak": [],
+            "color": "#bade7e",
+            "hp": 42,
+            "sprite": "creature-fernling"
+          },
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-fernling"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+          "usage": "Reference the-fernling-at-dusk/fernling in the existing format at tests/fixtures/packs/the-fernling-at-dusk/registries.json.",
+          "expected": "A little fox that naps beneath the ferns and wakes at the first rustle."
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A little fox that naps beneath the ferns and wakes at the first rustle. Portrait reference: creature-fernling.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
       "id": "terrain-art:bridge-reed-a",
       "kind": "mechanic",
       "name": "bridge reed a",
@@ -11103,6 +11817,50 @@
       }
     },
     {
+      "id": "type:the-fernling-at-dusk/leaf",
+      "kind": "mechanic",
+      "name": "Leaf",
+      "summary": "Leaf",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "leaf",
+            "name": "Leaf"
+          },
+          "limits": "Configure through tests/fixtures/packs/the-fernling-at-dusk/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Leaf",
+          "usage": "Reference the-fernling-at-dusk/leaf in the existing format at tests/fixtures/packs/the-fernling-at-dusk/registries.json.",
+          "expected": "Leaf"
+        }
+      ],
+      "references": ["tests/fixtures/packs/the-fernling-at-dusk/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Element Leaf; species strong/weak tables and shared multipliers govern matchups.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Save only through existing pack/save contracts; authoring metadata is not simulation state."
+      }
+    },
+    {
       "id": "visual:boulder-mossy",
       "kind": "visual",
       "name": "boulder-mossy",
@@ -11539,7 +12297,7 @@
               "frameHeight": 200,
               "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -11729,9 +12487,9 @@
               "rows": 8,
               "frameWidth": 200,
               "frameHeight": 200,
-              "rowOrder": ["north", "northwest", "west", "southwest", "south", "east", "southeast", "northeast"],
+              "rowOrder": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -11923,7 +12681,7 @@
               "frameHeight": 200,
               "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -12113,12 +12871,12 @@
               "rows": 8,
               "frameWidth": 200,
               "frameHeight": 200,
-              "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
+              "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
               "mirror": {
                 "southeast": "southwest"
               },
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -12310,7 +13068,7 @@
               "frameHeight": 200,
               "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -12502,7 +13260,7 @@
               "frameHeight": 200,
               "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -12692,9 +13450,9 @@
               "rows": 8,
               "frameWidth": 200,
               "frameHeight": 200,
-              "rowOrder": ["north", "northeast", "east", "southwest", "south", "west", "northwest", "southeast"],
+              "rowOrder": ["north", "northeast", "east", "west", "south", "northwest", "southeast", "southwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -12884,9 +13642,9 @@
               "rows": 8,
               "frameWidth": 200,
               "frameHeight": 200,
-              "rowOrder": ["north", "northeast", "east", "southwest", "south", "southeast", "west", "northwest"],
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -13078,7 +13836,7 @@
               "frameHeight": 200,
               "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -13270,7 +14028,7 @@
               "frameHeight": 200,
               "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -13462,7 +14220,7 @@
               "frameHeight": 200,
               "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
@@ -13652,9 +14410,9 @@
               "rows": 8,
               "frameWidth": 200,
               "frameHeight": 200,
-              "rowOrder": ["north", "northeast", "east", "south", "southeast", "west", "northwest", "southwest"],
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
-              "cadence": "advance each walk frame per 0.72 world units traveled by the follower"
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
           },
           "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."

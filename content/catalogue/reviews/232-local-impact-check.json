@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["scripts/lib/catalogue-impact.mjs"],
+      "entries": ["mechanic:catalogue-authoring"],
+      "disposition": "no-semantic-impact",
+      "reason": "Local impact evaluation now includes staged, unstaged and untracked files; authorable catalogue behavior and generated fiches remain unchanged.",
+      "evidence": ["tests/catalogue.test.mjs", "docs/CATALOGUE.md"]
+    }
+  ]
+}

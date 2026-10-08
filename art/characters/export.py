@@ -34,7 +34,8 @@ def fit_person(source_cell, target_height, max_width=144, alpha_threshold=8, cel
 
 
 PLAYER_ROWS = [
-    # The source row supplies its idle pose and walk cells unless a focused walk override is recorded.
+    # The original source row supplies walk cells unless a focused override is recorded. The neutral-rest
+    # turnaround below supplies every idle cell so a stopped player never reuses a stride-like pose.
     ('person-red-cap-motion-north-northeast.png', 0, None),
     ('person-red-cap-motion-north-northeast.png', 1, ('person-red-cap-motion-northeast-v2.png', 1)),
     ('person-red-cap-motion-east-southeast.png', 0, None),
@@ -45,20 +46,57 @@ PLAYER_ROWS = [
     ('person-red-cap-motion-west-northwest.png', 1, None),
 ]
 
+PLAYER_IDLE_SOURCE = 'person-red-cap-neutral-idle-v1.png'
+PLAYER_IDLE_GRID = (4, 2)
+# Source sheet order is S, SE, E, NE on row 0 then N, NW, W, SW on row 1.
+# Export in the runtime N, NE, E, SE, S, SW, W, NW order.
+PLAYER_IDLE_CELLS = [
+    (1, 0),  # north
+    (0, 3),  # northeast
+    (0, 2),  # east
+    (0, 1),  # southeast
+    (0, 0),  # south
+    (1, 3),  # southwest
+    (1, 2),  # west
+    (1, 1),  # northwest
+]
+
+# The generated northeast and southwest strips repeat their middle-leg pose in source columns 2–3 and put the
+# opposite passing pose in column 4. Reorder those four walk cells to alternate the leading leg at runtime.
+PLAYER_WALK_COLUMNS = {
+    1: (0, 1, 2, 4, 3),
+    5: (0, 1, 2, 4, 3),
+}
+PLAYER_WALK_FRAME_OVERRIDES = {6: {3: 'person-red-cap-motion-west-alternate-stride-v1.png'}}
+
 
 def export_player(source_dir=SOURCE):
     out = Image.new('RGBA', (5 * CELL[0], 8 * CELL[1]), (0, 0, 0, 0))
     sheets = {}
+    idle_sheet = Image.open(source_dir / PLAYER_IDLE_SOURCE).convert('RGBA')
+    idle_columns, idle_rows = PLAYER_IDLE_GRID
     for row, (base_name, base_row, walk_override) in enumerate(PLAYER_ROWS):
         for column in range(5):
-            filename, source_row = walk_override if column > 0 and walk_override else (base_name, base_row)
-            if filename not in sheets:
-                sheets[filename] = Image.open(source_dir / filename).convert('RGBA')
-            sheet = sheets[filename]
-            y0, y1 = round(source_row * sheet.height / 2), round((source_row + 1) * sheet.height / 2)
-            x0, x1 = round(column * sheet.width / 5), round((column + 1) * sheet.width / 5)
+            override = PLAYER_WALK_FRAME_OVERRIDES.get(row, {}).get(column) if column > 0 else None
+            if column == 0:
+                idle_row, idle_column = PLAYER_IDLE_CELLS[row]
+                x0, x1 = round(idle_column * idle_sheet.width / idle_columns), round((idle_column + 1) * idle_sheet.width / idle_columns)
+                y0, y1 = round(idle_row * idle_sheet.height / idle_rows), round((idle_row + 1) * idle_sheet.height / idle_rows)
+                source_cell = idle_sheet.crop((x0, y0, x1, y1))
+            elif override:
+                source = Image.open(source_dir / override).convert('RGBA')
+                source_cell = source
+            else:
+                filename, source_row = walk_override if walk_override else (base_name, base_row)
+                if filename not in sheets:
+                    sheets[filename] = Image.open(source_dir / filename).convert('RGBA')
+                sheet = sheets[filename]
+                y0, y1 = round(source_row * sheet.height / 2), round((source_row + 1) * sheet.height / 2)
+                source_column = PLAYER_WALK_COLUMNS.get(row, range(5))[column]
+                x0, x1 = round(source_column * sheet.width / 5), round((source_column + 1) * sheet.width / 5)
+                source_cell = sheet.crop((x0, y0, x1, y1))
             cell = fit_person(
-                sheet.crop((x0, y0, x1, y1)),
+                source_cell,
                 PLAYER_PROFILE['maxSprite'][1],
                 max_width=PLAYER_PROFILE['maxSprite'][0],
                 alpha_threshold=PLAYER_PROFILE['alphaThreshold'],

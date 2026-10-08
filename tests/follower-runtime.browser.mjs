@@ -103,11 +103,11 @@ try {
   );
   // Independent reviewed source-row contracts for the directions that owners reported mislabeled.
   const reviewedRows = {
-    emberkin: {north: 4, northeast: 3, east: 2, southeast: 7, south: 0, southwest: 1, west: 6, northwest: 5},
-    brooklet: {north: 0, northeast: 7, east: 5, southeast: 6, south: 4, southwest: 3, west: 2, northwest: 1},
-    voltkit: {north: 0, northeast: 1, east: 2, southeast: 4, south: 3, southwest: 7, west: 5, northwest: 6},
-    hushram: {north: 0, northeast: 1, east: 2, southeast: 7, south: 4, southwest: 3, west: 5, northwest: 6},
-    mushmallow: {north: 0, northeast: 1, east: 2, southeast: 5, south: 4, southwest: 3, west: 6, northwest: 7},
+    emberkin: {north: 4, northeast: 3, east: 2, southeast: 7, south: 0, southwest: 1, west: 5, northwest: 6},
+    brooklet: {north: 0, northeast: 7, east: 6, southeast: 5, south: 4, southwest: 3, west: 2, northwest: 1},
+    voltkit: {north: 0, northeast: 1, east: 2, southeast: 3, south: 4, southwest: 6, west: 7, northwest: 5},
+    hushram: {north: 0, northeast: 1, east: 2, southeast: 6, south: 4, southwest: 7, west: 3, northwest: 5},
+    mushmallow: {north: 0, northeast: 1, east: 2, southeast: 3, south: 4, southwest: 5, west: 6, northwest: 7},
   };
   const reviewedMirrors = {emberkin: {southeast: 'southwest'}};
   for (const [name, rows] of Object.entries(reviewedRows)) {
@@ -161,7 +161,35 @@ try {
         followerMotion: window.mossvale.getState().followerMotion,
       }));
       for (const key of keys) await page.keyboard.down(key);
-      await page.waitForTimeout(850);
+      await page.waitForFunction(
+        ({start, direction}) => {
+          const game = window.mossvale.getState();
+          return Math.hypot(game.player.x - start.x, game.player.y - start.y) > 0.5 && game.player.dir === direction;
+        },
+        {start: before.player, direction: directionIndex},
+        {timeout: 10000},
+      );
+      await page.waitForFunction(
+        ({direction, id}) => {
+          const motion = window.mossvale.getState().followerMotion;
+          return motion.dir === direction && motion.id === id;
+        },
+        {direction: directionIndex, id: assets.findIndex(asset => asset.name === `creature-${name}-follower`)},
+        {timeout: 10000},
+      );
+      const direction = DIRECTIONS[directionIndex];
+      const mirror = reviewedMirrors[name]?.[direction] ?? expected[name].mirror[direction];
+      const expectedRow = reviewedRows[name]?.[mirror ?? direction] ?? expected[name].rows.indexOf(mirror ?? direction);
+      await page.waitForFunction(
+        ({src, row, flipped}) => {
+          const columns = window.followerAtlasDraws
+            .filter(frame => frame.src.endsWith(src) && frame.row === row && frame.flipped === flipped && frame.column > 0)
+            .map(frame => frame.column);
+          return new Set(columns).size >= 2;
+        },
+        {src: expected[name].sprite, row: expectedRow, flipped: !!mirror},
+        {timeout: 5000},
+      );
       const moved = await page.evaluate(() => ({
         player: {...window.mossvale.getState().player},
         followerMotion: window.mossvale.getState().followerMotion,
@@ -178,9 +206,6 @@ try {
       for (const key of keys) await page.keyboard.up(key);
       await page.waitForTimeout(450);
       const ownAtlas = await page.evaluate(src => window.followerAtlasDraws.filter(frame => frame.src.endsWith(src)), expected[name].sprite);
-      const direction = DIRECTIONS[directionIndex];
-      const mirror = reviewedMirrors[name]?.[direction] ?? expected[name].mirror[direction];
-      const expectedRow = reviewedRows[name]?.[mirror ?? direction] ?? expected[name].rows.indexOf(mirror ?? direction);
       const directionFrames = ownAtlas.filter(frame => frame.row === expectedRow && frame.flipped === !!mirror);
       assert.ok(
         directionFrames.length,
@@ -293,6 +318,7 @@ try {
     [ids[0], clearStart],
   );
   await page.setViewportSize({width: 390, height: 844});
+  await page.locator('#game').tap(); // actual touch restores the movement HUD after keyboard play
   const northeastPad = page.locator('button[data-dir="1,-1"]');
   await northeastPad.waitFor({state: 'visible'});
   const pad = await northeastPad.boundingBox();

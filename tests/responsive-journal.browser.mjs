@@ -189,6 +189,36 @@ try {
     timeout: 5000,
   });
   await cdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+
+  // Keep one finger down while crossing the pad: pointer capture must not
+  // leave movement stuck on the original direction button.
+  const eastBox = await page.locator('button[data-dir="1,0"]').boundingBox();
+  const westBox = await page.locator('button[data-dir="-1,0"]').boundingBox();
+  const dragStart = await page.evaluate(() => window.mossvale.getState().player);
+  await cdp.send('Input.dispatchTouchEvent', {
+    type: 'touchStart',
+    touchPoints: [{id: 5, x: eastBox.x + eastBox.width / 2, y: eastBox.y + eastBox.height / 2}],
+  });
+  try {
+    await page.waitForTimeout(250);
+    const afterEast = await page.evaluate(() => window.mossvale.getState().player);
+    const eastTravel = {x: afterEast.x - dragStart.x, y: afterEast.y - dragStart.y};
+    assert.ok(Math.hypot(eastTravel.x, eastTravel.y) > 0.08, 'drag begins moving east');
+    await cdp.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: [{id: 5, x: westBox.x + westBox.width / 2, y: westBox.y + westBox.height / 2}],
+    });
+    await page.waitForTimeout(300);
+    const afterWest = await page.evaluate(() => window.mossvale.getState().player);
+    const westTravel = {x: afterWest.x - afterEast.x, y: afterWest.y - afterEast.y};
+    assert.ok(
+      eastTravel.x * westTravel.x + eastTravel.y * westTravel.y < 0,
+      `drag changes movement direction without lifting (east ${JSON.stringify(eastTravel)}, west ${JSON.stringify(westTravel)})`,
+    );
+  } finally {
+    await cdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+  }
+
   const run = await page.locator('#touch-run').boundingBox();
   await cdp.send('Input.dispatchTouchEvent', {
     type: 'touchStart',
@@ -202,6 +232,28 @@ try {
   await page.waitForSelector('#m-primary');
   await page.locator('#m-primary').tap();
   await page.waitForSelector('#modal', {state: 'hidden'});
+  const fullscreen = page.locator('#fullscreen');
+  assert.equal(await fullscreen.isVisible(), true, 'the browser-supported fullscreen option is available');
+  const beforeFullscreen = await page.evaluate(() => ({mapId: window.mossvale.getState().save.mapId, coins: window.mossvale.getState().save.coins}));
+  await fullscreen.tap();
+  await page.waitForFunction(() => document.fullscreenElement === document.querySelector('.game-frame'));
+  const immersiveBounds = await page.evaluate(() => ({
+    viewport: document.querySelector('.viewport').getBoundingClientRect().toJSON(),
+    frame: document.querySelector('.game-frame').getBoundingClientRect().toJSON(),
+    locationDisplay: getComputedStyle(document.querySelector('.location')).display,
+    screenHeight: innerHeight,
+    screenWidth: innerWidth,
+  }));
+  assert.equal(immersiveBounds.locationDisplay, 'none', 'fullscreen hides the location bar to recover play height');
+  assert.ok(immersiveBounds.viewport.height >= immersiveBounds.screenHeight - 1, 'fullscreen gives the game the complete viewport height');
+  assert.ok(immersiveBounds.frame.width >= immersiveBounds.screenWidth - 1, 'fullscreen uses the complete viewport width');
+  await fullscreen.tap();
+  await page.waitForFunction(() => document.fullscreenElement === null);
+  assert.deepEqual(
+    await page.evaluate(() => ({mapId: window.mossvale.getState().save.mapId, coins: window.mossvale.getState().save.coins})),
+    beforeFullscreen,
+    'entering and leaving fullscreen preserves progress',
+  );
   await page.evaluate(() => window.mossvale.encounter(1));
   await page.waitForSelector('#attack:not([disabled])');
   await page.locator('#attack').tap();

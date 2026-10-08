@@ -26,55 +26,71 @@
       "asset": "person-red-cap-motion",
       "technical": {
         "status": "pass",
-        "source": "npm run verify / real-map Playwright diagonal cycles and 52 × 84 px rendered foot-travel checks"
+        "source": "Player idle export provenance, shared y=250 foot-anchor checks, 52x84 px all-facing comparison, real-map eight-direction walk/run release and reduced-motion browser coverage, plus touch release coverage."
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the renderer’s 52 × 84 px size, NE/NW/SW alternate readable walk poses with measured boot travel of 9.6/9.6/12.8 px; the unchanged SE control measures 8.8 px. NW mirrors NE. Owner gameplay taste remains pending.",
+        "reason": "At the 52x84 px gameplay draw size, before/after evidence shows a calm, close-footed rest pose in every runtime facing. All idle cells share the existing bottom-center foot line; the existing walk cells remain unchanged. Owner gameplay taste remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["dist/character-preview.html", "art/characters/reviews/diagonal-walk-before-after.png"],
+      "evidence": ["dist/character-preview.html", "dist/player-idle-review.html", "art/characters/reviews/239-player-idle-before-after.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "028dea5913b9f44df9c89cbe9259bae5efbdd239799c3dc051f032ce01121ecc"
+          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70"
         },
         {
-          "path": "art/characters/reviews/diagonal-walk-before-after.png",
-          "sha256": "31b0cb2852483c69a63b881680bacfcd5fc844b6a7a95b0d858ea1dd4baaba6f"
+          "path": "art/characters/SOURCES.md",
+          "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
         },
         {
-          "path": "art/characters/source/person-red-cap-motion-northeast-v2.png",
-          "sha256": "0d0def87e7211180b62b6eab5710f1b10b6dd8284b358a05026edb1e9c2dc117"
+          "path": "art/characters/export.py",
+          "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e"
         },
         {
-          "path": "art/characters/source/person-red-cap-motion-southwest-v2.png",
-          "sha256": "0bc1009b828738a92d49a1a0c85616a0ceb25f8238ff85712fc8be881f1a4dc3"
+          "path": "art/characters/metadata.json",
+          "sha256": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4"
         },
         {
-          "path": "dist/assets/people/person-red-cap-east.png",
-          "sha256": "1ea752494f7897b5e512d5885f8c732a06590949c74450f6e6c8744ea4053850"
+          "path": "art/characters/reviews/239-player-idle-before-after.png",
+          "sha256": "ad7783549a74449c4fa500b2845201487a30a9540ed3778dc9ce6289847a3b08"
+        },
+        {
+          "path": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+          "sha256": "8d83479515e6725640d819810df2e0ede41aeb431ac079291ceef0b7ec8083d0"
         },
         {
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "sha256": "f1ab1240e8d9680998a7287ac49065d1ffb72075a08ae1827f1c1dc5f5fe03fd"
-        },
-        {
-          "path": "dist/assets/people/person-red-cap-north.png",
-          "sha256": "16c613be7720e0c9f231eca4f7e5181b709647afde0ab858a5efeafa4ddec6a8"
-        },
-        {
-          "path": "dist/assets/people/person-red-cap-south.png",
-          "sha256": "9088f1039cc08e0f0496d08ff942ec3de9b55bfee561c23e8e38b4326faacc51"
-        },
-        {
-          "path": "dist/assets/people/person-red-cap-west.png",
-          "sha256": "73b972aca231577c7a746b84585b004672c6bbb0271799f24e9832202874fadd"
+          "sha256": "98c33b2c08a9d43892425d73889bc727eee77db5145bd0ce81e9aeec037a6f95"
         },
         {
           "path": "dist/character-preview.html",
-          "sha256": "06976c5f19bb51b0c6fe6c9622fa388f0632e56e8b34ff64155b19ec37551c9c"
+          "sha256": "bd2b69f55abfd30574ff544ab615a368ba7c0f5ddfafc7e85402923f45e47d27"
+        },
+        {
+          "path": "dist/player-idle-review.html",
+          "sha256": "130f63a3b5e368342ef94c5f9a1cf856870570f01b88f2cfe8c3f21eda2b7553"
+        },
+        {
+          "path": "dist/reviews/player-neutral-idle-before.png",
+          "sha256": "4ef6a212eeb1f91063e9d47d8ae760e44eb4ad7748ed4e1d2d4cdced2dc0f793"
+        },
+        {
+          "path": "tests/characters.browser.mjs",
+          "sha256": "5c9ef0d400860c052053a30507a20bbf1ca5816a9d6fbf12de83a3c3873ef5e3"
+        },
+        {
+          "path": "tests/diagonal-walk.browser.mjs",
+          "sha256": "f8b4187b3c30c0c1a86f384342496b252918de007ea0a0e3a53f2a1723461411"
+        },
+        {
+          "path": "tests/input-mode.browser.mjs",
+          "sha256": "4dca4485a856fdaff47b2587563020e64cf578b584ea18fb3e39a33cbe3b1baf"
+        },
+        {
+          "path": "tests/test_player_motion_export.py",
+          "sha256": "3fcda0d247dd655909cc314f4c14eac4ff3503772819c0b5f2b48ccbf9a25800"
         }
       ]
     },

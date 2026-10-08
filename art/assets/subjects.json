@@ -36,7 +36,7 @@
         {
           "assetId": "person-red-cap-north",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "028dea5913b9f44df9c89cbe9259bae5efbdd239799c3dc051f032ce01121ecc",
+          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
           "cell": {
             "x": 1168,
             "y": 2064,
@@ -47,7 +47,7 @@
         {
           "assetId": "person-red-cap-east",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "028dea5913b9f44df9c89cbe9259bae5efbdd239799c3dc051f032ce01121ecc",
+          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
           "cell": {
             "x": 656,
             "y": 2064,
@@ -58,7 +58,7 @@
         {
           "assetId": "person-red-cap-south",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "028dea5913b9f44df9c89cbe9259bae5efbdd239799c3dc051f032ce01121ecc",
+          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
           "cell": {
             "x": 1008,
             "y": 2064,
@@ -69,7 +69,7 @@
         {
           "assetId": "person-red-cap-west",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "028dea5913b9f44df9c89cbe9259bae5efbdd239799c3dc051f032ce01121ecc",
+          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
           "cell": {
             "x": 834,
             "y": 2064,
@@ -94,7 +94,7 @@
         },
         "prompt": {
           "status": "summary-only",
-          "summary": "Four original transparent 5-column by 2-row directional sheets plus focused NE/SW walk-row variants for the existing red-cap adventurer; preserve identity and foot anchors, make opposite leg strides readable, and retain existing idle/cardinal/SE art.",
+          "summary": "Four transparent directional motion sheets plus a separate eight-facing neutral idle sheet for the existing red-cap adventurer; retain identity, pixel palette, frame dimensions and planted foot anchor while narrowing the resting stance. Walk frames stay on their original source rows.",
           "evidence": "art/characters/SOURCES.md#Player",
           "exactPromptStatus": "unavailable"
         },
@@ -118,16 +118,16 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
-        "sha256": "b0f4b9f0f3015b8972d2cfce057f2f342284737e7feb03b10b251e0552298557"
+        "sha256": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "a3f13421c60cb5518d68799ee6985d532fae664975f585fd87577a2b08b03acd",
-        "settings": "RGBA 160x256 cells; crop source cells, scale with nearest-neighbor to 224 px high and at most 152 px wide, center horizontally, align feet to y=250; compose a 5x8 atlas in the recorded direction order. Northeast and southwest keep the original idle cell but source walk columns 1-4 from their v2 second-row override sheets.",
+        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
+        "settings": "RGBA 160x256 cells; crop source cells, scale with nearest-neighbor to 224 px high and at most 152 px wide, center horizontally, and align feet to y=250. Compose a 5x8 atlas in N, NE, E, SE, S, SW, W, NW order. Idle column 0 comes from the transparent 4x2 neutral sheet recorded in character metadata, remapped from S, SE, E, NE, N, NW, W, SW; walk cells remain on the original directional sources. Northeast and southwest source walk columns are ordered 1, 2, 4, 3; West walk cell 3 uses its separately retained generated opposite-stride source.",
         "profileId": "red-cap-motion-v1",
         "profileSha256": "d00b3aa7df631b1a29c7f050d757c4993fed2fdb3a3fe285567d0b921e1f469a"
       },
@@ -139,14 +139,6 @@
           "directions": [
             "north"
           ],
-          "retainedCells": [
-            {
-              "direction": "northeast",
-              "columns": [
-                0
-              ]
-            }
-          ],
           "referenceAssetIds": [
             "person-red-cap-north"
           ],
@@ -157,7 +149,7 @@
         {
           "id": "red-cap-motion-northeast-walk-v2",
           "path": "art/characters/source/person-red-cap-motion-northeast-v2.png",
-          "sha256": "0d0def87e7211180b62b6eab5710f1b10b6dd8284b358a05026edb1e9c2dc117",
+          "sha256": "855d50236e2dfd04be93e9116510f81cafd6c7eb2ddb3f15c610c502890893e1",
           "directions": [
             "northeast"
           ],
@@ -233,14 +225,6 @@
           "directions": [
             "south"
           ],
-          "retainedCells": [
-            {
-              "direction": "southwest",
-              "columns": [
-                0
-              ]
-            }
-          ],
           "referenceAssetIds": [
             "person-red-cap-south"
           ],
@@ -308,7 +292,7 @@
         {
           "id": "red-cap-motion-west-northwest",
           "path": "art/characters/source/person-red-cap-motion-west-northwest.png",
-          "sha256": "49755cf194ea7050b20b0680cab46809f8c3a3a92f19279e84d3490385bf30ee",
+          "sha256": "f8bf4b24d264fd087458c1835eee145aa8b2586ab4e4f23af3e503ba60b5bd6c",
           "directions": [
             "west",
             "northwest"
@@ -318,14 +302,140 @@
           ],
           "exportAssetIds": [
             "person-red-cap-motion"
+          ],
+          "additionalSources": [
+            {
+              "id": "red-cap-motion-west-alternate-stride-v1",
+              "path": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sha256": "7fb022e876b5deb1c323bf6b81b97be92588159f0a630e031aee62eb96bf0463",
+              "walkColumns": [
+                3
+              ],
+              "referenceAssetIds": [
+                "person-red-cap-west"
+              ],
+              "generation": {
+                "tool": {
+                  "status": "summary-only",
+                  "value": "Codex image_gen built-in image editing tool",
+                  "evidence": "art/characters/SOURCES.md#Player"
+                },
+                "provider": {
+                  "status": "unavailable",
+                  "reason": "The built-in image tool did not report its provider."
+                },
+                "modelVersion": {
+                  "status": "unavailable",
+                  "reason": "The built-in image tool did not report a model version."
+                },
+                "prompt": {
+                  "status": "summary-only",
+                  "summary": "Edit one transparent West-facing pose to reverse the leading leg and matching arm swing while preserving identity, style and bottom anchor.",
+                  "evidence": "art/characters/SOURCES.md#Player",
+                  "exactPromptStatus": "unavailable"
+                },
+                "seed": {
+                  "status": "unavailable",
+                  "reason": "No generation seed was reported."
+                },
+                "generationReference": {
+                  "status": "available",
+                  "assetIds": [
+                    "person-red-cap-west"
+                  ]
+                },
+                "maskHashes": {
+                  "status": "unavailable",
+                  "reason": "No generation masks were used or retained."
+                }
+              }
+            }
           ]
+        },
+        {
+          "id": "red-cap-neutral-idle-v1",
+          "path": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+          "sha256": "8d83479515e6725640d819810df2e0ede41aeb431ac079291ceef0b7ec8083d0",
+          "directions": [],
+          "states": [
+            "idle"
+          ],
+          "sourceGrid": {
+            "columns": 4,
+            "rows": 2,
+            "cell": [
+              384,
+              512
+            ],
+            "sheet": [
+              1536,
+              1024
+            ]
+          },
+          "sourceDirectionOrder": [
+            "south",
+            "southeast",
+            "east",
+            "northeast",
+            "north",
+            "northwest",
+            "west",
+            "southwest"
+          ],
+          "referenceAssetIds": [
+            "person-red-cap-north",
+            "person-red-cap-east",
+            "person-red-cap-south",
+            "person-red-cap-west"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "Codex image_gen built-in image generation tool",
+              "evidence": "art/characters/SOURCES.md#Player"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image tool did not report its provider."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image tool did not report a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Generate eight transparent neutral-rest facings of the existing red-cap player; preserve silhouette, outfit, palette, pixel lighting and bottom-center feet; narrow the legs into a calm, planted hip-width stance.",
+              "evidence": "art/characters/SOURCES.md#Player",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was reported."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "person-red-cap-north",
+                "person-red-cap-east",
+                "person-red-cap-south",
+                "person-red-cap-west"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were reported."
+            }
+          }
         }
       ],
       "exports": [
         {
           "assetId": "person-red-cap-motion",
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "sha256": "f1ab1240e8d9680998a7287ac49065d1ffb72075a08ae1827f1c1dc5f5fe03fd",
+          "sha256": "98c33b2c08a9d43892425d73889bc727eee77db5145bd0ce81e9aeec037a6f95",
           "profileId": "red-cap-motion-v1",
           "profileSha256": "d00b3aa7df631b1a29c7f050d757c4993fed2fdb3a3fe285567d0b921e1f469a"
         }
@@ -395,7 +505,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -600,7 +710,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c"
+        "sha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a"
       },
       "runtimeFollower": {
         "assetId": "creature-fernling-follower",
@@ -623,10 +733,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -697,7 +807,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "e5e4da3ef7e47e8eeacc1f91ee21cd25c90481cbef78abfdb77a9a419a3398a8"
+        "sha256": "23c7d9afdb8e44b0cd270d24643e96ada207de2cfdbce46a33d2bc2c92b74b21"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -898,7 +1008,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c"
+        "sha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a"
       },
       "runtimeFollower": {
         "assetId": "creature-duskwing-follower",
@@ -921,10 +1031,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -995,11 +1105,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c"
+        "sha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1176,10 +1286,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -1250,7 +1360,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "e5e4da3ef7e47e8eeacc1f91ee21cd25c90481cbef78abfdb77a9a419a3398a8"
+        "sha256": "23c7d9afdb8e44b0cd270d24643e96ada207de2cfdbce46a33d2bc2c92b74b21"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1451,7 +1561,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c"
+        "sha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a"
       },
       "runtimeFollower": {
         "assetId": "creature-brooklet-follower",
@@ -1474,10 +1584,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -1548,7 +1658,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "e5e4da3ef7e47e8eeacc1f91ee21cd25c90481cbef78abfdb77a9a419a3398a8"
+        "sha256": "23c7d9afdb8e44b0cd270d24643e96ada207de2cfdbce46a33d2bc2c92b74b21"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1762,10 +1872,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -1837,7 +1947,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "sourceBatches": [
         {
@@ -2008,10 +2118,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -2081,7 +2191,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -2303,10 +2413,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -2376,7 +2486,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -2598,10 +2708,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -2666,7 +2776,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -2674,7 +2784,7 @@
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "a3f13421c60cb5518d68799ee6985d532fae664975f585fd87577a2b08b03acd",
+        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -2888,10 +2998,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -2956,7 +3066,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -2964,7 +3074,7 @@
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "a3f13421c60cb5518d68799ee6985d532fae664975f585fd87577a2b08b03acd",
+        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3178,10 +3288,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -3246,7 +3356,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -3254,7 +3364,7 @@
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "a3f13421c60cb5518d68799ee6985d532fae664975f585fd87577a2b08b03acd",
+        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3468,10 +3578,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"
@@ -3536,7 +3646,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "36e60df491cffeabd49f75678fc5fa5d6b5be6e260c9b6ff4f3ccb89be52c4bd"
+        "sha256": "1a5c2c1bd3ef4f05c7cefda26cf74a48f962ed2407f78fb24e3d95dae09feeba"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -3544,7 +3654,7 @@
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "a3f13421c60cb5518d68799ee6985d532fae664975f585fd87577a2b08b03acd",
+        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3758,10 +3868,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e60d197363ef2b5d89f6f1406e182d183023728a4100477092422b041e704b6c",
+        "contractSha256": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "6d2fc014de2e727847bb2443ffe1df681e956c7b4d6aba906277272a1468b068",
+          "sha256": "2f06af0a1a68e0d7f8650a52be75152e695e603291a4307bee6ddebdaf635396",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "c731350f24a8104697620a15f893ad500eb5871f13213962fd0eb352ddca2f5d"

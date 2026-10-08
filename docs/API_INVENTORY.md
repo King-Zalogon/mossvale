@@ -36,11 +36,12 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `data/registry.js` | data | `configureRegistry` |
 | `data/sounds.js` | data | `AMBIENCE`, `SFX`, `VOLUMES` |
 | `data/species.js` | data | `replaceSpecies`, `species` |
-| `data/tactics.js` | data | `BRACE_FACTOR`, `DEFAULT_PATTERN`, `HEAVY_FACTOR`, `INTENT_TEXT`, `TACTICS`, `planOf`, `replaceTactics` |
+| `data/tactics.js` | data | `BRACE_FACTOR`, `DEFAULT_PATTERN`, `GUARDIAN_HP_BONUS`, `HEAVY_FACTOR`, `INTENT_TEXT`, `TACTICS`, `planOf`, `replaceTactics` |
 | `domain/adventure.js` | domain | `buildAdventure` |
-| `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `createBattle`, `encounterDistance`, `enemyAttack`, `ensureHealthyCompanion`, `guardianLevel`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion` |
+| `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `combatChoices`, `createBattle`, `encounterDistance`, `enemyAttack`, `enemyDamageRange`, `ensureHealthyCompanion`, `guardianForecast`, `guardianLevel`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion` |
 | `domain/clock.js` | domain | `createTestClock` |
-| `domain/companion-routes.js` | domain | `availableCompanionRoutes`, `companionCanUseRoute`, `validateCompanionRoutes` |
+| `domain/combat-trace.js` | domain | `COMBAT_TRACE_SCHEMA`, `COMBAT_TRACE_VERSION`, `createCombatTrace` |
+| `domain/companion-routes.js` | domain | `approachedWithinRadius`, `availableCompanionRoutes`, `companionCanUseRoute`, `companionRouteDiscovered`, `companionRouteEventId`, `companionRouteVisible`, `validateCompanionRoutes` |
 | `domain/composition.js` | domain | `compileComposition`, `createCompositionArtBrief`, `validateBodyPlan` |
 | `domain/dialogue-choices.js` | domain | `availableDialogueChoices`, `selectDialogueChoice`, `validateDialogueChoices` |
 | `domain/discovery.js` | domain | `CELL`, `MAX_SEEN`, `SECRET_RANGE`, `VISION`, `cellGrid`, `compass`, `decodeEntry`, `discover`, `encodeEntry`, `entryFor`, `exploredShare`, `isKnown`, `isRevealed`, `landmarkLabel`, `reveal`, `toHex` |
@@ -57,7 +58,8 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/registries.js` | domain | `resolveRegistries`, `validateRegistries` |
 | `domain/rng.js` | domain | `seededRng` |
 | `domain/rules.js` | domain | `addToParty`, `addXP`, `awardXP`, `clampHealth`, `companion`, `effectiveness`, `elementPower`, `flagDone`, `healTeam`, `healthyParty`, `inParty`, `level`, `maxHP`, `moveName`, `moveUpgraded`, `normalizeParty`, `removeFromParty`, `reserve`, `setActive`, `setFlag`, `unlocked`, `xpProgress` |
-| `domain/scenes.js` | domain | `MAX_SCENE_EVENTS`, `SCENE_ACTIONS`, `applySceneActions`, `markSceneRun`, `sceneConditionHolds`, `sceneEventKey`, `sceneHasRun`, `validateSceneEvent` |
+| `domain/scene-path.js` | domain | `findScenePath` |
+| `domain/scenes.js` | domain | `MAX_SCENE_ACTIONS`, `MAX_SCENE_EVENTS`, `SCENE_ACTIONS`, `applySceneActions`, `markSceneRun`, `sceneConditionHolds`, `sceneEventKey`, `sceneHasRun`, `validateSceneEvent` |
 | `domain/story.js` | domain | `HINT_EVENTS`, `MAX_HINTS`, `STORY_FORMAT`, `endingDue`, `markSeen`, `pendingHint`, `validateStory` |
 | `domain/terrain-family.js` | domain | `bakeTerrainFamily`, `chooseTerrainVariant`, `resolveTerrainFamilyCell`, `serializeTerrainFamilyBake`, `terrainSeed`, `terrainVariant`, `validateTerrainFamilyFixture` |
 | `domain/world.js` | domain | `INTERACTIVE_KINDS`, `buildWorld`, `isLand`, `isQuiet`, `isWalkable`, `nearestInteractive`, `nearestWalkable`, `objectsInBounds`, `rnd`, `spawnOf`, `terrainAt`, `tilesInBounds`, `triggersAt`, `zoneAt` |
@@ -65,12 +67,13 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `main.js` | root | — |
 | `map-editor.js` | root | — |
 | `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
+| `render/terrain.js` | render | `createTerrainPainter`, `mix`, `patchNoise`, `terrainColors` |
 | `render/world.js` | render | `createWorldRenderer` |
 | `save.js` | root | `KEYS`, `LEGACY_PACK`, `VERSION`, `commitSaveTransaction`, `create`, `keysFor`, `packOf`, `readSaveItem`, `recoverSaveTransaction` |
 | `services/account.js` | services | `createAccountClient` |
 | `services/adventures.js` | services | `ADVENTURE_KEY`, `CATALOG_FORMAT`, `DEFAULT_CATALOG`, `chooseAdventure`, `describeProgress`, `parseCatalog`, `peekProgress`, `readSelection`, `relocateLegacyPacks`, `writeSelection` |
 | `services/audio.js` | services | `createAudio` |
-| `services/backup.js` | services | `BACKUP_FORMAT`, `BACKUP_KIND`, `MAX_BACKUP_BYTES`, `exportBackup`, `exportFileName`, `importSave`, `parseBackup`, `readCheckpoint`, `restoreCheckpoint` |
+| `services/backup.js` | services | `BACKUP_FORMAT`, `BACKUP_KIND`, `MAX_BACKUP_BYTES`, `exportBackup`, `exportFileName`, `importSave`, `parseBackup`, `readBackupFile`, `readCheckpoint`, `restoreCheckpoint` |
 | `services/loader.js` | services | `TIMEOUT_MS`, `loadAssets`, `loadImage` |
 | `services/maps.js` | services | `fetchAdventure`, `fetchCatalog` |
 | `services/persistence.js` | services | `createPersistence` |

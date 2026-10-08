@@ -187,19 +187,27 @@ h1 {
   pointer-events: none;
 }
 .toast {
+  z-index: 7;
   position: absolute;
-  bottom: 23px;
+  top: 18px;
+  bottom: auto;
   left: 50%;
   transform: translateX(-50%);
-  background: #153328ed;
-  border: 1px solid #6b875b;
-  border-radius: 7px;
-  padding: 12px 18px;
-  font-size: 13px;
-  max-width: 85%;
+  max-width: min(540px, calc(100% - 220px));
+  padding: 9px 14px;
+  border: 2px solid #293d31;
+  border-radius: 9px;
+  background: #fff8dc;
+  color: #25382d;
+  box-shadow:
+    0 4px 0 #293d3133,
+    0 8px 20px #14251e44;
+  font-size: 14px;
+  line-height: 1.4;
   text-align: center;
   transition: opacity 0.4s;
   pointer-events: none;
+  overflow-wrap: anywhere;
 }
 .interaction {
   position: absolute;
@@ -241,6 +249,9 @@ kbd {
   font-size: 12px;
   color: #d7dec4;
   white-space: nowrap;
+}
+.game-footer #fullscreen + #pause {
+  margin-left: 0;
 }
 aside {
   display: flex;
@@ -616,13 +627,6 @@ footer {
   .touchpad {
     display: grid;
   }
-  .toast {
-    bottom: 20px;
-    left: 63%;
-    max-width: 58%;
-    font-size: 11px;
-    padding: 9px;
-  }
   .world-tag {
     font-size: 9px;
     left: 12px;
@@ -820,10 +824,6 @@ canvas#buddy {
   font-size: 12px;
   letter-spacing: 1px;
 }
-.toast {
-  font-size: 14px;
-  bottom: 20px;
-}
 .interaction {
   font-size: 14px;
   border: 1px solid #74895c;
@@ -884,7 +884,7 @@ canvas#buddy {
     max-height: calc(100% - 180px);
   }
 }
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 700px) {
   .viewport.environment-open .world-tag,
   .viewport.environment-open .objective-pin,
   .viewport.environment-open .minimap-box,
@@ -1065,6 +1065,9 @@ canvas#buddy {
 .fighter canvas.attack {
   animation: attack 0.4s;
 }
+.fighter canvas.element {
+  animation: element 0.55s;
+}
 .fighter canvas.catching {
   animation: creature-capture 0.72s steps(4, end) both;
 }
@@ -1073,6 +1076,7 @@ canvas#buddy {
   animation: creature-breathe 1.8s steps(2, end) infinite;
 }
 .fighter canvas.attack,
+.fighter canvas.element,
 .fighter canvas.hit,
 .fighter canvas.catching {
   animation-iteration-count: 1;
@@ -1413,6 +1417,18 @@ canvas#buddy {
     transform: translateX(18px) scale(1.04);
   }
 }
+@keyframes element {
+  0%,
+  100% {
+    transform: translateX(0) scale(1);
+  }
+  35% {
+    transform: translateX(10px) scale(1.06);
+  }
+  70% {
+    transform: translateX(20px) scale(1.02);
+  }
+}
 @keyframes creature-breathe {
   0%,
   100% {
@@ -1583,15 +1599,6 @@ canvas#buddy {
   }
   .touch-run {
     display: block;
-  }
-  .toast {
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 138px;
-    max-width: 88%;
-    width: max-content;
-    font-size: 12px;
-    padding: 9px 12px;
   }
   .interaction {
     bottom: 181px;
@@ -2153,10 +2160,16 @@ body.reduce-motion *::after {
 }
 
 .battle-intent {
-  margin: 6px 0 0;
-  font-size: 13px;
-  opacity: 0.85;
-  text-align: center;
+  margin: 8px 0 0;
+  padding: 9px 12px;
+  border: 1px solid rgba(139, 209, 177, 0.48);
+  border-radius: 9px;
+  background: rgba(8, 30, 24, 0.78);
+  color: #e7f4e9;
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: left;
+  overflow-wrap: anywhere;
 }
 
 .story-copy {
@@ -2187,7 +2200,7 @@ body.text-larger .game-footer,
 body.text-larger .heading {
   zoom: 1.3;
 }
-/* Any coarse pointer keeps touch controls available when the primary pointer changes. */
+/* Coarse capability sets target sizes. Input mode determines movement control visibility. */
 @media (any-pointer: coarse) {
   button,
   .touchpad button {
@@ -2209,7 +2222,7 @@ body.text-larger .heading {
     min-height: 44px;
   }
 }
-@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 700px) {
   header {
     height: 54px;
   }
@@ -2237,13 +2250,14 @@ body.text-larger .heading {
   .game-footer > span:nth-child(3) {
     display: none;
   }
-  .game-footer::before {
-    content: 'Touch to move · tap E to interact';
-    color: #aac194;
-  }
   .viewport {
-    height: min(64vh, 420px);
+    height: min(72svh, 520px);
+    min-height: 230px;
     aspect-ratio: auto;
+  }
+  .viewport.speech-open {
+    height: min(82svh, 520px);
+    min-height: 320px;
   }
   .location {
     height: 46px;
@@ -2272,14 +2286,6 @@ body.text-larger .heading {
   .zoom-controls {
     display: none;
   }
-  .toast {
-    bottom: 130px;
-    left: 50%;
-    max-width: min(68%, 520px);
-    transform: translateX(-50%);
-    font-size: 13px;
-    z-index: 6;
-  }
   .interaction {
     top: 14px;
     bottom: auto;
@@ -2291,6 +2297,56 @@ body.text-larger .heading {
   .game-footer {
     padding: 7px 10px;
   }
+  .game-frame:fullscreen,
+  .game-frame:-webkit-full-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: #102822;
+  }
+  .game-frame:fullscreen .location,
+  .game-frame:-webkit-full-screen .location {
+    display: none;
+  }
+  .game-frame:fullscreen .viewport,
+  .game-frame:-webkit-full-screen .viewport {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+  }
+  .game-frame:fullscreen .game-footer,
+  .game-frame:-webkit-full-screen .game-footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+    min-height: 48px;
+    padding: 5px max(12px, env(safe-area-inset-right)) max(5px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    background: linear-gradient(transparent, #102822d9);
+  }
+  .game-frame:fullscreen .game-footer > span:nth-child(2),
+  .game-frame:-webkit-full-screen .game-footer > span:nth-child(2),
+  .game-frame:fullscreen .game-footer > span:nth-child(4),
+  .game-frame:-webkit-full-screen .game-footer > span:nth-child(4) {
+    display: none;
+  }
+  .game-frame:fullscreen .game-footer #fullscreen,
+  .game-frame:-webkit-full-screen .game-footer #fullscreen {
+    margin-left: auto;
+  }
+  .game-frame:fullscreen .game-footer #pause,
+  .game-frame:-webkit-full-screen .game-footer #pause {
+    margin-left: 4px;
+  }
   .environment-message {
     top: 54px;
     left: 12px;
@@ -2300,7 +2356,7 @@ body.text-larger .heading {
     font-size: 11px;
   }
 }
-@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 500px), (any-pointer: coarse) and (max-width: 600px) {
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 700px), (any-pointer: coarse) and (max-width: 600px) {
   .viewport.has-interaction .world-tag,
   .viewport.has-interaction .objective-pin,
   .viewport.speech-open .world-tag,
@@ -2311,8 +2367,7 @@ body.text-larger .heading {
   }
   .viewport.speech-open .touchpad,
   .viewport.speech-open .touch-run {
-    opacity: 0.28;
-    pointer-events: none;
+    display: none;
   }
   .interaction {
     top: 12px;
@@ -2325,13 +2380,17 @@ body.text-larger .heading {
   overflow-wrap: anywhere;
 }
 
-/* Character dialogue stays in the game viewport and points toward its current speaker. */
+/* Speech lives at the lower center of the playable map without covering map controls or its speaker. */
 .speech-bubble {
   position: absolute;
   z-index: 8;
-  width: min(340px, calc(100% - 24px));
-  max-height: calc(100% - 24px);
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(420px, calc(100% - 24px));
+  max-height: var(--speech-max-height, calc(100% - 48px));
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 12px 14px 10px;
   border: 2px solid #293d31;
   border-radius: 13px;
@@ -2341,29 +2400,6 @@ body.text-larger .heading {
     0 5px 0 #293d3133,
     0 10px 26px #14251e55;
   font-size: 1rem;
-}
-.speech-bubble::after {
-  position: absolute;
-  left: var(--tail-x, 50%);
-  bottom: -10px;
-  width: 16px;
-  height: 16px;
-  border-right: 2px solid #293d31;
-  border-bottom: 2px solid #293d31;
-  background: #fff8dc;
-  content: '';
-  transform: rotate(45deg);
-}
-.speech-bubble.speech-fallback::after {
-  display: none;
-}
-.speech-bubble.speech-tail-top::after {
-  top: -10px;
-  bottom: auto;
-  border: 0;
-  border-top: 2px solid #293d31;
-  border-left: 2px solid #293d31;
-  transform: rotate(45deg);
 }
 .speech-bubble[hidden] {
   display: none;
@@ -2380,6 +2416,8 @@ body.text-larger .heading {
   line-height: 1.45;
 }
 .speech-bubble button {
+  position: sticky;
+  bottom: 0;
   display: block;
   margin-left: auto;
   padding: 5px 12px;
@@ -2406,8 +2444,7 @@ body.text-larger .heading {
   text-align: left;
 }
 @media (prefers-reduced-motion: reduce) {
-  .speech-bubble,
-  .speech-bubble::after {
+  .speech-bubble {
     scroll-behavior: auto;
     transition: none;
   }
@@ -2498,4 +2535,70 @@ body.text-larger .heading {
 .viewport.speech-open .toast,
 .viewport.speech-open .interaction {
   display: none;
+}
+
+/* Select controls from actual movement input, including on hybrid devices. */
+body:not([data-input-mode='touch']) .touchpad,
+body:not([data-input-mode='touch']) .touch-run,
+.touch-hint {
+  display: none;
+}
+body[data-input-mode='touch'] .touchpad {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+}
+body[data-input-mode='touch'] .touchpad button {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+}
+body[data-input-mode='touch'] .touch-run {
+  display: block;
+  min-height: 44px;
+}
+body[data-input-mode='touch'] .keyboard-hint {
+  display: none;
+}
+body[data-input-mode='touch'] .touch-hint {
+  display: inline;
+}
+
+body[data-input-mode='desktop'] .game-footer > .keyboard-hint:first-child {
+  display: inline;
+}
+.game-footer {
+  flex-wrap: wrap;
+}
+
+/* Short map guidance and discovery feedback shares the clear, light visual language of authored map notes. */
+.viewport.toast-open .world-tag,
+.viewport.toast-open .objective-pin {
+  display: none;
+}
+@media (max-width: 760px) {
+  .viewport.toast-open .minimap-box,
+  .viewport.toast-open .zoom-controls {
+    display: none;
+  }
+  .toast {
+    top: 12px;
+    max-width: calc(100% - 24px);
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+}
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 700px) {
+  .viewport.toast-open .minimap-box {
+    display: block;
+  }
+  .toast {
+    top: 12px;
+    left: 12px;
+    max-width: min(72%, calc(100% - 180px));
+    max-height: 56px;
+    overflow-y: auto;
+    transform: none;
+    text-align: left;
+  }
 }

@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://mossvale.local/schemas/scene-script-v1.json",
+  "title": "Mossvale scene intent and continuity handoff",
+  "description": "Narrative and authoring intent only. It is not executable game data.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "id",
+    "title",
+    "catalogueSourceRevision",
+    "previousScene",
+    "setting",
+    "participants",
+    "uses",
+    "beats",
+    "requirements",
+    "completion",
+    "continuityIn",
+    "continuityOut"
+  ],
+  "properties": {
+    "format": {"const": 1},
+    "id": {"$ref": "#/definitions/id"},
+    "title": {"type": "string", "minLength": 1},
+    "catalogueSourceRevision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "previousScene": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "summary"],
+          "properties": {"id": {"$ref": "#/definitions/id"}, "summary": {"type": "string", "minLength": 1}}
+        }
+      ]
+    },
+    "setting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["biomeId", "mapIntent", "environment"],
+      "properties": {
+        "biomeId": {"$ref": "#/definitions/catalogueId"},
+        "mapId": {"$ref": "#/definitions/catalogueId"},
+        "mapIntent": {"type": "string", "minLength": 1},
+        "environment": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "placementConstraints": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "participants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "identity", "resourceId", "role", "startingSituation"],
+        "properties": {
+          "id": {"$ref": "#/definitions/id"},
+          "identity": {"type": "string", "minLength": 1},
+          "resourceId": {"$ref": "#/definitions/catalogueId"},
+          "role": {"type": "string", "minLength": 1},
+          "startingSituation": {"type": "string", "minLength": 1},
+          "movementIntent": {"type": "string"}
+        }
+      }
+    },
+    "uses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["resourceId", "purpose"],
+        "properties": {
+          "resourceId": {"$ref": "#/definitions/catalogueId"},
+          "purpose": {"type": "string", "minLength": 1},
+          "configurationIntent": {"type": "string"}
+        }
+      }
+    },
+    "beats": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "type", "intent"],
+        "properties": {
+          "id": {"$ref": "#/definitions/id"},
+          "type": {"enum": ["dialogue", "player-action", "result", "transition"]},
+          "intent": {"type": "string", "minLength": 1},
+          "speaker": {"type": "string", "minLength": 1},
+          "text": {"type": "string"},
+          "advance": {"enum": ["manual", "timed", "player-action"]},
+          "durationHint": {"type": "string"},
+          "interactionIntent": {"type": "string"},
+          "expectedResult": {"type": "string"}
+        }
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "description", "neededFor", "priority"],
+        "properties": {
+          "id": {"$ref": "#/definitions/id"},
+          "kind": {"enum": ["configuration", "new-art", "new-mechanic"]},
+          "description": {"type": "string", "minLength": 1},
+          "capabilityId": {"$ref": "#/definitions/catalogueId"},
+          "neededFor": {"type": "string", "minLength": 1},
+          "priority": {"enum": ["required", "optional"]},
+          "dependsOn": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/definitions/id"}}
+        }
+      }
+    },
+    "completion": {"type": "string", "minLength": 1},
+    "continuityIn": {"$ref": "#/definitions/continuity"},
+    "continuityOut": {"$ref": "#/definitions/continuity"}
+  },
+  "definitions": {
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "catalogueId": {"type": "string", "pattern": "^[a-z][a-z0-9-]*:[a-z0-9][a-z0-9/-]*$"},
+    "continuity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["characters", "flags", "items", "canonicalFacts", "decisions", "pendingThreads"],
+      "properties": {
+        "characters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "identity", "location"],
+            "properties": {"id": {"$ref": "#/definitions/id"}, "identity": {"type": "string", "minLength": 1}, "location": {"type": "string", "minLength": 1}}
+          }
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "value"],
+            "properties": {"id": {"$ref": "#/definitions/id"}, "value": {"type": ["string", "number", "boolean"]}}
+          }
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["resourceId", "count", "state"],
+            "properties": {
+              "resourceId": {"$ref": "#/definitions/catalogueId"},
+              "count": {"type": "integer", "minimum": 0},
+              "state": {"enum": ["held", "acquired", "consumed"]}
+            }
+          }
+        },
+        "canonicalFacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "statement", "status"],
+            "properties": {
+              "id": {"$ref": "#/definitions/id"},
+              "statement": {"type": "string", "minLength": 1},
+              "status": {"enum": ["active", "resolved", "superseded"]},
+              "resolution": {"type": "string"}
+            }
+          }
+        },
+        "decisions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "pendingThreads": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

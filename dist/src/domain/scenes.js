@@ -1,8 +1,9 @@
 /* A deliberately small, data-only vocabulary for reusable map interactions. */
 import {holds, validateLines} from './objectives.js';
 
-export const SCENE_ACTIONS = ['dialogue', 'reward', 'flag', 'challenge'];
+export const SCENE_ACTIONS = ['dialogue', 'reward', 'flag', 'challenge', 'move', 'face', 'wait', 'react'];
 export const MAX_SCENE_EVENTS = 256;
+export const MAX_SCENE_ACTIONS = 24;
 const EVENT_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*\/[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const FLAG = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/;
 
@@ -22,7 +23,7 @@ export function markSceneRun(save, mapId, id) {
   return true;
 }
 
-export function validateSceneEvent(event, {speciesIds, speakerIds = new Set(), mapId, mapIds, where}) {
+export function validateSceneEvent(event, {speciesIds, speakerIds = new Set(), actorIds = new Set(), walkable, mapSize, mapId, mapIds, where}) {
   const errors = [];
   const at = (field, message) => errors.push(`${where}.${field}: ${message}`);
   if (!event || typeof event !== 'object' || Array.isArray(event)) return [`${where}: expected an event object`];
@@ -33,6 +34,7 @@ export function validateSceneEvent(event, {speciesIds, speakerIds = new Set(), m
   }
   if (typeof event.repeatable !== 'boolean') at('repeatable', 'choose true or false explicitly');
   if (!Array.isArray(event.actions) || !event.actions.length) at('actions', 'needs at least one action');
+  else if (event.actions.length > MAX_SCENE_ACTIONS) at('actions', `is limited to ${MAX_SCENE_ACTIONS} actions`);
   else {
     let challengeSeen = false;
     event.actions.forEach((action, i) => {
@@ -56,6 +58,21 @@ export function validateSceneEvent(event, {speciesIds, speakerIds = new Set(), m
         if (!speciesIds.has(action.species)) at(`${field}.species`, `unknown species "${action.species}"`);
         if (!Number.isInteger(action.level) || action.level < 1 || action.level > 99) at(`${field}.level`, 'integer 1..99');
         if (event.repeatable !== true) at(field, 'challenges must be explicitly repeatable so a loss cannot consume the interaction');
+      } else if (action.type === 'move') {
+        if (action.actor !== 'player' && !actorIds.has(action.actor)) at(`${field}.actor`, 'must be player or a movable actor landmark id');
+        if (!Array.isArray(action.to) || action.to.length !== 2 || !action.to.every(Number.isInteger)) at(`${field}.to`, 'must be an integer [x, y] map tile');
+        else if (mapSize && (action.to[0] < 0 || action.to[1] < 0 || action.to[0] >= mapSize.w || action.to[1] >= mapSize.h))
+          at(`${field}.to`, 'must be inside the map');
+        else if (walkable && !walkable(action.to[0], action.to[1])) at(`${field}.to`, 'must be walkable');
+      } else if (action.type === 'face') {
+        if (action.actor !== 'player' && !actorIds.has(action.actor)) at(`${field}.actor`, 'must be player or a movable actor landmark id');
+        if (action.target !== 'player' && !actorIds.has(action.target)) at(`${field}.target`, 'must be player or a movable actor landmark id');
+        if (action.actor === action.target) at(field, 'actor cannot face itself');
+      } else if (action.type === 'wait') {
+        if (!Number.isInteger(action.ms) || action.ms < 0 || action.ms > 5000) at(`${field}.ms`, 'must be an integer from 0 to 5000');
+      } else if (action.type === 'react') {
+        if (action.actor !== 'player' && !actorIds.has(action.actor)) at(`${field}.actor`, 'must be player or a movable actor landmark id');
+        if (!['notice', 'surprise', 'happy'].includes(action.pose)) at(`${field}.pose`, 'must be notice, surprise, or happy');
       } else at(field, `type must be one of ${SCENE_ACTIONS.join(', ')}`);
     });
   }
@@ -65,11 +82,11 @@ export function validateSceneEvent(event, {speciesIds, speakerIds = new Set(), m
 
 /** Applies non-challenge actions in order. The caller persists the complete result as one save transaction. */
 export function applySceneActions(save, event, context) {
-  const result = {dialogue: [], challenge: null, reward: null};
+  const result = {dialogue: [], choreography: [], challenge: null, reward: null};
   for (const action of event.actions) {
-    if (action.type === 'dialogue') result.dialogue.push({text: action.text, speaker: action.speaker ?? 'narrator'});
+    if (['move', 'face', 'wait', 'react'].includes(action.type)) result.choreography.push(structuredClone(action));
+    else if (action.type === 'dialogue') result.dialogue.push({text: action.text, speaker: action.speaker ?? 'narrator'});
     else if (action.type === 'reward') {
-      for (const key of ['coins', 'potions', 'orbs']) if (Number.isInteger(action[key])) save[key] += action[key];
       result.reward = action;
     } else if (action.type === 'flag') context.setFlag(action.flag);
     else if (action.type === 'challenge') result.challenge = {id: action.species, level: action.level};

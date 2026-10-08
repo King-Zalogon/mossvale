@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/maps/registries.json", "dist/src/data/tactics.js", "dist/src/domain/battle.js", "dist/src/domain/registries.js", "dist/maps/index.json"],
+      "entries": ["mechanic:guardian-counterplay"],
+      "disposition": "updated",
+      "reason": "Adds pack-defined response bonuses to four guardian tactics and a bounded pack-level guardianHpBonus pacing setting. Older packs default to the previous +18 HP; wild encounters and saves are unchanged.",
+      "evidence": ["tests/guardians.test.mjs", "docs/GUARDIANS.md"]
+    }
+  ]
+}

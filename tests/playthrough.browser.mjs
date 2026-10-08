@@ -298,6 +298,38 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
       const resumedEvents = await page.evaluate(() => window.mossvale.events());
       assert.ok(resumedEvents.some(event => event.type === 'battle.resumed' && event.turn === 1));
       await capture('05-guardian-restored');
+
+      // Continue the same player-started battle with ordinary battle inputs, then follow
+      // the result back to exploration. This closes the prior gap where the proof only
+      // established that an interrupted battle could be restored.
+      for (let turn = 0; turn < 160 && !(await page.locator('#result-continue').isVisible()); turn++) {
+        const current = await state();
+        if (current.phase === 'explore' && !current.battle) break;
+        if (current.battle && !current.battle.busy) {
+          const active = current.save.active;
+          const health = current.save.team[active];
+          const maxHp = await page.evaluate(id => window.mossvale.maxHP(id), active);
+          const intent = (await page.locator('.battle-intent').count()) ? await page.locator('.battle-intent').innerText() : '';
+          const action = health.hp < maxHp * 0.4 && current.save.potions > 0 ? '4' : /heavy|bracing/i.test(intent) ? '5' : current.battle.focus < 1 ? '1' : '2';
+          await page.keyboard.press(action);
+        }
+        await page.waitForTimeout(120);
+      }
+      assert.equal(await page.locator('#result-continue').isVisible(), true, 'ordinary actions finish the resumed guardian battle');
+      await page.click('#result-continue');
+      if (await page.locator('#story-ok').isVisible()) await page.click('#story-ok');
+      await page.waitForFunction(() => window.mossvale.getState().phase === 'explore' && !window.mossvale.getState().battle);
+      let completed = await state();
+      assert.ok(completed.save.badges.length > 0, 'the player receives the meadow seal after the encounter');
+      assert.ok(completed.save.coins > 0, 'the battle reward is persisted');
+      await capture('06-meadow-seal-earned');
+      await page.reload();
+      await page.waitForSelector('#loading', {state: 'hidden'});
+      completed = await state();
+      assert.equal(completed.phase, 'explore', 'the victory returns to the explorable map');
+      assert.equal(completed.save.badges.length, 1, 'the guardian seal survives save/reload exactly once');
+      assert.equal(completed.save.battle, null, 'the finished battle does not resume after reload');
+      await capture('07-exploration-restored');
     }
   }
 
@@ -319,7 +351,15 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
   assert.deepEqual(scriptErrors, []);
   assert.deepEqual(
     screenshots.map(shot => shot.label),
-    ['01-ranger-approach', '02-shrine-approach', '03-shrine-challenge', '04-guardian-before-reload', '05-guardian-restored'],
+    [
+      '01-ranger-approach',
+      '02-shrine-approach',
+      '03-shrine-challenge',
+      '04-guardian-before-reload',
+      '05-guardian-restored',
+      '06-meadow-seal-earned',
+      '07-exploration-restored',
+    ],
   );
   console.log(
     `ok shared deterministic action script, event/state parity and interrupted-battle restore; labeled screenshots: ${screenshots.map(shot => shot.path).join(', ')}`,

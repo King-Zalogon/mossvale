@@ -9,7 +9,14 @@ export function changedPaths(root, base, head = 'HEAD') {
   } catch {
     throw new Error(`Cannot establish merge base for ${base}; fetch complete integration history before checking catalogue impact.`);
   }
-  return execFileSync('git', ['diff', '--no-renames', '--name-only', '-z', mergeBase, head], {cwd: root, encoding: 'utf8'}).split('\0').filter(Boolean);
+  const collect = args => execFileSync('git', args, {cwd: root, encoding: 'utf8'}).split('\0').filter(Boolean);
+  const paths = [
+    ...collect(['diff', '--no-renames', '--name-only', '-z', mergeBase, head]),
+    ...collect(['diff', '--no-renames', '--name-only', '-z', '--cached', head]),
+    ...collect(['diff', '--no-renames', '--name-only', '-z']),
+    ...collect(['ls-files', '--others', '--exclude-standard', '-z']),
+  ];
+  return [...new Set(paths)].sort();
 }
 
 export function needsCatalogueReview(path, referencedPaths = new Set()) {

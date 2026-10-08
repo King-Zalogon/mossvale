@@ -1,0 +1,47 @@
+{
+  "format": 1,
+  "id": "the-fernling-at-dusk",
+  "name": "The Fernling at Dusk",
+  "brief": "Meet a traveler, hear about the quiet trail, and open an optional chest.",
+  "maps": [
+    "start"
+  ],
+  "species": [
+    "fernling"
+  ],
+  "milestones": [
+    "start.chest"
+  ],
+  "ending": "story",
+  "registries": "registries.json",
+  "mapDirectory": "maps/",
+  "objectives": "objectives.json",
+  "story": "story.json",
+  "contentVersion": 1,
+  "requires": {
+    "engineVersion": 1,
+    "saveSchema": 5
+  },
+  "integrity": [
+    {
+      "id": "registry:main",
+      "path": "registries.json",
+      "sha256": "8119b46bfe3b690a99466f8edb1ecd261aa5ef301f07925ef33cab75b28df7c6"
+    },
+    {
+      "id": "map:start",
+      "path": "maps/start.json",
+      "sha256": "43e81ec42992aeedbb5dd2e91e861ea23b0f576e1106de33e9420ca740f1f823"
+    },
+    {
+      "id": "objectives:main",
+      "path": "objectives.json",
+      "sha256": "842410f67e5c8bc358d8720b775b7479b7bc1b284303617735dd4923ae09d6f6"
+    },
+    {
+      "id": "story:main",
+      "path": "story.json",
+      "sha256": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8"
+    }
+  ]
+}

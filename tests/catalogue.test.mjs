@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync, mkdtempSync, writeFileSync, symlinkSync, rmSync} from 'node:fs';
+import {readFileSync, mkdirSync, mkdtempSync, writeFileSync, symlinkSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {execFileSync} from 'node:child_process';
@@ -89,7 +89,7 @@ test('unrelated doc edits and old/invalid impact records cannot excuse resource 
   );
 });
 
-test('impact comparison uses merge-base history and notices renames and deleted paths', t => {
+test('impact comparison covers merge-base history and staged, unstaged, untracked, renamed and deleted paths', t => {
   const root = mkdtempSync(join(tmpdir(), 'catalogue-git-'));
   t.after(() => rmSync(root, {recursive: true, force: true}));
   const git = (...args) => execFileSync('git', args, {cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']}).trim();
@@ -97,13 +97,57 @@ test('impact comparison uses merge-base history and notices renames and deleted 
   git('config', 'user.name', 'Catalogue test');
   git('config', 'user.email', 'catalogue@example.invalid');
   writeFileSync(join(root, 'old.json'), '{}');
+  writeFileSync(join(root, 'delete.json'), '{}');
+  writeFileSync(join(root, '.gitignore'), 'ignored.txt\n');
   git('add', '.');
   git('commit', '-m', 'base');
   const base = git('rev-parse', 'HEAD');
+  assert.deepEqual(changedPaths(root, base), [], 'a clean candidate reports no paths');
   git('mv', 'old.json', 'new.json');
   git('commit', '-m', 'rename');
-  assert.deepEqual(changedPaths(root, base).sort(), ['new.json', 'old.json']);
+  writeFileSync(join(root, 'staged.json'), '{}');
+  git('add', 'staged.json');
+  writeFileSync(join(root, 'staged.json'), '{"editedAgain":true}');
+  writeFileSync(join(root, 'unstaged.json'), '{}');
+  writeFileSync(join(root, 'untracked path.json'), '{}');
+  writeFileSync(join(root, 'ignored.txt'), 'ignored');
+  execFileSync('git', ['rm', 'delete.json'], {cwd: root, stdio: 'ignore'});
+  const paths = changedPaths(root, base);
+  for (const path of ['new.json', 'old.json', 'delete.json', 'staged.json', 'unstaged.json', 'untracked path.json'])
+    assert.ok(paths.includes(path), `Missing ${path}`);
+  assert.ok(!paths.includes('ignored.txt'));
   assert.throws(() => changedPaths(root, 'origin/absent'), /fetch complete integration history/);
+});
+
+test('uncommitted authorable files require review and a scoped record satisfies the local gate', async t => {
+  const root = mkdtempSync(join(tmpdir(), 'catalogue-impact-git-'));
+  t.after(() => rmSync(root, {recursive: true, force: true}));
+  const git = (...args) => execFileSync('git', args, {cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']}).trim();
+  git('init');
+  git('config', 'user.name', 'Catalogue test');
+  git('config', 'user.email', 'catalogue@example.invalid');
+  writeFileSync(join(root, 'README.md'), 'base');
+  git('add', '.');
+  git('commit', '-m', 'base');
+  const base = git('rev-parse', 'HEAD');
+  mkdirSync(join(root, 'dist/src/domain'), {recursive: true});
+  writeFileSync(join(root, 'dist/src/domain/new-rule.js'), 'export const rule = true;');
+  const paths = changedPaths(root, base);
+  const data = await catalogue();
+  assert.ok(validateImpact(paths, [], data).some(error => error.includes('dist/src/domain/new-rule.js')));
+  const review = {
+    format: 1,
+    changes: [
+      {
+        paths: ['dist/src/domain/new-rule.js'],
+        entries: ['mechanic:guardian-counterplay'],
+        disposition: 'no-semantic-impact',
+        reason: 'Temporary fixture demonstrates a scoped pre-commit review record.',
+        evidence: ['tests/catalogue.test.mjs'],
+      },
+    ],
+  };
+  assert.deepEqual(validateImpact(paths, [review], data), []);
 });
 
 test('freshness checker rejects missing entries and edited generated facts despite valid JSON', async () => {

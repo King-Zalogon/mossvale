@@ -20,6 +20,16 @@
     },
     "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+    "idlePoseSource": {
+      "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+      "dimensions": {"sheet": [1536, 1024], "cell": [384, 512], "runtimeFrame": [160, 256]},
+      "grid": {"columns": 4, "rows": 2},
+      "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+      "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+      "anchor": "bottom-center",
+      "runtimeFootY": 250,
+      "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+    },
     "walkCadence": {
       "unit": "world-distance",
       "distancePerFrame": 0.56,
@@ -40,8 +50,19 @@
         "sourceRow": 1,
         "columns": [1, 2, 3, 4],
         "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+      },
+      {
+        "direction": "west",
+        "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+        "sourceGrid": {"columns": 1, "rows": 1},
+        "columns": [3],
+        "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
       }
-    ]
+    ],
+    "walkSourceColumnOrder": {
+      "northeast": [1, 2, 4, 3],
+      "southwest": [1, 2, 4, 3]
+    }
   },
   "npcs": [
     {

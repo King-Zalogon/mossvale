@@ -7,6 +7,7 @@ import {MAX_MAP_SIZE} from './config.js';
 import * as save from './save.js';
 import {seededRng} from './domain/rng.js';
 import {createEventLog} from './domain/events.js';
+import {createCombatTrace} from './domain/combat-trace.js';
 import {createTestClock} from './domain/clock.js';
 import {effectiveness, level, maxHP} from './domain/rules.js';
 import {currentObjective} from './domain/objectives.js';
@@ -18,7 +19,7 @@ import {FACING, followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
 import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
-import {exportBackup, exportFileName, importSave, parseBackup, readCheckpoint, restoreCheckpoint} from './services/backup.js';
+import {exportBackup, exportFileName, importSave, parseBackup, readBackupFile, readCheckpoint, restoreCheckpoint} from './services/backup.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
 import {fetchAdventure, fetchCatalog} from './services/maps.js';
 import {
@@ -56,6 +57,8 @@ function getStorage() {
 
 const params = new URLSearchParams(location.search);
 const debug = params.has('debug');
+const traceSeed = params.has('seed') && Number.isFinite(Number(params.get('seed'))) ? Number(params.get('seed')) >>> 0 : null;
+const combatTrace = debug && params.has('combatTrace') ? createCombatTrace() : null;
 const testClock = debug && params.has('clock') ? createTestClock(Number(params.get('clock')) || 0) : null;
 let uiClock = 0;
 const eventLog = createEventLog({
@@ -139,6 +142,7 @@ const app = {
   canStartOver: () => loaded.writable,
   persist,
   events: eventLog,
+  combatTrace,
   testClock,
 };
 app.menus = createMenus(app);
@@ -277,11 +281,7 @@ Object.assign(actions, {
     toast('Save file downloaded. Import it in another browser to continue there.');
   },
   async readBackup(file) {
-    try {
-      return parseBackup(await file.text(), codec, app.adventures.list);
-    } catch {
-      return {ok: false, reason: 'That file could not be read.'};
-    }
+    return readBackupFile(file, codec, app.adventures.list);
   },
   applyImport(incoming) {
     if (!importSave({storage, codec, save: game.save, incoming}).ok)
@@ -488,7 +488,7 @@ function loop(t) {
   if (!document.hidden) {
     const {pacing} = game;
     pacing.encounterCooldown = Math.max(0, pacing.encounterCooldown - dt);
-    if (!ui.paused && !ui.modalMode && !ui.speechActive) {
+    if (!ui.paused && !ui.modalMode && !ui.speechActive && !ui.sceneBusy) {
       game.save.playTime += dt;
       const [sx, sy] = direction(ui);
       const run = ui.keys.shift || ui.touchRun;
@@ -518,7 +518,7 @@ function loop(t) {
       now: ui.now,
       paused: ui.paused,
       phase: game.phase,
-      moving: isMoving(ui) && !ui.modalMode && !ui.paused,
+      moving: (isMoving(ui) || ui.sceneMoving) && !ui.modalMode && !ui.paused,
       reducedMotion: app.motionReduced(),
     };
     const t0 = perf ? performance.now() : 0;
@@ -550,8 +550,28 @@ $('#interact').onclick = actions.interact;
 $('#touch-e').onclick = actions.interact;
 $('#sound').onclick = () => actions.setSetting('sound', !app.audio.enabled);
 $('#menu').onclick = () => actions.menu();
+const fullscreenButton = $('#fullscreen');
+const gameFrame = document.querySelector('.game-frame');
+function syncFullscreenButton() {
+  const active = document.fullscreenElement === gameFrame;
+  fullscreenButton.textContent = active ? 'Exit fullscreen' : 'Fullscreen';
+  fullscreenButton.setAttribute('aria-label', active ? 'Exit fullscreen play' : 'Enter fullscreen play');
+  fullscreenButton.setAttribute('aria-pressed', String(active));
+  requestAnimationFrame(resize);
+}
+if (!document.fullscreenEnabled || typeof gameFrame.requestFullscreen !== 'function') fullscreenButton.hidden = true;
+fullscreenButton.onclick = async () => {
+  try {
+    if (document.fullscreenElement === gameFrame) await document.exitFullscreen();
+    else await gameFrame.requestFullscreen({navigationUI: 'hide'});
+  } catch {
+    toast('Fullscreen is unavailable in this browser.');
+  }
+};
+document.addEventListener('fullscreenchange', syncFullscreenButton);
 $('#pause').onclick = () => {
   if (game.battle || ui.modalMode) return;
+  actions.cancelSceneMotion();
   ui.paused = !ui.paused;
   app.audio.hold(ui.paused);
   $('#pause').textContent = ui.paused ? 'Resume' : 'Pause';
@@ -593,6 +613,8 @@ if (debug) {
       paused: ui.paused,
       phase: game.phase,
       modalMode: ui.modalMode,
+      sceneBusy: ui.sceneBusy,
+      sceneMoving: ui.sceneMoving,
       now: ui.now,
       followerMotion: renderer.followerMotion,
       trail: game.trail,
@@ -604,6 +626,9 @@ if (debug) {
     grass: (x, y) => !!zoneAt(game.world, x, y),
     travel: actions.travel,
     interact: actions.interact,
+    nearest: actions.nearest,
+    explore: actions.explore,
+    selectCompanion: actions.selectCompanion,
     objective: () => currentObjective(game.save, app.objectives, app.objCtx),
     previewSpeech: actions.previewSpeech,
     level: id => level(game.save, id),
@@ -612,6 +637,21 @@ if (debug) {
     perf: () => perf,
     areaMap: () => app.areaMap.state,
     events: () => eventLog.read(),
+    combatTrace: () => combatTrace?.read() ?? [],
+    exportCombatTrace: () => {
+      if (!combatTrace) return false;
+      downloadText(
+        `mossvale-combat-trace-${new Date().toISOString().replaceAll(':', '-')}.json`,
+        combatTrace.export({
+          packId: app.adventures.current?.id ?? 'mossvale',
+          packContentVersion: app.build?.pack?.contentVersion ?? null,
+          build: app.build ?? {label: app.buildLabel()},
+          seed: traceSeed,
+        }),
+      );
+      return true;
+    },
+    clearCombatTrace: () => combatTrace?.clear() ?? false,
     advanceClock: milliseconds => testClock?.advance(milliseconds) ?? null,
   };
 }

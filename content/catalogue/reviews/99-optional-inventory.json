@@ -1,0 +1,27 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/maps/index.json",
+        "dist/maps/inventory.json",
+        "tests/fixtures/packs/lantern-crossing/index.json",
+        "tests/fixtures/packs/lantern-crossing/inventory.json",
+        "dist/src/domain/battle.js",
+        "dist/src/controller.js",
+        "dist/src/ui/battle-view.js",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "docs/PACKS.md",
+        "tests/battle-actions.test.mjs",
+        "content/catalogue/reviews/99-optional-inventory.json"
+      ],
+      "entries": ["item:battle-potion", "mechanic:inventory-transactions"],
+      "disposition": "updated",
+      "reason": "Connects pack-owned percentage healing and deterministic wild/capture drops to live battle resolution, with once-only inventory claims, legacy supply synchronization and result-screen feedback.",
+      "evidence": ["tests/battle-actions.test.mjs", "tests/inventory.test.mjs", "docs/PACKS.md"]
+    }
+  ]
+}

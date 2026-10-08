@@ -28,6 +28,14 @@ try {
   assert.doesNotMatch(await page.locator('#family-status').textContent(), /unresolved art sources/);
   const initialFamily = await page.locator('#family-canvas').evaluate(canvas => canvas.toDataURL());
   const plainMap = await page.locator('#map-canvas').evaluate(canvas => canvas.toDataURL());
+  await page.evaluate(() => {
+    window.shorelineAccentDraws = 0;
+    const stroke = CanvasRenderingContext2D.prototype.stroke;
+    CanvasRenderingContext2D.prototype.stroke = function (...args) {
+      if (this.canvas.id === 'family-canvas' && this.strokeStyle === '#4a7044') window.shorelineAccentDraws++;
+      return stroke.apply(this, args);
+    };
+  });
   await page.click('#family-map-toggle');
   assert.equal(await page.locator('#family-map-toggle').getAttribute('aria-pressed'), 'true');
   assert.notEqual(await page.locator('#map-canvas').evaluate(canvas => canvas.toDataURL()), plainMap, 'the selected map paints with the shared source family');
@@ -35,6 +43,7 @@ try {
   assert.equal(await page.locator('#family-map-toggle').getAttribute('aria-pressed'), 'false');
   await page.locator('#family-seed').fill('72');
   await page.waitForFunction(() => document.querySelector('#family-status')?.textContent.includes('seed 72'));
+  assert.ok(await page.evaluate(() => window.shorelineAccentDraws > 0), 'the actual-size family preview draws land-side reed detail');
   const changedFamily = await page.locator('#family-canvas').evaluate(canvas => canvas.toDataURL());
   assert.notEqual(changedFamily, initialFamily, 'the seed changes deterministic family decoration');
   await page.locator('#family-seed').fill('71');
@@ -126,8 +135,21 @@ try {
   assert.deepEqual(largeRoundTrip.size, {w: 96, h: 96});
   assert.equal(largeRoundTrip.authoring.opaqueId, 'keep-this-field');
   assert.equal(largeRoundTrip.exits[0].id, large.exits[0].id);
+  const selectedBeforeOversizedImport = await page.locator('#map-name').textContent();
+  await page.evaluate(() => {
+    window.mapImportFileReads = 0;
+    const readText = File.prototype.text;
+    File.prototype.text = function (...args) {
+      window.mapImportFileReads++;
+      return readText.apply(this, args);
+    };
+  });
+  await page.locator('#file').setInputFiles({name: 'oversized-map.json', mimeType: 'application/json', buffer: Buffer.alloc(1_000_001, 32)});
+  await page.waitForFunction(() => document.querySelector('#validation')?.textContent.includes('maximum 1 MB'));
+  assert.equal(await page.evaluate(() => window.mapImportFileReads), 0, 'oversized map is rejected before File.text()');
+  assert.equal(await page.locator('#map-name').textContent(), selectedBeforeOversizedImport, 'rejected import leaves the selected map unchanged');
   assert.deepEqual(errors, []);
-  console.log('ok terrain and portal editing, undo/redo, validation, full-engine preview and large-map JSON round trip');
+  console.log('ok terrain and portal editing, undo/redo, validation, full-engine preview, large-map JSON round trip and pre-read import limit');
 } finally {
   await browser.close();
   server.close();

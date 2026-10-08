@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/domain/battle.js", "tests/battle-actions.test.mjs", "content/catalogue/reviews/204-inventory-orb-sync.json"],
+      "entries": ["item:battle-potion", "mechanic:inventory-transactions"],
+      "disposition": "no-semantic-impact",
+      "reason": "Keeps legacy orb and potion counters mirrored during battle action and reward transactions; this repairs consistency without changing the inventory capability or authoring contract.",
+      "evidence": ["tests/battle-actions.test.mjs", "tests/inventory.test.mjs"]
+    }
+  ]
+}
