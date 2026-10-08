@@ -105,6 +105,34 @@ export function captureChance(save, battle) {
   return Math.min(0.96, 0.25 + (1 - battle.hp / battle.max) * 0.67 + Math.max(0, level(save, save.active) - battle.level) * 0.025);
 }
 
+/** Player-visible actions and exact availability at the start of a turn; does not mutate save or battle. */
+export function combatChoices(save, battle) {
+  const active = companion(save);
+  const full = active.hp >= maxHP(save, save.active);
+  const targets = save.party.filter(id => id !== save.active && companion(save, id).hp > 0);
+  return [
+    {kind: 'attack', available: !battle.over},
+    {kind: 'element', available: !battle.over && battle.focus >= ELEMENT_COST, reason: battle.focus >= ELEMENT_COST ? null : `Requires ${ELEMENT_COST} Focus.`},
+    {
+      kind: 'catch',
+      available: !battle.over && !battle.boss && save.orbs > 0,
+      reason: battle.boss ? 'Guardians cannot be captured.' : save.orbs < 1 ? 'No capture orbs available.' : null,
+    },
+    {
+      kind: 'potion',
+      available: !battle.over && save.potions > 0 && !full,
+      reason: save.potions < 1 ? 'No potions available.' : full ? 'Active companion is at full HP.' : null,
+    },
+    {kind: 'guard', available: !battle.over},
+    {
+      kind: 'switch',
+      available: !battle.over && targets.length > 0,
+      reason: targets.length ? null : 'No healthy teammate is available to switch in.',
+      targets: targets.map(id => species[id].id),
+    },
+  ];
+}
+
 /** The player's attack. kind: 'attack' (quick strike) | 'element'. Mutates battle.hp. */
 export function playerStrike(save, battle, kind, rng) {
   const eff = kind === 'element' ? effectiveness(save.active, battle.id) : 1;
