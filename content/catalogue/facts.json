@@ -2,15 +2,15 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "8db1ecfc01422f2e1115ad69c9abe8a24b438c5a1d575d76d8262e46cb750391",
+    "art/assets/subjects.json": "b30242f0b790228e57de72a7c9c1e827f3978b8e50fad91f267febd4b8d219eb",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
     "art/characters/creature-combat-metadata.json": "fb2a680ea20df6adbb2c31155f6222901a28fd968a6d43387a0912c005b00ce6",
     "art/characters/creature-follower-metadata.json": "9cd49120ee2f26909751e0fb43165e8645eb0e7576f2e28247f551a8e347256a",
     "art/characters/export-profiles.json": "036d7b40e9edbfd2adb6683b2b6cde99c7d8fa8dcc4c8d4813a2a8df14232d65",
-    "art/characters/metadata.json": "bcd3e68aaf20363ff2b3199475bf105de96d0a5e952dc02d5c2584c6501ca472",
+    "art/characters/metadata.json": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
-    "art/characters/visual-reviews.json": "eb0d57a2aac40d1ffd4b6de505f677bb4a217596d712d8bcf76a1a81756e113d",
+    "art/characters/visual-reviews.json": "258e9dd968476230d6a3b8b0a58ae2207f2af57fd2db34156acfa022ba88afb2",
     "content/catalogue/curated.json": "8a4eb6102c9ef90fd0899565581516f9282e1611f88e891c9a74f01c4c5b7f42",
     "content/catalogue/schema.json": "8918ca5c174e7620b765d6d7081d79bc4b3d006b51d004f575cb24cbaf56016d",
     "content/catalogue/templates.json": "bb0d71d227a6ed155aa8d83353fb192463fbb01113891f58d95f6da867448d5a",
@@ -53,7 +53,7 @@
     "dist/assets/items/item-capture-orb.png": "67d9bc68c1b5d0b14812f2d7e4e25acda73c4094937ca18a5b371bc9d661526f",
     "dist/assets/people/person-gardener.png": "f498db00333f41c5339119d505fc1ac99590d1554c969528b74f39867d2b9016",
     "dist/assets/people/person-red-cap-east.png": "1ea752494f7897b5e512d5885f8c732a06590949c74450f6e6c8744ea4053850",
-    "dist/assets/people/person-red-cap-motion.png": "ebecf6b243670ea66ba5151861789d8834e60171fa04d4b2d327b1a59912dd40",
+    "dist/assets/people/person-red-cap-motion.png": "98c33b2c08a9d43892425d73889bc727eee77db5145bd0ce81e9aeec037a6f95",
     "dist/assets/people/person-red-cap-north.png": "16c613be7720e0c9f231eca4f7e5181b709647afde0ab858a5efeafa4ddec6a8",
     "dist/assets/people/person-red-cap-south.png": "9088f1039cc08e0f0496d08ff942ec3de9b55bfee561c23e8e38b4326faacc51",
     "dist/assets/people/person-red-cap-west.png": "73b972aca231577c7a746b84585b004672c6bbb0271799f24e9832202874fadd",
@@ -171,8 +171,8 @@
     "dist/src/ui/dom.js": "896b6353b90b7640a1219a0f7a9e2eb791ef81adc0766a557cb2c9919a191090",
     "dist/src/ui/hud.js": "9ac727aeca185bed2e15dbdbc34fa4c51266f5b3bdf78083e53154d8d487a4a1",
     "dist/src/ui/menus.js": "58be3117404e7e2286d060e3983508d518845a142fda8cd1ef834dac56c36490",
-    "dist/src/ui/speech.js": "63761bdd053541def5ab9175df1639468f5aa945adc655ebaa3b527b85d79471",
-    "dist/src/ui/terrain-family-preview.js": "2a43fad34585a6000e362b8a5433b8ca22314e22f14a93ea1afbb7eba8008fc0",
+    "dist/src/ui/speech.js": "a19df962494d804ec047f472633da6a58df99234056e0155504582121e868e21",
+    "dist/src/ui/terrain-family-preview.js": "2f0b636f500caa36d5da1e2ed61abc42bbe184fc8629d6447439fbbe1403d023",
     "scripts/art-jobs.mjs": "6f9d421cda205300e6005b366099af1e57fab4245df048da17dd4fc4576055cf",
     "scripts/bake-terrain-family.mjs": "c58bdad8f58d4ef7f13a0f5b1e84ce086ac869b4cf5ea9fb49d821702712e84d",
     "scripts/catalogue.mjs": "a01698aedfa71ed2e61b385f7e39c97a070d2ab836b66c531a19657ec27b2e71",
@@ -200,7 +200,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "12d52e08012e37971ab875175f91929c5b2c8c88d42696828ef76361d3e1aadb",
+  "sourceDigest": "57b09c00599418b1c7a44114031a8be2de43ae7f7951fd099a482711e2126948",
   "exclusions": [
     {
       "family": "module-exports",
@@ -13431,6 +13431,23 @@
           },
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
           "walkCadence": {
             "unit": "world-distance",
             "distancePerFrame": 0.56,
@@ -13546,6 +13563,23 @@
           },
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
           "walkCadence": {
             "unit": "world-distance",
             "distancePerFrame": 0.56,
@@ -13647,7 +13681,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 52 × 84 px gameplay scale, NE/NW/SW expose opposing stride poses with 8.4/8.4/12.8 px foot travel; West uses an independently generated opposite-leg pose. The runtime test checks walk and run playback, foot anchors and reduced motion. Owner gameplay taste remains pending.",
+          "reason": "At the 52x84 px gameplay draw size, before/after evidence shows a calm, close-footed rest pose in every runtime facing. All idle cells share the existing bottom-center foot line; the existing walk cells remain unchanged. Owner gameplay taste remains pending.",
           "ownerTaste": "pending"
         }
       ],
@@ -13673,6 +13707,23 @@
           },
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
           "walkCadence": {
             "unit": "world-distance",
             "distancePerFrame": 0.56,
@@ -13788,6 +13839,23 @@
           },
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
           "walkCadence": {
             "unit": "world-distance",
             "distancePerFrame": 0.56,
@@ -13903,6 +13971,23 @@
           },
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
           "walkCadence": {
             "unit": "world-distance",
             "distancePerFrame": 0.56,
@@ -14018,6 +14103,23 @@
           },
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
           "walkCadence": {
             "unit": "world-distance",
             "distancePerFrame": 0.56,
@@ -14140,6 +14242,23 @@
           },
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
           "walkCadence": {
             "unit": "world-distance",
             "distancePerFrame": 0.56,

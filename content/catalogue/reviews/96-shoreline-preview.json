@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["content/catalogue/reviews/96-shoreline-preview.json"],
+      "entries": ["mechanic:map-editor"],
+      "disposition": "no-semantic-impact",
+      "reason": "Reformats the historic shoreline preview audit while leaving the map-editor definition, generated catalogue and authoring behavior unchanged.",
+      "evidence": ["content/catalogue/reviews/96-shoreline-preview.json", "docs/QUALITY_REVIEW.md"]
+    }
+  ]
+}

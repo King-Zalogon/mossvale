@@ -3,6 +3,7 @@ import {chromium} from 'playwright';
 import http from 'node:http';
 import {existsSync, readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {playerSpritePose} from '../dist/src/domain/exploration.js';
 
 const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png'};
@@ -72,7 +73,7 @@ try {
             footMaxX: count ? maxX : null,
           });
         }
-        window.playerAtlasDraws.push({column, row, flipped, time: performance.now(), width, height});
+        window.playerAtlasDraws.push({column, row, flipped, time: performance.now(), width, height, x: args[4], y: args[5]});
       }
       return result;
     };
@@ -81,12 +82,15 @@ try {
   await page.waitForSelector('#loading', {state: 'hidden'});
   await page.locator('#game').click();
 
-  const diagonals = [
-    {name: 'northwest', keys: ['ArrowUp', 'ArrowLeft'], dir: 7, sourceRow: 1, flipped: true},
-    {name: 'northeast', keys: ['ArrowUp', 'ArrowRight'], dir: 1, sourceRow: 1, flipped: false},
-    {name: 'southwest', keys: ['ArrowDown', 'ArrowLeft'], dir: 5, sourceRow: 5, flipped: false},
-    {name: 'southeast', keys: ['ArrowDown', 'ArrowRight'], dir: 3, sourceRow: 3, flipped: false},
-    {name: 'west', keys: ['ArrowLeft'], dir: 6, sourceRow: 6, flipped: false},
+  const directions = [
+    {name: 'north', keys: ['ArrowUp'], dir: 0, sourceRow: 0, flipped: false},
+    {name: 'northeast', keys: ['ArrowUp', 'ArrowRight'], dir: 1, sourceRow: 1, flipped: false, footTravel: 7.5, alternating: true},
+    {name: 'east', keys: ['ArrowRight'], dir: 2, sourceRow: 2, flipped: false},
+    {name: 'southeast', keys: ['ArrowDown', 'ArrowRight'], dir: 3, sourceRow: 3, flipped: false, footTravel: 7.5},
+    {name: 'south', keys: ['ArrowDown'], dir: 4, sourceRow: 4, flipped: false},
+    {name: 'southwest', keys: ['ArrowDown', 'ArrowLeft'], dir: 5, sourceRow: 5, flipped: false, footTravel: 7.5, alternating: true},
+    {name: 'west', keys: ['ArrowLeft'], dir: 6, sourceRow: 6, flipped: false, footTravel: 4, alternating: true},
+    {name: 'northwest', keys: ['ArrowUp', 'ArrowLeft'], dir: 7, sourceRow: 1, flipped: true, footTravel: 7.5, alternating: true},
   ];
   const safeStart = await page.evaluate(() => {
     const api = window.mossvale;
@@ -121,9 +125,9 @@ try {
     }
     return candidates.sort((a, b) => a.distance - b.distance)[0] ?? null;
   });
-  assert.ok(safeStart, 'the test map provides a grass-free area for all four diagonal directions');
+  assert.ok(safeStart, 'the test map provides a grass-free area for all eight directions');
   const scenarios = [];
-  for (const diagonal of diagonals) {
+  for (const diagonal of directions) {
     for (const running of [false, true]) {
       await page.evaluate(() => {
         window.playerAtlasDraws = [];
@@ -143,11 +147,16 @@ try {
         player: {...window.mossvale.getState().player},
         draws: window.playerAtlasDraws,
       }));
-      for (const key of diagonal.keys) await page.keyboard.up(key);
+      // A diagonal key-up is one input chord: release both keys in the same event-loop turn so the game cannot
+      // process an intermediate cardinal input and change the facing after the measured diagonal walk.
+      await Promise.all(diagonal.keys.map(key => page.keyboard.up(key)));
       if (running) await page.keyboard.up('Shift');
       assert.equal(after.player.dir, diagonal.dir, `${diagonal.name} ${running ? 'run' : 'walk'} sets the matching world facing`);
       assert.ok(Math.hypot(after.player.x - before.x, after.player.y - before.y) > 0.35, `${diagonal.name} ${running ? 'run' : 'walk'} moves in the real map`);
       const playerCells = after.draws.filter(frame => frame.row === diagonal.sourceRow && frame.flipped === diagonal.flipped);
+      assert.ok(playerCells.length > 0, `${diagonal.name} ${running ? 'run' : 'walk'} is drawn by the real renderer`);
+      const heights = playerCells.map(frame => frame.height);
+      assert.ok(Math.max(...heights) - Math.min(...heights) < 0.01, `${diagonal.name} ${running ? 'run' : 'walk'} keeps a stable player sprite size`);
       const walkFrames = new Set(playerCells.map(frame => frame.column).filter(column => column > 0));
       assert.deepEqual(
         [...walkFrames].sort(),
@@ -166,35 +175,40 @@ try {
         transitions: sequence.length - 1,
       });
       await page.waitForTimeout(120);
-      const stopped = await page.evaluate(() => window.playerAtlasDraws.at(-1));
-      assert.equal(stopped?.column, 0, `${diagonal.name} settles on the idle cell after stopping`);
+      const stopped = await page.evaluate(() => ({frame: window.playerAtlasDraws.at(-1), dir: window.mossvale.getState().player.dir}));
+      const stoppedPose = playerSpritePose(stopped.dir);
+      assert.equal(stopped.frame?.column, 0, `${diagonal.name} settles on the idle cell after stopping`);
+      assert.equal(stopped.frame?.row, stoppedPose.row, `${diagonal.name} idle uses the player's retained final facing`);
+      assert.equal(stopped.frame?.flipped, stoppedPose.flip, `${diagonal.name} idle keeps the final facing mirror`);
     }
   }
 
   const metrics = await page.evaluate(() => window.playerAtlasCellMetrics);
-  const strides = diagonals.map(diagonal => {
-    const cells = metrics.filter(metric => metric.row === diagonal.sourceRow && metric.flipped === diagonal.flipped && metric.column > 0);
-    const positions = cells.map(metric => metric.footCenterX).filter(Number.isFinite);
-    assert.equal(new Set(cells.map(metric => metric.column)).size, 4, `${diagonal.name} measures four cells at the actual map draw size`);
-    assert.ok(
-      cells.every(metric => metric.footPixels > 0),
-      `${diagonal.name} keeps visible footwear in every walk cell`,
-    );
-    const span = Math.max(...positions) - Math.min(...positions);
-    const minimumFootTravel = diagonal.name === 'west' ? 4 : 7.5;
-    assert.ok(span >= minimumFootTravel, `${diagonal.name} moves its visible feet at least ${minimumFootTravel} rendered pixels (got ${span.toFixed(1)})`);
-    if (['northwest', 'northeast', 'southwest', 'west'].includes(diagonal.name)) {
-      const byColumn = Object.fromEntries(cells.map(metric => [metric.column, metric.footCenterX]));
-      const alternatingPair = Math.abs(byColumn[1] - byColumn[3]);
-      const minimumAlternation = diagonal.name === 'west' ? 2 : 6;
+  const strides = directions
+    .filter(direction => direction.footTravel)
+    .map(diagonal => {
+      const cells = metrics.filter(metric => metric.row === diagonal.sourceRow && metric.flipped === diagonal.flipped && metric.column > 0);
+      const positions = cells.map(metric => metric.footCenterX).filter(Number.isFinite);
+      assert.equal(new Set(cells.map(metric => metric.column)).size, 4, `${diagonal.name} measures four cells at the actual map draw size`);
       assert.ok(
-        alternatingPair >= minimumAlternation,
-        `${diagonal.name} visibly alternates its leading boot between the opposing stride poses at gameplay scale (delta ${alternatingPair.toFixed(1)} px)`,
+        cells.every(metric => metric.footPixels > 0),
+        `${diagonal.name} keeps visible footwear in every walk cell`,
       );
-    }
-    return {direction: diagonal.name, width: cells[0].width, height: cells[0].height, footTravelPx: Number(span.toFixed(1))};
-  });
-  for (const diagonal of diagonals) {
+      const span = Math.max(...positions) - Math.min(...positions);
+      const minimumFootTravel = diagonal.footTravel;
+      assert.ok(span >= minimumFootTravel, `${diagonal.name} moves its visible feet at least ${minimumFootTravel} rendered pixels (got ${span.toFixed(1)})`);
+      if (diagonal.alternating) {
+        const byColumn = Object.fromEntries(cells.map(metric => [metric.column, metric.footCenterX]));
+        const alternatingPair = Math.abs(byColumn[1] - byColumn[3]);
+        const minimumAlternation = diagonal.name === 'west' ? 2 : 6;
+        assert.ok(
+          alternatingPair >= minimumAlternation,
+          `${diagonal.name} visibly alternates its leading boot between the opposing stride poses at gameplay scale (delta ${alternatingPair.toFixed(1)} px)`,
+        );
+      }
+      return {direction: diagonal.name, width: cells[0].width, height: cells[0].height, footTravelPx: Number(span.toFixed(1))};
+    });
+  for (const diagonal of directions) {
     const walk = scenarios.find(item => item.direction === diagonal.name && item.mode === 'walk');
     const run = scenarios.find(item => item.direction === diagonal.name && item.mode === 'run');
     assert.ok(run.distance > walk.distance * 1.1, `${diagonal.name} covers more ground in the same time while running`);
@@ -230,7 +244,7 @@ try {
   await page.reload();
   await page.waitForSelector('#loading', {state: 'hidden'});
   await page.locator('#game').click();
-  for (const diagonal of diagonals) {
+  for (const diagonal of directions) {
     await page.evaluate(() => {
       window.playerAtlasDraws = [];
       window.capturePlayerMetrics = true;
@@ -247,7 +261,7 @@ try {
   }
   assert.deepEqual(errors, []);
   console.log(
-    `ok real-map diagonal walk/run cycles ${JSON.stringify(scenarios)}; actual-scale foot travel ${JSON.stringify(strides)}; reduced motion, turns and backtracking verified`,
+    `ok real-map eight-direction walk/run cycles ${JSON.stringify(scenarios)}; actual-scale foot travel ${JSON.stringify(strides)}; stable anchors, reduced motion, turns and backtracking verified`,
   );
 } finally {
   await browser.close();

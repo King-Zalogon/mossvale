@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Player idle pose review · Mossvale</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font:
+          15px/1.5 system-ui,
+          sans-serif;
+        background: #0d211c;
+        color: #f1ebca;
+      }
+      body {
+        max-width: 900px;
+        margin: 32px auto;
+        padding: 0 20px;
+      }
+      h1 {
+        margin-bottom: 4px;
+      }
+      p {
+        color: #bdcaaa;
+      }
+      .comparison,
+      .heading {
+        display: grid;
+        grid-template-columns: 100px 1fr 1fr;
+        gap: 12px;
+        align-items: center;
+      }
+      .heading {
+        margin: 24px 0 8px;
+        color: #9fb383;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .comparison {
+        padding: 8px 0;
+        border-top: 1px solid #344c3d;
+      }
+      .direction {
+        color: #e7d99f;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      canvas {
+        width: 104px;
+        height: 124px;
+        border: 1px solid #405c47;
+        border-radius: 8px;
+        background: #1a3429;
+        image-rendering: pixelated;
+      }
+      .note {
+        margin-top: 20px;
+        padding: 12px 16px;
+        border: 1px solid #405c47;
+        border-radius: 8px;
+        background: #142b22;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="character-preview.html">← Character preview</a>
+    <h1>Stopped player pose</h1>
+    <p>
+      Before and after at the gameplay draw size (52 × 84 px, map zoom 1.45). Both columns use the same 36 px world width, facing, and bottom-center foot
+      anchor. The new atlas changes the idle pose only; walk frames are retained.
+    </p>
+    <div class="heading"><span>Facing</span><span>Before · stride-like rest</span><span>After · neutral rest</span></div>
+    <main id="rows" aria-live="polite"></main>
+    <div class="note">Input release and reduced motion both hold the final facing on the neutral pose.</div>
+    <script type="module">
+      const directions = [
+        {name: 'North', row: 0},
+        {name: 'Northeast', row: 1},
+        {name: 'East', row: 2},
+        {name: 'Southeast', row: 3},
+        {name: 'South', row: 4},
+        {name: 'Southwest', row: 5},
+        {name: 'West', row: 6},
+        {name: 'Northwest', row: 1, flip: true},
+      ];
+      const load = src => {
+        const image = new Image();
+        image.src = src;
+        return image.decode().then(() => image);
+      };
+      const [before, after] = await Promise.all([load('reviews/player-neutral-idle-before.png'), load('assets/people/person-red-cap-motion.png')]);
+      const width = 52;
+      const height = 84;
+      const draw = (context, image, sourceRow, mirror = false) => {
+        context.fillStyle = '#a8ad7333';
+        context.beginPath();
+        context.ellipse(52, 106, 22, 8, 0, 0, Math.PI * 2);
+        context.fill();
+        context.save();
+        context.translate(52, 105);
+        context.scale(mirror ? -1 : 1, 1);
+        context.imageSmoothingEnabled = false;
+        const sourceY = sourceRow * 256;
+        context.drawImage(image, 0, sourceY, 160, 256, -width / 2, -height, width, height);
+        context.restore();
+      };
+      for (const direction of directions) {
+        const row = document.createElement('div');
+        row.className = 'comparison';
+        row.innerHTML = `<span class="direction">${direction.name}</span><canvas width="104" height="124" aria-label="${direction.name} before"></canvas><canvas width="104" height="124" aria-label="${direction.name} after"></canvas>`;
+        const [oldCanvas, newCanvas] = row.querySelectorAll('canvas');
+        draw(oldCanvas.getContext('2d'), before, direction.row, direction.flip);
+        draw(newCanvas.getContext('2d'), after, direction.row, direction.flip);
+        document.querySelector('#rows').append(row);
+      }
+      document.body.dataset.ready = 'true';
+    </script>
+  </body>
+</html>

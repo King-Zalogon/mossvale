@@ -28,6 +28,8 @@ Movable actor IDs are `player` and ranger landmark IDs on the current map. Desti
 
 Actions execute in authored order. A move completes before the next action starts, so actors can approach in sequence. Parallel action groups are not supported. Missing actors and blocked routes stop choreography with an explicit `blocked` result; cancellation produces `cancelled`. In both cases the controller releases movement ownership and presents any remaining dialogue when the same map is still active and the UI is available.
 
+NPC speech and landmark descriptions use the same light dialogue panel. It is centered in the lower part of the map and moves only when needed to keep its speaker or landmark visible. On touch layouts the movement pad and Run button pause while the panel is open; the single Next/Done button advances or closes it. Short lines stay compact, while long text scrolls inside the panel.
+
 ## Interruption and persistence
 
 The event's one-time key, flags and rewards are saved together before any visual movement begins. A failed save rolls that transaction back. Presentation is transient: pause, menu, map travel, battle, hidden tab, page exit or another interruption cancels the current movement and cannot invoke late callbacks. A cancelled one-time event remains consumed because its durable effects have already committed; its presentation does not replay after reload. Repeatable events can be activated again under their authored condition.

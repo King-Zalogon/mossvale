@@ -124,19 +124,42 @@ export function createSpeech({ui, canvas, onEvent = () => {}}) {
       if (bubble.hidden) return;
       const line = lines[index];
       const p = line?.speaker === 'narrator' ? null : anchor?.(line);
-      const rect = bubble.parentElement.getBoundingClientRect();
-      const width = bubble.offsetWidth;
-      const height = bubble.offsetHeight;
-      const pad = 12;
-      const x = p ? Math.min(rect.width - width - pad, Math.max(pad, p.x - width / 2)) : rect.width / 2 - width / 2;
-      const above = p ? p.y - height - 20 : pad;
-      const tailAbove = !!p && above < pad;
-      const y = p ? (tailAbove ? Math.min(rect.height - height - pad, p.y + 20) : Math.min(rect.height - height - pad, above)) : pad;
-      bubble.style.left = `${x}px`;
-      bubble.style.top = `${y}px`;
-      bubble.style.setProperty('--tail-x', `${p ? Math.min(width - 18, Math.max(18, p.x - x)) : width / 2}px`);
-      bubble.classList.toggle('speech-fallback', !p);
-      bubble.classList.toggle('speech-tail-top', tailAbove);
+      const viewport = bubble.parentElement;
+      const rect = viewport.getBoundingClientRect();
+      const safeBottoms = [];
+      for (const control of [$('.touchpad'), $('#touch-run'), viewport.parentElement.querySelector('.game-footer')]) {
+        if (!control || getComputedStyle(control).display === 'none') continue;
+        const controlRect = control.getBoundingClientRect();
+        if (controlRect.bottom <= rect.top || controlRect.top >= rect.bottom) continue;
+        safeBottoms.push(Math.max(0, rect.bottom - controlRect.top));
+      }
+      const safeBottom = Math.min(rect.height - 24, Math.max(12, ...safeBottoms) + 12);
+      let maxHeight = Math.max(64, rect.height - safeBottom - 24);
+      bubble.style.left = '50%';
+      bubble.style.right = 'auto';
+      bubble.style.top = 'auto';
+      bubble.style.bottom = `${safeBottom}px`;
+      bubble.style.setProperty('--speech-max-height', `${maxHeight}px`);
+
+      let box = bubble.getBoundingClientRect();
+      const localTop = box.top - rect.top;
+      const localLeft = box.left - rect.left;
+      const overlapsActor = candidate =>
+        !!p && localLeft < p.x + 32 && localLeft + box.width > p.x - 32 && candidate < p.y + 18 && candidate + box.height > p.y - 58;
+      if (overlapsActor(localTop)) {
+        // Keep the familiar lower, centered layout unless it would cover the person or landmark being read.
+        const above = p.y - 66 - box.height;
+        if (above >= 12) {
+          bubble.style.top = `${above}px`;
+          bubble.style.bottom = 'auto';
+        } else {
+          maxHeight = Math.max(64, Math.min(maxHeight, p.y - 78));
+          bubble.style.setProperty('--speech-max-height', `${maxHeight}px`);
+          box = bubble.getBoundingClientRect();
+          bubble.style.top = `${Math.max(12, p.y - 66 - box.height)}px`;
+          bubble.style.bottom = 'auto';
+        }
+      }
     },
   };
 }
