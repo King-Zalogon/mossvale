@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR} from '../dist/src/config.js';
+import {ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, RELAY_FOCUS_COST} from '../dist/src/config.js';
 import {battleCheckpoint, captureChance, createBattle, enemyAttack, playerStrike, resolveTurn} from '../dist/src/domain/battle.js';
 import {seededRng} from '../dist/src/domain/rng.js';
 import {codec, newSave, rawInventoryRules} from './helpers.mjs';
@@ -104,6 +104,41 @@ test('Focus survives a saved encounter; bad values fall back', () => {
   const raw = JSON.parse(codec.serialize(save));
   assert.equal(codec.normalize(raw, false).battle.focus, 1);
   for (const focus of [-1, 9, 1.5, 'x', undefined]) assert.equal(codec.normalize({...raw, battle: {...raw.battle, focus}}, false).battle.focus, FOCUS_START);
+});
+
+test('a bounded relay condition makes switching into the prepared move a real option', () => {
+  const {save, battle} = fresh();
+  save.party.push(1);
+  save.caught.push(1);
+  save.team[1] = {xp: 0, hp: 9999};
+  assert.equal(resolveTurn(save, battle, {kind: 'setup'}, rng)?.events[0].type, 'setup');
+  assert.equal(battle.condition.id, 'relay');
+  assert.equal(battle.condition.remaining, 1);
+  const checkpoint = battleCheckpoint(battle);
+  save.battle = checkpoint;
+  const restored = codec.normalize(JSON.parse(codec.serialize(save)), false).battle;
+  assert.deepEqual(restored.condition, battle.condition);
+  assert.equal(resolveTurn(save, battle, {kind: 'switch', id: 1}, rng)?.events[0].type, 'switch');
+  assert.equal(battle.relayReady, true);
+  const prepared = resolveTurn(save, battle, {kind: 'element'}, rng);
+  const preparedStrike = prepared.events.find(event => event.type === 'strike');
+  assert.equal(preparedStrike.prepared, true);
+  assert.equal(battle.relayReady, false);
+  assert.equal(battle.focus, 0);
+  assert.equal(RELAY_FOCUS_COST, 1);
+});
+
+test('relay expires after its bounded window and cannot be stacked', () => {
+  const {save, battle} = fresh();
+  save.party.push(1);
+  save.caught.push(1);
+  save.team[1] = {xp: 0, hp: 9999};
+  assert.ok(resolveTurn(save, battle, {kind: 'setup'}, rng));
+  assert.equal(resolveTurn(save, battle, {kind: 'setup'}, rng), null);
+  assert.ok(resolveTurn(save, battle, {kind: 'guard'}, rng));
+  assert.equal(battle.condition, null);
+  assert.equal(resolveTurn(save, battle, {kind: 'switch', id: 1}, rng)?.events[0].type, 'switch');
+  assert.equal(battle.relayReady, false);
 });
 
 test('live battle potion uses the pack percentage and keeps legacy supply counts in sync', () => {

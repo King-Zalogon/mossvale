@@ -9,11 +9,12 @@ Issue [#16](https://github.com/King-Zalogon/mossvale/issues/16). Rules are in `d
 | **Capture orb** (3) | Chance shown on the button | Spends an orb; guardians cannot be caught |
 | **Potion** (4) | Restore 24 HP | Spends a potion; uses the turn |
 | **Guard** (5) | Next enemy hit deals 65% less | Builds +1 Focus; uses the turn |
-| **Switch** (6) | Swap to a teammate with HP left (team of up to 3) | Uses the turn, so the enemy still replies |
+| **Prepare relay** (6) | Spend 1 Focus to prepare a two-turn handoff; switching to a healthy teammate arms the next strike | Cannot stack; the enemy still replies and the relay expires after two enemy turns |
+| **Switch** (7) | Swap to a teammate with HP left (team of up to 3) | Uses the turn, so the enemy still replies; a prepared relay amplifies the next move |
 
 **Focus** runs 0–3 and each fight starts with 2. The pips next to the matchup line show it. Bursting with the elemental move is strong; running dry means striking or guarding to rebuild. A type matchup, low HP, or a teammate with the advantage are the reasons to switch, guard or heal instead of attacking.
 
-The enemy alternates a plain strike and its elemental move; there are no status effects (deliberately: Focus is the one extra decision). Capture chance is `25% + 67% × missing enemy HP + 2.5% per level above the enemy`, capped at 96%, and is exactly what the button shows.
+The enemy alternates a plain strike and its elemental move. The optional relay is the first bounded temporary condition: it is stored in the battle checkpoint, cannot stack, expires after two replies and is consumed by the first strike after the prepared switch. An elemental move gets a 1.35 factor; a quick strike still consumes the relay without the bonus. Capture chance is `25% + 67% × missing enemy HP + 2.5% per level above the enemy`, capped at 96%, and is exactly what the button shows.
 
 ## Guardian forecasts and tactics (#23, #256)
 

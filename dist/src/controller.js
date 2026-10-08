@@ -792,7 +792,14 @@ export function createController(app) {
       encounter: species[b.id].id,
       active: {speciesId: species[s.active].id, hp: active.hp, maxHp: activeMaxHp, level: level(s, s.active)},
       enemy: {hp: b.hp, maxHp: b.max, level: b.level},
-      conditions: {focus: b.focus, guarding: b.guard, enemyAction: b.boss ? nextEnemyAction(b) : null, effectiveness: effectiveness(s.active, b.id)},
+      conditions: {
+        focus: b.focus,
+        guarding: b.guard,
+        enemyAction: b.boss ? nextEnemyAction(b) : null,
+        effectiveness: effectiveness(s.active, b.id),
+        temporary: b.condition ? {...b.condition} : null,
+        relayReady: b.relayReady === true,
+      },
       responseWindows: b.boss ? (guardianForecast(s, b)?.responses ?? []) : [],
       intent: b.boss ? (INTENT_TEXT[nextEnemyAction(b)] ?? null) : null,
       options,
@@ -911,7 +918,7 @@ export function createController(app) {
     for (const e of turn.events) {
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
-        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.brokeBrace ? ' It broke through the brace!' : e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
+        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.prepared ? ' The relay amplified the setup!' : ''}${e.brokeBrace ? ' It broke through the brace!' : e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
         frames.push({
           message: player,
           animation: e.kind === 'element' ? 'element' : 'attack',
@@ -934,6 +941,9 @@ export function createController(app) {
       } else if (e.type === 'switch') {
         player = `${a.name} joined the encounter.`;
         frames.push({message: `${a.name} joined the encounter!`, animation: '', after: e.after, sfx: 'join', wait: wait(650)});
+      } else if (e.type === 'setup') {
+        player = `${species[before.active].name} prepared a relay for a teammate.`;
+        frames.push({message: player, animation: '', after: e.after, sfx: 'guard', wait: wait(650)});
       } else if (e.type === 'enemy') {
         const foe = species[b.id];
         frames.push({
