@@ -2,11 +2,11 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "9c87bb2a3c35b39013388d7fede5a3f5f666ebd4703c0aad1d31f335ce65b6c7",
+    "art/assets/subjects.json": "05d544b261239980f1af622bf0a142455faeb4726160fc505872e2f645292ffe",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
     "art/characters/creature-combat-metadata.json": "87802fd27e8114797ed08f77dfe74d534c9a4ff5e55c10b7dcec9624755299f1",
-    "art/characters/creature-follower-metadata.json": "f91dc6ea1540cd48146f8ad88328e82fbdff695d3d5c29f13952db84c88700f8",
+    "art/characters/creature-follower-metadata.json": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
     "art/characters/export-profiles.json": "1e678bddc46fb27e8fef206d450aa268a3674e8941c349c7f2bfc4095312b513",
     "art/characters/metadata.json": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
@@ -126,7 +126,7 @@
     "dist/src/controller.js": "f71845299e4904c408581a091cca883c88493ded0ced8ec742fd2226cdbf4ff0",
     "dist/src/creature-combat-preview.js": "54ed3e88504eee78be602a38b7834c43f0aee3d23506d5ea98dabc42bf7fc68a",
     "dist/src/creature-follower-preview.js": "8e6e8c033fbab4ea2bebcb24ffdb9e17319b72b7f532cfd39596a6cd7ee86b7c",
-    "dist/src/data/assets.js": "d2729dba2f4787df0b3e44c80d5e6e585a4866519708aa2c9a360a41ded1ef47",
+    "dist/src/data/assets.js": "e0a61efdc03e13b11a09387dd884172e94c72dbfce0dba01bc120833d1f0c6a7",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "8979bfda82b92eb77c77d7e1f3405cd00fb82a7134edf0ea0ba88d58824d2108",
@@ -216,7 +216,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "ba21d891b7fe953d5311a8e18722b4b27869d9842ca75a79de1e6043e447af4e",
+  "sourceDigest": "5a1ace171a67fd71bc53ad549cf82f68a842eedf470e76fff3100996964fd51d",
   "exclusions": [
     {
       "family": "module-exports",
@@ -12918,7 +12918,7 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
+          "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
           "mirror": {
             "southeast": "southwest"
           },
