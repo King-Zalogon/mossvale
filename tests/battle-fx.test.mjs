@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {burstMarkup, fxForEvent, hpPercent, popMarkup} from '../dist/src/ui/battle-fx.js';
+import {burstMarkup, captureBeats, fxForEvent, hpPercent, orbMarkup, popMarkup, rewardPops} from '../dist/src/ui/battle-fx.js';
 
 test('hp percent is bounded and never hides a living creature', () => {
   assert.equal(hpPercent(0, 40), 0);
@@ -47,4 +47,40 @@ test('markup only carries numbers for its own side and is hidden from assistive 
   assert.doesNotMatch(popMarkup(fx, 'ally'), /-6/);
   assert.equal(popMarkup(null, 'ally'), '');
   assert.equal((burstMarkup('#ff0000').match(/<i /g) ?? []).length, 8);
+});
+
+test('reward numbers list the XP and coins the rules granted, in that order', () => {
+  assert.deepEqual(rewardPops({type: 'win', reward: 14, xp: 20}), [
+    {side: 'ally', text: '+20 XP', tone: 'xp'},
+    {side: 'ally', text: '+14', tone: 'coin'},
+  ]);
+  assert.deepEqual(
+    rewardPops({type: 'caught', coins: 10, xp: 20}).map(p => p.text),
+    ['+20 XP', '+10'],
+  );
+  assert.deepEqual(rewardPops({type: 'win', reward: 0, xp: 0}), []);
+  assert.deepEqual(rewardPops({}), []);
+});
+
+test('a successful throw wobbles three times and ends closed; a miss wobbles more the closer it was and ends open', () => {
+  const kinds = beats => beats.map(b => b.kind).join(',');
+  assert.equal(kinds(captureBeats({chance: 0.2, caught: true})), 'throw,wobble,wobble,wobble,caught');
+  assert.equal(kinds(captureBeats({chance: 0.1, caught: false})), 'throw,wobble,break');
+  assert.equal(kinds(captureBeats({chance: 0.5, caught: false})), 'throw,wobble,wobble,break');
+  assert.equal(kinds(captureBeats({chance: 0.96, caught: false})), 'throw,wobble,wobble,wobble,break');
+  assert.equal(kinds(captureBeats({chance: 0.9, caught: true, calm: true})), 'throw,wobble,caught', 'calm motion collapses the wobbles');
+  assert.equal(kinds(captureBeats({chance: Number.NaN, caught: false})).split(',').length >= 3, true, 'a bad chance still yields a playable sequence');
+  assert.deepEqual(
+    captureBeats({chance: 0.5, caught: false})
+      .filter(b => b.kind === 'wobble')
+      .map(b => [b.index, b.of]),
+    [
+      [1, 2],
+      [2, 2],
+    ],
+  );
+});
+
+test('orb markup is decorative and names its state for the stylesheet', () => {
+  assert.match(orbMarkup('wobble'), /class="orb-ball orb-wobble"[^>]*aria-hidden="true"/);
 });
