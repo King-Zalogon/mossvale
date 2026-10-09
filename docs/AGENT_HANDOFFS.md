@@ -116,3 +116,7 @@ Claimed on `codex/274-map-spatial-report`, based on `origin/integration` `89e3fd
 ## #243 — Island map card previews
 
 Claimed on `codex/243-island-map-previews` from `origin/integration` `80725f6`; refreshed through `origin/integration` `205c333` to resolve conflicts in catalogue generated data and this handoff. The four secondary map cards omitted their preview markup; this was not an asset-load failure. Added optional, validated `preview` sprite metadata to map format v1, selected map-specific props for Blueglass Pass, Ruined Orchard, Stilt Isles and Stone Basin, and kept map access/travel state independent. Browser coverage checks all eight cards, rendered canvases, phone overflow and disabled locked routes. PR #304 targets `integration`; locally verified before and after refresh.
+
+## #255 — battle feel
+
+Claude claim: `claude/255-battle-feel`, from `origin/integration` `da3be86`. Scope: presentation only (`dist/src/ui/battle-fx.js`, `battle-view.js`, controller frame wiring, battle CSS): floating numbers, eased HP bars, hit-stop, scene shake, element sparks, calm-motion alternative; adds the `mechanic:battle-impact-feedback` fiche. Does not touch `domain/battle.js`, damage, Focus, saves or the combat sprite sheets (#173/#280 untouched). Checks run locally (CI unavailable): lint, `npm test` (375 pass), catalogue write/check/impact, boundaries, format, every browser test (only `catalogue-browser` fails; it fails on pristine integration on Linux).

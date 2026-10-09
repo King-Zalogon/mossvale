@@ -36,6 +36,7 @@ import {availableDialogueChoices} from './domain/dialogue-choices.js';
 import {approachedWithinRadius, companionCanUseRoute, companionRouteDiscovered, companionRouteVisible} from './domain/companion-routes.js';
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
+import {fxForEvent} from './ui/battle-fx.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
 
 export function createController(app) {
@@ -50,7 +51,7 @@ export function createController(app) {
     emit('audio.cue', {cue: name});
     audio.play(name);
   };
-  const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
+  const renderBattle = (message, animation, snap, battle, fx) => app.renderBattle(message, animation, snap, battle, fx);
   const timeline = (app.timeline = createTimeline());
   let sceneMotion = null;
   const speech = createSpeech({ui, canvas, onEvent: emit});
@@ -892,7 +893,7 @@ export function createController(app) {
     timeline.play(frames, {
       render: f => {
         if (f.sfx) sfx(f.sfx);
-        renderBattle(f.message, f.animation, f.after, b);
+        renderBattle(f.message, f.animation, f.after, b, f.fx);
       },
       done: () => finishPlayback(turn, b),
     });
@@ -926,6 +927,7 @@ export function createController(app) {
     const frames = [];
     let player = '';
     for (const e of turn.events) {
+      const start = frames.length;
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
         player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.prepared ? ' The relay amplified the setup!' : ''}${e.brokeBrace ? ' It broke through the brace!' : e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
@@ -971,19 +973,24 @@ export function createController(app) {
           animation: e.damage > 0 ? 'enemy' : '',
           after: e.after,
           sfx: 'hurt',
-          wait: 0,
+          wait: wait(e.damage > 0 ? 700 : 500),
         });
       } else if (e.type === 'faint-switch') {
         frames[frames.length - 1] = {
           message: `${species[e.fainted].name} needs a rest. ${species[e.replacement].name} stepped in!`,
           animation: 'enemy',
+          fx: frames[frames.length - 1].fx,
           after: e.after,
           sfx: 'hurt',
-          wait: 0,
+          wait: wait(700),
         };
       }
+      const fx = fxForEvent(e);
+      if (frames.length > start && (fx.pops.length || fx.shake)) frames[start].fx = fx;
     }
     lastMessage = frames.at(-1)?.message ?? '';
+    // The last frame's wait is never honoured (playback completes right after it), so end on a settled frame and the blow stays visible.
+    if (!turn.ended && frames.length) frames.push({message: lastMessage, animation: '', after: frames.at(-1).after, wait: 0});
     if (turn.ended === 'win' || turn.ended === 'caught')
       frames.push({message: lastMessage, animation: turn.ended === 'win' ? 'attack' : 'capture', after: turn.events.at(-1).after, wait: 0});
     return frames;
