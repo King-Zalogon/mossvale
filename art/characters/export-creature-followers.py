@@ -20,7 +20,7 @@ SPECS = {
     "emberkin": {
         "source": "art/characters/source/creature-emberkin-follower-generated.png",
         "target": "dist/assets/creatures/creature-emberkin-follower.png",
-        "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
+        "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
     },
     "fernling": {
         "source": "art/characters/source/creature-fernling-follower-generated.png",

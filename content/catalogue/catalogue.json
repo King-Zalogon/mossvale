@@ -4800,7 +4800,7 @@
       "id": "mechanic:battle-impact-feedback",
       "kind": "mechanic",
       "name": "Battle impact feedback",
-      "summary": "Show every resolved blow as a floating number, an eased HP bar with a trailing ghost, a held hit flash and a short scene shake.",
+      "summary": "Show every resolved blow as a floating number, an eased HP bar with a trailing ghost, a held hit flash and a short scene shake, and play orb throws and victories as readable beats.",
       "status": "available",
       "scope": "core",
       "configuration": [],
@@ -4808,16 +4808,23 @@
       "limits": [
         "Presentation only: it reads the already-resolved turn events and never changes damage, Focus, saves or outcomes.",
         "Calm motion keeps the numbers and final bar widths but drops the shake, sparks and bar easing.",
-        "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return."
+        "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return.",
+        "Capture beats are derived from the already-resolved throw: a success wobbles three times, a miss wobbles once more the closer it was (1 to 3), and calm motion collapses to a single wobble; the wobble count never changes the outcome.",
+        "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion)."
       ],
       "examples": [
         {
           "intent": "Strike a wild creature and read the result at a glance.",
           "usage": "Use Quick strike or the Element move; no configuration is needed.",
           "expected": "A number floats over the target, the HP bar eases down while a pale ghost lags behind, and a heavier or super-effective hit shakes the scene harder."
+        },
+        {
+          "intent": "Throw a capture orb at a weakened creature.",
+          "usage": "Press Capture orb (5) or click it; no configuration is needed.",
+          "expected": "The orb flies in and holds the creature, wobbles, then either settles with a star burst and floating rewards before the result screen, or opens and the creature pops back out."
         }
       ],
-      "references": ["dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/src/controller.js", "dist/style.css"],
+      "references": ["dist/src/controller.js", "dist/src/data/sounds.js", "dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/style.css"],
       "evidence": [
         {
           "path": "tests/battle-fx.test.mjs",
@@ -4826,12 +4833,16 @@
         {
           "path": "tests/battle-feel.browser.mjs",
           "assertion": "A real battle shows the strike and the foe's reply as floating numbers, bars ease, and calm motion removes the shake and sparks."
+        },
+        {
+          "path": "tests/capture-feel.browser.mjs",
+          "assertion": "A real throw shows throw, three wobbles and settle with stars and floating rewards; a miss opens the orb and the creature pops out; a win fades the foe and floats XP; calm motion has no sparks and one wobble per throw."
         }
       ],
       "details": {
-        "trigger": "A resolved strike, enemy attack, riposte, potion or charge recovery event.",
+        "trigger": "A resolved strike, enemy attack, riposte, potion, charge recovery, orb throw or win event.",
         "inputs": "The turn event (damage, effectiveness, action kind, healed amount) and the per-frame HP snapshot.",
-        "sequence": "Each frame draws the bars from the previous frame's width, forces a reflow and sets the new width so the transition runs; numbers rise for 0.9 s; the scene shakes at level 1 or 2.",
+        "sequence": "Each frame draws the bars from the previous frame's width, forces a reflow and sets the new width so the transition runs; numbers rise for 0.9 s; the scene shakes at level 1 or 2. Orb throws expand into throw, wobble and settle-or-open beats; a win adds a victory beat where the foe fades out.",
         "results": "Damage, healing and effectiveness read without parsing the battle log; numbers are hidden from assistive technology because the log already announces them.",
         "cancellation": "A new frame replaces the markup; leaving the battle or skipping playback drops pending effects.",
         "errors": "With no previous width (first frame or a switched companion) the bar is drawn at its final value without easing.",
@@ -8453,6 +8464,57 @@
       }
     },
     {
+      "id": "sound:click",
+      "kind": "mechanic",
+      "name": "click",
+      "summary": "Synthesized click sound cue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "click",
+            "notes": [
+              {
+                "f": 1180,
+                "d": 0.07,
+                "type": "square",
+                "g": 0.035
+              }
+            ]
+          },
+          "limits": "Configure through dist/src/data/sounds.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Synthesized click sound cue.",
+          "usage": "Reference click in the existing format at dist/src/data/sounds.js.",
+          "expected": "Synthesized click sound cue."
+        }
+      ],
+      "references": ["dist/src/data/sounds.js"],
+      "evidence": [
+        {
+          "path": "tests/audio.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Synthesized click cue; generated through the existing WebAudio palette.",
+        "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Sound preferences are separate from adventure saves."
+      }
+    },
+    {
       "id": "sound:confirm",
       "kind": "mechanic",
       "name": "confirm",
@@ -9297,6 +9359,58 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Synthesized win cue; generated through the existing WebAudio palette.",
+        "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Sound preferences are separate from adventure saves."
+      }
+    },
+    {
+      "id": "sound:wobble",
+      "kind": "mechanic",
+      "name": "wobble",
+      "summary": "Synthesized wobble sound cue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "wobble",
+            "notes": [
+              {
+                "f": 310,
+                "d": 0.09,
+                "to": 350,
+                "type": "square",
+                "g": 0.03
+              }
+            ]
+          },
+          "limits": "Configure through dist/src/data/sounds.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Synthesized wobble sound cue.",
+          "usage": "Reference wobble in the existing format at dist/src/data/sounds.js.",
+          "expected": "Synthesized wobble sound cue."
+        }
+      ],
+      "references": ["dist/src/data/sounds.js"],
+      "evidence": [
+        {
+          "path": "tests/audio.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Synthesized wobble cue; generated through the existing WebAudio palette.",
         "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Sound preferences are separate from adventure saves."
@@ -13957,7 +14071,7 @@
               "rows": 8,
               "frameWidth": 200,
               "frameHeight": 200,
-              "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
+              "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
               "mirror": {
                 "southeast": "southwest"
               },
