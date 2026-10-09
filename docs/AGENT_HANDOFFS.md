@@ -117,3 +117,7 @@ Claimed on `codex/274-map-spatial-report`, based on `origin/integration` `89e3fd
 ## #243 — Island map card previews
 
 Claimed on `codex/243-island-map-previews` from `origin/integration` `80725f6`; refreshed through `origin/integration` `205c333` to resolve conflicts in catalogue generated data and this handoff. The four secondary map cards omitted their preview markup; this was not an asset-load failure. Added optional, validated `preview` sprite metadata to map format v1, selected map-specific props for Blueglass Pass, Ruined Orchard, Stilt Isles and Stone Basin, and kept map access/travel state independent. Browser coverage checks all eight cards, rendered canvases, phone overflow and disabled locked routes. PR #304 targets `integration`; locally verified before and after refresh.
+
+## #289 — Lanternix
+
+Continuing the existing claim on `codex/289-lanternix`, created from `origin/main` `04584f0`, refreshed through integration `da3be86` and the Sunsifter/Rillume prerequisite PR #310. Original portrait, combat and eight-direction hover sheets; stable appended Spark registry/move; optional curious western-ridge encounter; generic relay setup/switch/use and checkpoint-ID regressions. The shared #263 relay is already integrated; no exclusive Conductive condition or controller/save change is introduced. Verify/build and refresh against latest integration before merging; owner visual/enjoyment review remains pending.

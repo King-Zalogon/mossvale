@@ -1,6 +1,6 @@
 # Creature roster (#24)
 
-The roster now has 17 stable species IDs. The original twelve IDs and their order stay unchanged so existing saves still resolve; Sedgegnaw, Petalunge, Cindercurl, Sunsifter and Rillume are appended. Every species is findable in a home-biome encounter zone. The current distribution is Meadow 5, Wetland 4, Rocky Badlands 5 and Snowy Forest 3 while the wider creature portfolio continues. The field journal reveals personality, battle role, base stats, elemental move, and a habitat clue after discovery.
+The roster now has 18 stable species IDs. The original twelve IDs and their order stay unchanged so existing saves still resolve; Sedgegnaw, Petalunge, Cindercurl, Sunsifter, Rillume and Lanternix are appended. Every species is findable in a home-biome encounter zone. The current distribution is Meadow 5, Wetland 4, Rocky Badlands 6 and Snowy Forest 3 while the wider creature portfolio continues. The field journal reveals personality, battle role, base stats, elemental move, and a habitat clue after discovery.
 
 | Biome | Species | Role | Base HP / ATK / DEF | Elemental move | Field clue |
 | --- | --- | --- | ---: | --- | --- |
@@ -18,6 +18,7 @@ The roster now has 17 stable species IDs. The original twelve IDs and their orde
 | Rocky badlands | Sunskitter | High-risk attacker | 36 / 14 / 6 | Glass dash | Search the rocky grass where the sun reaches Amber Ridge first. |
 | Rocky badlands | Cindercurl | Kiln-plate bulwark | 52 / 8 / 17 | Kiln shoulder | Look for a heat shimmer near the reachable east ridge grass; no creature ability is needed. |
 | Rocky badlands | Sunsifter | Patient ridge bruiser | 48 / 11 / 12 | Dune rake | Search Amber Ridge's east grass for a broad gold brow lifting the sand. |
+| Rocky badlands | Lanternix | Relay opener | 38 / 9 / 12 | Charge chime | Follow three gold bands in reachable western ridge grass; available at any time. |
 | Snowy forest | Duskwing | Fast opportunist | 38 / 11 / 8 | Gust spiral | Search Frostveil's high grass, especially at dusk. |
 | Snowy forest | Frostowl | Elemental duelist | 43 / 10 / 11 | Frost feather | Look among Frostveil's snow-laced trees and tall grass. |
 | Snowy forest | Hushram | Steady guardian | 50 / 8 / 17 | Quiet squall | Look for curled blue horns in sheltered Frostveil grass. |
@@ -37,3 +38,11 @@ Sunsifter extends the Rocky Badlands with a broad golden shovel brow, ridged amb
 ## Playable coverage
 
 The current five-map slice covers four biomes: the Sunlit Trail and Ruined Orchard in Meadow, Amber Ridge, Frostveil Grove, and Reedfen Wetlands. Residents are available through their home-biome encounter pools, while a few cross-biome guests keep the maps connected to the wider ecology. More distinct maps remain tracked under #27 and #52–#54.
+
+## Lanternix handoff trial (#289)
+
+Lanternix is an insect silhouette: teal wing cases, six tucked legs, two antennae and a hanging abdomen with three golden charge bands. It trades Voltkit’s immediate attack for higher defense while retaining low HP; its Charge chime is a modest ordinary Spark strike. The west ridge grass encounter uses the existing curious behavior and remains available regardless of time or observation, with no new route gate.
+
+It can open the shared **Prepare relay → switch → elemental move** sequence. This is the generic #263 relay, available to every species: spend 1 Focus, switch before the two enemy-reply window expires, and apply the existing capped 1.35 factor to the next elemental strike once. A quick strike consumes the preparation without its elemental bonus. It is not a team-wide buff or an exclusive Conductive condition. Setup and switching each allow an enemy reply; attacking directly can deal more total damage, especially when Lanternix already has a favorable Spark matchup. The roster regression compares both three-turn policies against Stone and Water targets and verifies stable Lanternix source identity in the battle checkpoint. No creature capture or relay is required for progression.
+
+Original transparent portrait, combat and directional follower sources are retained under `art/characters/source/`. Combat cells are 288×288; followers are 200×200 in N/NE/E/SE/S/SW/W/NW order with idle and four wingflutter poses, a fixed y=196 hover-ground anchor and existing 0.56 world-unit cadence. Reduced motion holds the idle facing. The same browser previews and catalogue list the new IDs. Owner visual and enjoyment feedback remains pending in #267/#289.

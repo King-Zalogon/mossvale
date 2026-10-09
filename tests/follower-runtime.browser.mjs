@@ -59,6 +59,7 @@ try {
     'sunskitter',
     'sunsifter',
     'rillume',
+    'lanternix',
   ];
   const ids = supported.map(name => species.findIndex(entry => entry.id === name));
   assert.ok(ids.every(id => id >= 0));

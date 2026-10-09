@@ -93,6 +93,8 @@ SPECS = {
         "source": "art/characters/source/creature-rillume-follower-generated.png",
         "target": "dist/assets/creatures/creature-rillume-follower.png",
     },
+    "lanternix": {"source": "art/characters/source/creature-lanternix-follower-generated.png", "target": "dist/assets/creatures/creature-lanternix-follower.png"},
+
 }
 
 

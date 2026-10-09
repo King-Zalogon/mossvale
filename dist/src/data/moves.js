@@ -17,4 +17,5 @@ export const moves = {
   'kiln-shoulder': {name: 'Kiln shoulder', power: 0.92, description: 'A steady, plate-braced strike from a patient defender.'},
   'dune-rake': {name: 'Dune rake', power: 1.02, description: 'A shovel-brow sweep that trades speed for a reliable Sand hit.'},
   'bell-pulse': {name: 'Bell pulse', power: 1.06, description: 'A focused burst carried through a clear, resonant bell.'},
+  'charge-chime': {name: 'Charge chime', power: 0.98, description: 'A modest spark pulse; Prepare relay can instead open a teammate’s elemental strike.'},
 };

@@ -17,6 +17,7 @@ const ROWS = {
   cindercurl: DIRECTIONS,
   sunsifter: DIRECTIONS,
   rillume: DIRECTIONS,
+  lanternix: DIRECTIONS,
 };
 const VECTORS = [
   [-1, -1],

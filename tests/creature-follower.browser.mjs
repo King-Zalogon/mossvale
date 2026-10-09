@@ -61,6 +61,7 @@ try {
     'cindercurl',
     'sunsifter',
     'rillume',
+    'lanternix',
   ]) {
     await page.selectOption('#species', id);
     await page.waitForFunction(
@@ -102,6 +103,7 @@ try {
     'cindercurl',
     'sunsifter',
     'rillume',
+    'lanternix',
   ]) {
     const speciesId = species.findIndex(entry => entry.id === id);
     assert.notEqual(speciesId, -1);
