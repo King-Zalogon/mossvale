@@ -5407,6 +5407,47 @@
       }
     },
     {
+      "id": "mechanic:testing-urls",
+      "kind": "mechanic",
+      "name": "Testing URLs and artwork previews",
+      "summary": "Open a discoverable index of shipped artwork and map review pages from the title or in-game menu, keeping the adventure tab open.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Review pages inspect the current build; they do not replace normal play, approve artwork or prove adventure collision/acquisition behavior.",
+        "The separately served authoring catalogue requires npm run catalogue:browse and is not a static game URL."
+      ],
+      "examples": [
+        {
+          "intent": "Review creature facing without changing adventure progress.",
+          "usage": "Choose Testing URLs in the menu, then Creature followers. Select a species, inspect turns and stopping, and enable Reduced motion.",
+          "expected": "The follower turns through eight directions using its own motion; stopped/calm poses use idle, and the game remains open in its original tab."
+        }
+      ],
+      "references": ["dist/testing.html", "dist/src/ui/menus.js", "dist/src/creature-follower-preview.js", "docs/TESTING_URLS.md"],
+      "evidence": [
+        {
+          "path": "tests/testing-urls.browser.mjs",
+          "assertion": "Keyboard/touch navigation and all five destinations in source and packaged subdirectories."
+        },
+        {
+          "path": "tests/creature-follower.browser.mjs",
+          "assertion": "Actual stage draw rows, tiny-displacement turns, rest/pause facing retention and calm motion."
+        }
+      ],
+      "details": {
+        "trigger": "Select Testing URLs from the title screen or in-game menu.",
+        "inputs": "Native keyboard/touch links; review pages expose species/animation and reduced-motion controls.",
+        "sequence": "Open the index in a new tab without opener access, then open a described review page in another tab.",
+        "results": "Shipped review routes are discoverable; canonical follower manifest directions/mirroring and runtime cadence are shown at game scale.",
+        "cancellation": "Close the review/index tabs or use their Mossvale return links. The original game tab stays open.",
+        "errors": "A missing required shipped page is a packaging defect; browser regressions request every listed destination. No authentication or authoring API is invoked by index navigation.",
+        "persistence": "The index and artwork preview do not mutate adventure saves. Map Workshop exports/edited-map play remain explicit authoring actions."
+      }
+    },
+    {
       "id": "mechanic:timed-effects",
       "kind": "mechanic",
       "name": "Speed potions and multi-battle buffs",

@@ -2791,3 +2791,27 @@ body.reduce-motion .battle-scene .bar b.trail {
     height: clamp(340px, calc(100dvh - 262px), 1000px);
   }
 }
+
+/* Native navigation keeps the game tab and its progress open. */
+.menu-list .testing-link {
+  display: block;
+  padding: 12px 16px;
+  border: 1px solid #69845a;
+  border-radius: 6px;
+  background: #315538;
+  color: var(--cream);
+  text-align: center;
+  text-decoration: none;
+}
+.menu-list .testing-link:hover {
+  background: #49683d;
+}
+.menu-list .testing-link:focus-visible {
+  outline: 3px solid #dae994;
+  outline-offset: 3px;
+}
+.menu-list .testing-link small {
+  display: block;
+  opacity: 0.7;
+  font-size: 12px;
+}

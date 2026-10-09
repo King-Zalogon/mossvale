@@ -129,3 +129,7 @@ Claimed on `codex/275-distinct-map-rhythms` from `origin/integration` `da3be86` 
 ## #312 — playfield and name tags
 
 Claude claim: `claude/312-playfield-hud`, from `origin/integration` `738419e` (includes #251 contextual input controls). Scope: desktop-only layout override at the end of `dist/style.css`, `resize()` in `dist/src/main.js` (canvas width follows the box above 960 px), deferred outlined name tags in `render/world.js`; no changes to input HUD logic, movement or maps. Checks run locally (CI unavailable): see the PR.
+
+## #318 — follower preview facing and Testing URLs
+
+Codex claim: `codex/318-preview-testing-urls`, created from latest `origin/main` `30aa2e6` and refreshed against `origin/integration` `2467c60`. Preview-only facing defect: the old absolute 0.3 dead zone classified sub-unit trail motion as south. Reuses runtime normalized facing, atlas row/mirroring and cadence; canonical species/manifest discovery prevents stale roster/loader lists. Adds a safe new-tab Testing URLs menu link and five-page static review index, actual-stage directional browser assertions, keyboard/touch/packaged-path navigation coverage and a matching authoring fiche. No artwork redesign, battle/domain/save changes, main promotion or deployment. Owner approves Sunsifter/Rillume sprites; gameplay acceptance remains separate. Full verify/build/impact evidence follows in the PR. Lanternix remains on its existing #314 branch.
