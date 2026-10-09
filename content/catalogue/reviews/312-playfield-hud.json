@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/main.js",
+        "dist/src/render/world.js",
+        "dist/style.css",
+        "tests/playfield.browser.mjs",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/312-playfield-hud.json"
+      ],
+      "entries": ["mechanic:responsive-playfield"],
+      "disposition": "updated",
+      "reason": "Adds the responsive playfield fiche: on desktop the frame fits the window height and renders more world in wider windows, and name tags are drawn after all sprites, outlined and de-overlapped. Movement, collision, encounters, saves and the camera rule are untouched; phone and small-window layouts keep the existing frame.",
+      "evidence": ["tests/playfield.browser.mjs"]
+    }
+  ]
+}
