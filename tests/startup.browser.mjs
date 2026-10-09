@@ -132,8 +132,8 @@ for (const [seed, weakened] of [
   await page.waitForSelector('#catch:not([disabled])');
   if (weakened) await page.evaluate(() => (window.mossvale.getState().battle.hp = 1)); // makes capture likely so both outcomes get exercised
   const orbs = await page.evaluate(() => window.mossvale.getState().save.orbs);
-  await page.keyboard.press('3');
-  await page.keyboard.press('3');
+  await page.keyboard.press('5'); // 5 · Capture orb
+  await page.keyboard.press('5');
   await page.reload();
   await page.waitForSelector('#loading', {state: 'hidden'});
   const st = await page.evaluate(() => {
@@ -171,7 +171,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
         const g = window.mossvale.getState();
         return g.battle && {busy: g.battle.busy, ratio: g.battle.hp / g.battle.max, orbs: g.save.orbs, mode: g.modalMode, focus: g.battle.focus};
       });
-      if (s && !s.busy && s.mode === 'battle') await page.keyboard.press(s.ratio <= 0.45 && s.orbs > 0 ? '3' : s.focus > 0 ? '2' : '1');
+      if (s && !s.busy && s.mode === 'battle') await page.keyboard.press(s.ratio <= 0.45 && s.orbs > 0 ? '5' : s.focus > 0 ? '2' : '1');
       await page.waitForTimeout(250);
     }
     await page.waitForFunction(() => window.mossvale.getState().phase === 'explore');

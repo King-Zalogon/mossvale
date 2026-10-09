@@ -137,3 +137,10 @@ Codex claim: `codex/318-preview-testing-urls`, created from latest `origin/main`
 ## #315 — guardian combat forms (active)
 
 Codex claims `codex/315-guardian-combat-forms`, created from `origin/main` (30aa2e6) and refreshed to `integration` (5cf058e). Four generated species-specific battle forms, optional pack-owned shrine overrides, actual-scale comparison preview, provenance and regression coverage. No mechanics, tuning, progression or ordinary art changes. Local verification replaces unavailable Actions/Vercel execution; integration-only PR merge.
+## #314 — battle action keys
+
+Claude claim: `claude/314-battle-actions-fix`, from `origin/integration` `5cf058e`. Scope: bug report that Potion (6) did nothing and capture seemed impossible. Root cause: the keyboard table in `dist/src/input.js` (1-6 → attack, element, catch, potion, guard, switch) had drifted when relay and objective buttons were inserted, so 5 pressed Guard and 6 pressed Switch. Keys now press the Nth button in the action grid. Domain checked: potion heal and capture chance verified by `tests/capture-rate.test.mjs` (shown % equals observed rate, legacy and pack rules). Tests that encoded the old numbering (`playthrough`, `startup`) updated. Local checks only (CI unavailable).
+
+## #324 — capture and victory feel
+
+Claude claim: `claude/324-capture-victory-feel`, from `origin/integration` `d646a1c`. Scope: presentation only (`ui/battle-fx.js` pure beat helpers, `battle-view.js` orb/foe-out/hop classes, controller frame sequencing, battle CSS, two tiny sounds). No change to `domain/battle.js`, capture chance, rewards or saves; wobble count is derived from the chance already shown on the button. Extends `mechanic:battle-impact-feedback`. Local checks only (CI unavailable).
