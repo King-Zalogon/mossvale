@@ -26,71 +26,63 @@
       "asset": "person-red-cap-motion",
       "technical": {
         "status": "pass",
-        "source": "Player idle export provenance, shared y=250 foot-anchor checks, 52x84 px all-facing comparison, real-map eight-direction walk/run release and reduced-motion browser coverage, plus touch release coverage."
+        "source": "npm run art:check; player motion regressions check fixed y=250 foot anchors, transparent cells, four distinct East gait frames, and distinct NE/NW/SW idle cells. All 40 poses were visually checked at the 52x84 px gameplay size."
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the 52x84 px gameplay draw size, before/after evidence shows a calm, close-footed rest pose in every runtime facing. All idle cells share the existing bottom-center foot line; the existing walk cells remain unchanged. Owner gameplay taste remains pending.",
+        "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["dist/character-preview.html", "dist/player-idle-review.html", "art/characters/reviews/239-player-idle-before-after.png"],
+      "evidence": ["art/characters/reviews/player-facing-324.png", "dist/character-preview.html"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70"
+          "sha256": "ecc5102f5185c7f2d5a94fe7689def0382f0d017a73c4b2e4ff3169067f2b18b"
         },
         {
           "path": "art/characters/export.py",
-          "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e"
+          "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e"
         },
         {
           "path": "art/characters/metadata.json",
-          "sha256": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4"
-        },
-        {
-          "path": "art/characters/reviews/239-player-idle-before-after.png",
-          "sha256": "ad7783549a74449c4fa500b2845201487a30a9540ed3778dc9ce6289847a3b08"
-        },
-        {
-          "path": "art/characters/source/person-red-cap-neutral-idle-v1.png",
-          "sha256": "8d83479515e6725640d819810df2e0ede41aeb431ac079291ceef0b7ec8083d0"
+          "sha256": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99"
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+          "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
+        },
+        {
+          "path": "art/characters/reviews/player-facing-324.png",
+          "sha256": "10577f62725d3d8c6f4d5577c642c274b8a75dc12cb6061e543047377eb6ebcf"
+        },
+        {
+          "path": "art/characters/source/person-red-cap-motion-east-v2.png",
+          "sha256": "f88edf5b49aaf563f438452ae632c4f3b1ac958d454648c91372cedc4383e0c6"
+        },
+        {
+          "path": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+          "sha256": "c62004e82f0af531e7cfe83c2f915b23d0cdb721484f20f87ab5a521ce24328f"
+        },
+        {
+          "path": "art/characters/source/person-red-cap-neutral-idle-v2.png",
+          "sha256": "2a3a85870810a254f3bc1f15f5ed2dbfa3a1954b23b5a11383e62834354eba1b"
         },
         {
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "sha256": "98c33b2c08a9d43892425d73889bc727eee77db5145bd0ce81e9aeec037a6f95"
+          "sha256": "e0dff61fbb1244c92918feef94eb516e8f4090369a53dd95e90f9c5d6355f8e7"
         },
         {
           "path": "dist/character-preview.html",
           "sha256": "bd2b69f55abfd30574ff544ab615a368ba7c0f5ddfafc7e85402923f45e47d27"
         },
         {
-          "path": "dist/player-idle-review.html",
-          "sha256": "130f63a3b5e368342ef94c5f9a1cf856870570f01b88f2cfe8c3f21eda2b7553"
-        },
-        {
-          "path": "dist/reviews/player-neutral-idle-before.png",
-          "sha256": "4ef6a212eeb1f91063e9d47d8ae760e44eb4ad7748ed4e1d2d4cdced2dc0f793"
-        },
-        {
-          "path": "tests/characters.browser.mjs",
-          "sha256": "5c9ef0d400860c052053a30507a20bbf1ca5816a9d6fbf12de83a3c3873ef5e3"
-        },
-        {
-          "path": "tests/diagonal-walk.browser.mjs",
-          "sha256": "f8b4187b3c30c0c1a86f384342496b252918de007ea0a0e3a53f2a1723461411"
-        },
-        {
-          "path": "tests/input-mode.browser.mjs",
-          "sha256": "4dca4485a856fdaff47b2587563020e64cf578b584ea18fb3e39a33cbe3b1baf"
-        },
-        {
           "path": "tests/test_player_motion_export.py",
-          "sha256": "3fcda0d247dd655909cc314f4c14eac4ff3503772819c0b5f2b48ccbf9a25800"
+          "sha256": "8790a2d04bed576ec0f325ec211daec068ea28a4fb095fca739f7c7b612eb88b"
+        },
+        {
+          "path": "art/assets/subjects.json",
+          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
         }
       ]
     },
@@ -738,7 +730,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "9c87bb2a3c35b39013388d7fede5a3f5f666ebd4703c0aad1d31f335ce65b6c7"
+          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -786,7 +778,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+          "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
         },
         {
           "path": "dist/assets/creatures/creature-sedgegnaw-combat.png",
@@ -840,7 +832,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "9c87bb2a3c35b39013388d7fede5a3f5f666ebd4703c0aad1d31f335ce65b6c7"
+          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -888,7 +880,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+          "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
         },
         {
           "path": "dist/assets/creatures/creature-petalunge-combat.png",
@@ -942,7 +934,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "9c87bb2a3c35b39013388d7fede5a3f5f666ebd4703c0aad1d31f335ce65b6c7"
+          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -990,7 +982,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+          "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
         },
         {
           "path": "dist/assets/creatures/creature-cindercurl-combat.png",
@@ -1055,11 +1047,11 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "9c87bb2a3c35b39013388d7fede5a3f5f666ebd4703c0aad1d31f335ce65b6c7"
+          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+          "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -1180,11 +1172,11 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "9c87bb2a3c35b39013388d7fede5a3f5f666ebd4703c0aad1d31f335ce65b6c7"
+          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+          "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",

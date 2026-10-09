@@ -36,7 +36,7 @@
         {
           "assetId": "person-red-cap-north",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
+          "sha256": "ecc5102f5185c7f2d5a94fe7689def0382f0d017a73c4b2e4ff3169067f2b18b",
           "cell": {
             "x": 1168,
             "y": 2064,
@@ -47,7 +47,7 @@
         {
           "assetId": "person-red-cap-east",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
+          "sha256": "ecc5102f5185c7f2d5a94fe7689def0382f0d017a73c4b2e4ff3169067f2b18b",
           "cell": {
             "x": 656,
             "y": 2064,
@@ -58,7 +58,7 @@
         {
           "assetId": "person-red-cap-south",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
+          "sha256": "ecc5102f5185c7f2d5a94fe7689def0382f0d017a73c4b2e4ff3169067f2b18b",
           "cell": {
             "x": 1008,
             "y": 2064,
@@ -69,7 +69,7 @@
         {
           "assetId": "person-red-cap-west",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
+          "sha256": "ecc5102f5185c7f2d5a94fe7689def0382f0d017a73c4b2e4ff3169067f2b18b",
           "cell": {
             "x": 834,
             "y": 2064,
@@ -118,16 +118,16 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
-        "sha256": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4"
+        "sha256": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
-        "settings": "RGBA 160x256 cells; crop source cells, scale with nearest-neighbor to 224 px high and at most 152 px wide, center horizontally, and align feet to y=250. Compose a 5x8 atlas in N, NE, E, SE, S, SW, W, NW order. Idle column 0 comes from the transparent 4x2 neutral sheet recorded in character metadata, remapped from S, SE, E, NE, N, NW, W, SW; walk cells remain on the original directional sources. Northeast and southwest source walk columns are ordered 1, 2, 4, 3; West walk cell 3 uses its separately retained generated opposite-stride source.",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
+        "settings": "RGBA 160x256 cells; crop source cells, nearest-neighbor scale to 224 px high and at most 152 px wide, center horizontally, and align visible feet to y=250. Compose a 5x8 atlas in N, NE, E, SE, S, SW, W, NW order. Idle column 0 uses the transparent 4x2 neutral sheet. NE v3 preserves the diagonal-facing upper pose with a clearer alternating foot stride; NW v2 mirrors NE v3 cell-by-cell. East uses its revised four-stride source; SW walk cells remain ordered 1, 2, 4, 3; West walk cell 3 uses its separately retained generated opposite-stride source.",
         "profileId": "red-cap-motion-v1",
         "profileSha256": "d00b3aa7df631b1a29c7f050d757c4993fed2fdb3a3fe285567d0b921e1f469a"
       },
@@ -150,9 +150,7 @@
           "id": "red-cap-motion-northeast-walk-v2",
           "path": "art/characters/source/person-red-cap-motion-northeast-v2.png",
           "sha256": "855d50236e2dfd04be93e9116510f81cafd6c7eb2ddb3f15c610c502890893e1",
-          "directions": [
-            "northeast"
-          ],
+          "directions": [],
           "walkColumns": [
             1,
             2,
@@ -201,14 +199,14 @@
               "status": "unavailable",
               "reason": "No generation masks were used or retained."
             }
-          }
+          },
+          "supersededBy": "art/characters/source/person-red-cap-motion-northeast-v3.png"
         },
         {
           "id": "red-cap-motion-east-southeast",
           "path": "art/characters/source/person-red-cap-motion-east-southeast.png",
           "sha256": "6109e0b89adae4c357c30c9519ae7fbe5e276639604585e46942623d84c2e799",
           "directions": [
-            "east",
             "southeast"
           ],
           "referenceAssetIds": [
@@ -294,8 +292,7 @@
           "path": "art/characters/source/person-red-cap-motion-west-northwest.png",
           "sha256": "f8bf4b24d264fd087458c1835eee145aa8b2586ab4e4f23af3e503ba60b5bd6c",
           "directions": [
-            "west",
-            "northwest"
+            "west"
           ],
           "referenceAssetIds": [
             "person-red-cap-west"
@@ -429,13 +426,284 @@
               "reason": "No generation masks were reported."
             }
           }
+        },
+        {
+          "id": "red-cap-motion-east-v2",
+          "path": "art/characters/source/person-red-cap-motion-east-v2.png",
+          "sha256": "f88edf5b49aaf563f438452ae632c4f3b1ac958d454648c91372cedc4383e0c6",
+          "directions": [
+            "east"
+          ],
+          "walkColumns": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "sourceGrid": {
+            "columns": 5,
+            "rows": 2,
+            "cell": [
+              384,
+              512
+            ]
+          },
+          "referenceAssetIds": [
+            "person-red-cap-east"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "Codex image_gen and Pillow normalization",
+              "evidence": "art/characters/SOURCES.md#Player"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The built-in image tool did not report its provider."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The built-in image tool did not report a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "New East idle plus four visibly alternating walk poses; preserve the player identity, transparent cells and foot line. The normalized generated source replaces repeated East gait cells.",
+              "evidence": "art/characters/SOURCES.md#Player",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was reported."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "person-red-cap-east"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "red-cap-motion-northwest-v2",
+          "path": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+          "sha256": "c62004e82f0af531e7cfe83c2f915b23d0cdb721484f20f87ab5a521ce24328f",
+          "directions": [
+            "northwest"
+          ],
+          "walkColumns": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "sourceGrid": {
+            "columns": 5,
+            "rows": 2,
+            "cell": [
+              384,
+              512
+            ]
+          },
+          "referenceAssetIds": [
+            "person-red-cap-north",
+            "person-red-cap-east"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "Pillow source transform",
+              "evidence": "art/characters/SOURCES.md#Player"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "No external provider was used or reported."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "No model version applies to this source transform."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Mirror the corrected Northeast gait row cell-by-cell to keep Northwest facing stable while preserving its four-step foot cycle.",
+              "evidence": "art/characters/SOURCES.md#Player",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed applies to this source transform."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "person-red-cap-north",
+                "person-red-cap-east"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were used."
+            }
+          },
+          "generationReference": {
+            "status": "available",
+            "assetIds": [
+              "person-red-cap-north",
+              "person-red-cap-east"
+            ]
+          }
+        },
+        {
+          "id": "red-cap-neutral-idle-v2",
+          "path": "art/characters/source/person-red-cap-neutral-idle-v2.png",
+          "sha256": "2a3a85870810a254f3bc1f15f5ed2dbfa3a1954b23b5a11383e62834354eba1b",
+          "directions": [],
+          "sourceGrid": {
+            "columns": 4,
+            "rows": 2,
+            "cell": [
+              384,
+              512
+            ]
+          },
+          "sourceDirectionOrder": [
+            "south",
+            "southeast",
+            "east",
+            "northeast",
+            "north",
+            "northwest",
+            "west",
+            "southwest"
+          ],
+          "referenceAssetIds": [
+            "person-red-cap-north",
+            "person-red-cap-east",
+            "person-red-cap-south",
+            "person-red-cap-west"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "Codex image_gen and Pillow normalization",
+              "evidence": "art/characters/SOURCES.md#Player"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The built-in image tool did not report its provider."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The built-in image tool did not report a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Replace the incorrect NE/NW profiles with their diagonal rest poses, and give SW a clearer front-left stance; preserve the other five neutral cells and the 4x2 mapping.",
+              "evidence": "art/characters/SOURCES.md#Player",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was reported."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "person-red-cap-north",
+                "person-red-cap-east",
+                "person-red-cap-south",
+                "person-red-cap-west"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "red-cap-motion-northeast-v3",
+          "path": "art/characters/source/person-red-cap-motion-northeast-v3.png",
+          "sha256": "1906b592b506a8156677bee0f032274a0cdb1fcac45c1b74f9c0d0b0194eceb2",
+          "directions": [
+            "northeast"
+          ],
+          "walkColumns": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "sourceGrid": {
+            "columns": 5,
+            "rows": 2,
+            "cell": [
+              384,
+              512
+            ]
+          },
+          "referenceAssetIds": [
+            "person-red-cap-north",
+            "person-red-cap-east"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "Pillow composition of retained generated direction sheets",
+              "evidence": "art/characters/SOURCES.md#Player"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "No external provider was used or reported."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "No model version applies to this source transform."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Keep the Northeast-facing upper pose from the original directional sheet and composite the North row lower-leg gait into each walk cell so visible feet alternate clearly at 52x84 px, with one shared foot line.",
+              "evidence": "art/characters/SOURCES.md#Player",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed applies to this source transform."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "person-red-cap-north",
+                "person-red-cap-east"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were used."
+            }
+          }
         }
       ],
       "exports": [
         {
           "assetId": "person-red-cap-motion",
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "sha256": "98c33b2c08a9d43892425d73889bc727eee77db5145bd0ce81e9aeec037a6f95",
+          "sha256": "e0dff61fbb1244c92918feef94eb516e8f4090369a53dd95e90f9c5d6355f8e7",
           "profileId": "red-cap-motion-v1",
           "profileSha256": "d00b3aa7df631b1a29c7f050d757c4993fed2fdb3a3fe285567d0b921e1f469a"
         }
@@ -505,7 +773,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1105,7 +1373,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
@@ -1947,7 +2215,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceBatches": [
         {
@@ -2191,7 +2459,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -2486,7 +2754,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -2776,7 +3044,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -2784,7 +3052,7 @@
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3066,7 +3334,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -3074,7 +3342,7 @@
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3356,7 +3624,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -3364,7 +3632,7 @@
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3646,7 +3914,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -3654,7 +3922,7 @@
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3944,7 +4212,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -4279,7 +4547,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -4614,7 +4882,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -4948,7 +5216,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
@@ -5282,7 +5550,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "e986ef4ce9f4bf784da45bbb5d61711a1f6bbb3ef5fbd804478d2ec3f647b5b2"
+        "sha256": "35cfb22fa363b09a8589136c109d7abff31a73b331f62f9251bc272751f0a54f"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
