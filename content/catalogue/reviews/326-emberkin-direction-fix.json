@@ -1,0 +1,23 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/data/assets.js",
+        "art/assets/metadata.json",
+        "art/assets/subjects.json",
+        "art/characters/creature-follower-metadata.json",
+        "art/characters/export-creature-followers.py",
+        "art/characters/make-follower-contact-sheet.py",
+        "tests/follower-runtime.browser.mjs",
+        "tests/movement.test.mjs",
+        "docs/AGENT_HANDOFFS.md",
+        "content/catalogue/reviews/326-emberkin-direction-fix.json"
+      ],
+      "entries": ["visual:creature-emberkin-follower"],
+      "disposition": "updated",
+      "reason": "Corrects the two Emberkin follower atlas direction labels so West and Northwest resolve to their reviewed source rows consistently in runtime and the atlas preview.",
+      "evidence": ["tests/follower-runtime.browser.mjs", "tests/movement.test.mjs"]
+    }
+  ]
+}
