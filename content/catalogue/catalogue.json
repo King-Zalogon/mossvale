@@ -4797,6 +4797,48 @@
       }
     },
     {
+      "id": "mechanic:battle-impact-feedback",
+      "kind": "mechanic",
+      "name": "Battle impact feedback",
+      "summary": "Show every resolved blow as a floating number, an eased HP bar with a trailing ghost, a held hit flash and a short scene shake.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Presentation only: it reads the already-resolved turn events and never changes damage, Focus, saves or outcomes.",
+        "Calm motion keeps the numbers and final bar widths but drops the shake, sparks and bar easing.",
+        "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return."
+      ],
+      "examples": [
+        {
+          "intent": "Strike a wild creature and read the result at a glance.",
+          "usage": "Use Quick strike or the Element move; no configuration is needed.",
+          "expected": "A number floats over the target, the HP bar eases down while a pale ghost lags behind, and a heavier or super-effective hit shakes the scene harder."
+        }
+      ],
+      "references": ["dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/src/controller.js", "dist/style.css"],
+      "evidence": [
+        {
+          "path": "tests/battle-fx.test.mjs",
+          "assertion": "Events map to floating numbers, tones, shake levels and heals without touching game state."
+        },
+        {
+          "path": "tests/battle-feel.browser.mjs",
+          "assertion": "A real battle shows the strike and the foe's reply as floating numbers, bars ease, and calm motion removes the shake and sparks."
+        }
+      ],
+      "details": {
+        "trigger": "A resolved strike, enemy attack, riposte, potion or charge recovery event.",
+        "inputs": "The turn event (damage, effectiveness, action kind, healed amount) and the per-frame HP snapshot.",
+        "sequence": "Each frame draws the bars from the previous frame's width, forces a reflow and sets the new width so the transition runs; numbers rise for 0.9 s; the scene shakes at level 1 or 2.",
+        "results": "Damage, healing and effectiveness read without parsing the battle log; numbers are hidden from assistive technology because the log already announces them.",
+        "cancellation": "A new frame replaces the markup; leaving the battle or skipping playback drops pending effects.",
+        "errors": "With no previous width (first frame or a switched companion) the bar is drawn at its final value without easing.",
+        "persistence": "Presentation-only; nothing is saved."
+      }
+    },
+    {
       "id": "mechanic:brief-scaffold",
       "kind": "mechanic",
       "name": "Structured brief scaffold",
