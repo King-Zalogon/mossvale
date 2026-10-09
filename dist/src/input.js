@@ -161,9 +161,10 @@ export function installInput(app) {
         }
         return;
       }
-      if (ui.modalMode === 'battle' && !e.repeat && ['1', '2', '3', '4', '5', '6'].includes(k)) {
+      if (ui.modalMode === 'battle' && !e.repeat && /^[1-9]$/.test(k)) {
         e.preventDefault();
-        const button = $('#' + ['attack', 'element', 'catch', 'potion', 'guard', 'switch'][+k - 1]);
+        // The number on each button is its position in the action grid, so the keys can never drift from the labels.
+        const button = document.querySelectorAll('.battle-actions button')[+k - 1];
         if (button && !button.disabled) button.click();
       }
       return;

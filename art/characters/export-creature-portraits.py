@@ -33,6 +33,14 @@ SPECS = {
         "source": "art/characters/source/creature-cindercurl-portrait-generated.png",
         "target": "dist/assets/creatures/creature-cindercurl.png",
     },
+    "sunsifter": {
+        "source": "art/characters/source/creature-sunsifter-portrait-generated.png",
+        "target": "dist/assets/creatures/creature-sunsifter.png",
+    },
+    "rillume": {
+        "source": "art/characters/source/creature-rillume-portrait-generated.png",
+        "target": "dist/assets/creatures/creature-rillume.png",
+    },
 }
 ATLAS = "art/assets/source/creature-additions-atlas.png"
 

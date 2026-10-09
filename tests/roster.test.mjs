@@ -7,7 +7,8 @@ import {moves} from '../dist/src/data/moves.js';
 import {regions} from '../dist/src/data/regions.js';
 import {species} from '../dist/src/data/species.js';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
-import {playerStrike, createBattle, enemyAttack} from '../dist/src/domain/battle.js';
+import {playerStrike, createBattle, enemyAttack, resolveTurn} from '../dist/src/domain/battle.js';
+import {setActive, reserve} from '../dist/src/domain/rules.js';
 import {currentObjective} from '../dist/src/domain/objectives.js';
 import {endingDue} from '../dist/src/domain/story.js';
 import {codec, newSave, objCtx, rawMaps, rawObjectives} from './helpers.mjs';
@@ -15,8 +16,8 @@ import {codec, newSave, objCtx, rawMaps, rawObjectives} from './helpers.mjs';
 const idOf = id => species.findIndex(s => s.id === id);
 const story = JSON.parse(readFileSync(new URL('../dist/maps/story.json', import.meta.url), 'utf8'));
 
-test('the fifteen stable species stay findable in their four home biomes', () => {
-  assert.equal(species.length, 15);
+test('the seventeen stable species stay findable in their four home biomes', () => {
+  assert.equal(species.length, 17);
   assert.equal(new Set(species.map(s => s.id)).size, species.length);
   assert.deepEqual(
     species.slice(0, 12).map(s => s.id),
@@ -24,10 +25,10 @@ test('the fifteen stable species stay findable in their four home biomes', () =>
   );
   assert.deepEqual(
     species.slice(12).map(s => s.id),
-    ['sedgegnaw', 'petalunge', 'cindercurl'],
+    ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume'],
   );
   assert.equal(biomes.length, 4);
-  const residentCounts = {meadow: 5, wetland: 3, badlands: 4, 'snowy-forest': 3};
+  const residentCounts = {meadow: 5, wetland: 4, badlands: 5, 'snowy-forest': 3};
   for (const biome of biomes) {
     assert.equal(species.filter(s => s.biome === biome.id).length, residentCounts[biome.id], biome.id);
     assert.ok(
@@ -63,6 +64,10 @@ test('each species has a distinct battle role, move, and habitat clue', () => {
   assert.ok(species.find(s => s.id === 'petalunge').stats.defense < species.find(s => s.id === 'bramblebuck').stats.defense);
   assert.ok(species.find(s => s.id === 'cindercurl').stats.defense > species.find(s => s.id === 'emberkin').stats.defense);
   assert.ok(species.find(s => s.id === 'cindercurl').stats.attack < species.find(s => s.id === 'emberkin').stats.attack);
+  assert.ok(species.find(s => s.id === 'sunsifter').stats.attack > species.find(s => s.id === 'pebblit').stats.attack);
+  assert.ok(species.find(s => s.id === 'sunsifter').stats.defense < species.find(s => s.id === 'pebblit').stats.defense);
+  assert.ok(species.find(s => s.id === 'rillume').stats.attack > species.find(s => s.id === 'brooklet').stats.attack);
+  assert.ok(species.find(s => s.id === 'rillume').stats.defense < species.find(s => s.id === 'brooklet').stats.defense);
 });
 
 test('different stats and move definitions create distinct battle choices', () => {
@@ -89,7 +94,7 @@ test('different stats and move definitions create distinct battle choices', () =
 });
 
 test('the new creatures keep stable IDs in discovery, party and save round trips', () => {
-  for (const speciesId of ['sedgegnaw', 'petalunge', 'cindercurl']) {
+  for (const speciesId of ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume']) {
     const save = newSave();
     const newId = idOf(speciesId);
     save.caught.push(newId);
@@ -105,6 +110,31 @@ test('the new creatures keep stable IDs in discovery, party and save round trips
     const back = codec.normalize(serialized, false);
     assert.equal(species[back.caught.find(i => species[i].id === speciesId)].id, speciesId);
     assert.equal(back.team[newId].xp, 90);
+  }
+});
+
+test('Sunsifter and Rillume can be captured into a full reserve, activated, used in battle and reloaded', () => {
+  for (const name of ['sunsifter', 'rillume']) {
+    const save = newSave();
+    for (const id of [1, 2]) {
+      save.caught.push(id);
+      save.party.push(id);
+      save.team[id] = {xp: 0, hp: 30};
+    }
+    const id = idOf(name);
+    const battle = createBattle(save, () => 0, {id, level: 6});
+    battle.hp = 1;
+    const result = resolveTurn(save, battle, {kind: 'catch'}, () => 0);
+    assert.equal(result.ended, 'caught');
+    assert.equal(result.events.find(event => event.type === 'caught').joined, 'reserve');
+    assert.ok(reserve(save).includes(id));
+    assert.equal(setActive(save, id), true);
+    assert.ok(save.party.includes(id));
+    const restored = codec.normalize(JSON.parse(codec.serialize(save)), false);
+    assert.equal(restored.active, id);
+    assert.ok(restored.caught.includes(id));
+    const next = createBattle(restored, () => 0, {id: idOf('duskwing'), level: 6});
+    assert.ok(resolveTurn(restored, next, {kind: 'element'}, () => 0).events.some(event => event.type === 'strike'));
   }
 });
 

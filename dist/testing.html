@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Testing URLs · Mossvale</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font:
+          16px/1.6 system-ui,
+          sans-serif;
+        background: #102c25;
+        color: #f0e8c7;
+      }
+      body {
+        max-width: 860px;
+        margin: 32px auto;
+        padding: 0 20px;
+      }
+      h1 {
+        margin-bottom: 0;
+      }
+      a {
+        color: #dae994;
+        text-underline-offset: 0.2em;
+      }
+      a:focus-visible {
+        outline: 3px solid #dae994;
+        outline-offset: 5px;
+      }
+      ul {
+        display: grid;
+        gap: 16px;
+        padding: 0;
+        list-style: none;
+      }
+      li {
+        padding: 20px;
+        border: 1px solid #577263;
+        border-radius: 12px;
+        background: #193a30;
+      }
+      li a {
+        font-weight: 700;
+        font-size: 1.15rem;
+      }
+      li p {
+        margin: 8px 0 0;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./">← Mossvale</a>
+      <h1>Testing URLs</h1>
+      <p>Review artwork, animation and authored maps. Each page opens in a new tab, keeping your game and this list open.</p>
+    </header>
+    <main>
+      <nav aria-label="Testing pages">
+        <ul>
+          <li>
+            <a href="creature-follower-preview.html" target="_blank" rel="noopener">Creature followers</a>
+            <p>
+              Every creature's eight directions and idle/walk frames, following the player at gameplay scale. Check turns, stops, backtracking, foreground
+              overlap and reduced motion.
+            </p>
+            <code>/creature-follower-preview.html</code>
+          </li>
+          <li>
+            <a href="creature-combat-preview.html" target="_blank" rel="noopener">Creature combat animations</a>
+            <p>Select a creature and inspect idle, attack, hit, faint and capture states, including calm motion and gameplay scale.</p>
+            <code>/creature-combat-preview.html</code>
+          </li>
+          <li>
+            <a href="character-preview.html" target="_blank" rel="noopener">Player and NPC artwork</a>
+            <p>The red-cap player's eight directions and walk cycle, plus the reusable traveler and gardener. Compare scale, silhouettes and depth sorting.</p>
+            <code>/character-preview.html</code>
+          </li>
+          <li>
+            <a href="player-idle-review.html" target="_blank" rel="noopener">Player idle poses</a>
+            <p>Inspect the neutral standing pose in every facing direction and compare it with the walking poses.</p>
+            <code>/player-idle-review.html</code>
+          </li>
+          <li>
+            <a href="map-editor.html" target="_blank" rel="noopener">Map Workshop</a>
+            <p>Inspect maps, collision topology and terrain-family artwork. Edits stay in the workshop until you explicitly export or play an edited map.</p>
+            <code>/map-editor.html</code>
+          </li>
+        </ul>
+      </nav>
+      <p>These pages review the files in your current build; they do not approve artwork or replace a normal playthrough.</p>
+    </main>
+  </body>
+</html>

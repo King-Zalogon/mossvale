@@ -140,7 +140,27 @@
       "w": 38,
       "label": "Read the trail sign",
       "mapLabel": "Trail sign",
-      "text": "North: crystal shrine (narrow cut or the long east trail) \u00b7 South: Stone Basin \u00b7 East: the next island \u00b7 Gold: treasure"
+      "text": "North: crystal shrine (narrow cut or the long east trail) \u00b7 South: Stone Basin \u00b7 East: Frostveil Grove, beyond the shrine \u00b7 Gold: treasure"
+    },
+    {
+      "id": "east-fork-waymark",
+      "kind": "sign",
+      "sprite": "signpost-wood",
+      "at": [52, 28],
+      "w": 38,
+      "label": "Read the east trail marker",
+      "mapLabel": "East trail marker",
+      "text": "East: Frostveil Grove, beyond the crystal shrine. South: Stone Basin, down the long ridge trail."
+    },
+    {
+      "id": "basin-waymark",
+      "kind": "sign",
+      "sprite": "signpost-wood",
+      "at": [32, 44],
+      "w": 38,
+      "label": "Read the basin marker",
+      "mapLabel": "Basin trail marker",
+      "text": "South: Stone Basin and its quarry loop. North: the ridge trail back to Rowan's lodge."
     },
     {
       "id": "chest",
@@ -602,6 +622,10 @@
         },
         {
           "species": "cindercurl",
+          "weight": 2
+        },
+        {
+          "species": "sunsifter",
           "weight": 2
         }
       ],

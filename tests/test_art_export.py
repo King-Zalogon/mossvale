@@ -13,7 +13,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPORTER = ROOT / "art/characters/export-creature-combat.py"
-SPECIES = ["emberkin", "voltkit", "fernling", "duskwing", "brooklet", "hushram", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl"]
+SPECIES = ["emberkin", "voltkit", "fernling", "duskwing", "brooklet", "hushram", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume"]
 
 
 def png_chunk(name, payload):
@@ -50,23 +50,7 @@ class CombatExportTests(unittest.TestCase):
             "profiles": {
                 "creature-combat-v1": {
                     "sourceGrid": {"columns": 4, "rows": 5},
-                    "frameSizes": {
-                        "emberkin": [12, 10],
-                        "voltkit": [12, 10],
-                        "fernling": [12, 10],
-                        "duskwing": [12, 10],
-                        "brooklet": [12, 10],
-                        "hushram": [12, 10],
-                        "mushmallow": [12, 10],
-                        "frostowl": [12, 10],
-                        "pebblit": [12, 10],
-                        "bramblebuck": [12, 10],
-                        "siltkip": [12, 10],
-                        "sunskitter": [12, 10],
-                        "sedgegnaw": [12, 10],
-                        "petalunge": [12, 10],
-                        "cindercurl": [12, 10],
-                    },
+                    "frameSizes": {name: [12, 10] for name in SPECIES},
                     "resampling": "none",
                     "alphaThreshold": 8,
                     "footInset": 1,

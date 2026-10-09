@@ -29,7 +29,7 @@ class CreaturePortraitExportTests(unittest.TestCase):
             self.assertEqual(result.getpixel((4, 4)), (246, 195, 63, 255), "nearest-neighbor identity detail survives")
 
     def test_addition_atlas_has_even_cells_and_transparent_gutters(self):
-        frames = {name: Image.new("RGBA", EXPORTER.FRAME, (index + 1, 2, 3, 255)) for index, name in enumerate(EXPORTER.SPECS)}
+        frames = {name: Image.new("RGBA", EXPORTER.FRAME, (index + 1, 2, 3, 255)) for index, name in enumerate(["first", "second", "third"])}
         atlas = EXPORTER.build_atlas(frames)
         self.assertEqual(atlas.size, (896, 288))
         self.assertEqual(atlas.getpixel((0, 0)), (1, 2, 3, 255))

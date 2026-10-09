@@ -1,0 +1,30 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "README.md",
+        "art/characters/visual-reviews.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/curated.json",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/318-preview-testing-urls.json",
+        "dist/creature-follower-preview.html",
+        "dist/src/creature-follower-preview.js",
+        "dist/src/ui/menus.js",
+        "dist/style.css",
+        "dist/testing.html",
+        "docs/AGENT_HANDOFFS.md",
+        "docs/TESTING_URLS.md",
+        "package.json",
+        "tests/creature-follower.browser.mjs",
+        "tests/testing-urls.browser.mjs"
+      ],
+      "entries": ["mechanic:testing-urls", "visual:creature-sunsifter-follower", "visual:creature-rillume-follower"],
+      "disposition": "updated",
+      "reason": "Adds the discoverable five-page Testing URLs index, keyboard/touch native new-tab menu access and its authoring fiche. The follower review uses runtime normalized facing/stride/mirroring and canonical registry/manifest rows; actual-stage tests cover tiny-delta turns, all facings, rest/pause and reduced motion. Artwork pixels and runtime adventure rules stay unchanged. Owner approves Sunsifter/Rillume sprite appearance; raw review metadata records that approval without inferring gameplay enjoyment. Preview HTML provenance hashes are refreshed.",
+      "evidence": ["tests/testing-urls.browser.mjs", "tests/creature-follower.browser.mjs", "docs/TESTING_URLS.md"]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "sourceReferences": {
-    "generatedOn": "2026-10-04",
+    "generatedOn": "2026-10-08",
     "fernling": {
       "generatedSource": "art/characters/source/creature-fernling-combat-generated.png",
       "referenceAsset": "creature-fernling",
@@ -116,6 +116,24 @@
       "generatedSource": "art/characters/source/creature-cindercurl-combat-generated.png",
       "referenceAsset": "creature-cindercurl",
       "promptBrief": "Preserve the cindercurl silhouette and palette; transparent four-column by five-row combat sheet with idle, attack, hit, faint and capture poses on stable bottom-center anchors.",
+      "sourceSize": [
+        1122,
+        1402
+      ]
+    },
+    "sunsifter": {
+      "generatedSource": "art/characters/source/creature-sunsifter-combat-generated.png",
+      "referenceAsset": "creature-sunsifter",
+      "promptBrief": "Keep Sunsifter’s gold shovel brow, broad orange-ridged carapace and six short articulated legs recognizable through idle, burrowing rake, recoil, faint and capture. Transparent 4×5 action atlas; four poses per state; stable bottom-center anchor.",
+      "sourceSize": [
+        1122,
+        1402
+      ]
+    },
+    "rillume": {
+      "generatedSource": "art/characters/source/creature-rillume-combat-generated.png",
+      "referenceAsset": "creature-rillume",
+      "promptBrief": "Preserve Rillume’s clear turquoise bell, dark blue core and four thick ribbon lobes. Create distinct idle, bell-pulse attack, hit, faint and capture reactions in a transparent 4×5 atlas with stable bottom-center anchor.",
       "sourceSize": [
         1122,
         1402
@@ -338,6 +356,34 @@
         1402
       ],
       "output": "dist/assets/creatures/creature-cindercurl-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-sunsifter-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-sunsifter-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-rillume-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-rillume-combat.png",
       "columns": 4,
       "rows": 5,
       "frame": [

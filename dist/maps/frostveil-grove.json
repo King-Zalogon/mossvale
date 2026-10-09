@@ -132,7 +132,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine \u00b7 East: the next island \u00b7 Blue minimap marker: shrine \u00b7 Gold: treasure"
+      "text": "North: crystal shrine \u00b7 East: Reedfen Wetlands, once the seal shines \u00b7 South: Blueglass Pass \u00b7 Gold: treasure"
     },
     {
       "id": "chest",
@@ -156,6 +156,16 @@
       "w": 38,
       "label": "Read the snowy waymark",
       "text": "The grove shrine rests north of camp. A sheltered pass winds south through the pines."
+    },
+    {
+      "id": "reedfen-waymark",
+      "kind": "sign",
+      "sprite": "signpost-wood",
+      "at": [52, 12],
+      "w": 38,
+      "label": "Read the eastern trail marker",
+      "mapLabel": "Reedfen trail marker",
+      "text": "East: Reedfen Wetlands, beyond the grove shrine. Return west to the camp and pine shelter."
     },
     {
       "id": "icefall-note",
@@ -457,12 +467,12 @@
       "w": 79,
       "solid": 0.52,
       "at": [
-        [45.5, 20.6],
-        [43.2, 18.7],
-        [43.2, 15.8],
-        [45.5, 13.9],
-        [48.4, 14.6],
-        [49.7, 17.2]
+        [42.9, 25.5],
+        [40.6, 23.6],
+        [40.6, 20.7],
+        [42.9, 18.8],
+        [45.8, 19.5],
+        [47.0, 22.1]
       ],
       "piece": "snow-grove-1"
     },
@@ -471,7 +481,7 @@
       "kind": "scenery",
       "w": 49,
       "solid": 0.42,
-      "at": [[46.6, 17.4]],
+      "at": [[43.9, 22.3]],
       "piece": "snow-grove-1"
     },
     {

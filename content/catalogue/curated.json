@@ -510,6 +510,45 @@
       }
     },
     {
+      "id": "mechanic:responsive-playfield",
+      "kind": "mechanic",
+      "name": "Responsive playfield and readable name tags",
+      "summary": "On desktop the game frame fits the window height and renders more of the world in wider windows; character and landmark name tags are drawn on top, outlined and kept apart.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Desktop layout only (width 1000 px or more, height 540 px or more); phones and small windows keep the existing 3:2 frame at 960 px of world width.",
+        "World width is capped at 1800 canvas pixels; the Zoom setting still magnifies the world.",
+        "Name tags that cannot be placed without overlapping after four upward nudges are skipped for that frame; the objects stay interactable.",
+        "Presentation only: movement, collision, encounters, saves and the camera follow rule are unchanged."
+      ],
+      "examples": [
+        {
+          "intent": "Play on a 1080p monitor.",
+          "usage": "Open the game in a maximised window; no setting is needed.",
+          "expected": "The whole frame, controls included, fits without scrolling and shows noticeably more of the surrounding map than at 1280x720."
+        }
+      ],
+      "references": ["dist/src/main.js", "dist/src/render/world.js", "dist/style.css"],
+      "evidence": [
+        {
+          "path": "tests/playfield.browser.mjs",
+          "assertion": "At 1280x720, 1366x768, 1920x1080 and 2560x1440 the frame fits the window, the canvas keeps the on-screen aspect and wider windows render at least as much world; phones keep 960 px."
+        }
+      ],
+      "details": {
+        "trigger": "Window resize, fullscreen change or first load.",
+        "inputs": "The canvas bounding box and the 960/1800 pixel width limits.",
+        "sequence": "resize() sets the canvas width to one pixel per CSS pixel above 960 and derives the height from the box; the renderer already reads canvas.width and canvas.height every frame, so visible tiles and objects follow. Labels are collected during the object pass and drawn afterwards, farthest first.",
+        "results": "More world on large screens, no vertical scrolling to reach controls, and name tags that stay legible over foliage.",
+        "cancellation": "Not applicable.",
+        "errors": "A zero-size box (hidden tab) leaves the previous canvas size untouched.",
+        "persistence": "Nothing is saved; the Zoom setting keeps its existing storage."
+      }
+    },
+    {
       "id": "mechanic:save-recovery",
       "kind": "mechanic",
       "name": "Versioned pack saves",
@@ -616,7 +655,7 @@
         "sequence": "Collect dialogue actions in order for the existing dialogue presentation.",
         "results": "Speaker-associated dialogue lines; domain function itself does not draw balloons.",
         "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
-        "errors": "Unknown speaker or text outside 1\u2013500 characters fails validation.",
+        "errors": "Unknown speaker or text outside 1–500 characters fails validation.",
         "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
       }
     },
@@ -681,6 +720,47 @@
         "cancellation": "Must define interruption behavior before implementation.",
         "errors": "Report as a missing capability in the scene gap report.",
         "persistence": "Must define compatible saved-state behavior before implementation."
+      }
+    },
+    {
+      "id": "mechanic:testing-urls",
+      "kind": "mechanic",
+      "name": "Testing URLs and artwork previews",
+      "summary": "Open a discoverable index of shipped artwork and map review pages from the title or in-game menu, keeping the adventure tab open.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Review pages inspect the current build; they do not replace normal play, approve artwork or prove adventure collision/acquisition behavior.",
+        "The separately served authoring catalogue requires npm run catalogue:browse and is not a static game URL."
+      ],
+      "examples": [
+        {
+          "intent": "Review creature facing without changing adventure progress.",
+          "usage": "Choose Testing URLs in the menu, then Creature followers. Select a species, inspect turns and stopping, and enable Reduced motion.",
+          "expected": "The follower turns through eight directions using its own motion; stopped/calm poses use idle, and the game remains open in its original tab."
+        }
+      ],
+      "references": ["dist/testing.html", "dist/src/ui/menus.js", "dist/src/creature-follower-preview.js", "docs/TESTING_URLS.md"],
+      "evidence": [
+        {
+          "path": "tests/testing-urls.browser.mjs",
+          "assertion": "Keyboard/touch navigation and all five destinations in source and packaged subdirectories."
+        },
+        {
+          "path": "tests/creature-follower.browser.mjs",
+          "assertion": "Actual stage draw rows, tiny-displacement turns, rest/pause facing retention and calm motion."
+        }
+      ],
+      "details": {
+        "trigger": "Select Testing URLs from the title screen or in-game menu.",
+        "inputs": "Native keyboard/touch links; review pages expose species/animation and reduced-motion controls.",
+        "sequence": "Open the index in a new tab without opener access, then open a described review page in another tab.",
+        "results": "Shipped review routes are discoverable; canonical follower manifest directions/mirroring and runtime cadence are shown at game scale.",
+        "cancellation": "Close the review/index tabs or use their Mossvale return links. The original game tab stays open.",
+        "errors": "A missing required shipped page is a packaging defect; browser regressions request every listed destination. No authentication or authoring API is invoked by index navigation.",
+        "persistence": "The index and artwork preview do not mutate adventure saves. Map Workshop exports/edited-map play remain explicit authoring actions."
       }
     }
   ],

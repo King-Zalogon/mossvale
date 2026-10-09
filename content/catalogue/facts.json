@@ -2,16 +2,16 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "fec60e5882a42e8ec651279511b88e8b2f0fd0cec95ef168fb27088dec5f9722",
+    "art/assets/subjects.json": "9c87bb2a3c35b39013388d7fede5a3f5f666ebd4703c0aad1d31f335ce65b6c7",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-    "art/characters/creature-combat-metadata.json": "49a001eafef4941795d0a215d9b059bb7743b84c8325985c377db184ee4818e0",
-    "art/characters/creature-follower-metadata.json": "2816de15ad33b06c9bb5eee643018a11ea3214e2c1fe522281dfd1bfd3088235",
-    "art/characters/export-profiles.json": "5137e6616cafa797e71df17c999977cb0ba3f1556334976166b2f5f7c89518b9",
+    "art/characters/creature-combat-metadata.json": "87802fd27e8114797ed08f77dfe74d534c9a4ff5e55c10b7dcec9624755299f1",
+    "art/characters/creature-follower-metadata.json": "f91dc6ea1540cd48146f8ad88328e82fbdff695d3d5c29f13952db84c88700f8",
+    "art/characters/export-profiles.json": "1e678bddc46fb27e8fef206d450aa268a3674e8941c349c7f2bfc4095312b513",
     "art/characters/metadata.json": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
-    "art/characters/visual-reviews.json": "48686b903d1851f5b898cca805685d25f16004926898e16dc2b38e82ceb33abe",
-    "content/catalogue/curated.json": "4d140097bc71300c279662d8a9daabb17856292ecf84b156b64d63761fb753a0",
+    "art/characters/visual-reviews.json": "94540b2ffd0743027432d763934634d4fa3d34a7669d964f09bc2dc5e8f19db2",
+    "content/catalogue/curated.json": "02b92b43c06f4777f309a000dd770773dbce29c2036f8e412a8e68aef371ade9",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "7d8194ba6ded41ae517b90bccbcb742ae6184bc90654aa0136e3818cf1047d3f",
     "dist/assets/creatures/creature-bramblebuck-combat.png": "3d08f6850e19de34e7ca45a22da5a568321b0df4c44b3f4de4d111758221064f",
@@ -47,12 +47,18 @@
     "dist/assets/creatures/creature-petalunge-combat.png": "7e39a6991e0104ccd69b60a07c6c5b42210eb990f01abc8eda126733377cb9fc",
     "dist/assets/creatures/creature-petalunge-follower.png": "5f3234e585bcd48587920f339c98cf1834d1478b5685e274688176463fe9f6ac",
     "dist/assets/creatures/creature-petalunge.png": "9cc0d091d3a7f5421f7bffbfadb8b18fb27d7958f5256a6f07fe1b59ef2b66fd",
+    "dist/assets/creatures/creature-rillume-combat.png": "38189f28587315b665578bd44b4d4d6c55d5802ff17ca28c0cfa11e81d7b469a",
+    "dist/assets/creatures/creature-rillume-follower.png": "a614da0f3ee3acd61954bdd0676c6b951318dd71dd62e8d45c4b78eacd06d7ca",
+    "dist/assets/creatures/creature-rillume.png": "23302b86eb1b9034f4ac037fa13263407031774b8ad434dd17311b1f832da567",
     "dist/assets/creatures/creature-sedgegnaw-combat.png": "facee4ffee91342c0f7fcba77dd07b966745b23ce96d80f81674a6cd1efaa344",
     "dist/assets/creatures/creature-sedgegnaw-follower.png": "f4da82fb319cf9dab978e0ffe0ea8f9c49a0c44bf2e7792bfd6dc27e379db7d6",
     "dist/assets/creatures/creature-sedgegnaw.png": "71ff804584001161e7b17135b103dafd1ba15ebb7efbb82b43e0785ce4f407c1",
     "dist/assets/creatures/creature-siltkip-combat.png": "3f9e2e60432c80b696e363f63378c6d7c1b6d773f1de73c6c077cbf4762abdb1",
     "dist/assets/creatures/creature-siltkip-follower.png": "3adf0dacc4e499eb63d10c336ef1f1c64f76aba6f983f5da8266eaa0410bab16",
     "dist/assets/creatures/creature-siltkip.png": "0b8402acc8fb02165db140b9581d426f17b0252c3e332b2f746a829201871c1e",
+    "dist/assets/creatures/creature-sunsifter-combat.png": "0ccc02755bad86cb86bc20160378176e8c004e887b9e3c31971e4338928f69e7",
+    "dist/assets/creatures/creature-sunsifter-follower.png": "8d6548b7ce7aeebc133f76734664b06bf81b871ad55275bbb667efe72c4b9dd7",
+    "dist/assets/creatures/creature-sunsifter.png": "c23329b12af4fe88a452fc82e44f91a6709740edc5f77b9cdc4387e0325cd0f4",
     "dist/assets/creatures/creature-sunskitter-combat.png": "ba4bb37e396a8ca4fc41319937ebf23f44bba53ee76125838856303954b1bf88",
     "dist/assets/creatures/creature-sunskitter-follower.png": "39e8938acd0f663cb0b6c4862f99b78200347f2ce0238bdd0dad36eca34b6fa7",
     "dist/assets/creatures/creature-sunskitter.png": "7624554e2e1da7c543c2b8c8874ea9bbc4656847f4300c0e27a3d6aea1711148",
@@ -98,18 +104,18 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "71e104292399dce77090aa2fc82707f14fe882b2a2a516e7c83bb586deaac78a",
-    "dist/maps/frostveil-grove.json": "2f2723360040a1f3e39a20e687101d6c501f24d558f8d86bcb0a66cce0be17c1",
+    "dist/maps/amber-ridge.json": "3858e1af10565406805bcaf9b7ae679e5d69c799347d2773e0b090959f4a4f86",
+    "dist/maps/frostveil-grove.json": "8ebc4497b3ca64be74664047d1392fc0a9d6dcf39993122b8f2902f867ade6b6",
     "dist/maps/frostveil-pass.json": "bc1f728ff350674d83840c38a91939fff60350820c7c63f183c317c6a17175e6",
-    "dist/maps/index.json": "5543537287ea0f1c38d738ec9e029511550f3d56835d46d014b448a079490435",
+    "dist/maps/index.json": "7fbf7fcf45be34fbb0074de396a88632d2f6e47eb838a2c475434bd51dce8b11",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "a57709a1a39da36ab82089520396b5d3d626f919782f8b244a15e9daf1e1972e",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "3c20dbd55780d2fa97ed41a1d407b67dffabab8f71e402fafffedbc19b9f9806",
-    "dist/maps/reedfen-wetlands.json": "effa2297a3b3ab4c01d8079c79b193bf164310447c310076a7f5e93f656effb9",
-    "dist/maps/registries.json": "34ab9a499d24b8c0b8c282ac5652456f628211af7d5fa8d9d356609620beb10b",
-    "dist/maps/stilt-isles.json": "eb639a2b3fb2917da3a3fb8921e3c2f5d93d2458928932aa912969da61e2ea2f",
-    "dist/maps/stone-basin.json": "4f9b1746b0d8db32eb12a91493a19735834c2b4635bef5188a529ffd1ea92215",
+    "dist/maps/orchard-ruins.json": "2124f03706f8144430c9d4b187ffdae36cbeee5268f69039d5b347cade35a833",
+    "dist/maps/reedfen-wetlands.json": "8c6064aa0f0d4b48df34b58c8630daf4cdf8fefb70013fdd59debb007bb73e98",
+    "dist/maps/registries.json": "c8668a4df0221cfb990feefcad7a449478aade07567eca61a1caf09567852ef7",
+    "dist/maps/stilt-isles.json": "32780560dbf4f20134b00fc5a5203e1de87e465eb261b4973394cb1114876e55",
+    "dist/maps/stone-basin.json": "bb796c826a36673f4986ea124b859b09ed146f7c4ce84902d8cf2b904be7c701",
     "dist/maps/story.json": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927",
     "dist/maps/terrain-family-fixture.baked.json": "891d797e204f40410231c5a7cb946109c552f12f2d343065ae425fc92fdb51c6",
     "dist/maps/terrain-family-fixture.json": "ef38776760546b9c933eb6bfb27e3ac10e84994c2b1fa4d41d7a3f7935f1214e",
@@ -118,12 +124,12 @@
     "dist/src/compatibility.js": "cb16e68f3c5fefc86c7e6068f1f7a5e832e009647baa07641a4bd1ed06349ca3",
     "dist/src/config.js": "8c60c45a799c27fdddd30c02f08ca85c903900668f8b8a0d143b7445ecb8fff4",
     "dist/src/controller.js": "963670efa047c5f7bec9f2e967a740931b2cc95d34232abefae5dad7993aa3fc",
-    "dist/src/creature-combat-preview.js": "8b57236e977ee3308a5a4af84f2b25cf181b8120bc36c4e8a67fcb1f1ccc17b5",
-    "dist/src/creature-follower-preview.js": "9f8fa77161df05adc90773e62141eb8d47dc3bee8cbcddb28997264b5f3b3731",
-    "dist/src/data/assets.js": "c7ca50b03ccd655f3eb21b103ea00b0e77f7d9577e15223e5ab5af323c3bb536",
+    "dist/src/creature-combat-preview.js": "54ed3e88504eee78be602a38b7834c43f0aee3d23506d5ea98dabc42bf7fc68a",
+    "dist/src/creature-follower-preview.js": "8e6e8c033fbab4ea2bebcb24ffdb9e17319b72b7f532cfd39596a6cd7ee86b7c",
+    "dist/src/data/assets.js": "d2729dba2f4787df0b3e44c80d5e6e585a4866519708aa2c9a360a41ded1ef47",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
-    "dist/src/data/moves.js": "2010b1575621e5ec5d5e5cb5831fff6793a5ae8b105e9f5d8b7052c8fd595ebe",
+    "dist/src/data/moves.js": "8979bfda82b92eb77c77d7e1f3405cd00fb82a7134edf0ea0ba88d58824d2108",
     "dist/src/data/pack.js": "9fd30dbf4b643265515252efacae23a0e18507c5eb1649ad39eabf0ed436ff5c",
     "dist/src/data/regions.js": "dd20e32162860c8112f38d5f7509414f611b3f28e0649fdd72386630ff753c72",
     "dist/src/data/registry.js": "b380fbc26e56195e7713078f63f60fd504f8bf0df8cbb06e1baa754f80ba3f78",
@@ -131,7 +137,7 @@
     "dist/src/data/species.js": "410945be3eae3097eadfd44210408df55c67229196cbff7e45b5d6419ad6a49a",
     "dist/src/data/tactics.js": "0ba459b0a97b7d3da40521b444254013c9ad21635b9f21911607d7315e2f07ea",
     "dist/src/domain/adventure.js": "c8db517e9cefa05ef7d4223dd1573d3bcaa0966e35a23d6c8ceb48e640566e68",
-    "dist/src/domain/battle.js": "5cb4d27ef8ce0f6777d77520633a4deec41544856570548d73d4718646e7ee4b",
+    "dist/src/domain/battle.js": "dcb6b281716f5a2276fba100c8c292804a41cb711fbf99c04b3f2126ad18d29e",
     "dist/src/domain/clock.js": "91e9a8d65543697ed7862ee28c450b04bd1cf56d534308acc3bedbebff7108d5",
     "dist/src/domain/combat-trace.js": "4c564af90c00892f81cb14da767ff14496106d53555843a567685a4595bfe32a",
     "dist/src/domain/companion-routes.js": "52d696611bb306ebe8b1a793f83a60dc4aab2c7c701141629d40e05816ef2bbc",
@@ -156,12 +162,12 @@
     "dist/src/domain/story.js": "76aca33499825ab396db075379a05ff5343bfeec2d82ec6eb715b6026372c381",
     "dist/src/domain/terrain-family.js": "e9828ed285b9ffd558a9f168fa71f5477ffd6ee75a1359a874bfcfcd7101476e",
     "dist/src/domain/world.js": "33283839346a885c8004cb5c5682d29e0d0f6758d36a5698b0eb85b3d3eca383",
-    "dist/src/input.js": "362b57a2241a9ab4c3f9e6cbd44aaff587dba57fc6964307af277664fd6d200a",
-    "dist/src/main.js": "eabd1c08ebd68a4f64e51d47af33b9be8c73682368550b3e4dd6ff43b4831c73",
+    "dist/src/input.js": "3862d53aa6b81b9adb24144168f2942019cceb783694c3a4ee8b7730e3a4ed29",
+    "dist/src/main.js": "0470116cb4058ffe720a5fda8a87f49a7cdaa26d140f74a1d1c3bf56aa4508a4",
     "dist/src/map-editor.js": "ba48bdb6ac640d98cc21ab82cff862dfa081ac84519d0d9bc59caa358c6d1149",
     "dist/src/render/sprites.js": "f1904009314275592c7a117491f4365ebb5249a396f2ab502369d7cf41caf66f",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
-    "dist/src/render/world.js": "88dd06faf50b61bd6261a88e529121add3d7b7905e3e7c2212a16c682d8860ec",
+    "dist/src/render/world.js": "66b26b6c9d5389c544b64d2f2753fcfb8cb69fbc37864bb26ccdf4e06217c3a9",
     "dist/src/save.js": "946a4de156f2a858e7bf016dd7c11e98c6abc2e2b9c58c4a53ec7be1ee23b092",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
@@ -180,7 +186,7 @@
     "dist/src/ui/battle-view.js": "2e1c6a5920fab5edf8de669b3c4eb75befe9f13f5c71f615d65654f0ca97e12b",
     "dist/src/ui/dom.js": "896b6353b90b7640a1219a0f7a9e2eb791ef81adc0766a557cb2c9919a191090",
     "dist/src/ui/hud.js": "9ac727aeca185bed2e15dbdbc34fa4c51266f5b3bdf78083e53154d8d487a4a1",
-    "dist/src/ui/menus.js": "b981e9cfb5cd0071efd58ea4ddc96d0a503050bb19376121b1d8bb618180da2a",
+    "dist/src/ui/menus.js": "4f048d753950b4c210149722cb10ffc6ea40c42abc59f426d18858483b00280f",
     "dist/src/ui/speech.js": "a19df962494d804ec047f472633da6a58df99234056e0155504582121e868e21",
     "dist/src/ui/terrain-family-preview.js": "2f0b636f500caa36d5da1e2ed61abc42bbe184fc8629d6447439fbbe1403d023",
     "scripts/art-jobs.mjs": "6f9d421cda205300e6005b366099af1e57fab4245df048da17dd4fc4576055cf",
@@ -210,7 +216,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "8da9a53fc723f13f5071bdd5dbb22ccd76893d05485e3b325f18cf725dc139d0",
+  "sourceDigest": "92fa178c912cf44f24fbfca391d0a2b51aac2f965ec071602f10e9088af95c2a",
   "exclusions": [
     {
       "family": "module-exports",
@@ -800,6 +806,31 @@
       "dependencies": ["visual:signpost-wood"]
     },
     {
+      "id": "landmark:mossvale/amber-ridge/basin-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/amber-ridge/basin-waymark",
+      "name": "mossvale/amber ridge/basin waymark",
+      "description": "Read the basin marker (sign) on Amber Ridge.",
+      "source": "dist/maps/amber-ridge.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "basin-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [32, 44],
+        "w": 38,
+        "label": "Read the basin marker",
+        "mapLabel": "Basin trail marker",
+        "text": "South: Stone Basin and its quarry loop. North: the ridge trail back to Rowan's lodge."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
+    },
+    {
       "id": "landmark:mossvale/amber-ridge/chest",
       "family": "landmark",
       "runtimeId": "mossvale/amber-ridge/chest",
@@ -852,6 +883,31 @@
       "repetition": "Not applicable: scenery.",
       "persistence": "No new rest state.",
       "dependencies": ["visual:cottage-tiled"]
+    },
+    {
+      "id": "landmark:mossvale/amber-ridge/east-fork-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/amber-ridge/east-fork-waymark",
+      "name": "mossvale/amber ridge/east fork waymark",
+      "description": "Read the east trail marker (sign) on Amber Ridge.",
+      "source": "dist/maps/amber-ridge.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "east-fork-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [52, 28],
+        "w": 38,
+        "label": "Read the east trail marker",
+        "mapLabel": "East trail marker",
+        "text": "East: Frostveil Grove, beyond the crystal shrine. South: Stone Basin, down the long ridge trail."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
     },
     {
       "id": "landmark:mossvale/amber-ridge/lookout-note",
@@ -969,7 +1025,7 @@
         "w": 38,
         "label": "Read the trail sign",
         "mapLabel": "Trail sign",
-        "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: the next island · Gold: treasure"
+        "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: Frostveil Grove, beyond the shrine · Gold: treasure"
       },
       "activation": "Existing sign interaction.",
       "actions": "Authored text/conditional dialogue; optional validated route gate.",
@@ -1123,6 +1179,31 @@
       "dependencies": ["visual:person-traveler"]
     },
     {
+      "id": "landmark:mossvale/frostveil-grove/reedfen-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/frostveil-grove/reedfen-waymark",
+      "name": "mossvale/frostveil grove/reedfen waymark",
+      "description": "Read the eastern trail marker (sign) on Frostveil Grove.",
+      "source": "dist/maps/frostveil-grove.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "reedfen-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [52, 12],
+        "w": 38,
+        "label": "Read the eastern trail marker",
+        "mapLabel": "Reedfen trail marker",
+        "text": "East: Reedfen Wetlands, beyond the grove shrine. Return west to the camp and pine shelter."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
+    },
+    {
       "id": "landmark:mossvale/frostveil-grove/shrine",
       "family": "landmark",
       "runtimeId": "mossvale/frostveil-grove/shrine",
@@ -1172,7 +1253,7 @@
         "at": [11, 13.2],
         "w": 38,
         "label": "Read the trail sign",
-        "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
+        "text": "North: crystal shrine · East: Reedfen Wetlands, once the seal shines · South: Blueglass Pass · Gold: treasure"
       },
       "activation": "Existing sign interaction.",
       "actions": "Authored text/conditional dialogue; optional validated route gate.",
@@ -2000,6 +2081,31 @@
       "dependencies": ["visual:person-gardener"]
     },
     {
+      "id": "landmark:mossvale/stilt-isles/summit-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/stilt-isles/summit-waymark",
+      "name": "mossvale/stilt isles/summit waymark",
+      "description": "Read the high-plank marker (sign) on Stilt Isles.",
+      "source": "dist/maps/stilt-isles.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "summit-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [52, 14],
+        "w": 38,
+        "label": "Read the high-plank marker",
+        "mapLabel": "High-plank marker",
+        "text": "North: Reedfen's shrine landing. South-west: the warden's hut."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
+    },
+    {
       "id": "landmark:mossvale/stone-basin/basin-chest",
       "family": "landmark",
       "runtimeId": "mossvale/stone-basin/basin-chest",
@@ -2140,6 +2246,31 @@
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
       "dependencies": ["visual:prop-quarry-alcove"]
+    },
+    {
+      "id": "landmark:mossvale/stone-basin/ridge-return-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/stone-basin/ridge-return-waymark",
+      "name": "mossvale/stone basin/ridge return waymark",
+      "description": "Read the ridge gate marker (sign) on Stone Basin.",
+      "source": "dist/maps/stone-basin.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "ridge-return-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [49, 25],
+        "w": 38,
+        "label": "Read the ridge gate marker",
+        "mapLabel": "Ridge gate marker",
+        "text": "East: the Amber Ridge overlook. The circular trail around the basin returns to the quarry hut."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
     },
     {
       "id": "landmark:mossvale/stone-basin/vista-note",
@@ -2740,7 +2871,27 @@
             "w": 38,
             "label": "Read the trail sign",
             "mapLabel": "Trail sign",
-            "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: the next island · Gold: treasure"
+            "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: Frostveil Grove, beyond the shrine · Gold: treasure"
+          },
+          {
+            "id": "east-fork-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [52, 28],
+            "w": 38,
+            "label": "Read the east trail marker",
+            "mapLabel": "East trail marker",
+            "text": "East: Frostveil Grove, beyond the crystal shrine. South: Stone Basin, down the long ridge trail."
+          },
+          {
+            "id": "basin-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [32, 44],
+            "w": 38,
+            "label": "Read the basin marker",
+            "mapLabel": "Basin trail marker",
+            "text": "South: Stone Basin and its quarry loop. North: the ridge trail back to Rowan's lodge."
           },
           {
             "id": "chest",
@@ -3203,6 +3354,10 @@
               {
                 "species": "cindercurl",
                 "weight": 2
+              },
+              {
+                "species": "sunsifter",
+                "weight": 2
               }
             ],
             "level": [8, 10],
@@ -3400,7 +3555,7 @@
             "at": [11, 13.2],
             "w": 38,
             "label": "Read the trail sign",
-            "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
+            "text": "North: crystal shrine · East: Reedfen Wetlands, once the seal shines · South: Blueglass Pass · Gold: treasure"
           },
           {
             "id": "chest",
@@ -3424,6 +3579,16 @@
             "w": 38,
             "label": "Read the snowy waymark",
             "text": "The grove shrine rests north of camp. A sheltered pass winds south through the pines."
+          },
+          {
+            "id": "reedfen-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [52, 12],
+            "w": 38,
+            "label": "Read the eastern trail marker",
+            "mapLabel": "Reedfen trail marker",
+            "text": "East: Reedfen Wetlands, beyond the grove shrine. Return west to the camp and pine shelter."
           },
           {
             "id": "icefall-note",
@@ -3725,12 +3890,12 @@
             "w": 79,
             "solid": 0.52,
             "at": [
-              [45.5, 20.6],
-              [43.2, 18.7],
-              [43.2, 15.8],
-              [45.5, 13.9],
-              [48.4, 14.6],
-              [49.7, 17.2]
+              [42.9, 25.5],
+              [40.6, 23.6],
+              [40.6, 20.7],
+              [42.9, 18.8],
+              [45.8, 19.5],
+              [47, 22.1]
             ],
             "piece": "snow-grove-1"
           },
@@ -3739,7 +3904,7 @@
             "kind": "scenery",
             "w": 49,
             "solid": 0.42,
-            "at": [[46.6, 17.4]],
+            "at": [[43.9, 22.3]],
             "piece": "snow-grove-1"
           },
           {
@@ -5691,6 +5856,13 @@
         ],
         "zones": [
           {
+            "id": "sunlit-meadow-path",
+            "terrain": ["t"],
+            "rect": [17, 6, 23, 10],
+            "pool": ["emberkin", "bramblebuck", "duskwing"],
+            "level": [5, 7]
+          },
+          {
             "id": "old-orchard-grass",
             "terrain": ["t"],
             "pool": [
@@ -5707,13 +5879,6 @@
             ],
             "level": [5, 7],
             "rect": [0, 0, 24, 24]
-          },
-          {
-            "id": "sunlit-meadow-path",
-            "terrain": ["t"],
-            "rect": [17, 6, 23, 10],
-            "pool": ["emberkin", "bramblebuck", "duskwing"],
-            "level": [5, 7]
           },
           {
             "id": "orchard-wilds",
@@ -6607,6 +6772,10 @@
                 "species": "mushmallow",
                 "weight": 4
               },
+              {
+                "species": "rillume",
+                "weight": 2
+              },
               "siltkip"
             ],
             "level": [11, 12],
@@ -6794,6 +6963,16 @@
             "label": "Read the plank sign",
             "mapLabel": "Plank sign",
             "text": "West: Reedfen · Centre: the warden's hut · East: the summit isle · South: a small lantern islet"
+          },
+          {
+            "id": "summit-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [52, 14],
+            "w": 38,
+            "label": "Read the high-plank marker",
+            "mapLabel": "High-plank marker",
+            "text": "North: Reedfen's shrine landing. South-west: the warden's hut."
           },
           {
             "id": "stilt-chest",
@@ -7311,6 +7490,16 @@
             "label": "Read the plank sign",
             "mapLabel": "Basin sign",
             "text": "Around the chasm: the quarry hut south · a west alcove · a south-west nook · East gate: back up to Amber Ridge"
+          },
+          {
+            "id": "ridge-return-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [49, 25],
+            "w": 38,
+            "label": "Read the ridge gate marker",
+            "mapLabel": "Ridge gate marker",
+            "text": "East: the Amber Ridge overlook. The circular trail around the basin returns to the quarry hut."
           },
           {
             "id": "basin-chest",
@@ -7897,6 +8086,21 @@
       "dependencies": []
     },
     {
+      "id": "move:bell-pulse",
+      "family": "move",
+      "runtimeId": "bell-pulse",
+      "name": "Bell pulse",
+      "description": "A focused burst carried through a clear, resonant bell.",
+      "source": "dist/src/data/moves.js",
+      "evidence": "tests/battle-actions.test.mjs",
+      "raw": {
+        "name": "Bell pulse",
+        "power": 1.06,
+        "description": "A focused burst carried through a clear, resonant bell."
+      },
+      "power": "1.06"
+    },
+    {
       "id": "move:briar-brace",
       "family": "move",
       "runtimeId": "briar-brace",
@@ -7910,6 +8114,21 @@
         "description": "A measured thorn volley from a sturdy defender."
       },
       "power": "0.9"
+    },
+    {
+      "id": "move:dune-rake",
+      "family": "move",
+      "runtimeId": "dune-rake",
+      "name": "Dune rake",
+      "description": "A shovel-brow sweep that trades speed for a reliable Sand hit.",
+      "source": "dist/src/data/moves.js",
+      "evidence": "tests/battle-actions.test.mjs",
+      "raw": {
+        "name": "Dune rake",
+        "power": 1.02,
+        "description": "A shovel-brow sweep that trades speed for a reliable Sand hit."
+      },
+      "power": "1.02"
     },
     {
       "id": "move:ember-spark",
@@ -8695,14 +8914,14 @@
       "family": "pack",
       "runtimeId": "mossvale",
       "name": "Mossvale",
-      "description": "Four biomes, fifteen friends and a seal at every shrine.",
+      "description": "Four biomes, seventeen friends and a seal at every shrine.",
       "source": "dist/maps/index.json",
       "evidence": "tests/packs.test.mjs",
       "raw": {
         "format": 1,
         "id": "mossvale",
         "name": "Mossvale",
-        "brief": "Four biomes, fifteen friends and a seal at every shrine.",
+        "brief": "Four biomes, seventeen friends and a seal at every shrine.",
         "maps": ["meadow", "amber-ridge", "frostveil-grove", "frostveil-pass", "reedfen-wetlands", "orchard-ruins", "stilt-isles", "stone-basin"],
         "species": [
           "fernling",
@@ -8719,7 +8938,9 @@
           "hushram",
           "sedgegnaw",
           "petalunge",
-          "cindercurl"
+          "cindercurl",
+          "sunsifter",
+          "rillume"
         ],
         "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
         "ending": "story",
@@ -8727,7 +8948,7 @@
         "story": "story.json",
         "inventory": "inventory.json",
         "registries": "registries.json",
-        "contentVersion": 3,
+        "contentVersion": 4,
         "requires": {
           "engineVersion": 1,
           "saveSchema": 5
@@ -8736,7 +8957,7 @@
           {
             "id": "registry:main",
             "path": "registries.json",
-            "sha256": "34ab9a499d24b8c0b8c282ac5652456f628211af7d5fa8d9d356609620beb10b"
+            "sha256": "c8668a4df0221cfb990feefcad7a449478aade07567eca61a1caf09567852ef7"
           },
           {
             "id": "map:meadow",
@@ -8746,12 +8967,12 @@
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "71e104292399dce77090aa2fc82707f14fe882b2a2a516e7c83bb586deaac78a"
+            "sha256": "3858e1af10565406805bcaf9b7ae679e5d69c799347d2773e0b090959f4a4f86"
           },
           {
             "id": "map:frostveil-grove",
             "path": "frostveil-grove.json",
-            "sha256": "2f2723360040a1f3e39a20e687101d6c501f24d558f8d86bcb0a66cce0be17c1"
+            "sha256": "8ebc4497b3ca64be74664047d1392fc0a9d6dcf39993122b8f2902f867ade6b6"
           },
           {
             "id": "map:frostveil-pass",
@@ -8761,22 +8982,22 @@
           {
             "id": "map:reedfen-wetlands",
             "path": "reedfen-wetlands.json",
-            "sha256": "effa2297a3b3ab4c01d8079c79b193bf164310447c310076a7f5e93f656effb9"
+            "sha256": "8c6064aa0f0d4b48df34b58c8630daf4cdf8fefb70013fdd59debb007bb73e98"
           },
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "3c20dbd55780d2fa97ed41a1d407b67dffabab8f71e402fafffedbc19b9f9806"
+            "sha256": "2124f03706f8144430c9d4b187ffdae36cbeee5268f69039d5b347cade35a833"
           },
           {
             "id": "map:stilt-isles",
             "path": "stilt-isles.json",
-            "sha256": "eb639a2b3fb2917da3a3fb8921e3c2f5d93d2458928932aa912969da61e2ea2f"
+            "sha256": "32780560dbf4f20134b00fc5a5203e1de87e465eb261b4973394cb1114876e55"
           },
           {
             "id": "map:stone-basin",
             "path": "stone-basin.json",
-            "sha256": "4f9b1746b0d8db32eb12a91493a19735834c2b4635bef5188a529ffd1ea92215"
+            "sha256": "bb796c826a36673f4986ea124b859b09ed146f7c4ce84902d8cf2b904be7c701"
           },
           {
             "id": "objectives:main",
@@ -11034,6 +11255,38 @@
       "dependencies": ["visual:creature-petalunge"]
     },
     {
+      "id": "species:mossvale/rillume",
+      "family": "species",
+      "runtimeId": "mossvale/rillume",
+      "name": "Rillume",
+      "description": "A bright jelly friend whose deep blue core glows beneath a clear bell and four flowing ribbons.",
+      "source": "dist/maps/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "rillume",
+        "name": "Rillume",
+        "type": "Water",
+        "stats": {
+          "hp": 42,
+          "attack": 13,
+          "defense": 9
+        },
+        "move": "bell-pulse",
+        "biome": "wetland",
+        "role": "Resonant striker",
+        "personality": "Gentle and observant; it rings a soft pulse when a new friend joins the water's edge.",
+        "desc": "A bright jelly friend whose deep blue core glows beneath a clear bell and four flowing ribbons.",
+        "encounterHint": "Look in Reedfen's safe bank grass for a blue core beneath a clear bell.",
+        "strong": ["Fire", "Stone", "Sand"],
+        "weak": ["Leaf", "Spark", "Bloom"],
+        "color": "#62c9d9",
+        "hp": 42,
+        "sprite": "creature-rillume"
+      },
+      "sprite": "creature-rillume",
+      "dependencies": ["visual:creature-rillume"]
+    },
+    {
       "id": "species:mossvale/sedgegnaw",
       "family": "species",
       "runtimeId": "mossvale/sedgegnaw",
@@ -11096,6 +11349,38 @@
       },
       "sprite": "creature-siltkip",
       "dependencies": ["visual:creature-siltkip"]
+    },
+    {
+      "id": "species:mossvale/sunsifter",
+      "family": "species",
+      "runtimeId": "mossvale/sunsifter",
+      "name": "Sunsifter",
+      "description": "A stocky scarab that sifts the warm ridge soil with its broad golden brow.",
+      "source": "dist/maps/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "sunsifter",
+        "name": "Sunsifter",
+        "type": "Sand",
+        "stats": {
+          "hp": 48,
+          "attack": 11,
+          "defense": 12
+        },
+        "move": "dune-rake",
+        "biome": "badlands",
+        "role": "Patient ridge bruiser",
+        "personality": "Steady and determined; it turns loose sand with its brow to uncover food for smaller trail friends.",
+        "desc": "A stocky scarab that sifts the warm ridge soil with its broad golden brow.",
+        "encounterHint": "Search Amber Ridge's east grass for a broad gold brow lifting the sand.",
+        "strong": ["Spark", "Ice", "Frost"],
+        "weak": ["Water", "Mire", "Bloom"],
+        "color": "#d9953f",
+        "hp": 48,
+        "sprite": "creature-sunsifter"
+      },
+      "sprite": "creature-sunsifter",
+      "dependencies": ["visual:creature-sunsifter"]
     },
     {
       "id": "species:mossvale/sunskitter",
@@ -13420,6 +13705,139 @@
       "characterMetadata": null
     },
     {
+      "id": "visual:creature-rillume",
+      "family": "visual",
+      "runtimeId": "creature-rillume",
+      "name": "creature-rillume",
+      "description": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-rillume",
+        "kind": "creature",
+        "src": "assets/creatures/creature-rillume.png",
+        "w": 241,
+        "h": 264,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "241 by 264 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/creatures/creature-rillume.png",
+      "animationMetadata": null,
+      "identity": {
+        "silhouette": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+        "palette": ["turquoise", "clear aqua", "deep blue core", "navy outline"],
+        "distinguishingFeatures": ["clear scalloped bell", "deep blue center core", "four thick flowing ribbon lobes"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-rillume-combat",
+      "family": "visual",
+      "runtimeId": "creature-rillume-combat",
+      "name": "creature-rillume-combat",
+      "description": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-rillume-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-rillume-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "columnOrder": [0, 1, 2, 3],
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          }
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-rillume-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-rillume-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center"
+      },
+      "identity": {
+        "silhouette": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+        "palette": ["turquoise", "clear aqua", "deep blue core", "navy outline"],
+        "distinguishingFeatures": ["clear scalloped bell", "deep blue center core", "four thick flowing ribbon lobes"]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending.",
+          "ownerTaste": "approved"
+        }
+      ],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-rillume-follower",
+      "family": "visual",
+      "runtimeId": "creature-rillume-follower",
+      "name": "creature-rillume-follower",
+      "description": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-rillume-follower",
+        "kind": "creature",
+        "src": "assets/creatures/creature-rillume-follower.png",
+        "w": 1000,
+        "h": 1600,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 5,
+          "rows": 8,
+          "frameWidth": 200,
+          "frameHeight": 200,
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+        }
+      },
+      "dimensions": "1000 by 1600 source pixels",
+      "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+      "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+      "preview": "dist/assets/creatures/creature-rillume-follower.png",
+      "animationMetadata": {
+        "sourceSize": [992, 1586],
+        "output": "dist/assets/creatures/creature-rillume-follower.png",
+        "frame": [200, 200],
+        "columns": 5,
+        "rows": 8,
+        "anchor": "bottom-center",
+        "feetY": 196
+      },
+      "identity": {
+        "silhouette": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
+        "palette": ["turquoise", "clear aqua", "deep blue core", "navy outline"],
+        "distinguishingFeatures": ["clear scalloped bell", "deep blue center core", "four thick flowing ribbon lobes"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
       "id": "visual:creature-sedgegnaw",
       "family": "visual",
       "runtimeId": "creature-sedgegnaw",
@@ -13681,6 +14099,139 @@
         "silhouette": "Canonical Siltkip creature silhouette, preserved across combat reactions and eight travel directions.",
         "palette": ["canonical source palette"],
         "distinguishingFeatures": ["Siltkip face and silhouette", "species-specific markings and colors"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-sunsifter",
+      "family": "visual",
+      "runtimeId": "creature-sunsifter",
+      "name": "creature-sunsifter",
+      "description": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-sunsifter",
+        "kind": "creature",
+        "src": "assets/creatures/creature-sunsifter.png",
+        "w": 264,
+        "h": 182,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "264 by 182 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/creatures/creature-sunsifter.png",
+      "animationMetadata": null,
+      "identity": {
+        "silhouette": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+        "palette": ["warm amber", "golden shovel brow", "orange shell", "dark brown"],
+        "distinguishingFeatures": ["broad shovel brow", "six compact articulated legs", "three ridges across the amber shell"]
+      },
+      "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-sunsifter-combat",
+      "family": "visual",
+      "runtimeId": "creature-sunsifter-combat",
+      "name": "creature-sunsifter-combat",
+      "description": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-sunsifter-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-sunsifter-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "columnOrder": [0, 1, 2, 3],
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          }
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-sunsifter-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-sunsifter-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center"
+      },
+      "identity": {
+        "silhouette": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+        "palette": ["warm amber", "golden shovel brow", "orange shell", "dark brown"],
+        "distinguishingFeatures": ["broad shovel brow", "six compact articulated legs", "three ridges across the amber shell"]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending.",
+          "ownerTaste": "approved"
+        }
+      ],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-sunsifter-follower",
+      "family": "visual",
+      "runtimeId": "creature-sunsifter-follower",
+      "name": "creature-sunsifter-follower",
+      "description": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-sunsifter-follower",
+        "kind": "creature",
+        "src": "assets/creatures/creature-sunsifter-follower.png",
+        "w": 1000,
+        "h": 1600,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 5,
+          "rows": 8,
+          "frameWidth": 200,
+          "frameHeight": 200,
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+        }
+      },
+      "dimensions": "1000 by 1600 source pixels",
+      "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+      "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+      "preview": "dist/assets/creatures/creature-sunsifter-follower.png",
+      "animationMetadata": {
+        "sourceSize": [993, 1584],
+        "output": "dist/assets/creatures/creature-sunsifter-follower.png",
+        "frame": [200, 200],
+        "columns": 5,
+        "rows": 8,
+        "anchor": "bottom-center",
+        "feetY": 196
+      },
+      "identity": {
+        "silhouette": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
+        "palette": ["warm amber", "golden shovel brow", "orange shell", "dark brown"],
+        "distinguishingFeatures": ["broad shovel brow", "six compact articulated legs", "three ridges across the amber shell"]
       },
       "review": [],
       "characterMetadata": null
