@@ -105,6 +105,10 @@ test('sample visual subjects have hashed canonical references, exports and linke
       'creature-cindercurl',
       'creature-sunsifter',
       'creature-rillume',
+      'creature-mushmallow-thorn-mantle',
+      'creature-pebblit-crystal-ridge',
+      'creature-frostowl-ice-mantle',
+      'creature-siltkip-tide-sail',
     ],
   );
   const player = registry.subjects[0];

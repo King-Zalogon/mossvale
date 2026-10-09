@@ -63,9 +63,11 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/story.js` | domain | `HINT_EVENTS`, `MAX_HINTS`, `STORY_FORMAT`, `endingDue`, `markSeen`, `pendingHint`, `validateStory` |
 | `domain/terrain-family.js` | domain | `bakeTerrainFamily`, `chooseTerrainVariant`, `resolveTerrainFamilyCell`, `serializeTerrainFamilyBake`, `terrainSeed`, `terrainVariant`, `validateTerrainFamilyFixture` |
 | `domain/world.js` | domain | `INTERACTIVE_KINDS`, `buildWorld`, `isLand`, `isQuiet`, `isWalkable`, `nearestInteractive`, `nearestWalkable`, `objectsInBounds`, `rnd`, `spawnOf`, `terrainAt`, `tilesInBounds`, `triggersAt`, `zoneAt` |
+| `guardian-combat-preview.js` | root | — |
 | `input.js` | root | `direction`, `installInput`, `isMoving` |
 | `main.js` | root | — |
 | `map-editor.js` | root | — |
+| `render/battle-art.js` | render | `guardianCombatSprite` |
 | `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
 | `render/terrain.js` | render | `createTerrainPainter`, `mix`, `patchNoise`, `terrainColors` |
 | `render/world.js` | render | `createWorldRenderer` |

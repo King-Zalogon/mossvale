@@ -146,9 +146,24 @@ function validateOne(m, byId, ctx, errors) {
           const asset = ctx.assets?.find(entry => entry.name === name);
           if (typeof name !== 'string' || !name.startsWith(`creature-${l.guardian.species}-`) || !name.endsWith('-combat'))
             at(where + '.guardian.combatSprite', 'must be a combat form of the configured species');
-          if (ctx.assets && (asset?.kind !== 'creature' || asset?.frames?.columns !== 4 || asset?.frames?.rows !== 5 ||
-            asset?.frames?.rowOrder?.join(',') !== 'idle,attack,hit,faint,capture')))
+          if (
+            ctx.assets &&
+            (asset?.kind !== 'creature' ||
+              asset?.frames?.columns !== 4 ||
+              asset?.frames?.rows !== 5 ||
+              !Array.isArray(asset?.frames?.rowOrder) ||
+              asset.frames.rowOrder.join(',') !== 'idle,attack,hit,faint,capture')
+          )
             at(where + '.guardian.combatSprite', 'requires a creature 4×5 idle/attack/hit/faint/capture atlas');
+          const displayWidth = asset?.frames?.combatDisplayWidth ?? 107;
+          if (
+            ctx.assets &&
+            (!Number.isInteger(displayWidth) ||
+              displayWidth < 1 ||
+              displayWidth > 144 ||
+              (displayWidth * asset?.frames?.frameHeight) / asset?.frames?.frameWidth > 138)
+          )
+            at(where + '.guardian.combatSprite', 'combat display dimensions must fit the 160×145 battle canvas');
         }
         if (!Number.isInteger(l.guardian.level) || l.guardian.level < 1 || l.guardian.level > 99) at(where + '.guardian.level', 'integer 1..99');
         if (l.guardian.power !== undefined && !(l.guardian.power >= 0.5 && l.guardian.power <= 3))
@@ -363,8 +378,13 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
       mapLabel: l.mapLabel,
       routeHint: l.routeHint,
       reward: l.reward,
-      guardian: l.guardian && {id: speciesIndex(l.guardian.species), level: l.guardian.level, tactic: l.guardian.tactic, power: l.guardian.power,
-        ...(l.guardian.combatSprite ? {combatSprite: spriteIndex(l.guardian.combatSprite)} : {})},
+      guardian: l.guardian && {
+        id: speciesIndex(l.guardian.species),
+        level: l.guardian.level,
+        tactic: l.guardian.tactic,
+        power: l.guardian.power,
+        ...(l.guardian.combatSprite ? {combatSprite: spriteIndex(l.guardian.combatSprite)} : {}),
+      },
     }),
   );
   const exits = (m.exits ?? []).map(e => {

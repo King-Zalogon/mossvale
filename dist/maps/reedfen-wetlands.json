@@ -93,7 +93,8 @@
         "species": "siltkip",
         "level": 14,
         "tactic": "tidal-current",
-        "power": 1.7
+        "power": 1.7,
+        "combatSprite": "creature-siltkip-tide-sail-combat"
       },
       "reward": {
         "coins": 75,
@@ -140,7 +141,7 @@
       "w": 38,
       "label": "Read the trail sign",
       "mapLabel": "Trail sign",
-      "text": "West: Frostveil Grove \u00b7 North-east: the crystal shrine \u00b7 South-east: the stilt isles \u00b7 Gold: treasure"
+      "text": "West: Frostveil Grove · North-east: the crystal shrine · South-east: the stilt isles · Gold: treasure"
     },
     {
       "id": "shallow-cut-guide",
@@ -499,7 +500,7 @@
         [35.5, 20.6],
         [36.1, 19.9],
         [36.4, 20.6],
-        [37.0, 19.9],
+        [37, 19.9],
         [37.3, 20.6],
         [37.9, 19.9],
         [38.2, 20.6],
@@ -512,7 +513,7 @@
       "sprite": "bush-flowering",
       "kind": "flower",
       "w": 32,
-      "at": [[37.0, 22.0]],
+      "at": [[37, 22]],
       "piece": "reed-bank-2"
     },
     {
@@ -529,7 +530,7 @@
         [16.4, 15.6],
         [17.1, 14.9],
         [17.3, 15.6],
-        [18.0, 14.9],
+        [18, 14.9],
         [18.2, 15.6]
       ],
       "piece": "reed-bank-3"
@@ -538,7 +539,7 @@
       "sprite": "bush-flowering",
       "kind": "flower",
       "w": 32,
-      "at": [[16.2, 17.0]],
+      "at": [[16.2, 17]],
       "piece": "reed-bank-3"
     },
     {
@@ -547,13 +548,13 @@
       "w": 43,
       "solid": 0.28,
       "at": [
-        [58.0, 31.0],
+        [58, 31],
         [58.2, 31.7],
-        [58.9, 31.0],
+        [58.9, 31],
         [59.1, 31.7],
-        [59.8, 31.0],
-        [60.0, 31.7],
-        [60.7, 31.0],
+        [59.8, 31],
+        [60, 31.7],
+        [60.7, 31],
         [60.9, 31.7]
       ],
       "piece": "reed-bank-4"
@@ -571,14 +572,14 @@
       "w": 43,
       "solid": 0.28,
       "at": [
-        [34.0, 33.7],
-        [34.7, 33.0],
+        [34, 33.7],
+        [34.7, 33],
         [34.9, 33.7],
-        [35.6, 33.0],
+        [35.6, 33],
         [35.8, 33.7],
-        [36.5, 33.0],
+        [36.5, 33],
         [36.7, 33.7],
-        [37.4, 33.0],
+        [37.4, 33],
         [37.6, 33.7]
       ],
       "piece": "reed-bank-5"

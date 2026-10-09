@@ -1,0 +1,28 @@
+/* Preserve the real battle canvas size; wrap frames instead of scaling the review. */
+#species {
+  grid-template-columns: 1fr;
+  margin-top: 24px;
+}
+.frames {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.frames figure {
+  margin: 0;
+  width: 160px;
+}
+canvas {
+  width: 160px;
+  height: 145px;
+  aspect-ratio: auto;
+  max-width: none;
+}
+@media (max-width: 760px) {
+  .state {
+    display: block;
+  }
+  .state h3 {
+    margin: 8px 0;
+  }
+}

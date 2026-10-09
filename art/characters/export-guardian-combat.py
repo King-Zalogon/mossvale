@@ -17,7 +17,7 @@ FORMS = {
     "frostowl": "ice-mantle",
     "siltkip": "tide-sail",
 }
-module_spec = spec_from_file_location("combat_export", ROOT / "art/characters/export-creature-combat.py")
+module_spec = spec_from_file_location("combat_export", ROOT / "art/characters/export-creature-followers.py")
 combat = module_from_spec(module_spec)
 module_spec.loader.exec_module(combat)
 
@@ -31,7 +31,28 @@ def main():
     for species, form in FORMS.items():
         name = f"{species}-{form}"
         spec = {"source": f"art/characters/source/creature-{name}-combat-generated.png"}
-        _segmented, anchored = combat.build(ROOT, profile, spec, name)
+        with Image.open(ROOT / spec["source"]) as opened:
+            source = opened.convert("RGBA")
+        combat.remove_small_components(source, profile["alphaThreshold"], profile["minimumComponentPixels"])
+        xs = combat.generated_row_bounds(source.transpose(Image.Transpose.TRANSPOSE), profile["alphaThreshold"], 4)
+        ys = combat.generated_row_bounds(source, profile["alphaThreshold"], 5)
+        cells = []
+        for row in range(5):
+            for column in range(4):
+                cell = source.crop((xs[column], ys[row], xs[column + 1], ys[row + 1]))
+                cell.putalpha(cell.getchannel("A").point(lambda v: v if v > profile["alphaThreshold"] else 0))
+                combat.remove_small_components(cell, profile["alphaThreshold"], profile["minimumComponentPixels"])
+                box = cell.getchannel("A").getbbox()
+                if not box or min(box[0], box[1], cell.width - box[2], cell.height - box[3]) < 2:
+                    raise ValueError(f"{name}: empty/crossing source cell {row},{column}")
+                cells.append(cell.crop(box))
+        # One scale for all states: individual faint/recoil cells never grow to fill the frame.
+        ratio = profile["maxSprite"] / max(max(cell.size) for cell in cells)
+        anchored = Image.new("RGBA", (1152, 1440), (0, 0, 0, 0))
+        for index, cell in enumerate(cells):
+            cell = cell.resize((round(cell.width * ratio), round(cell.height * ratio)), Image.Resampling.NEAREST)
+            anchored.alpha_composite(cell, ((index % 4) * 288 + (288 - cell.width) // 2,
+                                            (index // 4) * 288 + profile["footY"] - cell.height))
         prepared.append((name, anchored))
     atlas = Image.new("RGBA", (1152 * 2, 1440 * 2), (0, 0, 0, 0))
     errors = []
