@@ -2,7 +2,7 @@
   "format": 1,
   "tool": "image_gen.imagegen",
   "date": "2026-10-09",
-  "exactPrompts": "Summary-only: the design brief and technical layout repair are retained below; raw tool conversation is not a repository artifact.",
+  "exactPrompts": "The final generation/edit prompt is retained verbatim for each delivered source; preceding design briefs and the Frostowl redesign are retained as summaries with source/reference hashes.",
   "providerModelVersion": "Not exposed by tool",
   "seed": "Not exposed by tool",
   "records": [
@@ -25,7 +25,12 @@
         "sha256": "f4b91d913893b6666974199defcf0874f664e0f6a3bb09374313e56c234e8a27",
         "reason": "Character pixels cross nominal grid boundaries or silhouettes too close to base; retained only as hash/reference, not shipped"
       },
-      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending"
+      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending",
+      "finalPrompt": "Technical sprite sheet layout repair. Keep the attached mushmallow guardian design EXACTLY, including all colors, body parts, markings, and action poses. Recreate a true uniform 4-column ×5-row transparent animation sheet, with TWENTY full independent sprites. The previous sheet is rejected because sprites touch each other and cross row/column boundaries. This revision must have VERY WIDE EMPTY TRANSPARENT GUTTERS everywhere. Use a 1120x1400 canvas (4:5), each logical cell280x280. MAXIMUM character width AND height180px in EACH CELL (including spikes/wings/tails): leave at least50px blank on left/right/top and50px bottom. Every character centered x140 within itscell; feet at localy230 within EVERYCELL, including faint and capture, fixed scale across all20 frames. Exact global foot baselines230,510,790,1070,1350; column centers140,420,700,980. SPRITES MUST BE SMALL ON THE LARGE TRANSPARENT CANVAS. NO pixels, effects, outlines or shadows within50px of any cell border. Five equal-height rows: idle four frames, attack four, hit four, faint four, capture four. Faint sprites become shorter at the SAMEfootbaseline, do NOT shift upward or packrowscloser. Crisp pixel art upperleftlighting. No text, no gridlines, no ground shadows. This is an atlas with substantial empty space, not a poster filled with characters. Keep the stern guardian design, no cute baby redesign. This spacing requirement takes priority over filling the image.",
+      "finalPromptReference": {
+        "filename": "exec-69084d4a-2751-4ce4-9bee-2c842bad27e3.png",
+        "sha256": "f4b91d913893b6666974199defcf0874f664e0f6a3bb09374313e56c234e8a27"
+      }
     },
     {
       "species": "pebblit",
@@ -46,7 +51,12 @@
         "sha256": "024aedfb0f9ee9142de3dffb860d786d3b167fde629022b4c2032befb7c25ae3",
         "reason": "Character pixels cross nominal grid boundaries or silhouettes too close to base; retained only as hash/reference, not shipped"
       },
-      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending"
+      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending",
+      "finalPrompt": "Technical sprite sheet layout repair. Keep the attached pebblit guardian design EXACTLY, including all colors, body parts, markings, and action poses. Recreate a true uniform 4-column ×5-row transparent animation sheet, with TWENTY full independent sprites. The previous sheet is rejected because sprites touch each other and cross row/column boundaries. This revision must have VERY WIDE EMPTY TRANSPARENT GUTTERS everywhere. Use a 1120x1400 canvas (4:5), each logical cell280x280. MAXIMUM character width AND height180px in EACH CELL (including spikes/wings/tails): leave at least50px blank on left/right/top and50px bottom. Every character centered x140 within itscell; feet at localy230 within EVERYCELL, including faint and capture, fixed scale across all20 frames. Exact global foot baselines230,510,790,1070,1350; column centers140,420,700,980. SPRITES MUST BE SMALL ON THE LARGE TRANSPARENT CANVAS. NO pixels, effects, outlines or shadows within50px of any cell border. Five equal-height rows: idle four frames, attack four, hit four, faint four, capture four. Faint sprites become shorter at the SAMEfootbaseline, do NOT shift upward or packrowscloser. Crisp pixel art upperleftlighting. No text, no gridlines, no ground shadows. This is an atlas with substantial empty space, not a poster filled with characters. Keep the stern guardian design, no cute baby redesign. This spacing requirement takes priority over filling the image.",
+      "finalPromptReference": {
+        "filename": "exec-c1004e21-3e53-423a-ba15-1c1395d6e388.png",
+        "sha256": "024aedfb0f9ee9142de3dffb860d786d3b167fde629022b4c2032befb7c25ae3"
+      }
     },
     {
       "species": "frostowl",
@@ -67,7 +77,12 @@
         "sha256": "e9bbfaf3045b106a2fdfdbd7d1e32cc16c17284efbd09727a174e7d1fd6c9fa6",
         "reason": "Character pixels cross nominal grid boundaries or silhouettes too close to base; retained only as hash/reference, not shipped"
       },
-      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending"
+      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending",
+      "finalPrompt": "Technical sprite sheet layout repair. Keep the attached frostowl guardian design EXACTLY, including all colors, body parts, markings, and action poses. Recreate a true uniform 4-column ×5-row transparent animation sheet, with TWENTY full independent sprites. The previous sheet is rejected because sprites touch each other and cross row/column boundaries. This revision must have VERY WIDE EMPTY TRANSPARENT GUTTERS everywhere. Use a 1120x1400 canvas (4:5), each logical cell280x280. MAXIMUM character width AND height180px in EACH CELL (including spikes/wings/tails): leave at least50px blank on left/right/top and50px bottom. Every character centered x140 within itscell; feet at localy230 within EVERYCELL, including faint and capture, fixed scale across all20 frames. Exact global foot baselines230,510,790,1070,1350; column centers140,420,700,980. SPRITES MUST BE SMALL ON THE LARGE TRANSPARENT CANVAS. NO pixels, effects, outlines or shadows within50px of any cell border. Five equal-height rows: idle four frames, attack four, hit four, faint four, capture four. Faint sprites become shorter at the SAMEfootbaseline, do NOT shift upward or packrowscloser. Crisp pixel art upperleftlighting. No text, no gridlines, no ground shadows. This is an atlas with substantial empty space, not a poster filled with characters. Keep the stern guardian design, no cute baby redesign. This spacing requirement takes priority over filling the image.",
+      "finalPromptReference": {
+        "filename": "exec-5e386faa-0985-4676-8545-fa80f4322ddb.png",
+        "sha256": "e9bbfaf3045b106a2fdfdbd7d1e32cc16c17284efbd09727a174e7d1fd6c9fa6"
+      }
     },
     {
       "species": "siltkip",
@@ -88,7 +103,12 @@
         "sha256": "dea997a28a2729614a6ec7dbb0f3bdd3ca82b62dab2a64b7b1cf76874212529e",
         "reason": "Character pixels cross nominal grid boundaries or silhouettes too close to base; retained only as hash/reference, not shipped"
       },
-      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending"
+      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending",
+      "finalPrompt": "Technical sprite sheet layout repair. Keep the attached siltkip guardian design EXACTLY, including all colors, body parts, markings, and action poses. Recreate a true uniform 4-column ×5-row transparent animation sheet, with TWENTY full independent sprites. The previous sheet is rejected because sprites touch each other and cross row/column boundaries. This revision must have VERY WIDE EMPTY TRANSPARENT GUTTERS everywhere. Use a 1120x1400 canvas (4:5), each logical cell280x280. MAXIMUM character width AND height180px in EACH CELL (including spikes/wings/tails): leave at least50px blank on left/right/top and50px bottom. Every character centered x140 within itscell; feet at localy230 within EVERYCELL, including faint and capture, fixed scale across all20 frames. Exact global foot baselines230,510,790,1070,1350; column centers140,420,700,980. SPRITES MUST BE SMALL ON THE LARGE TRANSPARENT CANVAS. NO pixels, effects, outlines or shadows within50px of any cell border. Five equal-height rows: idle four frames, attack four, hit four, faint four, capture four. Faint sprites become shorter at the SAMEfootbaseline, do NOT shift upward or packrowscloser. Crisp pixel art upperleftlighting. No text, no gridlines, no ground shadows. This is an atlas with substantial empty space, not a poster filled with characters. Keep the stern guardian design, no cute baby redesign. This spacing requirement takes priority over filling the image.",
+      "finalPromptReference": {
+        "filename": "exec-46795924-93d0-4137-97eb-75dca144fddc.png",
+        "sha256": "dea997a28a2729614a6ec7dbb0f3bdd3ca82b62dab2a64b7b1cf76874212529e"
+      }
     }
   ]
 }
