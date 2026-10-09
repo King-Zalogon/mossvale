@@ -7,6 +7,7 @@ import {RELAY_FOCUS_COST} from '../config.js';
 import {INTENT_TEXT, TACTICS} from '../data/tactics.js';
 import {ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, GUARD_FACTOR} from '../config.js';
 import {drawCreatureAnimated} from '../render/sprites.js';
+import {guardianCombatSprite} from '../render/battle-art.js';
 import {$, header, openModal} from './dom.js';
 import {burstMarkup, hpPercent, popMarkup} from './battle-fx.js';
 
@@ -146,7 +147,7 @@ export function createBattleView(app) {
       for (const el of document.querySelectorAll('.battle-scene .bar i, .battle-scene .bar b')) el.style.width = el.dataset.to + '%';
     }
     drawCreatureAnimated($('#fight-buddy'), active, 107, allyState, app.motionReduced());
-    drawCreatureAnimated($('#fight-wild'), b.id, 107, enemyState, app.motionReduced());
+    drawCreatureAnimated($('#fight-wild'), b.id, 107, enemyState, app.motionReduced(), guardianCombatSprite(game.world.map, b));
     for (const id of ['attack', 'element', 'setup', 'objective', 'catch', 'potion', 'guard']) $('#' + id).onclick = () => actions.battleAction(id);
     $('#switch').onclick = actions.party;
     $('#flee').onclick = actions.flee;

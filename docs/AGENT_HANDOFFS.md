@@ -133,3 +133,7 @@ Claude claim: `claude/312-playfield-hud`, from `origin/integration` `738419e` (i
 ## #318 — follower preview facing and Testing URLs
 
 Codex claim: `codex/318-preview-testing-urls`, created from latest `origin/main` `30aa2e6` and refreshed against `origin/integration` `2467c60`. Preview-only facing defect: the old absolute 0.3 dead zone classified sub-unit trail motion as south. Reuses runtime normalized facing, atlas row/mirroring and cadence; canonical species/manifest discovery prevents stale roster/loader lists. Adds a safe new-tab Testing URLs menu link and five-page static review index, actual-stage directional browser assertions, keyboard/touch/packaged-path navigation coverage and a matching authoring fiche. No artwork redesign, battle/domain/save changes, main promotion or deployment. Owner approves Sunsifter/Rillume sprites; gameplay acceptance remains separate. Full verify/build/impact evidence follows in the PR. Lanternix remains on its existing #314 branch.
+
+## #315 — guardian combat forms (active)
+
+Codex claims `codex/315-guardian-combat-forms`, created from `origin/main` (30aa2e6) and refreshed to `integration` (5cf058e). Four generated species-specific battle forms, optional pack-owned shrine overrides, actual-scale comparison preview, provenance and regression coverage. No mechanics, tuning, progression or ordinary art changes. Local verification replaces unavailable Actions/Vercel execution; integration-only PR merge.

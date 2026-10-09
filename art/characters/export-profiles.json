@@ -8,8 +8,14 @@
         "columns": 5,
         "rowsPerSheet": 2
       },
-      "frame": [160, 256],
-      "maxSprite": [152, 224],
+      "frame": [
+        160,
+        256
+      ],
+      "maxSprite": [
+        152,
+        224
+      ],
       "resampling": "nearest-neighbor",
       "alphaThreshold": 8,
       "footY": 250,
@@ -21,7 +27,10 @@
         "columns": 4,
         "rows": 2
       },
-      "frame": [160, 256],
+      "frame": [
+        160,
+        256
+      ],
       "maxSpriteHeight": 220,
       "resampling": "nearest-neighbor",
       "alphaThreshold": 8,
@@ -35,31 +44,91 @@
         "rows": 5
       },
       "frameSizes": {
-        "emberkin": [288, 288],
-        "voltkit": [288, 288],
-        "fernling": [288, 288],
-        "duskwing": [281, 281],
-        "brooklet": [288, 288],
-        "hushram": [288, 288],
-        "mushmallow": [288, 288],
-        "frostowl": [288, 288],
-        "pebblit": [296, 288],
-        "bramblebuck": [288, 288],
-        "siltkip": [288, 288],
-        "sunskitter": [328, 288],
-        "sedgegnaw": [288, 288],
-        "petalunge": [288, 288],
-        "cindercurl": [288, 288],
-        "sunsifter": [288, 288],
-        "rillume": [288, 288]
+        "emberkin": [
+          288,
+          288
+        ],
+        "voltkit": [
+          288,
+          288
+        ],
+        "fernling": [
+          288,
+          288
+        ],
+        "duskwing": [
+          281,
+          281
+        ],
+        "brooklet": [
+          288,
+          288
+        ],
+        "hushram": [
+          288,
+          288
+        ],
+        "mushmallow": [
+          288,
+          288
+        ],
+        "frostowl": [
+          288,
+          288
+        ],
+        "pebblit": [
+          296,
+          288
+        ],
+        "bramblebuck": [
+          288,
+          288
+        ],
+        "siltkip": [
+          288,
+          288
+        ],
+        "sunskitter": [
+          328,
+          288
+        ],
+        "sedgegnaw": [
+          288,
+          288
+        ],
+        "petalunge": [
+          288,
+          288
+        ],
+        "cindercurl": [
+          288,
+          288
+        ],
+        "sunsifter": [
+          288,
+          288
+        ],
+        "rillume": [
+          288,
+          288
+        ]
       },
       "resampling": "none",
       "alphaThreshold": 8,
       "footInset": 4,
       "palette": "preserve exact generated source bytes; encode Emberkin, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
-      "reviewStages": ["generated-source", "segmented-cells", "anchored-runtime"],
+      "reviewStages": [
+        "generated-source",
+        "segmented-cells",
+        "anchored-runtime"
+      ],
       "indexedOutput": {
-        "species": ["emberkin", "voltkit", "mushmallow", "frostowl"],
+        "species": [
+          "emberkin",
+          "voltkit",
+          "mushmallow",
+          "frostowl"
+        ],
         "colors": 256,
         "dither": "none"
       }
@@ -73,8 +142,14 @@
     "creature-portrait-compact-v1": {
       "category": "creature-portrait",
       "implementation": "art/characters/export-creature-portraits.py; remove alpha values at or below 8, nearest-neighbor fit generated RGBA sources to a 264x264 content box, align feet at y=284 inside a 288x288 normalization cell, and trim runtime output to visible alpha bounds",
-      "frame": [288, 288],
-      "maxSprite": [264, 264],
+      "frame": [
+        288,
+        288
+      ],
+      "maxSprite": [
+        264,
+        264
+      ],
       "alphaThreshold": 8,
       "resampling": "nearest-neighbor fit to maxSprite and trim the normalized cell to visible alpha bounds",
       "footY": 284,
@@ -87,8 +162,14 @@
         "columns": 5,
         "rows": 8
       },
-      "frame": [200, 200],
-      "maxSprite": [184, 184],
+      "frame": [
+        200,
+        200
+      ],
+      "maxSprite": [
+        184,
+        184
+      ],
       "resampling": "nearest-neighbor fit to the shared 184x184 content box",
       "alphaThreshold": 8,
       "minimumComponentPixels": 180,
@@ -96,7 +177,12 @@
       "palette": "preserve exact generated source bytes; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
       "remaining": "All seventeen roster species have follower atlases; visual owner review remains separate.",
       "indexedOutput": {
-        "species": ["hushram", "voltkit", "mushmallow", "frostowl"],
+        "species": [
+          "hushram",
+          "voltkit",
+          "mushmallow",
+          "frostowl"
+        ],
         "colors": 256,
         "dither": "none"
       }
@@ -125,6 +211,36 @@
       "status": "pending-terrain-art",
       "implementation": "No terrain sprite family is currently exported; map terrain remains authored as data.",
       "resampling": "none until art is introduced"
+    },
+    "creature-guardian-combat-v1": {
+      "category": "creature-combat",
+      "sourceGrid": {
+        "columns": 4,
+        "rows": 5
+      },
+      "frameSizes": {
+        "mushmallow-thorn-mantle": [
+          288,
+          288
+        ],
+        "pebblit-crystal-ridge": [
+          288,
+          288
+        ],
+        "frostowl-ice-mantle": [
+          288,
+          288
+        ],
+        "siltkip-tide-sail": [
+          288,
+          288
+        ]
+      },
+      "resampling": "none",
+      "alphaThreshold": 8,
+      "footInset": 4,
+      "palette": "preserve generated RGBA; no quantization",
+      "implementation": "art/characters/export-guardian-combat.py via shared combat build; pixel-preserving dedicated source atlas"
     }
   }
 }

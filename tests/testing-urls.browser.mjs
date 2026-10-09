@@ -40,7 +40,7 @@ try {
     assert.equal(page.url(), `${base}/${mount}/`, 'game remains open');
     assert.equal(await index.getByRole('heading', {name: 'Testing URLs'}).count(), 1);
     const links = index.getByRole('navigation', {name: 'Testing pages'}).getByRole('link');
-    assert.equal(await links.count(), 5);
+    assert.equal(await links.count(), 6);
     for (const entry of await links.all()) {
       const href = await entry.getAttribute('href');
       const response = await index.request.get(new URL(href, index.url()).href);
@@ -71,7 +71,7 @@ try {
     await game.close();
   }
   assert.deepEqual(errors, []);
-  console.log('ok Testing URLs keyboard/title and touch/game-menu navigation, safe new tabs, all five pages in source and packaged subdirectories');
+  console.log('ok Testing URLs keyboard/title and touch/game-menu navigation, safe new tabs, all six pages in source and packaged subdirectories');
 } finally {
   await browser?.close();
   server.close();
