@@ -82,9 +82,12 @@ async function fightOut(wantCapture) {
       const low = s.hp < s.maxHp * 0.4 && s.potions > 0;
       const intent = (await page.locator('.battle-intent').count()) ? await page.textContent('.battle-intent') : '';
       let key = '2';
-      if (low) key = '4';
-      else if (wantCapture && !s.battle.boss && s.battle.hp / s.battle.max <= 0.45 && s.orbs > 0) key = '3';
-      else if (/heavy|bracing/.test(intent)) key = '5';
+      if (low)
+        key = '6'; // 6 · Potion
+      else if (wantCapture && !s.battle.boss && s.battle.hp / s.battle.max <= 0.45 && s.orbs > 0)
+        key = '5'; // 5 · Capture orb
+      else if (/heavy|bracing/.test(intent))
+        key = '7'; // 7 · Guard
       else if (s.battle.focus < 1) key = '1';
       await page.keyboard.press(key);
     }
@@ -271,7 +274,7 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
       await page.waitForSelector('#guard');
       assert.equal((await state()).battle.boss, true);
     } else if (action.type === 'battle-action') {
-      await page.keyboard.press('5');
+      await page.keyboard.press('7'); // 7 · Guard
       await page.waitForFunction(() => window.mossvale.getState().battle?.busy === false && window.mossvale.getState().battle?.turn === 1, null, {
         timeout: 12000,
       });
@@ -310,7 +313,7 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
           const health = current.save.team[active];
           const maxHp = await page.evaluate(id => window.mossvale.maxHP(id), active);
           const intent = (await page.locator('.battle-intent').count()) ? await page.locator('.battle-intent').innerText() : '';
-          const action = health.hp < maxHp * 0.4 && current.save.potions > 0 ? '4' : /heavy|bracing/i.test(intent) ? '5' : current.battle.focus < 1 ? '1' : '2';
+          const action = health.hp < maxHp * 0.4 && current.save.potions > 0 ? '6' : /heavy|bracing/i.test(intent) ? '7' : current.battle.focus < 1 ? '1' : '2';
           await page.keyboard.press(action);
         }
         await page.waitForTimeout(120);
