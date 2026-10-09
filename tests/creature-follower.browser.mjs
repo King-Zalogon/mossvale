@@ -22,6 +22,8 @@ const server = http
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 try {
   const page = await browser.newPage({viewport: {width: 1180, height: 900}});
+  // Install before navigation so the preview's first RAF is registered on the virtual clock.
+  await page.clock.install();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(`http://localhost:${server.address().port}/creature-follower-preview.html`);
@@ -59,7 +61,6 @@ try {
     );
   }
   // Record the actual stage draw calls, not just the atlas's static direction labels.
-  await page.clock.install();
   await page.evaluate(() => {
     window.previewDraws = [];
     const original = CanvasRenderingContext2D.prototype.drawImage;
