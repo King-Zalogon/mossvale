@@ -6,6 +6,7 @@ import {regions} from './data/regions.js';
 import {effectiveness, level, maxHP} from './domain/rules.js';
 import {addToParty, healthyParty, clampHealth, companion, flagDone, healTeam, inParty, removeFromParty, setActive, setFlag, unlocked} from './domain/rules.js';
 import {
+  captureChance,
   combatChoices,
   createBattle,
   encounterDistance,
@@ -36,7 +37,7 @@ import {availableDialogueChoices} from './domain/dialogue-choices.js';
 import {approachedWithinRadius, companionCanUseRoute, companionRouteDiscovered, companionRouteVisible} from './domain/companion-routes.js';
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
-import {fxForEvent} from './ui/battle-fx.js';
+import {captureBeats, fxForEvent, rewardPops} from './ui/battle-fx.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
 
 export function createController(app) {
@@ -835,6 +836,7 @@ export function createController(app) {
     const s = save();
     const before = {active: s.active};
     const decisionContext = app.combatTrace ? combatDecisionContext(s, b) : null;
+    const throwChance = action.kind === 'catch' ? captureChance(s, b) : 0; // shown on the button; sets how the orb wobbles
     const turn = resolveTurn(s, b, action, rng, {
       sealReward: game.world.objects.find(o => o.kind === 'shrine')?.reward,
       inventoryRules: app.inventoryRules,
@@ -876,7 +878,7 @@ export function createController(app) {
       });
     }
     b.busy = true;
-    const frames = framesFor(turn, before, b);
+    const frames = framesFor(turn, before, b, throwChance);
     if (!turn.ended && companion(s).hp < maxHP(s, s.active) * 0.35 && frames.length) frames.at(-1).message += tip('low-health');
     if (turn.ended) {
       game.battle = null;
@@ -923,7 +925,7 @@ export function createController(app) {
   }
 
   /** Turns resolved events into display frames (presentation only; no state changes). */
-  function framesFor(turn, before, b) {
+  function framesFor(turn, before, b, throwChance = 0) {
     const frames = [];
     let player = '';
     for (const e of turn.events) {
@@ -940,9 +942,45 @@ export function createController(app) {
         });
       } else if (e.type === 'throw') {
         player = 'The creature broke free of the orb.';
-        frames.push({message: 'The orb glows… will your new friend stay?', animation: 'capture', after: e.after, sfx: 'throw', wait: wait(850)});
+        const caught = turn.ended === 'caught';
+        for (const beat of captureBeats({chance: throwChance, caught, calm: app.motionReduced()})) {
+          if (beat.kind === 'throw')
+            frames.push({
+              message: 'You throw a capture orb!',
+              animation: 'capture',
+              after: e.after,
+              sfx: 'throw',
+              fx: {pops: [], shake: 0, burst: null, orb: 'throw'},
+              wait: wait(480),
+            });
+          else if (beat.kind === 'wobble')
+            frames.push({
+              message: beat.index === beat.of && !caught ? 'The orb wobbles… it is about to open!' : 'The orb wobbles…',
+              animation: 'capture',
+              after: e.after,
+              sfx: 'wobble',
+              fx: {pops: [], shake: 0, burst: null, orb: 'wobble'},
+              wait: wait(560),
+            });
+          else if (beat.kind === 'caught')
+            frames.push({
+              message: 'Click! The orb settles. Gotcha!',
+              animation: 'capture',
+              after: e.after,
+              sfx: 'click',
+              fx: {pops: rewardPops(turn.events.find(x => x.type === 'caught') ?? {}), shake: 0, burst: 'stars', orb: 'caught'},
+              wait: wait(900),
+            });
+        }
       } else if (e.type === 'break-free') {
-        frames.push({message: 'The creature broke free of the orb!', animation: '', after: e.after, sfx: 'broke', wait: wait(650)});
+        frames.push({
+          message: 'The creature broke free of the orb!',
+          animation: '',
+          after: e.after,
+          sfx: 'broke',
+          fx: {pops: [], shake: 1, burst: null, orb: 'break'},
+          wait: wait(700),
+        });
       } else if (e.type === 'potion' || e.type === 'item') {
         const itemName = e.item && app.inventoryRules?.items?.[e.item]?.name;
         player = `${species[before.active].name} recovered ${e.healed} HP${itemName ? ` with ${itemName}` : ''}.`;
@@ -966,6 +1004,14 @@ export function createController(app) {
         });
       } else if (e.type === 'objective-complete') {
         frames.push({message: `${e.title} complete.`, animation: 'attack', after: e.after, sfx: 'win', wait: wait(650)});
+      } else if (e.type === 'win') {
+        frames.push({
+          message: `${player} ${species[b.id].name} was defeated!`,
+          animation: 'victory',
+          after: e.after,
+          fx: {pops: rewardPops(e), shake: 0, burst: null},
+          wait: wait(1000),
+        });
       } else if (e.type === 'enemy') {
         const foe = species[b.id];
         frames.push({
@@ -992,7 +1038,7 @@ export function createController(app) {
     // The last frame's wait is never honoured (playback completes right after it), so end on a settled frame and the blow stays visible.
     if (!turn.ended && frames.length) frames.push({message: lastMessage, animation: '', after: frames.at(-1).after, wait: 0});
     if (turn.ended === 'win' || turn.ended === 'caught')
-      frames.push({message: lastMessage, animation: turn.ended === 'win' ? 'attack' : 'capture', after: turn.events.at(-1).after, wait: 0});
+      frames.push({message: lastMessage, animation: turn.ended === 'win' ? 'victory' : 'capture', after: turn.events.at(-1).after, wait: 0});
     return frames;
   }
 
