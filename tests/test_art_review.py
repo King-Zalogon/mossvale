@@ -87,6 +87,9 @@ class VisualReviewEvidenceTests(unittest.TestCase):
             "creature-bramblebuck",
             "creature-siltkip",
             "creature-sunskitter",
+            "creature-sedgegnaw",
+            "creature-petalunge",
+            "creature-cindercurl",
         ]
         for species in follower_ids:
             reference = f"art/references/{species}.png"
@@ -129,7 +132,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                     "visual": {"decision": decision, "reason": "Fixture decision is recorded.", "silhouetteChanged": fixture_id == "valid-turned-pose"},
                 }
             )
-        profiles = {"creature-follower-v1": {"status": "implemented-fourth-batch"}}
+        profiles = {"creature-follower-v1": {"status": "implemented-fifth-batch"}}
         (self.root / "art/characters/export-profiles.json").write_text(json.dumps({"profiles": profiles}))
         subject_path = self.root / "art/assets/subjects.json"
         subject_path.parent.mkdir(parents=True, exist_ok=True)
@@ -193,10 +196,18 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                 for species in ids
             ],
         }
-        self.assertEqual(REVIEW_MODULE.validate_directional_coverage(data, set(ids)), 12)
+        self.assertEqual(REVIEW_MODULE.validate_directional_coverage(data, set(ids)), 15)
         data["coverage"][0]["followerWidth"] = 115
         with self.assertRaisesRegex(SystemExit, "37 px"):
             REVIEW_MODULE.validate_directional_coverage(data, set(ids))
+
+    def test_follower_contact_sheet_reserves_a_fourth_row_for_the_full_roster(self):
+        path = ROOT / "art/characters/reviews/creature-follower-contact-sheet.png"
+        data = path.read_bytes()
+        self.assertEqual(data[:8], b"\x89PNG\r\n\x1a\n")
+        width, height = struct.unpack(">II", data[16:24])
+        self.assertEqual(width, 1412)
+        self.assertEqual(height, 1744, "15 species at four columns require four full card rows")
 
     def test_current_evidence_passes_then_stale_art_requires_a_new_visual_review(self):
         current = self.run_reviewer()

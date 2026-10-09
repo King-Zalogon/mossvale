@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {validateMaps} from '../dist/src/domain/mapdata.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun, validateSceneEvent} from '../dist/src/domain/scenes.js';
+import {holds, validateObjectives} from '../dist/src/domain/objectives.js';
 import {isWalkable, buildWorld} from '../dist/src/domain/world.js';
 import {findScenePath} from '../dist/src/domain/scene-path.js';
 import {setFlag} from '../dist/src/domain/rules.js';
@@ -44,6 +45,30 @@ test('map scene actions validate references and reject unsafe challenge semantic
   assert.deepEqual(validateMaps(raw, {spriteNames: names, speciesIds}), []);
 });
 
+test('challenge events can author a bounded encounter objective', () => {
+  const event = {
+    id: 'protect-the-nest',
+    repeatable: true,
+    actions: [
+      {
+        type: 'challenge',
+        species: 'duskwing',
+        level: 5,
+        objective: {
+          id: 'protect-nest',
+          kind: 'survive',
+          turns: 2,
+          title: 'Protect the nest',
+          description: 'Hold the line for two turns.',
+          reward: {coins: 5, potions: 1, xp: 7},
+        },
+      },
+    ],
+  };
+  assert.deepEqual(validateSceneEvent(event, {speciesIds, mapId: 'meadow', mapIds: new Set(['meadow']), where: 'event'}), []);
+  assert.deepEqual(applySceneActions(newSave(), event, {setFlag() {}}).challenge.objective, event.actions[0].objective);
+});
+
 test('one-time scene effects and reward flags persist together; repeatable conditions remain reusable', () => {
   const save = newSave();
   const result = applySceneActions(save, validEvent, {setFlag: flag => setFlag(save, flag)});
@@ -58,6 +83,21 @@ test('one-time scene effects and reward flags persist together; repeatable condi
   assert.equal(sceneConditionHolds({when: {met: false}}, restored, {speciesCount: 2, regions: [{id: 'meadow'}]}), true);
   markSceneRun(restored, 'meadow', validEvent.id);
   assert.equal(restored.events.length, 1);
+});
+
+test('story conditions can branch on saved scene events without adding save fields', () => {
+  const save = {events: ['orchard-ruins/sluice-old-mark']};
+  const ctx = {speciesCount: 3, regions: [{id: 'meadow'}]};
+  assert.equal(holds({event: 'orchard-ruins/sluice-old-mark'}, save, ctx), true);
+  assert.equal(holds({any: [{event: 'orchard-ruins/press-repair-record'}, {event: 'orchard-ruins/sluice-old-mark'}]}, save, ctx), true);
+  assert.equal(holds({all: [{event: 'orchard-ruins/sluice-old-mark'}, {not: {event: 'orchard-ruins/outcome-family-first'}}]}, save, ctx), true);
+  assert.deepEqual(
+    validateObjectives(
+      {format: 1, objectives: [{id: 'x', step: 'x', title: 'x', copy: 'x', pin: 'x', done: {any: [{event: 'orchard-ruins/sluice-old-mark'}]}}]},
+      {mapIds: new Set(['orchard-ruins'])},
+    ),
+    [],
+  );
 });
 
 test('dialogue resolves stable reusable speaker ids and rejects unknown ones', () => {

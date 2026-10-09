@@ -11,7 +11,8 @@ The Map Workshop’s Show topology toggle outlines neighboring terrain boundarie
 1. Edit `dist/maps/<id>.json`.
 2. `npm run validate` checks every map; errors name the map, field and problem (e.g. `map meadow: exits[0] (east).to.spawn: map "amber-ridge" has no spawn "cellar"`).
 3. `npm run map:preview -- meadow` prints an ASCII preview (terrain, solid objects, spawns, landmarks, exits, encounter pool).
-4. Open the game with `python3 -m http.server 8080 --directory dist` (or `npm start`) and walk it. Use `map-editor.html` for a visual editing and preview workflow.
+4. `npm run maps:design-report` creates a spatial route report and annotated SVG for every shipped map; see [how to read and act on it](MAP_DESIGN_REPORT.md).
+5. Open the game with `python3 -m http.server 8080 --directory dist` (or `npm start`) and walk it. Use `map-editor.html` for a visual editing and preview workflow.
 
 Map files and `src/data/regions.js` are linked by `id`: each region needs a map with the same id (and vice versa). Region ids are saved and must never change.
 
@@ -22,6 +23,7 @@ Map files and `src/data/regions.js` are linked by `id`: each region needs a map 
   "format": 1,
   "id": "meadow", // lowercase-kebab-case, unique, stable
   "name": "Mossvale Meadow",
+  "preview": "tree-oak", // optional registered sprite for this map's Island card; no gameplay or save effect
   "size": { "w": 25, "h": 25 }, // each dimension 4..128; at most 16,384 tiles total
   "legend": { ".": "void", "g": "ground", "p": "path", "w": "water", "t": "tallgrass" },
   "terrain": ["...25 chars...", "..."], // exactly h rows of w characters
@@ -42,6 +44,8 @@ Collection fields (`landmarks`, `exits`, `props`, `zones`, `triggers`) must be a
 
 Coordinates are tile units; `[x, y]` may be fractional (props are offset from the grid).
 
+An optional `preview` names one registered asset shown on this map's Island card. Choose a non-secret, recognizable landmark or habitat prop; the card still obeys its existing visibility and travel rules. This is presentation metadata only: it does not change map access, route discovery, or save data.
+
 ## Sections
 
 **landmarks**: `{ id, kind, sprite, at, w, label?, solid?, flag?, ... }`. `kind` is one of `cottage`, `ranger`, `shrine`, `chest`, `sign`. `sprite` is a name from the asset manifest (`src/data/assets.js`), `w` its drawn width.
@@ -55,7 +59,7 @@ Coordinates are tile units; `[x, y]` may be fractional (props are offset from th
 
 **props**: groups of decoration: `{ sprite, kind: "scenery" | "grass" | "flower", w, solid?, at: [[x, y], ...] }`. `solid` is a collision radius.
 
-**zones** (encounters): `{ id, terrain: ["t"], rect?: [x0, y0, x1, y1], pool: [speciesId | { species, weight }...], level: [min, max], distance?: [min, max] }` (see [ENCOUNTERS.md](ENCOUNTERS.md)). Walking in a matching tile for long enough starts a wild encounter from `pool`. The first matching zone wins, so list narrow zones first.
+**zones** (encounters): `{ id, terrain: ["t"], rect?: [x0, y0, x1, y1], pool: [speciesId | { species, weight?, behavior? }...], level: [min, max], distance?: [min, max] }` (see [ENCOUNTERS.md](ENCOUNTERS.md)). `behavior` is one of `wary`, `territorial` or `curious`; it gives an existing species a bounded field cue and battle pattern while keeping the ordinary capture and recovery flow. Walking in a matching tile for long enough starts a wild encounter from `pool`. The first matching zone wins, so list narrow zones first.
 
 **triggers** (a trigger needs `do` actions, scene `events`, or both): `{ id, at, radius?, on: "enter" | "interact", once?, do: [...] , events?: [...] }`. Existing `do` actions support a short toast or wild battle. Reusable `events` have a stable id, condition (`flag`, `met`, `caught`, `seen`, `visited`, `all`, or `not`) and required `repeatable: true | false`. Their action list can show dialogue, grant capped supplies, set a map milestone flag, start a repeatable challenge, or stage movement/facing/reaction using `player` and ranger landmark IDs. Choreography is capped at 24 actions, 128 movement steps per destination, 4096 route cells and 5-second waits; see [SCENE_ACTIONS.md](SCENE_ACTIONS.md) for action shapes and interruption behavior. Dialogue actions use `{ "type": "dialogue", "speaker": "ranger", "text": "..." }`; speaker is a stable landmark ID from that map, `player`, or `narrator` (the explicit top-of-viewport fallback). Lines remain ordered data, so a reply or a new speaker is another action. Bubbles are positioned from the current camera projection and use the same keyboard/touch advance controls. One-time event keys, flags and rewards are saved before visual choreography begins, so interruption cannot replay rewards after refresh. Challenge interactions must be repeatable so losing never consumes them. No script callbacks or arbitrary runtime code are allowed.
 

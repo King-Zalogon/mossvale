@@ -1060,7 +1060,7 @@ canvas#buddy {
   width: 150px;
 }
 .fighter canvas.hit {
-  animation: hit 0.4s;
+  animation: hit 0.5s ease-out;
 }
 .fighter canvas.attack {
   animation: attack 0.4s;
@@ -1264,6 +1264,18 @@ canvas#buddy {
 .region-card:nth-child(3) .region-preview {
   background: linear-gradient(160deg, #b6dce833, #7991ba33);
 }
+.region-card[data-biome='meadow'] .region-preview {
+  background: linear-gradient(160deg, #9eb86d66, #d6c08b55);
+}
+.region-card[data-biome='snowy-forest'] .region-preview {
+  background: linear-gradient(160deg, #d7eef166, #6d9cab55);
+}
+.region-card[data-biome='wetland'] .region-preview {
+  background: linear-gradient(160deg, #78aaa066, #4c929766);
+}
+.region-card[data-biome='badlands'] .region-preview {
+  background: linear-gradient(160deg, #d8a67366, #986f4855);
+}
 .region-card h3 {
   font-size: 16px;
   font-family: 'Space Grotesk';
@@ -1394,17 +1406,31 @@ canvas#buddy {
   animation: wobble 0.7s infinite;
 }
 @keyframes hit {
-  0%,
+  /* hit-stop: hold the white flash for a beat before the recoil, so the blow lands */
+  0% {
+    filter: brightness(2.4);
+    opacity: 1;
+    transform: translateX(0) scale(1.04);
+  }
+  20% {
+    filter: brightness(2.4);
+    opacity: 1;
+    transform: translateX(0) scale(1.04);
+  }
+  45% {
+    filter: brightness(1.6);
+    opacity: 0.6;
+    transform: translateX(9px) scale(0.95);
+  }
+  75% {
+    filter: none;
+    opacity: 1;
+    transform: translateX(-3px) scale(1);
+  }
   100% {
     filter: none;
     opacity: 1;
-    transform: translateX(0);
-  }
-  25%,
-  75% {
-    filter: brightness(1.8);
-    opacity: 0.45;
-    transform: translateX(6px) scale(0.96);
+    transform: translateX(0) scale(1);
   }
 }
 @keyframes attack {
@@ -2600,5 +2626,136 @@ body[data-input-mode='desktop'] .game-footer > .keyboard-hint:first-child {
     overflow-y: auto;
     transform: none;
     text-align: left;
+  }
+}
+
+/* Battle feel: eased HP bars with a trailing ghost, floating numbers, scene shake and element sparks. */
+.battle-scene .bar {
+  position: relative;
+}
+.battle-scene .bar i,
+.battle-scene .bar b.trail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+.battle-scene .bar i {
+  transition: width 0.45s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+.battle-scene .bar b.trail {
+  background: #f1e6a8;
+  opacity: 0.85;
+  transition: width 0.7s ease-in 0.35s;
+}
+.dmg-pop {
+  position: absolute;
+  left: 50%;
+  top: 28px;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #fff4cf;
+  text-shadow:
+    0 2px 0 #1d2a1f,
+    2px 0 0 #1d2a1f,
+    -2px 0 0 #1d2a1f,
+    0 -2px 0 #1d2a1f;
+  pointer-events: none;
+  animation: dmg-rise 0.9s ease-out both;
+}
+.dmg-pop.tone-super {
+  color: #ffd35c;
+  font-size: 28px;
+}
+.dmg-pop.tone-weak {
+  color: #b9c8d4;
+  font-size: 18px;
+}
+.dmg-pop.tone-heavy {
+  color: #ff8a6a;
+  font-size: 28px;
+}
+.dmg-pop.tone-heal {
+  color: #9ff0a8;
+}
+@keyframes dmg-rise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 6px) scale(0.6);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(-50%, -4px) scale(1.25);
+  }
+  35% {
+    transform: translate(-50%, -10px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -38px) scale(1);
+  }
+}
+.battle-scene.shake-1 {
+  animation: scene-shake 0.28s 0.08s;
+}
+.battle-scene.shake-2 {
+  animation: scene-shake 0.42s 0.08s;
+  --shake: 5px;
+}
+@keyframes scene-shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(calc(var(--shake, 3px) * -1), 1px);
+  }
+  40% {
+    transform: translate(var(--shake, 3px), -1px);
+  }
+  60% {
+    transform: translate(calc(var(--shake, 3px) * -0.6), 0);
+  }
+  80% {
+    transform: translate(calc(var(--shake, 3px) * 0.4), 0);
+  }
+}
+.burst {
+  position: absolute;
+  left: 50%;
+  top: 70px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.burst i {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin: -4px;
+  border-radius: 1px;
+  animation: burst-fly 0.55s ease-out both;
+  transform: rotate(var(--a)) translateX(0);
+}
+@keyframes burst-fly {
+  0% {
+    opacity: 1;
+    transform: rotate(var(--a)) translateX(6px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--a)) translateX(46px) scale(0.3);
+  }
+}
+body.reduce-motion .battle-scene .bar i,
+body.reduce-motion .battle-scene .bar b.trail {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .battle-scene .bar i,
+  .battle-scene .bar b.trail {
+    transition: none;
   }
 }

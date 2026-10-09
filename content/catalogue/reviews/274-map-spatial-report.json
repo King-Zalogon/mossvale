@@ -1,0 +1,35 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "scripts/lib/map-design-report.mjs",
+        "scripts/map-design-report.mjs",
+        "package.json",
+        "docs/MAP_DESIGN_REPORT.md",
+        "docs/MAP_FORMAT.md",
+        "tests/map-design-report.test.mjs"
+      ],
+      "entries": [
+        "map:mossvale/meadow",
+        "map:mossvale/amber-ridge",
+        "map:mossvale/frostveil-grove",
+        "map:mossvale/frostveil-pass",
+        "map:mossvale/reedfen-wetlands",
+        "map:mossvale/orchard-ruins",
+        "map:mossvale/stilt-isles",
+        "map:mossvale/stone-basin"
+      ],
+      "disposition": "no-semantic-impact",
+      "reason": "Adds an offline diagnostic that consumes the existing validated map pack and documents spatial heuristics. It does not alter map authoring fields, encounter behavior, map access, saved state, or the eight existing map fiches.",
+      "evidence": ["tests/map-design-report.test.mjs", "docs/MAP_DESIGN_REPORT.md"]
+    },
+    {
+      "paths": ["dist/src/ui/battle-view.js", "content/catalogue/facts.json", "content/catalogue/INDEX.md"],
+      "entries": ["mechanic:guardian-counterplay"],
+      "disposition": "no-semantic-impact",
+      "reason": "Fixes the battle view's import to use the existing configurable relay-focus constant from config.js. It restores startup and the documented relay-cost display/behavior without changing the battle rule or catalogue contract.",
+      "evidence": ["tests/scene-proof.browser.mjs", "tests/battle-actions.test.mjs"]
+    }
+  ]
+}

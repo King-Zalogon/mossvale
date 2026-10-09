@@ -36,6 +36,7 @@ import {availableDialogueChoices} from './domain/dialogue-choices.js';
 import {approachedWithinRadius, companionCanUseRoute, companionRouteDiscovered, companionRouteVisible} from './domain/companion-routes.js';
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
+import {fxForEvent} from './ui/battle-fx.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
 
 export function createController(app) {
@@ -50,7 +51,7 @@ export function createController(app) {
     emit('audio.cue', {cue: name});
     audio.play(name);
   };
-  const renderBattle = (message, animation, snap, battle) => app.renderBattle(message, animation, snap, battle);
+  const renderBattle = (message, animation, snap, battle, fx) => app.renderBattle(message, animation, snap, battle, fx);
   const timeline = (app.timeline = createTimeline());
   let sceneMotion = null;
   const speech = createSpeech({ui, canvas, onEvent: emit});
@@ -721,8 +722,15 @@ export function createController(app) {
     });
     refresh();
     sfx(spec.boss ? 'guardian' : 'encounter');
+    const behaviorText = spec.boss
+      ? ''
+      : spec.behavior === 'wary'
+        ? ' It keeps its distance and watches for an opening.'
+        : spec.behavior === 'territorial'
+          ? ' It guards its ground and is preparing a heavy charge.'
+          : ' It approaches with bright, curious eyes.';
     renderBattle(
-      `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared! ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}${spec.boss ? '' : tip('first-battle')}${healthyParty(save()).length > 1 ? tip('can-switch') : ''}`,
+      `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared!${behaviorText} ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}${spec.boss ? '' : tip('first-battle')}${healthyParty(save()).length > 1 ? tip('can-switch') : ''}`,
     );
   }
 
@@ -785,7 +793,15 @@ export function createController(app) {
       encounter: species[b.id].id,
       active: {speciesId: species[s.active].id, hp: active.hp, maxHp: activeMaxHp, level: level(s, s.active)},
       enemy: {hp: b.hp, maxHp: b.max, level: b.level},
-      conditions: {focus: b.focus, guarding: b.guard, enemyAction: b.boss ? nextEnemyAction(b) : null, effectiveness: effectiveness(s.active, b.id)},
+      conditions: {
+        focus: b.focus,
+        guarding: b.guard,
+        enemyAction: b.boss ? nextEnemyAction(b) : null,
+        effectiveness: effectiveness(s.active, b.id),
+        temporary: b.condition ? {...b.condition} : null,
+        relayReady: b.relayReady === true,
+        objective: b.objective ? {id: b.objective.id, progress: b.objective.progress, turns: b.objective.turns, status: b.objective.status} : null,
+      },
       responseWindows: b.boss ? (guardianForecast(s, b)?.responses ?? []) : [],
       intent: b.boss ? (INTENT_TEXT[nextEnemyAction(b)] ?? null) : null,
       options,
@@ -849,6 +865,15 @@ export function createController(app) {
         counterplay: reward.responseLabels,
         itemRewards: reward.itemRewards,
       });
+    } else if (turn.ended === 'objective') {
+      const objective = turn.events.find(event => event.type === 'objective-complete');
+      emit('reward.granted', {
+        source: 'encounter-objective',
+        species: species[b.id].id,
+        objective: objective.id,
+        coins: objective.reward,
+        xp: objective.xp,
+      });
     }
     b.busy = true;
     const frames = framesFor(turn, before, b);
@@ -868,7 +893,7 @@ export function createController(app) {
     timeline.play(frames, {
       render: f => {
         if (f.sfx) sfx(f.sfx);
-        renderBattle(f.message, f.animation, f.after, b);
+        renderBattle(f.message, f.animation, f.after, b, f.fx);
       },
       done: () => finishPlayback(turn, b),
     });
@@ -902,9 +927,10 @@ export function createController(app) {
     const frames = [];
     let player = '';
     for (const e of turn.events) {
+      const start = frames.length;
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
-        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.brokeBrace ? ' It broke through the brace!' : e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
+        player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.prepared ? ' The relay amplified the setup!' : ''}${e.brokeBrace ? ' It broke through the brace!' : e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
         frames.push({
           message: player,
           animation: e.kind === 'element' ? 'element' : 'attack',
@@ -927,6 +953,19 @@ export function createController(app) {
       } else if (e.type === 'switch') {
         player = `${a.name} joined the encounter.`;
         frames.push({message: `${a.name} joined the encounter!`, animation: '', after: e.after, sfx: 'join', wait: wait(650)});
+      } else if (e.type === 'setup') {
+        player = `${species[before.active].name} prepared a relay for a teammate.`;
+        frames.push({message: player, animation: '', after: e.after, sfx: 'guard', wait: wait(650)});
+      } else if (e.type === 'objective-progress') {
+        frames.push({
+          message: e.ready ? `Objective ready: ${b.objective.title}.` : `Objective progress: ${e.progress}/${e.target} turns protected.`,
+          animation: '',
+          after: e.after,
+          sfx: 'guard',
+          wait: wait(500),
+        });
+      } else if (e.type === 'objective-complete') {
+        frames.push({message: `${e.title} complete.`, animation: 'attack', after: e.after, sfx: 'win', wait: wait(650)});
       } else if (e.type === 'enemy') {
         const foe = species[b.id];
         frames.push({
@@ -934,19 +973,24 @@ export function createController(app) {
           animation: e.damage > 0 ? 'enemy' : '',
           after: e.after,
           sfx: 'hurt',
-          wait: 0,
+          wait: wait(e.damage > 0 ? 700 : 500),
         });
       } else if (e.type === 'faint-switch') {
         frames[frames.length - 1] = {
           message: `${species[e.fainted].name} needs a rest. ${species[e.replacement].name} stepped in!`,
           animation: 'enemy',
+          fx: frames[frames.length - 1].fx,
           after: e.after,
           sfx: 'hurt',
-          wait: 0,
+          wait: wait(700),
         };
       }
+      const fx = fxForEvent(e);
+      if (frames.length > start && (fx.pops.length || fx.shake)) frames[start].fx = fx;
     }
     lastMessage = frames.at(-1)?.message ?? '';
+    // The last frame's wait is never honoured (playback completes right after it), so end on a settled frame and the blow stays visible.
+    if (!turn.ended && frames.length) frames.push({message: lastMessage, animation: '', after: frames.at(-1).after, wait: 0});
     if (turn.ended === 'win' || turn.ended === 'caught')
       frames.push({message: lastMessage, animation: turn.ended === 'win' ? 'attack' : 'capture', after: turn.events.at(-1).after, wait: 0});
     return frames;
@@ -964,6 +1008,7 @@ export function createController(app) {
       return last.isNew
         ? `${species[b.id].name} became your friend! +10 coins, 20 XP${itemText(last.itemRewards)}.`
         : `${species[b.id].name} was released happily: +10 coins, 20 XP${itemText(last.itemRewards)}.`;
+    if (turn.ended === 'objective') return `${last.title} complete: +${last.reward} coins, ${last.xp} XP.`;
     return 'Your team was defeated and rested at camp. Everyone is healed.';
   }
 
@@ -993,6 +1038,17 @@ export function createController(app) {
         note: last.xpText,
         button: next ? 'Visit ' + regions[s.region + 1].short : 'Back to the trail',
         onContinue: next ? () => travel(s.region + 1) : () => (close(), checkEnding()),
+      });
+    } else if (turn.ended === 'objective') {
+      sfx('win');
+      showResult({
+        title: last.title,
+        copy: last.description,
+        id: b.id,
+        rewards: [`${last.reward} coins`, `${last.xp} XP`, ...(last.potions ? [`${last.potions} potions`] : [])],
+        note: last.xpText,
+        button: 'Keep exploring',
+        onContinue: () => (close(), checkEnding()),
       });
     } else if (turn.ended === 'caught') {
       sfx('caught');

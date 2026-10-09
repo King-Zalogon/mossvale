@@ -58,13 +58,13 @@ export function createMenus(app) {
       `${header('FOUR BIOMES. ONE ADVENTURE.', 'The Verdant Isles')}${tabs}<p>Follow the eastern trails, or travel directly to any unlocked region.</p><div class="map-cards">${regions
         .map(
           (r, i) =>
-            `<div class="region-card ${s.region === i ? 'current' : ''} ${!unlocked(s, i) ? 'locked' : ''}"><div class="region-preview"><canvas id="region-art-${i}" width="110" height="110"></canvas></div><h3>${r.name}</h3><p>${unlocked(s, i) ? r.desc : `Earn the ${regions[i - 1].seal.toLowerCase()} to open this trail.`}</p><button data-travel="${i}" ${!unlocked(s, i) ? 'disabled' : ''}>${!unlocked(s, i) ? 'Trail locked' : s.region === i ? 'Return to this camp' : 'Travel to ' + r.short}</button></div>`,
+            `<div class="region-card ${s.region === i ? 'current' : ''} ${!unlocked(s, i) ? 'locked' : ''}"><div class="region-preview"><canvas id="region-art-${i}" width="110" height="110" role="img" aria-label="${esc(r.name)} preview"></canvas></div><h3>${esc(r.name)}</h3><p>${unlocked(s, i) ? esc(r.desc) : `Earn the ${esc(regions[i - 1].seal.toLowerCase())} to open this trail.`}</p><button data-travel="${i}" ${!unlocked(s, i) ? 'disabled' : ''}>${!unlocked(s, i) ? 'Trail locked' : s.region === i ? 'Return to this camp' : 'Travel to ' + esc(r.short)}</button></div>`,
         )
         .join('')}${sideMaps
         .map(m => {
           const ri = regions.findIndex(r => r.biome === m.biome);
           const accessible = ri >= 0 && unlocked(s, ri);
-          return `<div class="region-card ${s.mapId === m.id ? 'current' : ''} ${accessible ? '' : 'locked'}"><h3>${m.name}</h3><p>A trail in ${regions[ri]?.name ?? m.biome}.</p><button data-map-travel="${m.id}" ${accessible ? '' : 'disabled'}>${accessible ? 'Travel to ' + m.name : 'Trail locked'}</button></div>`;
+          return `<div class="region-card ${s.mapId === m.id ? 'current' : ''} ${accessible ? '' : 'locked'}" data-biome="${esc(m.biome)}"><div class="region-preview"><canvas id="map-art-${esc(m.id)}" width="110" height="110" role="img" aria-label="${esc(m.name)} preview"></canvas></div><h3>${esc(m.name)}</h3><p>A trail in ${esc(regions[ri]?.name ?? m.biome)}.</p><button data-map-travel="${esc(m.id)}" ${accessible ? '' : 'disabled'}>${accessible ? 'Travel to ' + esc(m.name) : 'Trail locked'}</button></div>`;
         })
         .join(
           '',
@@ -73,6 +73,9 @@ export function createMenus(app) {
       'Island map',
     );
     regions.forEach((r, i) => drawSprite($(`#region-art-${i}`).getContext('2d'), r.preview, 55, 103, r.preview === spriteId('tree-oak') ? 80 : 88));
+    sideMaps.forEach(m => {
+      if (m.preview !== undefined) drawSprite($(`#map-art-${m.id}`).getContext('2d'), m.preview, 55, 103, 88);
+    });
     for (const b of document.querySelectorAll('[data-travel]')) b.onclick = () => actions.travel(+b.dataset.travel);
     for (const b of document.querySelectorAll('[data-map-travel]')) b.onclick = () => actions.travel(b.dataset.mapTravel);
     wireClose();

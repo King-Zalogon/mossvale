@@ -7,7 +7,7 @@ import {movePlayer} from '../dist/src/domain/exploration.js';
 import {seededRng} from '../dist/src/domain/rng.js';
 import {buildWorld, triggersAt, zoneAt} from '../dist/src/domain/world.js';
 import {species} from '../dist/src/data/species.js';
-import {content, maps, newSave, rawMaps, rawObjectives} from './helpers.mjs';
+import {content, maps, mapsById, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
 const edit = fn => {
   const m = rawMaps();
@@ -22,7 +22,8 @@ const has = (errors, text) =>
   );
 
 test('every species can be found, and a species with no source is rejected', () => {
-  const found = new Set(maps.flatMap(m => m.zones.flatMap(z => z.pool)));
+  const playableMaps = Object.values(mapsById);
+  const found = new Set(playableMaps.flatMap(m => m.zones.flatMap(z => z.pool)));
   assert.equal(found.size, species.length);
   const {errors} = edit(m => {
     for (const map of m)
@@ -47,15 +48,16 @@ test('each region hub has different encounters', () => {
   ); // later regions are higher level
 });
 
-test('all twelve species have a readable hint and a reachable source in their home biome', () => {
-  assert.equal(species.length, 12);
+test('all fifteen species have a readable hint and a reachable source in their home biome', () => {
+  assert.equal(species.length, 15);
+  const playableMaps = Object.values(mapsById);
   for (const creature of species) {
     assert.ok(creature.encounterHint?.trim(), `${creature.id} needs a field hint`);
-    const home = maps.find(map => map.biome === creature.biome);
-    assert.ok(home, `${creature.id} has a home map for ${creature.biome}`);
+    const homeMaps = playableMaps.filter(map => map.biome === creature.biome);
+    assert.ok(homeMaps.length, `${creature.id} has a home map for ${creature.biome}`);
     assert.ok(
-      home.zones.some(zone => zone.pool.includes(species.indexOf(creature))),
-      `${creature.id} has a source in ${home.name}`,
+      homeMaps.some(map => map.zones.some(zone => zone.pool.includes(species.indexOf(creature)))),
+      `${creature.id} has a source in its ${creature.biome} maps`,
     );
   }
 });
@@ -94,6 +96,21 @@ test('zone data validation: weights and walking distance', () => {
       [10, 12],
     ],
   );
+});
+
+test('authored creature behaviors survive map compilation and shape the encounter', async () => {
+  const orchard = mapsById['orchard-ruins'];
+  const wilds = orchard.zones.find(zone => zone.id === 'orchard-wilds');
+  assert.deepEqual(wilds.behaviors, ['territorial', 'curious', 'wary', 'curious', 'curious']);
+  const save = newSave();
+  save.seen = [...Array(species.length).keys()];
+  const bramble = rollWild(save, () => 0.05, wilds);
+  assert.equal(bramble.behavior, 'territorial');
+  const {createBattle, captureChance} = await import('../dist/src/domain/battle.js');
+  const territorial = createBattle(save, seededRng(1), {id: bramble.id, level: 6, behavior: bramble.behavior});
+  assert.equal(territorial.tactic, 'rolling-charge');
+  const curious = createBattle(save, seededRng(1), {id: bramble.id, level: 6, behavior: 'curious'});
+  assert.ok(captureChance(save, curious) > captureChance(save, territorial));
 });
 
 test('encounters are spaced by the zone distance, with a grace period', () => {

@@ -24,6 +24,11 @@ export let FOCUS_START = 2;
 export let ELEMENT_COST = 1;
 export let FOCUS_GAIN = 1;
 export let GUARD_FACTOR = 0.35; // enemy damage multiplier while guarding
+export let RELAY_FOCUS_COST = 1;
+export let RELAY_DURATION = 2;
+export let RELAY_ELEMENT_FACTOR = 1.35;
+export let OBJECTIVE_MAX_TURNS = 8;
+export let OBJECTIVE_REWARD_CAP = 999;
 export let TYPE_ADVANTAGE = 1.6;
 export let TYPE_DISADVANTAGE = 0.65;
 
@@ -57,4 +62,9 @@ export function configurePackRules(progression, battle, moves) {
   FOCUS_MAX = battle.focusMax;
   FOCUS_START = battle.focusStart;
   GUARD_FACTOR = battle.guardFactor;
+  RELAY_FOCUS_COST = battle.relay?.focusCost ?? 1;
+  RELAY_DURATION = battle.relay?.duration ?? 2;
+  RELAY_ELEMENT_FACTOR = battle.relay?.elementFactor ?? 1.35;
+  OBJECTIVE_MAX_TURNS = battle.encounterObjectives?.survive?.maxTurns ?? 8;
+  OBJECTIVE_REWARD_CAP = battle.encounterObjectives?.survive?.rewardCap ?? 999;
 }

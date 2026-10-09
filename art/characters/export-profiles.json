@@ -46,7 +46,10 @@
         "pebblit": [296, 288],
         "bramblebuck": [288, 288],
         "siltkip": [288, 288],
-        "sunskitter": [328, 288]
+        "sunskitter": [328, 288],
+        "sedgegnaw": [288, 288],
+        "petalunge": [288, 288],
+        "cindercurl": [288, 288]
       },
       "resampling": "none",
       "alphaThreshold": 8,
@@ -65,9 +68,19 @@
       "resampling": "none",
       "palette": "preserve source RGBA; no quantization"
     },
+    "creature-portrait-compact-v1": {
+      "category": "creature-portrait",
+      "implementation": "art/characters/export-creature-portraits.py; remove alpha values at or below 8, nearest-neighbor fit generated RGBA sources to a 264x264 content box, align feet at y=284 inside a 288x288 normalization cell, and trim runtime output to visible alpha bounds",
+      "frame": [288, 288],
+      "maxSprite": [264, 264],
+      "alphaThreshold": 8,
+      "resampling": "nearest-neighbor fit to maxSprite and trim the normalized cell to visible alpha bounds",
+      "footY": 284,
+      "palette": "preserve 8-bit RGBA; no quantization"
+    },
     "creature-follower-v1": {
       "category": "creature-follower",
-      "status": "implemented-fourth-batch",
+      "status": "implemented-fifth-batch",
       "sourceGrid": {
         "columns": 5,
         "rows": 8
@@ -79,7 +92,7 @@
       "minimumComponentPixels": 180,
       "footY": 196,
       "palette": "preserve exact generated source bytes; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
-      "remaining": "All twelve roster species have follower atlases; visual owner review remains separate.",
+      "remaining": "All fifteen roster species have follower atlases; visual owner review remains separate.",
       "indexedOutput": {
         "species": ["hushram", "voltkit", "mushmallow", "frostowl"],
         "colors": 256,

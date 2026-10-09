@@ -116,6 +116,7 @@ function validateOne(m, byId, ctx, errors) {
     if (!ctx.speciesIds.has(id)) at(where, `unknown species "${id}"`);
   };
 
+  if (m.preview !== undefined) sprite('preview', m.preview);
   if (!isObj(m.spawns) || !isPoint(m.spawns.camp) || !inside(m.spawns.camp)) at('spawns.camp', 'a "camp" spawn [x, y] inside the map is required');
   else for (const [name, p] of Object.entries(m.spawns)) if (!inside(p)) at(`spawns.${name}`, 'must be [x, y] inside the map');
 
@@ -219,8 +220,12 @@ function validateOne(m, byId, ctx, errors) {
       z.pool.forEach(entry => {
         const id = typeof entry === 'string' ? entry : entry?.species;
         species(where + '.pool', id);
-        if (typeof entry === 'object' && entry !== null && !(Number.isFinite(entry.weight) && entry.weight > 0 && entry.weight <= 100))
-          at(where + '.pool', `weight for "${id}" must be a number above 0 and at most 100`);
+        if (typeof entry === 'object' && entry !== null) {
+          if (entry.weight !== undefined && !(Number.isFinite(entry.weight) && entry.weight > 0 && entry.weight <= 100))
+            at(where + '.pool', `weight for "${id}" must be a number above 0 and at most 100`);
+          if (entry.behavior !== undefined && !['wary', 'territorial', 'curious'].includes(entry.behavior))
+            at(where + '.pool', `behavior for "${id}" must be wary, territorial or curious`);
+        }
       });
     if (
       z?.distance !== undefined &&
@@ -372,6 +377,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     terrain: z.terrain.map(ch => TERRAIN[ch]),
     rect: z.rect,
     pool: z.pool.map(e => speciesIndex(typeof e === 'string' ? e : e.species)),
+    behaviors: z.pool.map(e => (typeof e === 'string' ? 'curious' : (e.behavior ?? 'curious'))),
     weights: z.pool.map(e => (typeof e === 'string' ? 1 : e.weight)),
     level: z.level,
     distance: z.distance ?? [4, 7],
@@ -390,7 +396,20 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     })),
   }));
   const quiet = (m.quiet ?? []).map(q => ({id: q.id, rect: q.rect, label: q.label}));
-  return {id: m.id, biome: m.biome, name: m.name, size: m.size, terrainAt, tiles, objects, spawns, zones, triggers, quiet};
+  return {
+    id: m.id,
+    biome: m.biome,
+    name: m.name,
+    preview: m.preview === undefined ? undefined : spriteIndex(m.preview),
+    size: m.size,
+    terrainAt,
+    tiles,
+    objects,
+    spawns,
+    zones,
+    triggers,
+    quiet,
+  };
 }
 
 /** Semantic checks that need the compiled map: spawn safety, exits on land, reachable goals. */

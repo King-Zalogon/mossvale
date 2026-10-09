@@ -823,7 +823,7 @@
     {
       "id": "tall-grass",
       "terrain": ["t"],
-      "pool": ["fernling", "emberkin", "bramblebuck", "duskwing"],
+      "pool": [{"species": "fernling", "behavior": "wary"}, "emberkin", {"species": "bramblebuck", "behavior": "territorial"}, "duskwing"],
       "level": [5, 7],
       "rect": [0, 0, 24, 24]
     },
@@ -841,6 +841,10 @@
         },
         {
           "species": "fernling",
+          "weight": 2
+        },
+        {
+          "species": "sedgegnaw",
           "weight": 2
         }
       ],

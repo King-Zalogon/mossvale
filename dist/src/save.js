@@ -5,7 +5,7 @@ import {CAPS} from './data/economy.js';
 import {TACTICS} from './data/tactics.js';
 import {decodeEntry, encodeEntry} from './domain/discovery.js';
 import {inventoryToSupplies, suppliesToInventory, validateInventoryRules} from './domain/inventory.js';
-import {FOCUS_MAX, FOCUS_START, MAX_XP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
+import {FOCUS_MAX, FOCUS_START, MAX_XP, OBJECTIVE_MAX_TURNS, OBJECTIVE_REWARD_CAP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
 
 const VERSION = 5;
 const LEGACY_PACK = 'mossvale';
@@ -346,8 +346,42 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     const id = typeof b.id === 'string' ? speciesIndex(b.id) : -1;
     const intIn = (v, min, max) => Number.isInteger(v) && v >= min && v <= max;
     if (id < 0 || !intIn(b.level, 1, 99) || !intIn(b.max, 1, 9999) || !intIn(b.hp, 1, b.max) || !intIn(b.turn, 0, 9999)) return null;
-    const tactic = b.boss === true && Object.hasOwn(TACTICS, b.tactic) ? b.tactic : undefined;
+    const behavior = ['wary', 'territorial', 'curious'].includes(b.behavior) ? b.behavior : 'curious';
+    const tactic =
+      b.boss === true && Object.hasOwn(TACTICS, b.tactic)
+        ? b.tactic
+        : b.boss !== true && Object.hasOwn(b, 'behavior')
+          ? behavior === 'territorial'
+            ? 'rolling-charge'
+            : behavior === 'wary'
+              ? 'spore-guard'
+              : undefined
+          : undefined;
     const knownResponses = new Set((TACTICS[tactic]?.counterplay ?? []).map(response => response.id));
+    const objective =
+      b.objective &&
+      typeof b.objective === 'object' &&
+      b.objective.kind === 'survive' &&
+      typeof b.objective.id === 'string' &&
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(b.objective.id) &&
+      intIn(b.objective.turns, 1, OBJECTIVE_MAX_TURNS) &&
+      intIn(b.objective.progress, 0, b.objective.turns) &&
+      ['active', 'ready'].includes(b.objective.status)
+        ? {
+            id: b.objective.id,
+            kind: 'survive',
+            turns: b.objective.turns,
+            title: typeof b.objective.title === 'string' ? b.objective.title : 'Encounter objective',
+            description: typeof b.objective.description === 'string' ? b.objective.description : 'Complete the authored encounter objective.',
+            reward: {
+              coins: intIn(b.objective.reward?.coins, 0, OBJECTIVE_REWARD_CAP) ? b.objective.reward.coins : 0,
+              potions: intIn(b.objective.reward?.potions, 0, OBJECTIVE_REWARD_CAP) ? b.objective.reward.potions : 0,
+              xp: intIn(b.objective.reward?.xp, 0, OBJECTIVE_REWARD_CAP) ? b.objective.reward.xp : 0,
+            },
+            progress: b.objective.progress,
+            status: b.objective.status,
+          }
+        : null;
     return {
       id,
       hp: b.hp,
@@ -358,8 +392,19 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       turn: b.turn,
       focus: intIn(b.focus, 0, FOCUS_MAX) ? b.focus : FOCUS_START,
       tactic,
+      behavior,
       power: b.boss === true && typeof b.power === 'number' && b.power >= 0.5 && b.power <= 3 ? b.power : 1,
       counterplay: Array.isArray(b.counterplay) ? [...new Set(b.counterplay.filter(id => knownResponses.has(id)))] : [],
+      condition:
+        b.condition?.id === 'relay' &&
+        intIn(b.condition.remaining, 1, 2) &&
+        Number.isInteger(b.condition.source) &&
+        b.condition.source >= 0 &&
+        b.condition.source < species.length
+          ? {id: 'relay', remaining: b.condition.remaining, source: b.condition.source}
+          : null,
+      relayReady: b.relayReady === true,
+      objective,
     };
   }
 

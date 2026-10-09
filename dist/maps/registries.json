@@ -254,6 +254,57 @@
       "color": "#b9d5e9",
       "hp": 50,
       "sprite": "creature-hushram"
+    },
+    {
+      "id": "sedgegnaw",
+      "name": "Sedgegnaw",
+      "type": "Leaf",
+      "stats": {"hp": 46, "attack": 8, "defense": 14},
+      "move": "seedline-sweep",
+      "biome": "meadow",
+      "role": "Seed-trail defender",
+      "personality": "Careful and persistent; it carries a narrow sedge leaf to mark safe paths through the grass.",
+      "desc": "A six-legged leaf-cutter ant with amber eyes and a notched sedge-leaf sail.",
+      "encounterHint": "Watch Meadow seed-trail grass; a quiet cache can draw it to the edge.",
+      "strong": ["Water", "Stone", "Mire"],
+      "weak": ["Fire", "Ice", "Frost"],
+      "color": "#8eb64f",
+      "hp": 46,
+      "sprite": "creature-sedgegnaw"
+    },
+    {
+      "id": "petalunge",
+      "name": "Petalunge",
+      "type": "Bloom",
+      "stats": {"hp": 38, "attack": 14, "defense": 7},
+      "move": "orchid-pounce",
+      "biome": "meadow",
+      "role": "Orchard ambusher",
+      "personality": "Still and watchful; it waits among fallen petals before making one clean leap.",
+      "desc": "A slender orchid mantis with a narrow head and paired petal forelimbs.",
+      "encounterHint": "Search the orchard's flowered edge; watch for a petal-shaped silhouette.",
+      "strong": ["Water", "Mire"],
+      "weak": ["Fire", "Frost"],
+      "color": "#e9b5a3",
+      "hp": 38,
+      "sprite": "creature-petalunge"
+    },
+    {
+      "id": "cindercurl",
+      "name": "Cindercurl",
+      "type": "Fire",
+      "stats": {"hp": 52, "attack": 8, "defense": 17},
+      "move": "kiln-shoulder",
+      "biome": "badlands",
+      "role": "Kiln-plate bulwark",
+      "personality": "Patient and self-possessed; it folds its ember-warm plates around a trusted companion.",
+      "desc": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail.",
+      "encounterHint": "Look for heat shimmer near the reachable eastern ridge grass.",
+      "strong": ["Leaf", "Ice", "Bloom", "Frost"],
+      "weak": ["Water", "Stone", "Mire", "Sand"],
+      "color": "#c96a3b",
+      "hp": 52,
+      "sprite": "creature-cindercurl"
     }
   ],
   "regions": [
@@ -422,7 +473,18 @@
   "battle": {
     "focusMax": 3,
     "focusStart": 2,
-    "guardFactor": 0.35
+    "guardFactor": 0.35,
+    "relay": {
+      "focusCost": 1,
+      "duration": 2,
+      "elementFactor": 1.35
+    },
+    "encounterObjectives": {
+      "survive": {
+        "maxTurns": 8,
+        "rewardCap": 999
+      }
+    }
   },
   "moves": {
     "elemental": {

@@ -55,10 +55,12 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
   }
   if (!errors.length) {
     const available = rawPack?.species ? species.filter(s => rawPack.species.includes(s.id)) : species;
-    const completeRoster = species.length === 12 && available.length === species.length;
+    // Home-biome coverage is a requirement of Mossvale's authored adventure, not
+    // of other packs which may reuse a subset of its creatures in their own maps.
+    const expectedBiomes = rawPack?.id === 'mossvale' ? biomes : [];
     errors.push(
       ...checkProgression(maps, regions, rawObjectives?.objectives ?? [], rawStory),
-      ...checkSources(maps, available, completeRoster ? biomes : []),
+      ...checkSources(maps, available, expectedBiomes),
       ...checkPoolsStayInPack(maps, available),
       ...checkMilestoneOrder(maps, regions, rawPack?.milestones),
     );
@@ -184,7 +186,7 @@ function checkSources(ordered, species, expectedBiomes = []) {
   const errors = species.filter(s => !sourced.has(s.id)).map(s => `species: "${s.id}" has no encounter zone in any map, so it could never be found`);
   for (const biome of expectedBiomes) {
     const primary = species.filter(s => s.biome === biome.id);
-    if (primary.length !== 3) errors.push(`biome "${biome.id}" needs exactly three primary species, found ${primary.length}`);
+    if (!primary.length) errors.push(`biome "${biome.id}" needs at least one primary species`);
     const biomeMaps = ordered.filter(m => m.biome === biome.id);
     if (!biomeMaps.length) errors.push(`biome "${biome.id}" needs at least one playable map`);
     const pool = new Set(biomeMaps.flatMap(m => (m.zones ?? []).flatMap(z => z.pool.map(e => (typeof e === 'string' ? e : e.species)))));

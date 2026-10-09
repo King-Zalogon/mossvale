@@ -73,6 +73,18 @@ SPECS = {
         "source": "art/characters/source/creature-sunskitter-follower-generated.png",
         "target": "dist/assets/creatures/creature-sunskitter-follower.png",
     },
+    "sedgegnaw": {
+        "source": "art/characters/source/creature-sedgegnaw-follower-generated.png",
+        "target": "dist/assets/creatures/creature-sedgegnaw-follower.png",
+    },
+    "petalunge": {
+        "source": "art/characters/source/creature-petalunge-follower-generated.png",
+        "target": "dist/assets/creatures/creature-petalunge-follower.png",
+    },
+    "cindercurl": {
+        "source": "art/characters/source/creature-cindercurl-follower-generated.png",
+        "target": "dist/assets/creatures/creature-cindercurl-follower.png",
+    },
 }
 
 

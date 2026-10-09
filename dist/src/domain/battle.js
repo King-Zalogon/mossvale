@@ -1,7 +1,22 @@
 /* Pure battle rules. All randomness comes from the injected `rng`; all state lives in `save` and the battle object. */
 import {species} from '../data/species.js';
 import {moves} from '../data/moves.js';
-import {BASE_LEVEL, UNSEEN_PREFERENCE, ELEMENT_COST, FOCUS_GAIN, FOCUS_MAX, FOCUS_START, GUARD_FACTOR, PARTY_SIZE, XP_PER_LEVEL} from '../config.js';
+import {
+  BASE_LEVEL,
+  UNSEEN_PREFERENCE,
+  ELEMENT_COST,
+  FOCUS_GAIN,
+  FOCUS_MAX,
+  FOCUS_START,
+  GUARD_FACTOR,
+  PARTY_SIZE,
+  XP_PER_LEVEL,
+  RELAY_FOCUS_COST,
+  RELAY_DURATION,
+  RELAY_ELEMENT_FACTOR,
+  OBJECTIVE_MAX_TURNS,
+  OBJECTIVE_REWARD_CAP,
+} from '../config.js';
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, GUARDIAN_HP_BONUS, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
@@ -18,6 +33,40 @@ function inventoryDrop(save, table, key, rng, rules) {
   if (!result.ok) return [];
   Object.assign(save, inventoryToSupplies(save.inventory, save, rules));
   return result.grants;
+}
+
+const OBJECTIVE_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+export function validateEncounterObjective(objective) {
+  const errors = [];
+  if (objective === undefined || objective === null) return errors;
+  if (!objective || typeof objective !== 'object' || Array.isArray(objective)) return ['objective must be an object'];
+  if (typeof objective.id !== 'string' || !OBJECTIVE_ID.test(objective.id)) errors.push('objective.id must be lowercase kebab-case');
+  if (objective.kind !== 'survive') errors.push('objective.kind must be survive');
+  if (!Number.isInteger(objective.turns) || objective.turns < 1 || objective.turns > OBJECTIVE_MAX_TURNS)
+    errors.push(`objective.turns must be an integer from 1 to ${OBJECTIVE_MAX_TURNS}`);
+  if (typeof objective.title !== 'string' || !objective.title.trim()) errors.push('objective.title is required');
+  if (typeof objective.description !== 'string' || !objective.description.trim()) errors.push('objective.description is required');
+  const reward = objective.reward ?? {};
+  for (const key of ['coins', 'potions', 'xp'])
+    if (!Number.isInteger(reward[key] ?? 0) || reward[key] < 0 || reward[key] > OBJECTIVE_REWARD_CAP)
+      errors.push(`objective.reward.${key} must be an integer from 0 to ${OBJECTIVE_REWARD_CAP}`);
+  return errors;
+}
+
+function normalizeObjective(objective) {
+  if (objective === undefined || objective === null) return null;
+  if (validateEncounterObjective(objective).length) return null;
+  return {
+    id: objective.id,
+    kind: 'survive',
+    turns: objective.turns,
+    title: objective.title,
+    description: objective.description,
+    reward: {coins: objective.reward?.coins ?? 0, potions: objective.reward?.potions ?? 0, xp: objective.reward?.xp ?? 0},
+    progress: 0,
+    status: 'active',
+  };
 }
 
 /** Shrine challenges follow the current party's average level; ordinary encounters never scale. */
@@ -50,7 +99,8 @@ export function rollWild(save, rng, zone) {
   const candidates = missing.length && rng() < UNSEEN_PREFERENCE ? missing : zone.pool;
   const id = weightedPick(zone, candidates, rng);
   const level = zone.level[0] + Math.floor(rng() * (zone.level[1] - zone.level[0] + 1));
-  return {id, level};
+  const poolIndex = zone.pool.indexOf(id);
+  return {id, level, behavior: zone.behaviors?.[poolIndex] ?? 'curious'};
 }
 
 /** How far to walk in `zone` before the next encounter. */
@@ -60,7 +110,7 @@ export function encounterDistance(zone, rng) {
 }
 
 /** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
-export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1}) {
+export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1, behavior = 'curious', objective}) {
   const hp = species[id].stats.hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? GUARDIAN_HP_BONUS : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
@@ -74,9 +124,13 @@ export function createBattle(save, rng, {id, level: enemyLevel, boss = false, ta
     guard: false,
     turn: 0,
     focus: FOCUS_START,
-    tactic: boss ? tactic : undefined,
+    tactic: boss ? tactic : behavior === 'territorial' ? 'rolling-charge' : behavior === 'wary' ? 'spore-guard' : undefined,
+    behavior,
     power: boss ? power : 1,
     counterplay: [],
+    condition: null,
+    relayReady: false,
+    objective: normalizeObjective(objective),
     over: false,
   };
 }
@@ -102,7 +156,11 @@ function recordCounterplay(save, battle, action, options) {
 
 export function captureChance(save, battle) {
   if (battle.boss) return 0;
-  return Math.min(0.96, 0.25 + (1 - battle.hp / battle.max) * 0.67 + Math.max(0, level(save, save.active) - battle.level) * 0.025);
+  const temperament = battle.behavior === 'curious' ? 0.08 : battle.behavior === 'wary' ? -0.04 : 0;
+  return Math.min(
+    0.96,
+    Math.max(0.05, 0.25 + temperament + (1 - battle.hp / battle.max) * 0.67 + Math.max(0, level(save, save.active) - battle.level) * 0.025),
+  );
 }
 
 /** Player-visible actions and exact availability at the start of a turn; does not mutate save or battle. */
@@ -125,6 +183,26 @@ export function combatChoices(save, battle) {
     },
     {kind: 'guard', available: !battle.over},
     {
+      kind: 'setup',
+      available: !battle.over && battle.focus >= RELAY_FOCUS_COST && !battle.condition && !battle.relayReady && targets.length > 0,
+      reason:
+        battle.condition || battle.relayReady
+          ? 'The relay is already prepared.'
+          : targets.length === 0
+            ? 'A healthy teammate is needed to prepare a relay.'
+            : battle.focus < RELAY_FOCUS_COST
+              ? `Requires ${RELAY_FOCUS_COST} Focus.`
+              : null,
+    },
+    {
+      kind: 'objective',
+      available: !battle.over && battle.objective?.status === 'ready',
+      reason:
+        battle.objective?.status === 'active'
+          ? `Complete ${battle.objective.turns - battle.objective.progress} more turn${battle.objective.turns - battle.objective.progress === 1 ? '' : 's'}.`
+          : null,
+    },
+    {
       kind: 'switch',
       available: !battle.over && targets.length > 0,
       reason: targets.length ? null : 'No healthy teammate is available to switch in.',
@@ -138,9 +216,12 @@ export function playerStrike(save, battle, kind, rng) {
   const eff = kind === 'element' ? effectiveness(save.active, battle.id) : 1;
   const base = kind === 'element' ? elementPower(save, save.active) : species[save.active].stats.attack;
   const braced = lastEnemyAction(battle) === 'brace';
-  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  const tactic = TACTICS[battle.tactic] ?? null;
   const braceFactor = braced ? (kind === 'element' ? (tactic?.braceElementFactor ?? BRACE_FACTOR) : (tactic?.braceQuickFactor ?? BRACE_FACTOR)) : 1;
-  const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff * braceFactor));
+  const prepared = battle.relayReady;
+  const relayFactor = prepared && kind === 'element' ? RELAY_ELEMENT_FACTOR : 1;
+  const damage = Math.max(3, Math.round((base + (level(save, save.active) - BASE_LEVEL) * 1.25 + rng() * 4) * eff * braceFactor * relayFactor));
+  if (prepared) battle.relayReady = false;
   battle.hp = Math.max(0, battle.hp - damage);
   return {
     kind,
@@ -148,6 +229,7 @@ export function playerStrike(save, battle, kind, rng) {
     eff,
     braced,
     brokeBrace: braced && kind === 'element' && braceFactor > 1,
+    prepared,
     move: kind === 'element' ? moveName(save, save.active) : 'Quick strike',
     defeated: battle.hp === 0,
   };
@@ -196,7 +278,7 @@ function enemyDamageForRoll(save, battle, action, roll, guarded) {
   const attacks = action !== 'charge' && action !== 'brace';
   const foe = species[battle.id];
   const defender = species[save.active];
-  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  const tactic = TACTICS[battle.tactic] ?? null;
   const repeatElement = element && lastEnemyAction(battle) === 'element';
   const raw =
     (7 + (foe.stats.attack - 10) * 0.4 + (battle.level - BASE_LEVEL) * 0.65 + roll * 3) *
@@ -263,7 +345,7 @@ function forecastResponses(save, battle, tactic, action, previous, future = fals
 
 /** Structured, non-mutating facts for the guardian action that follows the player's choice. */
 export function guardianForecast(save, battle) {
-  if (!battle?.boss) return null;
+  if (!battle?.boss && !battle?.tactic) return null;
   const action = nextEnemyAction(battle);
   const previous = lastEnemyAction(battle);
   const tactic = TACTICS[battle.tactic];
@@ -305,7 +387,7 @@ export function enemyAttack(save, battle, rng) {
   const action = nextEnemyAction(battle);
   const interrupted = action === 'charge' && battle.disruptCharge === true;
   delete battle.disruptCharge;
-  const tactic = battle.boss ? TACTICS[battle.tactic] : null;
+  const tactic = TACTICS[battle.tactic] ?? null;
   // Keep one draw per enemy turn, including brace/charge, so existing seeded battles stay deterministic.
   const {damage, counter, element} = enemyDamageForRoll(save, battle, action, rng(), battle.guard);
   const c = companion(save);
@@ -318,6 +400,10 @@ export function enemyAttack(save, battle, rng) {
   battle.hp += recovered;
   battle.guard = false;
   battle.turn++;
+  if (battle.condition) {
+    battle.condition.remaining--;
+    if (battle.condition.remaining <= 0) battle.condition = null;
+  }
   return {damage, element, action, counter, recovered, interrupted, defeated: battle.hp === 0};
 }
 
@@ -415,8 +501,12 @@ export const battleCheckpoint = battle =>
         turn: battle.turn,
         focus: battle.focus,
         tactic: battle.tactic,
+        behavior: battle.behavior,
         power: battle.power,
         counterplay: battle.counterplay ?? [],
+        condition: battle.condition ? {...battle.condition} : null,
+        relayReady: battle.relayReady === true,
+        objective: battle.objective ? {...battle.objective, reward: {...battle.objective.reward}} : null,
       }
     : null;
 
@@ -434,7 +524,27 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
   const events = [];
   const push = event => events.push({...event, after: snapshot(save, battle)});
   let ended = null;
-  if (action.kind === 'attack' || action.kind === 'element') {
+  if (action.kind === 'objective') {
+    const objective = battle.objective;
+    const marker = objective ? `battle-objective:${objective.id}` : null;
+    save.events ??= [];
+    if (!objective || objective.status !== 'ready' || (marker && save.events.includes(marker)) || save.events.length >= 256) return null;
+    const reward = grant(save, {coins: objective.reward.coins, potions: objective.reward.potions});
+    const xpText = awardXP(save, objective.reward.xp).text;
+    save.events.push(marker);
+    objective.status = 'claimed';
+    const result = {
+      id: objective.id,
+      title: objective.title,
+      description: objective.description,
+      reward: reward.coins,
+      potions: reward.potions,
+      xp: objective.reward.xp,
+      xpText,
+    };
+    ended = 'objective';
+    push({type: 'objective-complete', ...result});
+  } else if (action.kind === 'attack' || action.kind === 'element') {
     if (action.kind === 'element') {
       if (battle.focus < ELEMENT_COST) return null; // the special move needs Focus
       battle.focus -= ELEMENT_COST;
@@ -468,10 +578,20 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
     gainFocus(battle);
     recordCounterplay(save, battle, action);
     push({type: 'guard'});
+  } else if (action.kind === 'setup') {
+    if (battle.focus < RELAY_FOCUS_COST || battle.condition || battle.relayReady || save.party.every(id => id === save.active || companion(save, id).hp <= 0))
+      return null;
+    battle.focus -= RELAY_FOCUS_COST;
+    battle.condition = {id: 'relay', remaining: RELAY_DURATION, source: save.active};
+    push({type: 'setup', condition: {...battle.condition}});
   } else if (action.kind === 'switch') {
     if (!save.party.includes(action.id) || action.id === save.active || companion(save, action.id).hp <= 0) return null;
     recordCounterplay(save, battle, action);
     save.active = action.id;
+    if (battle.condition?.id === 'relay') {
+      battle.condition = null;
+      battle.relayReady = true;
+    }
     push({type: 'switch', id: action.id});
   } else return null;
   if (!ended) {
@@ -486,6 +606,11 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
       else if (faint.status === 'lost') {
         ended = 'loss';
         push({type: 'loss', ...resolveLoss(save)});
+      }
+      if (!ended && battle.objective?.kind === 'survive' && battle.objective.status === 'active') {
+        battle.objective.progress = Math.min(battle.objective.turns, battle.turn);
+        if (battle.objective.progress >= battle.objective.turns) battle.objective.status = 'ready';
+        push({type: 'objective-progress', progress: battle.objective.progress, target: battle.objective.turns, ready: battle.objective.status === 'ready'});
       }
     }
   }
