@@ -2572,12 +2572,33 @@ body:not([data-input-mode='touch']) .touch-run,
 body[data-input-mode='touch'] .touchpad {
   display: grid;
   grid-template-columns: repeat(3, 44px);
+  overscroll-behavior: contain;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 body[data-input-mode='touch'] .touchpad button {
   width: 44px;
   height: 44px;
   min-width: 44px;
   min-height: 44px;
+}
+body[data-input-mode='touch'] .touchpad button[data-dir] {
+  transition:
+    background-color 120ms ease-out,
+    border-color 120ms ease-out,
+    opacity 180ms ease-out,
+    transform 120ms ease-out;
+  opacity: 0.38;
+}
+body[data-input-mode='touch'] .touchpad[data-engaged='true'] button[data-dir] {
+  opacity: 1;
+}
+body[data-input-mode='touch'] .touchpad button[data-dir][data-active='true'] {
+  background: #c8e78d;
+  border-color: #ecffd0;
+  color: #173424;
+  transform: scale(0.94);
 }
 body[data-input-mode='touch'] .touch-run {
   display: block;
