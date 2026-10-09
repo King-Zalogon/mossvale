@@ -24,29 +24,17 @@ try {
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(`http://localhost:${server.address().port}/creature-combat-preview.html`);
   await page.waitForFunction(
-    () =>
-      document.querySelectorAll('.creature canvas').length === 300 &&
+    expectedCount =>
+      document.querySelectorAll('.creature canvas').length === expectedCount &&
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
         [...canvas.getContext('2d').getImageData(0, 0, 160, 160).data].some((value, index) => index % 4 === 3 && value > 0),
       ),
+    species.length * 20,
   );
-  assert.deepEqual(await page.locator('.creature h2').allTextContents(), [
-    'Fernling',
-    'Emberkin',
-    'Duskwing',
-    'Brooklet',
-    'Hushram',
-    'Voltkit',
-    'Mushmallow',
-    'Frostowl',
-    'Pebblit',
-    'Bramblebuck',
-    'Siltkip',
-    'Sunskitter',
-    'Sedgegnaw',
-    'Petalunge',
-    'Cindercurl',
-  ]);
+  assert.deepEqual(
+    await page.locator('.creature h2').allTextContents(),
+    species.map(entry => entry.name),
+  );
   assert.equal(await page.locator('.reference img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), true);
   assert.deepEqual(
     await page.evaluate(() =>
@@ -56,9 +44,9 @@ try {
         return counts;
       }, {}),
     ),
-    {idle: 60, attack: 60, hit: 60, faint: 60, capture: 60},
+    Object.fromEntries(['idle', 'attack', 'hit', 'faint', 'capture'].map(state => [state, species.length * 4])),
   );
-  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: 75}, () => ['1', '2', '3', '4']).flat());
+  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: species.length * 5}, () => ['1', '2', '3', '4']).flat());
   assert.equal(
     await page.evaluate(() =>
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
@@ -75,8 +63,8 @@ try {
   battle.on('pageerror', error => errors.push(error.message));
   await battle.goto(`http://localhost:${server.address().port}/?debug&seed=3`);
   await battle.waitForSelector('#loading', {state: 'hidden'});
-  const sedgegnaw = species.findIndex(entry => entry.id === 'sedgegnaw');
-  const cindercurl = species.findIndex(entry => entry.id === 'cindercurl');
+  const sedgegnaw = species.findIndex(entry => entry.id === 'sunsifter');
+  const cindercurl = species.findIndex(entry => entry.id === 'rillume');
   const emberkin = species.findIndex(entry => entry.id === 'emberkin');
   assert.notEqual(sedgegnaw, -1);
   assert.notEqual(cindercurl, -1);
@@ -116,7 +104,7 @@ try {
   assert.match(await battle.locator('#fight-buddy').getAttribute('class'), /element/);
   await battle.waitForSelector('#result-continue');
   assert.deepEqual(errors, []);
-  console.log('ok all fifteen transparent combat atlases preview every state and battle playback attacks/faints without changing rules');
+  console.log(`ok all ${species.length} transparent combat atlases preview every state and battle playback attacks/faints without changing rules`);
 } finally {
   await browser.close();
   server.close();

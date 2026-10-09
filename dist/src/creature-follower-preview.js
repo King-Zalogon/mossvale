@@ -15,6 +15,8 @@ const ROWS = {
   sedgegnaw: DIRECTIONS,
   petalunge: DIRECTIONS,
   cindercurl: DIRECTIONS,
+  sunsifter: DIRECTIONS,
+  rillume: DIRECTIONS,
 };
 const VECTORS = [
   [-1, -1],
@@ -44,6 +46,8 @@ const sources = {
   sedgegnaw: load('../assets/creatures/creature-sedgegnaw-follower.png'),
   petalunge: load('../assets/creatures/creature-petalunge-follower.png'),
   cindercurl: load('../assets/creatures/creature-cindercurl-follower.png'),
+  sunsifter: load('../assets/creatures/creature-sunsifter-follower.png'),
+  rillume: load('../assets/creatures/creature-rillume-follower.png'),
   portrait: {
     emberkin: load('../assets/creatures/creature-emberkin.png'),
     fernling: load('../assets/creatures/creature-fernling.png'),
@@ -60,6 +64,8 @@ const sources = {
     sedgegnaw: load('../assets/creatures/creature-sedgegnaw.png'),
     petalunge: load('../assets/creatures/creature-petalunge.png'),
     cindercurl: load('../assets/creatures/creature-cindercurl.png'),
+    sunsifter: load('../assets/creatures/creature-sunsifter.png'),
+    rillume: load('../assets/creatures/creature-rillume.png'),
   },
   tree: load('../assets/props/tree-oak.png'),
 };

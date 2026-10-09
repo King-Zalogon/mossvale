@@ -35,17 +35,17 @@
       "mode": "RGBA"
     },
     "source/creature-additions-atlas.png": {
-      "width": 814,
+      "width": 1351,
       "height": 264,
       "mode": "RGBA"
     },
     "source/creature-combat-new-atlas.png": {
-      "width": 3488,
+      "width": 5824,
       "height": 1440,
       "mode": "RGBA"
     },
     "source/creature-follower-new-atlas.png": {
-      "width": 3032,
+      "width": 5064,
       "height": 1600,
       "mode": "RGBA"
     }
@@ -1954,6 +1954,222 @@
       "exportProfile": {
         "id": "prop-static-v1",
         "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "creature-sunsifter",
+      "src": "assets/creatures/creature-sunsifter.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 264,
+      "height": 182,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 830,
+        "y": 82,
+        "width": 264,
+        "height": 182
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sunsifter-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-rillume",
+      "src": "assets/creatures/creature-rillume.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 241,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 1110,
+        "y": 0,
+        "width": 241,
+        "height": 264
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-rillume-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-sunsifter-combat",
+      "src": "assets/creatures/creature-sunsifter-combat.png",
+      "width": 1152,
+      "height": 1440,
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 3504,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sunsifter-combat-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-sunsifter-follower",
+      "src": "assets/creatures/creature-sunsifter-follower.png",
+      "width": 1000,
+      "height": 1600,
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 3048,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sunsifter-follower-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-rillume-combat",
+      "src": "assets/creatures/creature-rillume-combat.png",
+      "width": 1152,
+      "height": 1440,
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 4672,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-rillume-combat-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-rillume-follower",
+      "src": "assets/creatures/creature-rillume-follower.png",
+      "width": 1000,
+      "height": 1600,
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 4064,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-rillume-follower-generated.png"
+        ]
       }
     }
   ]

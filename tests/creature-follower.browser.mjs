@@ -59,6 +59,8 @@ try {
     'sedgegnaw',
     'petalunge',
     'cindercurl',
+    'sunsifter',
+    'rillume',
   ]) {
     await page.selectOption('#species', id);
     await page.waitForFunction(
@@ -98,6 +100,8 @@ try {
     'sedgegnaw',
     'petalunge',
     'cindercurl',
+    'sunsifter',
+    'rillume',
   ]) {
     const speciesId = species.findIndex(entry => entry.id === id);
     assert.notEqual(speciesId, -1);
@@ -118,7 +122,7 @@ try {
     assert.equal(await game.evaluate(() => window.mossvale.getState().save.active), speciesId);
   }
   assert.deepEqual(errors, []);
-  console.log('ok follower preview displays all eight directions and five frames for all fifteen species; in-game path motion switches all fifteen species');
+  console.log(`ok follower preview displays all eight directions and five frames for all ${species.length} species; in-game path motion switches all species`);
 } finally {
   await browser.close();
   server.close();

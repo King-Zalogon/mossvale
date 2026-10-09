@@ -35,8 +35,14 @@ const server = http
   .listen(0);
 const url = `http://localhost:${server.address().port}/`;
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
+// Scenarios are sequential. Release each previous game's decoded atlases and animation loop instead of
+// retaining every page until the script ends; exported backup text is read before the next context starts.
+const freshContext = async options => {
+  for (const context of browser.contexts()) await context.close();
+  return browser.newContext(options);
+};
 const open = async init => {
-  const ctx = await browser.newContext();
+  const ctx = await freshContext();
   await ctx.addInitScript(init);
   const page = await ctx.newPage();
   const errors = [];
@@ -147,8 +153,10 @@ for (const [seed, weakened] of [
 assert.ok(captureRecoveryOutcomes.includes('resumed'), 'a failed capture resumes the encounter');
 assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture survives refresh');
 {
-  // a normal capture path with ordinary actions, no debug damage
-  const {page, errors} = await open('');
+  // A fresh, ordinary Emberkin save keeps the target Fernling uncaught. Opening an unseeded page first
+  // otherwise chooses a random starter, which can already be Fernling and invalidate this new-friend assertion.
+  // The battle still uses normal actions, inventory and HP, without debug damage.
+  const {page, errors} = await open(set('mossvale-v3', codec.serialize(newSave())));
   await page.goto(url + '?debug&seed=21');
   await page.waitForSelector('#loading', {state: 'hidden'});
   for (let tries = 0; tries < 8; tries++) {
@@ -183,7 +191,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   played.party.push(1);
   played.team[1] = {xp: 0, hp: 40};
   played.playTime = 600;
-  const ctx = await browser.newContext();
+  const ctx = await freshContext();
   await ctx.addInitScript(set('mossvale-v3', codec.serialize(played)));
   const page = await ctx.newPage();
   const errors = [];
@@ -193,7 +201,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   await page.waitForSelector('#m-primary');
   await page.waitForFunction(() => document.querySelector('#build-label')?.textContent === 'Build #abcdef0 · 2026-10-01');
   assert.equal(await page.textContent('#m-primary'), 'Continue');
-  assert.match(await page.textContent('#modal'), /2 of 15 friends · 1 seal · 10 min played/);
+  assert.match(await page.textContent('#modal'), new RegExp(`2 of ${species.length} friends · 1 seal · 10 min played`));
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('#m-primary').isVisible(), true, 'the title screen is not dismissed by Escape');
   await page.click('#m-settings');
@@ -235,7 +243,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   await reloading('#m-confirm-restore');
   await page.waitForSelector('#m-primary');
   assert.equal(await page.textContent('#m-primary'), 'Continue');
-  assert.match(await page.textContent('#modal'), /2 of 15 friends/);
+  assert.match(await page.textContent('#modal'), new RegExp(`2 of ${species.length} friends`));
   assert.deepEqual(errors, []);
   console.log('ok title, settings, new game and restore');
 }
@@ -309,7 +317,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
 }
 {
   // opening premise on a new adventure, a first-battle tip, and the ending once everything is awake
-  const ctx = await browser.newContext();
+  const ctx = await freshContext();
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
@@ -331,7 +339,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   done.badges = [0, 1, 2, 3];
   done.met = true;
   done.wins = 5;
-  const ctx2 = await browser.newContext();
+  const ctx2 = await freshContext();
   await ctx2.addInitScript(set('mossvale-v3', codec.serialize(done)));
   const p2 = await ctx2.newPage();
   p2.on('pageerror', e => errors.push(e.message));
@@ -353,7 +361,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   // export from one browser, import into another; bad files and future saves change nothing
   const played = newSave();
   Object.assign(played, {coins: 77, wins: 9, met: true, badges: [0]});
-  const a = await browser.newContext({acceptDownloads: true});
+  const a = await freshContext({acceptDownloads: true});
   await a.addInitScript(set('mossvale-v3', codec.serialize(played)));
   const pa = await a.newPage();
   const errors = [];
@@ -368,7 +376,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   const text = readFileSync(await download.path(), 'utf8');
   assert.equal(JSON.parse(text).save.coins, 77);
 
-  const b = await browser.newContext();
+  const b = await freshContext();
   const pb = await b.newPage();
   pb.on('pageerror', e => errors.push(e.message));
   await pb.goto(url);
@@ -426,7 +434,7 @@ for (const [viewport, text] of [
   [{width: 390, height: 844}, 'larger'],
 ]) {
   // larger text keeps the menus inside the screen; touch targets are comfortable on a phone
-  const ctx = await browser.newContext({viewport, hasTouch: viewport.width < 800, isMobile: viewport.width < 800});
+  const ctx = await freshContext({viewport, hasTouch: viewport.width < 800, isMobile: viewport.width < 800});
   await ctx.addInitScript(set('mossvale-settings', JSON.stringify({text})));
   const page = await ctx.newPage();
   const errors = [];
