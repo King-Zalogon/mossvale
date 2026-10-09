@@ -83,6 +83,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/version.js` | services | `describeBuild`, `fetchBuild` |
 | `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
+| `ui/battle-fx.js` | ui | `burstMarkup`, `fxForEvent`, `hpPercent`, `popMarkup` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
 | `ui/hud.js` | ui | `renderHud`, `renderRegion`, `renderSaveStatus` |

@@ -1,0 +1,24 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/ui/battle-fx.js",
+        "dist/src/ui/battle-view.js",
+        "dist/src/controller.js",
+        "dist/style.css",
+        "tests/battle-fx.test.mjs",
+        "tests/battle-feel.browser.mjs",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/255-battle-feel.json"
+      ],
+      "entries": ["mechanic:battle-impact-feedback"],
+      "disposition": "updated",
+      "reason": "Adds the battle impact feedback fiche: floating numbers, eased HP bars with a trailing ghost, held hit flash, scene shake and calm-motion behaviour, all derived from already-resolved turn events. Battle rules, saves and outcomes are untouched; the one behavioural change is that a round now ends on a settled frame so the foe's reply is visible for its stated wait.",
+      "evidence": ["tests/battle-fx.test.mjs", "tests/battle-feel.browser.mjs"]
+    }
+  ]
+}

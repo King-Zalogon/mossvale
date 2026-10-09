@@ -9,6 +9,8 @@ import {startCatalogueServer} from '../scripts/catalogue-visual.mjs';
 import {ROOT} from '../scripts/lib/catalogue.mjs';
 import {writePortableContext} from '../scripts/lib/catalogue-visuals.mjs';
 
+const catalogue = JSON.parse(readFileSync(new URL('../content/catalogue/catalogue.json', import.meta.url), 'utf8'));
+const visualCount = catalogue.entries.filter(entry => entry.kind === 'visual').length;
 const server = await startCatalogueServer({port: 0});
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 try {
@@ -20,8 +22,8 @@ try {
   assert.equal((await page.request.get(`${origin}/fiche?id=actor%3Anot-a-visual`)).status(), 404);
   assert.equal((await page.request.get(`${origin}/asset?path=docs%2FFEEDBACK.md`)).status(), 404);
   assert.equal((await page.request.post(origin, {data: 'unexpected'})).status(), 405);
-  await page.waitForFunction(() => document.querySelectorAll('.card').length === 75);
-  assert.match(await page.locator('#result-count').textContent(), /75 of 75 visual resources/);
+  await page.waitForFunction(count => document.querySelectorAll('.card').length === count, visualCount);
+  assert.equal(await page.locator('#result-count').textContent(), `${visualCount} of ${visualCount} visual resources`);
   assert.equal(await page.locator('#element option').count(), 13);
   await page.locator('#element').selectOption({label: 'Fire'});
   await page.waitForFunction(() => document.querySelectorAll('.card').length === 6);
@@ -94,7 +96,7 @@ try {
       offline.once('close', () => offlineServer.close());
       await offline.goto(`http://127.0.0.1:${offlineServer.address().port}/index.html`);
     }
-    await offline.waitForFunction(() => document.querySelectorAll('.card').length === 75);
+    await offline.waitForFunction(count => document.querySelectorAll('.card').length === count, visualCount);
     await offline.locator('#search').fill('tree oak');
     await offline.waitForFunction(() => document.querySelectorAll('.card').length >= 1);
     assert.equal(await offline.locator('#search').inputValue(), 'tree oak');
