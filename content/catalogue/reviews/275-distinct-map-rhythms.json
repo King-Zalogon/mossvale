@@ -1,0 +1,40 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/maps/amber-ridge.json",
+        "dist/maps/frostveil-grove.json",
+        "dist/maps/orchard-ruins.json",
+        "dist/maps/stilt-isles.json",
+        "dist/maps/stone-basin.json",
+        "dist/maps/index.json",
+        "package.json",
+        "tests/map-route-cues.test.mjs",
+        "docs/AGENT_HANDOFFS.md",
+        "docs/MAP_ROUTE_RHYTHMS.md",
+        "docs/map-design/275/before-atlas.png",
+        "docs/map-design/275/after-atlas.png",
+        "docs/map-design/275/desktop.png",
+        "docs/map-design/275/phone-landscape.png"
+      ],
+      "entries": [
+        "map:mossvale/amber-ridge",
+        "map:mossvale/frostveil-grove",
+        "map:mossvale/orchard-ruins",
+        "map:mossvale/stilt-isles",
+        "map:mossvale/stone-basin"
+      ],
+      "disposition": "updated",
+      "reason": "Adds named route markers where the main ridge, grove, high-boardwalk and basin exits diverge; replaces generic destination names with the actual next map; and gives the sunlit orchard habitat precedence so its authored encounter space is active. Re-runs the deterministic set-piece authoring tool so the new Frostveil marker has clear space around it. Existing gates, companion requirements, rewards, connections and save IDs remain as authored. The eight layout sheets record distinct route activity and limits of the route estimates.",
+      "evidence": [
+        "tests/map-route-cues.test.mjs",
+        "docs/MAP_ROUTE_RHYTHMS.md",
+        "docs/map-design/275/before-atlas.png",
+        "docs/map-design/275/after-atlas.png",
+        "docs/map-design/275/desktop.png",
+        "docs/map-design/275/phone-landscape.png"
+      ]
+    }
+  ]
+}
