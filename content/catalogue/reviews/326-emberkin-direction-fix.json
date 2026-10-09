@@ -4,7 +4,11 @@
     {
       "paths": [
         "dist/src/data/assets.js",
-        "dist/src/creature-follower-preview.js",
+        "art/assets/metadata.json",
+        "art/assets/subjects.json",
+        "art/characters/creature-follower-metadata.json",
+        "art/characters/export-creature-followers.py",
+        "art/characters/make-follower-contact-sheet.py",
         "tests/follower-runtime.browser.mjs",
         "tests/movement.test.mjs",
         "docs/AGENT_HANDOFFS.md",
