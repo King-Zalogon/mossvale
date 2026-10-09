@@ -23,6 +23,7 @@ export const assets = [
       frameWidth: 200,
       frameHeight: 200,
       rowOrder: ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'],
+      mirror: {northwest: 'northeast'}, // The northwest row repeats west; mirror the authored northeast pose instead.
       columnOrder: ['idle', 'walk-1', 'walk-2', 'walk-3', 'walk-4'],
       cadence: 'advance each walk frame per 0.56 world units traveled by the follower',
     },
