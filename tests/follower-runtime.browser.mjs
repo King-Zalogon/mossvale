@@ -111,7 +111,10 @@ try {
     hushram: {north: 0, northeast: 1, east: 2, southeast: 6, south: 4, southwest: 7, west: 3, northwest: 5},
     mushmallow: {north: 0, northeast: 1, east: 2, southeast: 3, south: 4, southwest: 5, west: 6, northwest: 7},
   };
-  const reviewedMirrors = {emberkin: {southeast: 'southwest'}};
+  const reviewedMirrors = {
+    emberkin: {southeast: 'southwest'},
+    fernling: {northwest: 'northeast'},
+  };
   for (const [name, rows] of Object.entries(reviewedRows)) {
     const sprite = assets.find(asset => asset.name === `creature-${name}-follower`);
     assert.deepEqual(
