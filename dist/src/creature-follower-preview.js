@@ -49,6 +49,7 @@ const sources = {
   cindercurl: load('../assets/creatures/creature-cindercurl-follower.png'),
   sunsifter: load('../assets/creatures/creature-sunsifter-follower.png'),
   rillume: load('../assets/creatures/creature-rillume-follower.png'),
+  lanternix: load('../assets/creatures/creature-lanternix-follower.png'),
   portrait: {
     emberkin: load('../assets/creatures/creature-emberkin.png'),
     fernling: load('../assets/creatures/creature-fernling.png'),
@@ -67,6 +68,7 @@ const sources = {
     cindercurl: load('../assets/creatures/creature-cindercurl.png'),
     sunsifter: load('../assets/creatures/creature-sunsifter.png'),
     rillume: load('../assets/creatures/creature-rillume.png'),
+    lanternix: load('../assets/creatures/creature-lanternix.png'),
   },
   tree: load('../assets/props/tree-oak.png'),
 };
