@@ -5223,6 +5223,45 @@
       }
     },
     {
+      "id": "mechanic:responsive-playfield",
+      "kind": "mechanic",
+      "name": "Responsive playfield and readable name tags",
+      "summary": "On desktop the game frame fits the window height and renders more of the world in wider windows; character and landmark name tags are drawn on top, outlined and kept apart.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Desktop layout only (width 1000 px or more, height 540 px or more); phones and small windows keep the existing 3:2 frame at 960 px of world width.",
+        "World width is capped at 1800 canvas pixels; the Zoom setting still magnifies the world.",
+        "Name tags that cannot be placed without overlapping after four upward nudges are skipped for that frame; the objects stay interactable.",
+        "Presentation only: movement, collision, encounters, saves and the camera follow rule are unchanged."
+      ],
+      "examples": [
+        {
+          "intent": "Play on a 1080p monitor.",
+          "usage": "Open the game in a maximised window; no setting is needed.",
+          "expected": "The whole frame, controls included, fits without scrolling and shows noticeably more of the surrounding map than at 1280x720."
+        }
+      ],
+      "references": ["dist/src/main.js", "dist/src/render/world.js", "dist/style.css"],
+      "evidence": [
+        {
+          "path": "tests/playfield.browser.mjs",
+          "assertion": "At 1280x720, 1366x768, 1920x1080 and 2560x1440 the frame fits the window, the canvas keeps the on-screen aspect and wider windows render at least as much world; phones keep 960 px."
+        }
+      ],
+      "details": {
+        "trigger": "Window resize, fullscreen change or first load.",
+        "inputs": "The canvas bounding box and the 960/1800 pixel width limits.",
+        "sequence": "resize() sets the canvas width to one pixel per CSS pixel above 960 and derives the height from the box; the renderer already reads canvas.width and canvas.height every frame, so visible tiles and objects follow. Labels are collected during the object pass and drawn afterwards, farthest first.",
+        "results": "More world on large screens, no vertical scrolling to reach controls, and name tags that stay legible over foliage.",
+        "cancellation": "Not applicable.",
+        "errors": "A zero-size box (hidden tab) leaves the previous canvas size untouched.",
+        "persistence": "Nothing is saved; the Zoom setting keeps its existing storage."
+      }
+    },
+    {
       "id": "mechanic:save-recovery",
       "kind": "mechanic",
       "name": "Versioned pack saves",
