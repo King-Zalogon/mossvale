@@ -147,8 +147,10 @@ for (const [seed, weakened] of [
 assert.ok(captureRecoveryOutcomes.includes('resumed'), 'a failed capture resumes the encounter');
 assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture survives refresh');
 {
-  // a normal capture path with ordinary actions, no debug damage
-  const {page, errors} = await open('');
+  // A fresh, ordinary Emberkin save keeps the target Fernling uncaught. Opening an unseeded page first
+  // otherwise chooses a random starter, which can already be Fernling and invalidate this new-friend assertion.
+  // The battle still uses normal actions, inventory and HP, without debug damage.
+  const {page, errors} = await open(set('mossvale-v3', codec.serialize(newSave())));
   await page.goto(url + '?debug&seed=21');
   await page.waitForSelector('#loading', {state: 'hidden'});
   for (let tries = 0; tries < 8; tries++) {
