@@ -1,0 +1,19 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/input.js",
+        "tests/battle-keys.browser.mjs",
+        "tests/capture-rate.test.mjs",
+        "tests/playthrough.browser.mjs",
+        "tests/startup.browser.mjs",
+        "docs/UI.md"
+      ],
+      "entries": ["rules:mossvale/battle"],
+      "disposition": "no-semantic-impact",
+      "reason": "Restores keyboard access to existing battle actions: number keys now press the button carrying that number (1-8), where the old fixed 1-6 table had drifted from the eight-button menu so 5 pressed Guard and 6 pressed Switch. Battle rules, capture chance, potion healing and saves are unchanged; the capture-rate test confirms the displayed chance equals the observed rate.",
+      "evidence": ["tests/battle-keys.browser.mjs", "tests/capture-rate.test.mjs"]
+    }
+  ]
+}
