@@ -105,7 +105,7 @@ try {
   );
   // Independent reviewed source-row contracts for the directions that owners reported mislabeled.
   const reviewedRows = {
-    emberkin: {north: 4, northeast: 3, east: 2, southeast: 7, south: 0, southwest: 1, west: 5, northwest: 6},
+    emberkin: {north: 4, northeast: 3, east: 2, southeast: 7, south: 0, southwest: 1, west: 6, northwest: 5},
     brooklet: {north: 0, northeast: 7, east: 6, southeast: 5, south: 4, southwest: 3, west: 2, northwest: 1},
     voltkit: {north: 0, northeast: 1, east: 2, southeast: 3, south: 4, southwest: 6, west: 7, northwest: 5},
     hushram: {north: 0, northeast: 1, east: 2, southeast: 6, south: 4, southwest: 7, west: 3, northwest: 5},

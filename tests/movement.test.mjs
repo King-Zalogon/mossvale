@@ -301,6 +301,8 @@ test('directionPose reads the sheet row order and draws mirrored directions from
   assert.deepEqual(directionPose(ember, FACING.southwest), {row: 1, flip: false});
   // Emberkin's own southeast row repeats the southwest pose, so southeast draws the southwest row flipped
   assert.deepEqual(directionPose(ember, FACING.southeast), {row: 1, flip: true});
+  assert.deepEqual(directionPose(ember, FACING.west), {row: 6, flip: false});
+  assert.deepEqual(directionPose(ember, FACING.northwest), {row: 5, flip: false});
   // sheets without a mirror map or a custom row order fall back to the canonical order
   assert.deepEqual(directionPose(undefined, FACING.west), {row: FACING.west, flip: false});
   assert.deepEqual(directionPose({rowOrder: ['east', 'west']}, FACING.west), {row: 1, flip: false});

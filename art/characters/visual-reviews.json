@@ -1,7 +1,11 @@
 {
   "schemaVersion": 1,
   "technicalAndVisualGatesAreSeparate": true,
-  "decisions": ["accept", "rework", "quarantine"],
+  "decisions": [
+    "accept",
+    "rework",
+    "quarantine"
+  ],
   "method": "Technical checks decode and validate pixels/frames/anchors. Visual decisions are recorded by a human with a reason; neither gate infers the other.",
   "evidence": {
     "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png",
@@ -34,7 +38,10 @@
         "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/player-facing-324.png", "dist/character-preview.html"],
+      "evidence": [
+        "art/characters/reviews/player-facing-324.png",
+        "dist/character-preview.html"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/people-atlas.png",
@@ -82,7 +89,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
+          "sha256": "d1e6fc049bccab6460c178131394322964f56bcc41912b9ed67e1f6ebca3555e"
         }
       ]
     },
@@ -99,7 +106,10 @@
         "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -140,7 +150,10 @@
         "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -180,7 +193,10 @@
         "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -222,7 +238,9 @@
         "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -260,7 +278,10 @@
         "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -301,7 +322,10 @@
         "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -342,7 +366,10 @@
         "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
+      "evidence": [
+        "art/characters/reviews/creature-follower-contact-sheet.png",
+        "dist/creature-follower-preview.html"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -384,7 +411,10 @@
         "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
+      "evidence": [
+        "art/characters/reviews/creature-follower-contact-sheet.png",
+        "dist/creature-follower-preview.html"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -426,7 +456,10 @@
         "reason": "At 115 px battle width, Voltkit keeps its gold/cream body, long ears, blue cheek mark and crystal tail across all five states. At 37 px, the eight-direction follower remains recognizable with aligned feet. Owner taste review remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -467,7 +500,10 @@
         "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -508,7 +544,10 @@
         "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -549,7 +588,10 @@
         "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -590,7 +632,10 @@
         "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -631,7 +676,10 @@
         "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -672,7 +720,10 @@
         "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -722,7 +773,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "e0b76c1070ed1ac05f946aa9621b12834219b493e47d6897ec167056dabf4660"
+          "sha256": "5ebf273f91978a466cf82c7d3cb45e2437728299a40f6d783100f89049e9439e"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -730,7 +781,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
+          "sha256": "d1e6fc049bccab6460c178131394322964f56bcc41912b9ed67e1f6ebca3555e"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -738,7 +789,7 @@
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "f91dc6ea1540cd48146f8ad88328e82fbdff695d3d5c29f13952db84c88700f8"
+          "sha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -746,7 +797,7 @@
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "f610225d2d5b4c1ab349320bfd623be44e8e6ab37f1d4fc155e07659cdd3870f"
+          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -824,7 +875,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "e0b76c1070ed1ac05f946aa9621b12834219b493e47d6897ec167056dabf4660"
+          "sha256": "5ebf273f91978a466cf82c7d3cb45e2437728299a40f6d783100f89049e9439e"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -832,7 +883,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
+          "sha256": "d1e6fc049bccab6460c178131394322964f56bcc41912b9ed67e1f6ebca3555e"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -840,7 +891,7 @@
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "f91dc6ea1540cd48146f8ad88328e82fbdff695d3d5c29f13952db84c88700f8"
+          "sha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -848,7 +899,7 @@
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "f610225d2d5b4c1ab349320bfd623be44e8e6ab37f1d4fc155e07659cdd3870f"
+          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -926,7 +977,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "e0b76c1070ed1ac05f946aa9621b12834219b493e47d6897ec167056dabf4660"
+          "sha256": "5ebf273f91978a466cf82c7d3cb45e2437728299a40f6d783100f89049e9439e"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -934,7 +985,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
+          "sha256": "d1e6fc049bccab6460c178131394322964f56bcc41912b9ed67e1f6ebca3555e"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -942,7 +993,7 @@
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "f91dc6ea1540cd48146f8ad88328e82fbdff695d3d5c29f13952db84c88700f8"
+          "sha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -950,7 +1001,7 @@
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "f610225d2d5b4c1ab349320bfd623be44e8e6ab37f1d4fc155e07659cdd3870f"
+          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -1031,7 +1082,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "e0b76c1070ed1ac05f946aa9621b12834219b493e47d6897ec167056dabf4660"
+          "sha256": "5ebf273f91978a466cf82c7d3cb45e2437728299a40f6d783100f89049e9439e"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1047,7 +1098,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
+          "sha256": "d1e6fc049bccab6460c178131394322964f56bcc41912b9ed67e1f6ebca3555e"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -1059,7 +1110,7 @@
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "f91dc6ea1540cd48146f8ad88328e82fbdff695d3d5c29f13952db84c88700f8"
+          "sha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -1067,7 +1118,7 @@
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "f610225d2d5b4c1ab349320bfd623be44e8e6ab37f1d4fc155e07659cdd3870f"
+          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -1156,7 +1207,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "e0b76c1070ed1ac05f946aa9621b12834219b493e47d6897ec167056dabf4660"
+          "sha256": "5ebf273f91978a466cf82c7d3cb45e2437728299a40f6d783100f89049e9439e"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1172,7 +1223,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088"
+          "sha256": "d1e6fc049bccab6460c178131394322964f56bcc41912b9ed67e1f6ebca3555e"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -1184,7 +1235,7 @@
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "f91dc6ea1540cd48146f8ad88328e82fbdff695d3d5c29f13952db84c88700f8"
+          "sha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -1192,7 +1243,7 @@
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "f610225d2d5b4c1ab349320bfd623be44e8e6ab37f1d4fc155e07659cdd3870f"
+          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37"
         },
         {
           "path": "art/characters/export-creature-portraits.py",

@@ -2,15 +2,15 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "a3f648aa72a2acfda89865645847e3f7937efb72a9303e46613ceba92eefb088",
+    "art/assets/subjects.json": "d1e6fc049bccab6460c178131394322964f56bcc41912b9ed67e1f6ebca3555e",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
     "art/characters/creature-combat-metadata.json": "87802fd27e8114797ed08f77dfe74d534c9a4ff5e55c10b7dcec9624755299f1",
-    "art/characters/creature-follower-metadata.json": "f91dc6ea1540cd48146f8ad88328e82fbdff695d3d5c29f13952db84c88700f8",
+    "art/characters/creature-follower-metadata.json": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
     "art/characters/export-profiles.json": "1e678bddc46fb27e8fef206d450aa268a3674e8941c349c7f2bfc4095312b513",
     "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
-    "art/characters/visual-reviews.json": "a75d12bb0297c4fe6f6f7d8ee9481d38c6e905e90377450b3dbf8b2c18f98c32",
+    "art/characters/visual-reviews.json": "d80443547cfee45d736731304af818dbc789250727e71467e6500fde0ebe73d2",
     "content/catalogue/curated.json": "141c287d3106bd224e78cf3ce9f619d1ee544eda838a40cd94c9c3a7ea80c583",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "7d8194ba6ded41ae517b90bccbcb742ae6184bc90654aa0136e3818cf1047d3f",
@@ -126,7 +126,7 @@
     "dist/src/controller.js": "f71845299e4904c408581a091cca883c88493ded0ced8ec742fd2226cdbf4ff0",
     "dist/src/creature-combat-preview.js": "54ed3e88504eee78be602a38b7834c43f0aee3d23506d5ea98dabc42bf7fc68a",
     "dist/src/creature-follower-preview.js": "8e6e8c033fbab4ea2bebcb24ffdb9e17319b72b7f532cfd39596a6cd7ee86b7c",
-    "dist/src/data/assets.js": "d2729dba2f4787df0b3e44c80d5e6e585a4866519708aa2c9a360a41ded1ef47",
+    "dist/src/data/assets.js": "e0a61efdc03e13b11a09387dd884172e94c72dbfce0dba01bc120833d1f0c6a7",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "8979bfda82b92eb77c77d7e1f3405cd00fb82a7134edf0ea0ba88d58824d2108",
@@ -162,7 +162,7 @@
     "dist/src/domain/story.js": "76aca33499825ab396db075379a05ff5343bfeec2d82ec6eb715b6026372c381",
     "dist/src/domain/terrain-family.js": "e9828ed285b9ffd558a9f168fa71f5477ffd6ee75a1359a874bfcfcd7101476e",
     "dist/src/domain/world.js": "33283839346a885c8004cb5c5682d29e0d0f6758d36a5698b0eb85b3d3eca383",
-    "dist/src/input.js": "3862d53aa6b81b9adb24144168f2942019cceb783694c3a4ee8b7730e3a4ed29",
+    "dist/src/input.js": "bdc96ba36c549da948d16bbd2f862e1b34691db4067f9796aa738a04c65fa6a6",
     "dist/src/main.js": "0470116cb4058ffe720a5fda8a87f49a7cdaa26d140f74a1d1c3bf56aa4508a4",
     "dist/src/map-editor.js": "ba48bdb6ac640d98cc21ab82cff862dfa081ac84519d0d9bc59caa358c6d1149",
     "dist/src/render/sprites.js": "f1904009314275592c7a117491f4365ebb5249a396f2ab502369d7cf41caf66f",
@@ -216,7 +216,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "bcf1e1601a9b4abda26d5ad0ff229e2d40e14bd34da2d015d43b1a9f8f532ad7",
+  "sourceDigest": "29250c2f71270e803cbe13458fdf1ed34750f5a35fd4368c4b140f17f72d676d",
   "exclusions": [
     {
       "family": "module-exports",
@@ -12918,7 +12918,7 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
+          "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
           "mirror": {
             "southeast": "southwest"
           },

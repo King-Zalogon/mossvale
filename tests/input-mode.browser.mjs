@@ -142,6 +142,15 @@ try {
   await load(touchWalk);
   assert.equal(await padIsVisible(touchWalk), true);
   await touchWalk.locator('#game').tap();
+  assert.ok(
+    Number(
+      await touchWalk
+        .locator('.touchpad [data-dir]')
+        .first()
+        .evaluate(node => getComputedStyle(node).opacity),
+    ) < 0.6,
+    'the touch pad stays discoverable but unobtrusive at rest',
+  );
   const touchStart = await position(touchWalk);
   const touchCdp = await touchWalk.context().newCDPSession(touchWalk);
   const northButton = await touchWalk.locator('[data-dir="0,-1"]').boundingBox();
@@ -168,9 +177,133 @@ try {
     return Math.max(...frames.map(frame => frame.height)) - Math.min(...frames.map(frame => frame.height));
   });
   assert.ok(touchHeightDelta < 0.01, `touch walk-to-idle keeps a fixed sprite size (${touchHeightDelta})`);
+
+  const touchDirections = [
+    {name: 'northwest', vector: [-1, -1]},
+    {name: 'north', vector: [0, -1]},
+    {name: 'northeast', vector: [1, -1]},
+    {name: 'west', vector: [-1, 0]},
+    {name: 'east', vector: [1, 0]},
+    {name: 'southwest', vector: [-1, 1]},
+    {name: 'south', vector: [0, 1]},
+    {name: 'southeast', vector: [1, 1]},
+  ];
+  const clearStart = async () =>
+    touchWalk.evaluate(() => {
+      const game = window.mossvale.getState();
+      game.world.map.zones = [];
+      const tile = game.world.tiles.find(t => [-1, 0, 1].every(dx => [-1, 0, 1].every(dy => window.mossvale.valid(t.x + 0.5 + dx, t.y + 0.5 + dy))));
+      if (!tile) throw new Error('No eight-direction touch fixture in the actual map');
+      Object.assign(game.player, {x: tile.x + 0.5, y: tile.y + 0.5, walkDistance: 0});
+      return {x: game.player.x, y: game.player.y};
+    });
+  const assertTouchDirection = async ({name, vector}, pointerId = 2) => {
+    const start = await clearStart();
+    const selector = `[data-dir="${vector[0]},${vector[1]}"]`;
+    const box = await touchWalk.locator(selector).boundingBox();
+    assert.ok(box, `${name} target remains inside the short-screen control area`);
+    const point = {id: pointerId, x: box.x + box.width / 2, y: box.y + box.height / 2};
+    await touchCdp.send('Input.dispatchTouchEvent', {type: 'touchStart', touchPoints: [point]});
+    await touchWalk.waitForFunction(() => document.querySelector('.touchpad').dataset.engaged === 'true');
+    assert.equal(await touchWalk.locator(selector).getAttribute('data-active'), 'true', `${name} reveals and presses on the first touch`);
+    await touchWalk.waitForFunction(s => Number(getComputedStyle(document.querySelector(s)).opacity) > 0.9, selector);
+    assert.ok(Number(await touchWalk.locator(selector).evaluate(node => getComputedStyle(node).opacity)) > 0.9, `${name} becomes visible on the same touch`);
+    await touchWalk.waitForFunction(
+      ({start, sx, sy}) => {
+        const player = window.mossvale.getState().player;
+        const dx = player.x - start.x;
+        const dy = player.y - start.y;
+        const screenX = dx - dy;
+        const screenY = dx + dy;
+        const sign = value => (Math.abs(value) < 0.06 ? 0 : Math.sign(value));
+        return Math.hypot(dx, dy) > 0.12 && sign(screenX) === sx && sign(screenY) === sy;
+      },
+      {start, sx: vector[0], sy: vector[1]},
+      {timeout: 3000},
+    );
+    await touchCdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+    await touchWalk.waitForTimeout(100);
+    const stopped = await position(touchWalk);
+    await touchWalk.waitForTimeout(100);
+    const afterStop = await position(touchWalk);
+    assert.ok(Math.hypot(afterStop.x - stopped.x, afterStop.y - stopped.y) < 0.02, `${name} stops on release`);
+  };
+
+  for (const size of [
+    {width: 390, height: 844},
+    {width: 844, height: 390},
+  ]) {
+    await touchWalk.setViewportSize(size);
+    await touchWalk.evaluate(() => window.dispatchEvent(new Event('orientationchange')));
+    await touchWalk.waitForFunction(() => document.body.dataset.inputMode === 'touch');
+    assert.equal(await padIsVisible(touchWalk), true, `touch movement remains visible at ${size.width}×${size.height}`);
+    const controlsInsideViewport = await touchWalk.locator('.touchpad').evaluate(node => {
+      const viewport = node.closest('.viewport').getBoundingClientRect();
+      return [...node.querySelectorAll('[data-dir]')].every(button => {
+        const rect = button.getBoundingClientRect();
+        return (
+          rect.width >= 44 &&
+          rect.height >= 44 &&
+          rect.left >= viewport.left &&
+          rect.right <= viewport.right &&
+          rect.top >= viewport.top &&
+          rect.bottom <= viewport.bottom
+        );
+      });
+    });
+    assert.equal(controlsInsideViewport, true, `all eight hit targets fit at ${size.width}×${size.height}`);
+    for (const direction of touchDirections) await assertTouchDirection(direction);
+  }
+
+  // A canceled press releases immediately; the dim, discoverable pad returns after its idle fade.
+  {
+    const start = await clearStart();
+    const box = await touchWalk.locator('[data-dir="0,1"]').boundingBox();
+    await touchCdp.send('Input.dispatchTouchEvent', {type: 'touchStart', touchPoints: [{id: 4, x: box.x + box.width / 2, y: box.y + box.height / 2}]});
+    await touchWalk.waitForFunction(p => Math.hypot(window.mossvale.getState().player.x - p.x, window.mossvale.getState().player.y - p.y) > 0.12, start);
+    await touchCdp.send('Input.dispatchTouchEvent', {type: 'touchCancel', touchPoints: []});
+    const stopped = await position(touchWalk);
+    await touchWalk.waitForTimeout(150);
+    const afterCancel = await position(touchWalk);
+    assert.ok(Math.hypot(afterCancel.x - stopped.x, afterCancel.y - stopped.y) < 0.02, 'pointer cancellation cannot leave movement stuck');
+    await touchWalk.waitForFunction(() => document.querySelector('.touchpad').dataset.engaged === 'false', null, {timeout: 1500});
+    await touchWalk.waitForFunction(() => Number(getComputedStyle(document.querySelector('.touchpad [data-dir]')).opacity) < 0.6);
+    assert.ok(
+      Number(
+        await touchWalk
+          .locator('.touchpad [data-dir]')
+          .first()
+          .evaluate(node => getComputedStyle(node).opacity),
+      ) < 0.6,
+      'the arrows fade back to their unobtrusive resting state',
+    );
+  }
+
+  // Rotating while a finger is held stops that pointer; controls remain usable afterwards.
+  {
+    const start = await clearStart();
+    const box = await touchWalk.locator('[data-dir="1,1"]').boundingBox();
+    await touchCdp.send('Input.dispatchTouchEvent', {type: 'touchStart', touchPoints: [{id: 5, x: box.x + box.width / 2, y: box.y + box.height / 2}]});
+    await touchWalk.waitForFunction(p => Math.hypot(window.mossvale.getState().player.x - p.x, window.mossvale.getState().player.y - p.y) > 0.12, start);
+    await touchWalk.setViewportSize({width: 390, height: 844});
+    await touchWalk.evaluate(() => window.dispatchEvent(new Event('orientationchange')));
+    const stopped = await position(touchWalk);
+    await touchWalk.waitForTimeout(150);
+    const afterRotation = await position(touchWalk);
+    assert.ok(Math.hypot(afterRotation.x - stopped.x, afterRotation.y - stopped.y) < 0.02, 'rotation releases the active movement pointer');
+    assert.equal(await padIsVisible(touchWalk), true, 'touch controls survive rotation without a reload');
+    await touchCdp.send('Input.dispatchTouchEvent', {type: 'touchCancel', touchPoints: []});
+    await assertTouchDirection({name: 'south after rotation', vector: [0, 1]}, 6);
+  }
+
+  assert.equal(await touchWalk.locator('#touch-run').getAttribute('aria-pressed'), 'false');
+  await touchWalk.locator('#touch-run').tap();
+  assert.equal(await touchWalk.locator('#touch-run').getAttribute('aria-pressed'), 'true', 'Run still responds to touch');
+  await touchWalk.locator('#touch-run').tap();
+  assert.equal(await touchWalk.locator('#touch-run').getAttribute('aria-pressed'), 'false');
   await touchCdp.detach();
   assert.deepEqual(errors, []);
-  console.log('ok desktop, narrow window, hybrid input takeover, touch walk-to-idle release and stable player anchor, phone portrait/landscape input HUD');
+  console.log('ok all eight real touch directions in portrait/landscape, same-press reveal, release/cancel/rotation, Run and unobtrusive idle controls');
 } finally {
   await browser.close();
   server.close();
