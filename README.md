@@ -14,6 +14,8 @@ Install dependencies once with `npm ci`, then run the local game server:
 npm start
 ```
 
+For artwork and map review, choose **Testing URLs** from the title screen or in-game menu. It opens a described list of all five review pages in a new tab; see [local review pages](docs/TESTING_URLS.md).
+
 Open the URL printed in the terminal. The title and Escape menus show the current `Build #<short-commit>`; a `+` marks uncommitted changes. This Node server reads the checkout's Git metadata, so it identifies local code as well as hosted builds. A plain static server can still serve `dist/`, but without `version.json` it reports `development build`.
 
 ## Quick integration test
