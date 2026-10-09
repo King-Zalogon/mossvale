@@ -1368,6 +1368,55 @@
       }
     },
     {
+      "id": "landmark:mossvale/amber-ridge/basin-waymark",
+      "kind": "interactable",
+      "name": "mossvale/amber ridge/basin waymark",
+      "summary": "Read the basin marker (sign) on Amber Ridge.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "basin-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [32, 44],
+            "w": 38,
+            "label": "Read the basin marker",
+            "mapLabel": "Basin trail marker",
+            "text": "South: Stone Basin and its quarry loop. North: the ridge trail back to Rowan's lodge."
+          },
+          "limits": "Configure through dist/maps/amber-ridge.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:signpost-wood"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Read the basin marker (sign) on Amber Ridge.",
+          "usage": "Reference mossvale/amber-ridge/basin-waymark in the existing format at dist/maps/amber-ridge.json.",
+          "expected": "Read the basin marker (sign) on Amber Ridge."
+        }
+      ],
+      "references": ["dist/maps/amber-ridge.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
       "id": "landmark:mossvale/amber-ridge/chest",
       "kind": "interactable",
       "name": "mossvale/amber ridge/chest",
@@ -1467,6 +1516,55 @@
         "rewards": "No reward from decorative placement.",
         "repetition": "Not applicable: scenery.",
         "persistence": "No new rest state."
+      }
+    },
+    {
+      "id": "landmark:mossvale/amber-ridge/east-fork-waymark",
+      "kind": "interactable",
+      "name": "mossvale/amber ridge/east fork waymark",
+      "summary": "Read the east trail marker (sign) on Amber Ridge.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "east-fork-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [52, 28],
+            "w": 38,
+            "label": "Read the east trail marker",
+            "mapLabel": "East trail marker",
+            "text": "East: Frostveil Grove, beyond the crystal shrine. South: Stone Basin, down the long ridge trail."
+          },
+          "limits": "Configure through dist/maps/amber-ridge.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:signpost-wood"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Read the east trail marker (sign) on Amber Ridge.",
+          "usage": "Reference mossvale/amber-ridge/east-fork-waymark in the existing format at dist/maps/amber-ridge.json.",
+          "expected": "Read the east trail marker (sign) on Amber Ridge."
+        }
+      ],
+      "references": ["dist/maps/amber-ridge.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
       }
     },
     {
@@ -1660,7 +1758,7 @@
             "w": 38,
             "label": "Read the trail sign",
             "mapLabel": "Trail sign",
-            "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: the next island · Gold: treasure"
+            "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: Frostveil Grove, beyond the shrine · Gold: treasure"
           },
           "limits": "Configure through dist/maps/amber-ridge.json; use its existing validator, not arbitrary new fields."
         }
@@ -1955,6 +2053,55 @@
       }
     },
     {
+      "id": "landmark:mossvale/frostveil-grove/reedfen-waymark",
+      "kind": "interactable",
+      "name": "mossvale/frostveil grove/reedfen waymark",
+      "summary": "Read the eastern trail marker (sign) on Frostveil Grove.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "reedfen-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [52, 12],
+            "w": 38,
+            "label": "Read the eastern trail marker",
+            "mapLabel": "Reedfen trail marker",
+            "text": "East: Reedfen Wetlands, beyond the grove shrine. Return west to the camp and pine shelter."
+          },
+          "limits": "Configure through dist/maps/frostveil-grove.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:signpost-wood"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Read the eastern trail marker (sign) on Frostveil Grove.",
+          "usage": "Reference mossvale/frostveil-grove/reedfen-waymark in the existing format at dist/maps/frostveil-grove.json.",
+          "expected": "Read the eastern trail marker (sign) on Frostveil Grove."
+        }
+      ],
+      "references": ["dist/maps/frostveil-grove.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
       "id": "landmark:mossvale/frostveil-grove/shrine",
       "kind": "interactable",
       "name": "mossvale/frostveil grove/shrine",
@@ -2031,7 +2178,7 @@
             "at": [11, 13.2],
             "w": 38,
             "label": "Read the trail sign",
-            "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
+            "text": "North: crystal shrine · East: Reedfen Wetlands, once the seal shines · South: Blueglass Pass · Gold: treasure"
           },
           "limits": "Configure through dist/maps/frostveil-grove.json; use its existing validator, not arbitrary new fields."
         }
@@ -3528,6 +3675,55 @@
       }
     },
     {
+      "id": "landmark:mossvale/stilt-isles/summit-waymark",
+      "kind": "interactable",
+      "name": "mossvale/stilt isles/summit waymark",
+      "summary": "Read the high-plank marker (sign) on Stilt Isles.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "summit-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [52, 14],
+            "w": 38,
+            "label": "Read the high-plank marker",
+            "mapLabel": "High-plank marker",
+            "text": "North: Reedfen's shrine landing. South-west: the warden's hut."
+          },
+          "limits": "Configure through dist/maps/stilt-isles.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:signpost-wood"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Read the high-plank marker (sign) on Stilt Isles.",
+          "usage": "Reference mossvale/stilt-isles/summit-waymark in the existing format at dist/maps/stilt-isles.json.",
+          "expected": "Read the high-plank marker (sign) on Stilt Isles."
+        }
+      ],
+      "references": ["dist/maps/stilt-isles.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
       "id": "landmark:mossvale/stone-basin/basin-chest",
       "kind": "interactable",
       "name": "mossvale/stone basin/basin chest",
@@ -3771,6 +3967,55 @@
           "intent": "Inspect the quarry alcove (sign) on Stone Basin.",
           "usage": "Reference mossvale/stone-basin/quarry-note in the existing format at dist/maps/stone-basin.json.",
           "expected": "Inspect the quarry alcove (sign) on Stone Basin."
+        }
+      ],
+      "references": ["dist/maps/stone-basin.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
+      "id": "landmark:mossvale/stone-basin/ridge-return-waymark",
+      "kind": "interactable",
+      "name": "mossvale/stone basin/ridge return waymark",
+      "summary": "Read the ridge gate marker (sign) on Stone Basin.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "ridge-return-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [49, 25],
+            "w": 38,
+            "label": "Read the ridge gate marker",
+            "mapLabel": "Ridge gate marker",
+            "text": "East: the Amber Ridge overlook. The circular trail around the basin returns to the quarry hut."
+          },
+          "limits": "Configure through dist/maps/stone-basin.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:signpost-wood"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Read the ridge gate marker (sign) on Stone Basin.",
+          "usage": "Reference mossvale/stone-basin/ridge-return-waymark in the existing format at dist/maps/stone-basin.json.",
+          "expected": "Read the ridge gate marker (sign) on Stone Basin."
         }
       ],
       "references": ["dist/maps/stone-basin.json"],

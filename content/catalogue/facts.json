@@ -98,18 +98,18 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "71e104292399dce77090aa2fc82707f14fe882b2a2a516e7c83bb586deaac78a",
-    "dist/maps/frostveil-grove.json": "2f2723360040a1f3e39a20e687101d6c501f24d558f8d86bcb0a66cce0be17c1",
+    "dist/maps/amber-ridge.json": "df8e4cdcf852d79a5f18f4a6ced65cd23e25d1eb23be7886ac710f6704ddf124",
+    "dist/maps/frostveil-grove.json": "8ebc4497b3ca64be74664047d1392fc0a9d6dcf39993122b8f2902f867ade6b6",
     "dist/maps/frostveil-pass.json": "bc1f728ff350674d83840c38a91939fff60350820c7c63f183c317c6a17175e6",
-    "dist/maps/index.json": "5543537287ea0f1c38d738ec9e029511550f3d56835d46d014b448a079490435",
+    "dist/maps/index.json": "784abd6e79985d5a75aea9ad641dde9319ea927e96ecf1233ce9d0c72c2b59d2",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "a57709a1a39da36ab82089520396b5d3d626f919782f8b244a15e9daf1e1972e",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "3c20dbd55780d2fa97ed41a1d407b67dffabab8f71e402fafffedbc19b9f9806",
+    "dist/maps/orchard-ruins.json": "2124f03706f8144430c9d4b187ffdae36cbeee5268f69039d5b347cade35a833",
     "dist/maps/reedfen-wetlands.json": "effa2297a3b3ab4c01d8079c79b193bf164310447c310076a7f5e93f656effb9",
     "dist/maps/registries.json": "34ab9a499d24b8c0b8c282ac5652456f628211af7d5fa8d9d356609620beb10b",
-    "dist/maps/stilt-isles.json": "eb639a2b3fb2917da3a3fb8921e3c2f5d93d2458928932aa912969da61e2ea2f",
-    "dist/maps/stone-basin.json": "4f9b1746b0d8db32eb12a91493a19735834c2b4635bef5188a529ffd1ea92215",
+    "dist/maps/stilt-isles.json": "32780560dbf4f20134b00fc5a5203e1de87e465eb261b4973394cb1114876e55",
+    "dist/maps/stone-basin.json": "bb796c826a36673f4986ea124b859b09ed146f7c4ce84902d8cf2b904be7c701",
     "dist/maps/story.json": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927",
     "dist/maps/terrain-family-fixture.baked.json": "891d797e204f40410231c5a7cb946109c552f12f2d343065ae425fc92fdb51c6",
     "dist/maps/terrain-family-fixture.json": "ef38776760546b9c933eb6bfb27e3ac10e84994c2b1fa4d41d7a3f7935f1214e",
@@ -210,7 +210,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "8da9a53fc723f13f5071bdd5dbb22ccd76893d05485e3b325f18cf725dc139d0",
+  "sourceDigest": "af5450a3123923b80a4e4f9d78a91d728647522f31b5d4fe038e1ebf32dd5ae0",
   "exclusions": [
     {
       "family": "module-exports",
@@ -800,6 +800,31 @@
       "dependencies": ["visual:signpost-wood"]
     },
     {
+      "id": "landmark:mossvale/amber-ridge/basin-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/amber-ridge/basin-waymark",
+      "name": "mossvale/amber ridge/basin waymark",
+      "description": "Read the basin marker (sign) on Amber Ridge.",
+      "source": "dist/maps/amber-ridge.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "basin-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [32, 44],
+        "w": 38,
+        "label": "Read the basin marker",
+        "mapLabel": "Basin trail marker",
+        "text": "South: Stone Basin and its quarry loop. North: the ridge trail back to Rowan's lodge."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
+    },
+    {
       "id": "landmark:mossvale/amber-ridge/chest",
       "family": "landmark",
       "runtimeId": "mossvale/amber-ridge/chest",
@@ -852,6 +877,31 @@
       "repetition": "Not applicable: scenery.",
       "persistence": "No new rest state.",
       "dependencies": ["visual:cottage-tiled"]
+    },
+    {
+      "id": "landmark:mossvale/amber-ridge/east-fork-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/amber-ridge/east-fork-waymark",
+      "name": "mossvale/amber ridge/east fork waymark",
+      "description": "Read the east trail marker (sign) on Amber Ridge.",
+      "source": "dist/maps/amber-ridge.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "east-fork-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [52, 28],
+        "w": 38,
+        "label": "Read the east trail marker",
+        "mapLabel": "East trail marker",
+        "text": "East: Frostveil Grove, beyond the crystal shrine. South: Stone Basin, down the long ridge trail."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
     },
     {
       "id": "landmark:mossvale/amber-ridge/lookout-note",
@@ -969,7 +1019,7 @@
         "w": 38,
         "label": "Read the trail sign",
         "mapLabel": "Trail sign",
-        "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: the next island · Gold: treasure"
+        "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: Frostveil Grove, beyond the shrine · Gold: treasure"
       },
       "activation": "Existing sign interaction.",
       "actions": "Authored text/conditional dialogue; optional validated route gate.",
@@ -1123,6 +1173,31 @@
       "dependencies": ["visual:person-traveler"]
     },
     {
+      "id": "landmark:mossvale/frostveil-grove/reedfen-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/frostveil-grove/reedfen-waymark",
+      "name": "mossvale/frostveil grove/reedfen waymark",
+      "description": "Read the eastern trail marker (sign) on Frostveil Grove.",
+      "source": "dist/maps/frostveil-grove.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "reedfen-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [52, 12],
+        "w": 38,
+        "label": "Read the eastern trail marker",
+        "mapLabel": "Reedfen trail marker",
+        "text": "East: Reedfen Wetlands, beyond the grove shrine. Return west to the camp and pine shelter."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
+    },
+    {
       "id": "landmark:mossvale/frostveil-grove/shrine",
       "family": "landmark",
       "runtimeId": "mossvale/frostveil-grove/shrine",
@@ -1172,7 +1247,7 @@
         "at": [11, 13.2],
         "w": 38,
         "label": "Read the trail sign",
-        "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
+        "text": "North: crystal shrine · East: Reedfen Wetlands, once the seal shines · South: Blueglass Pass · Gold: treasure"
       },
       "activation": "Existing sign interaction.",
       "actions": "Authored text/conditional dialogue; optional validated route gate.",
@@ -2000,6 +2075,31 @@
       "dependencies": ["visual:person-gardener"]
     },
     {
+      "id": "landmark:mossvale/stilt-isles/summit-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/stilt-isles/summit-waymark",
+      "name": "mossvale/stilt isles/summit waymark",
+      "description": "Read the high-plank marker (sign) on Stilt Isles.",
+      "source": "dist/maps/stilt-isles.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "summit-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [52, 14],
+        "w": 38,
+        "label": "Read the high-plank marker",
+        "mapLabel": "High-plank marker",
+        "text": "North: Reedfen's shrine landing. South-west: the warden's hut."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
+    },
+    {
       "id": "landmark:mossvale/stone-basin/basin-chest",
       "family": "landmark",
       "runtimeId": "mossvale/stone-basin/basin-chest",
@@ -2140,6 +2240,31 @@
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
       "dependencies": ["visual:prop-quarry-alcove"]
+    },
+    {
+      "id": "landmark:mossvale/stone-basin/ridge-return-waymark",
+      "family": "landmark",
+      "runtimeId": "mossvale/stone-basin/ridge-return-waymark",
+      "name": "mossvale/stone basin/ridge return waymark",
+      "description": "Read the ridge gate marker (sign) on Stone Basin.",
+      "source": "dist/maps/stone-basin.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "ridge-return-waymark",
+        "kind": "sign",
+        "sprite": "signpost-wood",
+        "at": [49, 25],
+        "w": 38,
+        "label": "Read the ridge gate marker",
+        "mapLabel": "Ridge gate marker",
+        "text": "East: the Amber Ridge overlook. The circular trail around the basin returns to the quarry hut."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:signpost-wood"]
     },
     {
       "id": "landmark:mossvale/stone-basin/vista-note",
@@ -2740,7 +2865,27 @@
             "w": 38,
             "label": "Read the trail sign",
             "mapLabel": "Trail sign",
-            "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: the next island · Gold: treasure"
+            "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: Frostveil Grove, beyond the shrine · Gold: treasure"
+          },
+          {
+            "id": "east-fork-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [52, 28],
+            "w": 38,
+            "label": "Read the east trail marker",
+            "mapLabel": "East trail marker",
+            "text": "East: Frostveil Grove, beyond the crystal shrine. South: Stone Basin, down the long ridge trail."
+          },
+          {
+            "id": "basin-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [32, 44],
+            "w": 38,
+            "label": "Read the basin marker",
+            "mapLabel": "Basin trail marker",
+            "text": "South: Stone Basin and its quarry loop. North: the ridge trail back to Rowan's lodge."
           },
           {
             "id": "chest",
@@ -3400,7 +3545,7 @@
             "at": [11, 13.2],
             "w": 38,
             "label": "Read the trail sign",
-            "text": "North: crystal shrine · East: the next island · Blue minimap marker: shrine · Gold: treasure"
+            "text": "North: crystal shrine · East: Reedfen Wetlands, once the seal shines · South: Blueglass Pass · Gold: treasure"
           },
           {
             "id": "chest",
@@ -3424,6 +3569,16 @@
             "w": 38,
             "label": "Read the snowy waymark",
             "text": "The grove shrine rests north of camp. A sheltered pass winds south through the pines."
+          },
+          {
+            "id": "reedfen-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [52, 12],
+            "w": 38,
+            "label": "Read the eastern trail marker",
+            "mapLabel": "Reedfen trail marker",
+            "text": "East: Reedfen Wetlands, beyond the grove shrine. Return west to the camp and pine shelter."
           },
           {
             "id": "icefall-note",
@@ -3725,12 +3880,12 @@
             "w": 79,
             "solid": 0.52,
             "at": [
-              [45.5, 20.6],
-              [43.2, 18.7],
-              [43.2, 15.8],
-              [45.5, 13.9],
-              [48.4, 14.6],
-              [49.7, 17.2]
+              [42.9, 25.5],
+              [40.6, 23.6],
+              [40.6, 20.7],
+              [42.9, 18.8],
+              [45.8, 19.5],
+              [47, 22.1]
             ],
             "piece": "snow-grove-1"
           },
@@ -3739,7 +3894,7 @@
             "kind": "scenery",
             "w": 49,
             "solid": 0.42,
-            "at": [[46.6, 17.4]],
+            "at": [[43.9, 22.3]],
             "piece": "snow-grove-1"
           },
           {
@@ -5691,6 +5846,13 @@
         ],
         "zones": [
           {
+            "id": "sunlit-meadow-path",
+            "terrain": ["t"],
+            "rect": [17, 6, 23, 10],
+            "pool": ["emberkin", "bramblebuck", "duskwing"],
+            "level": [5, 7]
+          },
+          {
             "id": "old-orchard-grass",
             "terrain": ["t"],
             "pool": [
@@ -5707,13 +5869,6 @@
             ],
             "level": [5, 7],
             "rect": [0, 0, 24, 24]
-          },
-          {
-            "id": "sunlit-meadow-path",
-            "terrain": ["t"],
-            "rect": [17, 6, 23, 10],
-            "pool": ["emberkin", "bramblebuck", "duskwing"],
-            "level": [5, 7]
           },
           {
             "id": "orchard-wilds",
@@ -6796,6 +6951,16 @@
             "text": "West: Reedfen · Centre: the warden's hut · East: the summit isle · South: a small lantern islet"
           },
           {
+            "id": "summit-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [52, 14],
+            "w": 38,
+            "label": "Read the high-plank marker",
+            "mapLabel": "High-plank marker",
+            "text": "North: Reedfen's shrine landing. South-west: the warden's hut."
+          },
+          {
             "id": "stilt-chest",
             "kind": "chest",
             "sprite": "chest-wooden",
@@ -7311,6 +7476,16 @@
             "label": "Read the plank sign",
             "mapLabel": "Basin sign",
             "text": "Around the chasm: the quarry hut south · a west alcove · a south-west nook · East gate: back up to Amber Ridge"
+          },
+          {
+            "id": "ridge-return-waymark",
+            "kind": "sign",
+            "sprite": "signpost-wood",
+            "at": [49, 25],
+            "w": 38,
+            "label": "Read the ridge gate marker",
+            "mapLabel": "Ridge gate marker",
+            "text": "East: the Amber Ridge overlook. The circular trail around the basin returns to the quarry hut."
           },
           {
             "id": "basin-chest",
@@ -8746,12 +8921,12 @@
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "71e104292399dce77090aa2fc82707f14fe882b2a2a516e7c83bb586deaac78a"
+            "sha256": "df8e4cdcf852d79a5f18f4a6ced65cd23e25d1eb23be7886ac710f6704ddf124"
           },
           {
             "id": "map:frostveil-grove",
             "path": "frostveil-grove.json",
-            "sha256": "2f2723360040a1f3e39a20e687101d6c501f24d558f8d86bcb0a66cce0be17c1"
+            "sha256": "8ebc4497b3ca64be74664047d1392fc0a9d6dcf39993122b8f2902f867ade6b6"
           },
           {
             "id": "map:frostveil-pass",
@@ -8766,17 +8941,17 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "3c20dbd55780d2fa97ed41a1d407b67dffabab8f71e402fafffedbc19b9f9806"
+            "sha256": "2124f03706f8144430c9d4b187ffdae36cbeee5268f69039d5b347cade35a833"
           },
           {
             "id": "map:stilt-isles",
             "path": "stilt-isles.json",
-            "sha256": "eb639a2b3fb2917da3a3fb8921e3c2f5d93d2458928932aa912969da61e2ea2f"
+            "sha256": "32780560dbf4f20134b00fc5a5203e1de87e465eb261b4973394cb1114876e55"
           },
           {
             "id": "map:stone-basin",
             "path": "stone-basin.json",
-            "sha256": "4f9b1746b0d8db32eb12a91493a19735834c2b4635bef5188a529ffd1ea92215"
+            "sha256": "bb796c826a36673f4986ea124b859b09ed146f7c4ce84902d8cf2b904be7c701"
           },
           {
             "id": "objectives:main",
