@@ -305,6 +305,40 @@
       "color": "#c96a3b",
       "hp": 52,
       "sprite": "creature-cindercurl"
+    },
+    {
+      "id": "sunsifter",
+      "name": "Sunsifter",
+      "type": "Sand",
+      "stats": {"hp": 48, "attack": 11, "defense": 12},
+      "move": "dune-rake",
+      "biome": "badlands",
+      "role": "Patient ridge bruiser",
+      "personality": "Steady and determined; it turns loose sand with its brow to uncover food for smaller trail friends.",
+      "desc": "A stocky scarab that sifts the warm ridge soil with its broad golden brow.",
+      "encounterHint": "Search Amber Ridge's east grass for a broad gold brow lifting the sand.",
+      "strong": ["Spark", "Ice", "Frost"],
+      "weak": ["Water", "Mire", "Bloom"],
+      "color": "#d9953f",
+      "hp": 48,
+      "sprite": "creature-sunsifter"
+    },
+    {
+      "id": "rillume",
+      "name": "Rillume",
+      "type": "Water",
+      "stats": {"hp": 42, "attack": 13, "defense": 9},
+      "move": "bell-pulse",
+      "biome": "wetland",
+      "role": "Resonant striker",
+      "personality": "Gentle and observant; it rings a soft pulse when a new friend joins the water's edge.",
+      "desc": "A bright jelly friend whose deep blue core glows beneath a clear bell and four flowing ribbons.",
+      "encounterHint": "Look in Reedfen's safe bank grass for a blue core beneath a clear bell.",
+      "strong": ["Fire", "Stone", "Sand"],
+      "weak": ["Leaf", "Spark", "Bloom"],
+      "color": "#62c9d9",
+      "hp": 42,
+      "sprite": "creature-rillume"
     }
   ],
   "regions": [

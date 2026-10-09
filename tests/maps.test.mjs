@@ -407,7 +407,7 @@ test('the wetland pair is two large connected maps with a safe loop of exits (#5
   assert.equal(reed.exits.find(e => e.id === 'west').to.map, 'frostveil-grove');
   // three wetland creatures, one seal, a supply point on both maps, discoveries, quiet corridors
   const species = new Set(raw.flatMap(m => (m === reed || m === stilt ? m.zones : [])).flatMap(z => z.pool.map(p => p.species ?? p)));
-  assert.deepEqual([...species].sort(), ['brooklet', 'mushmallow', 'siltkip']);
+  assert.deepEqual([...species].sort(), ['brooklet', 'mushmallow', 'rillume', 'siltkip']);
   assert.equal([reed, stilt].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);
   for (const m of [reed, stilt]) {
     assert.ok(
@@ -448,7 +448,7 @@ test('the badlands pair is two large maps with a loop of safe exits and alternat
   );
   assert.equal(ridge.exits.find(e => e.id === 'east').requires, 'amber-ridge.seal');
   const species = new Set([ridge, basin].flatMap(m => m.zones).flatMap(z => z.pool.map(p => p.species ?? p)));
-  assert.deepEqual([...species].sort(), ['cindercurl', 'pebblit', 'sunskitter', 'voltkit']);
+  assert.deepEqual([...species].sort(), ['cindercurl', 'pebblit', 'sunsifter', 'sunskitter', 'voltkit']);
   assert.equal([ridge, basin].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);
   for (const m of [ridge, basin]) {
     assert.ok(

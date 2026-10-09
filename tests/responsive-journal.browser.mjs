@@ -1,8 +1,9 @@
-// Exercise the 15-entry habitat journal and touch interruption in portrait and landscape emulation.
+// Exercise the full habitat journal and touch interruption in portrait and landscape emulation.
 import {chromium} from 'playwright';
 import http from 'node:http';
 import {readFileSync, existsSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {species} from '../dist/src/data/species.js';
 
 const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', png: 'image/png', json: 'application/json', svg: 'image/svg+xml'};
@@ -50,7 +51,7 @@ try {
         overflowX: Math.max(modal.scrollWidth - modal.clientWidth, document.documentElement.scrollWidth - innerWidth),
       };
     });
-    assert.deepEqual(journal, {count: 15, unknown: 0, missingHint: 0, overflowX: 0}, `${viewport.width}×${viewport.height}`);
+    assert.deepEqual(journal, {count: species.length, unknown: 0, missingHint: 0, overflowX: 0}, `${viewport.width}×${viewport.height}`);
     await page.keyboard.press('Escape');
     await page.waitForSelector('#modal', {state: 'hidden'});
   }
@@ -260,7 +261,7 @@ try {
   await page.waitForFunction(() => window.mossvale.getState().battle?.busy === false && window.mossvale.getState().battle?.turn === 1);
   assert.deepEqual(errors, []);
   await context.close();
-  console.log('ok 15-creature journal hints and touch interruption across portrait/landscape sizes');
+  console.log(`ok ${species.length}-creature journal hints and touch interruption across portrait/landscape sizes`);
 } finally {
   await browser.close();
   server.close();

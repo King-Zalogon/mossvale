@@ -22,7 +22,7 @@ const browser = await chromium.launch({executablePath: process.env.CHROMIUM || u
 async function open(motion) {
   const initial = newSave();
   initial.met = true;
-  const context = await browser.newContext();
+  const context = await browser.newContext({reducedMotion: 'no-preference'});
   await context.addInitScript(
     ([raw, settings]) => {
       if (localStorage.getItem('mossvale-v3') === null) localStorage.setItem('mossvale-v3', raw);
@@ -41,40 +41,49 @@ async function open(motion) {
   await page.evaluate(() => {
     const battle = window.mossvale.getState().battle;
     battle.hp = battle.max = 400; // survive the round so the foe answers
+    // Capture feedback in the rendering document, before the short-lived frame is replaced. A wait then
+    // separate locator reads can otherwise inspect different frames on a loaded browser worker.
+    window.__feedback = [];
+    new MutationObserver(() => {
+      const scene = document.querySelector('.battle-scene');
+      if (!scene) return;
+      const ally = scene.querySelector('.fighter:nth-child(1) .dmg-pop');
+      const enemy = scene.querySelector('.fighter:nth-child(2) .dmg-pop');
+      if (!ally && !enemy) return;
+      const bar = scene.querySelector('.fighter:nth-child(2) .bar i');
+      window.__feedback.push({
+        ally: ally?.textContent,
+        enemy: enemy?.textContent,
+        hidden: enemy?.getAttribute('aria-hidden'),
+        shake: /shake-/.test(scene.className),
+        bursts: scene.querySelectorAll('.burst').length,
+        duration: parseFloat(getComputedStyle(bar).transitionDuration),
+        width: bar.style.width,
+        target: bar.dataset.to + '%',
+      });
+    }).observe(document.querySelector('#modal'), {childList: true, subtree: true});
   });
   return {page, errors, context};
 }
 
 try {
-  // Full motion: numbers float, bars ease, the scene shakes.
   {
     const {page, errors, context} = await open('auto');
     const before = await page.$eval('.fighter:nth-child(2) .bar i', el => el.style.width);
     await page.click('#attack');
-    await page.waitForSelector('.fighter:nth-child(2) .dmg-pop');
-    const pop = await page.$eval('.fighter:nth-child(2) .dmg-pop', el => el.textContent);
-    assert.match(pop, /^-\d+$/, 'the strike shows its damage over the foe');
-    assert.equal(await page.$eval('.fighter:nth-child(2) .dmg-pop', el => el.getAttribute('aria-hidden')), 'true');
-    assert.ok(await page.$eval('.battle-scene', el => /shake-/.test(el.className)), 'a landed blow shakes the scene');
-    assert.ok(await page.$eval('.battle-scene .bar i', el => parseFloat(getComputedStyle(el).transitionDuration) > 0), 'HP bars ease');
-    await page.waitForFunction(w => parseFloat(document.querySelector('.fighter:nth-child(2) .bar i').dataset.to) < parseFloat(w), before);
-    // Rounds repeat until the foe lands a hit (it sometimes charges or braces instead).
-    let ally = null;
-    for (let round = 0; round < 8 && !ally; round++) {
-      await page.waitForSelector('#attack:not([disabled])');
-      await page.evaluate(() => {
-        window.__ally = [];
-        new MutationObserver(() => {
-          const el = document.querySelector('.fighter:nth-child(1) .dmg-pop');
-          if (el) window.__ally.push(el.textContent);
-        }).observe(document.querySelector('#modal'), {childList: true, subtree: true});
-      });
+    await page.waitForFunction(() => window.__feedback.some(frame => frame.enemy));
+    const strike = await page.evaluate(() => window.__feedback.find(frame => frame.enemy));
+    assert.match(strike.enemy, /^-\d+$/, 'the strike shows its damage over the foe');
+    assert.equal(strike.hidden, 'true');
+    assert.equal(strike.shake, true, 'a landed blow shakes the scene');
+    assert.ok(strike.duration > 0, `HP bars ease: ${JSON.stringify(strike)}`);
+    assert.ok(parseFloat(strike.target) < parseFloat(before), 'the foe bar moves to its lower HP');
+    let ally;
+    for (let round = 0; round < 8; round++) {
+      await page.waitForSelector('#attack:not([disabled])', {timeout: 15000});
+      ally = await page.evaluate(() => window.__feedback.find(frame => frame.ally)?.ally);
+      if (ally) break;
       await page.click('#attack');
-      await page.waitForSelector('#attack:not([disabled])', {timeout: 8000}).catch(async e => {
-        console.log(round, await page.$eval('#modal', m => m.innerText));
-        throw e;
-      });
-      ally = (await page.evaluate(() => window.__ally))[0] ?? null;
     }
     assert.match(ally ?? '', /^-\d+$/, "the foe's answer shows over your friend");
     await page.waitForSelector('#attack:not([disabled])');
@@ -82,18 +91,20 @@ try {
     assert.deepEqual(errors, []);
     await context.close();
   }
-  // Calm motion: same information, no shake, no sparks, bars jump straight to their value.
   {
     const {page, errors, context} = await open('reduced');
     await page.click('#attack');
-    await page.waitForSelector('.fighter:nth-child(2) .dmg-pop');
-    assert.equal(await page.locator('.burst').count(), 0);
-    assert.ok(!(await page.$eval('.battle-scene', el => /shake-/.test(el.className))), 'calm motion does not shake');
-    const bar = await page.$eval('.fighter:nth-child(2) .bar i', el => [el.style.width, el.dataset.to + '%']);
-    assert.equal(bar[0], bar[1], 'calm bars are drawn at their final width');
+    await page.waitForFunction(() => window.__feedback.some(frame => frame.enemy));
+    const strike = await page.evaluate(() => window.__feedback.find(frame => frame.enemy));
+    assert.match(strike.enemy, /^-\d+$/, 'calm motion retains the damage information');
+    assert.equal(strike.bursts, 0);
+    assert.equal(strike.shake, false, 'calm motion does not shake');
+    assert.equal(strike.width, strike.target, 'calm bars are drawn at their final width');
+    assert.equal(strike.duration, 0, 'calm bars do not transition');
     assert.deepEqual(errors, []);
     await context.close();
   }
+  console.log('ok full/calm battle feedback: damage, HP transitions, shake, enemy replies and cleanup');
 } finally {
   await browser.close();
   server.close();

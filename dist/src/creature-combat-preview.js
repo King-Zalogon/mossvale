@@ -2,23 +2,7 @@ import {assets, spriteId} from './data/assets.js';
 import {species} from './data/species.js';
 import {drawSprite, sprites} from './render/sprites.js';
 
-const kinds = [
-  'fernling',
-  'emberkin',
-  'duskwing',
-  'brooklet',
-  'hushram',
-  'voltkit',
-  'mushmallow',
-  'frostowl',
-  'pebblit',
-  'bramblebuck',
-  'siltkip',
-  'sunskitter',
-  'sedgegnaw',
-  'petalunge',
-  'cindercurl',
-];
+const kinds = species.map(entry => entry.id);
 const states = ['idle', 'attack', 'hit', 'faint', 'capture'];
 const host = document.querySelector('#species');
 const calm = document.querySelector('#calm');
@@ -36,7 +20,7 @@ for (const kind of kinds) {
   const reference = species[speciesId].sprite;
   const card = document.createElement('article');
   card.className = 'creature';
-  card.innerHTML = `<h2>${species[speciesId].name}</h2><figure class="reference"><img src="${assets[reference].src}" width="160" height="160" alt="${species[speciesId].name} approved identity reference"><figcaption>Canonical reference · 115 px gameplay width</figcaption></figure><div class="states">${states.map(state => `<section class="state"><h3>${state}</h3><div class="frames">${[0, 1, 2, 3].map(column => `<figure class="frame"><canvas width="160" height="160" data-species="${kind}" data-state="${state}" data-frame="${column}" aria-label="${species[speciesId].name} ${state} frame ${column + 1}"></canvas><figcaption>${column + 1}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
+  card.innerHTML = `<h2>${species[speciesId].name}</h2><figure class="reference"><img src="${assets[reference].src}" width="160" height="160" alt="${species[speciesId].name} canonical identity reference"><figcaption>Canonical reference · 115 px gameplay width</figcaption></figure><div class="states">${states.map(state => `<section class="state"><h3>${state}</h3><div class="frames">${[0, 1, 2, 3].map(column => `<figure class="frame"><canvas width="160" height="160" data-species="${kind}" data-state="${state}" data-frame="${column}" aria-label="${species[speciesId].name} ${state} frame ${column + 1}"></canvas><figcaption>${column + 1}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
   host.append(card);
   await load(sprite);
   for (const canvas of card.querySelectorAll('canvas')) {

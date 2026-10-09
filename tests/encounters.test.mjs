@@ -48,8 +48,8 @@ test('each region hub has different encounters', () => {
   ); // later regions are higher level
 });
 
-test('all fifteen species have a readable hint and a reachable source in their home biome', () => {
-  assert.equal(species.length, 15);
+test('all seventeen species have a readable hint and a reachable source in their home biome', () => {
+  assert.equal(species.length, 17);
   const playableMaps = Object.values(mapsById);
   for (const creature of species) {
     assert.ok(creature.encounterHint?.trim(), `${creature.id} needs a field hint`);
@@ -60,6 +60,21 @@ test('all fifteen species have a readable hint and a reachable source in their h
       `${creature.id} has a source in its ${creature.biome} maps`,
     );
   }
+});
+
+test('Sunsifter and Rillume are optional grass encounters that do not require traversal abilities', () => {
+  const amber = mapsById['amber-ridge'];
+  const reedfen = mapsById['reedfen-wetlands'];
+  const sunsifter = species.findIndex(entry => entry.id === 'sunsifter');
+  const rillume = species.findIndex(entry => entry.id === 'rillume');
+  const ridgePool = amber.zones.find(zone => zone.id === 'ridge-grass-east');
+  const bankPool = reedfen.zones.find(zone => zone.id === 'reed-shallows');
+  assert.ok(ridgePool.terrain.includes('tallgrass'));
+  assert.ok(ridgePool.pool.includes(sunsifter));
+  assert.ok(bankPool.terrain.includes('tallgrass'));
+  assert.ok(bankPool.pool.includes(rillume));
+  assert.ok(!amber.abilities?.includes('sunsifter'));
+  assert.ok(!reedfen.abilities?.includes('rillume'));
 });
 
 test('weights bias the pick, and unseen creatures are favoured', () => {
