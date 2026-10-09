@@ -35,8 +35,14 @@ const server = http
   .listen(0);
 const url = `http://localhost:${server.address().port}/`;
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
+// Scenarios are sequential. Release each previous game's decoded atlases and animation loop instead of
+// retaining every page until the script ends; exported backup text is read before the next context starts.
+const freshContext = async options => {
+  for (const context of browser.contexts()) await context.close();
+  return browser.newContext(options);
+};
 const open = async init => {
-  const ctx = await browser.newContext();
+  const ctx = await freshContext();
   await ctx.addInitScript(init);
   const page = await ctx.newPage();
   const errors = [];
@@ -185,7 +191,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   played.party.push(1);
   played.team[1] = {xp: 0, hp: 40};
   played.playTime = 600;
-  const ctx = await browser.newContext();
+  const ctx = await freshContext();
   await ctx.addInitScript(set('mossvale-v3', codec.serialize(played)));
   const page = await ctx.newPage();
   const errors = [];
@@ -311,7 +317,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
 }
 {
   // opening premise on a new adventure, a first-battle tip, and the ending once everything is awake
-  const ctx = await browser.newContext();
+  const ctx = await freshContext();
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
@@ -333,7 +339,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   done.badges = [0, 1, 2, 3];
   done.met = true;
   done.wins = 5;
-  const ctx2 = await browser.newContext();
+  const ctx2 = await freshContext();
   await ctx2.addInitScript(set('mossvale-v3', codec.serialize(done)));
   const p2 = await ctx2.newPage();
   p2.on('pageerror', e => errors.push(e.message));
@@ -355,7 +361,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   // export from one browser, import into another; bad files and future saves change nothing
   const played = newSave();
   Object.assign(played, {coins: 77, wins: 9, met: true, badges: [0]});
-  const a = await browser.newContext({acceptDownloads: true});
+  const a = await freshContext({acceptDownloads: true});
   await a.addInitScript(set('mossvale-v3', codec.serialize(played)));
   const pa = await a.newPage();
   const errors = [];
@@ -370,7 +376,7 @@ assert.ok(captureRecoveryOutcomes.includes('captured'), 'a successful capture su
   const text = readFileSync(await download.path(), 'utf8');
   assert.equal(JSON.parse(text).save.coins, 77);
 
-  const b = await browser.newContext();
+  const b = await freshContext();
   const pb = await b.newPage();
   pb.on('pageerror', e => errors.push(e.message));
   await pb.goto(url);
@@ -428,7 +434,7 @@ for (const [viewport, text] of [
   [{width: 390, height: 844}, 'larger'],
 ]) {
   // larger text keeps the menus inside the screen; touch targets are comfortable on a phone
-  const ctx = await browser.newContext({viewport, hasTouch: viewport.width < 800, isMobile: viewport.width < 800});
+  const ctx = await freshContext({viewport, hasTouch: viewport.width < 800, isMobile: viewport.width < 800});
   await ctx.addInitScript(set('mossvale-settings', JSON.stringify({text})));
   const page = await ctx.newPage();
   const errors = [];
