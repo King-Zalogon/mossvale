@@ -22,7 +22,7 @@ const browser = await chromium.launch({executablePath: process.env.CHROMIUM || u
 async function open(motion) {
   const initial = newSave();
   initial.met = true;
-  const context = await browser.newContext();
+  const context = await browser.newContext({reducedMotion: 'no-preference'});
   await context.addInitScript(
     ([raw, settings]) => {
       if (localStorage.getItem('mossvale-v3') === null) localStorage.setItem('mossvale-v3', raw);
