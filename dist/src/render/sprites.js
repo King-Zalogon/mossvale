@@ -124,12 +124,21 @@ function drawElementBurst(c, speciesId, progress) {
 }
 
 /** Paints a creature combat state from its optional multi-frame sheet; other species keep the static portrait. */
-export function drawCreatureAnimated(canvasEl, speciesId, width = 105, state = 'idle', reducedMotion = false) {
+export function drawCreatureAnimated(canvasEl, speciesId, width = 105, state = 'idle', reducedMotion = false, combatOverride) {
   const name = `creature-${species[speciesId].id}-combat`;
-  const sheetId = assets.findIndex(asset => asset.name === name);
+  const normalId = assets.findIndex(asset => asset.name === name);
+  const loaded = id => sprites[id]?.complete && sprites[id]?.naturalWidth > 0;
+  const sheetId = Number.isInteger(combatOverride) && loaded(combatOverride) ? combatOverride : normalId;
   const frames = assets[sheetId]?.frames;
+  const drawWidth = sheetId === combatOverride ? (frames?.combatDisplayWidth ?? width) : width;
   const c = canvasEl?.getContext('2d');
-  if (!c || !frames) {
+  if (!c || !frames || !loaded(sheetId)) {
+    if (!c) return;
+    animationRuns.delete(canvasEl);
+    canvasEl.dataset.combatAsset = assets[species[speciesId].sprite]?.name;
+    canvasEl.dataset.combatState = state;
+    canvasEl.dataset.combatFrame = '0';
+    canvasEl.classList.toggle('creature-idle', state === 'idle');
     drawCreature(canvasEl, speciesId, width);
     if (state === 'element') {
       canvasEl.dataset.combatState = state;
@@ -146,12 +155,13 @@ export function drawCreatureAnimated(canvasEl, speciesId, width = 105, state = '
   if (state === 'idle') canvasEl.classList.add('creature-idle');
   else canvasEl.classList.remove('creature-idle');
   canvasEl.dataset.combatState = state;
+  canvasEl.dataset.combatAsset = assets[sheetId].name;
 
   const paint = column => {
     if (!canvasEl.isConnected || animationRuns.get(canvasEl) !== run) return;
     canvasEl.dataset.combatFrame = String(column);
     c.clearRect(0, 0, c.canvas.width, c.canvas.height);
-    drawSprite(c, sheetId, c.canvas.width / 2, c.canvas.height - 7, width, {frame: {column, row}});
+    drawSprite(c, sheetId, c.canvas.width / 2, c.canvas.height - 7, drawWidth, {frame: {column, row}});
     if (state === 'element') drawElementBurst(c, speciesId, Math.min(1, column / Math.max(1, frames.columns - 1)));
   };
   paint(state === 'idle' || reducedMotion ? (state === 'idle' ? 0 : 3) : 0);
@@ -165,7 +175,7 @@ export function drawCreatureAnimated(canvasEl, speciesId, width = 105, state = '
     const column = state === 'idle' ? Math.floor(elapsed / delay) % frames.columns : Math.min(frames.columns - 1, Math.floor(elapsed / delay));
     paint(column);
     if (state === 'idle' || elapsed < frames.columns * delay) requestAnimationFrame(tick);
-    else drawCreatureAnimated(canvasEl, speciesId, width, 'idle', false);
+    else drawCreatureAnimated(canvasEl, speciesId, width, 'idle', false, combatOverride);
   };
   requestAnimationFrame(tick);
 }

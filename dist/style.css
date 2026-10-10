@@ -2572,12 +2572,33 @@ body:not([data-input-mode='touch']) .touch-run,
 body[data-input-mode='touch'] .touchpad {
   display: grid;
   grid-template-columns: repeat(3, 44px);
+  overscroll-behavior: contain;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 body[data-input-mode='touch'] .touchpad button {
   width: 44px;
   height: 44px;
   min-width: 44px;
   min-height: 44px;
+}
+body[data-input-mode='touch'] .touchpad button[data-dir] {
+  transition:
+    background-color 120ms ease-out,
+    border-color 120ms ease-out,
+    opacity 180ms ease-out,
+    transform 120ms ease-out;
+  opacity: 0.38;
+}
+body[data-input-mode='touch'] .touchpad[data-engaged='true'] button[data-dir] {
+  opacity: 1;
+}
+body[data-input-mode='touch'] .touchpad button[data-dir][data-active='true'] {
+  background: #c8e78d;
+  border-color: #ecffd0;
+  color: #173424;
+  transform: scale(0.94);
 }
 body[data-input-mode='touch'] .touch-run {
   display: block;
@@ -2651,7 +2672,7 @@ body[data-input-mode='desktop'] .game-footer > .keyboard-hint:first-child {
 .dmg-pop {
   position: absolute;
   left: 50%;
-  top: 28px;
+  top: calc(28px - var(--i, 0) * 26px);
   font-weight: 700;
   font-size: 22px;
   line-height: 1;
@@ -2664,6 +2685,7 @@ body[data-input-mode='desktop'] .game-footer > .keyboard-hint:first-child {
     0 -2px 0 #1d2a1f;
   pointer-events: none;
   animation: dmg-rise 0.9s ease-out both;
+  animation-delay: calc(var(--i, 0) * 0.16s);
 }
 .dmg-pop.tone-super {
   color: #ffd35c;
@@ -2814,4 +2836,147 @@ body.reduce-motion .battle-scene .bar b.trail {
   display: block;
   opacity: 0.7;
   font-size: 12px;
+}
+
+/* Capture and victory beats: the orb holds the creature, wobbles, then settles or opens; a defeated foe fades and your friend hops. */
+.orb-ball {
+  position: absolute;
+  left: 50%;
+  top: 72px;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 2;
+}
+.orb-ball.orb-throw {
+  animation: orb-throw 0.45s ease-out both;
+}
+.orb-ball.orb-wobble {
+  animation: orb-wobble 0.55s ease-in-out both;
+}
+.orb-ball.orb-caught {
+  animation: orb-settle 0.7s ease-out both;
+  filter: drop-shadow(0 0 8px #ffe27a);
+}
+.orb-ball.orb-break {
+  animation: orb-open 0.5s ease-out both;
+}
+.fighter canvas.inside-orb {
+  opacity: 0;
+  animation: none;
+}
+.fighter canvas.pop-out {
+  animation: pop-out 0.5s ease-out both;
+}
+.fighter canvas.foe-out {
+  animation: foe-out 0.8s ease-in-out forwards;
+}
+.fighter canvas.victory {
+  animation: victory-hop 0.7s ease-out both;
+}
+@keyframes orb-throw {
+  0% {
+    opacity: 0;
+    transform: translate(-110px, 60px) rotate(-200deg) scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-30px, -40px) rotate(60deg) scale(1);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0) scale(1);
+  }
+}
+@keyframes orb-wobble {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(-22deg) translateX(-3px);
+  }
+  50% {
+    transform: rotate(20deg) translateX(3px);
+  }
+  75% {
+    transform: rotate(-8deg);
+  }
+}
+@keyframes orb-settle {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes orb-open {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  60% {
+    transform: scale(1.6);
+    opacity: 0.8;
+    filter: brightness(2.4);
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+@keyframes pop-out {
+  0% {
+    transform: scale(0.2);
+    filter: brightness(2.6);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.18);
+    filter: brightness(1.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    filter: none;
+  }
+}
+@keyframes foe-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  30% {
+    filter: brightness(1.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.9);
+    filter: brightness(1.8);
+  }
+}
+@keyframes victory-hop {
+  0%,
+  45%,
+  100% {
+    transform: translateY(0);
+  }
+  22%,
+  72% {
+    transform: translateY(-16px);
+  }
+}
+.dmg-pop.tone-xp {
+  color: #a8e8ff;
+  font-size: 20px;
+}
+.dmg-pop.tone-coin {
+  color: #ffe27a;
+  font-size: 20px;
 }

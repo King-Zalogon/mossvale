@@ -1703,7 +1703,8 @@
               "species": "pebblit",
               "level": 10,
               "tactic": "rolling-charge",
-              "power": 1.5
+              "power": 1.5,
+              "combatSprite": "creature-pebblit-crystal-ridge-combat"
             },
             "reward": {
               "coins": 60,
@@ -2124,7 +2125,8 @@
             "guardian": {
               "species": "frostowl",
               "level": 11,
-              "tactic": "frost-chorus"
+              "tactic": "frost-chorus",
+              "combatSprite": "creature-frostowl-ice-mantle-combat"
             },
             "reward": {
               "coins": 60,
@@ -2737,7 +2739,8 @@
               "species": "mushmallow",
               "level": 7,
               "tactic": "spore-guard",
-              "power": 1.8
+              "power": 1.8,
+              "combatSprite": "creature-mushmallow-thorn-mantle-combat"
             },
             "reward": {
               "coins": 60,
@@ -3327,7 +3330,8 @@
               "species": "siltkip",
               "level": 14,
               "tactic": "tidal-current",
-              "power": 1.7
+              "power": 1.7,
+              "combatSprite": "creature-siltkip-tide-sail-combat"
             },
             "reward": {
               "coins": 75,
@@ -4800,7 +4804,7 @@
       "id": "mechanic:battle-impact-feedback",
       "kind": "mechanic",
       "name": "Battle impact feedback",
-      "summary": "Show every resolved blow as a floating number, an eased HP bar with a trailing ghost, a held hit flash and a short scene shake.",
+      "summary": "Show every resolved blow as a floating number, an eased HP bar with a trailing ghost, a held hit flash and a short scene shake, and play orb throws and victories as readable beats.",
       "status": "available",
       "scope": "core",
       "configuration": [],
@@ -4808,16 +4812,23 @@
       "limits": [
         "Presentation only: it reads the already-resolved turn events and never changes damage, Focus, saves or outcomes.",
         "Calm motion keeps the numbers and final bar widths but drops the shake, sparks and bar easing.",
-        "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return."
+        "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return.",
+        "Capture beats are derived from the already-resolved throw: a success wobbles three times, a miss wobbles once more the closer it was (1 to 3), and calm motion collapses to a single wobble; the wobble count never changes the outcome.",
+        "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion)."
       ],
       "examples": [
         {
           "intent": "Strike a wild creature and read the result at a glance.",
           "usage": "Use Quick strike or the Element move; no configuration is needed.",
           "expected": "A number floats over the target, the HP bar eases down while a pale ghost lags behind, and a heavier or super-effective hit shakes the scene harder."
+        },
+        {
+          "intent": "Throw a capture orb at a weakened creature.",
+          "usage": "Press Capture orb (5) or click it; no configuration is needed.",
+          "expected": "The orb flies in and holds the creature, wobbles, then either settles with a star burst and floating rewards before the result screen, or opens and the creature pops back out."
         }
       ],
-      "references": ["dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/src/controller.js", "dist/style.css"],
+      "references": ["dist/src/controller.js", "dist/src/data/sounds.js", "dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/style.css"],
       "evidence": [
         {
           "path": "tests/battle-fx.test.mjs",
@@ -4826,12 +4837,16 @@
         {
           "path": "tests/battle-feel.browser.mjs",
           "assertion": "A real battle shows the strike and the foe's reply as floating numbers, bars ease, and calm motion removes the shake and sparks."
+        },
+        {
+          "path": "tests/capture-feel.browser.mjs",
+          "assertion": "A real throw shows throw, three wobbles and settle with stars and floating rewards; a miss opens the orb and the creature pops out; a win fades the foe and floats XP; calm motion has no sparks and one wobble per throw."
         }
       ],
       "details": {
-        "trigger": "A resolved strike, enemy attack, riposte, potion or charge recovery event.",
+        "trigger": "A resolved strike, enemy attack, riposte, potion, charge recovery, orb throw or win event.",
         "inputs": "The turn event (damage, effectiveness, action kind, healed amount) and the per-frame HP snapshot.",
-        "sequence": "Each frame draws the bars from the previous frame's width, forces a reflow and sets the new width so the transition runs; numbers rise for 0.9 s; the scene shakes at level 1 or 2.",
+        "sequence": "Each frame draws the bars from the previous frame's width, forces a reflow and sets the new width so the transition runs; numbers rise for 0.9 s; the scene shakes at level 1 or 2. Orb throws expand into throw, wobble and settle-or-open beats; a win adds a victory beat where the foe fades out.",
         "results": "Damage, healing and effectiveness read without parsing the battle log; numbers are hidden from assistive technology because the log already announces them.",
         "cancellation": "A new frame replaces the markup; leaving the battle or skipping playback drops pending effects.",
         "errors": "With no previous width (first frame or a switched companion) the bar is drawn at its final value without easing.",
@@ -5012,6 +5027,73 @@
         "cancellation": "Follow existing lifecycle; no subscription bus is promised.",
         "errors": "Use existing event data contract.",
         "persistence": "Debug log is not a second save codec."
+      }
+    },
+    {
+      "id": "mechanic:guardian-combat-form",
+      "kind": "mechanic",
+      "name": "Shrine combat form",
+      "summary": "Give one configured shrine guardian a transformed battle appearance while its normal species keeps ordinary art.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "guardian.combatSprite",
+          "type": "named same-species combat asset",
+          "default": null,
+          "limits": "Optional shrine field; creature-<species>-…-combat ID, transparent 4×5 idle/attack/hit/faint/capture atlas. Unique guardian species/tactic per map."
+        },
+        {
+          "name": "frames.combatDisplayWidth",
+          "type": "integer pixels",
+          "default": 107,
+          "limits": "Optional override atlas display width; delivered forms use 132 inside the existing 160×145 battle canvas."
+        }
+      ],
+      "dependencies": [
+        "visual:creature-mushmallow-thorn-mantle-combat",
+        "visual:creature-pebblit-crystal-ridge-combat",
+        "visual:creature-frostowl-ice-mantle-combat",
+        "visual:creature-siltkip-tide-sail-combat"
+      ],
+      "limits": [
+        "Art only: no stats, tactics, capture eligibility, rewards or progression changes.",
+        "Unconfigured packs retain normal art; unavailable form atlas falls back to normal combat then portrait.",
+        "Owner taste approval is separate from internal visual inspection.",
+        "Multiple same-species/same-tactic shrines are ambiguous and retain normal art."
+      ],
+      "examples": [
+        {
+          "intent": "Give Meadow’s Mushmallow its thorn mantle in the shrine encounter.",
+          "usage": "Set Meadow shrine guardian.combatSprite to creature-mushmallow-thorn-mantle-combat; refresh pack integrity. See docs/GUARDIAN_COMBAT_FORMS.md.",
+          "expected": "Shrine enemy uses the transformed form; same-species allies, wild encounters, portraits and followers retain normal art."
+        }
+      ],
+      "references": [
+        "docs/GUARDIAN_COMBAT_FORMS.md",
+        "dist/src/domain/mapdata.js",
+        "dist/src/render/battle-art.js",
+        "dist/src/render/sprites.js",
+        "dist/src/ui/battle-view.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/guardian-art.test.mjs",
+          "assertion": "All four mappings, unchanged battle results/save round trips, invalid references and eighty frame boundaries."
+        },
+        {
+          "path": "tests/guardian-art.browser.mjs",
+          "assertion": "Actual shrine interactions, normal allies/wilds, reload, preview states, reduced motion and missing-sheet fallback."
+        }
+      ],
+      "details": {
+        "trigger": "A boss battle matching the current map’s unique configured shrine species/tactic.",
+        "inputs": "Optional guardian.combatSprite manifest ID and standard combat atlas metadata.",
+        "sequence": "Validate and compile the pack reference; select the override for the enemy; retain it across action-to-idle transitions and derive it again after reload.",
+        "results": "A species-specific transformed appearance confined to the configured shrine encounter.",
+        "cancellation": "Leaving the encounter ends its display; no art selection persists in the save.",
+        "errors": "Unknown/mismatched/static references fail pack validation; missing images use existing normal atlas/portrait fallback.",
+        "persistence": "No added save fields or schema changes; current map and existing battle identity determine presentation."
       }
     },
     {
@@ -8453,6 +8535,57 @@
       }
     },
     {
+      "id": "sound:click",
+      "kind": "mechanic",
+      "name": "click",
+      "summary": "Synthesized click sound cue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "click",
+            "notes": [
+              {
+                "f": 1180,
+                "d": 0.07,
+                "type": "square",
+                "g": 0.035
+              }
+            ]
+          },
+          "limits": "Configure through dist/src/data/sounds.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Synthesized click sound cue.",
+          "usage": "Reference click in the existing format at dist/src/data/sounds.js.",
+          "expected": "Synthesized click sound cue."
+        }
+      ],
+      "references": ["dist/src/data/sounds.js"],
+      "evidence": [
+        {
+          "path": "tests/audio.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Synthesized click cue; generated through the existing WebAudio palette.",
+        "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Sound preferences are separate from adventure saves."
+      }
+    },
+    {
       "id": "sound:confirm",
       "kind": "mechanic",
       "name": "confirm",
@@ -9297,6 +9430,58 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Synthesized win cue; generated through the existing WebAudio palette.",
+        "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Sound preferences are separate from adventure saves."
+      }
+    },
+    {
+      "id": "sound:wobble",
+      "kind": "mechanic",
+      "name": "wobble",
+      "summary": "Synthesized wobble sound cue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "wobble",
+            "notes": [
+              {
+                "f": 310,
+                "d": 0.09,
+                "to": 350,
+                "type": "square",
+                "g": 0.03
+              }
+            ]
+          },
+          "limits": "Configure through dist/src/data/sounds.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Synthesized wobble sound cue.",
+          "usage": "Reference wobble in the existing format at dist/src/data/sounds.js.",
+          "expected": "Synthesized wobble sound cue."
+        }
+      ],
+      "references": ["dist/src/data/sounds.js"],
+      "evidence": [
+        {
+          "path": "tests/audio.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Synthesized wobble cue; generated through the existing WebAudio palette.",
         "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Sound preferences are separate from adventure saves."
@@ -13957,7 +14142,7 @@
               "rows": 8,
               "frameWidth": 200,
               "frameHeight": 200,
-              "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
+              "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
               "mirror": {
                 "southeast": "southwest"
               },
@@ -14153,6 +14338,9 @@
               "frameWidth": 200,
               "frameHeight": 200,
               "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "mirror": {
+                "northwest": "northeast"
+              },
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
               "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
@@ -14383,6 +14571,77 @@
         {
           "path": "dist/assets/creatures/creature-frostowl-follower.png",
           "description": "A compact white owl with luminous blue eyes, crystalline blue feathers, a dark beak and dark feet."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-frostowl-ice-mantle-combat",
+      "kind": "visual",
+      "name": "creature-frostowl-ice-mantle-combat",
+      "summary": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-frostowl-ice-mantle-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-frostowl-ice-mantle-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "combatDisplayWidth": 132,
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              },
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3],
+              "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
+          "usage": "Reference creature-frostowl-ice-mantle-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-frostowl-ice-mantle-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-frostowl-ice-mantle-combat.png",
+          "description": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained."
         }
       ]
     },
@@ -14771,6 +15030,77 @@
       ]
     },
     {
+      "id": "visual:creature-mushmallow-thorn-mantle-combat",
+      "kind": "visual",
+      "name": "creature-mushmallow-thorn-mantle-combat",
+      "summary": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-mushmallow-thorn-mantle-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-mushmallow-thorn-mantle-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "combatDisplayWidth": 132,
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              },
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3],
+              "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
+          "usage": "Reference creature-mushmallow-thorn-mantle-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-mushmallow-thorn-mantle-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-mushmallow-thorn-mantle-combat.png",
+          "description": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws."
+        }
+      ]
+    },
+    {
       "id": "visual:creature-pebblit",
       "kind": "visual",
       "name": "creature-pebblit",
@@ -14893,6 +15223,77 @@
         {
           "path": "dist/assets/creatures/creature-pebblit-combat.png",
           "description": "Canonical Pebblit creature silhouette, preserved across combat reactions and eight travel directions."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-pebblit-crystal-ridge-combat",
+      "kind": "visual",
+      "name": "creature-pebblit-crystal-ridge-combat",
+      "summary": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-pebblit-crystal-ridge-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-pebblit-crystal-ridge-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "combatDisplayWidth": 132,
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              },
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3],
+              "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
+          "usage": "Reference creature-pebblit-crystal-ridge-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-pebblit-crystal-ridge-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-pebblit-crystal-ridge-combat.png",
+          "description": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow."
         }
       ]
     },
@@ -15731,6 +16132,77 @@
       ]
     },
     {
+      "id": "visual:creature-siltkip-tide-sail-combat",
+      "kind": "visual",
+      "name": "creature-siltkip-tide-sail-combat",
+      "summary": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-siltkip-tide-sail-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-siltkip-tide-sail-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "combatDisplayWidth": 132,
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              },
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3],
+              "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
+          "usage": "Reference creature-siltkip-tide-sail-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-siltkip-tide-sail-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-siltkip-tide-sail-combat.png",
+          "description": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail."
+        }
+      ]
+    },
+    {
       "id": "visual:creature-sunsifter",
       "kind": "visual",
       "name": "creature-sunsifter",
@@ -16549,7 +17021,7 @@
       "id": "visual:person-red-cap-motion",
       "kind": "visual",
       "name": "person-red-cap-motion",
-      "summary": "person red cap motion",
+      "summary": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
       "status": "available",
       "scope": "core",
       "configuration": [
@@ -16584,9 +17056,9 @@
       ],
       "examples": [
         {
-          "intent": "person red cap motion",
+          "intent": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
           "usage": "Reference person-red-cap-motion in the existing format at dist/src/data/assets.js.",
-          "expected": "person red cap motion"
+          "expected": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack."
         }
       ],
       "references": ["dist/src/data/assets.js"],
@@ -16597,7 +17069,7 @@
         }
       ],
       "details": {
-        "appearance": "person red cap motion",
+        "appearance": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
         "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
         "scale": "800 by 2048 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Eight rows in the player motion sheet; see character metadata.",
@@ -16607,7 +17079,7 @@
       "previews": [
         {
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "description": "person red cap motion"
+          "description": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack."
         }
       ]
     },

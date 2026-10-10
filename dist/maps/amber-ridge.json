@@ -93,7 +93,8 @@
         "species": "pebblit",
         "level": 10,
         "tactic": "rolling-charge",
-        "power": 1.5
+        "power": 1.5,
+        "combatSprite": "creature-pebblit-crystal-ridge-combat"
       },
       "reward": {
         "coins": 60,
@@ -140,7 +141,7 @@
       "w": 38,
       "label": "Read the trail sign",
       "mapLabel": "Trail sign",
-      "text": "North: crystal shrine (narrow cut or the long east trail) \u00b7 South: Stone Basin \u00b7 East: Frostveil Grove, beyond the shrine \u00b7 Gold: treasure"
+      "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: Frostveil Grove, beyond the shrine · Gold: treasure"
     },
     {
       "id": "east-fork-waymark",
@@ -166,7 +167,7 @@
       "id": "chest",
       "kind": "chest",
       "sprite": "chest-wooden",
-      "at": [45.4, 12.0],
+      "at": [45.4, 12],
       "w": 44,
       "label": "Open the treasure chest",
       "flag": "amber-ridge.chest",
@@ -465,10 +466,10 @@
       "w": 71,
       "solid": 0.36,
       "at": [
-        [33.0, 33.0],
+        [33, 33],
         [31.1, 34.8],
-        [28.6, 34.0],
-        [28.0, 31.5],
+        [28.6, 34],
+        [28, 31.5],
         [29.9, 29.7],
         [32.4, 30.5]
       ],
@@ -498,8 +499,8 @@
         [43.6, 26.3],
         [39.2, 27.3],
         [38.6, 24.7],
-        [40.5, 23.0],
-        [43.0, 23.7]
+        [40.5, 23],
+        [43, 23.7]
       ],
       "piece": "standing-stones-2"
     },
@@ -547,7 +548,7 @@
       "solid": 0.42,
       "at": [
         [11.2, 42.5],
-        [12.7, 43.0],
+        [12.7, 43],
         [11.8, 41.1]
       ],
       "piece": "cairn-4"

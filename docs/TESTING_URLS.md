@@ -6,6 +6,7 @@ Open **Testing URLs** from the title screen or in-game menu. It opens `testing.h
 | --- | --- |
 | `creature-follower-preview.html` | All registered creatures, eight facings, idle/four-frame walk, own-motion turns, retained facing at rest, reduced motion and foreground occlusion at gameplay scale. |
 | `creature-combat-preview.html` | Creature combat idle, attack, hit, faint and capture states with calm-motion playback. |
+| `guardian-combat-preview.html` | Four normal/shrine combat pairs at actual battle scale, all five action states and individual frames, with reduced motion. |
 | `character-preview.html` | Red-cap player walk/idle directions and reusable traveler/gardener appearances. |
 | `player-idle-review.html` | Neutral standing pose compared with walking poses in all directions. |
 | `map-editor.html` | Map Workshop topology, authored terrain and terrain-family compilation. Editing remains in workshop memory until an explicit export or edited-map play action. |

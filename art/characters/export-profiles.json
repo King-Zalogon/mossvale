@@ -125,6 +125,27 @@
       "status": "pending-terrain-art",
       "implementation": "No terrain sprite family is currently exported; map terrain remains authored as data.",
       "resampling": "none until art is introduced"
+    },
+    "creature-guardian-combat-v1": {
+      "category": "creature-combat",
+      "sourceGrid": {
+        "columns": 4,
+        "rows": 5
+      },
+      "frameSizes": {
+        "mushmallow-thorn-mantle": [288, 288],
+        "pebblit-crystal-ridge": [288, 288],
+        "frostowl-ice-mantle": [288, 288],
+        "siltkip-tide-sail": [288, 288]
+      },
+      "resampling": "nearest-neighbor using one common scale per twenty-frame sheet",
+      "alphaThreshold": 32,
+      "footInset": 4,
+      "palette": "preserve generated RGBA; no quantization",
+      "implementation": "art/characters/export-guardian-combat.py; shared follower component cleaner, uniform grid segmentation, common-scale fit, stable bottom-center anchors, exact editable atlas",
+      "minimumComponentPixels": 180,
+      "maxSprite": 264,
+      "footY": 284
     }
   }
 }

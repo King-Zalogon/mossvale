@@ -18,7 +18,10 @@ export async function POST() {
   const {data: app, error} = await supabase.from('applications').select('id').eq('slug', 'mossvale').eq('is_enabled', true).maybeSingle();
   if (error || !app) return NextResponse.json({error: 'Your account does not have access to Mossvale.'}, {status: 403});
 
-  const response = NextResponse.json({url: '/game/index.html'});
+  // Keep the trailing slash so relative assets resolve below the mounted
+  // `/game/` path. Without it, `/game` makes the browser request `/style.css`
+  // and `/src/main.js` from the portal root, leaving the game unstyled.
+  const response = NextResponse.json({url: '/game/'});
   response.cookies.set('mossvale_gate', await createGateTicket(secret), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',

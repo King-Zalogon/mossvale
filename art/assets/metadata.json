@@ -48,6 +48,11 @@
       "width": 5064,
       "height": 1600,
       "mode": "RGBA"
+    },
+    "source/creature-forms-atlas.png": {
+      "width": 2304,
+      "height": 2880,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -590,8 +595,8 @@
           "east",
           "northeast",
           "north",
-          "west",
           "northwest",
+          "west",
           "southeast"
         ],
         "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
@@ -2170,6 +2175,190 @@
         "originalGeneratedReferences": [
           "art/characters/source/creature-rillume-follower-generated.png"
         ]
+      }
+    },
+    {
+      "name": "creature-mushmallow-thorn-mantle-combat",
+      "src": "assets/creatures/creature-mushmallow-thorn-mantle-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-forms-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "defaultFrame": {
+          "column": 0,
+          "row": 0
+        },
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
+        "combatDisplayWidth": 132
+      },
+      "provenance": {
+        "editablePixelSource": "Exact normalized RGBA atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-mushmallow-thorn-mantle-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-pebblit-crystal-ridge-combat",
+      "src": "assets/creatures/creature-pebblit-crystal-ridge-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-forms-atlas.png",
+      "cell": {
+        "x": 1152,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "defaultFrame": {
+          "column": 0,
+          "row": 0
+        },
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
+        "combatDisplayWidth": 132
+      },
+      "provenance": {
+        "editablePixelSource": "Exact normalized RGBA atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-pebblit-crystal-ridge-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-frostowl-ice-mantle-combat",
+      "src": "assets/creatures/creature-frostowl-ice-mantle-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-forms-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "defaultFrame": {
+          "column": 0,
+          "row": 0
+        },
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
+        "combatDisplayWidth": 132
+      },
+      "provenance": {
+        "editablePixelSource": "Exact normalized RGBA atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-frostowl-ice-mantle-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-siltkip-tide-sail-combat",
+      "src": "assets/creatures/creature-siltkip-tide-sail-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-forms-atlas.png",
+      "cell": {
+        "x": 1152,
+        "y": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "defaultFrame": {
+          "column": 0,
+          "row": 0
+        },
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
+        "combatDisplayWidth": 132
+      },
+      "provenance": {
+        "editablePixelSource": "Exact normalized RGBA atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-siltkip-tide-sail-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
       }
     }
   ]
