@@ -38,6 +38,7 @@ import {approachedWithinRadius, companionCanUseRoute, companionRouteDiscovered, 
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
 import {captureBeats, fxForEvent, rewardPops} from './ui/battle-fx.js';
+import {guardianCombatSprite} from './render/battle-art.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
 
 export function createController(app) {
@@ -1077,6 +1078,8 @@ export function createController(app) {
             : `All ${regions.length} shrines shine again. You’ve become a keeper of the Verdant Isles!`
           : `${species[b.id].name} retreated into the wild.`,
         id: b.id,
+        combatSprite: b.boss ? guardianCombatSprite(game.world.map, b) : undefined,
+        combatState: 'faint',
         rewards: [
           last.reward + ' coins',
           last.xp + ' XP',
