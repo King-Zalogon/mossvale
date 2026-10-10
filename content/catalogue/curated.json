@@ -666,7 +666,7 @@
         "sequence": "Collect dialogue actions in order for the existing dialogue presentation.",
         "results": "Speaker-associated dialogue lines; domain function itself does not draw balloons.",
         "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
-        "errors": "Unknown speaker or text outside 1\u2013500 characters fails validation.",
+        "errors": "Unknown speaker or text outside 1–500 characters fails validation.",
         "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
       }
     },
@@ -772,6 +772,73 @@
         "cancellation": "Close the review/index tabs or use their Mossvale return links. The original game tab stays open.",
         "errors": "A missing required shipped page is a packaging defect; browser regressions request every listed destination. No authentication or authoring API is invoked by index navigation.",
         "persistence": "The index and artwork preview do not mutate adventure saves. Map Workshop exports/edited-map play remain explicit authoring actions."
+      }
+    },
+    {
+      "id": "mechanic:guardian-combat-form",
+      "kind": "mechanic",
+      "name": "Shrine combat form",
+      "summary": "Give one configured shrine guardian a transformed battle appearance while its normal species keeps ordinary art.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "guardian.combatSprite",
+          "type": "named same-species combat asset",
+          "default": null,
+          "limits": "Optional shrine field; creature-<species>-…-combat ID, transparent 4×5 idle/attack/hit/faint/capture atlas. Unique guardian species/tactic per map."
+        },
+        {
+          "name": "frames.combatDisplayWidth",
+          "type": "integer pixels",
+          "default": 107,
+          "limits": "Optional override atlas display width; delivered forms use 132 inside the existing 160×145 battle canvas."
+        }
+      ],
+      "dependencies": [
+        "visual:creature-mushmallow-thorn-mantle-combat",
+        "visual:creature-pebblit-crystal-ridge-combat",
+        "visual:creature-frostowl-ice-mantle-combat",
+        "visual:creature-siltkip-tide-sail-combat"
+      ],
+      "limits": [
+        "Art only: no stats, tactics, capture eligibility, rewards or progression changes.",
+        "Unconfigured packs retain normal art; unavailable form atlas falls back to normal combat then portrait.",
+        "Owner taste approval is separate from internal visual inspection.",
+        "Multiple same-species/same-tactic shrines are ambiguous and retain normal art."
+      ],
+      "examples": [
+        {
+          "intent": "Give Meadow’s Mushmallow its thorn mantle in the shrine encounter.",
+          "usage": "Set Meadow shrine guardian.combatSprite to creature-mushmallow-thorn-mantle-combat; refresh pack integrity. See docs/GUARDIAN_COMBAT_FORMS.md.",
+          "expected": "Shrine enemy uses the transformed form; same-species allies, wild encounters, portraits and followers retain normal art."
+        }
+      ],
+      "references": [
+        "docs/GUARDIAN_COMBAT_FORMS.md",
+        "dist/src/domain/mapdata.js",
+        "dist/src/render/battle-art.js",
+        "dist/src/render/sprites.js",
+        "dist/src/ui/battle-view.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/guardian-art.test.mjs",
+          "assertion": "All four mappings, unchanged battle results/save round trips, invalid references and eighty frame boundaries."
+        },
+        {
+          "path": "tests/guardian-art.browser.mjs",
+          "assertion": "Actual shrine interactions, normal allies/wilds, reload, preview states, reduced motion and missing-sheet fallback."
+        }
+      ],
+      "details": {
+        "trigger": "A boss battle matching the current map’s unique configured shrine species/tactic.",
+        "inputs": "Optional guardian.combatSprite manifest ID and standard combat atlas metadata.",
+        "sequence": "Validate and compile the pack reference; select the override for the enemy; retain it across action-to-idle transitions and derive it again after reload.",
+        "results": "A species-specific transformed appearance confined to the configured shrine encounter.",
+        "cancellation": "Leaving the encounter ends its display; no art selection persists in the save.",
+        "errors": "Unknown/mismatched/static references fail pack validation; missing images use existing normal atlas/portrait fallback.",
+        "persistence": "No added save fields or schema changes; current map and existing battle identity determine presentation."
       }
     }
   ],

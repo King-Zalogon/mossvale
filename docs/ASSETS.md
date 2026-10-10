@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-75 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+85 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -65,3 +65,5 @@ All assets use `bottom-center` anchors. World objects set their deliberate appar
 See [ART_REVIEW.md](ART_REVIEW.md) for stable identity records, source hashes, versioned category export profiles, contact sheets, and separate technical and visual review. Player motion, NPC turnarounds, creature portraits, combat sheets and follower sheets have export profiles and regression coverage. All 17 active species have combat and directional sheets. Visual taste and gameplay acceptance remain owner review items; terrain-transition art remains pending because no terrain sprite family has been authored.
 
 Rights and attribution for distribution are tracked separately (deferred in the roadmap).
+
+Four optional transformed combat sheets are documented in [guardian battle forms](GUARDIAN_COMBAT_FORMS.md). Each has a dedicated stable appearance ID, generated source, 4×5 frame metadata and an exact editable crop in `art/assets/source/creature-forms-atlas.png`. Shrine-specific pack mappings do not change the normal species artwork.

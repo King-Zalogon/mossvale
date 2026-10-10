@@ -80,3 +80,5 @@ Format version, unique ids, grid size and characters, known sprites and species,
 ## Side-map completion
 
 Regional seals/chests retain their legacy saved region IDs. Completion flags for side maps are stored independently in `mapFlags`, scoped to the selected adventure and preserved by backup/import. Each cache pays once across reloads without consuming another map’s chest. Saves with no side-map flags retain the existing serialized shape.
+
+Optional shrine `guardian.combatSprite` selects an existing same-species 4×5 combat atlas for that shrine's enemy only. All four Mossvale examples and the unique species/tactic selection restriction are documented in [guardian forms](GUARDIAN_COMBAT_FORMS.md). Other creature displays keep normal assets; the field adds no save identity.

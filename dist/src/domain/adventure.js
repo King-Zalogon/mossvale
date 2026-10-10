@@ -24,7 +24,7 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
   const biomeIds = new Set(biomes.map(b => b.id));
   const expansion = expandMapPrefabs(rawMaps, rawPack?.prefabs);
   const maps = expansion.maps;
-  const errors = [...expansion.errors, ...validateMaps(maps, {spriteNames, speciesIds})];
+  const errors = [...expansion.errors, ...validateMaps(maps, {spriteNames, speciesIds, assets})];
   for (const s of species) if (s.biome && !biomeIds.has(s.biome)) errors.push(`species "${s.id}": unknown biome "${s.biome}"`);
   for (const r of regions) if (r.biome && !biomeIds.has(r.biome)) errors.push(`region "${r.id}": unknown biome "${r.biome}"`);
   const ordered = regions.map(r => maps.find(m => m?.id === r.id));
