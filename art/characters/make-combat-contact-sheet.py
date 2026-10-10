@@ -3,10 +3,10 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[2]
-SPECIES = ["fernling", "emberkin", "duskwing", "brooklet", "hushram", "voltkit", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume"]
+SPECIES = ["fernling", "emberkin", "duskwing", "brooklet", "hushram", "voltkit", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume", "lanternix"]
 STATES = ["idle", "attack", "hit", "faint", "capture"]
 OUT = ROOT / "art/characters/reviews/creature-combat-contact-sheet.png"
-CARD_W, CARD_H = 730, 950
+CARD_W, CARD_H = 730, 1000
 SHEET_W = 2 * CARD_W + 36
 SHEET_H = 56 + ((len(SPECIES) + 1) // 2) * (CARD_H + 12)
 BG = "#17392f"
@@ -32,14 +32,14 @@ def main():
             portrait = portrait.convert("RGBA")
         scale = 115 / portrait.width
         portrait = portrait.resize((115, max(1, round(portrait.height * scale))), Image.Resampling.NEAREST)
-        draw.rounded_rectangle((x + 16, y + 42, x + CARD_W - 16, y + 174), radius=8, fill=PANEL)
+        draw.rounded_rectangle((x + 16, y + 42, x + CARD_W - 16, y + 230), radius=8, fill=PANEL)
         sheet.paste(portrait, (x + 24, y + 50), portrait)
-        draw.text((x + 158, y + 94), "Canonical reference · 115 px", fill=MUTED, font=font)
+        draw.text((x + 158, y + 130), "Canonical reference · 115 px", fill=MUTED, font=font)
         atlas_path = ROOT / f"dist/assets/creatures/creature-{name}-combat.png"
         with Image.open(atlas_path) as atlas:
             atlas = atlas.convert("RGBA")
         for state_row, state in enumerate(STATES):
-            sy = y + 192 + state_row * 148
+            sy = y + 248 + state_row * 148
             draw.text((x + 16, sy + 45), state.title(), fill=TEXT, font=font)
             for frame in range(4):
                 sx = x + 142 + frame * 136

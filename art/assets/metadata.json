@@ -35,17 +35,17 @@
       "mode": "RGBA"
     },
     "source/creature-additions-atlas.png": {
-      "width": 1351,
+      "width": 1558,
       "height": 264,
       "mode": "RGBA"
     },
     "source/creature-combat-new-atlas.png": {
-      "width": 5824,
+      "width": 6992,
       "height": 1440,
       "mode": "RGBA"
     },
     "source/creature-follower-new-atlas.png": {
-      "width": 5064,
+      "width": 6080,
       "height": 1600,
       "mode": "RGBA"
     },
@@ -2359,6 +2359,114 @@
           "art/characters/source/creature-siltkip-tide-sail-combat-generated.png"
         ],
         "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-lanternix",
+      "src": "assets/creatures/creature-lanternix.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 191,
+      "height": 263,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 1367,
+        "y": 1,
+        "width": 191,
+        "height": 263
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-lanternix-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-lanternix-combat",
+      "src": "assets/creatures/creature-lanternix-combat.png",
+      "width": 1152,
+      "height": 1440,
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 5840,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-lanternix-combat-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-lanternix-follower",
+      "src": "assets/creatures/creature-lanternix-follower.png",
+      "width": 1000,
+      "height": 1600,
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 5080,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-lanternix-follower-generated.png"
+        ]
       }
     }
   ]

@@ -42,7 +42,8 @@
         "docs/ART_REVIEW.md",
         "docs/ASSETS.md",
         "package.json",
-        "tests/test_sprite_cells.py"
+        "tests/test_sprite_cells.py",
+        "dist/assets/creatures/creature-lanternix-combat.png"
       ],
       "entries": [
         "mechanic:creature-sheet-export",
@@ -62,10 +63,11 @@
         "visual:creature-petalunge-combat",
         "visual:creature-cindercurl-combat",
         "visual:creature-sunsifter-combat",
-        "visual:creature-rillume-combat"
+        "visual:creature-rillume-combat",
+        "visual:creature-lanternix-combat"
       ],
       "disposition": "updated",
-      "reason": "Repairs legacy nonuniform combat cuts by recovering complete original-alpha poses before packing with four-pixel transparent gutters and one common scale. All seventeen combat sheets are visually reviewed at 115px; every follower and guardian cell is audited without changing those assets. Adds strict 15% blank-source margins, a future generation brief and reproducible technical audit; original generated sources and archive bytes remain unchanged. The separate Voltkit identity revision is not resolved by a recrop.",
+      "reason": "Repairs legacy nonuniform combat cuts by recovering complete original-alpha poses before packing with four-pixel transparent gutters and one common scale. All eighteen combat sheets are visually reviewed at 115px; every follower and guardian cell is audited without changing those assets. Adds strict 15% blank-source margins, a future generation brief and reproducible technical audit; original generated sources and archive bytes remain unchanged. The separate Voltkit identity revision is not resolved by a recrop.",
       "evidence": [
         "tests/test_sprite_cells.py",
         "art/characters/reviews/creature-combat-contact-sheet.png",

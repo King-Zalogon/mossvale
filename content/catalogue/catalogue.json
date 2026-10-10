@@ -5015,11 +5015,11 @@
       "evidence": [
         {
           "path": "tests/test_sprite_cells.py",
-          "assertion": "Nonuniform rows, thin tails, detached particles, alpha holes, pixel conservation, shared scale, transparent gutters and 340 combat frames."
+          "assertion": "Nonuniform rows, thin tails, detached particles, alpha holes, pixel conservation, shared scale, transparent gutters and 360 combat frames."
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "assertion": "Exact runtime hashes and margin/baseline audit for 38 atlases and 1,100 cells."
+          "assertion": "Exact runtime hashes and margin/baseline audit for 40 atlases and 1,160 cells."
         },
         {
           "path": "art/characters/visual-reviews.json",
@@ -5773,6 +5773,51 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "A measured thorn volley from a sturdy defender. Shared multiplier: 0.9.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
+      }
+    },
+    {
+      "id": "move:charge-chime",
+      "kind": "mechanic",
+      "name": "Charge chime",
+      "summary": "A modest spark pulse; Prepare relay can instead open a teammate’s elemental strike.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "Charge chime",
+            "power": 0.98,
+            "description": "A modest spark pulse; Prepare relay can instead open a teammate’s elemental strike."
+          },
+          "limits": "Configure through dist/src/data/moves.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "A modest spark pulse; Prepare relay can instead open a teammate’s elemental strike.",
+          "usage": "Reference charge-chime in the existing format at dist/src/data/moves.js.",
+          "expected": "A modest spark pulse; Prepare relay can instead open a teammate’s elemental strike."
+        }
+      ],
+      "references": ["dist/src/data/moves.js"],
+      "evidence": [
+        {
+          "path": "tests/battle-actions.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Elemental battle action for a species naming this move.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "A modest spark pulse; Prepare relay can instead open a teammate’s elemental strike. Shared multiplier: 0.98.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
@@ -10396,6 +10441,64 @@
       }
     },
     {
+      "id": "species:mossvale/lanternix",
+      "kind": "actor",
+      "name": "Lanternix",
+      "summary": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "lanternix",
+            "name": "Lanternix",
+            "type": "Spark",
+            "stats": {
+              "hp": 38,
+              "attack": 9,
+              "defense": 12
+            },
+            "move": "charge-chime",
+            "biome": "badlands",
+            "role": "Relay opener",
+            "personality": "Watchful and sociable; its three light bands answer the glints of companions along the ridge.",
+            "desc": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases.",
+            "encounterHint": "Watch the reachable ridge grass for three gold bands; it can appear at any time.",
+            "strong": ["Water", "Air", "Mire"],
+            "weak": ["Stone", "Sand"],
+            "color": "#dfb657",
+            "hp": 38,
+            "sprite": "creature-lanternix"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-lanternix"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases.",
+          "usage": "Reference mossvale/lanternix in the existing format at dist/maps/registries.json.",
+          "expected": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases. Portrait reference: creature-lanternix.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
       "id": "species:mossvale/mushmallow",
       "kind": "actor",
       "name": "Mushmallow",
@@ -14964,6 +15067,198 @@
         {
           "path": "dist/assets/creatures/creature-hushram-follower.png",
           "description": "Sturdy shaggy ram with long curved ice horns, four dark hooves and a low fluffy tail."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-lanternix",
+      "kind": "visual",
+      "name": "creature-lanternix",
+      "summary": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-lanternix",
+            "kind": "creature",
+            "src": "assets/creatures/creature-lanternix.png",
+            "w": 191,
+            "h": 263,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+          "usage": "Reference creature-lanternix in the existing format at dist/src/data/assets.js.",
+          "expected": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "191 by 263 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-lanternix is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-lanternix.png",
+          "description": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-lanternix-combat",
+      "kind": "visual",
+      "name": "creature-lanternix-combat",
+      "summary": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-lanternix-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-lanternix-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "columnOrder": [0, 1, 2, 3],
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              }
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+          "usage": "Reference creature-lanternix-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-lanternix-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-lanternix-combat.png",
+          "description": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-lanternix-follower",
+      "kind": "visual",
+      "name": "creature-lanternix-follower",
+      "summary": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-lanternix-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-lanternix-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+          "usage": "Reference creature-lanternix-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-lanternix-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-lanternix-follower.png",
+          "description": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae."
         }
       ]
     },

@@ -120,6 +120,9 @@ Claimed on `codex/274-map-spatial-report`, based on `origin/integration` `89e3fd
 
 Claimed on `codex/243-island-map-previews` from `origin/integration` `80725f6`; refreshed through `origin/integration` `205c333` to resolve conflicts in catalogue generated data and this handoff. The four secondary map cards omitted their preview markup; this was not an asset-load failure. Added optional, validated `preview` sprite metadata to map format v1, selected map-specific props for Blueglass Pass, Ruined Orchard, Stilt Isles and Stone Basin, and kept map access/travel state independent. Browser coverage checks all eight cards, rendered canvases, phone overflow and disabled locked routes. PR #304 merged into `integration` as `89e3fdd`; #243 completed.
 
+## #289 — Lanternix
+
+Continuing the existing claim on `codex/289-lanternix`, created from `origin/main` `04584f0`, refreshed through integration `da3be86` and the Sunsifter/Rillume prerequisite PR #310. Original portrait, combat and eight-direction hover sheets; stable appended Spark registry/move; optional curious western-ridge encounter; generic relay setup/switch/use and checkpoint-ID regressions. The shared #263 relay is already integrated; no exclusive Conductive condition or controller/save change is introduced. Verify/build and refresh against latest integration before merging; owner visual/enjoyment review remains pending.
 ## #255 — battle feel
 
 Claude claim: `claude/255-battle-feel`, from `origin/integration` `da3be86`. Scope: presentation only (`dist/src/ui/battle-fx.js`, `battle-view.js`, controller frame wiring, battle CSS): floating numbers, eased HP bars, hit-stop, scene shake, element sparks, calm-motion alternative; adds the `mechanic:battle-impact-feedback` fiche. Does not touch `domain/battle.js`, damage, Focus, saves or the combat sprite sheets (#173/#280 untouched). Checks run locally (CI unavailable): lint, `npm test` (375 pass), catalogue write/check/impact, boundaries, format; every browser test except `catalogue-browser` passes, with that failure reproduced on pristine integration on Linux.
@@ -166,3 +169,9 @@ Claimed `codex/338-specific-discovery-notices` from `origin/main` 9a391e5. Adds 
 ## #346 — capture result timing
 
 Codex claim: `codex/346-capture-result-timing`, from latest `origin/main` `9a391e5` (includes current integration). Throw and wobble frames use the pre-throw ownership snapshot; settled/broken orb reveals the result. Removes failure spoiler text. Browser coverage checks new and owned creatures, successful/failed capture, calm motion and disabled actions. Save/RNG rules are unchanged. Integration-only PR.
+
+## #289 resumed verification
+
+The existing `codex/289-lanternix` / PR #314 claim is refreshed through integration `f2d2370` (guardian PR #328). Shared manifest/provenance/catalogue conflicts preserve all four guardian forms, eighteen normal species, the canonical follower-preview discovery and the recent player-facing/capture/launch changes. Separate combat and follower review records are retained (26 records); only shared metadata pins changed. The new `tests/lanternix.browser.mjs` real-controls regression passed capture into full-team reserve, activation/reload and relay preparation/reload/switch/element consumption. Scoped impact passed (54 paths). Full final-head verify/build precede ordinary integration-only merge. Owner visual/enjoyment feedback under #289/#267 remains pending; keep those issues open for that acceptance. #315 is complete via PR #328, merge `f2d2370`, with 399 Node tests, 39 browser scripts, build and impact passing.
+
+Integration refresh included PR #314 Lanternix. Its retained source also crossed uniform row cuts, so #347 now recovers all eighteen normal combat sheets; the audit covers forty atlases / 1,160 cells. Its acquisition, relay, source history and canonical design remain intact.

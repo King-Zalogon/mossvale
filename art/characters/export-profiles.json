@@ -51,7 +51,8 @@
         "petalunge": [288, 288],
         "cindercurl": [288, 288],
         "sunsifter": [288, 288],
-        "rillume": [288, 288]
+        "rillume": [288, 288],
+        "lanternix": [288, 288]
       },
       "resampling": "one shared nearest-neighbor scale per species only when complete source poses exceed the content box",
       "alphaThreshold": 8,
@@ -88,7 +89,8 @@
         "petalunge": [0, 292, 584, 878, 1119, 1402],
         "cindercurl": [0, 302, 568, 838, 1096, 1402],
         "sunsifter": [0, 298, 592, 858, 1111, 1402],
-        "rillume": [0, 310, 592, 868, 1133, 1402]
+        "rillume": [0, 310, 592, 868, 1133, 1402],
+        "lanternix": [0, 310, 568, 870, 1119, 1402]
       },
       "sourceColumnBounds": {
         "emberkin": [
@@ -121,7 +123,7 @@
     },
     "creature-follower-v1": {
       "category": "creature-follower",
-      "status": "implemented-sixth-batch",
+      "status": "implemented-seventh-batch",
       "sourceGrid": {
         "columns": 5,
         "rows": 8
@@ -133,7 +135,7 @@
       "minimumComponentPixels": 180,
       "footY": 196,
       "palette": "preserve exact generated source bytes; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
-      "remaining": "All seventeen roster species have follower atlases; visual owner review remains separate.",
+      "remaining": "All eighteen roster species have follower atlases; visual owner review remains separate.",
       "indexedOutput": {
         "species": ["hushram", "voltkit", "mushmallow", "frostowl"],
         "colors": 256,

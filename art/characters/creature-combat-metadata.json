@@ -178,6 +178,11 @@
         1402
       ],
       "exportProfile": "creature-guardian-combat-v1"
+    },
+    "lanternix": {
+      "generatedSource": "art/characters/source/creature-lanternix-combat-generated.png",
+      "referenceAsset": "creature-lanternix",
+      "promptBrief": "Keep three golden charge bands, teal wing cases, six tucked legs and two antennae; five readable combat states with stable ground anchor."
     }
   },
   "frameOrder": [
@@ -491,6 +496,20 @@
       ],
       "anchor": "bottom-center",
       "combatDisplayWidth": 132
+    },
+    "creature-lanternix-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-lanternix-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
     }
   },
   "cadence": {

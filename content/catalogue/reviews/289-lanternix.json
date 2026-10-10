@@ -1,0 +1,68 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "art/assets/metadata.json",
+        "art/assets/pack-creature-addition-atlases.py",
+        "art/assets/source/creature-additions-atlas.png",
+        "art/assets/source/creature-combat-new-atlas.png",
+        "art/assets/source/creature-follower-new-atlas.png",
+        "art/assets/subjects.json",
+        "art/characters/SOURCES.md",
+        "art/characters/creature-combat-metadata.json",
+        "art/characters/creature-follower-metadata.json",
+        "art/characters/export-creature-combat.py",
+        "art/characters/export-creature-followers.py",
+        "art/characters/export-creature-portraits.py",
+        "art/characters/export-profiles.json",
+        "art/characters/make-combat-contact-sheet.py",
+        "art/characters/make-follower-contact-sheet.py",
+        "art/characters/review.py",
+        "art/characters/reviews/289/lanternix-battle.png",
+        "art/characters/reviews/289/lanternix-habitat.png",
+        "art/characters/reviews/289/lanternix-relay.png",
+        "art/characters/reviews/289/silhouette-comparison.png",
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png",
+        "art/characters/source/creature-lanternix-combat-generated.png",
+        "art/characters/source/creature-lanternix-follower-generated.png",
+        "art/characters/source/creature-lanternix-portrait-generated.png",
+        "art/characters/visual-reviews.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/facts.json",
+        "dist/assets/creatures/creature-lanternix-combat.png",
+        "dist/assets/creatures/creature-lanternix-follower.png",
+        "dist/assets/creatures/creature-lanternix.png",
+        "dist/maps/amber-ridge.json",
+        "dist/maps/index.json",
+        "dist/maps/registries.json",
+        "dist/src/data/assets.js",
+        "dist/src/data/moves.js",
+        "tests/follower-runtime.browser.mjs",
+        "tests/lanternix.browser.mjs",
+        "package.json"
+      ],
+      "entries": [
+        "species:mossvale/lanternix",
+        "move:charge-chime",
+        "map:mossvale/amber-ridge",
+        "visual:creature-lanternix",
+        "visual:creature-lanternix-combat",
+        "visual:creature-lanternix-follower"
+      ],
+      "disposition": "updated",
+      "reason": "Adds an original firefly identity, transparent combat/eight-facing follower art, stable appended Spark species and ordinary move, plus an optional curious ridge encounter. It reuses the shared bounded relay and current capture/party/save contracts; no exclusive condition, time gate or traversal mechanic is advertised. Generated fiches preserve the explicit pending owner taste/enjoyment status. Preserves the canonical preview/renderer and concurrent guardian/player-facing fixes; a real-controls browser regression covers capture into reserve, activation, reload and setup/reload/switch/element consumption.",
+      "evidence": [
+        "tests/roster.test.mjs",
+        "tests/creature-combat.browser.mjs",
+        "tests/follower-runtime.browser.mjs",
+        "art/characters/reviews/289/lanternix-habitat.png",
+        "art/characters/reviews/289/lanternix-relay.png",
+        "art/characters/reviews/289/silhouette-comparison.png",
+        "docs/CREATURE_ROSTER.md",
+        "tests/lanternix.browser.mjs"
+      ]
+    }
+  ]
+}
