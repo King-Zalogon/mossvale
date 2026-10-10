@@ -459,7 +459,7 @@
       "asset": "creature-mushmallow-combat",
       "technical": {
         "status": "pass",
-        "source": "follower exporter verifies archived source, 5×8 layout, indexed runtime pixels and aligned feet; preview/browser checks cover all directions and five poses"
+        "source": "follower exporter verifies archived source, 5\u00d78 layout, indexed runtime pixels and aligned feet; preview/browser checks cover all directions and five poses"
       },
       "visual": {
         "decision": "accept",
@@ -500,7 +500,7 @@
       "asset": "creature-frostowl-combat",
       "technical": {
         "status": "pass",
-        "source": "follower exporter verifies archived source, 5×8 layout, indexed runtime pixels and aligned feet; preview/browser checks cover all directions and five poses"
+        "source": "follower exporter verifies archived source, 5\u00d78 layout, indexed runtime pixels and aligned feet; preview/browser checks cover all directions and five poses"
       },
       "visual": {
         "decision": "accept",
@@ -1016,7 +1016,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending.",
+        "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites est\u00e1n muy bien.\"). Normal-play enjoyment/balance acceptance remains pending.",
         "ownerTaste": "approved"
       },
       "evidence": [
@@ -1141,7 +1141,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending.",
+        "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites est\u00e1n muy bien.\"). Normal-play enjoyment/balance acceptance remains pending.",
         "ownerTaste": "approved"
       },
       "evidence": [
@@ -1541,7 +1541,7 @@
       "asset": "creature-lanternix-combat",
       "technical": {
         "status": "pass",
-        "source": "Portrait/combat/follower exports, full roster contact sheets at combat and 37 px follower scale, exporter checks, map/registry validation and focused browser preview."
+        "source": "Portrait/combat/follower exports, full roster contact sheets at combat and 37 px follower scale, exporter checks, map/registry validation and focused browser preview. Shared follower preview now discovers the canonical roster; retained sprite pixels and actual-scale evidence are unchanged. Final integration verification includes every Lanternix direction."
       },
       "visual": {
         "decision": "accept",
@@ -1646,7 +1646,7 @@
         },
         {
           "path": "dist/creature-follower-preview.html",
-          "sha256": "ec7f33090d24cc04900614a739939656508b615c53e1aeea3fec964742ede905"
+          "sha256": "a17a93609a2b5124e649e57493daa56cee174ead5e874b26915304c47430e412"
         },
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -1693,7 +1693,7 @@
       },
       "visual": {
         "decision": "quarantine",
-        "reason": "Deliberate hue shift destroys Fernling’s defining leaf-green palette despite a valid PNG."
+        "reason": "Deliberate hue shift destroys Fernling\u2019s defining leaf-green palette despite a valid PNG."
       }
     },
     {
