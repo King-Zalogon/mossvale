@@ -7,7 +7,7 @@ import {moves} from '../dist/src/data/moves.js';
 import {regions} from '../dist/src/data/regions.js';
 import {species} from '../dist/src/data/species.js';
 import {buildAdventure} from '../dist/src/domain/adventure.js';
-import {playerStrike, createBattle, enemyAttack, resolveTurn} from '../dist/src/domain/battle.js';
+import {playerStrike, createBattle, enemyAttack, resolveTurn, battleCheckpoint} from '../dist/src/domain/battle.js';
 import {setActive, reserve} from '../dist/src/domain/rules.js';
 import {currentObjective} from '../dist/src/domain/objectives.js';
 import {endingDue} from '../dist/src/domain/story.js';
@@ -16,8 +16,8 @@ import {codec, newSave, objCtx, rawMaps, rawObjectives} from './helpers.mjs';
 const idOf = id => species.findIndex(s => s.id === id);
 const story = JSON.parse(readFileSync(new URL('../dist/maps/story.json', import.meta.url), 'utf8'));
 
-test('the seventeen stable species stay findable in their four home biomes', () => {
-  assert.equal(species.length, 17);
+test('the eighteen stable species stay findable in their four home biomes', () => {
+  assert.equal(species.length, 18);
   assert.equal(new Set(species.map(s => s.id)).size, species.length);
   assert.deepEqual(
     species.slice(0, 12).map(s => s.id),
@@ -25,10 +25,10 @@ test('the seventeen stable species stay findable in their four home biomes', () 
   );
   assert.deepEqual(
     species.slice(12).map(s => s.id),
-    ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume'],
+    ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix'],
   );
   assert.equal(biomes.length, 4);
-  const residentCounts = {meadow: 5, wetland: 4, badlands: 5, 'snowy-forest': 3};
+  const residentCounts = {meadow: 5, wetland: 4, badlands: 6, 'snowy-forest': 3};
   for (const biome of biomes) {
     assert.equal(species.filter(s => s.biome === biome.id).length, residentCounts[biome.id], biome.id);
     assert.ok(
@@ -68,6 +68,8 @@ test('each species has a distinct battle role, move, and habitat clue', () => {
   assert.ok(species.find(s => s.id === 'sunsifter').stats.defense < species.find(s => s.id === 'pebblit').stats.defense);
   assert.ok(species.find(s => s.id === 'rillume').stats.attack > species.find(s => s.id === 'brooklet').stats.attack);
   assert.ok(species.find(s => s.id === 'rillume').stats.defense < species.find(s => s.id === 'brooklet').stats.defense);
+  assert.ok(species.find(s => s.id === 'lanternix').stats.attack < species.find(s => s.id === 'voltkit').stats.attack);
+  assert.ok(species.find(s => s.id === 'lanternix').stats.defense > species.find(s => s.id === 'voltkit').stats.defense);
 });
 
 test('different stats and move definitions create distinct battle choices', () => {
@@ -94,7 +96,7 @@ test('different stats and move definitions create distinct battle choices', () =
 });
 
 test('the new creatures keep stable IDs in discovery, party and save round trips', () => {
-  for (const speciesId of ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume']) {
+  for (const speciesId of ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix']) {
     const save = newSave();
     const newId = idOf(speciesId);
     save.caught.push(newId);
@@ -113,8 +115,8 @@ test('the new creatures keep stable IDs in discovery, party and save round trips
   }
 });
 
-test('Sunsifter and Rillume can be captured into a full reserve, activated, used in battle and reloaded', () => {
-  for (const name of ['sunsifter', 'rillume']) {
+test('The roster additions can be captured into a full reserve, activated, used in battle and reloaded', () => {
+  for (const name of ['sunsifter', 'rillume', 'lanternix']) {
     const save = newSave();
     for (const id of [1, 2]) {
       save.caught.push(id);
@@ -149,4 +151,49 @@ test('all four seals finish the story without requiring the optional species col
     [true, false],
   );
   assert.equal(endingDue(story, save, objCtx).title, story.ending.title);
+});
+
+test('Lanternix uses the shared bounded relay, persists its source ID and leaves immediate attacking viable', () => {
+  const lanternix = idOf('lanternix');
+  const rillume = idOf('rillume');
+  const trial = (foe, actions) => {
+    const save = newSave();
+    Object.assign(save, {
+      caught: [lanternix, rillume],
+      party: [lanternix, rillume],
+      active: lanternix,
+      team: {[lanternix]: {xp: 0, hp: 38}, [rillume]: {xp: 0, hp: 42}},
+    });
+    const battle = createBattle(save, () => 0, {id: idOf(foe), level: 5});
+    battle.hp = battle.max = 999;
+    const strikes = [];
+    for (const kind of actions) {
+      const turn = resolveTurn(save, battle, {kind, id: rillume}, () => 0);
+      assert.ok(turn, `${foe} ${kind} is legal`);
+      strikes.push(...turn.events.filter(event => event.type === 'strike'));
+      if (kind === 'setup') {
+        save.battle = battleCheckpoint(battle);
+        const restored = codec.normalize(JSON.parse(codec.serialize(save)), false);
+        assert.equal(restored.battle.condition.source, lanternix);
+        assert.equal(restored.battle.condition.remaining, 1);
+        assert.equal(species[restored.battle.condition.source].id, 'lanternix');
+        save.battle = null;
+      }
+    }
+    assert.equal(battle.condition, null);
+    assert.equal(battle.relayReady, false);
+    return strikes;
+  };
+  for (const foe of ['pebblit', 'brooklet']) {
+    const relay = trial(foe, ['setup', 'switch', 'element']);
+    const direct = trial(foe, ['element', 'switch', 'element']);
+    assert.equal(relay.length, 1);
+    assert.equal(relay[0].prepared, true);
+    assert.ok(relay[0].damage > direct[1].damage, `${foe}: the one-use teammate strike is amplified`);
+    if (foe === 'brooklet')
+      assert.ok(
+        direct.reduce((sum, strike) => sum + strike.damage, 0) > relay[0].damage,
+        'attacking the Water opponent directly remains a better three-turn damage choice',
+      );
+  }
 });

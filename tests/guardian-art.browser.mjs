@@ -97,6 +97,8 @@ try {
     await game.waitForSelector('#challenge');
     await game.click('#challenge');
     await game.waitForSelector('#fight-wild');
+    await game.waitForSelector(`#fight-wild[data-combat-asset="creature-${form}-combat"]`);
+    assert.equal(await game.locator('.guardian-reveal').count(), 0, 'guardian form appears after its introduction completes');
     assert.equal(await game.locator('#fight-wild').getAttribute('data-combat-asset'), `creature-${form}-combat`);
     assert.equal(
       await game.locator('#fight-buddy').getAttribute('data-combat-asset'),

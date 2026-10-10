@@ -118,7 +118,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
@@ -773,7 +773,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -909,14 +909,14 @@
           "path": "dist/assets/creatures/creature-fernling-combat.png",
           "sha256": "50c26219f530e42b350351364c71a7465ccb4c84706996f827d2d477154b0cfc",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-fernling-follower",
           "path": "dist/assets/creatures/creature-fernling-follower.png",
           "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeTreatments": {
@@ -942,13 +942,13 @@
         "assetId": "creature-fernling-combat",
         "fallbackAssetId": "creature-fernling",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -978,7 +978,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4"
+        "sha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f"
       },
       "runtimeFollower": {
         "assetId": "creature-fernling-follower",
@@ -1001,13 +1001,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -1075,7 +1075,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "1bdec0e4534acb1be8ab3f0e396e1baf735bacbbe837b3c61d95497cada664a9"
+        "sha256": "506d30acc080274510cb9fdd1c6b1c73bf184aefbd1b19683d9c5a6d81900979"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1207,14 +1207,14 @@
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
           "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-duskwing-follower",
           "path": "dist/assets/creatures/creature-duskwing-follower.png",
           "sha256": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeTreatments": {
@@ -1240,13 +1240,13 @@
         "assetId": "creature-duskwing-combat",
         "fallbackAssetId": "creature-duskwing",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -1276,7 +1276,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4"
+        "sha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f"
       },
       "runtimeFollower": {
         "assetId": "creature-duskwing-follower",
@@ -1299,13 +1299,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -1373,11 +1373,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4"
+        "sha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1513,14 +1513,14 @@
           "path": "dist/assets/creatures/creature-emberkin-follower.png",
           "sha256": "eb58e50eee961389052c0a12cf6138faf824f7a83b4f1c2063d9269f8405de0f",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         },
         {
           "assetId": "creature-emberkin-combat",
           "path": "dist/assets/creatures/creature-emberkin-combat.png",
           "sha256": "dbe7f65ae28ad098d8e43521c3f6b092caed7c8f9d220682faa585f90f205b3b",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         }
       ],
       "requiredDirections": [
@@ -1554,13 +1554,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -1628,7 +1628,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "1bdec0e4534acb1be8ab3f0e396e1baf735bacbbe837b3c61d95497cada664a9"
+        "sha256": "506d30acc080274510cb9fdd1c6b1c73bf184aefbd1b19683d9c5a6d81900979"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1760,14 +1760,14 @@
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
           "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-brooklet-follower",
           "path": "dist/assets/creatures/creature-brooklet-follower.png",
           "sha256": "5b2c2a46344f9dd6bf23c92ddf623baf4004e71785bd87582f5f8e5adda1c7af",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeTreatments": {
@@ -1793,13 +1793,13 @@
         "assetId": "creature-brooklet-combat",
         "fallbackAssetId": "creature-brooklet",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -1829,7 +1829,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4"
+        "sha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f"
       },
       "runtimeFollower": {
         "assetId": "creature-brooklet-follower",
@@ -1852,13 +1852,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -1926,7 +1926,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "1bdec0e4534acb1be8ab3f0e396e1baf735bacbbe837b3c61d95497cada664a9"
+        "sha256": "506d30acc080274510cb9fdd1c6b1c73bf184aefbd1b19683d9c5a6d81900979"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -2062,14 +2062,14 @@
           "path": "dist/assets/creatures/creature-hushram-combat.png",
           "sha256": "32a1817ed1f63bb330f4bd59f32355f9517f09a903e22dfd02d60a9e1d41bae4",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-hushram-follower",
           "path": "dist/assets/creatures/creature-hushram-follower.png",
           "sha256": "59aee6fdfb97926de8a36acdf1c19e731c6ff08c7251b4c621e49b340ddf5606",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeTreatments": {
@@ -2095,13 +2095,13 @@
         "assetId": "creature-hushram-combat",
         "fallbackAssetId": "creature-hushram",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -2140,13 +2140,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -2215,7 +2215,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceBatches": [
         {
@@ -2348,14 +2348,14 @@
           "path": "dist/assets/creatures/creature-voltkit-combat.png",
           "sha256": "ce6faf852efddc2dc4b7ea80b5cc313b811d1f266ff4289cbafc49d1f22fdc36",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-voltkit-follower",
           "path": "dist/assets/creatures/creature-voltkit-follower.png",
           "sha256": "ce9ca12721e87fe13b6d8b527f589f1acb18328f9ed2de99f619b37a037711d6",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "exportWorkflow": {
@@ -2386,13 +2386,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -2459,11 +2459,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -2603,27 +2603,27 @@
           "path": "dist/assets/creatures/creature-mushmallow-combat.png",
           "sha256": "dc522312ac233dd35462e76dd2050067c058c7f70b3773fd12e92b2c38e02fcb",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-mushmallow-follower",
           "path": "dist/assets/creatures/creature-mushmallow-follower.png",
           "sha256": "dbba4c4e2cd59345ab48c76432284f0d325d0537bda1e13d306b7c856a52520b",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-mushmallow-combat",
         "fallbackAssetId": "creature-mushmallow",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Crop the 4×5 source grid to fixed 288×288 frames, pad transparently and align visible feet to a common bottom anchor without resampling; encode runtime colors as a 256-color indexed PNG without dithering.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -2681,13 +2681,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -2754,11 +2754,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -2898,27 +2898,27 @@
           "path": "dist/assets/creatures/creature-frostowl-combat.png",
           "sha256": "0ec81b187ff2be0cf4130a518c38bacee56d49e2ac1724f358537b0c710adb32",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-frostowl-follower",
           "path": "dist/assets/creatures/creature-frostowl-follower.png",
           "sha256": "a09a15efa0b45f6ab4ba2f5bfd5808722267f883e06cc86abffc41bbe022e6ab",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-frostowl-combat",
         "fallbackAssetId": "creature-frostowl",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Crop the 4×5 source grid to fixed 288×288 frames, pad transparently and align visible feet to a common bottom anchor without resampling; encode runtime colors as a 256-color indexed PNG without dithering.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -2976,13 +2976,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -3044,11 +3044,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -3188,27 +3188,27 @@
           "path": "dist/assets/creatures/creature-pebblit-combat.png",
           "sha256": "0c3c42916062ac05d210832e18835b9330e0904af5c288cd214c80114a58b189",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-pebblit-follower",
           "path": "dist/assets/creatures/creature-pebblit-follower.png",
           "sha256": "4c0d3ab3873a916aa341904e2e36137a83e19b7b3582d9640eb51657f5c1de8e",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-pebblit-combat",
         "fallbackAssetId": "creature-pebblit",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -3266,13 +3266,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -3334,11 +3334,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -3478,27 +3478,27 @@
           "path": "dist/assets/creatures/creature-bramblebuck-combat.png",
           "sha256": "3d08f6850e19de34e7ca45a22da5a568321b0df4c44b3f4de4d111758221064f",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-bramblebuck-follower",
           "path": "dist/assets/creatures/creature-bramblebuck-follower.png",
           "sha256": "5620e661b6efe3c603f69d76717aaf05040e2aae1ede9a6b777986af3f602d2d",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-bramblebuck-combat",
         "fallbackAssetId": "creature-bramblebuck",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -3556,13 +3556,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -3624,11 +3624,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -3768,27 +3768,27 @@
           "path": "dist/assets/creatures/creature-siltkip-combat.png",
           "sha256": "3f9e2e60432c80b696e363f63378c6d7c1b6d773f1de73c6c077cbf4762abdb1",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-siltkip-follower",
           "path": "dist/assets/creatures/creature-siltkip-follower.png",
           "sha256": "3adf0dacc4e499eb63d10c336ef1f1c64f76aba6f983f5da8266eaa0410bab16",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-siltkip-combat",
         "fallbackAssetId": "creature-siltkip",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -3846,13 +3846,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -3914,11 +3914,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -4058,27 +4058,27 @@
           "path": "dist/assets/creatures/creature-sunskitter-combat.png",
           "sha256": "ba4bb37e396a8ca4fc41319937ebf23f44bba53ee76125838856303954b1bf88",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-sunskitter-follower",
           "path": "dist/assets/creatures/creature-sunskitter-follower.png",
           "sha256": "39e8938acd0f663cb0b6c4862f99b78200347f2ce0238bdd0dad36eca34b6fa7",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-sunskitter-combat",
         "fallbackAssetId": "creature-sunskitter",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -4136,13 +4136,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -4168,7 +4168,7 @@
         {
           "assetId": "creature-sedgegnaw",
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "3903b7dbaefed62b0423456cd835fa1b0ec18117e9c26d1c42dd063a3163c996",
+          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879",
           "cell": {
             "x": 0,
             "y": 0,
@@ -4212,15 +4212,15 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
-        "sha256": "efaac83e0e03e357ee492ef010cb68a083ceaa7c77c27fa65f6d9188a055b442",
+        "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
         "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264×264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288×288 cell.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
@@ -4393,27 +4393,27 @@
           "path": "dist/assets/creatures/creature-sedgegnaw-combat.png",
           "sha256": "facee4ffee91342c0f7fcba77dd07b966745b23ce96d80f81674a6cd1efaa344",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-sedgegnaw-follower",
           "path": "dist/assets/creatures/creature-sedgegnaw-follower.png",
           "sha256": "f4da82fb319cf9dab978e0ffe0ea8f9c49a0c44bf2e7792bfd6dc27e379db7d6",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-sedgegnaw-combat",
         "fallbackAssetId": "creature-sedgegnaw",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -4471,13 +4471,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -4503,7 +4503,7 @@
         {
           "assetId": "creature-petalunge",
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "3903b7dbaefed62b0423456cd835fa1b0ec18117e9c26d1c42dd063a3163c996",
+          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879",
           "cell": {
             "x": 270,
             "y": 13,
@@ -4547,15 +4547,15 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
-        "sha256": "efaac83e0e03e357ee492ef010cb68a083ceaa7c77c27fa65f6d9188a055b442",
+        "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
         "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264×264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288×288 cell.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
@@ -4728,27 +4728,27 @@
           "path": "dist/assets/creatures/creature-petalunge-combat.png",
           "sha256": "7e39a6991e0104ccd69b60a07c6c5b42210eb990f01abc8eda126733377cb9fc",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-petalunge-follower",
           "path": "dist/assets/creatures/creature-petalunge-follower.png",
           "sha256": "5f3234e585bcd48587920f339c98cf1834d1478b5685e274688176463fe9f6ac",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-petalunge-combat",
         "fallbackAssetId": "creature-petalunge",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -4806,13 +4806,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -4838,7 +4838,7 @@
         {
           "assetId": "creature-cindercurl",
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "3903b7dbaefed62b0423456cd835fa1b0ec18117e9c26d1c42dd063a3163c996",
+          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879",
           "cell": {
             "x": 550,
             "y": 53,
@@ -4882,15 +4882,15 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
-        "sha256": "efaac83e0e03e357ee492ef010cb68a083ceaa7c77c27fa65f6d9188a055b442",
+        "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
         "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264×264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288×288 cell.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
@@ -5063,27 +5063,27 @@
           "path": "dist/assets/creatures/creature-cindercurl-combat.png",
           "sha256": "1c03809059cf3e276cb10510dd71a7d4221c6c94ebf8dbbb2cf056162ab1dbd6",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-cindercurl-follower",
           "path": "dist/assets/creatures/creature-cindercurl-follower.png",
           "sha256": "8fc23c0ae05f4874ac8b4e6873f3f031eb2c5ffafa976221b99736d4e348cfd5",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-cindercurl-combat",
         "fallbackAssetId": "creature-cindercurl",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -5141,13 +5141,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -5172,7 +5172,7 @@
         {
           "assetId": "creature-sunsifter",
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "3903b7dbaefed62b0423456cd835fa1b0ec18117e9c26d1c42dd063a3163c996",
+          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879",
           "cell": {
             "x": 830,
             "y": 82,
@@ -5216,15 +5216,15 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
-        "sha256": "efaac83e0e03e357ee492ef010cb68a083ceaa7c77c27fa65f6d9188a055b442",
+        "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
         "settings": "Trim alpha at or below 8; fit visible portrait into a 264×264 box with nearest-neighbor sampling; center horizontally and align feet at y=284 in a 288×288 guide, then tightly crop.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
@@ -5397,27 +5397,27 @@
           "path": "dist/assets/creatures/creature-sunsifter-combat.png",
           "sha256": "0ccc02755bad86cb86bc20160378176e8c004e887b9e3c31971e4338928f69e7",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-sunsifter-follower",
           "path": "dist/assets/creatures/creature-sunsifter-follower.png",
           "sha256": "8d6548b7ce7aeebc133f76734664b06bf81b871ad55275bbb667efe72c4b9dd7",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-sunsifter-combat",
         "fallbackAssetId": "creature-sunsifter",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -5475,13 +5475,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -5506,7 +5506,7 @@
         {
           "assetId": "creature-rillume",
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "3903b7dbaefed62b0423456cd835fa1b0ec18117e9c26d1c42dd063a3163c996",
+          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879",
           "cell": {
             "x": 1110,
             "y": 0,
@@ -5550,15 +5550,15 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "3a24164623c113f5339b7811a86c6c1e2e17256bfafd8da038fca863b2dbda05"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
-        "sha256": "efaac83e0e03e357ee492ef010cb68a083ceaa7c77c27fa65f6d9188a055b442",
+        "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
         "settings": "Trim alpha at or below 8; fit visible portrait into a 264×264 box with nearest-neighbor sampling; center horizontally and align feet at y=284 in a 288×288 guide, then tightly crop.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
@@ -5731,27 +5731,27 @@
           "path": "dist/assets/creatures/creature-rillume-combat.png",
           "sha256": "38189f28587315b665578bd44b4d4d6c55d5802ff17ca28c0cfa11e81d7b469a",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         {
           "assetId": "creature-rillume-follower",
           "path": "dist/assets/creatures/creature-rillume-follower.png",
           "sha256": "a614da0f3ee3acd61954bdd0676c6b951318dd71dd62e8d45c4b78eacd06d7ca",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       ],
       "runtimeCombat": {
         "assetId": "creature-rillume-combat",
         "fallbackAssetId": "creature-rillume",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "33e341a21ab5e60d780109aae0e8e5faa22e7c90999064c8a9e3130be9f7f6b2",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "ea80104ad9859dcf10c7712ea4a9d23047acd3a8573988024f456a5b73857bc9",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
           "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "99eae015a89ce06cae43190fbc3db771a7ea0786236d368e09c58c7c10231029"
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
         },
         "requiredStates": [
           "idle",
@@ -5809,13 +5809,13 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "e96427b77fbce090e9a6e7470c1e52b12474ba7fd442776869efa33293e70ba4",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "d74e10696cfcf8e32ad8a85d558e4fd3fbeea0e38b2b2d3f15cbdb13fbb85d37",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
-          "profileSha256": "6056835a19b20100c8f06d1b58e8012b1b7cb162efc1731435b0b10b1949b021"
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
     },
@@ -6367,6 +6367,374 @@
       "sourceMetadata": {
         "path": "art/characters/guardian-generation.json",
         "sha256": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61"
+      }
+    },
+    {
+      "id": "creature-lanternix",
+      "revision": 1,
+      "identity": {
+        "silhouette": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
+        "palette": [
+          "muted teal",
+          "warm gold",
+          "cream wings",
+          "dark brown"
+        ],
+        "distinguishingFeatures": [
+          "three glowing abdomen bands",
+          "blunt teal wing cases",
+          "two forked antenna silhouettes",
+          "six tucked insect legs"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-lanternix",
+          "path": "art/assets/source/creature-additions-atlas.png",
+          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879",
+          "cell": {
+            "x": 1367,
+            "y": 1,
+            "width": 191,
+            "height": 263
+          }
+        },
+        {
+          "assetId": "creature-fernling",
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636",
+          "cell": {
+            "x": 1083,
+            "y": 416,
+            "width": 281,
+            "height": 281
+          },
+          "basis": "Current checked-in source cell is the canonical visual reference; original generation reference is unavailable."
+        },
+        {
+          "assetId": "creature-voltkit",
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636",
+          "cell": {
+            "x": 352,
+            "y": 0,
+            "width": 366,
+            "height": 395
+          }
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "available",
+          "value": "Codex image_gen built-in tool",
+          "evidence": "art/characters/SOURCES.md"
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "The image generation tool did not provide provider metadata."
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "The image generation tool did not provide a model version."
+        },
+        "prompt": {
+          "status": "summary-only",
+          "summary": "Original teal firefly with three golden charge bands, blunt wing cases and forked antennae, inspired by the existing roster pixel treatment; combat/follower generations reference its original portrait. Follower SW was revised to show a front-left face distinct from the left profile.",
+          "evidence": "art/characters/SOURCES.md",
+          "exactPromptStatus": "unavailable"
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "No generation seed was retained."
+        },
+        "generationReference": {
+          "status": "available",
+          "assetIds": [
+            "creature-fernling",
+            "creature-voltkit",
+            "creature-lanternix"
+          ]
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No generation masks were retained."
+        }
+      },
+      "sourceNotes": {
+        "path": "art/characters/SOURCES.md",
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+      },
+      "sourceMetadata": {
+        "path": "art/characters/creature-combat-metadata.json",
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+      },
+      "exportWorkflow": {
+        "path": "art/characters/export-creature-portraits.py",
+        "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
+        "settings": "Trim alpha at or below 8; fit visible portrait into a 264×264 box with nearest-neighbor sampling; center horizontally and align feet at y=284 in a 288×288 guide, then tightly crop.",
+        "profileId": "creature-portrait-compact-v1",
+        "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      },
+      "sourceBatches": [
+        {
+          "id": "lanternix-portrait-2026-10-08",
+          "path": "art/characters/source/creature-lanternix-portrait-generated.png",
+          "sha256": "8c1eb0b104c3f1372d21ab40e6d9e951e5a6a443a6c6f72e4d1534dad3499887",
+          "directions": [],
+          "referenceAssetIds": [
+            "creature-fernling",
+            "creature-voltkit"
+          ],
+          "exportAssetIds": [
+            "creature-lanternix"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Lanternix teal firefly with three gold charge bands, blunt wing cases, six tucked insect legs and two antennae; original isolated portrait with Fernling and Voltkit as pixel/palette references.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-fernling",
+                "creature-voltkit"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "lanternix-combat-2026-10-08",
+          "path": "art/characters/source/creature-lanternix-combat-generated.png",
+          "sha256": "dfafed4662b60ae818fb1b2b531821748e6dd61ac6e1ce2fe4b85f086f9def25",
+          "directions": [],
+          "referenceAssetIds": [
+            "creature-lanternix"
+          ],
+          "exportAssetIds": [
+            "creature-lanternix-combat"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Lanternix teal firefly with three gold charge bands, blunt wing cases, six tucked insect legs and two antennae; five readable combat states, four frames each, preserve the original Lanternix portrait.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-lanternix"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          },
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ]
+        },
+        {
+          "id": "lanternix-follower-2026-10-08",
+          "path": "art/characters/source/creature-lanternix-follower-generated.png",
+          "sha256": "88621b070da5972e6720b937f392c94dd6610071ddc048c72c8f885c8a7c5ea0",
+          "directions": [
+            "north",
+            "northeast",
+            "east",
+            "southeast",
+            "south",
+            "southwest",
+            "west",
+            "northwest"
+          ],
+          "referenceAssetIds": [
+            "creature-lanternix"
+          ],
+          "exportAssetIds": [
+            "creature-lanternix-follower"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "Codex image_gen built-in tool",
+              "evidence": "art/characters/SOURCES.md"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide provider metadata."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The image generation tool did not provide a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Lanternix teal firefly with three gold charge bands, blunt wing cases, six tucked insect legs and two antennae; eight screen facings, idle plus four wingflutter poses; revise SW to show a front-left face, keep stable hover ground anchor.",
+              "evidence": "art/characters/SOURCES.md",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was retained."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-lanternix"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "assetId": "creature-lanternix",
+          "path": "dist/assets/creatures/creature-lanternix.png",
+          "sha256": "d69101170b9fed57eabc6643a9a35ea149b48489da1fd3a4d1ffb03501cc8c80",
+          "profileId": "creature-portrait-compact-v1",
+          "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+        },
+        {
+          "assetId": "creature-lanternix-combat",
+          "path": "dist/assets/creatures/creature-lanternix-combat.png",
+          "sha256": "8602b957596b0ab9aa7fcfa549a7a5a041c2e7c13f41357af774de6af040760b",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+        },
+        {
+          "assetId": "creature-lanternix-follower",
+          "path": "dist/assets/creatures/creature-lanternix-follower.png",
+          "sha256": "b6d757a3b6e45e5a6a41d00864c86255c2f88e900b35dcd9fd0b6773d53f10f8",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
+        }
+      ],
+      "runtimeCombat": {
+        "assetId": "creature-lanternix-combat",
+        "fallbackAssetId": "creature-lanternix",
+        "contractPath": "art/characters/creature-combat-metadata.json",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-combat.py",
+          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
+          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "profileId": "creature-combat-v1",
+          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+        },
+        "requiredStates": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "artPixelsChanged": true
+      },
+      "runtimeTreatments": {
+        "assetId": "creature-lanternix",
+        "scope": "static portrait fallback only",
+        "contractPath": "art/characters/creature-animation-metadata.json",
+        "contractSha256": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
+        "requiredStates": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "hit",
+          "capture"
+        ],
+        "artPixelsChanged": false
+      },
+      "runtimeFollower": {
+        "assetId": "creature-lanternix-follower",
+        "fallbackAssetId": "creature-lanternix",
+        "directions": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "frameOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "contractPath": "art/characters/creature-follower-metadata.json",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
+        "exportWorkflow": {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
+          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "profileId": "creature-follower-v1",
+          "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
+        }
       }
     }
   ]

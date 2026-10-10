@@ -5,7 +5,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 GUTTER = 16
-SPECIES = ["sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume"]
+SPECIES = ["sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume", "lanternix"]
 ATLASES = {
     "source/creature-combat-new-atlas.png": ("combat", (1152, 1440)),
     "source/creature-follower-new-atlas.png": ("follower", (1000, 1600)),
