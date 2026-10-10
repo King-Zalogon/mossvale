@@ -27,6 +27,8 @@ SPECS = {
     "cindercurl": {"source": "art/characters/source/creature-cindercurl-combat-generated.png", "target": "dist/assets/creatures/creature-cindercurl-combat.png"},
     "sunsifter": {"source": "art/characters/source/creature-sunsifter-combat-generated.png", "target": "dist/assets/creatures/creature-sunsifter-combat.png"},
     "rillume": {"source": "art/characters/source/creature-rillume-combat-generated.png", "target": "dist/assets/creatures/creature-rillume-combat.png"},
+    "lanternix": {"source": "art/characters/source/creature-lanternix-combat-generated.png", "target": "dist/assets/creatures/creature-lanternix-combat.png"},
+
 }
 
 
