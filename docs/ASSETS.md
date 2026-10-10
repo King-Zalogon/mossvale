@@ -67,3 +67,7 @@ See [ART_REVIEW.md](ART_REVIEW.md) for stable identity records, source hashes, v
 Rights and attribution for distribution are tracked separately (deferred in the roadmap).
 
 Four optional transformed combat sheets are documented in [guardian battle forms](GUARDIAN_COMBAT_FORMS.md). Each has a dedicated stable appearance ID, generated source, 4×5 frame metadata and an exact editable crop in `art/assets/source/creature-forms-atlas.png`. Shrine-specific pack mappings do not change the normal species artwork.
+
+Third-party asset rights and source attribution are tracked separately from original Mossvale art. See [THIRD_PARTY_ASSETS.md](THIRD_PARTY_ASSETS.md) and `art/assets/third-party/registry.json`; a game or framework code license does not automatically cover these works.
+
+Third-party visual assets use the same runtime manifest and pixel-preserving atlas exporter as other props/items. Keep the original source archive, license evidence, source-file hashes, intended uses and limits in the package registry. Verify with `python art/assets/import-third-party-assets.py --check` (also included by `npm run art:check`). Do not infer a license from a Reddit post or from free availability.

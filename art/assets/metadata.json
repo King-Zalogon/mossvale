@@ -53,6 +53,11 @@
       "width": 2304,
       "height": 2880,
       "mode": "RGBA"
+    },
+    "third-party/reactorcore-nature-surface-atlas.png": {
+      "width": 989,
+      "height": 286,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -98,6 +103,56 @@
         "editablePixelSource": "art/assets/source atlas cell",
         "originalGeneratedReferences": [],
         "originalGenerationSourceAvailable": false
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "bush-woodland-low",
+      "src": "assets/props/bush-woodland-low.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 44,
+      "height": 21,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "bush-woodland-small",
+      "src": "assets/props/bush-woodland-small.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 34,
+      "height": 15,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 60,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
       },
       "exportProfile": {
         "id": "prop-static-v1",
@@ -771,6 +826,52 @@
       }
     },
     {
+      "name": "creature-frostowl-ice-mantle-combat",
+      "src": "assets/creatures/creature-frostowl-ice-mantle-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-forms-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "defaultFrame": {
+          "column": 0,
+          "row": 0
+        },
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
+        "combatDisplayWidth": 132
+      },
+      "provenance": {
+        "editablePixelSource": "Exact normalized RGBA atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-frostowl-ice-mantle-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
       "name": "creature-hushram",
       "src": "assets/creatures/creature-hushram.png",
       "folder": "creatures",
@@ -887,6 +988,52 @@
       }
     },
     {
+      "name": "creature-mushmallow-thorn-mantle-combat",
+      "src": "assets/creatures/creature-mushmallow-thorn-mantle-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-forms-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "defaultFrame": {
+          "column": 0,
+          "row": 0
+        },
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
+        "combatDisplayWidth": 132
+      },
+      "provenance": {
+        "editablePixelSource": "Exact normalized RGBA atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-mushmallow-thorn-mantle-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
       "name": "creature-pebblit",
       "src": "assets/creatures/creature-pebblit.png",
       "folder": "creatures",
@@ -942,6 +1089,52 @@
         "editablePixelSource": "art/characters/export-creature-combat.py fixed-cell output",
         "originalGeneratedReferences": [
           "art/characters/source/creature-pebblit-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-pebblit-crystal-ridge-combat",
+      "src": "assets/creatures/creature-pebblit-crystal-ridge-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-forms-atlas.png",
+      "cell": {
+        "x": 1152,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "defaultFrame": {
+          "column": 0,
+          "row": 0
+        },
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
+        "combatDisplayWidth": 132
+      },
+      "provenance": {
+        "editablePixelSource": "Exact normalized RGBA atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-pebblit-crystal-ridge-combat-generated.png"
         ],
         "originalGenerationSourceAvailable": true
       }
@@ -1051,6 +1244,114 @@
         "originalGenerationSourceAvailable": true,
         "originalGeneratedReferences": [
           "art/characters/source/creature-petalunge-follower-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-rillume",
+      "src": "assets/creatures/creature-rillume.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 241,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 1110,
+        "y": 0,
+        "width": 241,
+        "height": 264
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-rillume-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-rillume-combat",
+      "src": "assets/creatures/creature-rillume-combat.png",
+      "width": 1152,
+      "height": 1440,
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 4672,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-rillume-combat-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-rillume-follower",
+      "src": "assets/creatures/creature-rillume-follower.png",
+      "width": 1000,
+      "height": 1600,
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 4064,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-rillume-follower-generated.png"
         ]
       }
     },
@@ -1223,6 +1524,160 @@
       }
     },
     {
+      "name": "creature-siltkip-tide-sail-combat",
+      "src": "assets/creatures/creature-siltkip-tide-sail-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-forms-atlas.png",
+      "cell": {
+        "x": 1152,
+        "y": 1440
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "defaultFrame": {
+          "column": 0,
+          "row": 0
+        },
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
+        "combatDisplayWidth": 132
+      },
+      "provenance": {
+        "editablePixelSource": "Exact normalized RGBA atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-siltkip-tide-sail-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-sunsifter",
+      "src": "assets/creatures/creature-sunsifter.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 264,
+      "height": 182,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 830,
+        "y": 82,
+        "width": 264,
+        "height": 182
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sunsifter-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-sunsifter-combat",
+      "src": "assets/creatures/creature-sunsifter-combat.png",
+      "width": 1152,
+      "height": 1440,
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 3504,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sunsifter-combat-generated.png"
+        ]
+      }
+    },
+    {
+      "name": "creature-sunsifter-follower",
+      "src": "assets/creatures/creature-sunsifter-follower.png",
+      "width": 1000,
+      "height": 1600,
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 3048,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "folder": "creatures",
+      "kind": "creature",
+      "anchor": "bottom-center",
+      "provenance": {
+        "editablePixelSource": "art/assets/source normalized animation atlas cell",
+        "originalGenerationSourceAvailable": true,
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-sunsifter-follower-generated.png"
+        ]
+      }
+    },
+    {
       "name": "creature-sunskitter",
       "src": "assets/creatures/creature-sunskitter.png",
       "folder": "creatures",
@@ -1327,6 +1782,48 @@
       }
     },
     {
+      "name": "item-apple",
+      "src": "assets/items/item-apple.png",
+      "folder": "items",
+      "kind": "item",
+      "width": 7,
+      "height": 8,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 110,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      }
+    },
+    {
+      "name": "item-banana",
+      "src": "assets/items/item-banana.png",
+      "folder": "items",
+      "kind": "item",
+      "width": 16,
+      "height": 7,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 133,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      }
+    },
+    {
       "name": "item-capture-orb",
       "src": "assets/items/item-capture-orb.png",
       "folder": "items",
@@ -1344,6 +1841,69 @@
         "editablePixelSource": "art/assets/source atlas cell",
         "originalGeneratedReferences": [],
         "originalGenerationSourceAvailable": false
+      }
+    },
+    {
+      "name": "item-melon",
+      "src": "assets/items/item-melon.png",
+      "folder": "items",
+      "kind": "item",
+      "width": 15,
+      "height": 15,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 165,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      }
+    },
+    {
+      "name": "item-melon-slice",
+      "src": "assets/items/item-melon-slice.png",
+      "folder": "items",
+      "kind": "item",
+      "width": 15,
+      "height": 8,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 196,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      }
+    },
+    {
+      "name": "item-orange",
+      "src": "assets/items/item-orange.png",
+      "folder": "items",
+      "kind": "item",
+      "width": 7,
+      "height": 7,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 227,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
       }
     },
     {
@@ -1535,6 +2095,331 @@
           "art/characters/SOURCES.md"
         ],
         "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "plant-fern-frond",
+      "src": "assets/props/plant-fern-frond.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 27,
+      "height": 33,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 250,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-golden-stem",
+      "src": "assets/props/plant-golden-stem.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 14,
+      "height": 23,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 293,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-groundcover",
+      "src": "assets/props/plant-groundcover.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 29,
+      "height": 24,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 323,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-narrow-leaves",
+      "src": "assets/props/plant-narrow-leaves.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 9,
+      "height": 33,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 368,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-pot-fronds",
+      "src": "assets/props/plant-pot-fronds.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 20,
+      "height": 28,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 393,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-pot-red-bloom",
+      "src": "assets/props/plant-pot-red-bloom.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 18,
+      "height": 32,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 429,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-pot-round",
+      "src": "assets/props/plant-pot-round.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 14,
+      "height": 34,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 463,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-pot-small",
+      "src": "assets/props/plant-pot-small.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 26,
+      "height": 24,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 493,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-pot-spiky",
+      "src": "assets/props/plant-pot-spiky.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 19,
+      "height": 26,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 535,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-pot-yellow-bloom",
+      "src": "assets/props/plant-pot-yellow-bloom.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 20,
+      "height": 33,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 570,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-spike",
+      "src": "assets/props/plant-spike.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 12,
+      "height": 21,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 606,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-sprout",
+      "src": "assets/props/plant-sprout.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 11,
+      "height": 24,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 634,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "plant-three-leaf",
+      "src": "assets/props/plant-three-leaf.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 24,
+      "height": 27,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 661,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
       }
     },
     {
@@ -1790,6 +2675,81 @@
       }
     },
     {
+      "name": "rock-field-large",
+      "src": "assets/props/rock-field-large.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 46,
+      "height": 25,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 701,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "rock-field-medium",
+      "src": "assets/props/rock-field-medium.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 23,
+      "height": 16,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 763,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "rock-field-small",
+      "src": "assets/props/rock-field-small.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 11,
+      "height": 7,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 802,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
       "name": "rock-spire-red",
       "src": "assets/props/rock-spire-red.png",
       "folder": "props",
@@ -1862,6 +2822,56 @@
       }
     },
     {
+      "name": "tree-fir-full",
+      "src": "assets/props/tree-fir-full.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 88,
+      "height": 128,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 829,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "tree-fir-slim",
+      "src": "assets/props/tree-fir-slim.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 56,
+      "height": 94,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 933,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
       "name": "tree-oak",
       "src": "assets/props/tree-oak.png",
       "folder": "props",
@@ -1914,6 +2924,56 @@
       }
     },
     {
+      "name": "tree-oak-round",
+      "src": "assets/props/tree-oak-round.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 122,
+      "height": 142,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 144
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "tree-oak-young",
+      "src": "assets/props/tree-oak-young.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 68,
+      "height": 90,
+      "anchor": "bottom-center",
+      "sheet": "third-party/reactorcore-nature-surface-atlas.png",
+      "cell": {
+        "x": 138,
+        "y": 144
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/reactorcore-nature-surface-atlas.png cell",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": false,
+        "externalSourceId": "reactorcore-nature-surface"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
       "name": "tree-pine",
       "src": "assets/props/tree-pine.png",
       "folder": "props",
@@ -1959,406 +3019,6 @@
       "exportProfile": {
         "id": "prop-static-v1",
         "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      }
-    },
-    {
-      "name": "creature-sunsifter",
-      "src": "assets/creatures/creature-sunsifter.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 264,
-      "height": 182,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-additions-atlas.png",
-      "cell": {
-        "x": 830,
-        "y": 82,
-        "width": 264,
-        "height": 182
-      },
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-sunsifter-portrait-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      },
-      "exportProfile": {
-        "id": "creature-portrait-compact-v1",
-        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
-      }
-    },
-    {
-      "name": "creature-rillume",
-      "src": "assets/creatures/creature-rillume.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 241,
-      "height": 264,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-additions-atlas.png",
-      "cell": {
-        "x": 1110,
-        "y": 0,
-        "width": 241,
-        "height": 264
-      },
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-rillume-portrait-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      },
-      "exportProfile": {
-        "id": "creature-portrait-compact-v1",
-        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
-      }
-    },
-    {
-      "name": "creature-sunsifter-combat",
-      "src": "assets/creatures/creature-sunsifter-combat.png",
-      "width": 1152,
-      "height": 1440,
-      "sheet": "source/creature-combat-new-atlas.png",
-      "cell": {
-        "x": 3504,
-        "y": 0
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ]
-      },
-      "folder": "creatures",
-      "kind": "creature",
-      "anchor": "bottom-center",
-      "provenance": {
-        "editablePixelSource": "art/assets/source normalized animation atlas cell",
-        "originalGenerationSourceAvailable": true,
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-sunsifter-combat-generated.png"
-        ]
-      }
-    },
-    {
-      "name": "creature-sunsifter-follower",
-      "src": "assets/creatures/creature-sunsifter-follower.png",
-      "width": 1000,
-      "height": 1600,
-      "sheet": "source/creature-follower-new-atlas.png",
-      "cell": {
-        "x": 3048,
-        "y": 0
-      },
-      "frames": {
-        "columns": 5,
-        "rows": 8,
-        "columnOrder": [
-          "idle",
-          "walk-1",
-          "walk-2",
-          "walk-3",
-          "walk-4"
-        ],
-        "rowOrder": [
-          "north",
-          "northeast",
-          "east",
-          "southeast",
-          "south",
-          "southwest",
-          "west",
-          "northwest"
-        ]
-      },
-      "folder": "creatures",
-      "kind": "creature",
-      "anchor": "bottom-center",
-      "provenance": {
-        "editablePixelSource": "art/assets/source normalized animation atlas cell",
-        "originalGenerationSourceAvailable": true,
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-sunsifter-follower-generated.png"
-        ]
-      }
-    },
-    {
-      "name": "creature-rillume-combat",
-      "src": "assets/creatures/creature-rillume-combat.png",
-      "width": 1152,
-      "height": 1440,
-      "sheet": "source/creature-combat-new-atlas.png",
-      "cell": {
-        "x": 4672,
-        "y": 0
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ]
-      },
-      "folder": "creatures",
-      "kind": "creature",
-      "anchor": "bottom-center",
-      "provenance": {
-        "editablePixelSource": "art/assets/source normalized animation atlas cell",
-        "originalGenerationSourceAvailable": true,
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-rillume-combat-generated.png"
-        ]
-      }
-    },
-    {
-      "name": "creature-rillume-follower",
-      "src": "assets/creatures/creature-rillume-follower.png",
-      "width": 1000,
-      "height": 1600,
-      "sheet": "source/creature-follower-new-atlas.png",
-      "cell": {
-        "x": 4064,
-        "y": 0
-      },
-      "frames": {
-        "columns": 5,
-        "rows": 8,
-        "columnOrder": [
-          "idle",
-          "walk-1",
-          "walk-2",
-          "walk-3",
-          "walk-4"
-        ],
-        "rowOrder": [
-          "north",
-          "northeast",
-          "east",
-          "southeast",
-          "south",
-          "southwest",
-          "west",
-          "northwest"
-        ]
-      },
-      "folder": "creatures",
-      "kind": "creature",
-      "anchor": "bottom-center",
-      "provenance": {
-        "editablePixelSource": "art/assets/source normalized animation atlas cell",
-        "originalGenerationSourceAvailable": true,
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-rillume-follower-generated.png"
-        ]
-      }
-    },
-    {
-      "name": "creature-mushmallow-thorn-mantle-combat",
-      "src": "assets/creatures/creature-mushmallow-thorn-mantle-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-forms-atlas.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "frameWidth": 288,
-        "frameHeight": 288,
-        "defaultFrame": {
-          "column": 0,
-          "row": 0
-        },
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ],
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
-        "combatDisplayWidth": 132
-      },
-      "provenance": {
-        "editablePixelSource": "Exact normalized RGBA atlas cell",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-mushmallow-thorn-mantle-combat-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      }
-    },
-    {
-      "name": "creature-pebblit-crystal-ridge-combat",
-      "src": "assets/creatures/creature-pebblit-crystal-ridge-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-forms-atlas.png",
-      "cell": {
-        "x": 1152,
-        "y": 0
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "frameWidth": 288,
-        "frameHeight": 288,
-        "defaultFrame": {
-          "column": 0,
-          "row": 0
-        },
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ],
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
-        "combatDisplayWidth": 132
-      },
-      "provenance": {
-        "editablePixelSource": "Exact normalized RGBA atlas cell",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-pebblit-crystal-ridge-combat-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      }
-    },
-    {
-      "name": "creature-frostowl-ice-mantle-combat",
-      "src": "assets/creatures/creature-frostowl-ice-mantle-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-forms-atlas.png",
-      "cell": {
-        "x": 0,
-        "y": 1440
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "frameWidth": 288,
-        "frameHeight": 288,
-        "defaultFrame": {
-          "column": 0,
-          "row": 0
-        },
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ],
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
-        "combatDisplayWidth": 132
-      },
-      "provenance": {
-        "editablePixelSource": "Exact normalized RGBA atlas cell",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-frostowl-ice-mantle-combat-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      }
-    },
-    {
-      "name": "creature-siltkip-tide-sail-combat",
-      "src": "assets/creatures/creature-siltkip-tide-sail-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/creature-forms-atlas.png",
-      "cell": {
-        "x": 1152,
-        "y": 1440
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "frameWidth": 288,
-        "frameHeight": 288,
-        "defaultFrame": {
-          "column": 0,
-          "row": 0
-        },
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ],
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3",
-        "combatDisplayWidth": 132
-      },
-      "provenance": {
-        "editablePixelSource": "Exact normalized RGBA atlas cell",
-        "originalGeneratedReferences": [
-          "art/characters/source/creature-siltkip-tide-sail-combat-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
       }
     }
   ]

@@ -97,6 +97,7 @@ try {
     await game.waitForSelector('#challenge');
     await game.click('#challenge');
     await game.waitForSelector('#fight-wild');
+    await game.waitForFunction(expected => document.querySelector('#fight-wild')?.dataset.combatAsset === expected, `creature-${form}-combat`);
     assert.equal(await game.locator('#fight-wild').getAttribute('data-combat-asset'), `creature-${form}-combat`);
     assert.equal(
       await game.locator('#fight-buddy').getAttribute('data-combat-asset'),
@@ -109,6 +110,7 @@ try {
     await game.waitForFunction(() => window.mossvale.getState().battle?.turn === 1 && !window.mossvale.getState().battle.busy);
     await game.reload();
     await game.waitForSelector('#fight-wild');
+    await game.waitForFunction(expected => document.querySelector('#fight-wild')?.dataset.combatAsset === expected, `creature-${form}-combat`);
     assert.equal(await game.locator('#fight-wild').getAttribute('data-combat-asset'), `creature-${form}-combat`, 'resumed shrine resolves its configured form');
     await game.click('#flee');
     await game.waitForFunction(() => window.mossvale.getState().phase === 'explore');
