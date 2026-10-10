@@ -876,7 +876,7 @@
         },
         {
           "path": "tests/landmarks.browser.mjs",
-          "assertion": "The real controller shows the exact notice for ten landmarks and keeps each inside the phone viewport."
+          "assertion": "The real controller shows the exact notice for all eleven landmarks and the hidden cache on desktop and phone, within viewport bounds."
         },
         {
           "path": "tests/discovery.browser.mjs",
