@@ -88,21 +88,26 @@
     },
     {
       "visualId": "creature-fernling",
+      "asset": "creature-fernling-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify / fixed 5x8 RGBA sheet, transparent cells and y=196 visible-foot anchor check"
+        "source": "npm run validate; 4x5 RGBA frame grid and common foot-line validator"
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
+        "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
           "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "2136484dfb8b79631e452a3435afd973d077c39da34e4170283c64c74428ad35"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
@@ -120,27 +125,30 @@
           "path": "dist/assets/creatures/creature-fernling.png",
           "sha256": "426046feb5c9b34cd134af383f054ef325a3153a827f81065388b28a35884d84"
         }
-      ],
-      "assetVariant": "creature-fernling-follower"
+      ]
     },
     {
       "visualId": "creature-duskwing",
-      "asset": "creature-duskwing-follower",
+      "asset": "creature-duskwing-combat",
       "technical": {
         "status": "pass",
-        "source": "follower exporter checks transparent 5x8 RGBA cells and y=196 shared foot anchors"
+        "source": "npm run validate; 4x5 RGBA frame grid and common foot-line validator"
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed.",
+        "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
           "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "2136484dfb8b79631e452a3435afd973d077c39da34e4170283c64c74428ad35"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
@@ -157,13 +165,8 @@
         {
           "path": "dist/assets/creatures/creature-duskwing.png",
           "sha256": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1"
-        },
-        {
-          "path": "dist/creature-follower-preview.html",
-          "sha256": "a17a93609a2b5124e649e57493daa56cee174ead5e874b26915304c47430e412"
         }
-      ],
-      "assetVariant": "creature-duskwing-follower"
+      ]
     },
     {
       "visualId": "creature-emberkin",
@@ -208,23 +211,64 @@
       "asset": "creature-emberkin-combat"
     },
     {
-      "visualId": "creature-brooklet",
-      "asset": "creature-brooklet-follower",
+      "visualId": "creature-fernling",
       "technical": {
         "status": "pass",
-        "source": "follower exporter checks transparent 5x8 RGBA cells and y=196 shared foot anchors"
+        "source": "npm run verify / fixed 5x8 RGBA sheet, transparent cells and y=196 visible-foot anchor check"
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor.",
+        "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
           "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "604bdba5949ae0853b3fb0d67a9a13eb97f39f6fd52d77648976f71eba9435ce"
+        },
+        {
+          "path": "dist/assets/creatures/creature-fernling-combat.png",
+          "sha256": "50c26219f530e42b350351364c71a7465ccb4c84706996f827d2d477154b0cfc"
+        },
+        {
+          "path": "dist/assets/creatures/creature-fernling-follower.png",
+          "sha256": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7"
+        },
+        {
+          "path": "dist/assets/creatures/creature-fernling.png",
+          "sha256": "426046feb5c9b34cd134af383f054ef325a3153a827f81065388b28a35884d84"
+        }
+      ],
+      "assetVariant": "creature-fernling-follower"
+    },
+    {
+      "visualId": "creature-brooklet",
+      "asset": "creature-brooklet-combat",
+      "technical": {
+        "status": "pass",
+        "source": "npm run validate; transparent 4x5 RGBA frame grid and common foot-anchor checks"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "2136484dfb8b79631e452a3435afd973d077c39da34e4170283c64c74428ad35"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
@@ -241,13 +285,8 @@
         {
           "path": "dist/assets/creatures/creature-brooklet.png",
           "sha256": "ba91ded862d7cc2cbe0096d9681d4942012cefabb9becb49974e1f89ce4676c5"
-        },
-        {
-          "path": "dist/creature-follower-preview.html",
-          "sha256": "a17a93609a2b5124e649e57493daa56cee174ead5e874b26915304c47430e412"
         }
-      ],
-      "assetVariant": "creature-brooklet-follower"
+      ]
     },
     {
       "visualId": "creature-hushram",
@@ -289,6 +328,90 @@
           "sha256": "1a4b0d299fd31e2fc4d76e39d2c22b94a6e1db85ccfd357eb89ce8052cb61023"
         }
       ]
+    },
+    {
+      "visualId": "creature-duskwing",
+      "asset": "creature-duskwing-follower",
+      "technical": {
+        "status": "pass",
+        "source": "follower exporter checks transparent 5x8 RGBA cells and y=196 shared foot anchors"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "604bdba5949ae0853b3fb0d67a9a13eb97f39f6fd52d77648976f71eba9435ce"
+        },
+        {
+          "path": "dist/assets/creatures/creature-duskwing-combat.png",
+          "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02"
+        },
+        {
+          "path": "dist/assets/creatures/creature-duskwing-follower.png",
+          "sha256": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae"
+        },
+        {
+          "path": "dist/assets/creatures/creature-duskwing.png",
+          "sha256": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1"
+        },
+        {
+          "path": "dist/creature-follower-preview.html",
+          "sha256": "a17a93609a2b5124e649e57493daa56cee174ead5e874b26915304c47430e412"
+        }
+      ],
+      "assetVariant": "creature-duskwing-follower"
+    },
+    {
+      "visualId": "creature-brooklet",
+      "asset": "creature-brooklet-follower",
+      "technical": {
+        "status": "pass",
+        "source": "follower exporter checks transparent 5x8 RGBA cells and y=196 shared foot anchors"
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor.",
+        "ownerTaste": "pending"
+      },
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/source/creatures-atlas.png",
+          "sha256": "72f261feeb93765944ae1328d0f086e76f820aa21e5024d28574e283751e5636"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "604bdba5949ae0853b3fb0d67a9a13eb97f39f6fd52d77648976f71eba9435ce"
+        },
+        {
+          "path": "dist/assets/creatures/creature-brooklet-combat.png",
+          "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242"
+        },
+        {
+          "path": "dist/assets/creatures/creature-brooklet-follower.png",
+          "sha256": "5b2c2a46344f9dd6bf23c92ddf623baf4004e71785bd87582f5f8e5adda1c7af"
+        },
+        {
+          "path": "dist/assets/creatures/creature-brooklet.png",
+          "sha256": "ba91ded862d7cc2cbe0096d9681d4942012cefabb9becb49974e1f89ce4676c5"
+        },
+        {
+          "path": "dist/creature-follower-preview.html",
+          "sha256": "a17a93609a2b5124e649e57493daa56cee174ead5e874b26915304c47430e412"
+        }
+      ],
+      "assetVariant": "creature-brooklet-follower"
     },
     {
       "visualId": "creature-voltkit",
@@ -1523,7 +1646,7 @@
         },
         {
           "path": "dist/creature-follower-preview.html",
-          "sha256": "a17a93609a2b5124e649e57493daa56cee174ead5e874b26915304c47430e412"
+          "sha256": "ec7f33090d24cc04900614a739939656508b615c53e1aeea3fec964742ede905"
         },
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -1608,8 +1731,7 @@
         "creature-petalunge",
         "creature-cindercurl",
         "creature-sunsifter",
-        "creature-rillume",
-        "creature-lanternix"
+        "creature-rillume"
       ],
       "creaturePortraitWidth": 115,
       "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png"
@@ -1634,8 +1756,7 @@
         "creature-petalunge",
         "creature-cindercurl",
         "creature-sunsifter",
-        "creature-rillume",
-        "creature-lanternix"
+        "creature-rillume"
       ],
       "followerWidth": 37,
       "contactSheet": "art/characters/reviews/creature-follower-contact-sheet.png"
@@ -1646,7 +1767,7 @@
       "issue": "#90",
       "profileId": "creature-follower-v1",
       "status": "pending-owner-review",
-      "reason": "Dedicated eight-direction idle and four-frame follower sheets cover all 18 species; owner visual taste and gameplay acceptance remain separate."
+      "reason": "Dedicated eight-direction idle and four-frame follower sheets cover all 17 species; owner visual taste and gameplay acceptance remain separate."
     }
   ]
 }

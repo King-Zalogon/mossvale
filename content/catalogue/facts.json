@@ -11,7 +11,7 @@
     "art/characters/guardian-generation.json": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61",
     "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
-    "art/characters/visual-reviews.json": "1ebf1d57995eb49fde9893c9f36dfa67aa47e6ac86b4108f0495f1b865aa5a01",
+    "art/characters/visual-reviews.json": "d1080639913b5ae72b620c8ea5ff3e478d8a4b351c7371180dc77c2dee7bef8e",
     "content/catalogue/curated.json": "5b7d3110880d06b8f1b36c045064923577c92520ba105f883bac7788af2d8814",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "7d8194ba6ded41ae517b90bccbcb742ae6184bc90654aa0136e3818cf1047d3f",
@@ -226,7 +226,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "3e33e4d5aa1436a92d98a318290e420ed6ba304fc40a3b90ff60c3b10f4688a7",
+  "sourceDigest": "ede90fc59f08a73076ef2f54dfd4b9b4bf0e9b675b6b36096160ed352368b019",
   "exclusions": [
     {
       "family": "module-exports",
@@ -12545,7 +12545,14 @@
         "palette": ["river blue", "deep navy", "cream", "cyan"],
         "distinguishingFeatures": ["large bright eyes", "pale muzzle and chest", "curling blue tail", "water bubbles"]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null
     },
     {
@@ -12811,7 +12818,14 @@
         "palette": ["lavender", "deep violet", "cream", "magenta"],
         "distinguishingFeatures": ["large eye-spotted wings", "pale chest ruff", "magenta eyes", "short dark legs"]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null
     },
     {
@@ -13080,7 +13094,14 @@
         "palette": ["leaf green", "deep forest green", "cream", "warm brown"],
         "distinguishingFeatures": ["oversized green eyes", "pale muzzle and chest", "large leaf tail", "pointed leaf ears"]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null
     },
     {
