@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    return [{source: '/game', destination: '/game/', permanent: false}];
+  },
   async headers() {
     return [
       {

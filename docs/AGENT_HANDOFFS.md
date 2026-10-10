@@ -142,6 +142,7 @@ Codex claim: `codex/317-eight-direction-touch-pad`, created from `origin/integra
 ## #314 — battle action keys
 
 Claude claim: `claude/314-battle-actions-fix`, from `origin/integration` `5cf058e`. Scope: bug report that Potion (6) did nothing and capture seemed impossible. Root cause: the keyboard table in `dist/src/input.js` (1-6 → attack, element, catch, potion, guard, switch) had drifted when relay and objective buttons were inserted, so 5 pressed Guard and 6 pressed Switch. Keys now press the Nth button in the action grid. Domain checked: potion heal and capture chance verified by `tests/capture-rate.test.mjs` (shown % equals observed rate, legacy and pack rules). Tests that encoded the old numbering (`playthrough`, `startup`) updated. Local checks only (CI unavailable).
+| 2026-10-09 | #329 Vercel private game launch path | Portal / deployment UX | `codex/329-vercel-game-trailing-slash` | Created from `origin/main`; `origin/integration` confirmed | Portal launch now returns `/game/` so relative CSS and module assets resolve under the mounted game path; added regression coverage. | Pending PR to `integration`; `npm run verify` and production build required before merge. |
 
 ## #324 — capture and victory feel
 
