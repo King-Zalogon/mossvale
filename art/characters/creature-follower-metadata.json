@@ -110,6 +110,11 @@
       "referenceAsset": "creature-rillume",
       "promptBrief": "Preserve Rillume’s clear bell, dark core and four thick ribbon lobes in all eight directions. Give the lobes a restrained alternating float gait; transparent 5×8 grid, idle plus four walk cells, stable bottom-center anchor.",
       "sourceSize": [992, 1586]
+    },
+    "lanternix": {
+      "generatedSource": "art/characters/source/creature-lanternix-follower-generated.png",
+      "referenceAsset": "creature-lanternix",
+      "promptBrief": "Keep three golden charge bands, teal wing cases, six tucked legs and two antennae; eight screen facings, stable hover anchor, idle and four actual wingflutter poses; SW row revised to show the front-left face."
     }
   },
   "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
@@ -136,7 +141,8 @@
     "creature-petalunge-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-cindercurl-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-sunsifter-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-    "creature-rillume-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+    "creature-rillume-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-lanternix-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
   },
   "sprites": {
     "creature-emberkin-follower": {
@@ -291,6 +297,15 @@
       "rows": 8,
       "anchor": "bottom-center",
       "feetY": 196
+    },
+    "creature-lanternix-follower": {
+      "sourceSize": [992, 1585],
+      "output": "dist/assets/creatures/creature-lanternix-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
     }
   },
   "anchor": "bottom-center",
@@ -302,5 +317,5 @@
     "stopping": "hold idle column 0 and retain last facing",
     "reducedMotion": "hold idle column 0 and retain last facing"
   },
-  "fallback": "All seventeen current species have directional atlases; if an optional atlas fails, the renderer falls back to the species static portrait."
+  "fallback": "All eighteen current species have directional atlases; if an optional atlas fails, the renderer falls back to the species static portrait."
 }
