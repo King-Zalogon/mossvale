@@ -35,3 +35,5 @@ Issue [#73](https://github.com/King-Zalogon/mossvale/issues/73). Maps can be lar
 ## Tests
 
 `tests/discovery.test.mjs`: revealing, edges and odd map sizes, found places and secrets, the saved form (compact, round-trip, damaged or mismatched data), save integration and size bounds, backups and new game, compass and labels, quiet-corridor validation and effect. `tests/discovery.browser.mjs`: exploring grows the explored area and the minimap, survives a reload, the area map's keys / buttons / drag / wheel, the places list, return to camp, a secret found only up close, separate maps per adventure, preferences holding no world progress, and a 390 px phone.
+
+Secret discoveries use authored, short find notices naming the object and a concrete clue or context. They appear only after entering discovery range and are not replayed on reload; the saved landmark id remains the same as its map/journal entry. Ordinary route signs and environmental narration keep their existing presentation.

@@ -30,7 +30,7 @@ import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
-import {discover, entryFor, landmarkLabel, reveal, SECRET_RANGE} from './domain/discovery.js';
+import {discover, discoveryNotice, entryFor, reveal, SECRET_RANGE} from './domain/discovery.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
 import {recordObjectiveEvent, restoreObjectiveState} from './domain/objective-events.js';
 import {availableDialogueChoices} from './domain/dialogue-choices.js';
@@ -409,7 +409,7 @@ export function createController(app) {
     const entry = entryFor(explored, map.id, w, h);
     reveal(entry, w, h, game.player.x, game.player.y);
     const discoverable = game.world.objects.filter(o => !o.route && !o.routeHint);
-    for (const o of discover(entry, discoverable, game.player.x, game.player.y)) if (o.secret) toast(`You found something hidden: ${landmarkLabel(o)}.`);
+    for (const o of discover(entry, discoverable, game.player.x, game.player.y)) if (o.secret) toast(discoveryNotice(o));
   }
 
   let lastInteract = -Infinity;

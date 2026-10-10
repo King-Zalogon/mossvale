@@ -180,7 +180,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine · East: the long trail to the orchard · South: the pond trail and a quiet grove · Blue minimap marker: shrine"
+      "text": "North: crystal shrine \u00b7 East: the long trail to the orchard \u00b7 South: the pond trail and a quiet grove \u00b7 Blue minimap marker: shrine"
     },
     {
       "id": "chest",
@@ -205,7 +205,8 @@
       "label": "Inspect the old well",
       "secret": true,
       "mapLabel": "Old well",
-      "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest."
+      "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest.",
+      "discoveryText": "Old well: a carving beneath the dry stones hints at shy creatures in long grass."
     },
     {
       "id": "hollow-note",
@@ -216,7 +217,8 @@
       "label": "Inspect the hollow oak",
       "secret": true,
       "mapLabel": "Whispering hollow",
-      "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching."
+      "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching.",
+      "discoveryText": "Whispering hollow: a rustle from the old trees rewards a moment of stillness."
     }
   ],
   "exits": [

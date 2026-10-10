@@ -98,6 +98,11 @@ try {
     );
     assert.ok(stand, `${target.id} has a walkable review position`);
     await page.evaluate(([x, y]) => Object.assign(window.mossvale.getState().player, {x, y}), stand);
+    const authored = JSON.parse(readFileSync(new URL(`maps/${target.map}.json`, root), 'utf8')).landmarks.find(item => item.id === target.id);
+    await page.waitForFunction(text => document.querySelector('#toast')?.textContent === text, authored.discoveryText);
+    assert.equal(await page.locator('#toast').textContent(), authored.discoveryText);
+    const notice = await page.locator('#toast').boundingBox();
+    assert.ok(notice.x >= 0 && notice.x + notice.width <= 391, `${target.id} fits the phone viewport`);
     await page.waitForFunction(() => document.querySelector('#toast')?.dataset.active !== 'true', null, {timeout: 7000});
     await page.waitForFunction(
       label => {
