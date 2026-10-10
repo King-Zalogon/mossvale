@@ -259,7 +259,11 @@
       "id": "sedgegnaw",
       "name": "Sedgegnaw",
       "type": "Leaf",
-      "stats": {"hp": 46, "attack": 8, "defense": 14},
+      "stats": {
+        "hp": 46,
+        "attack": 8,
+        "defense": 14
+      },
       "move": "seedline-sweep",
       "biome": "meadow",
       "role": "Seed-trail defender",
@@ -276,7 +280,11 @@
       "id": "petalunge",
       "name": "Petalunge",
       "type": "Bloom",
-      "stats": {"hp": 38, "attack": 14, "defense": 7},
+      "stats": {
+        "hp": 38,
+        "attack": 14,
+        "defense": 7
+      },
       "move": "orchid-pounce",
       "biome": "meadow",
       "role": "Orchard ambusher",
@@ -293,7 +301,11 @@
       "id": "cindercurl",
       "name": "Cindercurl",
       "type": "Fire",
-      "stats": {"hp": 52, "attack": 8, "defense": 17},
+      "stats": {
+        "hp": 52,
+        "attack": 8,
+        "defense": 17
+      },
       "move": "kiln-shoulder",
       "biome": "badlands",
       "role": "Kiln-plate bulwark",
@@ -310,7 +322,11 @@
       "id": "sunsifter",
       "name": "Sunsifter",
       "type": "Sand",
-      "stats": {"hp": 48, "attack": 11, "defense": 12},
+      "stats": {
+        "hp": 48,
+        "attack": 11,
+        "defense": 12
+      },
       "move": "dune-rake",
       "biome": "badlands",
       "role": "Patient ridge bruiser",
@@ -327,7 +343,11 @@
       "id": "rillume",
       "name": "Rillume",
       "type": "Water",
-      "stats": {"hp": 42, "attack": 13, "defense": 9},
+      "stats": {
+        "hp": 42,
+        "attack": 13,
+        "defense": 9
+      },
       "move": "bell-pulse",
       "biome": "wetland",
       "role": "Resonant striker",
@@ -339,6 +359,27 @@
       "color": "#62c9d9",
       "hp": 42,
       "sprite": "creature-rillume"
+    },
+    {
+      "id": "lanternix",
+      "name": "Lanternix",
+      "type": "Spark",
+      "stats": {
+        "hp": 38,
+        "attack": 9,
+        "defense": 12
+      },
+      "move": "charge-chime",
+      "biome": "badlands",
+      "role": "Relay opener",
+      "personality": "Watchful and sociable; its three light bands answer the glints of companions along the ridge.",
+      "desc": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases.",
+      "encounterHint": "Watch the reachable ridge grass for three gold bands; it can appear at any time.",
+      "strong": ["Water", "Air", "Mire"],
+      "weak": ["Stone", "Sand"],
+      "color": "#dfb657",
+      "hp": 38,
+      "sprite": "creature-lanternix"
     }
   ],
   "regions": [
@@ -445,14 +486,36 @@
         "pattern": ["strike", "brace"],
         "braceQuickFactor": 0.12,
         "braceElementFactor": 1.5,
-        "counterplay": [{"id": "break-brace", "action": "element", "previous": "brace", "label": "Brace broken", "reward": {"coins": 8, "xp": 10}}],
+        "counterplay": [
+          {
+            "id": "break-brace",
+            "action": "element",
+            "previous": "brace",
+            "label": "Brace broken",
+            "reward": {
+              "coins": 8,
+              "xp": 10
+            }
+          }
+        ],
         "intro": "Brace comes after your move and deals no damage. On your next turn, a Quick Strike is heavily reduced (3 damage minimum); an elemental move breaks through and costs 1 Focus. Guard does not protect you from a later move after the brace. If you are out of Focus, Quick Strike or Guard now to build 1 before you answer."
       },
       "rolling-charge": {
         "name": "Rolling charge",
         "pattern": ["strike", "charge", "heavy"],
         "guardRiposteFactor": 1.0,
-        "counterplay": [{"id": "guard-heavy", "action": "guard", "next": "heavy", "label": "Heavy blow guarded", "reward": {"coins": 8, "xp": 10}}],
+        "counterplay": [
+          {
+            "id": "guard-heavy",
+            "action": "guard",
+            "next": "heavy",
+            "label": "Heavy blow guarded",
+            "reward": {
+              "coins": 8,
+              "xp": 10
+            }
+          }
+        ],
         "intro": "Charge comes after your move and deals no damage; the heavy blow follows on the guardian's next turn. Guard only lasts for the next enemy action, so save it for the heavy forecast. It reduces that hit by 65% and ripostes for the damage it prevented."
       },
       "frost-chorus": {
@@ -467,7 +530,10 @@
             "previous": "element",
             "resistant": true,
             "label": "Elemental volley resisted",
-            "reward": {"coins": 8, "xp": 10}
+            "reward": {
+              "coins": 8,
+              "xp": 10
+            }
           }
         ],
         "intro": "The guardian uses two elemental moves in a row; the second has a 1.7× raw damage factor before matchup and defense. The enemy acts after your choice, so switch to a healthy teammate resistant to Ice before the second move is forecast. It will still attack the new teammate this turn."
@@ -479,8 +545,26 @@
         "recoveryOnCharge": 0.12,
         "chargeInterruptedBy": "element",
         "counterplay": [
-          {"id": "disrupt-current", "action": "element", "next": "charge", "label": "Recovery disrupted", "reward": {"coins": 8, "xp": 10}},
-          {"id": "guard-crash", "action": "guard", "next": "heavy", "label": "Crash guarded", "reward": {"coins": 8, "xp": 10}}
+          {
+            "id": "disrupt-current",
+            "action": "element",
+            "next": "charge",
+            "label": "Recovery disrupted",
+            "reward": {
+              "coins": 8,
+              "xp": 10
+            }
+          },
+          {
+            "id": "guard-crash",
+            "action": "guard",
+            "next": "heavy",
+            "label": "Crash guarded",
+            "reward": {
+              "coins": 8,
+              "xp": 10
+            }
+          }
         ],
         "intro": "Charge comes after your move and deals no damage; if it survives, the current can restore up to 12% of its maximum HP. An elemental hit this turn (1 Focus) interrupts that recovery. Guarding the charge will not protect you next turn; Guard the heavy forecast to reduce its hit by 65% and riposte for the damage prevented."
       }

@@ -41,6 +41,8 @@ SPECS = {
         "source": "art/characters/source/creature-rillume-portrait-generated.png",
         "target": "dist/assets/creatures/creature-rillume.png",
     },
+    "lanternix": {"source": "art/characters/source/creature-lanternix-portrait-generated.png", "target": "dist/assets/creatures/creature-lanternix.png"},
+
 }
 ATLAS = "art/assets/source/creature-additions-atlas.png"
 
