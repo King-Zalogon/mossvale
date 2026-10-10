@@ -52,6 +52,7 @@ const saveFor = mapId => {
   save.badges = Array.from({length: save.region}, (_, index) => index);
   save.visited = Array.from({length: save.region + 1}, (_, index) => index);
   save.mapId = mapId;
+  [save.x, save.y] = JSON.parse(readFileSync(new URL(`maps/${mapId}.json`, root), 'utf8')).spawns.camp;
   save.visitedMaps = [mapId];
   return codec.serialize(save);
 };
