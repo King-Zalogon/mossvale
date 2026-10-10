@@ -1587,7 +1587,8 @@
             "label": "Look from the Sunstone shelf",
             "secret": true,
             "mapLabel": "Sunstone lookout",
-            "text": "A lookout carved into the cliff. Voltkit love the bright trail; Pebblit prefer to bask where the grass is warm."
+            "text": "A lookout carved into the cliff. Voltkit love the bright trail; Pebblit prefer to bask where the grass is warm.",
+            "discoveryText": "Sunstone lookout: a warm shelf where Voltkit and Pebblit bask along the ridge."
           },
           "limits": "Configure through dist/maps/amber-ridge.json; use its existing validator, not arbitrary new fields."
         }
@@ -1909,7 +1910,8 @@
             "label": "Inspect the icefall ledge",
             "secret": true,
             "mapLabel": "Icefall ledge",
-            "text": "The lake path bends back to the pass. Frostowl keep watch above; Hushram shelter under the lower pines."
+            "text": "The lake path bends back to the pass. Frostowl keep watch above; Hushram shelter under the lower pines.",
+            "discoveryText": "Icefall ledge: Frostowl watch above while Hushram shelter under the lower pines."
           },
           "limits": "Configure through dist/maps/frostveil-grove.json; use its existing validator, not arbitrary new fields."
         }
@@ -2235,7 +2237,8 @@
               "coins": 45,
               "potions": 2,
               "orbs": 3
-            }
+            },
+            "discoveryText": "Blueglass cache: a tucked-away chest waits among the pines. Open it to collect supplies."
           },
           "limits": "Configure through dist/maps/frostveil-pass.json; use its existing validator, not arbitrary new fields."
         }
@@ -2538,7 +2541,8 @@
             "label": "Inspect the hollow oak",
             "secret": true,
             "mapLabel": "Whispering hollow",
-            "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching."
+            "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching.",
+            "discoveryText": "Whispering hollow: a rustle from the old trees rewards a moment of stillness."
           },
           "limits": "Configure through dist/maps/meadow.json; use its existing validator, not arbitrary new fields."
         }
@@ -2588,7 +2592,8 @@
             "label": "Inspect the old well",
             "secret": true,
             "mapLabel": "Old well",
-            "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest."
+            "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest.",
+            "discoveryText": "Old well: a carving beneath the dry stones hints at shy creatures in long grass."
           },
           "limits": "Configure through dist/maps/meadow.json; use its existing validator, not arbitrary new fields."
         }
@@ -2844,7 +2849,8 @@
             "label": "Inspect the cider press",
             "secret": true,
             "mapLabel": "Old cider press",
-            "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
+            "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling.",
+            "discoveryText": "Old cider press: apples still linger where the orchard once made cider."
           },
           "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
         }
@@ -2894,7 +2900,8 @@
             "label": "Inspect the broken orchard wall",
             "secret": true,
             "mapLabel": "Fallen wall",
-            "text": "Part of the old orchard wall. The ruins keep going east, but the trail is safe."
+            "text": "Part of the old orchard wall. The ruins keep going east, but the trail is safe.",
+            "discoveryText": "Fallen wall: another row of orchard ruins continues east along the safe trail."
           },
           "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
         }
@@ -3164,7 +3171,8 @@
             "label": "Look through the heron hide",
             "secret": true,
             "mapLabel": "Heron blind",
-            "text": "A hide for watching herons. Someone scratched in the plank: the shrine guardian loves a strong current."
+            "text": "A hide for watching herons. Someone scratched in the plank: the shrine guardian loves a strong current.",
+            "discoveryText": "Heron blind: a scratched plank holds a clue about the shrine guardian and strong currents."
           },
           "limits": "Configure through dist/maps/reedfen-wetlands.json; use its existing validator, not arbitrary new fields."
         }
@@ -3436,7 +3444,8 @@
             "label": "Inspect the hanging lantern",
             "secret": true,
             "mapLabel": "Lantern islet",
-            "text": "A hanging lantern for night crossings. Keep to the planks and the water keeps its distance."
+            "text": "A hanging lantern for night crossings. Keep to the planks and the water keeps its distance.",
+            "discoveryText": "Lantern islet: a hanging light marks the planks used for night crossings."
           },
           "limits": "Configure through dist/maps/stilt-isles.json; use its existing validator, not arbitrary new fields."
         }
@@ -3959,7 +3968,8 @@
             "label": "Inspect the quarry alcove",
             "secret": true,
             "mapLabel": "Old quarry alcove",
-            "text": "Cut by hand, a block at a time. The guardian above sleeps lightly: roll with its charge, do not stand against it."
+            "text": "Cut by hand, a block at a time. The guardian above sleeps lightly: roll with its charge, do not stand against it.",
+            "discoveryText": "Old quarry alcove: hand-cut blocks shelter a warning about the guardian's charge."
           },
           "limits": "Configure through dist/maps/stone-basin.json; use its existing validator, not arbitrary new fields."
         }
@@ -4058,7 +4068,8 @@
             "label": "Look over the basin",
             "secret": true,
             "mapLabel": "Rim vista",
-            "text": "From the rim you can see the whole basin and the long road up to the shrine."
+            "text": "From the rim you can see the whole basin and the long road up to the shrine.",
+            "discoveryText": "Rim vista: the basin and the long road to the shrine open up below."
           },
           "limits": "Configure through dist/maps/stone-basin.json; use its existing validator, not arbitrary new fields."
         }
@@ -4814,7 +4825,8 @@
         "Calm motion keeps the numbers and final bar widths but drops the shake, sparks and bar easing.",
         "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return.",
         "Capture beats are derived from the already-resolved throw: a success wobbles three times, a miss wobbles once more the closer it was (1 to 3), and calm motion collapses to a single wobble; the wobble count never changes the outcome.",
-        "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion)."
+        "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion).",
+        "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion."
       ],
       "examples": [
         {
@@ -5264,6 +5276,58 @@
         "cancellation": "Failure preserves previous state.",
         "errors": "Unknown item, insufficient supply/currency, full bag/storage or persistence failure refuse operation.",
         "persistence": "Optional inventory is stored in v5 saves; supply mappings preserve legacy potion/orb counts."
+      }
+    },
+    {
+      "id": "mechanic:landmark-discovery",
+      "kind": "mechanic",
+      "name": "Specific landmark discoveries",
+      "summary": "Notice a named secret and a short authored clue when approaching it for the first time.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "landmarks[].discoveryText",
+          "type": "string",
+          "default": null,
+          "limits": "Optional trimmed text of 1–160 characters; older packs use Found <mapLabel>."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Secret notices appear only within 2.5 tiles and once per saved landmark id.",
+        "The notice describes a find; interaction dialogue carries the longer story and navigation signs carry directions."
+      ],
+      "examples": [
+        {
+          "intent": "Give a hidden chest its own discovery notice.",
+          "usage": "Set secret: true, mapLabel: Blueglass cache and discoveryText: Blueglass cache: a tucked-away chest waits among the pines. Open it to collect supplies.",
+          "expected": "Only a nearby first discovery displays the notice and records the stable landmark id."
+        }
+      ],
+      "references": ["dist/src/domain/discovery.js", "dist/src/domain/mapdata.js", "docs/MAP_FORMAT.md", "docs/NAVIGATION.md"],
+      "evidence": [
+        {
+          "path": "tests/landmarks.test.mjs",
+          "assertion": "All eleven authored notices compile unchanged; proximity, once-only discovery, old-pack fallback and invalid text are covered."
+        },
+        {
+          "path": "tests/landmarks.browser.mjs",
+          "assertion": "The real controller shows the exact notice for all eleven landmarks and the hidden cache on desktop and phone, within viewport bounds."
+        },
+        {
+          "path": "tests/discovery.browser.mjs",
+          "assertion": "Hidden markers, pack isolation and persisted discovery survive reload."
+        }
+      ],
+      "details": {
+        "inputs": "Landmark discoveryText, mapLabel, secret and stable id.",
+        "sequence": "Approach, record discovery, display authored notice, then optionally interact.",
+        "results": "Named contextual find notice and the existing map/journal marker.",
+        "cancellation": "Nonblocking toast expires through the existing UI.",
+        "errors": "Map validation rejects empty, untrimmed, non-string and overlong notices.",
+        "persistence": "Existing explored seen ids prevent repeat notices; no save format migration.",
+        "trigger": "First nearby discovery of a secret landmark."
       }
     },
     {

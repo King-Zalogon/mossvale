@@ -111,10 +111,10 @@
           "when": {
             "flag": "meadow.seal"
           },
-          "text": "West: Meadow \u00b7 East: Amber Ridge \u00b7 The short path slips beneath the oldest trees."
+          "text": "West: Meadow · East: Amber Ridge · The short path slips beneath the oldest trees."
         },
         {
-          "text": "West: Meadow \u00b7 East: a sealed trail \u00b7 Look between the old apple rows for a shortcut."
+          "text": "West: Meadow · East: a sealed trail · Look between the old apple rows for a shortcut."
         }
       ]
     },
@@ -127,7 +127,8 @@
       "label": "Inspect the cider press",
       "secret": true,
       "mapLabel": "Old cider press",
-      "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
+      "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling.",
+      "discoveryText": "Old cider press: apples still linger where the orchard once made cider."
     },
     {
       "id": "fallen-wall",
@@ -138,7 +139,8 @@
       "label": "Inspect the broken orchard wall",
       "secret": true,
       "mapLabel": "Fallen wall",
-      "text": "Part of the old orchard wall. The ruins keep going east, but the trail is safe."
+      "text": "Part of the old orchard wall. The ruins keep going east, but the trail is safe.",
+      "discoveryText": "Fallen wall: another row of orchard ruins continues east along the safe trail."
     }
   ],
   "exits": [

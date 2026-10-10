@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/ui/battle-view.js"],
+      "entries": ["mechanic:battle-impact-feedback"],
+      "disposition": "no-semantic-impact",
+      "reason": "Capture outcome text now waits for the existing orb presentation to settle; no authorable resource, rule, save field or catalogue capability changes.",
+      "evidence": ["tests/capture-feel.browser.mjs", "docs/BATTLE.md"]
+    }
+  ]
+}

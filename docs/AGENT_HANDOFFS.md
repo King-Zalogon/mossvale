@@ -158,3 +158,11 @@ Claude claim: `claude/324-capture-victory-feel`, from `origin/integration` `d646
 ## #347 — complete creature frame extraction
 
 Claimed codex/347-clean-creature-frames from origin/main 9a391e5. Audited all 17 combat atlases and all follower directions. Repairs nonuniform legacy sheet cutting by assigning complete original-alpha poses to reviewed cells, then repacking with four-pixel transparent gutters and one species scale. New source sheets reserve 15% blank margins and have a strict preflight and generation brief. No generated original or source archive is edited. Voltkit identity/tail redesign remains separately tracked in #240. Local verification, combat preview and source/provenance updates accompany this integration-only PR.
+
+## #338 — specific discovery notices
+
+Claimed `codex/338-specific-discovery-notices` from `origin/main` 9a391e5. Adds validated optional landmark discoveryText and authored notices for all eleven secrets across eight maps. Old packs fall back to the landmark name. Discovery range, hidden-map behavior, save IDs and once-only notices remain unchanged. Integration-only PR.
+
+## #346 — capture result timing
+
+Codex claim: `codex/346-capture-result-timing`, from latest `origin/main` `9a391e5` (includes current integration). Throw and wobble frames use the pre-throw ownership snapshot; settled/broken orb reveals the result. Removes failure spoiler text. Browser coverage checks new and owned creatures, successful/failed capture, calm motion and disabled actions. Save/RNG rules are unchanged. Integration-only PR.
