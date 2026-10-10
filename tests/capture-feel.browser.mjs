@@ -19,10 +19,14 @@ const server = http
 const url = `http://localhost:${server.address().port}/`;
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 
-async function open(motion, seed) {
+async function open(motion, seed, owned = false) {
   const initial = newSave();
   initial.met = true;
   initial.orbs = 30;
+  if (owned) {
+    initial.caught.push(1);
+    initial.team[1] = {xp: 0, hp: 1};
+  }
   const context = await browser.newContext();
   await context.addInitScript(
     ([raw, settings]) => {
@@ -44,13 +48,19 @@ async function open(motion, seed) {
 async function observe(page) {
   await page.evaluate(() => {
     window.__orbNodes = new WeakSet();
-    window.__seen = {orbs: [], pops: new Set(), bursts: 0, foe: new Set(), ally: new Set()};
+    window.__seen = {orbs: [], captureFrames: [], pops: new Set(), bursts: 0, foe: new Set(), ally: new Set()};
     new MutationObserver(() => {
       const orb = document.querySelector('.orb-ball');
       // Each rendered frame replaces the markup, so a new element is a new beat.
       if (orb && !window.__orbNodes.has(orb)) {
         window.__orbNodes.add(orb);
         window.__seen.orbs.push([...orb.classList].find(c => c.startsWith('orb-') && c !== 'orb-ball'));
+        window.__seen.captureFrames.push({
+          orb: window.__seen.orbs.at(-1),
+          status: document.querySelector('.capture-status')?.textContent,
+          message: document.querySelector('.battle-log')?.textContent,
+          enabled: document.querySelectorAll('.battle-actions button:not([disabled]), #flee:not([disabled])').length,
+        });
       }
       for (const el of document.querySelectorAll('.dmg-pop')) window.__seen.pops.add(el.textContent);
       if (document.querySelector('.burst')) window.__seen.bursts++;
@@ -75,6 +85,7 @@ const settled = page =>
 const seen = page =>
   page.evaluate(() => ({
     orbs: window.__seen.orbs,
+    captureFrames: window.__seen.captureFrames,
     pops: [...window.__seen.pops],
     bursts: window.__seen.bursts,
     foe: [...window.__seen.foe],
@@ -107,6 +118,18 @@ try {
     assert.ok(s.orbs.filter(x => x === 'orb-wobble').length >= 3, `three wobbles before it settles (${closed})`);
     assert.ok(s.foe.includes('inside-orb'), 'the creature is hidden while the orb holds it');
     assert.ok(s.bursts > 0, 'stars burst when the orb settles');
+    assert.ok(
+      s.captureFrames.filter(f => ['orb-throw', 'orb-wobble'].includes(f.orb)).every(f => f.status === 'Not yet befriended'),
+      'success remains hidden until the orb settles',
+    );
+    assert.ok(
+      s.captureFrames.some(f => f.orb === 'orb-caught' && f.status === '✓ Already befriended'),
+      'the settled orb reveals success',
+    );
+    assert.ok(
+      s.captureFrames.every(f => f.enabled === 0),
+      'battle actions remain locked during capture',
+    );
     assert.ok(s.pops.some(t => /^\+\d+ XP$/.test(t)) && s.pops.some(t => /^\+\d+$/.test(t)), `rewards float up (${s.pops})`);
     assert.equal((await page.locator('#result-continue, .result').count()) > 0 || (await page.locator('#modal').innerText()).length > 0, true);
     assert.deepEqual(errors, []);
@@ -129,6 +152,10 @@ try {
     const s = await seen(page);
     assert.ok(s.orbs.includes('orb-break'), `a failed throw opens the orb (${s.orbs})`);
     assert.ok(s.foe.includes('pop-out'), 'the creature pops back out');
+    assert.ok(
+      s.captureFrames.filter(f => f.orb === 'orb-wobble').every(f => f.message === 'The orb wobbles…'),
+      'wobbles do not anticipate failure',
+    );
     assert.deepEqual(errors, []);
     await context.close();
   }
@@ -167,10 +194,36 @@ try {
     }
     const s = await seen(page);
     assert.equal(s.bursts, 0, 'no sparks in calm motion');
+    assert.ok(
+      s.captureFrames.filter(f => ['orb-throw', 'orb-wobble'].includes(f.orb)).every(f => f.status === 'Not yet befriended'),
+      'calm motion preserves suspense until resolution',
+    );
+    assert.ok(
+      s.captureFrames.some(f => f.orb === 'orb-caught' && f.status === '✓ Already befriended'),
+      'calm motion reveals the successful result',
+    );
     const wobbleRuns = s.orbs.join(',').match(/(orb-wobble,?)+/g) ?? [];
     assert.ok(
       wobbleRuns.every(run => run.split(',').filter(Boolean).length === 1),
       `calm motion shows a single wobble per throw (${s.orbs})`,
+    );
+    assert.deepEqual(errors, []);
+    await context.close();
+  }
+  // Previously owned creatures retain their baseline status; it is not a new capture confirmation.
+  {
+    const {page, errors, context} = await open('reduced', 4, true);
+    await page.evaluate(() => window.mossvale.encounter(1));
+    await page.waitForSelector('#catch:not([disabled])');
+    await page.evaluate(() => (window.mossvale.getState().battle.hp = 1));
+    await observe(page);
+    await page.click('#catch');
+    await settled(page);
+    const s = await seen(page);
+    assert.ok(s.captureFrames.length > 0);
+    assert.ok(
+      s.captureFrames.every(f => f.status === '✓ Already befriended' && f.enabled === 0),
+      'ownership remains accurate and actions locked for a repeated capture',
     );
     assert.deepEqual(errors, []);
     await context.close();
