@@ -38,6 +38,7 @@ import {approachedWithinRadius, companionCanUseRoute, companionRouteDiscovered, 
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
 import {captureBeats, fxForEvent, rewardPops} from './ui/battle-fx.js';
+import {guardianCombatSprite} from './render/battle-art.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
 
 export function createController(app) {
@@ -714,6 +715,9 @@ export function createController(app) {
     }
     timeline.cancel();
     game.battle = createBattle(s, rng, spec);
+    // This UI-only marker starts the guardian's reveal without entering the
+    // save codec. A resumed battle therefore keeps its already-revealed form.
+    if (spec.boss) Object.defineProperty(game.battle, 'guardianIntro', {value: true, writable: true, enumerable: false});
     traceBattleStart(s, game.battle, false);
     emit(spec.boss ? 'challenge.started' : 'battle.started', {
       mapId: game.world.map.id,
@@ -1074,6 +1078,8 @@ export function createController(app) {
             : `All ${regions.length} shrines shine again. You’ve become a keeper of the Verdant Isles!`
           : `${species[b.id].name} retreated into the wild.`,
         id: b.id,
+        combatSprite: b.boss ? guardianCombatSprite(game.world.map, b) : undefined,
+        combatState: 'faint',
         rewards: [
           last.reward + ' coins',
           last.xp + ' XP',
