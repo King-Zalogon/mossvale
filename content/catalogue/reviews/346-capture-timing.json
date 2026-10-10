@@ -11,12 +11,14 @@
         "content/catalogue/catalogue.json",
         "content/catalogue/facts.json",
         "content/catalogue/INDEX.md",
-        "content/catalogue/reviews/346-capture-timing.json"
+        "content/catalogue/reviews/346-capture-timing.json",
+        "dist/src/render/sprites.js",
+        "tests/render-budget.test.mjs"
       ],
       "entries": ["mechanic:battle-impact-feedback"],
       "disposition": "updated",
-      "reason": "Capture playback now retains pre-throw ownership until resolution and no longer anticipates failure during wobbles. Durable outcomes and rewards still commit before presentation.",
-      "evidence": ["tests/capture-feel.browser.mjs", "docs/BATTLE.md"]
+      "reason": "Capture playback now retains pre-throw ownership until resolution and no longer anticipates failure during wobbles. Durable outcomes and rewards still commit before presentation. Full validation also exposed a queued RAF timestamp predating animation setup; elapsed time now clamps at zero, preventing negative elemental radius/frame indices without changing animation cadence.",
+      "evidence": ["tests/capture-feel.browser.mjs", "docs/BATTLE.md", "tests/render-budget.test.mjs"]
     }
   ]
 }
