@@ -126,7 +126,7 @@
     "dist/src/controller.js": "f71845299e4904c408581a091cca883c88493ded0ced8ec742fd2226cdbf4ff0",
     "dist/src/creature-combat-preview.js": "54ed3e88504eee78be602a38b7834c43f0aee3d23506d5ea98dabc42bf7fc68a",
     "dist/src/creature-follower-preview.js": "8e6e8c033fbab4ea2bebcb24ffdb9e17319b72b7f532cfd39596a6cd7ee86b7c",
-    "dist/src/data/assets.js": "e0a61efdc03e13b11a09387dd884172e94c72dbfce0dba01bc120833d1f0c6a7",
+    "dist/src/data/assets.js": "e7d497cc52f8e55690832920afd6197a6cca7ad03fa4223d6293777198a32fea",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "8979bfda82b92eb77c77d7e1f3405cd00fb82a7134edf0ea0ba88d58824d2108",
@@ -216,7 +216,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "d1158cf3be063aabc6005f16b14be30caf363e76594bb90dcbc8b38a249478a9",
+  "sourceDigest": "7657dd96415d916e49ec81e1208a1a4648fde45c81fd3bb31897e6d18e6789ff",
   "exclusions": [
     {
       "family": "module-exports",
@@ -13055,6 +13055,9 @@
           "frameWidth": 200,
           "frameHeight": 200,
           "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "mirror": {
+            "northwest": "northeast"
+          },
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
