@@ -30,6 +30,13 @@ def fit_person(source_cell, target_height, max_width=144, alpha_threshold=8, cel
     sprite = sprite.resize(size, Image.Resampling.NEAREST)
     frame = Image.new('RGBA', cell, (0, 0, 0, 0))
     frame.alpha_composite(sprite, ((cell[0] - sprite.width) // 2, foot_y - sprite.height))
+    # Nearest-neighbor downscaling can discard a faint source edge row. Re-align the
+    # visible alpha bounds after scaling so every direction lands on the same foot line.
+    bounds = frame.getchannel('A').point(lambda value: 255 if value > alpha_threshold else 0).getbbox()
+    if bounds and bounds[3] != foot_y:
+        aligned = Image.new('RGBA', cell, (0, 0, 0, 0))
+        aligned.alpha_composite(frame, (0, foot_y - bounds[3]))
+        frame = aligned
     return frame
 
 
@@ -37,16 +44,16 @@ PLAYER_ROWS = [
     # The original source row supplies walk cells unless a focused override is recorded. The neutral-rest
     # turnaround below supplies every idle cell so a stopped player never reuses a stride-like pose.
     ('person-red-cap-motion-north-northeast.png', 0, None),
-    ('person-red-cap-motion-north-northeast.png', 1, ('person-red-cap-motion-northeast-v2.png', 1)),
-    ('person-red-cap-motion-east-southeast.png', 0, None),
+    ('person-red-cap-motion-north-northeast.png', 1, ('person-red-cap-motion-northeast-v3.png', 1)),
+    ('person-red-cap-motion-east-v2.png', 0, None),
     ('person-red-cap-motion-east-southeast.png', 1, None),
     ('person-red-cap-motion-south-southwest.png', 0, None),
     ('person-red-cap-motion-south-southwest.png', 1, ('person-red-cap-motion-southwest-v2.png', 1)),
     ('person-red-cap-motion-west-northwest.png', 0, None),
-    ('person-red-cap-motion-west-northwest.png', 1, None),
+    ('person-red-cap-motion-northwest-v2.png', 0, None),
 ]
 
-PLAYER_IDLE_SOURCE = 'person-red-cap-neutral-idle-v1.png'
+PLAYER_IDLE_SOURCE = 'person-red-cap-neutral-idle-v2.png'
 PLAYER_IDLE_GRID = (4, 2)
 # Source sheet order is S, SE, E, NE on row 0 then N, NW, W, SW on row 1.
 # Export in the runtime N, NE, E, SE, S, SW, W, NW order.
@@ -61,10 +68,10 @@ PLAYER_IDLE_CELLS = [
     (1, 1),  # northwest
 ]
 
-# The generated northeast and southwest strips repeat their middle-leg pose in source columns 2–3 and put the
-# opposite passing pose in column 4. Reorder those four walk cells to alternate the leading leg at runtime.
+# The retained Southwest strip repeats a middle-leg pose in source columns 2–3 and puts the opposite passing
+# pose in column 4. Reorder those four walk cells to alternate the leading leg at runtime. East and Northwest
+# v2 strips already contain a sequential idle + four-pose walk order; Northeast uses a diagonal-facing row with its feet paced by the North stride.
 PLAYER_WALK_COLUMNS = {
-    1: (0, 1, 2, 4, 3),
     5: (0, 1, 2, 4, 3),
 }
 PLAYER_WALK_FRAME_OVERRIDES = {6: {3: 'person-red-cap-motion-west-alternate-stride-v1.png'}}
