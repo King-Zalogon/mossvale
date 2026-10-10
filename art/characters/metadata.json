@@ -12,7 +12,11 @@
       "art/characters/source/person-red-cap-motion-north-northeast.png",
       "art/characters/source/person-red-cap-motion-east-southeast.png",
       "art/characters/source/person-red-cap-motion-south-southwest.png",
-      "art/characters/source/person-red-cap-motion-west-northwest.png"
+      "art/characters/source/person-red-cap-motion-west-northwest.png",
+      "art/characters/source/person-red-cap-motion-east-v2.png",
+      "art/characters/source/person-red-cap-motion-northwest-v2.png",
+      "art/characters/source/person-red-cap-neutral-idle-v2.png",
+      "art/characters/source/person-red-cap-motion-northeast-v3.png"
     ],
     "sourceGrid": {
       "columns": 5,
@@ -21,9 +25,16 @@
     "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
     "idlePoseSource": {
-      "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
-      "dimensions": {"sheet": [1536, 1024], "cell": [384, 512], "runtimeFrame": [160, 256]},
-      "grid": {"columns": 4, "rows": 2},
+      "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
+      "dimensions": {
+        "sheet": [1536, 1024],
+        "cell": [384, 512],
+        "runtimeFrame": [160, 256]
+      },
+      "grid": {
+        "columns": 4,
+        "rows": 2
+      },
       "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
       "stance": "neutral rest with planted, hip-width feet; arms relaxed",
       "anchor": "bottom-center",
@@ -39,28 +50,45 @@
     "walkRowOverrides": [
       {
         "direction": "northeast",
-        "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+        "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
         "sourceRow": 1,
         "columns": [1, 2, 3, 4],
-        "idleSourceSheet": "art/characters/source/person-red-cap-motion-north-northeast.png"
+        "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+      },
+      {
+        "direction": "east",
+        "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+        "sourceRow": 0,
+        "columns": [1, 2, 3, 4],
+        "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
       },
       {
         "direction": "southwest",
         "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
         "sourceRow": 1,
         "columns": [1, 2, 3, 4],
-        "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+        "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
       },
       {
         "direction": "west",
         "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
-        "sourceGrid": {"columns": 1, "rows": 1},
+        "sourceGrid": {
+          "columns": 1,
+          "rows": 1
+        },
         "columns": [3],
-        "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
+        "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+      },
+      {
+        "direction": "northwest",
+        "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+        "sourceRow": 0,
+        "columns": [1, 2, 3, 4],
+        "derivedFrom": "mirrored northeast source direction",
+        "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
       }
     ],
     "walkSourceColumnOrder": {
-      "northeast": [1, 2, 4, 3],
       "southwest": [1, 2, 4, 3]
     }
   },

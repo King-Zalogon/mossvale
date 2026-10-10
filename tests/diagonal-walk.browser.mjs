@@ -143,6 +143,20 @@ try {
       if (running) await page.keyboard.down('Shift');
       for (const key of diagonal.keys) await page.keyboard.down(key);
       await page.waitForTimeout(1100);
+      const timedPlayer = await page.evaluate(() => ({...window.mossvale.getState().player}));
+      // Wait for the renderer to show a full cycle rather than sampling at a fixed wall-clock
+      // instant. A busy browser can miss frames during the old 1100 ms window even though the
+      // distance-driven animation is advancing correctly.
+      await page.waitForFunction(
+        ({row, flipped}) => {
+          const draws = window.playerAtlasDraws.filter(frame => frame.row === row && frame.flipped === flipped);
+          const sequence = draws.reduce((columns, frame) => (columns.at(-1) === frame.column ? columns : [...columns, frame.column]), []);
+          const walkFrames = new Set(draws.map(frame => frame.column).filter(column => column > 0));
+          return walkFrames.size === 4 && sequence.length >= 5;
+        },
+        {row: diagonal.sourceRow, flipped: diagonal.flipped},
+        {timeout: 3500},
+      );
       const after = await page.evaluate(() => ({
         player: {...window.mossvale.getState().player},
         draws: window.playerAtlasDraws,
@@ -152,7 +166,7 @@ try {
       await Promise.all(diagonal.keys.map(key => page.keyboard.up(key)));
       if (running) await page.keyboard.up('Shift');
       assert.equal(after.player.dir, diagonal.dir, `${diagonal.name} ${running ? 'run' : 'walk'} sets the matching world facing`);
-      assert.ok(Math.hypot(after.player.x - before.x, after.player.y - before.y) > 0.35, `${diagonal.name} ${running ? 'run' : 'walk'} moves in the real map`);
+      assert.ok(Math.hypot(timedPlayer.x - before.x, timedPlayer.y - before.y) > 0.35, `${diagonal.name} ${running ? 'run' : 'walk'} moves in the real map`);
       const playerCells = after.draws.filter(frame => frame.row === diagonal.sourceRow && frame.flipped === diagonal.flipped);
       assert.ok(playerCells.length > 0, `${diagonal.name} ${running ? 'run' : 'walk'} is drawn by the real renderer`);
       const heights = playerCells.map(frame => frame.height);
@@ -171,7 +185,7 @@ try {
       scenarios.push({
         direction: diagonal.name,
         mode: running ? 'run' : 'walk',
-        distance: Math.hypot(after.player.x - before.x, after.player.y - before.y),
+        distance: Math.hypot(timedPlayer.x - before.x, timedPlayer.y - before.y),
         transitions: sequence.length - 1,
       });
       await page.waitForTimeout(120);

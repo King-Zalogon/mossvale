@@ -1,0 +1,21 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/input.js",
+        "dist/style.css",
+        "docs/MOVEMENT.md",
+        "tests/input-mode.browser.mjs",
+        "art/characters/visual-reviews.json",
+        "content/catalogue/facts.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/reviews/317-touchpad-feedback.json"
+      ],
+      "entries": ["mechanic:movement"],
+      "disposition": "updated",
+      "reason": "The existing movement fiche now describes the touch pad's dim resting state, immediate same-press reveal, active direction feedback and return to rest after release. Keyboard, mouse, game rules and save data are unchanged.",
+      "evidence": ["tests/input-mode.browser.mjs", "docs/MOVEMENT.md"]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "art/assets/source/people-atlas.png",
+        "art/assets/subjects.json",
+        "art/characters/SOURCES.md",
+        "art/characters/export.py",
+        "art/characters/metadata.json",
+        "art/characters/reviews/player-facing-324.png",
+        "art/characters/source/person-red-cap-motion-east-v2.png",
+        "art/characters/source/person-red-cap-motion-northeast-v3.png",
+        "art/characters/source/person-red-cap-motion-northwest-v2.png",
+        "art/characters/source/person-red-cap-neutral-idle-v2.png",
+        "art/characters/visual-reviews.json",
+        "dist/assets/people/person-red-cap-motion.png",
+        "docs/AGENT_HANDOFFS.md",
+        "tests/test_player_motion_export.py"
+      ],
+      "entries": ["visual:person-red-cap-motion"],
+      "disposition": "updated",
+      "reason": "Correct the player sprite source rows and poses called out in #324. The existing player visual entry keeps its stable ID, eight-direction runtime contract and movement capability; no game rule, save field, map data or adventure-pack requirement changes.",
+      "evidence": ["art/characters/reviews/player-facing-324.png", "dist/character-preview.html", "tests/test_player_motion_export.py"]
+    }
+  ]
+}
