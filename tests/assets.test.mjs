@@ -148,6 +148,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
     'creature-fernling',
     'creature-frostowl',
     'creature-hushram',
+    'creature-lanternix',
     'creature-mushmallow',
     'creature-pebblit',
     'creature-petalunge',
