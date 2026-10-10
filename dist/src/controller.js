@@ -838,7 +838,7 @@ export function createController(app) {
     const b = game.battle;
     if (!b || b.busy || b.over || game.phase !== 'battle' || (ui.modalMode !== 'battle' && action.kind !== 'switch')) return;
     const s = save();
-    const before = {active: s.active};
+    const before = {active: s.active, befriended: s.caught.includes(b.id)};
     const decisionContext = app.combatTrace ? combatDecisionContext(s, b) : null;
     const throwChance = action.kind === 'catch' ? captureChance(s, b) : 0; // shown on the button; sets how the orb wobbles
     const turn = resolveTurn(s, b, action, rng, {
@@ -952,16 +952,16 @@ export function createController(app) {
             frames.push({
               message: 'You throw a capture orb!',
               animation: 'capture',
-              after: e.after,
+              after: {...e.after, befriended: before.befriended},
               sfx: 'throw',
               fx: {pops: [], shake: 0, burst: null, orb: 'throw'},
               wait: wait(480),
             });
           else if (beat.kind === 'wobble')
             frames.push({
-              message: beat.index === beat.of && !caught ? 'The orb wobbles… it is about to open!' : 'The orb wobbles…',
+              message: 'The orb wobbles…',
               animation: 'capture',
-              after: e.after,
+              after: {...e.after, befriended: before.befriended},
               sfx: 'wobble',
               fx: {pops: [], shake: 0, burst: null, orb: 'wobble'},
               wait: wait(560),
