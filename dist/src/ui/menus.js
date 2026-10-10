@@ -6,7 +6,7 @@ import {moves} from '../data/moves.js';
 import {regions} from '../data/regions.js';
 import {companion, level, maxHP, moveName, reserve, unlocked} from '../domain/rules.js';
 import {PARTY_SIZE} from '../config.js';
-import {drawCreature, drawSprite} from '../render/sprites.js';
+import {drawCreature, drawCreatureAnimated, drawSprite} from '../render/sprites.js';
 import {spriteId} from '../data/assets.js';
 import {REST_FLOOR, SHOP} from '../data/economy.js';
 import {canBuy} from '../domain/economy.js';
@@ -234,13 +234,27 @@ export function createMenus(app) {
     wireClose();
   }
 
-  function result({title, copy, id, sprite, rewards = [], note = '', button = 'Keep exploring', onContinue, secondary, onSecondary}) {
+  function result({
+    title,
+    copy,
+    id,
+    sprite,
+    combatSprite,
+    combatState = 'faint',
+    rewards = [],
+    note = '',
+    button = 'Keep exploring',
+    onContinue,
+    secondary,
+    onSecondary,
+  }) {
     open(
       `${header('A MOMENT FOR YOUR JOURNAL', title, false)}<div class="result-content"><canvas id="result-art" class="result-art" width="160" height="145"></canvas><p>${copy}</p><div class="reward-row">${rewards.map(r => `<span class="reward-chip">${r}</span>`).join('')}</div>${note ? `<p class="xp-gain">${note}</p>` : ''}<button id="result-continue" class="primary">${button} <kbd>Enter / Esc</kbd></button>${secondary ? `<button id="result-secondary" class="muted-button" style="display:block;margin:9px auto 0">${secondary}</button>` : ''}</div>`,
       'result',
       'Encounter result',
     );
-    if (id !== undefined) drawCreature($('#result-art'), id, 110);
+    if (combatSprite !== undefined) drawCreatureAnimated($('#result-art'), id, 110, combatState, app.motionReduced(), combatSprite);
+    else if (id !== undefined) drawCreature($('#result-art'), id, 110);
     else drawSprite($('#result-art').getContext('2d'), sprite, 80, 138, 110);
     $('#result-continue').onclick = onContinue || actions.close;
     if (secondary) $('#result-secondary').onclick = onSecondary;
