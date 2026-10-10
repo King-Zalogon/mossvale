@@ -53,15 +53,54 @@
         "sunsifter": [288, 288],
         "rillume": [288, 288]
       },
-      "resampling": "none",
+      "resampling": "one shared nearest-neighbor scale per species only when complete source poses exceed the content box",
       "alphaThreshold": 8,
       "footInset": 4,
-      "palette": "preserve exact generated source bytes; encode Emberkin, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG with no dithering",
+      "palette": "Preserve foreground RGBA after alpha threshold; existing indexed species retain 256 colors with no dithering",
       "reviewStages": ["generated-source", "segmented-cells", "anchored-runtime"],
       "indexedOutput": {
         "species": ["emberkin", "voltkit", "mushmallow", "frostowl"],
         "colors": 256,
         "dither": "none"
+      },
+      "poseSegmentation": "seeded-subjects-v1",
+      "seedInsets": {
+        "emberkin": 6,
+        "mushmallow": 6,
+        "bramblebuck": 12
+      },
+      "transparentGutter": 4,
+      "sourceGenerationGutterFraction": 0.15,
+      "sourceRowBounds": {
+        "emberkin": [0, 287, 596, 876, 1108, 1403],
+        "voltkit": [0, 293, 589, 878, 1108, 1403],
+        "fernling": [0, 296, 580, 864, 1099, 1403],
+        "duskwing": [0, 304, 594, 894, 1112, 1402],
+        "brooklet": [0, 299, 584, 870, 1096, 1402],
+        "hushram": [0, 291, 558, 846, 1092, 1402],
+        "mushmallow": [0, 282, 553, 841, 1101, 1402],
+        "frostowl": [0, 300, 581, 861, 1123, 1402],
+        "pebblit": [0, 275, 536, 800, 1040, 1330],
+        "bramblebuck": [0, 288, 569, 855, 1103, 1402],
+        "siltkip": [0, 290, 571, 846, 1109, 1402],
+        "sunskitter": [0, 243, 480, 710, 940, 1199],
+        "sedgegnaw": [0, 284, 558, 828, 1098, 1402],
+        "petalunge": [0, 292, 584, 878, 1119, 1402],
+        "cindercurl": [0, 302, 568, 838, 1096, 1402],
+        "sunsifter": [0, 298, 592, 858, 1111, 1402],
+        "rillume": [0, 310, 592, 868, 1133, 1402]
+      },
+      "sourceColumnBounds": {
+        "emberkin": [
+          [0, 280, 560, 841, 1121],
+          [0, 272, 560, 860, 1121],
+          [0, 280, 560, 841, 1121],
+          [0, 280, 560, 841, 1121],
+          [0, 280, 560, 841, 1121]
+        ]
+      },
+      "sourceBarriers": {
+        "emberkin": [[860, 287, 596]]
       }
     },
     "creature-portrait-v1": {

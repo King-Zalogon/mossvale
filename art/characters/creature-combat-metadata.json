@@ -501,5 +501,11 @@
     "capture": "play once at 130 ms per frame"
   },
   "reducedMotion": "Show a stable readable pose for the active state; other species use their existing static portrait.",
-  "fallback": "Combat sheets are optional manifest assets. Missing sheets retain the original portrait and event-only CSS reaction."
+  "fallback": "Combat sheets are optional manifest assets. Missing sheets retain the original portrait and event-only CSS reaction.",
+  "sourceGenerationContract": {
+    "brief": "art/characters/CREATURE_SHEET_BRIEF.md",
+    "transparentGutterFraction": 0.15,
+    "strictPreflight": "export-creature-combat.py --species <id> --strict-source-grid --check",
+    "legacyRecovery": "Reviewed nonuniform rows and body-core ownership recover existing tightly packed sheets; original source bytes remain unchanged."
+  }
 }

@@ -67,3 +67,9 @@ See [ART_REVIEW.md](ART_REVIEW.md) for stable identity records, source hashes, v
 Rights and attribution for distribution are tracked separately (deferred in the roadmap).
 
 Four optional transformed combat sheets are documented in [guardian battle forms](GUARDIAN_COMBAT_FORMS.md). Each has a dedicated stable appearance ID, generated source, 4×5 frame metadata and an exact editable crop in `art/assets/source/creature-forms-atlas.png`. Shrine-specific pack mappings do not change the normal species artwork.
+
+## Packed creature frame spacing (#347)
+
+Combat exports separate complete foreground poses using reviewed source row bounds and body cores. Cores identify ownership only: original alpha, thin tails, internal holes and detached effects are restored before packing. Each species uses one shared scale and foot line, with at least four transparent pixels around each runtime cell; faint poses are not enlarged independently. Source PNGs and archive chunks remain byte-identical. The Emberkin legacy attack seam is explicitly recorded in the export profile rather than guessed by deleting edge pixels.
+
+For future sheets use [the combat sheet generation brief](../art/characters/CREATURE_SHEET_BRIEF.md) and reserve 15% of every cell edge for transparency, including effects. `export-creature-combat.py --species <id> --strict-source-grid --check --preview-dir /tmp/review` rejects sources violating that contract. Existing legacy sheets use recorded recovery settings; new batches must meet the blank-margin contract. `tests/test_sprite_cells.py` checks pixel conservation, thin anatomy, detached effects, nonuniform rows, common scale/anchors and all 340 shipped combat cells. The review contact sheet gives each row enough vertical space to display whole frames.

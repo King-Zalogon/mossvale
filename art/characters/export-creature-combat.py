@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from PIL import Image
 from source_archive import source_bytes
+from sprite_cells import extract_poses, validate_gutters
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 PROFILE_ID = "creature-combat-v1"
@@ -44,6 +45,18 @@ def build(root, profile, spec, name):
     xs, ys = bounds(source.width, columns), bounds(source.height, rows)
     segmented = Image.new("RGBA", (columns * frame_width, rows * frame_height), (0, 0, 0, 0))
     anchored = Image.new("RGBA", segmented.size, (0, 0, 0, 0))
+    if profile.get("poseSegmentation") == "seeded-subjects-v1":
+        poses = extract_poses(source, columns, rows, profile["alphaThreshold"], profile.get("seedInsets", {}).get(name, 4), profile.get("sourceRowBounds", {}).get(name), profile.get("sourceColumnBounds", {}).get(name), profile.get("sourceBarriers", {}).get(name, ()))
+        gutter = profile["transparentGutter"]
+        ratio = min(1, (frame_width - 2 * gutter) / max(p.width for p in poses),
+                    (frame_height - profile["footInset"] - gutter) / max(p.height for p in poses))
+        for index, pose in enumerate(poses):
+            if ratio < 1:
+                pose = pose.resize((max(1, round(pose.width * ratio)), max(1, round(pose.height * ratio))), Image.Resampling.NEAREST)
+            x = (index % columns) * frame_width + (frame_width - pose.width) // 2
+            segmented.alpha_composite(pose, (x, (index // columns) * frame_height + (frame_height - pose.height) // 2))
+            anchored.alpha_composite(pose, (x, (index // columns) * frame_height + frame_height - profile["footInset"] - pose.height))
+        return segmented, anchored
     for row in range(rows):
         for column in range(columns):
             cell = source.crop((xs[column], ys[row], xs[column + 1], ys[row + 1]))
@@ -101,7 +114,9 @@ def write_preview(root, preview_dir, profile, prepared):
 
 def main():
     parser = ArgumentParser(description=__doc__)
+    parser.add_argument("--species", choices=list(SPECS), help="review/export one species; omitted means every species")
     parser.add_argument("--check", action="store_true", help="verify outputs without writing them")
+    parser.add_argument("--strict-source-grid", action="store_true", help="reject new generated sheets without 15-percent transparent gutters")
     parser.add_argument("--preview-dir", type=Path, help="write raw, segmented, anchored and runtime stages here")
     parser.add_argument("--root", type=Path, default=DEFAULT_ROOT, help="repository root for isolated exports")
     args = parser.parse_args()
@@ -115,6 +130,11 @@ def main():
     prepared = []
     mismatches = []
     for name, spec in SPECS.items():
+        if args.species and name != args.species:
+            continue
+        if args.strict_source_grid:
+            with Image.open(BytesIO(source_bytes(root, spec["source"]))) as original:
+                validate_gutters(original.convert("RGBA"), profile["sourceGrid"]["columns"], profile["sourceGrid"]["rows"], profile["alphaThreshold"], profile.get("sourceGenerationGutterFraction", 0.15))
         segmented, anchored = build(root, profile, spec, name)
         target = root / spec["target"]
         current = None

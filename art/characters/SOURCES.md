@@ -81,3 +81,9 @@ The design briefs preserve the six-legged ant and narrow leaf-sail for Sedgegnaw
 ## #315 transformed combat forms
 
 See `docs/GUARDIAN_COMBAT_FORMS.md` and `art/characters/guardian-generation.json` for all four references, retained source revisions, prompt summaries and review notes. Sources and runtime exports use the versioned `creature-guardian-combat-v1` profile and `export-guardian-combat.py`. Owner taste approval remains pending.
+
+## Packed creature frame spacing (#347)
+
+Combat exports separate complete foreground poses using reviewed source row bounds and body cores. Cores identify ownership only: original alpha, thin tails, internal holes and detached effects are restored before packing. Each species uses one shared scale and foot line, with at least four transparent pixels around each runtime cell; faint poses are not enlarged independently. Source PNGs and archive chunks remain byte-identical. The Emberkin legacy attack seam is explicitly recorded in the export profile rather than guessed by deleting edge pixels.
+
+For future sheets use [the combat sheet generation brief](CREATURE_SHEET_BRIEF.md) and reserve 15% of every cell edge for transparency, including effects. `export-creature-combat.py --species <id> --strict-source-grid --check --preview-dir /tmp/review` rejects sources violating that contract. Existing legacy sheets use recorded recovery settings; new batches must meet the blank-margin contract. `tests/test_sprite_cells.py` checks pixel conservation, thin anatomy, detached effects, nonuniform rows, common scale/anchors and all 340 shipped combat cells. The review contact sheet gives each row enough vertical space to display whole frames.
