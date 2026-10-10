@@ -48,8 +48,8 @@ test('each region hub has different encounters', () => {
   ); // later regions are higher level
 });
 
-test('all seventeen species have a readable hint and a reachable source in their home biome', () => {
-  assert.equal(species.length, 17);
+test('all eighteen species have a readable hint and a reachable source in their home biome', () => {
+  assert.equal(species.length, 18);
   const playableMaps = Object.values(mapsById);
   for (const creature of species) {
     assert.ok(creature.encounterHint?.trim(), `${creature.id} needs a field hint`);
@@ -75,6 +75,24 @@ test('Sunsifter and Rillume are optional grass encounters that do not require tr
   assert.ok(bankPool.pool.includes(rillume));
   assert.ok(!amber.abilities?.includes('sunsifter'));
   assert.ok(!reedfen.abilities?.includes('rillume'));
+});
+
+test('Lanternix remains a curious optional ridge-grass encounter before and after discovery', () => {
+  const zone = mapsById['amber-ridge'].zones.find(entry => entry.id === 'ridge-grass-west');
+  const lanternix = species.findIndex(entry => entry.id === 'lanternix');
+  const index = zone.pool.indexOf(lanternix);
+  assert.ok(index >= 0);
+  assert.ok(zone.terrain.includes('tallgrass'));
+  assert.equal(zone.weights[index], 2);
+  assert.equal(zone.behaviors[index], 'curious');
+  const save = newSave();
+  for (const seen of [save.seen, [...Array(species.length).keys()]]) {
+    save.seen = seen;
+    const encounter = rollWild(save, () => 0.99, zone);
+    assert.equal(encounter.id, lanternix);
+    assert.equal(encounter.behavior, 'curious');
+    assert.ok(encounter.level >= zone.level[0] && encounter.level <= zone.level[1]);
+  }
 });
 
 test('weights bias the pick, and unseen creatures are favoured', () => {

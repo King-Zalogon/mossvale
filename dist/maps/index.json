@@ -21,7 +21,8 @@
     "petalunge",
     "cindercurl",
     "sunsifter",
-    "rillume"
+    "rillume",
+    "lanternix"
   ],
   "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
   "ending": "story",
@@ -29,7 +30,7 @@
   "story": "story.json",
   "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 4,
+  "contentVersion": 5,
   "requires": {
     "engineVersion": 1,
     "saveSchema": 5
@@ -38,7 +39,7 @@
     {
       "id": "registry:main",
       "path": "registries.json",
-      "sha256": "c8668a4df0221cfb990feefcad7a449478aade07567eca61a1caf09567852ef7"
+      "sha256": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc"
     },
     {
       "id": "map:meadow",
@@ -48,7 +49,7 @@
     {
       "id": "map:amber-ridge",
       "path": "amber-ridge.json",
-      "sha256": "c93eabc9ea176337660706f6d044853c4b81d449dda5feed6d6a973ac4f8f0ce"
+      "sha256": "b03716578a209adbba7e0743d83a88ea00d94fdd44a3480e70fac215b7f445b0"
     },
     {
       "id": "map:frostveil-grove",

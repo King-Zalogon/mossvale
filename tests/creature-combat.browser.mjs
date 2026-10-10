@@ -63,11 +63,11 @@ try {
   battle.on('pageerror', error => errors.push(error.message));
   await battle.goto(`http://localhost:${server.address().port}/?debug&seed=3`);
   await battle.waitForSelector('#loading', {state: 'hidden'});
-  const sedgegnaw = species.findIndex(entry => entry.id === 'sunsifter');
-  const cindercurl = species.findIndex(entry => entry.id === 'rillume');
+  const lanternix = species.findIndex(entry => entry.id === 'lanternix');
+  const rillume = species.findIndex(entry => entry.id === 'rillume');
   const emberkin = species.findIndex(entry => entry.id === 'emberkin');
-  assert.notEqual(sedgegnaw, -1);
-  assert.notEqual(cindercurl, -1);
+  assert.notEqual(lanternix, -1);
+  assert.notEqual(rillume, -1);
   await battle.evaluate(
     ({starter, teammate, foe}) => {
       const save = window.mossvale.getState().save;
@@ -77,7 +77,7 @@ try {
       save.team = {[starter]: {xp: 0, hp: 100}, [teammate]: {xp: 0, hp: 100}};
       window.mossvale.encounter(foe);
     },
-    {starter: sedgegnaw, teammate: cindercurl, foe: emberkin},
+    {starter: lanternix, teammate: rillume, foe: emberkin},
   );
   await battle.waitForSelector('#fight-wild');
   assert.equal(await battle.locator('#fight-buddy').getAttribute('data-combat-state'), 'idle');
@@ -86,7 +86,7 @@ try {
   await battle.click('#setup');
   await battle.waitForFunction(() => document.querySelector('.battle-intent[role="status"]')?.textContent.includes('Relay prepared'));
   await battle.click('#switch');
-  await battle.click(`[data-select="${cindercurl}"]`);
+  await battle.click(`[data-select="${rillume}"]`);
   await battle.waitForFunction(() => document.querySelector('.battle-log')?.textContent.includes('joined the encounter'));
   assert.equal(await battle.locator('#fight-buddy').getAttribute('data-combat-state'), 'idle');
   await battle.click('#element');

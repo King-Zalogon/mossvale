@@ -448,7 +448,7 @@ test('the badlands pair is two large maps with a loop of safe exits and alternat
   );
   assert.equal(ridge.exits.find(e => e.id === 'east').requires, 'amber-ridge.seal');
   const species = new Set([ridge, basin].flatMap(m => m.zones).flatMap(z => z.pool.map(p => p.species ?? p)));
-  assert.deepEqual([...species].sort(), ['cindercurl', 'pebblit', 'sunsifter', 'sunskitter', 'voltkit']);
+  assert.deepEqual([...species].sort(), ['cindercurl', 'lanternix', 'pebblit', 'sunsifter', 'sunskitter', 'voltkit']);
   assert.equal([ridge, basin].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);
   for (const m of [ridge, basin]) {
     assert.ok(
