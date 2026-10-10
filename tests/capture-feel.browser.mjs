@@ -104,6 +104,8 @@ try {
     for (let attempt = 0; attempt < 8 && !caught; attempt++) {
       await page.evaluate(() => (window.mossvale.getState().battle.hp = 1));
       await page.click('#catch');
+      await page.waitForSelector('.orb-ball.orb-wobble');
+      assert.equal(await page.locator('.capture-status').textContent(), '', 'capture status stays hidden while the orb resolves');
       await settled(page);
       caught = await page.evaluate(() => !window.mossvale.getState().battle);
     }
@@ -146,6 +148,8 @@ try {
       if (!(await page.evaluate(() => !!window.mossvale.getState().battle))) await page.evaluate(() => window.mossvale.encounter(1));
       await page.waitForSelector('#catch:not([disabled])', {timeout: 15000});
       await page.click('#catch');
+      await page.waitForSelector('.orb-ball.orb-wobble');
+      assert.equal(await page.locator('.capture-status').textContent(), '', 'failed capture status stays hidden while the orb resolves');
       await settled(page);
       broke = (await seen(page)).orbs.includes('orb-break');
     }
