@@ -80,6 +80,32 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     });
   };
 
+  /** Name tags are drawn after every sprite so nothing covers them, outlined for contrast, and nudged upward when two would overlap. */
+  function drawLabels(labels) {
+    const size = Math.round(13 * view.zoom);
+    ctx.font = `bold ${size}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 3.5 * view.zoom;
+    const placed = [];
+    for (const label of labels.sort((a, b) => b.y - a.y)) {
+      const half = ctx.measureText(label.text).width / 2 + 3;
+      let y = label.y;
+      for (let attempt = 0; attempt < 4; attempt++) {
+        const clash = placed.find(r => Math.abs(r.x - label.x) < r.half + half && Math.abs(r.y - y) < size + 2);
+        if (!clash) break;
+        y = clash.y - size - 3;
+      }
+      if (placed.some(r => Math.abs(r.x - label.x) < r.half + half && Math.abs(r.y - y) < size)) continue;
+      placed.push({x: label.x, y, half});
+      ctx.strokeStyle = '#102a1ccc';
+      ctx.strokeText(label.text, label.x, y);
+      ctx.fillStyle = label.color;
+      ctx.fillText(label.text, label.x, y);
+    }
+  }
+
   /** `v` = {save, world, player, follower, camera, zoom, now, paused, moving}. */
   function drawWorld(v) {
     view = v;
@@ -146,6 +172,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     const all = [...visibleObjects, follow, {x: player.x, y: player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player', frame: playerPose}].sort(
       (a, b) => a.x + a.y - b.x - b.y,
     );
+    const labels = [];
     for (const o of all) {
       const s = point(o.x, o.y);
       if (s.x < -180 || s.x > canvas.width + 180 || s.y < -100 || s.y > canvas.height + 230) continue;
@@ -192,10 +219,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         ctx.fillText(mark, s.x, y);
       }
       if (['ranger', 'shrine', 'chest', 'gate'].includes(o.kind) && !openedChest) {
-        ctx.fillStyle = o.kind === 'shrine' ? '#a2ddf8' : o.kind === 'chest' ? '#f4ce81' : '#eef2c0';
-        ctx.font = `bold ${Math.round(13 * zoom)}px sans-serif`;
-        ctx.textAlign = 'center';
-        const label =
+        const text =
           o.kind === 'ranger'
             ? (o.tag ?? 'RANGER')
             : o.kind === 'shrine'
@@ -205,9 +229,11 @@ export function createWorldRenderer({canvas, miniCanvas}) {
               : o.kind === 'chest'
                 ? 'TREASURE'
                 : o.targetName.toUpperCase() + (unlocked(save, o.targetRegion) ? '' : ' · LOCKED');
-        ctx.fillText(label, s.x, s.y - spriteHeight(o) - 7 * zoom);
+        const color = o.kind === 'shrine' ? '#a2ddf8' : o.kind === 'chest' ? '#f4ce81' : '#eef2c0';
+        labels.push({text, color, x: s.x, y: s.y - spriteHeight(o) - 7 * zoom});
       }
     }
+    drawLabels(labels);
     if (region === 2) {
       ctx.fillStyle = '#edf6f0aa';
       for (let i = 0; i < 34; i++) {

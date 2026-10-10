@@ -87,7 +87,7 @@
       "id": "mechanic:battle-impact-feedback",
       "kind": "mechanic",
       "name": "Battle impact feedback",
-      "summary": "Show every resolved blow as a floating number, an eased HP bar with a trailing ghost, a held hit flash and a short scene shake.",
+      "summary": "Show every resolved blow as a floating number, an eased HP bar with a trailing ghost, a held hit flash and a short scene shake, and play orb throws and victories as readable beats.",
       "status": "available",
       "scope": "core",
       "configuration": [],
@@ -95,16 +95,23 @@
       "limits": [
         "Presentation only: it reads the already-resolved turn events and never changes damage, Focus, saves or outcomes.",
         "Calm motion keeps the numbers and final bar widths but drops the shake, sparks and bar easing.",
-        "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return."
+        "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return.",
+        "Capture beats are derived from the already-resolved throw: a success wobbles three times, a miss wobbles once more the closer it was (1 to 3), and calm motion collapses to a single wobble; the wobble count never changes the outcome.",
+        "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion)."
       ],
       "examples": [
         {
           "intent": "Strike a wild creature and read the result at a glance.",
           "usage": "Use Quick strike or the Element move; no configuration is needed.",
           "expected": "A number floats over the target, the HP bar eases down while a pale ghost lags behind, and a heavier or super-effective hit shakes the scene harder."
+        },
+        {
+          "intent": "Throw a capture orb at a weakened creature.",
+          "usage": "Press Capture orb (5) or click it; no configuration is needed.",
+          "expected": "The orb flies in and holds the creature, wobbles, then either settles with a star burst and floating rewards before the result screen, or opens and the creature pops back out."
         }
       ],
-      "references": ["dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/src/controller.js", "dist/style.css"],
+      "references": ["dist/src/controller.js", "dist/src/data/sounds.js", "dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/style.css"],
       "evidence": [
         {
           "path": "tests/battle-fx.test.mjs",
@@ -113,12 +120,16 @@
         {
           "path": "tests/battle-feel.browser.mjs",
           "assertion": "A real battle shows the strike and the foe's reply as floating numbers, bars ease, and calm motion removes the shake and sparks."
+        },
+        {
+          "path": "tests/capture-feel.browser.mjs",
+          "assertion": "A real throw shows throw, three wobbles and settle with stars and floating rewards; a miss opens the orb and the creature pops out; a win fades the foe and floats XP; calm motion has no sparks and one wobble per throw."
         }
       ],
       "details": {
-        "trigger": "A resolved strike, enemy attack, riposte, potion or charge recovery event.",
+        "trigger": "A resolved strike, enemy attack, riposte, potion, charge recovery, orb throw or win event.",
         "inputs": "The turn event (damage, effectiveness, action kind, healed amount) and the per-frame HP snapshot.",
-        "sequence": "Each frame draws the bars from the previous frame's width, forces a reflow and sets the new width so the transition runs; numbers rise for 0.9 s; the scene shakes at level 1 or 2.",
+        "sequence": "Each frame draws the bars from the previous frame's width, forces a reflow and sets the new width so the transition runs; numbers rise for 0.9 s; the scene shakes at level 1 or 2. Orb throws expand into throw, wobble and settle-or-open beats; a win adds a victory beat where the foe fades out.",
         "results": "Damage, healing and effectiveness read without parsing the battle log; numbers are hidden from assistive technology because the log already announces them.",
         "cancellation": "A new frame replaces the markup; leaving the battle or skipping playback drops pending effects.",
         "errors": "With no previous width (first frame or a switched companion) the bar is drawn at its final value without easing.",
@@ -510,6 +521,45 @@
       }
     },
     {
+      "id": "mechanic:responsive-playfield",
+      "kind": "mechanic",
+      "name": "Responsive playfield and readable name tags",
+      "summary": "On desktop the game frame fits the window height and renders more of the world in wider windows; character and landmark name tags are drawn on top, outlined and kept apart.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Desktop layout only (width 1000 px or more, height 540 px or more); phones and small windows keep the existing 3:2 frame at 960 px of world width.",
+        "World width is capped at 1800 canvas pixels; the Zoom setting still magnifies the world.",
+        "Name tags that cannot be placed without overlapping after four upward nudges are skipped for that frame; the objects stay interactable.",
+        "Presentation only: movement, collision, encounters, saves and the camera follow rule are unchanged."
+      ],
+      "examples": [
+        {
+          "intent": "Play on a 1080p monitor.",
+          "usage": "Open the game in a maximised window; no setting is needed.",
+          "expected": "The whole frame, controls included, fits without scrolling and shows noticeably more of the surrounding map than at 1280x720."
+        }
+      ],
+      "references": ["dist/src/main.js", "dist/src/render/world.js", "dist/style.css"],
+      "evidence": [
+        {
+          "path": "tests/playfield.browser.mjs",
+          "assertion": "At 1280x720, 1366x768, 1920x1080 and 2560x1440 the frame fits the window, the canvas keeps the on-screen aspect and wider windows render at least as much world; phones keep 960 px."
+        }
+      ],
+      "details": {
+        "trigger": "Window resize, fullscreen change or first load.",
+        "inputs": "The canvas bounding box and the 960/1800 pixel width limits.",
+        "sequence": "resize() sets the canvas width to one pixel per CSS pixel above 960 and derives the height from the box; the renderer already reads canvas.width and canvas.height every frame, so visible tiles and objects follow. Labels are collected during the object pass and drawn afterwards, farthest first.",
+        "results": "More world on large screens, no vertical scrolling to reach controls, and name tags that stay legible over foliage.",
+        "cancellation": "Not applicable.",
+        "errors": "A zero-size box (hidden tab) leaves the previous canvas size untouched.",
+        "persistence": "Nothing is saved; the Zoom setting keeps its existing storage."
+      }
+    },
+    {
       "id": "mechanic:save-recovery",
       "kind": "mechanic",
       "name": "Versioned pack saves",
@@ -616,7 +666,7 @@
         "sequence": "Collect dialogue actions in order for the existing dialogue presentation.",
         "results": "Speaker-associated dialogue lines; domain function itself does not draw balloons.",
         "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
-        "errors": "Unknown speaker or text outside 1\u2013500 characters fails validation.",
+        "errors": "Unknown speaker or text outside 1–500 characters fails validation.",
         "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
       }
     },
@@ -681,6 +731,114 @@
         "cancellation": "Must define interruption behavior before implementation.",
         "errors": "Report as a missing capability in the scene gap report.",
         "persistence": "Must define compatible saved-state behavior before implementation."
+      }
+    },
+    {
+      "id": "mechanic:testing-urls",
+      "kind": "mechanic",
+      "name": "Testing URLs and artwork previews",
+      "summary": "Open a discoverable index of shipped artwork and map review pages from the title or in-game menu, keeping the adventure tab open.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Review pages inspect the current build; they do not replace normal play, approve artwork or prove adventure collision/acquisition behavior.",
+        "The separately served authoring catalogue requires npm run catalogue:browse and is not a static game URL."
+      ],
+      "examples": [
+        {
+          "intent": "Review creature facing without changing adventure progress.",
+          "usage": "Choose Testing URLs in the menu, then Creature followers. Select a species, inspect turns and stopping, and enable Reduced motion.",
+          "expected": "The follower turns through eight directions using its own motion; stopped/calm poses use idle, and the game remains open in its original tab."
+        }
+      ],
+      "references": ["dist/testing.html", "dist/src/ui/menus.js", "dist/src/creature-follower-preview.js", "docs/TESTING_URLS.md"],
+      "evidence": [
+        {
+          "path": "tests/testing-urls.browser.mjs",
+          "assertion": "Keyboard/touch navigation and all five destinations in source and packaged subdirectories."
+        },
+        {
+          "path": "tests/creature-follower.browser.mjs",
+          "assertion": "Actual stage draw rows, tiny-displacement turns, rest/pause facing retention and calm motion."
+        }
+      ],
+      "details": {
+        "trigger": "Select Testing URLs from the title screen or in-game menu.",
+        "inputs": "Native keyboard/touch links; review pages expose species/animation and reduced-motion controls.",
+        "sequence": "Open the index in a new tab without opener access, then open a described review page in another tab.",
+        "results": "Shipped review routes are discoverable; canonical follower manifest directions/mirroring and runtime cadence are shown at game scale.",
+        "cancellation": "Close the review/index tabs or use their Mossvale return links. The original game tab stays open.",
+        "errors": "A missing required shipped page is a packaging defect; browser regressions request every listed destination. No authentication or authoring API is invoked by index navigation.",
+        "persistence": "The index and artwork preview do not mutate adventure saves. Map Workshop exports/edited-map play remain explicit authoring actions."
+      }
+    },
+    {
+      "id": "mechanic:guardian-combat-form",
+      "kind": "mechanic",
+      "name": "Shrine combat form",
+      "summary": "Give one configured shrine guardian a transformed battle appearance while its normal species keeps ordinary art.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "guardian.combatSprite",
+          "type": "named same-species combat asset",
+          "default": null,
+          "limits": "Optional shrine field; creature-<species>-…-combat ID, transparent 4×5 idle/attack/hit/faint/capture atlas. Unique guardian species/tactic per map."
+        },
+        {
+          "name": "frames.combatDisplayWidth",
+          "type": "integer pixels",
+          "default": 107,
+          "limits": "Optional override atlas display width; delivered forms use 132 inside the existing 160×145 battle canvas."
+        }
+      ],
+      "dependencies": [
+        "visual:creature-mushmallow-thorn-mantle-combat",
+        "visual:creature-pebblit-crystal-ridge-combat",
+        "visual:creature-frostowl-ice-mantle-combat",
+        "visual:creature-siltkip-tide-sail-combat"
+      ],
+      "limits": [
+        "Art only: no stats, tactics, capture eligibility, rewards or progression changes.",
+        "Unconfigured packs retain normal art; unavailable form atlas falls back to normal combat then portrait.",
+        "Owner taste approval is separate from internal visual inspection.",
+        "Multiple same-species/same-tactic shrines are ambiguous and retain normal art."
+      ],
+      "examples": [
+        {
+          "intent": "Give Meadow’s Mushmallow its thorn mantle in the shrine encounter.",
+          "usage": "Set Meadow shrine guardian.combatSprite to creature-mushmallow-thorn-mantle-combat; refresh pack integrity. See docs/GUARDIAN_COMBAT_FORMS.md.",
+          "expected": "Shrine enemy uses the transformed form; same-species allies, wild encounters, portraits and followers retain normal art."
+        }
+      ],
+      "references": [
+        "docs/GUARDIAN_COMBAT_FORMS.md",
+        "dist/src/domain/mapdata.js",
+        "dist/src/render/battle-art.js",
+        "dist/src/render/sprites.js",
+        "dist/src/ui/battle-view.js"
+      ],
+      "evidence": [
+        {
+          "path": "tests/guardian-art.test.mjs",
+          "assertion": "All four mappings, unchanged battle results/save round trips, invalid references and eighty frame boundaries."
+        },
+        {
+          "path": "tests/guardian-art.browser.mjs",
+          "assertion": "Actual shrine interactions, normal allies/wilds, reload, preview states, reduced motion and missing-sheet fallback."
+        }
+      ],
+      "details": {
+        "trigger": "A boss battle matching the current map’s unique configured shrine species/tactic.",
+        "inputs": "Optional guardian.combatSprite manifest ID and standard combat atlas metadata.",
+        "sequence": "Validate and compile the pack reference; select the override for the enemy; retain it across action-to-idle transitions and derive it again after reload.",
+        "results": "A species-specific transformed appearance confined to the configured shrine encounter.",
+        "cancellation": "Leaving the encounter ends its display; no art selection persists in the save.",
+        "errors": "Unknown/mismatched/static references fail pack validation; missing images use existing normal atlas/portrait fallback.",
+        "persistence": "No added save fields or schema changes; current map and existing battle identity determine presentation."
       }
     }
   ],

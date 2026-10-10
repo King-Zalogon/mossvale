@@ -248,6 +248,7 @@ function useBattleItem(save, item, rules) {
   if (!rules || !save.inventory) return null;
   const healed = useInventory(save.inventory, item, {hp: companion(save).hp, maxHp: maxHP(save, save.active)}, rules);
   if (!healed.ok) return null;
+  companion(save).hp = healed.hp;
   Object.assign(save, inventoryToSupplies(save.inventory, save, rules));
   return healed;
 }

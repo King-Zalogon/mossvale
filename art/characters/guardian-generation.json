@@ -1,0 +1,114 @@
+{
+  "format": 1,
+  "tool": "image_gen.imagegen",
+  "date": "2026-10-09",
+  "exactPrompts": "The final generation/edit prompt is retained verbatim for each delivered source; preceding design briefs and the Frostowl redesign are retained as summaries with source/reference hashes.",
+  "providerModelVersion": "Not exposed by tool",
+  "seed": "Not exposed by tool",
+  "records": [
+    {
+      "species": "mushmallow",
+      "asset": "creature-mushmallow-thorn-mantle-combat",
+      "designPromptSummary": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
+      "layoutPromptSummary": "Keep guardian identity and all twenty poses. Repair into four columns and five separated rows on a transparent 4:5 canvas, with very wide blank gutters, complete contained anatomy, fixed scale and common foot line. Idle/attack/hit/faint/capture. No labels, grid, ground shadows or out-of-body effects.",
+      "reference": {
+        "path": "dist/assets/creatures/creature-mushmallow.png",
+        "sha256": "3a140fbb9adeccfc96ae972cc6e8a7d871e3d6c080d8ecc663e362823fce5c0b"
+      },
+      "source": {
+        "path": "art/characters/source/creature-mushmallow-thorn-mantle-combat-generated.png",
+        "sha256": "115ca61d273c8a77824917a96a98c600c07fbd87ae36dbb592d628667699640a"
+      },
+      "generationFile": "exec-4345787a-ba8e-43f9-9a69-b08a1399970a.png",
+      "rejectedRevision": {
+        "filename": "exec-69084d4a-2751-4ce4-9bee-2c842bad27e3.png",
+        "sha256": "f4b91d913893b6666974199defcf0874f664e0f6a3bb09374313e56c234e8a27",
+        "reason": "Character pixels cross nominal grid boundaries or silhouettes too close to base; retained only as hash/reference, not shipped"
+      },
+      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending",
+      "finalPrompt": "Technical sprite sheet layout repair. Keep the attached mushmallow guardian design EXACTLY, including all colors, body parts, markings, and action poses. Recreate a true uniform 4-column ×5-row transparent animation sheet, with TWENTY full independent sprites. The previous sheet is rejected because sprites touch each other and cross row/column boundaries. This revision must have VERY WIDE EMPTY TRANSPARENT GUTTERS everywhere. Use a 1120x1400 canvas (4:5), each logical cell280x280. MAXIMUM character width AND height180px in EACH CELL (including spikes/wings/tails): leave at least50px blank on left/right/top and50px bottom. Every character centered x140 within itscell; feet at localy230 within EVERYCELL, including faint and capture, fixed scale across all20 frames. Exact global foot baselines230,510,790,1070,1350; column centers140,420,700,980. SPRITES MUST BE SMALL ON THE LARGE TRANSPARENT CANVAS. NO pixels, effects, outlines or shadows within50px of any cell border. Five equal-height rows: idle four frames, attack four, hit four, faint four, capture four. Faint sprites become shorter at the SAMEfootbaseline, do NOT shift upward or packrowscloser. Crisp pixel art upperleftlighting. No text, no gridlines, no ground shadows. This is an atlas with substantial empty space, not a poster filled with characters. Keep the stern guardian design, no cute baby redesign. This spacing requirement takes priority over filling the image.",
+      "finalPromptReference": {
+        "filename": "exec-69084d4a-2751-4ce4-9bee-2c842bad27e3.png",
+        "sha256": "f4b91d913893b6666974199defcf0874f664e0f6a3bb09374313e56c234e8a27"
+      }
+    },
+    {
+      "species": "pebblit",
+      "asset": "creature-pebblit-crystal-ridge-combat",
+      "designPromptSummary": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
+      "layoutPromptSummary": "Keep guardian identity and all twenty poses. Repair into four columns and five separated rows on a transparent 4:5 canvas, with very wide blank gutters, complete contained anatomy, fixed scale and common foot line. Idle/attack/hit/faint/capture. No labels, grid, ground shadows or out-of-body effects.",
+      "reference": {
+        "path": "dist/assets/creatures/creature-pebblit.png",
+        "sha256": "d102e65645174891f97606513a006c3089bd404e4ecebed18ab38e87b1ebde1d"
+      },
+      "source": {
+        "path": "art/characters/source/creature-pebblit-crystal-ridge-combat-generated.png",
+        "sha256": "85a151af87d77b53e6fe4e90b7486b0eb227c3753967b471826aa1e3ab574e50"
+      },
+      "generationFile": "exec-75b375d8-1e8e-4240-a8af-d2640c96a91f.png",
+      "rejectedRevision": {
+        "filename": "exec-c1004e21-3e53-423a-ba15-1c1395d6e388.png",
+        "sha256": "024aedfb0f9ee9142de3dffb860d786d3b167fde629022b4c2032befb7c25ae3",
+        "reason": "Character pixels cross nominal grid boundaries or silhouettes too close to base; retained only as hash/reference, not shipped"
+      },
+      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending",
+      "finalPrompt": "Technical sprite sheet layout repair. Keep the attached pebblit guardian design EXACTLY, including all colors, body parts, markings, and action poses. Recreate a true uniform 4-column ×5-row transparent animation sheet, with TWENTY full independent sprites. The previous sheet is rejected because sprites touch each other and cross row/column boundaries. This revision must have VERY WIDE EMPTY TRANSPARENT GUTTERS everywhere. Use a 1120x1400 canvas (4:5), each logical cell280x280. MAXIMUM character width AND height180px in EACH CELL (including spikes/wings/tails): leave at least50px blank on left/right/top and50px bottom. Every character centered x140 within itscell; feet at localy230 within EVERYCELL, including faint and capture, fixed scale across all20 frames. Exact global foot baselines230,510,790,1070,1350; column centers140,420,700,980. SPRITES MUST BE SMALL ON THE LARGE TRANSPARENT CANVAS. NO pixels, effects, outlines or shadows within50px of any cell border. Five equal-height rows: idle four frames, attack four, hit four, faint four, capture four. Faint sprites become shorter at the SAMEfootbaseline, do NOT shift upward or packrowscloser. Crisp pixel art upperleftlighting. No text, no gridlines, no ground shadows. This is an atlas with substantial empty space, not a poster filled with characters. Keep the stern guardian design, no cute baby redesign. This spacing requirement takes priority over filling the image.",
+      "finalPromptReference": {
+        "filename": "exec-c1004e21-3e53-423a-ba15-1c1395d6e388.png",
+        "sha256": "024aedfb0f9ee9142de3dffb860d786d3b167fde629022b4c2032befb7c25ae3"
+      }
+    },
+    {
+      "species": "frostowl",
+      "asset": "creature-frostowl-ice-mantle-combat",
+      "designPromptSummary": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
+      "layoutPromptSummary": "Keep guardian identity and all twenty poses. Repair into four columns and five separated rows on a transparent 4:5 canvas, with very wide blank gutters, complete contained anatomy, fixed scale and common foot line. Idle/attack/hit/faint/capture. No labels, grid, ground shadows or out-of-body effects.",
+      "reference": {
+        "path": "dist/assets/creatures/creature-frostowl.png",
+        "sha256": "e9815a89122b06f86d76723ed3bdf97158ee69b00707b7eb19b4c1003988e5d8"
+      },
+      "source": {
+        "path": "art/characters/source/creature-frostowl-ice-mantle-combat-generated.png",
+        "sha256": "841e79340c42d4c85d881b530b0b6cd99da2876e239887a428982374254558e6"
+      },
+      "generationFile": "exec-1809576b-8337-44e6-8ce5-940f5a8a4790.png",
+      "rejectedRevision": {
+        "filename": "exec-5e386faa-0985-4676-8545-fa80f4322ddb.png",
+        "sha256": "e9bbfaf3045b106a2fdfdbd7d1e32cc16c17284efbd09727a174e7d1fd6c9fa6",
+        "reason": "Character pixels cross nominal grid boundaries or silhouettes too close to base; retained only as hash/reference, not shipped"
+      },
+      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending",
+      "finalPrompt": "Technical sprite sheet layout repair. Keep the attached frostowl guardian design EXACTLY, including all colors, body parts, markings, and action poses. Recreate a true uniform 4-column ×5-row transparent animation sheet, with TWENTY full independent sprites. The previous sheet is rejected because sprites touch each other and cross row/column boundaries. This revision must have VERY WIDE EMPTY TRANSPARENT GUTTERS everywhere. Use a 1120x1400 canvas (4:5), each logical cell280x280. MAXIMUM character width AND height180px in EACH CELL (including spikes/wings/tails): leave at least50px blank on left/right/top and50px bottom. Every character centered x140 within itscell; feet at localy230 within EVERYCELL, including faint and capture, fixed scale across all20 frames. Exact global foot baselines230,510,790,1070,1350; column centers140,420,700,980. SPRITES MUST BE SMALL ON THE LARGE TRANSPARENT CANVAS. NO pixels, effects, outlines or shadows within50px of any cell border. Five equal-height rows: idle four frames, attack four, hit four, faint four, capture four. Faint sprites become shorter at the SAMEfootbaseline, do NOT shift upward or packrowscloser. Crisp pixel art upperleftlighting. No text, no gridlines, no ground shadows. This is an atlas with substantial empty space, not a poster filled with characters. Keep the stern guardian design, no cute baby redesign. This spacing requirement takes priority over filling the image.",
+      "finalPromptReference": {
+        "filename": "exec-5e386faa-0985-4676-8545-fa80f4322ddb.png",
+        "sha256": "e9bbfaf3045b106a2fdfdbd7d1e32cc16c17284efbd09727a174e7d1fd6c9fa6"
+      }
+    },
+    {
+      "species": "siltkip",
+      "asset": "creature-siltkip-tide-sail-combat",
+      "designPromptSummary": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
+      "layoutPromptSummary": "Keep guardian identity and all twenty poses. Repair into four columns and five separated rows on a transparent 4:5 canvas, with very wide blank gutters, complete contained anatomy, fixed scale and common foot line. Idle/attack/hit/faint/capture. No labels, grid, ground shadows or out-of-body effects.",
+      "reference": {
+        "path": "dist/assets/creatures/creature-siltkip.png",
+        "sha256": "0b8402acc8fb02165db140b9581d426f17b0252c3e332b2f746a829201871c1e"
+      },
+      "source": {
+        "path": "art/characters/source/creature-siltkip-tide-sail-combat-generated.png",
+        "sha256": "7725345a281b6869833dc476e6bd6b25ea317109e39939d276f275b75d947932"
+      },
+      "generationFile": "exec-354faf10-d715-4cd5-9b93-d6fd1644b5aa.png",
+      "rejectedRevision": {
+        "filename": "exec-46795924-93d0-4137-97eb-75dca144fddc.png",
+        "sha256": "dea997a28a2729614a6ec7dbb0f3bdd3ca82b62dab2a64b7b1cf76874212529e",
+        "reason": "Character pixels cross nominal grid boundaries or silhouettes too close to base; retained only as hash/reference, not shipped"
+      },
+      "review": "Revised separated poses reviewed at actual battle scale; owner taste pending",
+      "finalPrompt": "Technical sprite sheet layout repair. Keep the attached siltkip guardian design EXACTLY, including all colors, body parts, markings, and action poses. Recreate a true uniform 4-column ×5-row transparent animation sheet, with TWENTY full independent sprites. The previous sheet is rejected because sprites touch each other and cross row/column boundaries. This revision must have VERY WIDE EMPTY TRANSPARENT GUTTERS everywhere. Use a 1120x1400 canvas (4:5), each logical cell280x280. MAXIMUM character width AND height180px in EACH CELL (including spikes/wings/tails): leave at least50px blank on left/right/top and50px bottom. Every character centered x140 within itscell; feet at localy230 within EVERYCELL, including faint and capture, fixed scale across all20 frames. Exact global foot baselines230,510,790,1070,1350; column centers140,420,700,980. SPRITES MUST BE SMALL ON THE LARGE TRANSPARENT CANVAS. NO pixels, effects, outlines or shadows within50px of any cell border. Five equal-height rows: idle four frames, attack four, hit four, faint four, capture four. Faint sprites become shorter at the SAMEfootbaseline, do NOT shift upward or packrowscloser. Crisp pixel art upperleftlighting. No text, no gridlines, no ground shadows. This is an atlas with substantial empty space, not a poster filled with characters. Keep the stern guardian design, no cute baby redesign. This spacing requirement takes priority over filling the image.",
+      "finalPromptReference": {
+        "filename": "exec-46795924-93d0-4137-97eb-75dca144fddc.png",
+        "sha256": "dea997a28a2729614a6ec7dbb0f3bdd3ca82b62dab2a64b7b1cf76874212529e"
+      }
+    }
+  ]
+}

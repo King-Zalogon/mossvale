@@ -13,11 +13,27 @@ export function direction(ui) {
 
 export function installInput(app) {
   const {ui, actions, persist} = app;
+  const touchpad = $('.touchpad');
   let activeTouchPointer = null;
+  let touchpadRestTimer = null;
+  const setTouchpadResting = immediate => {
+    clearTimeout(touchpadRestTimer);
+    touchpadRestTimer = null;
+    if (immediate) touchpad.dataset.engaged = 'false';
+    else touchpadRestTimer = setTimeout(() => (touchpad.dataset.engaged = 'false'), 700);
+  };
+  const showTouchpad = directionButton => {
+    clearTimeout(touchpadRestTimer);
+    touchpadRestTimer = null;
+    touchpad.dataset.engaged = 'true';
+    for (const button of touchpad.querySelectorAll('[data-dir]')) button.dataset.active = String(button === directionButton);
+  };
   const releaseAll = () => {
     ui.keys = {};
     ui.touch = null;
     activeTouchPointer = null;
+    setTouchpadResting(true);
+    for (const button of touchpad.querySelectorAll('[data-dir]')) button.dataset.active = 'false';
   };
 
   // Capability chooses the initial layout; actual play chooses subsequent input mode.
@@ -57,6 +73,7 @@ export function installInput(app) {
       if (activeTouchPointer !== null) return;
       activeTouchPointer = e.pointerId;
       b.setPointerCapture(e.pointerId);
+      showTouchpad(b);
       ui.touch = b.dataset.dir.split(',').map(Number);
     };
     b.onpointerup =
@@ -66,6 +83,8 @@ export function installInput(app) {
           if (activeTouchPointer !== e.pointerId) return;
           activeTouchPointer = null;
           ui.touch = null;
+          for (const button of touchpad.querySelectorAll('[data-dir]')) button.dataset.active = 'false';
+          setTouchpadResting(false);
         };
   }
   // Pointer capture keeps delivering movement to the pressed button. Resolve
@@ -79,7 +98,9 @@ export function installInput(app) {
         return;
       }
       const target = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-dir]');
-      ui.touch = target?.closest('.touchpad') ? target.dataset.dir.split(',').map(Number) : null;
+      const directionButton = target?.closest('.touchpad') ? target : null;
+      ui.touch = directionButton ? directionButton.dataset.dir.split(',').map(Number) : null;
+      for (const button of touchpad.querySelectorAll('[data-dir]')) button.dataset.active = String(button === directionButton);
     },
     {passive: true},
   );
@@ -161,9 +182,10 @@ export function installInput(app) {
         }
         return;
       }
-      if (ui.modalMode === 'battle' && !e.repeat && ['1', '2', '3', '4', '5', '6'].includes(k)) {
+      if (ui.modalMode === 'battle' && !e.repeat && /^[1-9]$/.test(k)) {
         e.preventDefault();
-        const button = $('#' + ['attack', 'element', 'catch', 'potion', 'guard', 'switch'][+k - 1]);
+        // The number on each button is its position in the action grid, so the keys can never drift from the labels.
+        const button = document.querySelectorAll('.battle-actions button')[+k - 1];
         if (button && !button.disabled) button.click();
       }
       return;

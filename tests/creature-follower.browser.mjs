@@ -6,6 +6,8 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import assert from 'node:assert/strict';
 import {species} from '../dist/src/data/species.js';
+import {assets, spriteId} from '../dist/src/data/assets.js';
+import {DIRECTIONS, directionPose, movementFacing} from '../dist/src/domain/exploration.js';
 
 const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png'};
@@ -20,6 +22,8 @@ const server = http
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 try {
   const page = await browser.newPage({viewport: {width: 1180, height: 900}});
+  // Install before navigation so the preview's first RAF is registered on the virtual clock.
+  await page.clock.install();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(`http://localhost:${server.address().port}/creature-follower-preview.html`);
@@ -43,26 +47,7 @@ try {
     ),
     true,
   );
-  for (const id of [
-    'emberkin',
-    'fernling',
-    'duskwing',
-    'brooklet',
-    'hushram',
-    'voltkit',
-    'mushmallow',
-    'frostowl',
-    'pebblit',
-    'bramblebuck',
-    'siltkip',
-    'sunskitter',
-    'sedgegnaw',
-    'petalunge',
-    'cindercurl',
-    'sunsifter',
-    'rillume',
-    'lanternix',
-  ]) {
+  for (const {id} of species) {
     await page.selectOption('#species', id);
     await page.waitForFunction(
       () =>
@@ -75,6 +60,56 @@ try {
         ),
     );
   }
+  // Record the actual stage draw calls, not just the atlas's static direction labels.
+  await page.evaluate(() => {
+    window.previewDraws = [];
+    const original = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (image, ...args) {
+      if (this.canvas.id === 'stage' && image.src?.includes('-follower.png')) {
+        window.previewDraws.push({...window.followerPreview.state(), column: args[0] / args[2], sourceRow: args[1] / args[3]});
+      }
+      return original.call(this, image, ...args);
+    };
+  });
+  for (const id of ['emberkin', 'brooklet', 'rillume']) {
+    await page.selectOption('#species', id);
+    await page.evaluate(() => {
+      window.previewDraws = [];
+    });
+    await page.clock.runFor(25000);
+    const draws = await page.evaluate(() => window.previewDraws);
+    const frames = assets[spriteId(`creature-${id}-follower`)].frames;
+    assert.deepEqual(
+      [...new Set(draws.filter(d => d.moving).map(d => d.direction))].sort(),
+      [...DIRECTIONS].sort(),
+      `${id} visibly traverses all eight facings`,
+    );
+    assert.deepEqual([...new Set(draws.map(d => d.column))].sort(), [0, 1, 2, 3, 4], `${id} uses idle and all four walk cells`);
+    for (let i = 1; i < draws.length; i++) {
+      const previous = draws[i - 1],
+        current = draws[i];
+      const expected = movementFacing(current.x - previous.x, current.y - previous.y);
+      if (expected !== null) assert.equal(current.row, expected, `${id} faces its own movement, including sub-unit deltas`);
+      else assert.equal(current.row, previous.row, `${id} retains facing at rest`);
+      assert.equal(current.sourceRow, directionPose(frames, current.row).row, `${id} draws the manifest's row order`);
+      if (!current.moving) assert.equal(current.column, 0, 'stationary followers use idle');
+    }
+  }
+  await page.locator('#play').click();
+  const stopped = await page.evaluate(() => window.followerPreview.state());
+  await page.clock.runFor(1000);
+  assert.deepEqual(await page.evaluate(() => window.followerPreview.state()), stopped, 'pause freezes position and retained facing');
+  assert.equal(stopped.moving, false);
+  assert.equal(await page.evaluate(() => window.previewDraws.at(-1).column), 0);
+  await page.locator('#play').click();
+  await page.check('#calm');
+  await page.evaluate(() => {
+    window.previewDraws = [];
+  });
+  await page.clock.runFor(25000);
+  const calmDraws = await page.evaluate(() => window.previewDraws);
+  assert.deepEqual([...new Set(calmDraws.map(d => d.column))], [0], 'calm mode always uses idle');
+  assert.deepEqual([...new Set(calmDraws.filter(d => d.moving).map(d => d.direction))].sort(), [...DIRECTIONS].sort(), 'calm mode keeps changing facing');
   await page.check('#calm');
   assert.equal(await page.evaluate(() => window.followerPreview.state().reducedMotion), true);
   await page.screenshot({path: join(tmpdir(), 'mossvale-creature-follower-preview.png'), fullPage: true});
@@ -85,26 +120,7 @@ try {
   await game.goto(`http://localhost:${server.address().port}/?debug&seed=3`);
   await game.waitForSelector('#loading', {state: 'hidden'});
   await game.locator('#game').click();
-  for (const id of [
-    'emberkin',
-    'fernling',
-    'duskwing',
-    'brooklet',
-    'hushram',
-    'voltkit',
-    'mushmallow',
-    'frostowl',
-    'pebblit',
-    'bramblebuck',
-    'siltkip',
-    'sunskitter',
-    'sedgegnaw',
-    'petalunge',
-    'cindercurl',
-    'sunsifter',
-    'rillume',
-    'lanternix',
-  ]) {
+  for (const {id} of species) {
     const speciesId = species.findIndex(entry => entry.id === id);
     assert.notEqual(speciesId, -1);
     await game.evaluate(value => {

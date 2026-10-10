@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DIRECTIONS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
 SPECIES = ["emberkin", "fernling", "duskwing", "brooklet", "hushram", "voltkit", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume", "lanternix"]
 ROW_ORDER = {
-    "emberkin": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
+    "emberkin": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
     "fernling": DIRECTIONS,
     "duskwing": DIRECTIONS,
     "brooklet": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],

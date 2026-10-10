@@ -1,24 +1,7 @@
-const DIRECTIONS = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
-const ROWS = {
-  fernling: DIRECTIONS,
-  emberkin: ['south', 'southwest', 'east', 'northeast', 'north', 'west', 'northwest', 'southeast'],
-  duskwing: DIRECTIONS,
-  brooklet: ['north', 'northwest', 'west', 'southwest', 'south', 'southeast', 'east', 'northeast'],
-  hushram: DIRECTIONS,
-  voltkit: DIRECTIONS,
-  mushmallow: DIRECTIONS,
-  frostowl: DIRECTIONS,
-  pebblit: DIRECTIONS,
-  bramblebuck: DIRECTIONS,
-  siltkip: DIRECTIONS,
-  sunskitter: DIRECTIONS,
-  sedgegnaw: DIRECTIONS,
-  petalunge: DIRECTIONS,
-  cindercurl: DIRECTIONS,
-  sunsifter: DIRECTIONS,
-  rillume: DIRECTIONS,
-  lanternix: DIRECTIONS,
-};
+import {assets, spriteId} from './data/assets.js';
+import {species} from './data/species.js';
+import {DIRECTIONS, directionPose, followerFrame, movementFacing, playerFrame, playerSpritePose} from './domain/exploration.js';
+
 const VECTORS = [
   [-1, -1],
   [0, -1],
@@ -30,58 +13,24 @@ const VECTORS = [
   [-1, 0],
 ];
 const FRAMES = ['idle', 'walk-1', 'walk-2', 'walk-3', 'walk-4'];
+const followerAssets = Object.fromEntries(species.map(entry => [entry.id, assets[spriteId(`creature-${entry.id}-follower`)]]));
 const sources = {
-  player: load('../assets/people/person-red-cap-motion.png'),
-  emberkin: load('../assets/creatures/creature-emberkin-follower.png'),
-  fernling: load('../assets/creatures/creature-fernling-follower.png'),
-  duskwing: load('../assets/creatures/creature-duskwing-follower.png'),
-  brooklet: load('../assets/creatures/creature-brooklet-follower.png'),
-  hushram: load('../assets/creatures/creature-hushram-follower.png'),
-  voltkit: load('../assets/creatures/creature-voltkit-follower.png'),
-  mushmallow: load('../assets/creatures/creature-mushmallow-follower.png'),
-  frostowl: load('../assets/creatures/creature-frostowl-follower.png'),
-  pebblit: load('../assets/creatures/creature-pebblit-follower.png'),
-  bramblebuck: load('../assets/creatures/creature-bramblebuck-follower.png'),
-  siltkip: load('../assets/creatures/creature-siltkip-follower.png'),
-  sunskitter: load('../assets/creatures/creature-sunskitter-follower.png'),
-  sedgegnaw: load('../assets/creatures/creature-sedgegnaw-follower.png'),
-  petalunge: load('../assets/creatures/creature-petalunge-follower.png'),
-  cindercurl: load('../assets/creatures/creature-cindercurl-follower.png'),
-  sunsifter: load('../assets/creatures/creature-sunsifter-follower.png'),
-  rillume: load('../assets/creatures/creature-rillume-follower.png'),
-  lanternix: load('../assets/creatures/creature-lanternix-follower.png'),
-  portrait: {
-    emberkin: load('../assets/creatures/creature-emberkin.png'),
-    fernling: load('../assets/creatures/creature-fernling.png'),
-    duskwing: load('../assets/creatures/creature-duskwing.png'),
-    brooklet: load('../assets/creatures/creature-brooklet.png'),
-    hushram: load('../assets/creatures/creature-hushram.png'),
-    voltkit: load('../assets/creatures/creature-voltkit.png'),
-    mushmallow: load('../assets/creatures/creature-mushmallow.png'),
-    frostowl: load('../assets/creatures/creature-frostowl.png'),
-    pebblit: load('../assets/creatures/creature-pebblit.png'),
-    bramblebuck: load('../assets/creatures/creature-bramblebuck.png'),
-    siltkip: load('../assets/creatures/creature-siltkip.png'),
-    sunskitter: load('../assets/creatures/creature-sunskitter.png'),
-    sedgegnaw: load('../assets/creatures/creature-sedgegnaw.png'),
-    petalunge: load('../assets/creatures/creature-petalunge.png'),
-    cindercurl: load('../assets/creatures/creature-cindercurl.png'),
-    sunsifter: load('../assets/creatures/creature-sunsifter.png'),
-    rillume: load('../assets/creatures/creature-rillume.png'),
-    lanternix: load('../assets/creatures/creature-lanternix.png'),
-  },
-  tree: load('../assets/props/tree-oak.png'),
+  player: load(new URL('../' + assets[spriteId('person-red-cap-motion')].src, import.meta.url).href),
+  tree: load(new URL('../' + assets[spriteId('tree-oak')].src, import.meta.url).href),
+  ...Object.fromEntries(Object.entries(followerAssets).map(([id, asset]) => [id, load(new URL('../' + asset.src, import.meta.url).href)])),
 };
 const stage = document.querySelector('#stage');
 const ctx = stage.getContext('2d');
 const speciesSelect = document.querySelector('#species');
+speciesSelect.replaceChildren(...species.map(entry => new Option(entry.name, entry.id)));
 const calm = document.querySelector('#calm');
+calm.checked = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const stateLabel = document.querySelector('#state');
 let running = true;
 let previousTime = 0;
 let simulationTime = 0;
-let player = {x: 10, y: 10, dir: 4, distance: 0};
-let follower = {x: 10, y: 10, dir: 4, distance: 0};
+let player = {x: 10, y: 10, dir: 4, distance: 0, moving: false};
+let follower = {x: 10, y: 10, dir: 4, distance: 0, moving: false};
 let trail = [{x: 10, y: 10}];
 let lastFollower = {x: 10, y: 10};
 
@@ -95,12 +44,17 @@ function load(src) {
   return image;
 }
 
-function drawFrame(context, image, column, row, x, groundY, width, columns, rows, fw, fh) {
+function drawFrame(context, image, column, row, x, groundY, width, columns, rows, fw, fh, flip = false) {
   if (!image.complete || !image.naturalWidth) return;
   const sw = image.naturalWidth / columns;
   const sh = image.naturalHeight / rows;
   context.save();
   context.imageSmoothingEnabled = false;
+  if (flip) {
+    context.translate(Math.round(x), 0);
+    context.scale(-1, 1);
+    x = 0;
+  }
   context.drawImage(
     image,
     column * sw,
@@ -115,32 +69,24 @@ function drawFrame(context, image, column, row, x, groundY, width, columns, rows
   context.restore();
 }
 
-function heading(dx, dy) {
-  if (Math.hypot(dx, dy) < 1e-5) return null;
-  const sx = dx - dy;
-  const sy = dx + dy;
-  const ix = Math.abs(sx) > 0.3 ? Math.sign(sx) : 0;
-  const iy = Math.abs(sy) > 0.3 ? Math.sign(sy) : 0;
-  if (ix > 0) return iy < 0 ? 1 : iy > 0 ? 3 : 2;
-  if (ix < 0) return iy < 0 ? 7 : iy > 0 ? 5 : 6;
-  return iy < 0 ? 0 : 4;
-}
-
 function pointAtGap(distance) {
   let along = 0;
   let newer = player;
   for (const older of trail) {
     const part = Math.hypot(newer.x - older.x, newer.y - older.y);
+    if (part > 0 && along + part >= distance) {
+      const fraction = (distance - along) / part;
+      return {x: newer.x + (older.x - newer.x) * fraction, y: newer.y + (older.y - newer.y) * fraction};
+    }
     along += part;
-    if (along >= distance) return older;
     newer = older;
   }
   return trail.at(-1) ?? player;
 }
 
 function reset() {
-  player = {x: 10, y: 10, dir: 4, distance: 0};
-  follower = {x: 10, y: 10, dir: 4, distance: 0};
+  player = {x: 10, y: 10, dir: 4, distance: 0, moving: false};
+  follower = {x: 10, y: 10, dir: 4, distance: 0, moving: false};
   trail = [{x: 10, y: 10}];
   lastFollower = {x: 10, y: 10};
   simulationTime = 0;
@@ -159,6 +105,7 @@ function advance(dt) {
   const [vx, vy] = VECTORS[direction];
   player.dir = direction;
   const moving = local < moveMs;
+  player.moving = moving;
   if (moving) {
     const dx = vx * (dt / moveMs) * 0.55;
     const dy = vy * (dt / moveMs) * 0.55;
@@ -174,14 +121,14 @@ function advance(dt) {
   const fx = next.x - lastFollower.x;
   const fy = next.y - lastFollower.y;
   const distance = Math.hypot(fx, fy);
-  if (distance > 1e-4) {
+  follower.moving = distance > 1e-6;
+  if (follower.moving) {
     follower.distance += distance;
-    follower.dir = heading(fx, fy) ?? follower.dir;
+    follower.dir = movementFacing(fx, fy) ?? follower.dir;
   }
   follower.x = next.x;
   follower.y = next.y;
   lastFollower = {x: next.x, y: next.y};
-  stateLabel.textContent = `${DIRECTIONS[follower.dir]} · ${moving ? 'walking' : 'idle'} · player ${leg >= 8 ? 'backtracking' : 'traversing'}`;
 }
 
 function project(x, y) {
@@ -190,6 +137,7 @@ function project(x, y) {
 
 function drawStage() {
   const creature = sources[speciesSelect.value];
+  stateLabel.textContent = `${DIRECTIONS[follower.dir]} · ${running && follower.moving ? 'walking' : 'idle'}${running ? '' : ' · paused'}`;
   ctx.clearRect(0, 0, stage.width, stage.height);
   ctx.fillStyle = '#31543e';
   ctx.fillRect(0, 0, stage.width, stage.height);
@@ -219,19 +167,20 @@ function drawStage() {
       drawFrame(ctx, object.image, 0, 0, p.x, p.y, 88, 1, 1, object.image.naturalWidth || 307, object.image.naturalHeight || 348);
       ctx.restore();
     } else if (object.kind === 'player') {
-      const moving = simulationTime % 960 < 700;
-      const column = moving && !calm.checked ? (Math.floor(player.distance / 0.56) % 4) + 1 : 0;
-      drawFrame(ctx, sources.player, column, player.dir, p.x, p.y, 36, 5, 8, 160, 256);
+      const column = playerFrame(player.distance, running && player.moving, calm.checked);
+      const pose = playerSpritePose(player.dir);
+      drawFrame(ctx, sources.player, column, pose.row, p.x, p.y, 36, 5, 8, 160, 256, pose.flip);
     } else {
-      const walking = simulationTime % 960 < 700;
-      const col = !calm.checked && walking ? (Math.floor(follower.distance / 0.56) % 4) + 1 : 0;
-      drawFrame(ctx, creature, col, ROWS[speciesSelect.value].indexOf(DIRECTIONS[follower.dir]), p.x, p.y, 37, 5, 8, 200, 200);
+      const frames = followerAssets[speciesSelect.value].frames;
+      const pose = directionPose(frames, follower.dir);
+      const col = followerFrame(follower.distance, running && follower.moving, calm.checked);
+      drawFrame(ctx, creature, col, pose.row, p.x, p.y, 37, frames.columns, frames.rows, frames.frameWidth, frames.frameHeight, pose.flip);
     }
   }
 }
 
 function render(now) {
-  const dt = Math.min(40, now - (previousTime || now));
+  const dt = Math.min(40, Math.max(0, now - (previousTime || now)));
   previousTime = now;
   advance(dt);
   drawStage();
@@ -257,8 +206,9 @@ function renderAtlas() {
       canvas.dataset.direction = direction;
       canvas.dataset.frame = frame;
       const context = canvas.getContext('2d');
-      const sourceRow = ROWS[speciesSelect.value].indexOf(direction);
-      drawFrame(context, image, column, sourceRow, 40, 78, 37, 5, 8, 200, 200);
+      const frames = followerAssets[speciesSelect.value].frames;
+      const pose = directionPose(frames, DIRECTIONS.indexOf(direction));
+      drawFrame(context, image, column, pose.row, 40, 78, 37, frames.columns, frames.rows, frames.frameWidth, frames.frameHeight, pose.flip);
       const caption = document.createElement('span');
       caption.textContent = frame;
       card.append(canvas, caption);
@@ -272,6 +222,7 @@ function renderAtlas() {
 document.querySelector('#play').addEventListener('click', event => {
   running = !running;
   event.currentTarget.textContent = running ? 'Pause path demo' : 'Resume path demo';
+  drawStage();
 });
 document.querySelector('#reset').addEventListener('click', reset);
 speciesSelect.addEventListener('change', () => {
@@ -283,9 +234,18 @@ renderAtlas();
 requestAnimationFrame(render);
 
 window.followerPreview = {
-  state: () => ({row: follower.dir, direction: DIRECTIONS[follower.dir], distance: follower.distance, reducedMotion: calm.checked}),
+  state: () => ({
+    row: follower.dir,
+    direction: DIRECTIONS[follower.dir],
+    distance: follower.distance,
+    reducedMotion: calm.checked,
+    moving: running && follower.moving,
+    x: follower.x,
+    y: follower.y,
+  }),
   stop: () => {
     running = false;
+    drawStage();
   },
   resume: () => {
     running = true;

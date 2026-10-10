@@ -68,9 +68,11 @@ export function collectFacts() {
   sources.add('art/characters/visual-reviews.json');
   sources.add('art/characters/metadata.json');
   for (const asset of assets) {
-    const subject = subjects.find(
-      value => value.canonicalReferences?.some(ref => ref.assetId === asset.name) || asset.name === value.id || asset.name.startsWith(`${value.id}-`),
-    );
+    const subject =
+      subjects.find(value => value.exports?.some(output => output.assetId === asset.name)) ??
+      subjects.find(
+        value => value.canonicalReferences?.some(ref => ref.assetId === asset.name) || asset.name === value.id || asset.name.startsWith(`${value.id}-`),
+      );
     const follower = followers.sprites[asset.name];
     const battle = combat.sprites[asset.name];
     const preview = `dist/${asset.src}`;

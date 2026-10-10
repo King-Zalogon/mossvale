@@ -41,7 +41,9 @@
         "dist/src/creature-follower-preview.js",
         "dist/src/data/assets.js",
         "dist/src/data/moves.js",
-        "tests/follower-runtime.browser.mjs"
+        "tests/follower-runtime.browser.mjs",
+        "tests/lanternix.browser.mjs",
+        "package.json"
       ],
       "entries": [
         "species:mossvale/lanternix",
@@ -52,7 +54,7 @@
         "visual:creature-lanternix-follower"
       ],
       "disposition": "updated",
-      "reason": "Adds an original firefly identity, transparent combat/eight-facing follower art, stable appended Spark species and ordinary move, plus an optional curious ridge encounter. It reuses the shared bounded relay and current capture/party/save contracts; no exclusive condition, time gate or traversal mechanic is advertised. Generated fiches preserve the explicit pending owner taste/enjoyment status.",
+      "reason": "Adds an original firefly identity, transparent combat/eight-facing follower art, stable appended Spark species and ordinary move, plus an optional curious ridge encounter. It reuses the shared bounded relay and current capture/party/save contracts; no exclusive condition, time gate or traversal mechanic is advertised. Generated fiches preserve the explicit pending owner taste/enjoyment status. Preserves the canonical preview/renderer and concurrent guardian/player-facing fixes; a real-controls browser regression covers capture into reserve, activation, reload and setup/reload/switch/element consumption.",
       "evidence": [
         "tests/roster.test.mjs",
         "tests/creature-combat.browser.mjs",
@@ -60,7 +62,8 @@
         "art/characters/reviews/289/lanternix-habitat.png",
         "art/characters/reviews/289/lanternix-relay.png",
         "art/characters/reviews/289/silhouette-comparison.png",
-        "docs/CREATURE_ROSTER.md"
+        "docs/CREATURE_ROSTER.md",
+        "tests/lanternix.browser.mjs"
       ]
     }
   ]

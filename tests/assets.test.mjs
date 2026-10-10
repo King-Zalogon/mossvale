@@ -105,6 +105,10 @@ test('sample visual subjects have hashed canonical references, exports and linke
       'creature-cindercurl',
       'creature-sunsifter',
       'creature-rillume',
+      'creature-mushmallow-thorn-mantle',
+      'creature-pebblit-crystal-ridge',
+      'creature-frostowl-ice-mantle',
+      'creature-siltkip-tide-sail',
       'creature-lanternix',
     ],
   );
@@ -144,7 +148,6 @@ test('sample visual subjects have hashed canonical references, exports and linke
     'creature-fernling',
     'creature-frostowl',
     'creature-hushram',
-    'creature-lanternix',
     'creature-mushmallow',
     'creature-pebblit',
     'creature-petalunge',

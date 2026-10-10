@@ -1,0 +1,25 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/ui/battle-fx.js",
+        "dist/src/ui/battle-view.js",
+        "dist/src/controller.js",
+        "dist/src/data/sounds.js",
+        "dist/style.css",
+        "tests/battle-fx.test.mjs",
+        "tests/capture-feel.browser.mjs",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/324-capture-victory-feel.json"
+      ],
+      "entries": ["mechanic:battle-impact-feedback"],
+      "disposition": "updated",
+      "reason": "Extends the battle impact feedback fiche with orb throw beats (fly-in, wobbles, settle with stars or open and pop-out) and a victory beat (foe fades, friend hops, XP and coins float up). Beats are derived from the already-resolved turn, so capture chance, outcomes, rewards and saves are untouched; the wobble count only reflects the displayed chance.",
+      "evidence": ["tests/battle-fx.test.mjs", "tests/capture-feel.browser.mjs"]
+    }
+  ]
+}

@@ -467,10 +467,16 @@ async function boot() {
   }
 }
 
+const BASE_WIDTH = 960;
+const MAX_WIDTH = 1800;
+
 function resize() {
   const bounds = canvas.getBoundingClientRect();
-  const height = Math.round((960 * bounds.height) / bounds.width);
+  // Wider windows show more of the world (one canvas pixel per CSS pixel above the 960 px baseline) instead of magnifying it.
+  const width = bounds.width > BASE_WIDTH ? Math.min(MAX_WIDTH, Math.round(bounds.width)) : BASE_WIDTH;
+  const height = Math.round((width * bounds.height) / bounds.width);
   if (Number.isFinite(height) && height > 0 && canvas.height !== height) canvas.height = height;
+  if (canvas.width !== width) canvas.width = width;
   ui.zoom = settings.zoom ?? (innerWidth < 760 ? 1.9 : 1.45);
 }
 

@@ -36,7 +36,7 @@
         {
           "assetId": "person-red-cap-north",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
+          "sha256": "ecc5102f5185c7f2d5a94fe7689def0382f0d017a73c4b2e4ff3169067f2b18b",
           "cell": {
             "x": 1168,
             "y": 2064,
@@ -47,7 +47,7 @@
         {
           "assetId": "person-red-cap-east",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
+          "sha256": "ecc5102f5185c7f2d5a94fe7689def0382f0d017a73c4b2e4ff3169067f2b18b",
           "cell": {
             "x": 656,
             "y": 2064,
@@ -58,7 +58,7 @@
         {
           "assetId": "person-red-cap-south",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
+          "sha256": "ecc5102f5185c7f2d5a94fe7689def0382f0d017a73c4b2e4ff3169067f2b18b",
           "cell": {
             "x": 1008,
             "y": 2064,
@@ -69,7 +69,7 @@
         {
           "assetId": "person-red-cap-west",
           "path": "art/assets/source/people-atlas.png",
-          "sha256": "d0e89819e9fcbd81f451386ddfddfca5983449d5c9a92095654d46d677805c70",
+          "sha256": "ecc5102f5185c7f2d5a94fe7689def0382f0d017a73c4b2e4ff3169067f2b18b",
           "cell": {
             "x": 834,
             "y": 2064,
@@ -118,16 +118,16 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
-        "sha256": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4"
+        "sha256": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
-        "settings": "RGBA 160x256 cells; crop source cells, scale with nearest-neighbor to 224 px high and at most 152 px wide, center horizontally, and align feet to y=250. Compose a 5x8 atlas in N, NE, E, SE, S, SW, W, NW order. Idle column 0 comes from the transparent 4x2 neutral sheet recorded in character metadata, remapped from S, SE, E, NE, N, NW, W, SW; walk cells remain on the original directional sources. Northeast and southwest source walk columns are ordered 1, 2, 4, 3; West walk cell 3 uses its separately retained generated opposite-stride source.",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
+        "settings": "RGBA 160x256 cells; crop source cells, nearest-neighbor scale to 224 px high and at most 152 px wide, center horizontally, and align visible feet to y=250. Compose a 5x8 atlas in N, NE, E, SE, S, SW, W, NW order. Idle column 0 uses the transparent 4x2 neutral sheet. NE v3 preserves the diagonal-facing upper pose with a clearer alternating foot stride; NW v2 mirrors NE v3 cell-by-cell. East uses its revised four-stride source; SW walk cells remain ordered 1, 2, 4, 3; West walk cell 3 uses its separately retained generated opposite-stride source.",
         "profileId": "red-cap-motion-v1",
         "profileSha256": "d00b3aa7df631b1a29c7f050d757c4993fed2fdb3a3fe285567d0b921e1f469a"
       },
@@ -150,9 +150,7 @@
           "id": "red-cap-motion-northeast-walk-v2",
           "path": "art/characters/source/person-red-cap-motion-northeast-v2.png",
           "sha256": "855d50236e2dfd04be93e9116510f81cafd6c7eb2ddb3f15c610c502890893e1",
-          "directions": [
-            "northeast"
-          ],
+          "directions": [],
           "walkColumns": [
             1,
             2,
@@ -201,14 +199,14 @@
               "status": "unavailable",
               "reason": "No generation masks were used or retained."
             }
-          }
+          },
+          "supersededBy": "art/characters/source/person-red-cap-motion-northeast-v3.png"
         },
         {
           "id": "red-cap-motion-east-southeast",
           "path": "art/characters/source/person-red-cap-motion-east-southeast.png",
           "sha256": "6109e0b89adae4c357c30c9519ae7fbe5e276639604585e46942623d84c2e799",
           "directions": [
-            "east",
             "southeast"
           ],
           "referenceAssetIds": [
@@ -294,8 +292,7 @@
           "path": "art/characters/source/person-red-cap-motion-west-northwest.png",
           "sha256": "f8bf4b24d264fd087458c1835eee145aa8b2586ab4e4f23af3e503ba60b5bd6c",
           "directions": [
-            "west",
-            "northwest"
+            "west"
           ],
           "referenceAssetIds": [
             "person-red-cap-west"
@@ -429,13 +426,284 @@
               "reason": "No generation masks were reported."
             }
           }
+        },
+        {
+          "id": "red-cap-motion-east-v2",
+          "path": "art/characters/source/person-red-cap-motion-east-v2.png",
+          "sha256": "f88edf5b49aaf563f438452ae632c4f3b1ac958d454648c91372cedc4383e0c6",
+          "directions": [
+            "east"
+          ],
+          "walkColumns": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "sourceGrid": {
+            "columns": 5,
+            "rows": 2,
+            "cell": [
+              384,
+              512
+            ]
+          },
+          "referenceAssetIds": [
+            "person-red-cap-east"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "Codex image_gen and Pillow normalization",
+              "evidence": "art/characters/SOURCES.md#Player"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The built-in image tool did not report its provider."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The built-in image tool did not report a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "New East idle plus four visibly alternating walk poses; preserve the player identity, transparent cells and foot line. The normalized generated source replaces repeated East gait cells.",
+              "evidence": "art/characters/SOURCES.md#Player",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was reported."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "person-red-cap-east"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "red-cap-motion-northwest-v2",
+          "path": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+          "sha256": "c62004e82f0af531e7cfe83c2f915b23d0cdb721484f20f87ab5a521ce24328f",
+          "directions": [
+            "northwest"
+          ],
+          "walkColumns": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "sourceGrid": {
+            "columns": 5,
+            "rows": 2,
+            "cell": [
+              384,
+              512
+            ]
+          },
+          "referenceAssetIds": [
+            "person-red-cap-north",
+            "person-red-cap-east"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "Pillow source transform",
+              "evidence": "art/characters/SOURCES.md#Player"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "No external provider was used or reported."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "No model version applies to this source transform."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Mirror the corrected Northeast gait row cell-by-cell to keep Northwest facing stable while preserving its four-step foot cycle.",
+              "evidence": "art/characters/SOURCES.md#Player",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed applies to this source transform."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "person-red-cap-north",
+                "person-red-cap-east"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were used."
+            }
+          },
+          "generationReference": {
+            "status": "available",
+            "assetIds": [
+              "person-red-cap-north",
+              "person-red-cap-east"
+            ]
+          }
+        },
+        {
+          "id": "red-cap-neutral-idle-v2",
+          "path": "art/characters/source/person-red-cap-neutral-idle-v2.png",
+          "sha256": "2a3a85870810a254f3bc1f15f5ed2dbfa3a1954b23b5a11383e62834354eba1b",
+          "directions": [],
+          "sourceGrid": {
+            "columns": 4,
+            "rows": 2,
+            "cell": [
+              384,
+              512
+            ]
+          },
+          "sourceDirectionOrder": [
+            "south",
+            "southeast",
+            "east",
+            "northeast",
+            "north",
+            "northwest",
+            "west",
+            "southwest"
+          ],
+          "referenceAssetIds": [
+            "person-red-cap-north",
+            "person-red-cap-east",
+            "person-red-cap-south",
+            "person-red-cap-west"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "Codex image_gen and Pillow normalization",
+              "evidence": "art/characters/SOURCES.md#Player"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "The built-in image tool did not report its provider."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "The built-in image tool did not report a model version."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Replace the incorrect NE/NW profiles with their diagonal rest poses, and give SW a clearer front-left stance; preserve the other five neutral cells and the 4x2 mapping.",
+              "evidence": "art/characters/SOURCES.md#Player",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed was reported."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "person-red-cap-north",
+                "person-red-cap-east",
+                "person-red-cap-south",
+                "person-red-cap-west"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were retained."
+            }
+          }
+        },
+        {
+          "id": "red-cap-motion-northeast-v3",
+          "path": "art/characters/source/person-red-cap-motion-northeast-v3.png",
+          "sha256": "1906b592b506a8156677bee0f032274a0cdb1fcac45c1b74f9c0d0b0194eceb2",
+          "directions": [
+            "northeast"
+          ],
+          "walkColumns": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "sourceGrid": {
+            "columns": 5,
+            "rows": 2,
+            "cell": [
+              384,
+              512
+            ]
+          },
+          "referenceAssetIds": [
+            "person-red-cap-north",
+            "person-red-cap-east"
+          ],
+          "exportAssetIds": [
+            "person-red-cap-motion"
+          ],
+          "generation": {
+            "tool": {
+              "status": "summary-only",
+              "value": "Pillow composition of retained generated direction sheets",
+              "evidence": "art/characters/SOURCES.md#Player"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "No external provider was used or reported."
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "No model version applies to this source transform."
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Keep the Northeast-facing upper pose from the original directional sheet and composite the North row lower-leg gait into each walk cell so visible feet alternate clearly at 52x84 px, with one shared foot line.",
+              "evidence": "art/characters/SOURCES.md#Player",
+              "exactPromptStatus": "unavailable"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "No generation seed applies to this source transform."
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "person-red-cap-north",
+                "person-red-cap-east"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No generation masks were used."
+            }
+          }
         }
       ],
       "exports": [
         {
           "assetId": "person-red-cap-motion",
           "path": "dist/assets/people/person-red-cap-motion.png",
-          "sha256": "98c33b2c08a9d43892425d73889bc727eee77db5145bd0ce81e9aeec037a6f95",
+          "sha256": "e0dff61fbb1244c92918feef94eb516e8f4090369a53dd95e90f9c5d6355f8e7",
           "profileId": "red-cap-motion-v1",
           "profileSha256": "d00b3aa7df631b1a29c7f050d757c4993fed2fdb3a3fe285567d0b921e1f469a"
         }
@@ -505,7 +773,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -674,7 +942,7 @@
         "assetId": "creature-fernling-combat",
         "fallbackAssetId": "creature-fernling",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -710,7 +978,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa"
+        "sha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f"
       },
       "runtimeFollower": {
         "assetId": "creature-fernling-follower",
@@ -733,10 +1001,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -807,7 +1075,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "c0879911ed1e1c185688cb176e0233dbfb9c27fc5b1b11ccce68f20d338af0bf"
+        "sha256": "506d30acc080274510cb9fdd1c6b1c73bf184aefbd1b19683d9c5a6d81900979"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -972,7 +1240,7 @@
         "assetId": "creature-duskwing-combat",
         "fallbackAssetId": "creature-duskwing",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -1008,7 +1276,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa"
+        "sha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f"
       },
       "runtimeFollower": {
         "assetId": "creature-duskwing-follower",
@@ -1031,10 +1299,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -1105,11 +1373,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa"
+        "sha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1286,10 +1554,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -1360,7 +1628,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "c0879911ed1e1c185688cb176e0233dbfb9c27fc5b1b11ccce68f20d338af0bf"
+        "sha256": "506d30acc080274510cb9fdd1c6b1c73bf184aefbd1b19683d9c5a6d81900979"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1525,7 +1793,7 @@
         "assetId": "creature-brooklet-combat",
         "fallbackAssetId": "creature-brooklet",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -1561,7 +1829,7 @@
       ],
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
-        "sha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa"
+        "sha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f"
       },
       "runtimeFollower": {
         "assetId": "creature-brooklet-follower",
@@ -1584,10 +1852,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -1658,7 +1926,7 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "c0879911ed1e1c185688cb176e0233dbfb9c27fc5b1b11ccce68f20d338af0bf"
+        "sha256": "506d30acc080274510cb9fdd1c6b1c73bf184aefbd1b19683d9c5a6d81900979"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -1827,7 +2095,7 @@
         "assetId": "creature-hushram-combat",
         "fallbackAssetId": "creature-hushram",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -1872,10 +2140,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -1947,7 +2215,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceBatches": [
         {
@@ -2118,10 +2386,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -2191,11 +2459,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -2349,7 +2617,7 @@
         "assetId": "creature-mushmallow-combat",
         "fallbackAssetId": "creature-mushmallow",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -2413,10 +2681,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -2486,11 +2754,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -2644,7 +2912,7 @@
         "assetId": "creature-frostowl-combat",
         "fallbackAssetId": "creature-frostowl",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -2708,10 +2976,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -2776,15 +3044,15 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -2934,7 +3202,7 @@
         "assetId": "creature-pebblit-combat",
         "fallbackAssetId": "creature-pebblit",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -2998,10 +3266,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -3066,15 +3334,15 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3224,7 +3492,7 @@
         "assetId": "creature-bramblebuck-combat",
         "fallbackAssetId": "creature-bramblebuck",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -3288,10 +3556,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -3356,15 +3624,15 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3514,7 +3782,7 @@
         "assetId": "creature-siltkip-combat",
         "fallbackAssetId": "creature-siltkip",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -3578,10 +3846,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -3646,15 +3914,15 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
-        "sha256": "ee08b67e6cfdc5f7dfa49d69dd9f26a335972d10f70c29336aee6f281bbdcf5e",
+        "sha256": "71d6455990cd02878f53426feb351b6bb08f76890f1a860b66ae8212b3b8551e",
         "settings": "Pixel-preserving RGBA crop from the current creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -3804,7 +4072,7 @@
         "assetId": "creature-sunskitter-combat",
         "fallbackAssetId": "creature-sunskitter",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -3868,10 +4136,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -3944,11 +4212,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -4139,7 +4407,7 @@
         "assetId": "creature-sedgegnaw-combat",
         "fallbackAssetId": "creature-sedgegnaw",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -4203,10 +4471,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -4279,11 +4547,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -4474,7 +4742,7 @@
         "assetId": "creature-petalunge-combat",
         "fallbackAssetId": "creature-petalunge",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -4538,10 +4806,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -4614,11 +4882,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -4809,7 +5077,7 @@
         "assetId": "creature-cindercurl-combat",
         "fallbackAssetId": "creature-cindercurl",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -4873,10 +5141,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -4948,11 +5216,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -5143,7 +5411,7 @@
         "assetId": "creature-sunsifter-combat",
         "fallbackAssetId": "creature-sunsifter",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -5207,10 +5475,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
@@ -5282,11 +5550,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -5477,7 +5745,7 @@
         "assetId": "creature-rillume-combat",
         "fallbackAssetId": "creature-rillume",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -5541,14 +5809,564 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
+      }
+    },
+    {
+      "id": "creature-mushmallow-thorn-mantle",
+      "revision": 1,
+      "requiredDirections": [],
+      "identity": {
+        "silhouette": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
+        "palette": [
+          "cream",
+          "lilac",
+          "violet",
+          "deep purple"
+        ],
+        "distinguishingFeatures": [
+          "thorn mantle",
+          "Species-specific transformed combat anatomy",
+          "Four limbs / two talons as appropriate; unchanged canonical palette"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-mushmallow",
+          "path": "dist/assets/creatures/creature-mushmallow.png",
+          "sha256": "3a140fbb9adeccfc96ae972cc6e8a7d871e3d6c080d8ecc663e362823fce5c0b"
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "available",
+          "value": "image_gen.imagegen",
+          "evidence": "art/characters/guardian-generation.json"
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "prompt": {
+          "status": "summary-only",
+          "summary": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
+          "evidence": "art/characters/guardian-generation.json"
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "generationReference": {
+          "status": "available",
+          "assetIds": [
+            "creature-mushmallow"
+          ]
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No separate editing mask supplied"
+        }
+      },
+      "sourceNotes": {
+        "path": "docs/GUARDIAN_COMBAT_FORMS.md",
+        "sha256": "9e79e0f1071125120c548690a976b5fc90174f4e220e3ed3d7cc12770af17c9d"
+      },
+      "exports": [
+        {
+          "assetId": "creature-mushmallow-thorn-mantle-combat",
+          "path": "dist/assets/creatures/creature-mushmallow-thorn-mantle-combat.png",
+          "sha256": "bd88e5f7685dc7e25767d12776f3990c8882d03bd6931868e73fd085f8fb296f",
+          "profileId": "creature-guardian-combat-v1",
+          "profileSha256": "5a2a03491f9b13dc797bac40d07200509235a779f6355c19f847acfeb17b85e3"
+        }
+      ],
+      "exportWorkflow": {
+        "path": "art/characters/export-guardian-combat.py",
+        "sha256": "68532b04ef467075225be339ad854a88aaa587464865b12506ea85ab919917da",
+        "profileId": "creature-guardian-combat-v1",
+        "profileSha256": "5a2a03491f9b13dc797bac40d07200509235a779f6355c19f847acfeb17b85e3",
+        "settings": "Separated source rows, fixed four columns, alpha32/component180 cleanup, one common nearest-neighbor scale per sheet, 288px cells, ground y284; exact RGBA editable atlas"
+      },
+      "sourceBatches": [
+        {
+          "id": "mushmallow-thorn-mantle-generated",
+          "path": "art/characters/source/creature-mushmallow-thorn-mantle-combat-generated.png",
+          "sha256": "115ca61d273c8a77824917a96a98c600c07fbd87ae36dbb592d628667699640a",
+          "directions": [],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "referenceAssetIds": [
+            "creature-mushmallow"
+          ],
+          "exportAssetIds": [
+            "creature-mushmallow-thorn-mantle-combat"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "image_gen.imagegen",
+              "evidence": "art/characters/guardian-generation.json"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
+              "evidence": "art/characters/guardian-generation.json"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-mushmallow"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No separate editing mask supplied"
+            }
+          }
+        }
+      ],
+      "sourceMetadata": {
+        "path": "art/characters/guardian-generation.json",
+        "sha256": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61"
+      }
+    },
+    {
+      "id": "creature-pebblit-crystal-ridge",
+      "revision": 1,
+      "requiredDirections": [],
+      "identity": {
+        "silhouette": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
+        "palette": [
+          "canonical source palette"
+        ],
+        "distinguishingFeatures": [
+          "crystal ridge",
+          "Species-specific transformed combat anatomy",
+          "Four limbs / two talons as appropriate; unchanged canonical palette"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-pebblit",
+          "path": "dist/assets/creatures/creature-pebblit.png",
+          "sha256": "d102e65645174891f97606513a006c3089bd404e4ecebed18ab38e87b1ebde1d"
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "available",
+          "value": "image_gen.imagegen",
+          "evidence": "art/characters/guardian-generation.json"
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "prompt": {
+          "status": "summary-only",
+          "summary": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
+          "evidence": "art/characters/guardian-generation.json"
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "generationReference": {
+          "status": "available",
+          "assetIds": [
+            "creature-pebblit"
+          ]
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No separate editing mask supplied"
+        }
+      },
+      "sourceNotes": {
+        "path": "docs/GUARDIAN_COMBAT_FORMS.md",
+        "sha256": "9e79e0f1071125120c548690a976b5fc90174f4e220e3ed3d7cc12770af17c9d"
+      },
+      "exports": [
+        {
+          "assetId": "creature-pebblit-crystal-ridge-combat",
+          "path": "dist/assets/creatures/creature-pebblit-crystal-ridge-combat.png",
+          "sha256": "3e829b3b78e5bacdca6eff83ddfaca35a971e843cadc16b98ab9d6c826d975cd",
+          "profileId": "creature-guardian-combat-v1",
+          "profileSha256": "5a2a03491f9b13dc797bac40d07200509235a779f6355c19f847acfeb17b85e3"
+        }
+      ],
+      "exportWorkflow": {
+        "path": "art/characters/export-guardian-combat.py",
+        "sha256": "68532b04ef467075225be339ad854a88aaa587464865b12506ea85ab919917da",
+        "profileId": "creature-guardian-combat-v1",
+        "profileSha256": "5a2a03491f9b13dc797bac40d07200509235a779f6355c19f847acfeb17b85e3",
+        "settings": "Separated source rows, fixed four columns, alpha32/component180 cleanup, one common nearest-neighbor scale per sheet, 288px cells, ground y284; exact RGBA editable atlas"
+      },
+      "sourceBatches": [
+        {
+          "id": "pebblit-crystal-ridge-generated",
+          "path": "art/characters/source/creature-pebblit-crystal-ridge-combat-generated.png",
+          "sha256": "85a151af87d77b53e6fe4e90b7486b0eb227c3753967b471826aa1e3ab574e50",
+          "directions": [],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "referenceAssetIds": [
+            "creature-pebblit"
+          ],
+          "exportAssetIds": [
+            "creature-pebblit-crystal-ridge-combat"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "image_gen.imagegen",
+              "evidence": "art/characters/guardian-generation.json"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
+              "evidence": "art/characters/guardian-generation.json"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-pebblit"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No separate editing mask supplied"
+            }
+          }
+        }
+      ],
+      "sourceMetadata": {
+        "path": "art/characters/guardian-generation.json",
+        "sha256": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61"
+      }
+    },
+    {
+      "id": "creature-frostowl-ice-mantle",
+      "revision": 1,
+      "requiredDirections": [],
+      "identity": {
+        "silhouette": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
+        "palette": [
+          "snow white",
+          "ice blue",
+          "cyan",
+          "navy"
+        ],
+        "distinguishingFeatures": [
+          "ice mantle",
+          "Species-specific transformed combat anatomy",
+          "Four limbs / two talons as appropriate; unchanged canonical palette"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-frostowl",
+          "path": "dist/assets/creatures/creature-frostowl.png",
+          "sha256": "e9815a89122b06f86d76723ed3bdf97158ee69b00707b7eb19b4c1003988e5d8"
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "available",
+          "value": "image_gen.imagegen",
+          "evidence": "art/characters/guardian-generation.json"
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "prompt": {
+          "status": "summary-only",
+          "summary": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
+          "evidence": "art/characters/guardian-generation.json"
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "generationReference": {
+          "status": "available",
+          "assetIds": [
+            "creature-frostowl"
+          ]
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No separate editing mask supplied"
+        }
+      },
+      "sourceNotes": {
+        "path": "docs/GUARDIAN_COMBAT_FORMS.md",
+        "sha256": "9e79e0f1071125120c548690a976b5fc90174f4e220e3ed3d7cc12770af17c9d"
+      },
+      "exports": [
+        {
+          "assetId": "creature-frostowl-ice-mantle-combat",
+          "path": "dist/assets/creatures/creature-frostowl-ice-mantle-combat.png",
+          "sha256": "f071203d78e1df1a331021da12185f28dfe033c9b9ea5cbf09ffcb8f2bcdc73c",
+          "profileId": "creature-guardian-combat-v1",
+          "profileSha256": "5a2a03491f9b13dc797bac40d07200509235a779f6355c19f847acfeb17b85e3"
+        }
+      ],
+      "exportWorkflow": {
+        "path": "art/characters/export-guardian-combat.py",
+        "sha256": "68532b04ef467075225be339ad854a88aaa587464865b12506ea85ab919917da",
+        "profileId": "creature-guardian-combat-v1",
+        "profileSha256": "5a2a03491f9b13dc797bac40d07200509235a779f6355c19f847acfeb17b85e3",
+        "settings": "Separated source rows, fixed four columns, alpha32/component180 cleanup, one common nearest-neighbor scale per sheet, 288px cells, ground y284; exact RGBA editable atlas"
+      },
+      "sourceBatches": [
+        {
+          "id": "frostowl-ice-mantle-generated",
+          "path": "art/characters/source/creature-frostowl-ice-mantle-combat-generated.png",
+          "sha256": "841e79340c42d4c85d881b530b0b6cd99da2876e239887a428982374254558e6",
+          "directions": [],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "referenceAssetIds": [
+            "creature-frostowl"
+          ],
+          "exportAssetIds": [
+            "creature-frostowl-ice-mantle-combat"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "image_gen.imagegen",
+              "evidence": "art/characters/guardian-generation.json"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
+              "evidence": "art/characters/guardian-generation.json"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-frostowl"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No separate editing mask supplied"
+            }
+          }
+        }
+      ],
+      "sourceMetadata": {
+        "path": "art/characters/guardian-generation.json",
+        "sha256": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61"
+      }
+    },
+    {
+      "id": "creature-siltkip-tide-sail",
+      "revision": 1,
+      "requiredDirections": [],
+      "identity": {
+        "silhouette": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
+        "palette": [
+          "canonical source palette"
+        ],
+        "distinguishingFeatures": [
+          "tide sail",
+          "Species-specific transformed combat anatomy",
+          "Four limbs / two talons as appropriate; unchanged canonical palette"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "assetId": "creature-siltkip",
+          "path": "dist/assets/creatures/creature-siltkip.png",
+          "sha256": "0b8402acc8fb02165db140b9581d426f17b0252c3e332b2f746a829201871c1e"
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "available",
+          "value": "image_gen.imagegen",
+          "evidence": "art/characters/guardian-generation.json"
+        },
+        "provider": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "prompt": {
+          "status": "summary-only",
+          "summary": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
+          "evidence": "art/characters/guardian-generation.json"
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "Not exposed by tool"
+        },
+        "generationReference": {
+          "status": "available",
+          "assetIds": [
+            "creature-siltkip"
+          ]
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No separate editing mask supplied"
+        }
+      },
+      "sourceNotes": {
+        "path": "docs/GUARDIAN_COMBAT_FORMS.md",
+        "sha256": "9e79e0f1071125120c548690a976b5fc90174f4e220e3ed3d7cc12770af17c9d"
+      },
+      "exports": [
+        {
+          "assetId": "creature-siltkip-tide-sail-combat",
+          "path": "dist/assets/creatures/creature-siltkip-tide-sail-combat.png",
+          "sha256": "fec670f15fef36be5290260f7995e439d63054fbc58899289b51fbfa0514cca8",
+          "profileId": "creature-guardian-combat-v1",
+          "profileSha256": "5a2a03491f9b13dc797bac40d07200509235a779f6355c19f847acfeb17b85e3"
+        }
+      ],
+      "exportWorkflow": {
+        "path": "art/characters/export-guardian-combat.py",
+        "sha256": "68532b04ef467075225be339ad854a88aaa587464865b12506ea85ab919917da",
+        "profileId": "creature-guardian-combat-v1",
+        "profileSha256": "5a2a03491f9b13dc797bac40d07200509235a779f6355c19f847acfeb17b85e3",
+        "settings": "Separated source rows, fixed four columns, alpha32/component180 cleanup, one common nearest-neighbor scale per sheet, 288px cells, ground y284; exact RGBA editable atlas"
+      },
+      "sourceBatches": [
+        {
+          "id": "siltkip-tide-sail-generated",
+          "path": "art/characters/source/creature-siltkip-tide-sail-combat-generated.png",
+          "sha256": "7725345a281b6869833dc476e6bd6b25ea317109e39939d276f275b75d947932",
+          "directions": [],
+          "states": [
+            "idle",
+            "attack",
+            "hit",
+            "faint",
+            "capture"
+          ],
+          "referenceAssetIds": [
+            "creature-siltkip"
+          ],
+          "exportAssetIds": [
+            "creature-siltkip-tide-sail-combat"
+          ],
+          "generation": {
+            "tool": {
+              "status": "available",
+              "value": "image_gen.imagegen",
+              "evidence": "art/characters/guardian-generation.json"
+            },
+            "provider": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "modelVersion": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "prompt": {
+              "status": "summary-only",
+              "summary": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
+              "evidence": "art/characters/guardian-generation.json"
+            },
+            "seed": {
+              "status": "unavailable",
+              "reason": "Not exposed by tool"
+            },
+            "generationReference": {
+              "status": "available",
+              "assetIds": [
+                "creature-siltkip"
+              ]
+            },
+            "maskHashes": {
+              "status": "unavailable",
+              "reason": "No separate editing mask supplied"
+            }
+          }
+        }
+      ],
+      "sourceMetadata": {
+        "path": "art/characters/guardian-generation.json",
+        "sha256": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61"
       }
     },
     {
@@ -5644,11 +6462,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "013a519a5c1df791427cf2e868e37606dc5109e7d57ab59905fd3cfc23262f4c"
+        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a"
+        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -5845,7 +6663,7 @@
         "assetId": "creature-lanternix-combat",
         "fallbackAssetId": "creature-lanternix",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
+        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
           "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
@@ -5909,10 +6727,10 @@
           "walk-4"
         ],
         "contractPath": "art/characters/creature-follower-metadata.json",
-        "contractSha256": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
+        "contractSha256": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "0413fbdab80a045d8449fda79dd36cf99ada7a7c03360823d9590236cf9b1902",
+          "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
           "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"

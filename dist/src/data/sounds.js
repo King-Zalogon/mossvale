@@ -31,6 +31,8 @@ export const SFX = {
   throw: [{f: 760, d: 0.3, to: 520}],
   guard: [{f: 400, d: 0.2, to: 520}],
   broke: [{f: 400, d: 0.3, to: 240}],
+  wobble: [{f: 310, d: 0.09, to: 350, type: 'square', g: 0.03}],
+  click: [{f: 1180, d: 0.07, type: 'square', g: 0.035}],
   heal: [
     {f: 610, d: 0.14},
     {f: 810, d: 0.2, t: 0.12},

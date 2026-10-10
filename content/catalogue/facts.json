@@ -2,16 +2,17 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "302a18778a869d35acee7bed0412d0244e885e3b5b808345dd6a12f02eb20c94",
+    "art/assets/subjects.json": "1cfeabd7d20f68f1548e3a23db0919573624af3fa6ef0e65b99f79c94a0a7757",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-    "art/characters/creature-combat-metadata.json": "8ba96329fd0fb725053ab1b82265dcaa7aba458bcfa340f1d3dd1f443ea4fb9a",
-    "art/characters/creature-follower-metadata.json": "3bb475d708c8429cb892b92c07463e31fca1ba45bb6240a0d9f68919803a5faa",
-    "art/characters/export-profiles.json": "ed6336f27e34ab27bc06666595ab0e6dae6db1d8a7f8900aba7dc115cde91dae",
-    "art/characters/metadata.json": "fb3ec0993cdafcd1ad947b83f35b4498276b411d8186d51711637f59d7c0dad4",
+    "art/characters/creature-combat-metadata.json": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+    "art/characters/creature-follower-metadata.json": "add10e5ee98bc4efbae9082706bd2dd86ca07a3a1653e52f6b29ecedfc97db3f",
+    "art/characters/export-profiles.json": "30a2d3b556902b5526a929895b089ff6b0d6a21c8657b79449ec4ae480803b9c",
+    "art/characters/guardian-generation.json": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61",
+    "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
-    "art/characters/visual-reviews.json": "27afdd58867ffd61d5792d6a3090efc30f02626a96b7195799093f7da79c327d",
-    "content/catalogue/curated.json": "4d140097bc71300c279662d8a9daabb17856292ecf84b156b64d63761fb753a0",
+    "art/characters/visual-reviews.json": "1ebf1d57995eb49fde9893c9f36dfa67aa47e6ac86b4108f0495f1b865aa5a01",
+    "content/catalogue/curated.json": "5b7d3110880d06b8f1b36c045064923577c92520ba105f883bac7788af2d8814",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "7d8194ba6ded41ae517b90bccbcb742ae6184bc90654aa0136e3818cf1047d3f",
     "dist/assets/creatures/creature-bramblebuck-combat.png": "3d08f6850e19de34e7ca45a22da5a568321b0df4c44b3f4de4d111758221064f",
@@ -34,6 +35,7 @@
     "dist/assets/creatures/creature-fernling.png": "426046feb5c9b34cd134af383f054ef325a3153a827f81065388b28a35884d84",
     "dist/assets/creatures/creature-frostowl-combat.png": "0ec81b187ff2be0cf4130a518c38bacee56d49e2ac1724f358537b0c710adb32",
     "dist/assets/creatures/creature-frostowl-follower.png": "a09a15efa0b45f6ab4ba2f5bfd5808722267f883e06cc86abffc41bbe022e6ab",
+    "dist/assets/creatures/creature-frostowl-ice-mantle-combat.png": "f071203d78e1df1a331021da12185f28dfe033c9b9ea5cbf09ffcb8f2bcdc73c",
     "dist/assets/creatures/creature-frostowl.png": "e9815a89122b06f86d76723ed3bdf97158ee69b00707b7eb19b4c1003988e5d8",
     "dist/assets/creatures/creature-hushram-combat.png": "32a1817ed1f63bb330f4bd59f32355f9517f09a903e22dfd02d60a9e1d41bae4",
     "dist/assets/creatures/creature-hushram-follower.png": "59aee6fdfb97926de8a36acdf1c19e731c6ff08c7251b4c621e49b340ddf5606",
@@ -43,8 +45,10 @@
     "dist/assets/creatures/creature-lanternix.png": "d69101170b9fed57eabc6643a9a35ea149b48489da1fd3a4d1ffb03501cc8c80",
     "dist/assets/creatures/creature-mushmallow-combat.png": "dc522312ac233dd35462e76dd2050067c058c7f70b3773fd12e92b2c38e02fcb",
     "dist/assets/creatures/creature-mushmallow-follower.png": "dbba4c4e2cd59345ab48c76432284f0d325d0537bda1e13d306b7c856a52520b",
+    "dist/assets/creatures/creature-mushmallow-thorn-mantle-combat.png": "bd88e5f7685dc7e25767d12776f3990c8882d03bd6931868e73fd085f8fb296f",
     "dist/assets/creatures/creature-mushmallow.png": "3a140fbb9adeccfc96ae972cc6e8a7d871e3d6c080d8ecc663e362823fce5c0b",
     "dist/assets/creatures/creature-pebblit-combat.png": "0c3c42916062ac05d210832e18835b9330e0904af5c288cd214c80114a58b189",
+    "dist/assets/creatures/creature-pebblit-crystal-ridge-combat.png": "3e829b3b78e5bacdca6eff83ddfaca35a971e843cadc16b98ab9d6c826d975cd",
     "dist/assets/creatures/creature-pebblit-follower.png": "4c0d3ab3873a916aa341904e2e36137a83e19b7b3582d9640eb51657f5c1de8e",
     "dist/assets/creatures/creature-pebblit.png": "d102e65645174891f97606513a006c3089bd404e4ecebed18ab38e87b1ebde1d",
     "dist/assets/creatures/creature-petalunge-combat.png": "7e39a6991e0104ccd69b60a07c6c5b42210eb990f01abc8eda126733377cb9fc",
@@ -58,6 +62,7 @@
     "dist/assets/creatures/creature-sedgegnaw.png": "71ff804584001161e7b17135b103dafd1ba15ebb7efbb82b43e0785ce4f407c1",
     "dist/assets/creatures/creature-siltkip-combat.png": "3f9e2e60432c80b696e363f63378c6d7c1b6d773f1de73c6c077cbf4762abdb1",
     "dist/assets/creatures/creature-siltkip-follower.png": "3adf0dacc4e499eb63d10c336ef1f1c64f76aba6f983f5da8266eaa0410bab16",
+    "dist/assets/creatures/creature-siltkip-tide-sail-combat.png": "fec670f15fef36be5290260f7995e439d63054fbc58899289b51fbfa0514cca8",
     "dist/assets/creatures/creature-siltkip.png": "0b8402acc8fb02165db140b9581d426f17b0252c3e332b2f746a829201871c1e",
     "dist/assets/creatures/creature-sunsifter-combat.png": "0ccc02755bad86cb86bc20160378176e8c004e887b9e3c31971e4338928f69e7",
     "dist/assets/creatures/creature-sunsifter-follower.png": "8d6548b7ce7aeebc133f76734664b06bf81b871ad55275bbb667efe72c4b9dd7",
@@ -71,7 +76,7 @@
     "dist/assets/items/item-capture-orb.png": "67d9bc68c1b5d0b14812f2d7e4e25acda73c4094937ca18a5b371bc9d661526f",
     "dist/assets/people/person-gardener.png": "f498db00333f41c5339119d505fc1ac99590d1554c969528b74f39867d2b9016",
     "dist/assets/people/person-red-cap-east.png": "1ea752494f7897b5e512d5885f8c732a06590949c74450f6e6c8744ea4053850",
-    "dist/assets/people/person-red-cap-motion.png": "98c33b2c08a9d43892425d73889bc727eee77db5145bd0ce81e9aeec037a6f95",
+    "dist/assets/people/person-red-cap-motion.png": "e0dff61fbb1244c92918feef94eb516e8f4090369a53dd95e90f9c5d6355f8e7",
     "dist/assets/people/person-red-cap-north.png": "16c613be7720e0c9f231eca4f7e5181b709647afde0ab858a5efeafa4ddec6a8",
     "dist/assets/people/person-red-cap-south.png": "9088f1039cc08e0f0496d08ff942ec3de9b55bfee561c23e8e38b4326faacc51",
     "dist/assets/people/person-red-cap-west.png": "73b972aca231577c7a746b84585b004672c6bbb0271799f24e9832202874fadd",
@@ -107,15 +112,15 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "17e8cd79f5bfa417cc67a03069260bb0a424b44d276c636a9be909771bc3d6da",
-    "dist/maps/frostveil-grove.json": "8ebc4497b3ca64be74664047d1392fc0a9d6dcf39993122b8f2902f867ade6b6",
+    "dist/maps/amber-ridge.json": "b03716578a209adbba7e0743d83a88ea00d94fdd44a3480e70fac215b7f445b0",
+    "dist/maps/frostveil-grove.json": "47459804ad50ff2707483838b93f89f7ff6a7506f4eb521242a5ca7aa41658a8",
     "dist/maps/frostveil-pass.json": "bc1f728ff350674d83840c38a91939fff60350820c7c63f183c317c6a17175e6",
-    "dist/maps/index.json": "cd41369ea10d2356fea23b06e8291549aa77c048b338ca09b000fa10a64b63f5",
+    "dist/maps/index.json": "4cf132b446271f7f8637f24bbce4e6499279240b4cc0bd84a15951b2764982de",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
-    "dist/maps/meadow.json": "a57709a1a39da36ab82089520396b5d3d626f919782f8b244a15e9daf1e1972e",
+    "dist/maps/meadow.json": "a70ad66a02b75e102b006b98869bc148a5b199b682ed728b9cd42dfb0ec5fbdd",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
     "dist/maps/orchard-ruins.json": "2124f03706f8144430c9d4b187ffdae36cbeee5268f69039d5b347cade35a833",
-    "dist/maps/reedfen-wetlands.json": "8c6064aa0f0d4b48df34b58c8630daf4cdf8fefb70013fdd59debb007bb73e98",
+    "dist/maps/reedfen-wetlands.json": "1f1ac38cd75dc67e578ae9b2712864d8f9f6113bb0948d2293e1cc90d6ce28bd",
     "dist/maps/registries.json": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc",
     "dist/maps/stilt-isles.json": "32780560dbf4f20134b00fc5a5203e1de87e465eb261b4973394cb1114876e55",
     "dist/maps/stone-basin.json": "bb796c826a36673f4986ea124b859b09ed146f7c4ce84902d8cf2b904be7c701",
@@ -126,21 +131,21 @@
     "dist/src/character-preview.js": "00058680f6a8971cc2cb974bf0c7d450b34a7d39ad1c28b5c37285a712973c54",
     "dist/src/compatibility.js": "cb16e68f3c5fefc86c7e6068f1f7a5e832e009647baa07641a4bd1ed06349ca3",
     "dist/src/config.js": "8c60c45a799c27fdddd30c02f08ca85c903900668f8b8a0d143b7445ecb8fff4",
-    "dist/src/controller.js": "963670efa047c5f7bec9f2e967a740931b2cc95d34232abefae5dad7993aa3fc",
+    "dist/src/controller.js": "f71845299e4904c408581a091cca883c88493ded0ced8ec742fd2226cdbf4ff0",
     "dist/src/creature-combat-preview.js": "54ed3e88504eee78be602a38b7834c43f0aee3d23506d5ea98dabc42bf7fc68a",
-    "dist/src/creature-follower-preview.js": "cd8c43654b08010599d547d981055850415abc259e86df29c424e56a897e88ec",
-    "dist/src/data/assets.js": "272537367df6895a299eed0b741d40e315c7ddaedd6df6381d4cbdc2a7e5be30",
+    "dist/src/creature-follower-preview.js": "8e6e8c033fbab4ea2bebcb24ffdb9e17319b72b7f532cfd39596a6cd7ee86b7c",
+    "dist/src/data/assets.js": "d00e91299c30919ded30ba80a902ba37d4af46f98b1c772dcd7bd048213f2f10",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "d76691961865a95bc015f483e26c84ee55da9b66bc46d6478fc3a55b419ae3bc",
     "dist/src/data/pack.js": "9fd30dbf4b643265515252efacae23a0e18507c5eb1649ad39eabf0ed436ff5c",
     "dist/src/data/regions.js": "dd20e32162860c8112f38d5f7509414f611b3f28e0649fdd72386630ff753c72",
     "dist/src/data/registry.js": "b380fbc26e56195e7713078f63f60fd504f8bf0df8cbb06e1baa754f80ba3f78",
-    "dist/src/data/sounds.js": "907dfbb8b9b96d676ebd1e6ca518d05d820f54d660bbf62132346daddbc3b0da",
+    "dist/src/data/sounds.js": "80dc28ad8aab34d9efd97fb24aa39443fc668aaaa94d5fb6bf37cfbc6d2224a4",
     "dist/src/data/species.js": "410945be3eae3097eadfd44210408df55c67229196cbff7e45b5d6419ad6a49a",
     "dist/src/data/tactics.js": "0ba459b0a97b7d3da40521b444254013c9ad21635b9f21911607d7315e2f07ea",
-    "dist/src/domain/adventure.js": "c8db517e9cefa05ef7d4223dd1573d3bcaa0966e35a23d6c8ceb48e640566e68",
-    "dist/src/domain/battle.js": "5cb4d27ef8ce0f6777d77520633a4deec41544856570548d73d4718646e7ee4b",
+    "dist/src/domain/adventure.js": "2ca8bbd540bb745ea836e1d8cf301968a8872ef29a36553f48143281cb0077ad",
+    "dist/src/domain/battle.js": "dcb6b281716f5a2276fba100c8c292804a41cb711fbf99c04b3f2126ad18d29e",
     "dist/src/domain/clock.js": "91e9a8d65543697ed7862ee28c450b04bd1cf56d534308acc3bedbebff7108d5",
     "dist/src/domain/combat-trace.js": "4c564af90c00892f81cb14da767ff14496106d53555843a567685a4595bfe32a",
     "dist/src/domain/companion-routes.js": "52d696611bb306ebe8b1a793f83a60dc4aab2c7c701141629d40e05816ef2bbc",
@@ -151,7 +156,7 @@
     "dist/src/domain/events.js": "195cd9d65e5e0bd90659d15bca993d50c94eb7cde4a1d103c612ccdbda9761d3",
     "dist/src/domain/exploration.js": "9fe89b19490390bb129ed0a887ae30c8f0dadfbe787d3149843b501069af71e3",
     "dist/src/domain/inventory.js": "198e9b236379a419e9b316205dd458d83fa8fc5e9c799d73818efb14daeefbc8",
-    "dist/src/domain/mapdata.js": "16ac5a7803a08262ad7ae2e4bf22bff83f8e6bc1d559c9c7e2d2976afd9baf9e",
+    "dist/src/domain/mapdata.js": "cc878ef904bcaa009625b5c92173f3567ba625aa325f18ae3d398c73805f4e1c",
     "dist/src/domain/objective-events.js": "7ea11e81899424623e230c55ddc90c42c77c9df88532b91832cf39d23991128e",
     "dist/src/domain/objectives.js": "74b325d07025a7341032f3d5f5b8a5d01918a8e72cb9863c9b833acb9b3ee912",
     "dist/src/domain/pack.js": "77730dcfa0a58ed1caf0fa966ed509bae2670f9dfde4f2b7be4bdffa98cd2151",
@@ -165,12 +170,14 @@
     "dist/src/domain/story.js": "76aca33499825ab396db075379a05ff5343bfeec2d82ec6eb715b6026372c381",
     "dist/src/domain/terrain-family.js": "e9828ed285b9ffd558a9f168fa71f5477ffd6ee75a1359a874bfcfcd7101476e",
     "dist/src/domain/world.js": "33283839346a885c8004cb5c5682d29e0d0f6758d36a5698b0eb85b3d3eca383",
-    "dist/src/input.js": "362b57a2241a9ab4c3f9e6cbd44aaff587dba57fc6964307af277664fd6d200a",
-    "dist/src/main.js": "eabd1c08ebd68a4f64e51d47af33b9be8c73682368550b3e4dd6ff43b4831c73",
+    "dist/src/guardian-combat-preview.js": "65e574739d7df6c6c10dbc16bf144c2adfeac5d1f368d9fea6903037acd814e2",
+    "dist/src/input.js": "bdc96ba36c549da948d16bbd2f862e1b34691db4067f9796aa738a04c65fa6a6",
+    "dist/src/main.js": "0470116cb4058ffe720a5fda8a87f49a7cdaa26d140f74a1d1c3bf56aa4508a4",
     "dist/src/map-editor.js": "ba48bdb6ac640d98cc21ab82cff862dfa081ac84519d0d9bc59caa358c6d1149",
-    "dist/src/render/sprites.js": "f1904009314275592c7a117491f4365ebb5249a396f2ab502369d7cf41caf66f",
+    "dist/src/render/battle-art.js": "c51784768c512f13613a83faf3e9f939699846f7e6eac650a5b0d38a047a0855",
+    "dist/src/render/sprites.js": "73ec0aa24813b886e784052dde94adbc8800a689b898e39a206cec1e1445c072",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
-    "dist/src/render/world.js": "88dd06faf50b61bd6261a88e529121add3d7b7905e3e7c2212a16c682d8860ec",
+    "dist/src/render/world.js": "66b26b6c9d5389c544b64d2f2753fcfb8cb69fbc37864bb26ccdf4e06217c3a9",
     "dist/src/save.js": "946a4de156f2a858e7bf016dd7c11e98c6abc2e2b9c58c4a53ec7be1ee23b092",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
@@ -185,11 +192,11 @@
     "dist/src/services/version.js": "496b96f1383f1318bf887a7e38f380ecc71464ef3a27e565b909ff8e086942fb",
     "dist/src/ui/account.js": "a622d6128268e7a3161447833b3c15fd2ec5c025d215d141f0a4beba02038b9e",
     "dist/src/ui/areamap.js": "436bcdd549413a7f47b16d4b5e50028b1b32cd78c1b9874f5bced459ce050ef4",
-    "dist/src/ui/battle-fx.js": "a8498979c39b3f96b9132c3bce867fa62f9ed89b8ae7a2df9e18881751dd9e94",
-    "dist/src/ui/battle-view.js": "2e1c6a5920fab5edf8de669b3c4eb75befe9f13f5c71f615d65654f0ca97e12b",
+    "dist/src/ui/battle-fx.js": "f744030edd6746e99a197973a50c3adcfb5b68fe16bd84de8a3c080e0255a8af",
+    "dist/src/ui/battle-view.js": "8d1568737e4c0a4260105baa73a21151d2136a4334ed2ba253835fe17eae2cf2",
     "dist/src/ui/dom.js": "896b6353b90b7640a1219a0f7a9e2eb791ef81adc0766a557cb2c9919a191090",
     "dist/src/ui/hud.js": "9ac727aeca185bed2e15dbdbc34fa4c51266f5b3bdf78083e53154d8d487a4a1",
-    "dist/src/ui/menus.js": "b981e9cfb5cd0071efd58ea4ddc96d0a503050bb19376121b1d8bb618180da2a",
+    "dist/src/ui/menus.js": "4f048d753950b4c210149722cb10ffc6ea40c42abc59f426d18858483b00280f",
     "dist/src/ui/speech.js": "a19df962494d804ec047f472633da6a58df99234056e0155504582121e868e21",
     "dist/src/ui/terrain-family-preview.js": "2f0b636f500caa36d5da1e2ed61abc42bbe184fc8629d6447439fbbe1403d023",
     "scripts/art-jobs.mjs": "6f9d421cda205300e6005b366099af1e57fab4245df048da17dd4fc4576055cf",
@@ -198,7 +205,7 @@
     "scripts/check-catalogue-impact.mjs": "a761bbff1a4293637f10f13d4f5d41428e91bc54b8af0dccdc8c0a50a78155e7",
     "scripts/compile-brief.mjs": "56baa0130c5c5f25990c726ed7b53acc4f991e8ad4b77d11c4425385292c15a1",
     "scripts/lib/catalogue-impact.mjs": "35a530ea67d230fec768cccbef91e782776b42dda01162bab3d1b5fadff1b5e0",
-    "scripts/lib/catalogue.mjs": "12cf549f6db2f75f62c69a8cb5371be004d64b6c29dd8c0ebc17d1337b08cb05",
+    "scripts/lib/catalogue.mjs": "2d53dd3d1d7ac4d29cd74507dcb3cb9e4ef04357044bfd9a77f6d75499d70233",
     "scripts/pack.mjs": "281d94ef331a873b38da00114f65b798cbcb72896692680c48bec714484ed53a",
     "tests/fixtures/packs/bakery/bakery-lane.json": "56d9f8dbc8a413179ebb11b41307325d58700ac1303633675c4e3da38fc1124f",
     "tests/fixtures/packs/bakery/index.json": "76c1853fb6c5d0ead74ddd2ae5e1400c773d98e55e81fc259daab402a2854b30",
@@ -219,7 +226,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "b826be55de63a6527b7b80ed2b951acb26c3c408b1fc167b66940d1969f4fae2",
+  "sourceDigest": "3e33e4d5aa1436a92d98a318290e420ed6ba304fc40a3b90ff60c3b10f4688a7",
   "exclusions": [
     {
       "family": "module-exports",
@@ -997,7 +1004,8 @@
           "species": "pebblit",
           "level": 10,
           "tactic": "rolling-charge",
-          "power": 1.5
+          "power": 1.5,
+          "combatSprite": "creature-pebblit-crystal-ridge-combat"
         },
         "reward": {
           "coins": 60,
@@ -1226,7 +1234,8 @@
         "guardian": {
           "species": "frostowl",
           "level": 11,
-          "tactic": "frost-chorus"
+          "tactic": "frost-chorus",
+          "combatSprite": "creature-frostowl-ice-mantle-combat"
         },
         "reward": {
           "coins": 60,
@@ -1575,7 +1584,8 @@
           "species": "mushmallow",
           "level": 7,
           "tactic": "spore-guard",
-          "power": 1.8
+          "power": 1.8,
+          "combatSprite": "creature-mushmallow-thorn-mantle-combat"
         },
         "reward": {
           "coins": 60,
@@ -1901,7 +1911,8 @@
           "species": "siltkip",
           "level": 14,
           "tactic": "tidal-current",
-          "power": 1.7
+          "power": 1.7,
+          "combatSprite": "creature-siltkip-tide-sail-combat"
         },
         "reward": {
           "coins": 75,
@@ -2827,7 +2838,8 @@
               "species": "pebblit",
               "level": 10,
               "tactic": "rolling-charge",
-              "power": 1.5
+              "power": 1.5,
+              "combatSprite": "creature-pebblit-crystal-ridge-combat"
             },
             "reward": {
               "coins": 60,
@@ -3513,7 +3525,8 @@
             "guardian": {
               "species": "frostowl",
               "level": 11,
-              "tactic": "frost-chorus"
+              "tactic": "frost-chorus",
+              "combatSprite": "creature-frostowl-ice-mantle-combat"
             },
             "reward": {
               "coins": 60,
@@ -4488,7 +4501,8 @@
               "species": "mushmallow",
               "level": 7,
               "tactic": "spore-guard",
-              "power": 1.8
+              "power": 1.8,
+              "combatSprite": "creature-mushmallow-thorn-mantle-combat"
             },
             "reward": {
               "coins": 60,
@@ -6245,7 +6259,8 @@
               "species": "siltkip",
               "level": 14,
               "tactic": "tidal-current",
-              "power": 1.7
+              "power": 1.7,
+              "combatSprite": "creature-siltkip-tide-sail-combat"
             },
             "reward": {
               "coins": 75,
@@ -8986,17 +9001,17 @@
           {
             "id": "map:meadow",
             "path": "meadow.json",
-            "sha256": "a57709a1a39da36ab82089520396b5d3d626f919782f8b244a15e9daf1e1972e"
+            "sha256": "a70ad66a02b75e102b006b98869bc148a5b199b682ed728b9cd42dfb0ec5fbdd"
           },
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "17e8cd79f5bfa417cc67a03069260bb0a424b44d276c636a9be909771bc3d6da"
+            "sha256": "b03716578a209adbba7e0743d83a88ea00d94fdd44a3480e70fac215b7f445b0"
           },
           {
             "id": "map:frostveil-grove",
             "path": "frostveil-grove.json",
-            "sha256": "8ebc4497b3ca64be74664047d1392fc0a9d6dcf39993122b8f2902f867ade6b6"
+            "sha256": "47459804ad50ff2707483838b93f89f7ff6a7506f4eb521242a5ca7aa41658a8"
           },
           {
             "id": "map:frostveil-pass",
@@ -9006,7 +9021,7 @@
           {
             "id": "map:reedfen-wetlands",
             "path": "reedfen-wetlands.json",
-            "sha256": "8c6064aa0f0d4b48df34b58c8630daf4cdf8fefb70013fdd59debb007bb73e98"
+            "sha256": "1f1ac38cd75dc67e578ae9b2712864d8f9f6113bb0948d2293e1cc90d6ce28bd"
           },
           {
             "id": "map:orchard-ruins",
@@ -10415,6 +10430,26 @@
       }
     },
     {
+      "id": "sound:click",
+      "family": "sound",
+      "runtimeId": "click",
+      "name": "click",
+      "description": "Synthesized click sound cue.",
+      "source": "dist/src/data/sounds.js",
+      "evidence": "tests/audio.test.mjs",
+      "raw": {
+        "name": "click",
+        "notes": [
+          {
+            "f": 1180,
+            "d": 0.07,
+            "type": "square",
+            "g": 0.035
+          }
+        ]
+      }
+    },
+    {
       "id": "sound:confirm",
       "family": "sound",
       "runtimeId": "confirm",
@@ -10764,6 +10799,27 @@
             "f": 960,
             "d": 0.34,
             "t": 0.26
+          }
+        ]
+      }
+    },
+    {
+      "id": "sound:wobble",
+      "family": "sound",
+      "runtimeId": "wobble",
+      "name": "wobble",
+      "description": "Synthesized wobble sound cue.",
+      "source": "dist/src/data/sounds.js",
+      "evidence": "tests/audio.test.mjs",
+      "raw": {
+        "name": "wobble",
+        "notes": [
+          {
+            "f": 310,
+            "d": 0.09,
+            "to": 350,
+            "type": "square",
+            "g": 0.03
           }
         ]
       }
@@ -12489,14 +12545,7 @@
         "palette": ["river blue", "deep navy", "cream", "cyan"],
         "distinguishingFeatures": ["large bright eyes", "pale muzzle and chest", "curling blue tail", "water bubbles"]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null
     },
     {
@@ -12762,14 +12811,7 @@
         "palette": ["lavender", "deep violet", "cream", "magenta"],
         "distinguishingFeatures": ["large eye-spotted wings", "pale chest ruff", "magenta eyes", "short dark legs"]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null
     },
     {
@@ -12933,7 +12975,7 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["south", "southwest", "east", "northeast", "north", "west", "northwest", "southeast"],
+          "rowOrder": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
           "mirror": {
             "southeast": "southwest"
           },
@@ -13038,14 +13080,7 @@
         "palette": ["leaf green", "deep forest green", "cream", "warm brown"],
         "distinguishingFeatures": ["oversized green eyes", "pale muzzle and chest", "large leaf tail", "pointed leaf ears"]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null
     },
     {
@@ -13070,6 +13105,9 @@
           "frameWidth": 200,
           "frameHeight": 200,
           "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "mirror": {
+            "northwest": "northeast"
+          },
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
@@ -13226,6 +13264,69 @@
         "distinguishingFeatures": ["large cyan-blue eyes", "crystalline ear and wing tufts", "white feather face", "dark beak and feet"]
       },
       "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-frostowl-ice-mantle-combat",
+      "family": "visual",
+      "runtimeId": "creature-frostowl-ice-mantle-combat",
+      "name": "creature-frostowl-ice-mantle-combat",
+      "description": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-frostowl-ice-mantle-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-frostowl-ice-mantle-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "combatDisplayWidth": 132,
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          },
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "columnOrder": [0, 1, 2, 3],
+          "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3"
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-frostowl-ice-mantle-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-frostowl-ice-mantle-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center",
+        "combatDisplayWidth": 132
+      },
+      "identity": {
+        "silhouette": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
+        "palette": ["snow white", "ice blue", "cyan", "navy"],
+        "distinguishingFeatures": [
+          "ice mantle",
+          "Species-specific transformed combat anatomy",
+          "Four limbs / two talons as appropriate; unchanged canonical palette"
+        ]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null
     },
     {
@@ -13628,6 +13729,69 @@
       "characterMetadata": null
     },
     {
+      "id": "visual:creature-mushmallow-thorn-mantle-combat",
+      "family": "visual",
+      "runtimeId": "creature-mushmallow-thorn-mantle-combat",
+      "name": "creature-mushmallow-thorn-mantle-combat",
+      "description": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-mushmallow-thorn-mantle-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-mushmallow-thorn-mantle-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "combatDisplayWidth": 132,
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          },
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "columnOrder": [0, 1, 2, 3],
+          "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3"
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-mushmallow-thorn-mantle-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-mushmallow-thorn-mantle-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center",
+        "combatDisplayWidth": 132
+      },
+      "identity": {
+        "silhouette": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
+        "palette": ["cream", "lilac", "violet", "deep purple"],
+        "distinguishingFeatures": [
+          "thorn mantle",
+          "Species-specific transformed combat anatomy",
+          "Four limbs / two talons as appropriate; unchanged canonical palette"
+        ]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
+          "ownerTaste": "pending"
+        }
+      ],
+      "characterMetadata": null
+    },
+    {
       "id": "visual:creature-pebblit",
       "family": "visual",
       "runtimeId": "creature-pebblit",
@@ -13711,6 +13875,69 @@
         "distinguishingFeatures": ["Pebblit face and silhouette", "species-specific markings and colors"]
       },
       "review": [],
+      "characterMetadata": null
+    },
+    {
+      "id": "visual:creature-pebblit-crystal-ridge-combat",
+      "family": "visual",
+      "runtimeId": "creature-pebblit-crystal-ridge-combat",
+      "name": "creature-pebblit-crystal-ridge-combat",
+      "description": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-pebblit-crystal-ridge-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-pebblit-crystal-ridge-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "combatDisplayWidth": 132,
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          },
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "columnOrder": [0, 1, 2, 3],
+          "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3"
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-pebblit-crystal-ridge-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-pebblit-crystal-ridge-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center",
+        "combatDisplayWidth": 132
+      },
+      "identity": {
+        "silhouette": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
+        "palette": ["canonical source palette"],
+        "distinguishingFeatures": [
+          "crystal ridge",
+          "Species-specific transformed combat anatomy",
+          "Four limbs / two talons as appropriate; unchanged canonical palette"
+        ]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null
     },
     {
@@ -13973,8 +14200,8 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; owner taste and gameplay acceptance remain pending.",
-          "ownerTaste": "pending"
+          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending.",
+          "ownerTaste": "approved"
         }
       ],
       "characterMetadata": null
@@ -14293,6 +14520,69 @@
       "characterMetadata": null
     },
     {
+      "id": "visual:creature-siltkip-tide-sail-combat",
+      "family": "visual",
+      "runtimeId": "creature-siltkip-tide-sail-combat",
+      "name": "creature-siltkip-tide-sail-combat",
+      "description": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-siltkip-tide-sail-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-siltkip-tide-sail-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "combatDisplayWidth": 132,
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          },
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "columnOrder": [0, 1, 2, 3],
+          "cadence": "idle 220 ms/frame loop; attack 105, hit 80, faint 160, capture 130 ms/frame once; reduced motion idle 0 / action 3"
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "preview": "dist/assets/creatures/creature-siltkip-tide-sail-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-siltkip-tide-sail-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center",
+        "combatDisplayWidth": 132
+      },
+      "identity": {
+        "silhouette": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
+        "palette": ["canonical source palette"],
+        "distinguishingFeatures": [
+          "tide sail",
+          "Species-specific transformed combat anatomy",
+          "Four limbs / two talons as appropriate; unchanged canonical palette"
+        ]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
+          "ownerTaste": "pending"
+        }
+      ],
+      "characterMetadata": null
+    },
+    {
       "id": "visual:creature-sunsifter",
       "family": "visual",
       "runtimeId": "creature-sunsifter",
@@ -14372,8 +14662,8 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; owner taste and gameplay acceptance remain pending.",
-          "ownerTaste": "pending"
+          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending.",
+          "ownerTaste": "approved"
         }
       ],
       "characterMetadata": null
@@ -14792,7 +15082,11 @@
             "art/characters/source/person-red-cap-motion-north-northeast.png",
             "art/characters/source/person-red-cap-motion-east-southeast.png",
             "art/characters/source/person-red-cap-motion-south-southwest.png",
-            "art/characters/source/person-red-cap-motion-west-northwest.png"
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
           ],
           "sourceGrid": {
             "columns": 5,
@@ -14801,7 +15095,7 @@
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "idlePoseSource": {
-            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
             "dimensions": {
               "sheet": [1536, 1024],
               "cell": [384, 512],
@@ -14826,17 +15120,24 @@
           "walkRowOverrides": [
             {
               "direction": "northeast",
-              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-north-northeast.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "southwest",
               "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "west",
@@ -14846,11 +15147,18 @@
                 "rows": 1
               },
               "columns": [3],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             }
           ],
           "walkSourceColumnOrder": {
-            "northeast": [1, 2, 4, 3],
             "southwest": [1, 2, 4, 3]
           }
         },
@@ -14924,7 +15232,11 @@
             "art/characters/source/person-red-cap-motion-north-northeast.png",
             "art/characters/source/person-red-cap-motion-east-southeast.png",
             "art/characters/source/person-red-cap-motion-south-southwest.png",
-            "art/characters/source/person-red-cap-motion-west-northwest.png"
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
           ],
           "sourceGrid": {
             "columns": 5,
@@ -14933,7 +15245,7 @@
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "idlePoseSource": {
-            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
             "dimensions": {
               "sheet": [1536, 1024],
               "cell": [384, 512],
@@ -14958,17 +15270,24 @@
           "walkRowOverrides": [
             {
               "direction": "northeast",
-              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-north-northeast.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "southwest",
               "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "west",
@@ -14978,11 +15297,18 @@
                 "rows": 1
               },
               "columns": [3],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             }
           ],
           "walkSourceColumnOrder": {
-            "northeast": [1, 2, 4, 3],
             "southwest": [1, 2, 4, 3]
           }
         },
@@ -15019,7 +15345,7 @@
       "family": "visual",
       "runtimeId": "person-red-cap-motion",
       "name": "person-red-cap-motion",
-      "description": "person red cap motion",
+      "description": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
       "source": "dist/src/data/assets.js",
       "evidence": "tests/assets.test.mjs",
       "raw": {
@@ -15045,12 +15371,16 @@
       "animations": "Player idle and walking frames; see character preview and metadata.",
       "preview": "dist/assets/people/person-red-cap-motion.png",
       "animationMetadata": null,
-      "identity": null,
+      "identity": {
+        "silhouette": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
+        "palette": ["warm red", "dark brown", "light skin", "muted olive", "khaki", "blue backpack straps", "dark leather"],
+        "distinguishingFeatures": ["red cap with a pale band", "dark side hair", "blue backpack straps", "dark boots"]
+      },
       "review": [
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At the 52x84 px gameplay draw size, before/after evidence shows a calm, close-footed rest pose in every runtime facing. All idle cells share the existing bottom-center foot line; the existing walk cells remain unchanged. Owner gameplay taste remains pending.",
+          "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
           "ownerTaste": "pending"
         }
       ],
@@ -15068,7 +15398,11 @@
             "art/characters/source/person-red-cap-motion-north-northeast.png",
             "art/characters/source/person-red-cap-motion-east-southeast.png",
             "art/characters/source/person-red-cap-motion-south-southwest.png",
-            "art/characters/source/person-red-cap-motion-west-northwest.png"
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
           ],
           "sourceGrid": {
             "columns": 5,
@@ -15077,7 +15411,7 @@
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "idlePoseSource": {
-            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
             "dimensions": {
               "sheet": [1536, 1024],
               "cell": [384, 512],
@@ -15102,17 +15436,24 @@
           "walkRowOverrides": [
             {
               "direction": "northeast",
-              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-north-northeast.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "southwest",
               "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "west",
@@ -15122,11 +15463,18 @@
                 "rows": 1
               },
               "columns": [3],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             }
           ],
           "walkSourceColumnOrder": {
-            "northeast": [1, 2, 4, 3],
             "southwest": [1, 2, 4, 3]
           }
         },
@@ -15200,7 +15548,11 @@
             "art/characters/source/person-red-cap-motion-north-northeast.png",
             "art/characters/source/person-red-cap-motion-east-southeast.png",
             "art/characters/source/person-red-cap-motion-south-southwest.png",
-            "art/characters/source/person-red-cap-motion-west-northwest.png"
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
           ],
           "sourceGrid": {
             "columns": 5,
@@ -15209,7 +15561,7 @@
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "idlePoseSource": {
-            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
             "dimensions": {
               "sheet": [1536, 1024],
               "cell": [384, 512],
@@ -15234,17 +15586,24 @@
           "walkRowOverrides": [
             {
               "direction": "northeast",
-              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-north-northeast.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "southwest",
               "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "west",
@@ -15254,11 +15613,18 @@
                 "rows": 1
               },
               "columns": [3],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             }
           ],
           "walkSourceColumnOrder": {
-            "northeast": [1, 2, 4, 3],
             "southwest": [1, 2, 4, 3]
           }
         },
@@ -15332,7 +15698,11 @@
             "art/characters/source/person-red-cap-motion-north-northeast.png",
             "art/characters/source/person-red-cap-motion-east-southeast.png",
             "art/characters/source/person-red-cap-motion-south-southwest.png",
-            "art/characters/source/person-red-cap-motion-west-northwest.png"
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
           ],
           "sourceGrid": {
             "columns": 5,
@@ -15341,7 +15711,7 @@
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "idlePoseSource": {
-            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
             "dimensions": {
               "sheet": [1536, 1024],
               "cell": [384, 512],
@@ -15366,17 +15736,24 @@
           "walkRowOverrides": [
             {
               "direction": "northeast",
-              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-north-northeast.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "southwest",
               "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "west",
@@ -15386,11 +15763,18 @@
                 "rows": 1
               },
               "columns": [3],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             }
           ],
           "walkSourceColumnOrder": {
-            "northeast": [1, 2, 4, 3],
             "southwest": [1, 2, 4, 3]
           }
         },
@@ -15464,7 +15848,11 @@
             "art/characters/source/person-red-cap-motion-north-northeast.png",
             "art/characters/source/person-red-cap-motion-east-southeast.png",
             "art/characters/source/person-red-cap-motion-south-southwest.png",
-            "art/characters/source/person-red-cap-motion-west-northwest.png"
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
           ],
           "sourceGrid": {
             "columns": 5,
@@ -15473,7 +15861,7 @@
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "idlePoseSource": {
-            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
             "dimensions": {
               "sheet": [1536, 1024],
               "cell": [384, 512],
@@ -15498,17 +15886,24 @@
           "walkRowOverrides": [
             {
               "direction": "northeast",
-              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-north-northeast.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "southwest",
               "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "west",
@@ -15518,11 +15913,18 @@
                 "rows": 1
               },
               "columns": [3],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             }
           ],
           "walkSourceColumnOrder": {
-            "northeast": [1, 2, 4, 3],
             "southwest": [1, 2, 4, 3]
           }
         },
@@ -15603,7 +16005,11 @@
             "art/characters/source/person-red-cap-motion-north-northeast.png",
             "art/characters/source/person-red-cap-motion-east-southeast.png",
             "art/characters/source/person-red-cap-motion-south-southwest.png",
-            "art/characters/source/person-red-cap-motion-west-northwest.png"
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
           ],
           "sourceGrid": {
             "columns": 5,
@@ -15612,7 +16018,7 @@
           "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "idlePoseSource": {
-            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v1.png",
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
             "dimensions": {
               "sheet": [1536, 1024],
               "cell": [384, 512],
@@ -15637,17 +16043,24 @@
           "walkRowOverrides": [
             {
               "direction": "northeast",
-              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v2.png",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-north-northeast.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "southwest",
               "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
               "sourceRow": 1,
               "columns": [1, 2, 3, 4],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-south-southwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             },
             {
               "direction": "west",
@@ -15657,11 +16070,18 @@
                 "rows": 1
               },
               "columns": [3],
-              "idleSourceSheet": "art/characters/source/person-red-cap-motion-west-northwest.png"
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
             }
           ],
           "walkSourceColumnOrder": {
-            "northeast": [1, 2, 4, 3],
             "southwest": [1, 2, 4, 3]
           }
         },

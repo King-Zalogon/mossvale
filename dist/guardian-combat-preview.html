@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mossvale · Guardian battle forms</title>
+    <link rel="stylesheet" href="creature-combat-preview.css" />
+    <link rel="stylesheet" href="guardian-combat-preview.css" />
+  </head>
+  <body>
+    <header>
+      <a href="testing.html">← Testing URLs</a>
+      <div>
+        <span>ART REVIEW</span>
+        <h1>Guardian battle forms</h1>
+      </div>
+      <label><input id="calm" type="checkbox" /> Reduced motion</label>
+    </header>
+    <main>
+      <p>
+        Normal and shrine-only forms use the actual battle canvas (160 × 145) ; normal forms use 107 px and transformed forms use 132 px draw width. Each pair
+        plays the same state and cadence. No game saves are read or changed.
+      </p>
+      <label
+        >Animation
+        <select id="animation">
+          <option>idle</option>
+          <option>attack</option>
+          <option>hit</option>
+          <option>faint</option>
+          <option>capture</option>
+        </select></label
+      >
+      <button id="replay">Replay state</button>
+      <section id="species" aria-live="polite"></section>
+      <p class="footnote">
+        The four transformed forms preserve their species identity. Capturing guardians remains disabled in the adventure; the capture row completes the
+        reusable combat format. Owner taste approval remains separate from technical checks.
+      </p>
+    </main>
+    <script type="module" src="src/guardian-combat-preview.js"></script>
+  </body>
+</html>
