@@ -473,6 +473,45 @@ footer {
   justify-content: space-around;
   height: 180px;
 }
+
+.battle-scene.guardian-transforming .fighter:nth-child(2) canvas {
+  animation: guardian-shimmer 900ms ease-in-out both;
+  filter: saturate(0.7) brightness(1.35);
+}
+
+.battle-scene .guardian-form-hidden {
+  opacity: 0.9;
+}
+
+.guardian-reveal {
+  margin: -0.35rem auto 0.75rem;
+  color: #e7f5a3;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+@keyframes guardian-shimmer {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.82;
+  }
+  35% {
+    transform: scale(1.06);
+    opacity: 1;
+    filter: saturate(2) brightness(1.7);
+  }
+  70% {
+    transform: scale(0.96);
+    opacity: 0.45;
+    filter: saturate(0.4) brightness(2.2);
+  }
+}
+
+body.reduce-motion .battle-scene.guardian-transforming .fighter:nth-child(2) canvas {
+  animation: none;
+}
 .battle-scene canvas {
   image-rendering: pixelated;
   width: 140px;

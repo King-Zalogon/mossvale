@@ -714,6 +714,9 @@ export function createController(app) {
     }
     timeline.cancel();
     game.battle = createBattle(s, rng, spec);
+    // This UI-only marker starts the guardian's reveal without entering the
+    // save codec. A resumed battle therefore keeps its already-revealed form.
+    if (spec.boss) Object.defineProperty(game.battle, 'guardianIntro', {value: true, writable: true, enumerable: false});
     traceBattleStart(s, game.battle, false);
     emit(spec.boss ? 'challenge.started' : 'battle.started', {
       mapId: game.world.map.id,
