@@ -1,6 +1,7 @@
 /* global CSS, document, fetch, navigator, window */
 const payload = window.MOSSVALE_CATALOGUE;
-const visuals = payload.visuals;
+const references = payload.references ?? [];
+const visuals = [...payload.visuals, ...references];
 const entries = new Map((payload.entries ?? []).map(entry => [entry.id, entry]));
 const elements = {
   search: document.querySelector('#search'),
@@ -8,6 +9,8 @@ const elements = {
   element: document.querySelector('#element'),
   tag: document.querySelector('#tag'),
   status: document.querySelector('#status'),
+  source: document.querySelector('#source'),
+  license: document.querySelector('#license'),
   results: document.querySelector('#results'),
   details: document.querySelector('#details'),
   resultCount: document.querySelector('#result-count'),
@@ -42,6 +45,14 @@ optionList(
   elements.status,
   visuals.map(item => item.status),
 );
+optionList(
+  elements.source,
+  references.map(item => item.sourceName),
+);
+optionList(
+  elements.license,
+  references.map(item => item.license),
+);
 
 function displayKind(item) {
   return item.kind;
@@ -53,6 +64,12 @@ function imageUrl(path) {
 }
 
 function makePreview(item, detailed = false) {
+  if (item.recordType === 'reference' && !detailed) {
+    const placeholder = document.createElement('span');
+    placeholder.className = 'reference-placeholder';
+    placeholder.textContent = 'Reference sheet opens after selection';
+    return placeholder;
+  }
   const preview = item.preview;
   if (!preview) {
     const missing = document.createElement('p');
@@ -91,6 +108,8 @@ function renderCards() {
   const element = elements.element.value;
   const tag = elements.tag.value;
   const status = elements.status.value;
+  const source = elements.source.value;
+  const license = elements.license.value;
   const filtered = visuals.filter(item => {
     const cardKind = displayKind(item);
     return (
@@ -98,15 +117,17 @@ function renderCards() {
       (!kind || kind === cardKind) &&
       (!element || item.elements.includes(element)) &&
       (!tag || item.tags.includes(tag)) &&
-      (!status || status === item.status)
+      (!status || status === item.status) &&
+      (!source || source === item.sourceName) &&
+      (!license || license === item.license)
     );
   });
   elements.results.replaceChildren();
-  elements.resultCount.textContent = `${filtered.length} of ${visuals.length} visual resources`;
+  elements.resultCount.textContent = `${filtered.length} of ${visuals.length} visual resources and references`;
   if (!filtered.length) {
     const empty = document.createElement('p');
     empty.className = 'empty';
-    empty.textContent = 'No visuals match these filters.';
+    empty.textContent = 'No resources match these filters.';
     elements.results.append(empty);
     return;
   }
@@ -131,7 +152,7 @@ function renderCards() {
     const statusText = document.createElement('span');
     statusText.textContent = item.status;
     const typeText = document.createElement('span');
-    typeText.textContent = item.elements.join(', ') || displayKind(item);
+    typeText.textContent = item.sourceName ? `${item.sourceName} · ${item.license}` : item.elements.join(', ') || displayKind(item);
     footer.append(statusText, typeText);
     card.append(title, preview, summary, footer);
     card.addEventListener('click', () => {
@@ -160,6 +181,7 @@ function row(list, label, value) {
 }
 
 async function loadEntry(item) {
+  if (item.recordType === 'reference') return item;
   if (entries.has(item.id)) return entries.get(item.id);
   if (!payload.ficheEndpoint) return null;
   const response = await fetch(`${payload.ficheEndpoint}${encodeURIComponent(item.id)}`);
@@ -178,6 +200,62 @@ function renderDetails(item, entry) {
   id.className = 'notice';
   id.textContent = item.id;
   const preview = makePreview(item, true);
+  if (item.recordType === 'reference') {
+    const notice = document.createElement('p');
+    notice.className = 'notice';
+    notice.textContent = 'REFERENCE ONLY · Not runtime content or approved Mossvale art. Image pixels do not define a creature identity or capability.';
+    const source = document.createElement('a');
+    source.href = item.source;
+    source.target = '_blank';
+    source.rel = 'noreferrer';
+    source.textContent = `Source: ${item.sourceName} · ${item.source}`;
+    const license = document.createElement('a');
+    license.href = item.licenseUrl;
+    license.target = '_blank';
+    license.rel = 'noreferrer';
+    license.textContent = `License: ${item.license}`;
+    const details = document.createElement('dl');
+    row(details, 'Creator', item.creator);
+    row(details, 'Source', item.sourceName);
+    row(details, 'License', item.license);
+    row(details, 'SHA-256', item.sha256);
+    row(details, 'Dimensions', `${item.dimensions.join(' × ')} pixels`);
+    row(details, 'Visual subjects', item.subjects.join(', '));
+    row(details, 'Retrieved', item.retrievedOn);
+    row(
+      details,
+      'Recorded permissions',
+      Object.entries(item.permissions)
+        .map(([name, value]) => `${name}: ${value}`)
+        .join('; '),
+    );
+    row(details, 'Runtime identity', 'None; this reference has no runtime or save ID.');
+    row(details, 'Attribution', item.attribution);
+    const limits = document.createElement('ul');
+    for (const limit of item.limits) {
+      const li = document.createElement('li');
+      li.textContent = limit;
+      limits.append(li);
+    }
+    const selectionLabel = document.createElement('label');
+    selectionLabel.className = 'selection';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = selected.has(item.id);
+    checkbox.addEventListener('change', () => {
+      checkbox.checked ? selected.add(item.id) : selected.delete(item.id);
+      elements.copyStatus.textContent = `${selected.size} resource ID${selected.size === 1 ? '' : 's'} selected for export.`;
+    });
+    selectionLabel.append(checkbox, document.createTextNode(' Include this licensed reference image in the writer context'));
+    content.append(title, id, notice, preview, source, document.createElement('br'), license, document.createElement('p'));
+    content.lastChild.textContent = item.summary;
+    content.append(details, selectionLabel);
+    const limitsTitle = document.createElement('h3');
+    limitsTitle.textContent = 'Use limits';
+    content.append(limitsTitle, limits);
+    elements.details.replaceChildren(content);
+    return;
+  }
   const openImage = document.createElement('a');
   if (item.preview) {
     openImage.href = imageUrl(item.preview.path);
@@ -220,7 +298,7 @@ function renderDetails(item, entry) {
   checkbox.checked = selected.has(item.id);
   checkbox.addEventListener('change', () => {
     checkbox.checked ? selected.add(item.id) : selected.delete(item.id);
-    elements.copyStatus.textContent = `${selected.size} visual ID${selected.size === 1 ? '' : 's'} selected for export.`;
+    elements.copyStatus.textContent = `${selected.size} resource ID${selected.size === 1 ? '' : 's'} selected for export.`;
   });
   selectionLabel.append(checkbox, document.createTextNode(' Include this preview in the writer context'));
   const referencesTitle = document.createElement('h3');
@@ -259,7 +337,8 @@ function renderDetails(item, entry) {
   elements.details.replaceChildren(content);
 }
 
-for (const select of [elements.kind, elements.element, elements.tag, elements.status]) select.addEventListener('change', renderCards);
+for (const select of [elements.kind, elements.element, elements.tag, elements.status, elements.source, elements.license])
+  select.addEventListener('change', renderCards);
 elements.search.addEventListener('input', renderCards);
 elements.copySelection.addEventListener('click', async () => {
   const ids = [...selected].sort((a, b) => a.localeCompare(b, 'en'));
@@ -270,7 +349,7 @@ elements.copySelection.addEventListener('click', async () => {
   const text = ids.join(',');
   try {
     await navigator.clipboard.writeText(text);
-    elements.copyStatus.textContent = `${ids.length} stable ID${ids.length === 1 ? '' : 's'} copied. Use them with catalogue:export.`;
+    elements.copyStatus.textContent = `${ids.length} stable resource ID${ids.length === 1 ? '' : 's'} copied. Use them with catalogue:export.`;
   } catch {
     elements.copyStatus.textContent = `Copy these IDs: ${text}`;
   }
@@ -278,7 +357,7 @@ elements.copySelection.addEventListener('click', async () => {
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && activeId) {
     activeId = null;
-    elements.details.replaceChildren(document.createTextNode('Select a resource to inspect its catalogue fiche and full image.'));
+    elements.details.replaceChildren(document.createTextNode('Select a resource to inspect its catalogue fiche or reference license and full image.'));
     renderCards();
   }
 });

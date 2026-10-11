@@ -123,6 +123,9 @@ const KIND_LABEL = {shrine: 'Shrine', ranger: 'Ranger post', chest: 'Treasure', 
 export const landmarkLabel = (o, destination) =>
   o.mapLabel ?? (o.kind === 'gate' && destination ? `Trail to ${destination}` : (o.name ?? o.tag ?? KIND_LABEL[o.kind] ?? 'Landmark'));
 
+/** A short authored find notice; older packs keep a named, spoiler-safe fallback. */
+export const discoveryNotice = o => o.discoveryText ?? `Found ${landmarkLabel(o)}.`;
+
 const POINTS = ['north', 'north-east', 'east', 'south-east', 'south', 'south-west', 'west', 'north-west'];
 /** Direction of a world offset as it appears on screen, where north is up the isometric view. */
 export function compass(dx, dy) {

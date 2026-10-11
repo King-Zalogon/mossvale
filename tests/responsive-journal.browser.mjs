@@ -248,6 +248,20 @@ try {
   assert.equal(immersiveBounds.locationDisplay, 'none', 'fullscreen hides the location bar to recover play height');
   assert.ok(immersiveBounds.viewport.height >= immersiveBounds.screenHeight - 1, 'fullscreen gives the game the complete viewport height');
   assert.ok(immersiveBounds.frame.width >= immersiveBounds.screenWidth - 1, 'fullscreen uses the complete viewport width');
+  const fullscreenControls = await page.evaluate(() => {
+    const footer = document.querySelector('.game-footer').getBoundingClientRect();
+    const controls = [document.querySelector('.touchpad'), document.querySelector('#touch-run')].map(node => node.getBoundingClientRect());
+    return {
+      footerTop: footer.top,
+      controlsBottom: Math.max(...controls.map(rect => rect.bottom)),
+      controlsInside: controls.every(rect => rect.left >= 0 && rect.right <= innerWidth && rect.top >= 0 && rect.bottom <= innerHeight),
+    };
+  });
+  assert.ok(
+    fullscreenControls.controlsBottom <= fullscreenControls.footerTop - 4,
+    `fullscreen touch controls clear the footer (${JSON.stringify(fullscreenControls)})`,
+  );
+  assert.equal(fullscreenControls.controlsInside, true, 'fullscreen touch controls remain inside the viewport');
   await fullscreen.tap();
   await page.waitForFunction(() => document.fullscreenElement === null);
   assert.deepEqual(

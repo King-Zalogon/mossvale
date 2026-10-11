@@ -1,0 +1,309 @@
+{
+  "format": 1,
+  "packages": [
+    {
+      "id": "reactorcore-nature-surface",
+      "title": "Nature Props Surface Forest",
+      "creator": "Reactorcore (RC Art)",
+      "source": "https://opengameart.org/content/nature-props-surface-forest",
+      "license": "CC0 1.0 Universal",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenseEvidence": "The OpenGameArt item page identifies this pack as CC0. Its download contains the original individual transparent PNGs and contact sheet.",
+      "retrievedOn": "2026-10-10",
+      "archive": {
+        "path": "art/assets/third-party/reactorcore-nature-surface.zip",
+        "sha256": "aeb1de3140a3304e5168640534265c7e4b662864a9144a6f5ce51504d86ae0c6"
+      },
+      "attribution": "Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0.",
+      "permissions": {
+        "personalGameUse": "permitted",
+        "modifyAndAdapt": "permitted",
+        "publicRepositoryRedistribution": "permitted",
+        "commercialUse": "permitted",
+        "attributionRequired": false
+      },
+      "limits": [
+        "The pack grants rights to the artwork, not to any unrelated trademark, patent, privacy or publicity rights; it is provided without warranty.",
+        "These are visual assets only. Their presence does not add collision, interaction, rewards, inventory items or game mechanics.",
+        "The source page does not disclose whether AI tools were used; this record makes no inference about that."
+      ],
+      "sourceNotes": "The author describes the sprite scale as about 32 pixels per meter and recommends point filtering. Mossvale keeps source pixels unchanged; map placement controls display width.",
+      "assets": [
+        {
+          "name": "item-apple",
+          "kind": "item",
+          "sourceMember": "RC Art - Nature Surface/Sprites/apple.png",
+          "description": "A small red apple viewed from above.",
+          "intendedUse": "Optional inventory or reward icon when a separate item definition exists.",
+          "limitations": "Image only; it does not create an item, reward, consumption effect or save identity.",
+          "sourceSha256": "2e18cb73d3e5d080c192d9d1c47eb0c775a31714e985ad45b71181f93ac01bd2",
+          "sourceDimensions": [7, 8]
+        },
+        {
+          "name": "item-banana",
+          "kind": "item",
+          "sourceMember": "RC Art - Nature Surface/Sprites/banana.png",
+          "description": "A small yellow banana viewed from above.",
+          "intendedUse": "Optional inventory or reward icon when a separate item definition exists.",
+          "limitations": "Image only; it does not create an item, reward, consumption effect or save identity.",
+          "sourceSha256": "a8fd2df5158f92c5400fe01f21fdf9580b4991f79730b0f1efaf3e7ae4f48b7c",
+          "sourceDimensions": [16, 7]
+        },
+        {
+          "name": "bush-woodland-low",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/bush 1.png",
+          "description": "A low, spreading green woodland bush.",
+          "intendedUse": "Non-interactive map scenery; a map may separately configure solid collision.",
+          "limitations": "Does not define a harvest, encounter, interaction or collision rule.",
+          "usedInGame": true,
+          "sourceSha256": "1b51959e36b998850c1c78096a77a6d81fa1164a9bb83c4c1e19a043028ef2af",
+          "sourceDimensions": [44, 21]
+        },
+        {
+          "name": "bush-woodland-small",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/bush 2.png",
+          "description": "A compact, low green woodland bush.",
+          "intendedUse": "Non-interactive map scenery; a map may separately configure solid collision.",
+          "limitations": "Does not define a harvest, encounter, interaction or collision rule.",
+          "sourceSha256": "cb26ae69024f23ad2644137501648c5a4173f13a50c261c4be5b69c7afc15a08",
+          "sourceDimensions": [34, 15]
+        },
+        {
+          "name": "tree-fir-full",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/fir tree 1.png",
+          "description": "A full, broad evergreen fir tree.",
+          "intendedUse": "Non-interactive map scenery; a map may separately configure solid collision.",
+          "limitations": "Does not define a forest biome, harvest, encounter or collision rule.",
+          "sourceSha256": "c75d42f5d111d974af9dc0fffee6146fca8f5a1bb82f23a2e7fea1b0f163b232",
+          "sourceDimensions": [88, 128]
+        },
+        {
+          "name": "tree-fir-slim",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/fir tree 2.png",
+          "description": "A narrow evergreen fir tree.",
+          "intendedUse": "Non-interactive map scenery; a map may separately configure solid collision.",
+          "limitations": "Does not define a forest biome, harvest, encounter or collision rule.",
+          "usedInGame": true,
+          "sourceSha256": "4c9e22d6b827acf034844ac13ff95ede524f571574960df0f5cb5ed7f0d2e77a",
+          "sourceDimensions": [56, 94]
+        },
+        {
+          "name": "plant-pot-round",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/house pot plant 1.png",
+          "description": "A small leafy potted plant with a rounded crown.",
+          "intendedUse": "Interior or settlement scenery; placement alone has no interaction.",
+          "limitations": "Does not define a house, rest action, interaction or collision rule.",
+          "sourceSha256": "1871b476d885ed581d72eee9f4bbda7e95b02b428ddf57b20edfa3eb88aaf8fc",
+          "sourceDimensions": [14, 34]
+        },
+        {
+          "name": "plant-pot-yellow-bloom",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/house pot plant 2.png",
+          "description": "A potted plant with small yellow flowers.",
+          "intendedUse": "Interior or settlement scenery; placement alone has no interaction.",
+          "limitations": "Does not define a house, rest action, interaction or collision rule.",
+          "sourceSha256": "d1c19b62dac840b7fe204c077a3198674eb1a8db57ab42da1e066151befdd25d",
+          "sourceDimensions": [20, 33]
+        },
+        {
+          "name": "plant-pot-red-bloom",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/house pot plant 3.png",
+          "description": "A potted plant with red flowers.",
+          "intendedUse": "Interior or settlement scenery; placement alone has no interaction.",
+          "limitations": "Does not define a house, rest action, interaction or collision rule.",
+          "sourceSha256": "4012f7383d7f6964b1d3ab76b98669ab19749dd8874a2196a950adea9da02ce7",
+          "sourceDimensions": [18, 32]
+        },
+        {
+          "name": "plant-pot-fronds",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/house pot plant 4.png",
+          "description": "A potted plant with a fan of fine green fronds.",
+          "intendedUse": "Interior or settlement scenery; placement alone has no interaction.",
+          "limitations": "Does not define a house, rest action, interaction or collision rule.",
+          "sourceSha256": "5cfe6155ff0465984b2d650f04a7c35acc0f925ca5b550e1a08761f8f83dfd7b",
+          "sourceDimensions": [20, 28]
+        },
+        {
+          "name": "plant-pot-spiky",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/house pot plant 5.png",
+          "description": "A potted plant with upright pointed leaves.",
+          "intendedUse": "Interior or settlement scenery; placement alone has no interaction.",
+          "limitations": "Does not define a house, rest action, interaction or collision rule.",
+          "sourceSha256": "103f72fc117178179a30f13d95b1657f36fe51723dd20478db39fb5298b04cae",
+          "sourceDimensions": [19, 26]
+        },
+        {
+          "name": "plant-pot-small",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/house pot plant 6.png",
+          "description": "A small potted plant with a compact crown.",
+          "intendedUse": "Interior or settlement scenery; placement alone has no interaction.",
+          "limitations": "Does not define a house, rest action, interaction or collision rule.",
+          "sourceSha256": "b36043cb2b868904a9753c6a3eff37fab1bad22586c1a44291b023a78ff92c37",
+          "sourceDimensions": [26, 24]
+        },
+        {
+          "name": "item-melon",
+          "kind": "item",
+          "sourceMember": "RC Art - Nature Surface/Sprites/melon full.png",
+          "description": "A small whole green melon viewed from above.",
+          "intendedUse": "Optional inventory or reward icon when a separate item definition exists.",
+          "limitations": "Image only; it does not create an item, reward, consumption effect or save identity.",
+          "sourceSha256": "bb94eec0a63db0c73350132a63f6bbee7811eb4a33a5492d195b45209dfbea1f",
+          "sourceDimensions": [15, 15]
+        },
+        {
+          "name": "item-melon-slice",
+          "kind": "item",
+          "sourceMember": "RC Art - Nature Surface/Sprites/melon slice.png",
+          "description": "A small cut slice of red-fleshed melon.",
+          "intendedUse": "Optional inventory or reward icon when a separate item definition exists.",
+          "limitations": "Image only; it does not create an item, reward, consumption effect or save identity.",
+          "sourceSha256": "8da6d34e7ab543bb8b71a162973243d41b14794ba14d6e7c0c6b034ccd34f041",
+          "sourceDimensions": [15, 8]
+        },
+        {
+          "name": "tree-oak-round",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/oak tree 1.png",
+          "description": "A broad round-canopied oak tree with a visible trunk.",
+          "intendedUse": "Non-interactive map scenery; a map may separately configure solid collision.",
+          "limitations": "Does not define a forest biome, harvest, encounter or collision rule.",
+          "usedInGame": true,
+          "sourceSha256": "13fcc4e37886ecf797dc64d6acc15990a980adebae4ac2adbd7bfcbf9f2a0597",
+          "sourceDimensions": [122, 142]
+        },
+        {
+          "name": "tree-oak-young",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/oak tree 2.png",
+          "description": "A smaller oak with a compact round canopy.",
+          "intendedUse": "Non-interactive map scenery; a map may separately configure solid collision.",
+          "limitations": "Does not define a forest biome, harvest, encounter or collision rule.",
+          "sourceSha256": "3a61204aea937c750832f7702ad910a9009fca2c0381c2b5559715167e78cff3",
+          "sourceDimensions": [68, 90]
+        },
+        {
+          "name": "item-orange",
+          "kind": "item",
+          "sourceMember": "RC Art - Nature Surface/Sprites/orange.png",
+          "description": "A small orange fruit viewed from above.",
+          "intendedUse": "Optional inventory or reward icon when a separate item definition exists.",
+          "limitations": "Image only; it does not create an item, reward, consumption effect or save identity.",
+          "sourceSha256": "818bf9d177263a0ec6af85ca3db54a2914dcbe33727490d4680a4a2f449c9d46",
+          "sourceDimensions": [7, 7]
+        },
+        {
+          "name": "plant-fern-frond",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/plant 1.png",
+          "description": "A leafy fern frond with several branching leaves.",
+          "intendedUse": "Small non-interactive forest-floor scenery.",
+          "limitations": "Does not define gathering, collision or an item reward.",
+          "usedInGame": true,
+          "sourceSha256": "b2c528cd2d53f8aa4768e84ca88ef3792c1d96db3041eb746f6c37e2dc1075bf",
+          "sourceDimensions": [27, 33]
+        },
+        {
+          "name": "plant-narrow-leaves",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/plant 2.png",
+          "description": "A narrow plant with long upright leaves.",
+          "intendedUse": "Small non-interactive forest-floor scenery.",
+          "limitations": "Does not define gathering, collision or an item reward.",
+          "sourceSha256": "33f504da5d3156290581bf55f798c47fc118a0502480457d00aa87c9320871ae",
+          "sourceDimensions": [9, 33]
+        },
+        {
+          "name": "plant-three-leaf",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/plant 3.png",
+          "description": "A small plant with three broad leaves.",
+          "intendedUse": "Small non-interactive forest-floor scenery.",
+          "limitations": "Does not define gathering, collision or an item reward.",
+          "sourceSha256": "d9683342c61c9e0cad49563a5cf45577d0f7329bee36ffdb7e0919bc1d5977d1",
+          "sourceDimensions": [24, 27]
+        },
+        {
+          "name": "plant-groundcover",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/plant 4.png",
+          "description": "A low, spreading patch of leafy groundcover.",
+          "intendedUse": "Small non-interactive forest-floor scenery.",
+          "limitations": "Does not define gathering, collision or an item reward.",
+          "sourceSha256": "a2d67a87d41c4af9762aae9bed02d8a3622f79dc6921158db6af993cf3024a27",
+          "sourceDimensions": [29, 24]
+        },
+        {
+          "name": "plant-sprout",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/plant 5.png",
+          "description": "A young, narrow green sprout.",
+          "intendedUse": "Small non-interactive forest-floor scenery.",
+          "limitations": "Does not define gathering, collision or an item reward.",
+          "sourceSha256": "77e3813af85d17694672d08e8c7fd3fea3f1bd21a2e22122411d3b5091f0122b",
+          "sourceDimensions": [11, 24]
+        },
+        {
+          "name": "plant-golden-stem",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/plant 6.png",
+          "description": "A slender plant with a warm yellow-green leaf.",
+          "intendedUse": "Small non-interactive forest-floor scenery.",
+          "limitations": "Does not define gathering, collision or an item reward.",
+          "sourceSha256": "37fac719a6a9416f6c4b9d6b028a04d95eafd5171e710466f93aa327cb08e106",
+          "sourceDimensions": [14, 23]
+        },
+        {
+          "name": "plant-spike",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/plant 7.png",
+          "description": "A small upright spiky plant.",
+          "intendedUse": "Small non-interactive forest-floor scenery.",
+          "limitations": "Does not define gathering, collision or an item reward.",
+          "sourceSha256": "9578dc93f283ae51e4fe85e14d20e2df213aada5cd15deeec5846473813cc895",
+          "sourceDimensions": [12, 21]
+        },
+        {
+          "name": "rock-field-large",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/rock 1.png",
+          "description": "A low, broad cluster of gray-brown stones.",
+          "intendedUse": "Non-interactive ground scenery; a map may separately configure solid collision.",
+          "limitations": "Does not define mining, gathering, collision or an item reward.",
+          "sourceSha256": "703e74c38a2cb51282fb8bfceae2d75335ad2b0de173ea6330bb462dcab7dcbd",
+          "sourceDimensions": [46, 25]
+        },
+        {
+          "name": "rock-field-medium",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/rock 2.png",
+          "description": "A compact cluster of gray-brown stones.",
+          "intendedUse": "Non-interactive ground scenery; a map may separately configure solid collision.",
+          "limitations": "Does not define mining, gathering, collision or an item reward.",
+          "sourceSha256": "fb4dad1d814beaecc100adf5f269241105692159f05ef4974218bde620b0e2e1",
+          "sourceDimensions": [23, 16]
+        },
+        {
+          "name": "rock-field-small",
+          "kind": "prop",
+          "sourceMember": "RC Art - Nature Surface/Sprites/rock 3.png",
+          "description": "A tiny cluster of gray-brown stones.",
+          "intendedUse": "Small non-interactive ground scenery.",
+          "limitations": "Does not define mining, gathering, collision or an item reward.",
+          "sourceSha256": "2e1a91bc3a0c90f4af0a9538a27b3ed31c09da2083004319a93c857884d3f37c",
+          "sourceDimensions": [11, 7]
+        }
+      ]
+    }
+  ]
+}

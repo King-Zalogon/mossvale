@@ -1,15 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync, mkdtempSync, readdirSync, rmSync, symlinkSync} from 'node:fs';
+import {readFileSync, mkdtempSync, readdirSync, rmSync, symlinkSync, mkdirSync, writeFileSync, existsSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createVisualIndex, renderCataloguePage, writePortableContext} from '../scripts/lib/catalogue-visuals.mjs';
+import {createReferenceIndex, safeReferencePath} from '../scripts/lib/reference-assets.mjs';
 import {ROOT, safePath} from '../scripts/lib/catalogue.mjs';
 
 const catalogue = JSON.parse(readFileSync('content/catalogue/catalogue.json', 'utf8'));
 const facts = JSON.parse(readFileSync('content/catalogue/facts.json', 'utf8'));
 const appScript = readFileSync('scripts/catalogue-browser/app.js', 'utf8');
 const stylesheet = readFileSync('scripts/catalogue-browser/styles.css', 'utf8');
+const referenceRegistry = JSON.parse(readFileSync('art/assets/third-party/andhegames-creatures/registry.json', 'utf8'));
+const referenceAssets = createReferenceIndex(referenceRegistry, {
+  root: ROOT,
+  registryPath: 'art/assets/third-party/andhegames-creatures/registry.json',
+});
 
 test('visual index relates artwork to registered element data and exposes cropped frame metadata', () => {
   const visuals = createVisualIndex(catalogue, facts);
@@ -32,6 +39,99 @@ test('visual index relates artwork to registered element data and exposes croppe
     rowLabel: 'south',
   });
   assert.ok(visuals.some(entry => entry.id === 'visual:tree-oak' && entry.preview));
+});
+
+test('third-party art has stable reference IDs, curated subject/source/license metadata and no runtime identity', () => {
+  assert.equal(referenceAssets.length, 3);
+  for (const reference of referenceAssets) {
+    assert.match(reference.id, /^reference:andhegames\//);
+    assert.equal(reference.recordType, 'reference');
+    assert.equal(reference.kind, 'reference');
+    assert.equal(reference.status, 'reference-only');
+    assert.equal(reference.runtimeId, null);
+    assert.equal(reference.creator, 'AndHeGames');
+    assert.equal(reference.sourceName, 'OpenGameArt');
+    assert.equal(reference.license, 'CC0 1.0 Universal');
+    assert.match(reference.sha256, /^[a-f0-9]{64}$/);
+    assert.ok(reference.subjects.length > 0);
+    assert.ok(reference.limits.length >= 1);
+    assert.ok(!catalogue.entries.some(entry => entry.id === reference.id));
+  }
+});
+
+test('selected reference export is deterministic, carries rights and copies only the selected sheet', t => {
+  const root = mkdtempSync(join(tmpdir(), 'mossvale-reference-test-'));
+  t.after(() => rmSync(root, {recursive: true, force: true}));
+  const first = join(root, 'first');
+  const second = join(root, 'second');
+  const selectedId = 'reference:andhegames/creatures-volume-3';
+  const options = {root: ROOT, catalogue, facts, referenceAssets, ids: [selectedId], appScript, stylesheet};
+  const result = writePortableContext({...options, output: first});
+  writePortableContext({...options, output: second});
+  assert.equal(result.selectedCount, 1);
+  assert.equal(result.previewCount, 1);
+  const tree = directory =>
+    readdirSync(directory, {withFileTypes: true})
+      .flatMap(entry => {
+        const path = join(directory, entry.name);
+        return entry.isDirectory() ? tree(path).map(child => `${entry.name}/${child}`) : [entry.name];
+      })
+      .sort();
+  assert.deepEqual(tree(first), tree(second));
+  for (const path of tree(first)) assert.deepEqual(readFileSync(join(first, path)), readFileSync(join(second, path)), path);
+  const exportedReferences = JSON.parse(readFileSync(join(first, 'references.json'), 'utf8'));
+  assert.equal(exportedReferences.length, 1);
+  assert.equal(exportedReferences[0].id, selectedId);
+  assert.equal(exportedReferences[0].runtimeId, null);
+  assert.equal(exportedReferences[0].license, 'CC0 1.0 Universal');
+  assert.equal(exportedReferences[0].source, referenceAssets.find(item => item.id === selectedId).source);
+  assert.equal(exportedReferences[0].preview.path, 'previews/art/assets/third-party/andhegames-creatures/creatures-volume-3.png');
+  assert.equal(
+    JSON.parse(readFileSync(join(first, 'catalogue.json'), 'utf8')).entries.some(entry => entry.id === selectedId),
+    false,
+  );
+  const manifest = JSON.parse(readFileSync(join(first, 'manifest.json'), 'utf8'));
+  assert.deepEqual(manifest.selection.referenceIds, [selectedId]);
+  assert.deepEqual(manifest.selection.visualIds, []);
+  assert.ok(manifest.files.some(file => file.path.endsWith('creatures-volume-3.png')));
+  assert.ok(manifest.files.some(file => file.path === 'references.json'));
+  assert.match(readFileSync(join(first, 'writer-instructions.md'), 'utf8'), /not runtime visuals, species identities, approved Mossvale art/);
+  assert.equal(readdirSync(join(first, 'previews/art/assets/third-party/andhegames-creatures')).length, 1);
+});
+
+test('explicit all-visual export never sweeps in the separate reference library', t => {
+  const temporary = mkdtempSync(join(tmpdir(), 'mossvale-all-visuals-'));
+  t.after(() => rmSync(temporary, {recursive: true, force: true}));
+  const output = join(temporary, 'all-visuals');
+  const oneVisual = {
+    sourceRevision: 'test-revision',
+    entries: [
+      {
+        id: 'visual:test',
+        kind: 'visual',
+        name: 'Test visual',
+        summary: 'A fixture visual.',
+        status: 'available',
+        scope: 'core',
+        details: {appearance: 'fixture', directions: 'all'},
+        previews: [],
+      },
+    ],
+  };
+  const result = writePortableContext({
+    root: ROOT,
+    output,
+    catalogue: oneVisual,
+    facts: {records: []},
+    referenceAssets,
+    all: true,
+    appScript,
+    stylesheet,
+  });
+  assert.equal(result.selectedCount, 1);
+  assert.equal(result.previewCount, 0);
+  assert.equal(existsSync(join(output, 'references.json')), false);
+  assert.deepEqual(JSON.parse(readFileSync(join(output, 'manifest.json'), 'utf8')).selection, {allVisuals: true});
 });
 
 test('portable selected context is deterministic and only copies requested safe previews', t => {
@@ -76,7 +176,7 @@ test('portable export rejects missing selection, traversal, overwrites and repo 
   t.after(() => rmSync(temporary, {recursive: true, force: true}));
   const options = {root: ROOT, catalogue, facts, appScript, stylesheet};
   assert.throws(() => writePortableContext({...options, output: join(temporary, 'none')}), /Choose exactly one/);
-  assert.throws(() => writePortableContext({...options, output: join(temporary, 'bad'), ids: ['visual:../private']}), /Unknown visual ID/);
+  assert.throws(() => writePortableContext({...options, output: join(temporary, 'bad'), ids: ['visual:../private']}), /Unknown visual\/reference ID/);
   assert.throws(() => writePortableContext({...options, output: ROOT, ids: ['visual:tree-oak']}), /outside the repository/);
   const existing = join(temporary, 'existing');
   writePortableContext({...options, output: existing, ids: ['visual:tree-oak']});
@@ -92,6 +192,65 @@ test('portable export rejects missing selection, traversal, overwrites and repo 
     throw error;
   }
   assert.throws(() => writePortableContext({...options, output: join(link, 'export'), ids: ['visual:tree-oak']}), /inside the repository/);
+});
+
+test('reference exports reject symlink paths, content changes and oversized images', t => {
+  const temporary = mkdtempSync(join(tmpdir(), 'mossvale-reference-guards-'));
+  t.after(() => rmSync(temporary, {recursive: true, force: true}));
+  const root = join(temporary, 'source');
+  mkdirSync(root);
+  const target = join(root, 'target.png');
+  writeFileSync(target, Buffer.from('test image bytes'));
+  symlinkSync(target, join(root, 'linked.png'));
+  assert.throws(() => safeReferencePath(root, 'linked.png'), /symlinks/);
+
+  const oversized = Buffer.alloc(2 * 1024 * 1024 + 1);
+  writeFileSync(join(root, 'oversized.png'), oversized);
+  const fake = {
+    id: 'reference:test/oversized',
+    preview: {path: 'oversized.png', description: 'Test reference.'},
+    sha256: createHash('sha256').update(oversized).digest('hex'),
+  };
+  assert.throws(
+    () =>
+      writePortableContext({root, output: join(temporary, 'large-export'), catalogue, facts, referenceAssets: [fake], ids: [fake.id], appScript, stylesheet}),
+    /per-file export limit/,
+  );
+  const medium = Buffer.alloc(1_900_000);
+  const mediumHash = createHash('sha256').update(medium).digest('hex');
+  const selected = Array.from({length: 9}, (_, index) => {
+    const path = `medium-${index}.png`;
+    writeFileSync(join(root, path), medium);
+    return {id: `reference:test/medium-${index}`, preview: {path, description: 'Test reference.'}, sha256: mediumHash};
+  });
+  assert.throws(
+    () =>
+      writePortableContext({
+        root,
+        output: join(temporary, 'combined-export'),
+        catalogue,
+        facts,
+        referenceAssets: selected,
+        ids: selected.map(item => item.id),
+        appScript,
+        stylesheet,
+      }),
+    /combined reference export limit/,
+  );
+  assert.throws(
+    () =>
+      writePortableContext({
+        root: ROOT,
+        output: join(temporary, 'bad-hash'),
+        catalogue,
+        facts,
+        referenceAssets: [{...referenceAssets[0], sha256: '0'.repeat(64)}],
+        ids: [referenceAssets[0].id],
+        appScript,
+        stylesheet,
+      }),
+    /hash mismatch/,
+  );
 });
 
 test('portable browser escapes metadata and does not embed machine-specific paths', () => {

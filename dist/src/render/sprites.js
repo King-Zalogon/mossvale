@@ -171,7 +171,8 @@ export function drawCreatureAnimated(canvasEl, speciesId, width = 105, state = '
   const delay = state === 'idle' ? 220 : state === 'element' ? 120 : state === 'attack' ? 105 : state === 'hit' ? 80 : state === 'faint' ? 160 : 130;
   const tick = now => {
     if (!canvasEl.isConnected || animationRuns.get(canvasEl) !== run) return;
-    const elapsed = now - start;
+    // A queued RAF timestamp can precede performance.now() at animation setup.
+    const elapsed = Math.max(0, now - start);
     const column = state === 'idle' ? Math.floor(elapsed / delay) % frames.columns : Math.min(frames.columns - 1, Math.floor(elapsed / delay));
     paint(column);
     if (state === 'idle' || elapsed < frames.columns * delay) requestAnimationFrame(tick);

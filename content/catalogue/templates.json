@@ -4,11 +4,11 @@
     "summary": "%description%",
     "details": {
       "appearance": "%description%",
-      "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+      "style": "%sourceLicenseSummary% Source page: %sourcePage% License: %licenseLink%",
       "scale": "%dimensions%; displayed size belongs to the owning renderer or placed object.",
       "directions": "%directions%",
       "animations": "%animations%",
-      "compatibleUses": "Asset %runtimeId% is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      "compatibleUses": "%allowedUseSummary%"
     },
     "limits": [
       "Available asset registration is not a fresh human approval of every animation.",

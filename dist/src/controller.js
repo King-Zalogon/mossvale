@@ -23,14 +23,14 @@ import {buildWorld, isWalkable, nearestInteractive, triggersAt, zoneAt} from './
 import {findScenePath} from './domain/scene-path.js';
 import {movementFacing} from './domain/exploration.js';
 import {GRACE_AFTER_BATTLE, GRACE_ON_ARRIVAL} from './config.js';
-import {$, environmentalMessage, hideModal, toast} from './ui/dom.js';
+import {$, environmentalMessage, hideModal, toast as showToast} from './ui/dom.js';
 import {INTENT_TEXT, TACTICS} from './data/tactics.js';
 import {spriteId} from './data/assets.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
 import {renderHud, renderRegion} from './ui/hud.js';
-import {discover, entryFor, landmarkLabel, reveal, SECRET_RANGE} from './domain/discovery.js';
+import {discover, discoveryNotice, entryFor, reveal, SECRET_RANGE} from './domain/discovery.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun} from './domain/scenes.js';
 import {recordObjectiveEvent, restoreObjectiveState} from './domain/objective-events.js';
 import {availableDialogueChoices} from './domain/dialogue-choices.js';
@@ -44,6 +44,17 @@ import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInvento
 export function createController(app) {
   const {game, ui, audio, rng, persist, canvas, actions, menus, maps, mapsById, objCtx} = app;
   const save = () => game.save;
+  let pendingCapturePresentation = null;
+  const presentProgress = present => {
+    if (pendingCapturePresentation) pendingCapturePresentation.push(present);
+    else present();
+  };
+  const toast = (...args) => presentProgress(() => showToast(...args));
+  const revealCaptureProgress = () => {
+    const pending = pendingCapturePresentation;
+    pendingCapturePresentation = null;
+    for (const present of pending ?? []) present();
+  };
   let applyingObjectiveEvent = false;
   const emit = (type, data = {}) => {
     app.events?.emit(type, data);
@@ -135,10 +146,14 @@ export function createController(app) {
   function refresh() {
     clampHealth(save());
     const goal = app.objectives.length ? currentObjective(save(), app.objectives, objCtx) : null;
-    renderHud(save(), goal);
-    renderOptionalObjectives();
-    if (goal && goal.id !== save().goal) {
-      if (save().goal && ui.ready) toast(`New goal: ${goal.title}`); // first run and reloads stay quiet
+    const changedGoal = goal && goal.id !== save().goal;
+    const announceGoal = changedGoal && save().goal;
+    presentProgress(() => {
+      renderHud(save(), goal);
+      renderOptionalObjectives();
+      if (announceGoal && ui.ready) toast(`New goal: ${goal.title}`); // first run and reloads stay quiet
+    });
+    if (changedGoal) {
       save().goal = goal.id;
       emit('objective.changed', {id: goal.id, step: goal.step, mapId: save().mapId});
     }
@@ -409,7 +424,7 @@ export function createController(app) {
     const entry = entryFor(explored, map.id, w, h);
     reveal(entry, w, h, game.player.x, game.player.y);
     const discoverable = game.world.objects.filter(o => !o.route && !o.routeHint);
-    for (const o of discover(entry, discoverable, game.player.x, game.player.y)) if (o.secret) toast(`You found something hidden: ${landmarkLabel(o)}.`);
+    for (const o of discover(entry, discoverable, game.player.x, game.player.y)) if (o.secret) toast(discoveryNotice(o));
   }
 
   let lastInteract = -Infinity;
@@ -838,7 +853,7 @@ export function createController(app) {
     const b = game.battle;
     if (!b || b.busy || b.over || game.phase !== 'battle' || (ui.modalMode !== 'battle' && action.kind !== 'switch')) return;
     const s = save();
-    const before = {active: s.active};
+    const before = {active: s.active, befriended: s.caught.includes(b.id), captureSave: action.kind === 'catch' ? structuredClone(s) : null};
     const decisionContext = app.combatTrace ? combatDecisionContext(s, b) : null;
     const throwChance = action.kind === 'catch' ? captureChance(s, b) : 0; // shown on the button; sets how the orb wobbles
     const turn = resolveTurn(s, b, action, rng, {
@@ -846,6 +861,7 @@ export function createController(app) {
       inventoryRules: app.inventoryRules,
     });
     if (!turn) return;
+    if (action.kind === 'catch') pendingCapturePresentation = [];
     combatDecision(decisionContext, action, turn, s, b);
     emit('turn.resolved', {
       mapId: game.world.map.id,
@@ -898,10 +914,14 @@ export function createController(app) {
     refresh();
     timeline.play(frames, {
       render: f => {
+        if (f.fx?.orb === 'caught' || f.fx?.orb === 'break') revealCaptureProgress();
         if (f.sfx) sfx(f.sfx);
         renderBattle(f.message, f.animation, f.after, b, f.fx);
       },
-      done: () => finishPlayback(turn, b),
+      done: () => {
+        revealCaptureProgress();
+        finishPlayback(turn, b);
+      },
     });
   }
 
@@ -952,16 +972,16 @@ export function createController(app) {
             frames.push({
               message: 'You throw a capture orb!',
               animation: 'capture',
-              after: e.after,
+              after: {...e.after, befriended: before.befriended, presentationSave: before.captureSave, mine: companion(before.captureSave).hp},
               sfx: 'throw',
               fx: {pops: [], shake: 0, burst: null, orb: 'throw'},
               wait: wait(480),
             });
           else if (beat.kind === 'wobble')
             frames.push({
-              message: beat.index === beat.of && !caught ? 'The orb wobbles… it is about to open!' : 'The orb wobbles…',
+              message: 'The orb wobbles…',
               animation: 'capture',
-              after: e.after,
+              after: {...e.after, befriended: before.befriended, presentationSave: before.captureSave, mine: companion(before.captureSave).hp},
               sfx: 'wobble',
               fx: {pops: [], shake: 0, burst: null, orb: 'wobble'},
               wait: wait(560),

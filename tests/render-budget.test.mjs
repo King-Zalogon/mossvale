@@ -48,3 +48,44 @@ test('the world renderer culls before sorting and preserves explicit depth order
   assert.match(renderer, /\.sort\(\s*\(a, b\) => a\.x \+ a\.y - b\.x - b\.y/);
   assert.match(renderer, /occludesPlayer\s*=\s*\(o, s\)/, 'foreground sprite occlusion remains active after culling');
 });
+
+test('a queued animation timestamp before setup stays at frame zero with safe element geometry', async () => {
+  const {assets} = await import('../dist/src/data/assets.js');
+  const {species} = await import('../dist/src/data/species.js');
+  const {drawCreatureAnimated, sprites} = await import('../dist/src/render/sprites.js');
+  const assetId = assets.findIndex(asset => asset.name === `creature-${species[0].id}-combat`);
+  const previousSprite = sprites[assetId];
+  const previousRAF = globalThis.requestAnimationFrame;
+  const callbacks = [];
+  globalThis.requestAnimationFrame = callback => callbacks.push(callback);
+  sprites[assetId] = {complete: true, naturalWidth: assets[assetId].w, naturalHeight: assets[assetId].h};
+  try {
+    for (const state of ['idle', 'element']) {
+      const radii = [];
+      const context = {
+        canvas: {width: 160, height: 145},
+        save() {},
+        restore() {},
+        clearRect() {},
+        drawImage() {},
+        beginPath() {},
+        arc(x, y, radius) {
+          radii.push(radius);
+        },
+        stroke() {},
+        fill() {},
+      };
+      const canvas = {isConnected: true, dataset: {}, classList: {add() {}, remove() {}}, getContext: () => context};
+      drawCreatureAnimated(canvas, 0, 105, state);
+      const tick = callbacks.shift();
+      tick(performance.now() - 500);
+      assert.equal(canvas.dataset.combatFrame, '0');
+      assert.ok(radii.every(radius => radius >= 0));
+      canvas.isConnected = false;
+      callbacks.length = 0;
+    }
+  } finally {
+    sprites[assetId] = previousSprite;
+    globalThis.requestAnimationFrame = previousRAF;
+  }
+});
