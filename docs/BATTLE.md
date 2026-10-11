@@ -57,3 +57,5 @@ Capture also defers the visible HUD friend count, coin/XP rewards, quest progres
 ## Elemental material presentation
 
 Both sides use [the twelve-element attack design](ELEMENTAL_ATTACKS.md). Optional `effect-elemental-materials` supplies six isolated poses per canonical type display-name. Element uses preparation, directed travel and impact within the previous 650 ms ally / 700 ms enemy action window; HP, damage numbers and contact audio appear at impact. Reduced motion pins one material-specific impact for 250 ms. Existing five-state creature sheets and static portraits remain compatible. Missing effect art or custom type names use a neutral directional fallback. This presentation does not change resolution, RNG, saves or rewards.
+
+Automatic reduced motion is supplied by the system CSS media query and the live runtime preference. The `reduce-motion` body class represents only the player’s explicit reduced setting, preventing a missed system change notification from leaving CSS animation disabled after the system returns to normal.

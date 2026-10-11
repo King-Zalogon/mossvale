@@ -48,6 +48,7 @@
         "dist/assets/props/effect-elemental-materials.png",
         "dist/src/controller.js",
         "dist/src/data/assets.js",
+        "dist/src/main.js",
         "dist/src/render/elemental-effects.js",
         "dist/src/render/sprites.js",
         "dist/src/ui/battle-fx.js",
@@ -70,9 +71,9 @@
         "tests/test_elemental_effects.py",
         "tests/test_source_archive.py"
       ],
-      "entries": ["mechanic:elemental-combat-presentation", "visual:effect-elemental-materials"],
+      "entries": ["mechanic:elemental-combat-presentation", "visual:effect-elemental-materials", "mechanic:battle-impact-feedback"],
       "disposition": "updated",
-      "reason": "Replaces palette-swapped halos with twelve independently authored materials, directed source-to-target playback and contact-only HP/text/audio on both sides. Retains five-state creature art, canonical live type mapping, neutral fallback, original total action durations, deterministic rules and save outcomes. Source design, prompts, archived original/spacing revisions, reproducible exports and internal battle-scale visual review are included; shared character provenance inventory pins change without altering creature pixels or owner decisions.",
+      "reason": "Replaces palette-swapped halos with twelve independently authored materials, directed source-to-target playback and contact-only HP/text/audio on both sides. Retains five-state creature art, canonical live type mapping, neutral fallback, original total action durations, deterministic rules and save outcomes. Source design, prompts, archived original/spacing revisions, reproducible exports and internal battle-scale visual review are included; shared character provenance inventory pins change without altering creature pixels or owner decisions. Resolves a motion preference regression exposed by full verification: CSS uses the live OS query while the body override reflects only the manual reduced setting; a missing browser media event cannot leave normal animations disabled.",
       "evidence": [
         "docs/ELEMENTAL_ATTACKS.md",
         "art/effects/SOURCES.md",
@@ -81,7 +82,8 @@
         "art/effects/review/battle-enemy-impacts.png",
         "tests/elemental-effects.test.mjs",
         "tests/elemental-effects.browser.mjs",
-        "tests/test_elemental_effects.py"
+        "tests/test_elemental_effects.py",
+        "tests/creatures.browser.mjs"
       ]
     }
   ]

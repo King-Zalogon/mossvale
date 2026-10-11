@@ -98,7 +98,8 @@
         "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return.",
         "Capture beats are derived from the already-resolved throw: a success wobbles three times, a miss wobbles once more the closer it was (1 to 3), and calm motion collapses to a single wobble; the wobble count never changes the outcome.",
         "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion).",
-        "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion. The HUD friend count, coin/XP rewards, quest progress and controller notices also wait for the orb result. Durable capture and objective events still commit before playback. Ally level/HP and move information read the pre-throw presentation snapshot until resolution, including a capture that levels up the companion."
+        "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion. The HUD friend count, coin/XP rewards, quest progress and controller notices also wait for the orb result. Durable capture and objective events still commit before playback. Ally level/HP and move information read the pre-throw presentation snapshot until resolution, including a capture that levels up the companion.",
+        "Automatic calm motion follows the system media query directly; the CSS override class is reserved for the explicit player setting, so returning to normal system motion cannot leave creature animations stuck."
       ],
       "examples": [
         {
@@ -112,7 +113,14 @@
           "expected": "The orb flies in and holds the creature, wobbles, then either settles with a star burst and floating rewards before the result screen, or opens and the creature pops back out."
         }
       ],
-      "references": ["dist/src/controller.js", "dist/src/data/sounds.js", "dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/style.css"],
+      "references": [
+        "dist/src/controller.js",
+        "dist/src/data/sounds.js",
+        "dist/src/ui/battle-fx.js",
+        "dist/src/ui/battle-view.js",
+        "dist/style.css",
+        "dist/src/main.js"
+      ],
       "evidence": [
         {
           "path": "tests/battle-fx.test.mjs",
@@ -125,6 +133,10 @@
         {
           "path": "tests/capture-feel.browser.mjs",
           "assertion": "A real throw shows throw, three wobbles and settle with stars and floating rewards; a miss opens the orb and the creature pops out; a win fades the foe and floats XP; calm motion has no sparks and one wobble per throw. Ownership and HUD counters/rewards/quests retain their pre-throw presentation until resolution, including calm motion and repeated captures."
+        },
+        {
+          "path": "tests/creatures.browser.mjs",
+          "assertion": "Automatic system reduction disables animation and returns to idle breathing without becoming a sticky manual override."
         }
       ],
       "details": {
