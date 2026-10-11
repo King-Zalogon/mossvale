@@ -81,7 +81,9 @@ const failed = (page, text) =>
   for (const [mode, query] of [
     ['garbage', '?debug'],
     ['abort', '?debug'],
-    ['hang', '?debug&assetTimeout=800'],
+    // Leave room for real atlas decoding on a busy runner; the selected request
+    // never responds, so timeout and retry assertions remain deterministic.
+    ['hang', '?debug&assetTimeout=3000'],
   ]) {
     behavior = new Map([[MOTION, mode]]);
     const {page, ctx} = await start({query});
