@@ -50,3 +50,6 @@ Run `npm run combat:balance -- --seeds 50` for a reproducible Markdown compariso
 These scripted fights are diagnostic evidence, not a fun score. They do not model player perception or human experimentation, and a small seed range cannot establish broad balance. The objective metric covers the four guardian seals; pack-authored encounter objectives are validated separately through domain and save tests.
 
 Capture presentation keeps the pre-throw befriended label throughout the throw and wobble beats. New success is revealed when the orb settles; failure is revealed when it opens. Actions stay locked until playback ends, including calm motion. The resolved save is committed before playback, so reloading does not reroll or duplicate the capture.
+
+Capture also defers the visible HUD friend count, coin/XP rewards, quest progress and new-goal notices until the orb settles or breaks. Save transactions and objective events still commit immediately, so reload safety is unchanged.
+ The battle panel likewise uses a pre-throw presentation snapshot for ally level, max HP and move/capture information, so capture XP cannot announce a level-up during a wobble.
