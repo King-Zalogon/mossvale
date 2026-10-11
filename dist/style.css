@@ -2412,6 +2412,14 @@ body.text-larger .heading {
   .game-frame:-webkit-full-screen .game-footer #pause {
     margin-left: 4px;
   }
+  /* The fullscreen footer overlays the playfield. Keep touch controls above
+     its readable hit area instead of letting the footer intercept their taps. */
+  .game-frame:fullscreen .touchpad,
+  .game-frame:-webkit-full-screen .touchpad,
+  .game-frame:fullscreen .touch-run,
+  .game-frame:-webkit-full-screen .touch-run {
+    bottom: max(58px, calc(env(safe-area-inset-bottom) + 48px));
+  }
   .environment-message {
     top: 54px;
     left: 12px;
