@@ -2,6 +2,9 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import test from 'node:test';
+import {discover, discoveryNotice, entryFor, isKnown} from '../dist/src/domain/discovery.js';
+import {buildAdventure} from '../dist/src/domain/adventure.js';
+import {content, mapsById, rawMaps} from './helpers.mjs';
 import {assets, spriteId} from '../dist/src/data/assets.js';
 
 const map = id => JSON.parse(readFileSync(new URL(`../dist/maps/${id}.json`, import.meta.url), 'utf8'));
@@ -188,4 +191,41 @@ test('phone-scale visual review evidence is pinned to every landmark source, run
     assert.equal(capture.readUInt32BE(16), 358, 'capture retains the phone viewport canvas width');
     assert.equal(capture.readUInt32BE(20), 340, 'capture retains the phone viewport canvas height');
   }
+});
+
+test('all secret finds have short, named notices compiled unchanged and shown only at discovery', () => {
+  const notices = new Set();
+  let count = 0;
+  for (const raw of rawMaps())
+    for (const landmark of raw.landmarks.filter(item => item.secret)) {
+      count++;
+      assert.ok(landmark.discoveryText.length <= 160);
+      assert.ok(landmark.discoveryText.startsWith(`${landmark.mapLabel}:`));
+      assert.ok(!/something hidden|something was discovered/i.test(landmark.discoveryText));
+      assert.ok(!notices.has(landmark.discoveryText));
+      notices.add(landmark.discoveryText);
+      const object = mapsById[raw.id].objects.find(item => item.ref === landmark.id);
+      assert.equal(object.discoveryText, landmark.discoveryText);
+      const entry = entryFor({}, raw.id, raw.size.w, raw.size.h);
+      assert.deepEqual(discover(entry, [object], object.x + 3, object.y), []);
+      assert.equal(isKnown(entry, object), false);
+      assert.deepEqual(discover(entry, [object], object.x + 1, object.y), [object]);
+      assert.equal(discoveryNotice(object), landmark.discoveryText);
+      assert.equal(isKnown(entry, object), true);
+      assert.deepEqual(discover(entry, [object], object.x, object.y), []);
+    }
+  assert.equal(count, 11);
+  assert.equal(discoveryNotice({kind: 'chest', mapLabel: 'Old cache'}), 'Found Old cache.');
+  assert.equal(discoveryNotice({kind: 'sign'}), 'Found Signpost.');
+});
+
+test('discovery notices reject empty, untrimmed, non-text and oversized authoring without breaking older packs', () => {
+  for (const invalid of ['', ' ', ' padded ', 42, 'x'.repeat(161)]) {
+    const maps = rawMaps();
+    maps[0].landmarks[0].discoveryText = invalid;
+    assert.ok(buildAdventure(maps, content).errors.some(error => error.includes('discoveryText')));
+  }
+  const maps = rawMaps();
+  for (const map of maps) for (const landmark of map.landmarks) delete landmark.discoveryText;
+  assert.deepEqual(buildAdventure(maps, content).errors, []);
 });

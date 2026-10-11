@@ -1,0 +1,18 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "art/assets/third-party/andhegames-creatures/colorful-slimes.png",
+        "art/assets/third-party/andhegames-creatures/creatures-volume-3.png",
+        "art/assets/third-party/andhegames-creatures/index.html",
+        "art/assets/third-party/andhegames-creatures/more-assorted-creatures.png",
+        "art/assets/third-party/andhegames-creatures/registry.json"
+      ],
+      "entries": ["mechanic:catalogue-authoring"],
+      "disposition": "no-semantic-impact",
+      "reason": "These CC0 sheets are isolated reference-library files; they do not enter the runtime asset manifest, existing visual fiches, available species, maps, authoring capability definitions or shipped builds. The owning authoring capability is linked only to record that image references remain distinct from supported game resources.",
+      "evidence": ["tests/test_community_asset_library.py", "docs/CATALOGUE.md", "art/assets/third-party/andhegames-creatures/index.html"]
+    }
+  ]
+}

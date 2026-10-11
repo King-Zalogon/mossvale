@@ -255,7 +255,7 @@ try {
     assert.ok(!list.some(t => /Carved stone/.test(t)), `a secret is not on the map yet: ${list}`);
     await page.keyboard.press('Escape');
     await teleport(page, 4.6, 2.8);
-    assert.match(await page.locator('#toast').textContent(), /You found something hidden: Carved stone/);
+    assert.match(await page.locator('#toast').textContent(), /Found Carved stone\./);
     await openArea(page);
     list = await places(page);
     assert.ok(

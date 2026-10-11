@@ -4,25 +4,50 @@ import http from 'node:http';
 import {readFileSync, existsSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {extname, join, resolve} from 'node:path';
-import {codec, newSave} from './helpers.mjs';
+import {codec, newSave, rawMaps, rawObjectives, rawStory, rawPack, rawInventoryRules, packContent} from './helpers.mjs';
+import {buildAdventure} from '../dist/src/domain/adventure.js';
+import {createHash} from 'node:crypto';
+import {XP_PER_LEVEL} from '../dist/src/config.js';
 
 const root = resolve('dist');
+// A real authored capture objective exercises progress/reward notices emitted
+// before playback, using the canonical compiler and pack integrity contract.
+const captureObjectives = rawObjectives();
+captureObjectives.eventObjectives.push({
+  format: 1,
+  id: 'capture-challenge',
+  title: 'Capture challenge',
+  stages: [{id: 'make-a-friend', label: 'Befriend a creature', on: {type: 'capture.completed'}, reward: {coins: 7}}],
+});
+const objectivesBytes = Buffer.from(JSON.stringify(captureObjectives));
+const capturePack = rawPack();
+capturePack.integrity.find(file => file.id === 'objectives:main').sha256 = createHash('sha256').update(objectivesBytes).digest('hex');
+buildAdventure(rawMaps(), packContent, captureObjectives, rawStory(), capturePack, rawInventoryRules());
+const overrides = new Map([
+  ['maps/objectives.json', objectivesBytes],
+  ['maps/index.json', Buffer.from(JSON.stringify(capturePack))],
+]);
 const types = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.json': 'application/json', '.svg': 'image/svg+xml'};
 const server = http
   .createServer((request, response) => {
     const name = new URL(request.url, 'http://localhost').pathname.slice(1) || 'index.html';
     const file = join(root, name);
     if (!existsSync(file)) return response.writeHead(404).end();
-    response.writeHead(200, {'content-type': types[extname(file)] ?? 'application/octet-stream'}).end(readFileSync(file));
+    response.writeHead(200, {'content-type': types[extname(file)] ?? 'application/octet-stream'}).end(overrides.get(name) ?? readFileSync(file));
   })
   .listen(0);
 const url = `http://localhost:${server.address().port}/`;
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 
-async function open(motion, seed) {
+async function open(motion, seed, owned = false) {
   const initial = newSave();
   initial.met = true;
   initial.orbs = 30;
+  initial.team[initial.active].xp = XP_PER_LEVEL - 1; // a successful capture crosses a level boundary
+  if (owned) {
+    initial.caught.push(1);
+    initial.team[1] = {xp: 0, hp: 1};
+  }
   const context = await browser.newContext();
   await context.addInitScript(
     ([raw, settings]) => {
@@ -44,13 +69,34 @@ async function open(motion, seed) {
 async function observe(page) {
   await page.evaluate(() => {
     window.__orbNodes = new WeakSet();
-    window.__seen = {orbs: [], pops: new Set(), bursts: 0, foe: new Set(), ally: new Set()};
+    window.__readCaptureBuddy = () => ({
+      name: document.querySelector('.fighter .name-line')?.textContent,
+      hp: document.querySelector('.fighter small')?.textContent,
+    });
+    window.__readCaptureHud = () =>
+      Object.fromEntries(
+        ['count', 'coins', 'xp-label', 'quest-title', 'quest-step', 'quest-lines', 'optional-objectives', 'objective-pin', 'toast'].map(id => [
+          id,
+          document.getElementById(id)?.textContent,
+        ]),
+      );
+    window.__seen = {orbs: [], captureFrames: [], pops: new Set(), bursts: 0, foe: new Set(), ally: new Set()};
     new MutationObserver(() => {
       const orb = document.querySelector('.orb-ball');
       // Each rendered frame replaces the markup, so a new element is a new beat.
       if (orb && !window.__orbNodes.has(orb)) {
         window.__orbNodes.add(orb);
         window.__seen.orbs.push([...orb.classList].find(c => c.startsWith('orb-') && c !== 'orb-ball'));
+        window.__seen.captureFrames.push({
+          orb: window.__seen.orbs.at(-1),
+          status: document.querySelector('.capture-status')?.textContent,
+          message: document.querySelector('.battle-log')?.textContent,
+          hud: window.__readCaptureHud(),
+          beforeHud: window.__captureHudBefore,
+          buddy: window.__readCaptureBuddy(),
+          beforeBuddy: window.__captureBuddyBefore,
+          enabled: document.querySelectorAll('.battle-actions button:not([disabled]), #flee:not([disabled])').length,
+        });
       }
       for (const el of document.querySelectorAll('.dmg-pop')) window.__seen.pops.add(el.textContent);
       if (document.querySelector('.burst')) window.__seen.bursts++;
@@ -61,6 +107,21 @@ async function observe(page) {
     }).observe(document.querySelector('#modal'), {childList: true, subtree: true, attributes: true});
   });
 }
+async function capture(page) {
+  await page.evaluate(() => {
+    window.__captureHudBefore = window.__readCaptureHud();
+    window.__captureBuddyBefore = window.__readCaptureBuddy();
+  });
+  await page.click('#catch');
+}
+
+function assertPendingHud(frames) {
+  for (const frame of frames.filter(f => ['orb-throw', 'orb-wobble'].includes(f.orb))) {
+    assert.deepEqual(frame.hud, frame.beforeHud, 'friend count, rewards and quest progress do not announce the capture early');
+    assert.deepEqual(frame.buddy, frame.beforeBuddy, 'capture XP does not reveal a level-up or healing before resolution');
+  }
+}
+
 /** A turn is over when either the encounter continues with controls enabled, or the result screen is showing. */
 const settled = page =>
   page.waitForFunction(
@@ -75,6 +136,7 @@ const settled = page =>
 const seen = page =>
   page.evaluate(() => ({
     orbs: window.__seen.orbs,
+    captureFrames: window.__seen.captureFrames,
     pops: [...window.__seen.pops],
     bursts: window.__seen.bursts,
     foe: [...window.__seen.foe],
@@ -92,14 +154,16 @@ try {
     let caught = false;
     for (let attempt = 0; attempt < 8 && !caught; attempt++) {
       await page.evaluate(() => (window.mossvale.getState().battle.hp = 1));
-      await page.click('#catch');
+      const beforeStatus = await page.locator('.capture-status').textContent();
+      await capture(page);
       await page.waitForSelector('.orb-ball.orb-wobble');
-      assert.equal(await page.locator('.capture-status').textContent(), '', 'capture status stays hidden while the orb resolves');
+      assert.equal(await page.locator('.capture-status').textContent(), beforeStatus, 'capture keeps the pre-throw status until resolution');
       await settled(page);
       caught = await page.evaluate(() => !window.mossvale.getState().battle);
     }
     assert.ok(caught, 'a weakened creature is caught within a few throws');
     const s = await seen(page);
+    assertPendingHud(s.captureFrames);
     const closed = s.orbs.slice(-6);
     assert.deepEqual(
       [...new Set(s.orbs.slice(-6))].filter(x => x !== 'orb-wobble'),
@@ -109,6 +173,30 @@ try {
     assert.ok(s.orbs.filter(x => x === 'orb-wobble').length >= 3, `three wobbles before it settles (${closed})`);
     assert.ok(s.foe.includes('inside-orb'), 'the creature is hidden while the orb holds it');
     assert.ok(s.bursts > 0, 'stars burst when the orb settles');
+    assert.ok(
+      s.captureFrames.filter(f => ['orb-throw', 'orb-wobble'].includes(f.orb)).every(f => f.status === 'Not yet befriended'),
+      'success remains hidden until the orb settles',
+    );
+    assert.ok(
+      s.captureFrames.some(f => f.orb === 'orb-caught' && f.status === '✓ Already befriended'),
+      'the settled orb reveals success',
+    );
+    assert.ok(
+      s.captureFrames.some(f => f.orb === 'orb-caught' && f.hud.count !== f.beforeHud.count),
+      'the settled orb reveals new friendship in the HUD',
+    );
+    assert.ok(
+      s.captureFrames.some(f => f.orb === 'orb-caught' && f.hud['optional-objectives'].includes('Complete · reward claimed')),
+      'the authored capture reward is revealed at resolution',
+    );
+    assert.ok(
+      s.captureFrames.some(f => f.orb === 'orb-caught' && f.buddy.name !== f.beforeBuddy.name),
+      'capture level-up is revealed at resolution',
+    );
+    assert.ok(
+      s.captureFrames.every(f => f.enabled === 0),
+      'battle actions remain locked during capture',
+    );
     assert.ok(s.pops.some(t => /^\+\d+ XP$/.test(t)) && s.pops.some(t => /^\+\d+$/.test(t)), `rewards float up (${s.pops})`);
     assert.equal((await page.locator('#result-continue, .result').count()) > 0 || (await page.locator('#modal').innerText()).length > 0, true);
     assert.deepEqual(errors, []);
@@ -124,15 +212,21 @@ try {
       if (await page.locator('#result-continue').count()) await page.click('#result-continue');
       if (!(await page.evaluate(() => !!window.mossvale.getState().battle))) await page.evaluate(() => window.mossvale.encounter(1));
       await page.waitForSelector('#catch:not([disabled])', {timeout: 15000});
-      await page.click('#catch');
+      const beforeStatus = await page.locator('.capture-status').textContent();
+      await capture(page);
       await page.waitForSelector('.orb-ball.orb-wobble');
-      assert.equal(await page.locator('.capture-status').textContent(), '', 'failed capture status stays hidden while the orb resolves');
+      assert.equal(await page.locator('.capture-status').textContent(), beforeStatus, 'a failed capture keeps the pre-throw status until resolution');
       await settled(page);
       broke = (await seen(page)).orbs.includes('orb-break');
     }
     const s = await seen(page);
+    assertPendingHud(s.captureFrames);
     assert.ok(s.orbs.includes('orb-break'), `a failed throw opens the orb (${s.orbs})`);
     assert.ok(s.foe.includes('pop-out'), 'the creature pops back out');
+    assert.ok(
+      s.captureFrames.filter(f => f.orb === 'orb-wobble').every(f => f.message === 'The orb wobbles…'),
+      'wobbles do not anticipate failure',
+    );
     assert.deepEqual(errors, []);
     await context.close();
   }
@@ -146,6 +240,7 @@ try {
     await page.click('#attack');
     await settled(page);
     const s = await seen(page);
+    assertPendingHud(s.captureFrames);
     assert.ok(s.foe.includes('foe-out'), 'the defeated creature fades out');
     assert.ok(s.ally.includes('victory'), 'your friend hops');
     assert.ok(
@@ -166,15 +261,47 @@ try {
       await page.evaluate(() => window.mossvale.getState().battle && (window.mossvale.getState().battle.hp = 1));
       if (!(await page.evaluate(() => !!window.mossvale.getState().battle))) break;
       await page.waitForSelector('#catch:not([disabled])', {timeout: 8000});
-      await page.click('#catch');
+      await capture(page);
       await settled(page);
     }
     const s = await seen(page);
+    assertPendingHud(s.captureFrames);
     assert.equal(s.bursts, 0, 'no sparks in calm motion');
+    assert.ok(
+      s.captureFrames.filter(f => ['orb-throw', 'orb-wobble'].includes(f.orb)).every(f => f.status === 'Not yet befriended'),
+      'calm motion preserves suspense until resolution',
+    );
+    assert.ok(
+      s.captureFrames.some(f => f.orb === 'orb-caught' && f.status === '✓ Already befriended'),
+      'calm motion reveals the successful result',
+    );
+    assert.ok(
+      s.captureFrames.some(f => f.orb === 'orb-caught' && f.hud.count !== f.beforeHud.count),
+      'calm resolution reveals HUD progression',
+    );
     const wobbleRuns = s.orbs.join(',').match(/(orb-wobble,?)+/g) ?? [];
     assert.ok(
       wobbleRuns.every(run => run.split(',').filter(Boolean).length === 1),
       `calm motion shows a single wobble per throw (${s.orbs})`,
+    );
+    assert.deepEqual(errors, []);
+    await context.close();
+  }
+  // Previously owned creatures retain their baseline status; it is not a new capture confirmation.
+  {
+    const {page, errors, context} = await open('reduced', 4, true);
+    await page.evaluate(() => window.mossvale.encounter(1));
+    await page.waitForSelector('#catch:not([disabled])');
+    await page.evaluate(() => (window.mossvale.getState().battle.hp = 1));
+    await observe(page);
+    await capture(page);
+    await settled(page);
+    const s = await seen(page);
+    assertPendingHud(s.captureFrames);
+    assert.ok(s.captureFrames.length > 0);
+    assert.ok(
+      s.captureFrames.every(f => f.status === '✓ Already befriended' && f.enabled === 0),
+      'ownership remains accurate and actions locked for a repeated capture',
     );
     assert.deepEqual(errors, []);
     await context.close();

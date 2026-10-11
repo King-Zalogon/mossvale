@@ -189,6 +189,11 @@ function validateOne(m, byId, ctx, errors) {
       );
     if (l.tag !== undefined && (typeof l.tag !== 'string' || l.tag.length > 16)) at(where + '.tag', 'tag is a short label (up to 16 characters)');
     if (l.secret !== undefined && typeof l.secret !== 'boolean') at(where + '.secret', 'true (hidden from the maps until found nearby) or false');
+    if (
+      l.discoveryText !== undefined &&
+      (typeof l.discoveryText !== 'string' || !l.discoveryText.trim() || l.discoveryText !== l.discoveryText.trim() || l.discoveryText.length > 160)
+    )
+      at(where + '.discoveryText', 'a trimmed discovery notice (1-160 characters)');
     if (l.routeHint !== undefined && (!ID.test(l.routeHint) || !routeIds.has(l.routeHint)))
       at(where + '.routeHint', 'must reference a companion route defined by an exit in this map');
     if (l.mapLabel !== undefined && (typeof l.mapLabel !== 'string' || !l.mapLabel || l.mapLabel.length > 24))
@@ -376,6 +381,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
       tag: l.tag,
       secret: l.secret === true,
       mapLabel: l.mapLabel,
+      discoveryText: l.discoveryText,
       routeHint: l.routeHint,
       reward: l.reward,
       guardian: l.guardian && {

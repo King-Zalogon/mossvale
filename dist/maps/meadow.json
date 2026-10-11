@@ -205,7 +205,8 @@
       "label": "Inspect the old well",
       "secret": true,
       "mapLabel": "Old well",
-      "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest."
+      "text": "An old well, long dry. Carved beneath: the shy ones nap where the grass is longest.",
+      "discoveryText": "Old well: a carving beneath the dry stones hints at shy creatures in long grass."
     },
     {
       "id": "hollow-note",
@@ -216,7 +217,8 @@
       "label": "Inspect the hollow oak",
       "secret": true,
       "mapLabel": "Whispering hollow",
-      "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching."
+      "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching.",
+      "discoveryText": "Whispering hollow: a rustle from the old trees rewards a moment of stillness."
     }
   ],
   "exits": [
@@ -699,6 +701,48 @@
         [62.2, 36.8],
         [40.5, 26.5],
         [37.8, 24.5]
+      ]
+    },
+    {
+      "sprite": "tree-oak-round",
+      "kind": "scenery",
+      "w": 72,
+      "solid": 0.48,
+      "at": [
+        [10.5, 25.5],
+        [54.5, 20.5]
+      ]
+    },
+    {
+      "sprite": "tree-fir-slim",
+      "kind": "scenery",
+      "w": 68,
+      "solid": 0.45,
+      "at": [
+        [18.5, 46.5],
+        [60.5, 50.5]
+      ]
+    },
+    {
+      "sprite": "bush-woodland-low",
+      "kind": "flower",
+      "w": 31,
+      "at": [
+        [8.5, 24.5],
+        [12.5, 27.5],
+        [52.5, 19.5],
+        [57.5, 23.5]
+      ]
+    },
+    {
+      "sprite": "plant-fern-frond",
+      "kind": "grass",
+      "w": 24,
+      "at": [
+        [20.5, 24.5],
+        [56.5, 47.5],
+        [38.5, 53.5],
+        [6.5, 45.5]
       ]
     },
     {
