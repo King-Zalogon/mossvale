@@ -13087,7 +13087,7 @@
       ],
       "details": {
         "appearance": "boulder mossy",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "261 by 228 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -13144,7 +13144,7 @@
       ],
       "details": {
         "appearance": "bush flowering",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "295 by 253 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -13154,6 +13154,120 @@
         {
           "path": "dist/assets/props/bush-flowering.png",
           "description": "bush flowering"
+        }
+      ]
+    },
+    {
+      "id": "visual:bush-woodland-low",
+      "kind": "visual",
+      "name": "bush-woodland-low",
+      "summary": "A low, spreading green woodland bush.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "bush-woodland-low",
+            "kind": "prop",
+            "src": "assets/props/bush-woodland-low.png",
+            "w": 44,
+            "h": 21,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A low, spreading green woodland bush.",
+          "usage": "Reference bush-woodland-low in the existing format at dist/src/data/assets.js.",
+          "expected": "A low, spreading green woodland bush."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A low, spreading green woodland bush.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "44 by 21 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a harvest, encounter, interaction or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/bush-woodland-low.png",
+          "description": "A low, spreading green woodland bush."
+        }
+      ]
+    },
+    {
+      "id": "visual:bush-woodland-small",
+      "kind": "visual",
+      "name": "bush-woodland-small",
+      "summary": "A compact, low green woodland bush.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "bush-woodland-small",
+            "kind": "prop",
+            "src": "assets/props/bush-woodland-small.png",
+            "w": 34,
+            "h": 15,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A compact, low green woodland bush.",
+          "usage": "Reference bush-woodland-small in the existing format at dist/src/data/assets.js.",
+          "expected": "A compact, low green woodland bush."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A compact, low green woodland bush.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "34 by 15 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a harvest, encounter, interaction or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/bush-woodland-small.png",
+          "description": "A compact, low green woodland bush."
         }
       ]
     },
@@ -13201,7 +13315,7 @@
       ],
       "details": {
         "appearance": "cattail clump",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "301 by 300 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -13258,7 +13372,7 @@
       ],
       "details": {
         "appearance": "chest wooden",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "343 by 319 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -13315,7 +13429,7 @@
       ],
       "details": {
         "appearance": "cottage tiled",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "312 by 359 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -13372,7 +13486,7 @@
       ],
       "details": {
         "appearance": "Canonical Bramblebuck creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "302 by 340 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -13441,7 +13555,7 @@
       ],
       "details": {
         "appearance": "Canonical Bramblebuck creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -13507,7 +13621,7 @@
       ],
       "details": {
         "appearance": "Canonical Bramblebuck creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -13564,7 +13678,7 @@
       ],
       "details": {
         "appearance": "Small four-legged blue river otter with a broad curling water tail and compact paws.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "279 by 208 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -13633,7 +13747,7 @@
       ],
       "details": {
         "appearance": "Small four-legged blue river otter with a broad curling water tail and compact paws.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -13699,7 +13813,7 @@
       ],
       "details": {
         "appearance": "Small four-legged blue river otter with a broad curling water tail and compact paws.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -13756,7 +13870,7 @@
       ],
       "details": {
         "appearance": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "264 by 211 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -13825,7 +13939,7 @@
       ],
       "details": {
         "appearance": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -13891,7 +14005,7 @@
       ],
       "details": {
         "appearance": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -13948,7 +14062,7 @@
       ],
       "details": {
         "appearance": "Small moth-like creature with a rounded body, upright feelers, and two oversized wings.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "282 by 260 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -14017,7 +14131,7 @@
       ],
       "details": {
         "appearance": "Small moth-like creature with a rounded body, upright feelers, and two oversized wings.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1124 by 1405 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -14083,7 +14197,7 @@
       ],
       "details": {
         "appearance": "Small moth-like creature with a rounded body, upright feelers, and two oversized wings.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -14140,7 +14254,7 @@
       ],
       "details": {
         "appearance": "Small quadrupedal fire fox with an upright flame crest, flame-shaped curled tail and compact paws.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "270 by 274 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -14209,7 +14323,7 @@
       ],
       "details": {
         "appearance": "Small quadrupedal fire fox with an upright flame crest, flame-shaped curled tail and compact paws.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -14278,7 +14392,7 @@
       ],
       "details": {
         "appearance": "Small quadrupedal fire fox with an upright flame crest, flame-shaped curled tail and compact paws.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -14335,7 +14449,7 @@
       ],
       "details": {
         "appearance": "Small quadrupedal creature with a broad leaf-shaped tail, tall pointed leaf ears, and compact legs.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "281 by 281 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -14404,7 +14518,7 @@
       ],
       "details": {
         "appearance": "Small quadrupedal creature with a broad leaf-shaped tail, tall pointed leaf ears, and compact legs.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -14473,7 +14587,7 @@
       ],
       "details": {
         "appearance": "Small quadrupedal creature with a broad leaf-shaped tail, tall pointed leaf ears, and compact legs.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -14530,7 +14644,7 @@
       ],
       "details": {
         "appearance": "A compact white owl with luminous blue eyes, crystalline blue feathers, a dark beak and dark feet.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "336 by 400 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -14599,7 +14713,7 @@
       ],
       "details": {
         "appearance": "A compact white owl with luminous blue eyes, crystalline blue feathers, a dark beak and dark feet.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -14665,7 +14779,7 @@
       ],
       "details": {
         "appearance": "A compact white owl with luminous blue eyes, crystalline blue feathers, a dark beak and dark feet.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -14736,7 +14850,7 @@
       ],
       "details": {
         "appearance": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -14793,7 +14907,7 @@
       ],
       "details": {
         "appearance": "Sturdy shaggy ram with long curved ice horns, four dark hooves and a low fluffy tail.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "289 by 340 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -14862,7 +14976,7 @@
       ],
       "details": {
         "appearance": "Sturdy shaggy ram with long curved ice horns, four dark hooves and a low fluffy tail.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -14928,7 +15042,7 @@
       ],
       "details": {
         "appearance": "Sturdy shaggy ram with long curved ice horns, four dark hooves and a low fluffy tail.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -14985,7 +15099,7 @@
       ],
       "details": {
         "appearance": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "191 by 263 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -15054,7 +15168,7 @@
       ],
       "details": {
         "appearance": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -15120,7 +15234,7 @@
       ],
       "details": {
         "appearance": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -15177,7 +15291,7 @@
       ],
       "details": {
         "appearance": "A gentle hedgehog with a cream face and paws, violet spines, a broad mushroom cap and small mushrooms across its back.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "361 by 330 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -15246,7 +15360,7 @@
       ],
       "details": {
         "appearance": "A gentle hedgehog with a cream face and paws, violet spines, a broad mushroom cap and small mushrooms across its back.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -15312,7 +15426,7 @@
       ],
       "details": {
         "appearance": "A gentle hedgehog with a cream face and paws, violet spines, a broad mushroom cap and small mushrooms across its back.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -15383,7 +15497,7 @@
       ],
       "details": {
         "appearance": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -15440,7 +15554,7 @@
       ],
       "details": {
         "appearance": "Canonical Pebblit creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "385 by 329 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -15509,7 +15623,7 @@
       ],
       "details": {
         "appearance": "Canonical Pebblit creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1184 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -15580,7 +15694,7 @@
       ],
       "details": {
         "appearance": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -15646,7 +15760,7 @@
       ],
       "details": {
         "appearance": "Canonical Pebblit creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -15703,7 +15817,7 @@
       ],
       "details": {
         "appearance": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "264 by 251 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -15772,7 +15886,7 @@
       ],
       "details": {
         "appearance": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -15838,7 +15952,7 @@
       ],
       "details": {
         "appearance": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -15895,7 +16009,7 @@
       ],
       "details": {
         "appearance": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "241 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -15964,7 +16078,7 @@
       ],
       "details": {
         "appearance": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -16030,7 +16144,7 @@
       ],
       "details": {
         "appearance": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -16087,7 +16201,7 @@
       ],
       "details": {
         "appearance": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "254 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -16156,7 +16270,7 @@
       ],
       "details": {
         "appearance": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -16222,7 +16336,7 @@
       ],
       "details": {
         "appearance": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -16279,7 +16393,7 @@
       ],
       "details": {
         "appearance": "Canonical Siltkip creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "344 by 340 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -16348,7 +16462,7 @@
       ],
       "details": {
         "appearance": "Canonical Siltkip creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -16414,7 +16528,7 @@
       ],
       "details": {
         "appearance": "Canonical Siltkip creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -16485,7 +16599,7 @@
       ],
       "details": {
         "appearance": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -16542,7 +16656,7 @@
       ],
       "details": {
         "appearance": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "264 by 182 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -16611,7 +16725,7 @@
       ],
       "details": {
         "appearance": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -16677,7 +16791,7 @@
       ],
       "details": {
         "appearance": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -16734,7 +16848,7 @@
       ],
       "details": {
         "appearance": "Canonical Sunskitter creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "339 by 340 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -16803,7 +16917,7 @@
       ],
       "details": {
         "appearance": "Canonical Sunskitter creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1312 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -16869,7 +16983,7 @@
       ],
       "details": {
         "appearance": "Canonical Sunskitter creature silhouette, preserved across combat reactions and eight travel directions.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -16926,7 +17040,7 @@
       ],
       "details": {
         "appearance": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "366 by 395 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -16995,7 +17109,7 @@
       ],
       "details": {
         "appearance": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -17061,7 +17175,7 @@
       ],
       "details": {
         "appearance": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",
@@ -17118,7 +17232,7 @@
       ],
       "details": {
         "appearance": "grass tuft",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "267 by 214 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17128,6 +17242,120 @@
         {
           "path": "dist/assets/props/grass-tuft.png",
           "description": "grass tuft"
+        }
+      ]
+    },
+    {
+      "id": "visual:item-apple",
+      "kind": "visual",
+      "name": "item-apple",
+      "summary": "A small red apple viewed from above.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "item-apple",
+            "kind": "item",
+            "src": "assets/items/item-apple.png",
+            "w": 7,
+            "h": 8,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small red apple viewed from above.",
+          "usage": "Reference item-apple in the existing format at dist/src/data/assets.js.",
+          "expected": "A small red apple viewed from above."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small red apple viewed from above.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "7 by 8 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/items/item-apple.png",
+          "description": "A small red apple viewed from above."
+        }
+      ]
+    },
+    {
+      "id": "visual:item-banana",
+      "kind": "visual",
+      "name": "item-banana",
+      "summary": "A small yellow banana viewed from above.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "item-banana",
+            "kind": "item",
+            "src": "assets/items/item-banana.png",
+            "w": 16,
+            "h": 7,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small yellow banana viewed from above.",
+          "usage": "Reference item-banana in the existing format at dist/src/data/assets.js.",
+          "expected": "A small yellow banana viewed from above."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small yellow banana viewed from above.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "16 by 7 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/items/item-banana.png",
+          "description": "A small yellow banana viewed from above."
         }
       ]
     },
@@ -17175,7 +17403,7 @@
       ],
       "details": {
         "appearance": "item capture orb",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "177 by 177 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17185,6 +17413,177 @@
         {
           "path": "dist/assets/items/item-capture-orb.png",
           "description": "item capture orb"
+        }
+      ]
+    },
+    {
+      "id": "visual:item-melon",
+      "kind": "visual",
+      "name": "item-melon",
+      "summary": "A small whole green melon viewed from above.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "item-melon",
+            "kind": "item",
+            "src": "assets/items/item-melon.png",
+            "w": 15,
+            "h": 15,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small whole green melon viewed from above.",
+          "usage": "Reference item-melon in the existing format at dist/src/data/assets.js.",
+          "expected": "A small whole green melon viewed from above."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small whole green melon viewed from above.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "15 by 15 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/items/item-melon.png",
+          "description": "A small whole green melon viewed from above."
+        }
+      ]
+    },
+    {
+      "id": "visual:item-melon-slice",
+      "kind": "visual",
+      "name": "item-melon-slice",
+      "summary": "A small cut slice of red-fleshed melon.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "item-melon-slice",
+            "kind": "item",
+            "src": "assets/items/item-melon-slice.png",
+            "w": 15,
+            "h": 8,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small cut slice of red-fleshed melon.",
+          "usage": "Reference item-melon-slice in the existing format at dist/src/data/assets.js.",
+          "expected": "A small cut slice of red-fleshed melon."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small cut slice of red-fleshed melon.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "15 by 8 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/items/item-melon-slice.png",
+          "description": "A small cut slice of red-fleshed melon."
+        }
+      ]
+    },
+    {
+      "id": "visual:item-orange",
+      "kind": "visual",
+      "name": "item-orange",
+      "summary": "A small orange fruit viewed from above.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "item-orange",
+            "kind": "item",
+            "src": "assets/items/item-orange.png",
+            "w": 7,
+            "h": 7,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small orange fruit viewed from above.",
+          "usage": "Reference item-orange in the existing format at dist/src/data/assets.js.",
+          "expected": "A small orange fruit viewed from above."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small orange fruit viewed from above.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "7 by 7 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/items/item-orange.png",
+          "description": "A small orange fruit viewed from above."
         }
       ]
     },
@@ -17243,7 +17642,7 @@
       ],
       "details": {
         "appearance": "person gardener",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "640 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17300,7 +17699,7 @@
       ],
       "details": {
         "appearance": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "162 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17366,7 +17765,7 @@
       ],
       "details": {
         "appearance": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "800 by 2048 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Eight rows in the player motion sheet; see character metadata.",
         "animations": "Player idle and walking frames; see character preview and metadata.",
@@ -17423,7 +17822,7 @@
       ],
       "details": {
         "appearance": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "142 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17480,7 +17879,7 @@
       ],
       "details": {
         "appearance": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "144 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17537,7 +17936,7 @@
       ],
       "details": {
         "appearance": "Compact upright adventurer with an oversized red cap and head, short limbs, and a small backpack.",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "158 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17605,7 +18004,7 @@
       ],
       "details": {
         "appearance": "person traveler",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "640 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17615,6 +18014,747 @@
         {
           "path": "dist/assets/people/person-traveler.png",
           "description": "person traveler"
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-fern-frond",
+      "kind": "visual",
+      "name": "plant-fern-frond",
+      "summary": "A leafy fern frond with several branching leaves.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-fern-frond",
+            "kind": "prop",
+            "src": "assets/props/plant-fern-frond.png",
+            "w": 27,
+            "h": 33,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A leafy fern frond with several branching leaves.",
+          "usage": "Reference plant-fern-frond in the existing format at dist/src/data/assets.js.",
+          "expected": "A leafy fern frond with several branching leaves."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A leafy fern frond with several branching leaves.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "27 by 33 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-fern-frond.png",
+          "description": "A leafy fern frond with several branching leaves."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-golden-stem",
+      "kind": "visual",
+      "name": "plant-golden-stem",
+      "summary": "A slender plant with a warm yellow-green leaf.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-golden-stem",
+            "kind": "prop",
+            "src": "assets/props/plant-golden-stem.png",
+            "w": 14,
+            "h": 23,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A slender plant with a warm yellow-green leaf.",
+          "usage": "Reference plant-golden-stem in the existing format at dist/src/data/assets.js.",
+          "expected": "A slender plant with a warm yellow-green leaf."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A slender plant with a warm yellow-green leaf.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "14 by 23 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-golden-stem.png",
+          "description": "A slender plant with a warm yellow-green leaf."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-groundcover",
+      "kind": "visual",
+      "name": "plant-groundcover",
+      "summary": "A low, spreading patch of leafy groundcover.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-groundcover",
+            "kind": "prop",
+            "src": "assets/props/plant-groundcover.png",
+            "w": 29,
+            "h": 24,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A low, spreading patch of leafy groundcover.",
+          "usage": "Reference plant-groundcover in the existing format at dist/src/data/assets.js.",
+          "expected": "A low, spreading patch of leafy groundcover."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A low, spreading patch of leafy groundcover.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "29 by 24 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-groundcover.png",
+          "description": "A low, spreading patch of leafy groundcover."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-narrow-leaves",
+      "kind": "visual",
+      "name": "plant-narrow-leaves",
+      "summary": "A narrow plant with long upright leaves.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-narrow-leaves",
+            "kind": "prop",
+            "src": "assets/props/plant-narrow-leaves.png",
+            "w": 9,
+            "h": 33,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A narrow plant with long upright leaves.",
+          "usage": "Reference plant-narrow-leaves in the existing format at dist/src/data/assets.js.",
+          "expected": "A narrow plant with long upright leaves."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A narrow plant with long upright leaves.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "9 by 33 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-narrow-leaves.png",
+          "description": "A narrow plant with long upright leaves."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-pot-fronds",
+      "kind": "visual",
+      "name": "plant-pot-fronds",
+      "summary": "A potted plant with a fan of fine green fronds.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-pot-fronds",
+            "kind": "prop",
+            "src": "assets/props/plant-pot-fronds.png",
+            "w": 20,
+            "h": 28,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A potted plant with a fan of fine green fronds.",
+          "usage": "Reference plant-pot-fronds in the existing format at dist/src/data/assets.js.",
+          "expected": "A potted plant with a fan of fine green fronds."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A potted plant with a fan of fine green fronds.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "20 by 28 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-pot-fronds.png",
+          "description": "A potted plant with a fan of fine green fronds."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-pot-red-bloom",
+      "kind": "visual",
+      "name": "plant-pot-red-bloom",
+      "summary": "A potted plant with red flowers.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-pot-red-bloom",
+            "kind": "prop",
+            "src": "assets/props/plant-pot-red-bloom.png",
+            "w": 18,
+            "h": 32,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A potted plant with red flowers.",
+          "usage": "Reference plant-pot-red-bloom in the existing format at dist/src/data/assets.js.",
+          "expected": "A potted plant with red flowers."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A potted plant with red flowers.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "18 by 32 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-pot-red-bloom.png",
+          "description": "A potted plant with red flowers."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-pot-round",
+      "kind": "visual",
+      "name": "plant-pot-round",
+      "summary": "A small leafy potted plant with a rounded crown.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-pot-round",
+            "kind": "prop",
+            "src": "assets/props/plant-pot-round.png",
+            "w": 14,
+            "h": 34,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small leafy potted plant with a rounded crown.",
+          "usage": "Reference plant-pot-round in the existing format at dist/src/data/assets.js.",
+          "expected": "A small leafy potted plant with a rounded crown."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small leafy potted plant with a rounded crown.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "14 by 34 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-pot-round.png",
+          "description": "A small leafy potted plant with a rounded crown."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-pot-small",
+      "kind": "visual",
+      "name": "plant-pot-small",
+      "summary": "A small potted plant with a compact crown.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-pot-small",
+            "kind": "prop",
+            "src": "assets/props/plant-pot-small.png",
+            "w": 26,
+            "h": 24,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small potted plant with a compact crown.",
+          "usage": "Reference plant-pot-small in the existing format at dist/src/data/assets.js.",
+          "expected": "A small potted plant with a compact crown."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small potted plant with a compact crown.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "26 by 24 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-pot-small.png",
+          "description": "A small potted plant with a compact crown."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-pot-spiky",
+      "kind": "visual",
+      "name": "plant-pot-spiky",
+      "summary": "A potted plant with upright pointed leaves.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-pot-spiky",
+            "kind": "prop",
+            "src": "assets/props/plant-pot-spiky.png",
+            "w": 19,
+            "h": 26,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A potted plant with upright pointed leaves.",
+          "usage": "Reference plant-pot-spiky in the existing format at dist/src/data/assets.js.",
+          "expected": "A potted plant with upright pointed leaves."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A potted plant with upright pointed leaves.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "19 by 26 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-pot-spiky.png",
+          "description": "A potted plant with upright pointed leaves."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-pot-yellow-bloom",
+      "kind": "visual",
+      "name": "plant-pot-yellow-bloom",
+      "summary": "A potted plant with small yellow flowers.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-pot-yellow-bloom",
+            "kind": "prop",
+            "src": "assets/props/plant-pot-yellow-bloom.png",
+            "w": 20,
+            "h": 33,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A potted plant with small yellow flowers.",
+          "usage": "Reference plant-pot-yellow-bloom in the existing format at dist/src/data/assets.js.",
+          "expected": "A potted plant with small yellow flowers."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A potted plant with small yellow flowers.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "20 by 33 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-pot-yellow-bloom.png",
+          "description": "A potted plant with small yellow flowers."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-spike",
+      "kind": "visual",
+      "name": "plant-spike",
+      "summary": "A small upright spiky plant.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-spike",
+            "kind": "prop",
+            "src": "assets/props/plant-spike.png",
+            "w": 12,
+            "h": 21,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small upright spiky plant.",
+          "usage": "Reference plant-spike in the existing format at dist/src/data/assets.js.",
+          "expected": "A small upright spiky plant."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small upright spiky plant.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "12 by 21 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-spike.png",
+          "description": "A small upright spiky plant."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-sprout",
+      "kind": "visual",
+      "name": "plant-sprout",
+      "summary": "A young, narrow green sprout.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-sprout",
+            "kind": "prop",
+            "src": "assets/props/plant-sprout.png",
+            "w": 11,
+            "h": 24,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A young, narrow green sprout.",
+          "usage": "Reference plant-sprout in the existing format at dist/src/data/assets.js.",
+          "expected": "A young, narrow green sprout."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A young, narrow green sprout.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "11 by 24 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-sprout.png",
+          "description": "A young, narrow green sprout."
+        }
+      ]
+    },
+    {
+      "id": "visual:plant-three-leaf",
+      "kind": "visual",
+      "name": "plant-three-leaf",
+      "summary": "A small plant with three broad leaves.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "plant-three-leaf",
+            "kind": "prop",
+            "src": "assets/props/plant-three-leaf.png",
+            "w": 24,
+            "h": 27,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small plant with three broad leaves.",
+          "usage": "Reference plant-three-leaf in the existing format at dist/src/data/assets.js.",
+          "expected": "A small plant with three broad leaves."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small plant with three broad leaves.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "24 by 27 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/plant-three-leaf.png",
+          "description": "A small plant with three broad leaves."
         }
       ]
     },
@@ -17662,7 +18802,7 @@
       ],
       "details": {
         "appearance": "prop cider press",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "251 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17719,7 +18859,7 @@
       ],
       "details": {
         "appearance": "prop hanging lantern",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "138 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17776,7 +18916,7 @@
       ],
       "details": {
         "appearance": "prop heron blind",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "256 by 208 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17833,7 +18973,7 @@
       ],
       "details": {
         "appearance": "prop icefall ledge",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "252 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17890,7 +19030,7 @@
       ],
       "details": {
         "appearance": "prop orchard wall broken",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "256 by 104 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -17947,7 +19087,7 @@
       ],
       "details": {
         "appearance": "prop quarry alcove",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "256 by 203 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18004,7 +19144,7 @@
       ],
       "details": {
         "appearance": "prop rim overlook",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "256 by 138 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18061,7 +19201,7 @@
       ],
       "details": {
         "appearance": "prop sunstone lookout",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "252 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18118,7 +19258,7 @@
       ],
       "details": {
         "appearance": "prop well ruined",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "256 by 212 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18128,6 +19268,177 @@
         {
           "path": "dist/assets/props/prop-well-ruined.png",
           "description": "prop well ruined"
+        }
+      ]
+    },
+    {
+      "id": "visual:rock-field-large",
+      "kind": "visual",
+      "name": "rock-field-large",
+      "summary": "A low, broad cluster of gray-brown stones.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "rock-field-large",
+            "kind": "prop",
+            "src": "assets/props/rock-field-large.png",
+            "w": 46,
+            "h": 25,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A low, broad cluster of gray-brown stones.",
+          "usage": "Reference rock-field-large in the existing format at dist/src/data/assets.js.",
+          "expected": "A low, broad cluster of gray-brown stones."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A low, broad cluster of gray-brown stones.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "46 by 25 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive ground scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define mining, gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/rock-field-large.png",
+          "description": "A low, broad cluster of gray-brown stones."
+        }
+      ]
+    },
+    {
+      "id": "visual:rock-field-medium",
+      "kind": "visual",
+      "name": "rock-field-medium",
+      "summary": "A compact cluster of gray-brown stones.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "rock-field-medium",
+            "kind": "prop",
+            "src": "assets/props/rock-field-medium.png",
+            "w": 23,
+            "h": 16,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A compact cluster of gray-brown stones.",
+          "usage": "Reference rock-field-medium in the existing format at dist/src/data/assets.js.",
+          "expected": "A compact cluster of gray-brown stones."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A compact cluster of gray-brown stones.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "23 by 16 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive ground scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define mining, gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/rock-field-medium.png",
+          "description": "A compact cluster of gray-brown stones."
+        }
+      ]
+    },
+    {
+      "id": "visual:rock-field-small",
+      "kind": "visual",
+      "name": "rock-field-small",
+      "summary": "A tiny cluster of gray-brown stones.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "rock-field-small",
+            "kind": "prop",
+            "src": "assets/props/rock-field-small.png",
+            "w": 11,
+            "h": 7,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A tiny cluster of gray-brown stones.",
+          "usage": "Reference rock-field-small in the existing format at dist/src/data/assets.js.",
+          "expected": "A tiny cluster of gray-brown stones."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A tiny cluster of gray-brown stones.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "11 by 7 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Small non-interactive ground scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define mining, gathering, collision or an item reward."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/rock-field-small.png",
+          "description": "A tiny cluster of gray-brown stones."
         }
       ]
     },
@@ -18175,7 +19486,7 @@
       ],
       "details": {
         "appearance": "rock spire red",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "381 by 410 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18232,7 +19543,7 @@
       ],
       "details": {
         "appearance": "shrine crystal stone",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "353 by 418 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18289,7 +19600,7 @@
       ],
       "details": {
         "appearance": "signpost wood",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "208 by 269 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18299,6 +19610,120 @@
         {
           "path": "dist/assets/props/signpost-wood.png",
           "description": "signpost wood"
+        }
+      ]
+    },
+    {
+      "id": "visual:tree-fir-full",
+      "kind": "visual",
+      "name": "tree-fir-full",
+      "summary": "A full, broad evergreen fir tree.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "tree-fir-full",
+            "kind": "prop",
+            "src": "assets/props/tree-fir-full.png",
+            "w": 88,
+            "h": 128,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A full, broad evergreen fir tree.",
+          "usage": "Reference tree-fir-full in the existing format at dist/src/data/assets.js.",
+          "expected": "A full, broad evergreen fir tree."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A full, broad evergreen fir tree.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "88 by 128 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/tree-fir-full.png",
+          "description": "A full, broad evergreen fir tree."
+        }
+      ]
+    },
+    {
+      "id": "visual:tree-fir-slim",
+      "kind": "visual",
+      "name": "tree-fir-slim",
+      "summary": "A narrow evergreen fir tree.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "tree-fir-slim",
+            "kind": "prop",
+            "src": "assets/props/tree-fir-slim.png",
+            "w": 56,
+            "h": 94,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A narrow evergreen fir tree.",
+          "usage": "Reference tree-fir-slim in the existing format at dist/src/data/assets.js.",
+          "expected": "A narrow evergreen fir tree."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A narrow evergreen fir tree.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "56 by 94 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/tree-fir-slim.png",
+          "description": "A narrow evergreen fir tree."
         }
       ]
     },
@@ -18346,7 +19771,7 @@
       ],
       "details": {
         "appearance": "tree oak",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "307 by 348 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18403,7 +19828,7 @@
       ],
       "details": {
         "appearance": "tree oak hollow",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "231 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18413,6 +19838,120 @@
         {
           "path": "dist/assets/props/tree-oak-hollow.png",
           "description": "tree oak hollow"
+        }
+      ]
+    },
+    {
+      "id": "visual:tree-oak-round",
+      "kind": "visual",
+      "name": "tree-oak-round",
+      "summary": "A broad round-canopied oak tree with a visible trunk.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "tree-oak-round",
+            "kind": "prop",
+            "src": "assets/props/tree-oak-round.png",
+            "w": 122,
+            "h": 142,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A broad round-canopied oak tree with a visible trunk.",
+          "usage": "Reference tree-oak-round in the existing format at dist/src/data/assets.js.",
+          "expected": "A broad round-canopied oak tree with a visible trunk."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A broad round-canopied oak tree with a visible trunk.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "122 by 142 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/tree-oak-round.png",
+          "description": "A broad round-canopied oak tree with a visible trunk."
+        }
+      ]
+    },
+    {
+      "id": "visual:tree-oak-young",
+      "kind": "visual",
+      "name": "tree-oak-young",
+      "summary": "A smaller oak with a compact round canopy.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "tree-oak-young",
+            "kind": "prop",
+            "src": "assets/props/tree-oak-young.png",
+            "w": 68,
+            "h": 90,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A smaller oak with a compact round canopy.",
+          "usage": "Reference tree-oak-young in the existing format at dist/src/data/assets.js.",
+          "expected": "A smaller oak with a compact round canopy."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A smaller oak with a compact round canopy.",
+        "style": "CC0 1.0 Universal; attribution not required. Source page: https://opengameart.org/content/nature-props-surface-forest License: https://creativecommons.org/publicdomain/zero/1.0/",
+        "scale": "68 by 90 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/tree-oak-young.png",
+          "description": "A smaller oak with a compact round canopy."
         }
       ]
     },
@@ -18460,7 +19999,7 @@
       ],
       "details": {
         "appearance": "tree pine",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "246 by 355 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -18517,7 +20056,7 @@
       ],
       "details": {
         "appearance": "tree pine snow",
-        "style": "Original Mossvale artwork; consult the preview and recorded art reviews.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "321 by 427 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
