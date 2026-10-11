@@ -8,6 +8,8 @@ Start with [the compact index](../content/catalogue/INDEX.md); find a resource b
 
 For visual browsing, run `npm run catalogue:browse` and open the loopback URL printed by the command (default `http://127.0.0.1:4179/`). Stop it with Ctrl+C. It binds only to `127.0.0.1`, reads the current generated catalogue and serves only registered visual previews. Search across names, descriptions and IDs, then filter by visual kind, associated creature element, appearance tag or availability. Fiche data loads only after selecting a visual. Art identity tags come from reviewed metadata where available; otherwise the browser only shows the registered source kind, and it does not infer appearance from pixels or filenames. Atlas cards show a crop based on registered frame metadata; opening a fiche reveals the complete source sheet and documents its frame states. Creature follower/combat fiches also reuse their existing roster contact sheets, with their review/game scale stated in the caption. Full images load on demand. All controls use native keyboard-accessible inputs/buttons.
 
+Reference-only third-party art may be collected outside the authoring catalogue when it has no approved runtime identity or behavior. For example, the [CC0 creature concept library](../art/assets/third-party/andhegames-creatures/index.html) preserves its original images and license records for human browsing, but does not represent these concepts as available game creatures. Promote a reference into the authoring catalogue only after a separate reviewed adaptation establishes a supported visual/runtime role and stable identity.
+
 Select one or more visuals in the browser's fiche panel and copy their stable IDs, then export a portable context folder:
 
 ```sh
