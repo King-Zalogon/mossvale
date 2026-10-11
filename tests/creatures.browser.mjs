@@ -31,6 +31,9 @@ try {
   assert.deepEqual(idle, [true, 'creature-breathe', 'creature-breathe']);
 
   await page.emulateMedia({reducedMotion: 'reduce'});
+  // Wait for the application's media-query change listener as well as the CSS query.
+  // Switching back before that event is applied can leave Chromium's test emulation between states.
+  await page.waitForFunction(() => matchMedia('(prefers-reduced-motion: reduce)').matches && document.body.classList.contains('reduce-motion'));
   assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('#fight-buddy')).animationName), 'none');
   await page.emulateMedia({reducedMotion: 'no-preference'});
   await page.waitForFunction(
