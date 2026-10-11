@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/style.css"],
+      "entries": ["mechanic:movement"],
+      "disposition": "no-semantic-impact",
+      "reason": "Fullscreen landscape layout now positions the existing touch controls above the footer overlay; movement directions, input behavior, save data and authorable resources are unchanged.",
+      "evidence": ["tests/responsive-journal.browser.mjs", "docs/ARCHITECTURE.md"]
+    }
+  ]
+}
