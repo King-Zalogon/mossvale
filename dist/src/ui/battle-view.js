@@ -102,7 +102,7 @@ export function createBattleView(app) {
       );
     }
     const guardianTransforming = reveal?.active === true;
-    const save = game.save;
+    const save = snap?.presentationSave ?? game.save;
     const active = snap?.active ?? save.active;
     const a = species[active];
     const s = species[b.id];
