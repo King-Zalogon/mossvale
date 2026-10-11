@@ -777,7 +777,7 @@
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "17b727aae16bc121cf499e7453b1383d1364171b423ea356aa399cc05b0b4c23",
+        "sha256": "6fe5c637b45df866cfe8dfc3452027cbc541a8787e2defb72b1dd957fb93ed5e",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -1005,7 +1005,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "settings": "Normalize archived 5\u00d78 RGBA source sheets to 200\u00d7200 cells, fit silhouettes to 184\u00d7184 with nearest-neighbor sampling, discard alpha \u22648, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -1075,11 +1075,11 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "ddfe4c89c8eabb634a2dc2cb899522f1c636ea9cdf463967fd41356898e9db64"
+        "sha256": "fd75d41d10960f963ba5a3e7e0757c4e54b7816171260b19316eb5504033648c"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "17b727aae16bc121cf499e7453b1383d1364171b423ea356aa399cc05b0b4c23",
+        "sha256": "6fe5c637b45df866cfe8dfc3452027cbc541a8787e2defb72b1dd957fb93ed5e",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -1303,7 +1303,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "settings": "Normalize archived 5\u00d78 RGBA source sheets to 200\u00d7200 cells, fit silhouettes to 184\u00d7184 with nearest-neighbor sampling, discard alpha \u22648, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -1381,7 +1381,7 @@
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "17b727aae16bc121cf499e7453b1383d1364171b423ea356aa399cc05b0b4c23",
+        "sha256": "6fe5c637b45df866cfe8dfc3452027cbc541a8787e2defb72b1dd957fb93ed5e",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -1480,7 +1480,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Emberkin’s rusty orange forest-mammal identity, cream chest, dark paws and three flame tail tufts; add idle, fire attack, hit, faint and capture states in a fixed-anchor 4×5 atlas.",
+              "summary": "Preserve Emberkin\u2019s rusty orange forest-mammal identity, cream chest, dark paws and three flame tail tufts; add idle, fire attack, hit, faint and capture states in a fixed-anchor 4\u00d75 atlas.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.emberkin"
             },
             "seed": {
@@ -1558,7 +1558,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "settings": "Normalize archived 5\u00d78 RGBA source sheets to 200\u00d7200 cells, fit silhouettes to 184\u00d7184 with nearest-neighbor sampling, discard alpha \u22648, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -1628,11 +1628,11 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "ddfe4c89c8eabb634a2dc2cb899522f1c636ea9cdf463967fd41356898e9db64"
+        "sha256": "fd75d41d10960f963ba5a3e7e0757c4e54b7816171260b19316eb5504033648c"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "17b727aae16bc121cf499e7453b1383d1364171b423ea356aa399cc05b0b4c23",
+        "sha256": "6fe5c637b45df866cfe8dfc3452027cbc541a8787e2defb72b1dd957fb93ed5e",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -1672,7 +1672,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Brookletâ€™s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
+              "summary": "Preserve Brooklet\u00e2\u20ac\u2122s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences"
             },
             "seed": {
@@ -1727,7 +1727,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Brooklet’s blue river-otter silhouette, cream muzzle/chest and curled water tail; make eight readable overworld directions with idle and four contained walk poses.",
+              "summary": "Preserve Brooklet\u2019s blue river-otter silhouette, cream muzzle/chest and curled water tail; make eight readable overworld directions with idle and four contained walk poses.",
               "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.brooklet"
             },
             "seed": {
@@ -1856,7 +1856,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "settings": "Normalize archived 5\u00d78 RGBA source sheets to 200\u00d7200 cells, fit silhouettes to 184\u00d7184 with nearest-neighbor sampling, discard alpha \u22648, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -1926,11 +1926,11 @@
       },
       "sourceNotes": {
         "path": "art/assets/metadata.json",
-        "sha256": "ddfe4c89c8eabb634a2dc2cb899522f1c636ea9cdf463967fd41356898e9db64"
+        "sha256": "fd75d41d10960f963ba5a3e7e0757c4e54b7816171260b19316eb5504033648c"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "17b727aae16bc121cf499e7453b1383d1364171b423ea356aa399cc05b0b4c23",
+        "sha256": "6fe5c637b45df866cfe8dfc3452027cbc541a8787e2defb72b1dd957fb93ed5e",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -1970,7 +1970,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Hushramâ€™s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
+              "summary": "Preserve Hushram\u00e2\u20ac\u2122s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences"
             },
             "seed": {
@@ -2029,7 +2029,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Hushram’s shaggy cream ram silhouette, curved ice-blue horns, pale blue markings and dark hooves; a transparent 5×8 directional overworld atlas with distinct alternating hoof steps, corrected from the first generated draft.",
+              "summary": "Preserve Hushram\u2019s shaggy cream ram silhouette, curved ice-blue horns, pale blue markings and dark hooves; a transparent 5\u00d78 directional overworld atlas with distinct alternating hoof steps, corrected from the first generated draft.",
               "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.hushram"
             },
             "seed": {
@@ -2144,7 +2144,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "settings": "Normalize archived 5\u00d78 RGBA source sheets to 200\u00d7200 cells, fit silhouettes to 184\u00d7184 with nearest-neighbor sampling, discard alpha \u22648, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -2249,7 +2249,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Voltkit’s gold and cream electric companion identity, long asymmetrical ears, dark paws, blue cheek mark and crystal-tipped zigzag tail; add idle, electric attack, hit, faint and capture states in a fixed-anchor 4×5 atlas.",
+              "summary": "Preserve Voltkit\u2019s gold and cream electric companion identity, long asymmetrical ears, dark paws, blue cheek mark and crystal-tipped zigzag tail; add idle, electric attack, hit, faint and capture states in a fixed-anchor 4\u00d75 atlas.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.voltkit"
             },
             "seed": {
@@ -2315,7 +2315,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Voltkit’s golden electric companion palette and distinctive ear/tail marks; transparent 5×8 directional atlas with an idle pose and four walking poses per direction.",
+              "summary": "Preserve Voltkit\u2019s golden electric companion palette and distinctive ear/tail marks; transparent 5\u00d78 directional atlas with an idle pose and four walking poses per direction.",
               "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.voltkit"
             },
             "seed": {
@@ -2360,7 +2360,7 @@
       ],
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "17b727aae16bc121cf499e7453b1383d1364171b423ea356aa399cc05b0b4c23",
+        "sha256": "6fe5c637b45df866cfe8dfc3452027cbc541a8787e2defb72b1dd957fb93ed5e",
         "settings": "Pixel-preserving RGBA crop from source atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -2390,7 +2390,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "settings": "Normalize archived 5\u00d78 RGBA source sheets to 200\u00d7200 cells, fit silhouettes to 184\u00d7184 with nearest-neighbor sampling, discard alpha \u22648, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -2467,7 +2467,7 @@
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "17b727aae16bc121cf499e7453b1383d1364171b423ea356aa399cc05b0b4c23",
+        "sha256": "6fe5c637b45df866cfe8dfc3452027cbc541a8787e2defb72b1dd957fb93ed5e",
         "settings": "Pixel-preserving RGBA crop from the existing creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -2511,7 +2511,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Mushmallow’s cream hedgehog face and paws, violet spines and spotted lilac mushroom cap; create a transparent 4×5 battle atlas with distinct idle, lunge/attack, recoil, faint and capture poses at a shared ground anchor.",
+              "summary": "Preserve Mushmallow\u2019s cream hedgehog face and paws, violet spines and spotted lilac mushroom cap; create a transparent 4\u00d75 battle atlas with distinct idle, lunge/attack, recoil, faint and capture poses at a shared ground anchor.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.mushmallow"
             },
             "seed": {
@@ -2570,7 +2570,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Mushmallow’s cream hedgehog face and paws, violet spines, spotted lilac mushroom cap and smaller back mushrooms; a transparent 5×8 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses.",
+              "summary": "Preserve Mushmallow\u2019s cream hedgehog face and paws, violet spines, spotted lilac mushroom cap and smaller back mushrooms; a transparent 5\u00d78 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses.",
               "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.mushmallow"
             },
             "seed": {
@@ -2685,7 +2685,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "settings": "Normalize archived 5\u00d78 RGBA source sheets to 200\u00d7200 cells, fit silhouettes to 184\u00d7184 with nearest-neighbor sampling, discard alpha \u22648, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -2762,7 +2762,7 @@
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
-        "sha256": "17b727aae16bc121cf499e7453b1383d1364171b423ea356aa399cc05b0b4c23",
+        "sha256": "6fe5c637b45df866cfe8dfc3452027cbc541a8787e2defb72b1dd957fb93ed5e",
         "settings": "Pixel-preserving RGBA crop from the existing creature source-atlas cell; no resizing or palette change.",
         "profileId": "creature-portrait-v1",
         "profileSha256": "20a76117246692b97bcba99bf8434091d8f8d2effb1e561600e4d2210e405f2c"
@@ -2806,7 +2806,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Frostowl’s white owl body, cyan-blue eyes, crystalline blue tufts, dark beak and feet; create a transparent 4×5 battle atlas with idle, ice attack, hit recoil, faint and capture poses at a shared ground anchor.",
+              "summary": "Preserve Frostowl\u2019s white owl body, cyan-blue eyes, crystalline blue tufts, dark beak and feet; create a transparent 4\u00d75 battle atlas with idle, ice attack, hit recoil, faint and capture poses at a shared ground anchor.",
               "evidence": "art/characters/creature-combat-metadata.json#sourceReferences.frostowl"
             },
             "seed": {
@@ -2865,7 +2865,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Frostowl’s white owl body, luminous cyan eyes, crystalline blue brow/wing feathers, dark beak and feet; a transparent 5×8 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses with clear per-cell margins.",
+              "summary": "Preserve Frostowl\u2019s white owl body, luminous cyan eyes, crystalline blue brow/wing feathers, dark beak and feet; a transparent 5\u00d78 overworld follower atlas with all eight distinct directions, idle and four alternating walk poses with clear per-cell margins.",
               "evidence": "art/characters/creature-follower-metadata.json#sourceReferences.frostowl"
             },
             "seed": {
@@ -2980,7 +2980,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 RGBA source sheets to 200×200 cells, fit silhouettes to 184×184 with nearest-neighbor sampling, discard alpha ≤8, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
+          "settings": "Normalize archived 5\u00d78 RGBA source sheets to 200\u00d7200 cells, fit silhouettes to 184\u00d7184 with nearest-neighbor sampling, discard alpha \u22648, and align feet at y=196; encode Hushram, Voltkit, Mushmallow and Frostowl runtime sheets as 256-color indexed PNG without dithering.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -3270,7 +3270,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
+          "settings": "Normalize archived 5\u00d78 source sheets into 200\u00d7200 frames with 184\u00d7184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -3560,7 +3560,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
+          "settings": "Normalize archived 5\u00d78 source sheets into 200\u00d7200 frames with 184\u00d7184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -3850,7 +3850,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
+          "settings": "Normalize archived 5\u00d78 source sheets into 200\u00d7200 frames with 184\u00d7184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -4140,7 +4140,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize archived 5×8 source sheets into 200×200 frames with 184×184 max silhouettes and feet at y=196.",
+          "settings": "Normalize archived 5\u00d78 source sheets into 200\u00d7200 frames with 184\u00d7184 max silhouettes and feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -4221,7 +4221,7 @@
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
         "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
-        "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264×264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288×288 cell.",
+        "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264\u00d7264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288\u00d7288 cell.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
       },
@@ -4303,7 +4303,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve sedgegnaw's canonical body plan and palette. Create a transparent 4×5 combat atlas with idle, attack, hit, faint and capture rows, four sequential frames per state, contained poses and a stable planted-feet line.",
+              "summary": "Preserve sedgegnaw's canonical body plan and palette. Create a transparent 4\u00d75 combat atlas with idle, attack, hit, faint and capture rows, four sequential frames per state, contained poses and a stable planted-feet line.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -4359,7 +4359,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve sedgegnaw's canonical silhouette and key markings. Create a transparent 5×8 overworld follower atlas in N, NE, E, SE, S, SW, W, NW order; each row has idle plus four walking frames, consistent scale and planted-feet anchor.",
+              "summary": "Preserve sedgegnaw's canonical silhouette and key markings. Create a transparent 5\u00d78 overworld follower atlas in N, NE, E, SE, S, SW, W, NW order; each row has idle plus four walking frames, consistent scale and planted-feet anchor.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -4475,7 +4475,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "settings": "Normalize five-column by eight-row generated source into 200\u00d7200 frames, trim alpha fringe, fit each body to 184\u00d7184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -4556,7 +4556,7 @@
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
         "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
-        "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264×264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288×288 cell.",
+        "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264\u00d7264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288\u00d7288 cell.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
       },
@@ -4638,7 +4638,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve petalunge's canonical body plan and palette. Create a transparent 4×5 combat atlas with idle, attack, hit, faint and capture rows, four sequential frames per state, contained poses and a stable planted-feet line.",
+              "summary": "Preserve petalunge's canonical body plan and palette. Create a transparent 4\u00d75 combat atlas with idle, attack, hit, faint and capture rows, four sequential frames per state, contained poses and a stable planted-feet line.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -4694,7 +4694,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve petalunge's canonical silhouette and key markings. Create a transparent 5×8 overworld follower atlas in N, NE, E, SE, S, SW, W, NW order; each row has idle plus four walking frames, consistent scale and planted-feet anchor.",
+              "summary": "Preserve petalunge's canonical silhouette and key markings. Create a transparent 5\u00d78 overworld follower atlas in N, NE, E, SE, S, SW, W, NW order; each row has idle plus four walking frames, consistent scale and planted-feet anchor.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -4810,7 +4810,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "settings": "Normalize five-column by eight-row generated source into 200\u00d7200 frames, trim alpha fringe, fit each body to 184\u00d7184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -4891,7 +4891,7 @@
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
         "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
-        "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264×264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288×288 cell.",
+        "settings": "Trim pixels at or below alpha 8; fit the visible RGBA portrait to at most 264\u00d7264 with nearest-neighbor resampling; center horizontally and place the visible feet at y=284 in a 288\u00d7288 cell.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
       },
@@ -4973,7 +4973,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve cindercurl's canonical body plan and palette. Create a transparent 4×5 combat atlas with idle, attack, hit, faint and capture rows, four sequential frames per state, contained poses and a stable planted-feet line.",
+              "summary": "Preserve cindercurl's canonical body plan and palette. Create a transparent 4\u00d75 combat atlas with idle, attack, hit, faint and capture rows, four sequential frames per state, contained poses and a stable planted-feet line.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -5029,7 +5029,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve cindercurl's canonical silhouette and key markings. Create a transparent 5×8 overworld follower atlas in N, NE, E, SE, S, SW, W, NW order; each row has idle plus four walking frames, consistent scale and planted-feet anchor.",
+              "summary": "Preserve cindercurl's canonical silhouette and key markings. Create a transparent 5\u00d78 overworld follower atlas in N, NE, E, SE, S, SW, W, NW order; each row has idle plus four walking frames, consistent scale and planted-feet anchor.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -5145,7 +5145,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "settings": "Normalize five-column by eight-row generated source into 200\u00d7200 frames, trim alpha fringe, fit each body to 184\u00d7184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -5225,7 +5225,7 @@
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
         "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
-        "settings": "Trim alpha at or below 8; fit visible portrait into a 264×264 box with nearest-neighbor sampling; center horizontally and align feet at y=284 in a 288×288 guide, then tightly crop.",
+        "settings": "Trim alpha at or below 8; fit visible portrait into a 264\u00d7264 box with nearest-neighbor sampling; center horizontally and align feet at y=284 in a 288\u00d7288 guide, then tightly crop.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
       },
@@ -5300,7 +5300,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Keep Sunsifter’s gold shovel brow, broad orange-ridged carapace and six short articulated legs recognizable through idle, burrowing rake, recoil, faint and capture. Transparent 4×5 action atlas; four poses per state; stable bottom-center anchor.",
+              "summary": "Keep Sunsifter\u2019s gold shovel brow, broad orange-ridged carapace and six short articulated legs recognizable through idle, burrowing rake, recoil, faint and capture. Transparent 4\u00d75 action atlas; four poses per state; stable bottom-center anchor.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -5363,7 +5363,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Use the canonical Sunsifter portrait for identity and Sedgegnaw’s existing sheet for scale and pixel treatment. Make eight readable directions with alternating short digging steps; transparent 5×8 grid, idle plus four walk cells, stable foot line.",
+              "summary": "Use the canonical Sunsifter portrait for identity and Sedgegnaw\u2019s existing sheet for scale and pixel treatment. Make eight readable directions with alternating short digging steps; transparent 5\u00d78 grid, idle plus four walk cells, stable foot line.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -5479,7 +5479,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "settings": "Normalize five-column by eight-row generated source into 200\u00d7200 frames, trim alpha fringe, fit each body to 184\u00d7184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -5559,7 +5559,7 @@
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
         "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
-        "settings": "Trim alpha at or below 8; fit visible portrait into a 264×264 box with nearest-neighbor sampling; center horizontally and align feet at y=284 in a 288×288 guide, then tightly crop.",
+        "settings": "Trim alpha at or below 8; fit visible portrait into a 264\u00d7264 box with nearest-neighbor sampling; center horizontally and align feet at y=284 in a 288\u00d7288 guide, then tightly crop.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
       },
@@ -5634,7 +5634,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Rillume’s clear turquoise bell, dark blue core and four thick ribbon lobes. Create distinct idle, bell-pulse attack, hit, faint and capture reactions in a transparent 4×5 atlas with stable bottom-center anchor.",
+              "summary": "Preserve Rillume\u2019s clear turquoise bell, dark blue core and four thick ribbon lobes. Create distinct idle, bell-pulse attack, hit, faint and capture reactions in a transparent 4\u00d75 atlas with stable bottom-center anchor.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -5697,7 +5697,7 @@
             },
             "prompt": {
               "status": "summary-only",
-              "summary": "Preserve Rillume’s clear bell, dark core and four thick ribbon lobes in all eight directions. Give the lobes a restrained alternating float gait; transparent 5×8 grid, idle plus four walk cells, stable bottom-center anchor.",
+              "summary": "Preserve Rillume\u2019s clear bell, dark core and four thick ribbon lobes in all eight directions. Give the lobes a restrained alternating float gait; transparent 5\u00d78 grid, idle plus four walk cells, stable bottom-center anchor.",
               "evidence": "art/characters/SOURCES.md",
               "exactPromptStatus": "unavailable"
             },
@@ -5813,7 +5813,7 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "settings": "Normalize five-column by eight-row generated source into 200\u00d7200 frames, trim alpha fringe, fit each body to 184\u00d7184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
@@ -6471,7 +6471,7 @@
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
         "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd",
-        "settings": "Trim alpha at or below 8; fit visible portrait into a 264×264 box with nearest-neighbor sampling; center horizontally and align feet at y=284 in a 288×288 guide, then tightly crop.",
+        "settings": "Trim alpha at or below 8; fit visible portrait into a 264\u00d7264 box with nearest-neighbor sampling; center horizontally and align feet at y=284 in a 288\u00d7288 guide, then tightly crop.",
         "profileId": "creature-portrait-compact-v1",
         "profileSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
       },
@@ -6731,11 +6731,227 @@
         "exportWorkflow": {
           "path": "art/characters/export-creature-followers.py",
           "sha256": "05c3af00ad1df8ae62e2589f3617fed396ba36e45c2ddba2a83b3b1052a4236e",
-          "settings": "Normalize five-column by eight-row generated source into 200×200 frames, trim alpha fringe, fit each body to 184×184 and align visible feet at y=196.",
+          "settings": "Normalize five-column by eight-row generated source into 200\u00d7200 frames, trim alpha fringe, fit each body to 184\u00d7184 and align visible feet at y=196.",
           "profileId": "creature-follower-v1",
           "profileSha256": "0fed3e33b16bb42fcb43fcf032cd83ec122403dd4070bf325cabbf2d7f84b687"
         }
       }
+    },
+    {
+      "id": "effect-elemental-materials",
+      "revision": 1,
+      "identity": {
+        "silhouette": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost.",
+        "palette": [
+          "greens",
+          "cyan water",
+          "tan stone",
+          "orange fire",
+          "blue ice",
+          "blue/yellow lightning",
+          "lavender air",
+          "plum spores",
+          "pink petals",
+          "olive-brown mud",
+          "ochre sand",
+          "pale frost"
+        ],
+        "distinguishingFeatures": [
+          "Six isolated poses per element",
+          "Projectile faces east; renderer mirrors enemy effects",
+          "Contact material dissolves without a generic halo"
+        ]
+      },
+      "canonicalReferences": [
+        {
+          "path": "art/effects/source/leaf-water-stone-spaced.png",
+          "sha256": "da8306082ce1664b8554a56f25429bfd045ab13dae777c858a57cb4fa29efd94",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/effects/source/leaf-water-stone-spaced.png"
+          },
+          "basis": "Internally reviewed complete material poses; not owner approval"
+        },
+        {
+          "path": "art/effects/source/fire-ice-spark-spaced.png",
+          "sha256": "4ecc454c9b0c2af743f9e6a76c9f2aaba76c83aa0458008160cd5da5b9e577b0",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/effects/source/fire-ice-spark-spaced.png"
+          },
+          "basis": "Internally reviewed complete material poses; not owner approval"
+        },
+        {
+          "path": "art/effects/source/air-spore-bloom-spaced.png",
+          "sha256": "3cb374331975b2727535bbe6b0fddc3fcb2d3c23fa3495e8f41079fa96b3ec7c",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/effects/source/air-spore-bloom-spaced.png"
+          },
+          "basis": "Internally reviewed complete material poses; not owner approval"
+        },
+        {
+          "path": "art/effects/source/mire-sand-frost-spaced.png",
+          "sha256": "c0f5e7fd9dfc1157f6dda2741f5362aee85167611f497c1a5a39a5be4029839b",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/effects/source/mire-sand-frost-spaced.png"
+          },
+          "basis": "Internally reviewed complete material poses; not owner approval"
+        }
+      ],
+      "generation": {
+        "tool": {
+          "status": "available",
+          "value": "image_gen.imagegen",
+          "evidence": "art/effects/generation.json"
+        },
+        "provider": {
+          "status": "summary-only",
+          "value": "Built-in image generation service",
+          "evidence": "art/effects/generation.json"
+        },
+        "modelVersion": {
+          "status": "unavailable",
+          "reason": "Tool result does not expose a model/version."
+        },
+        "prompt": {
+          "status": "available",
+          "summary": "Exact four design prompts and spacing edit prompt retained.",
+          "evidence": "art/effects/generation.json"
+        },
+        "seed": {
+          "status": "unavailable",
+          "reason": "Tool result does not expose a seed."
+        },
+        "generationReference": {
+          "status": "summary-only",
+          "summary": "Spacing edits referenced the corresponding retained original sheet. New designs had no referenced image.",
+          "evidence": "art/effects/generation.json"
+        },
+        "maskHashes": {
+          "status": "unavailable",
+          "reason": "No mask was supplied or exposed."
+        }
+      },
+      "sourceNotes": {
+        "path": "art/effects/SOURCES.md",
+        "sha256": "0a0be4100cfdc6f4eca662dab4f5bca4300f16e3e126d1ffac9bf4cfc8d7103f"
+      },
+      "sourceMetadata": {
+        "path": "art/effects/metadata.json",
+        "sha256": "96be546592f477b181dd4479125ba76ee5ab44f24ce6c8c191ef050d8865516d"
+      },
+      "sourceBatches": [
+        {
+          "id": "leaf-water-stone",
+          "path": "art/effects/source/leaf-water-stone-spaced.png",
+          "sha256": "da8306082ce1664b8554a56f25429bfd045ab13dae777c858a57cb4fa29efd94",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/effects/source/leaf-water-stone-spaced.png"
+          },
+          "directions": [],
+          "states": [],
+          "effectStages": [
+            "charge",
+            "launch",
+            "travel-a",
+            "travel-b",
+            "impact",
+            "dissolve"
+          ],
+          "referenceAssetIds": [],
+          "exportAssetIds": [
+            "effect-elemental-materials"
+          ]
+        },
+        {
+          "id": "fire-ice-spark",
+          "path": "art/effects/source/fire-ice-spark-spaced.png",
+          "sha256": "4ecc454c9b0c2af743f9e6a76c9f2aaba76c83aa0458008160cd5da5b9e577b0",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/effects/source/fire-ice-spark-spaced.png"
+          },
+          "directions": [],
+          "states": [],
+          "effectStages": [
+            "charge",
+            "launch",
+            "travel-a",
+            "travel-b",
+            "impact",
+            "dissolve"
+          ],
+          "referenceAssetIds": [],
+          "exportAssetIds": [
+            "effect-elemental-materials"
+          ]
+        },
+        {
+          "id": "air-spore-bloom",
+          "path": "art/effects/source/air-spore-bloom-spaced.png",
+          "sha256": "3cb374331975b2727535bbe6b0fddc3fcb2d3c23fa3495e8f41079fa96b3ec7c",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/effects/source/air-spore-bloom-spaced.png"
+          },
+          "directions": [],
+          "states": [],
+          "effectStages": [
+            "charge",
+            "launch",
+            "travel-a",
+            "travel-b",
+            "impact",
+            "dissolve"
+          ],
+          "referenceAssetIds": [],
+          "exportAssetIds": [
+            "effect-elemental-materials"
+          ]
+        },
+        {
+          "id": "mire-sand-frost",
+          "path": "art/effects/source/mire-sand-frost-spaced.png",
+          "sha256": "c0f5e7fd9dfc1157f6dda2741f5362aee85167611f497c1a5a39a5be4029839b",
+          "sourceArchive": {
+            "manifestPath": "art/characters/source-archive.json",
+            "sourcePath": "art/effects/source/mire-sand-frost-spaced.png"
+          },
+          "directions": [],
+          "states": [],
+          "effectStages": [
+            "charge",
+            "launch",
+            "travel-a",
+            "travel-b",
+            "impact",
+            "dissolve"
+          ],
+          "referenceAssetIds": [],
+          "exportAssetIds": [
+            "effect-elemental-materials"
+          ]
+        }
+      ],
+      "exportWorkflow": {
+        "path": "art/effects/export.py",
+        "sha256": "31f746cb17b67751eb9b97ef0fb7fbec89132f497340a30fd5b391a016578f3e",
+        "profileId": "prop-elemental-effect-v1",
+        "profileSha256": "3e6dce02ed5e579d3a746518531a4280c2fdd195820685e7151c32755d484228",
+        "settings": "Reviewed row boundaries, alpha 128, shared nearest-neighbor scale per element, 96px ink/128px cell, 16px side gutters and 6px baseline inset; per-pose center pivots."
+      },
+      "exports": [
+        {
+          "path": "dist/assets/props/effect-elemental-materials.png",
+          "sha256": "8b4c6d4dd27ed0283d27d783f1682be6c6bd97a9e1a899d22e365d61a466943a",
+          "assetId": "effect-elemental-materials",
+          "profileId": "prop-elemental-effect-v1",
+          "profileSha256": "3e6dce02ed5e579d3a746518531a4280c2fdd195820685e7151c32755d484228"
+        }
+      ]
     }
   ]
 }

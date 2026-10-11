@@ -187,6 +187,28 @@
       "minimumComponentPixels": 180,
       "maxSprite": 264,
       "footY": 284
+    },
+    "prop-elemental-effect-v1": {
+      "category": "prop",
+      "status": "implemented",
+      "sourceGrid": {
+        "columns": 6,
+        "rowsPerSheet": 3
+      },
+      "frame": [128, 128],
+      "maxInk": 96,
+      "footInset": 6,
+      "alphaThreshold": 128,
+      "transparentGutter": 16,
+      "resampling": "one shared nearest-neighbor scale per element; preserve foreground RGBA",
+      "palette": "preserve RGBA above threshold; no color quantization",
+      "sourceRowBounds": {
+        "leaf-water-stone": [0, 296, 591, 887],
+        "fire-ice-spark": [0, 310, 591, 887],
+        "air-spore-bloom": [0, 315, 591, 887],
+        "mire-sand-frost": [0, 296, 591, 887]
+      },
+      "reviewStages": ["generated-source", "complete-isolated-poses", "battle-scale-both-sides"]
     }
   }
 }

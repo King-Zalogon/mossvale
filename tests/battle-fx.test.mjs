@@ -16,7 +16,7 @@ test('player strikes pop damage on the foe, tinted by effectiveness', () => {
   assert.equal(strong.pops[0].tone, 'super');
   assert.equal(strong.shake, 2);
   assert.equal(fxForEvent({type: 'strike', damage: 4, eff: 0.5, kind: 'quick'}).pops[0].tone, 'weak');
-  assert.equal(fxForEvent({type: 'strike', damage: 12, eff: 1, kind: 'element'}).burst, 'enemy');
+  assert.equal(fxForEvent({type: 'strike', damage: 12, eff: 1, kind: 'element'}).burst, null);
 });
 
 test('enemy blows pop on the ally; heavy blows shake harder; ripostes pop on the foe', () => {

@@ -203,7 +203,9 @@ function applyTextSize() {
 }
 
 function applyMotion() {
-  document.body.classList.toggle('reduce-motion', app.motionReduced());
+  // The OS preference is already handled by the CSS media query. Mirroring it
+  // into this class can leave CSS stuck in calm mode if a change event is lost.
+  document.body.classList.toggle('reduce-motion', settings.motion === 'reduced');
 }
 
 Object.assign(actions, {

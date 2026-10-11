@@ -21,6 +21,16 @@ const server = await startCatalogueServer({port: 0});
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 try {
   const page = await browser.newPage();
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: {
+        writeText: async text => {
+          if (window.__clipboardDenied) throw new DOMException('Denied', 'NotAllowedError');
+          window.__copiedResourceIds = text;
+        },
+      },
+    });
+  });
   const errors = [];
   const referenceImageRequests = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -58,15 +68,9 @@ try {
   assert.equal(referenceImageRequests.length, 1, 'the selected reference sheet loads only after the author opens its details');
   await page.locator('#details input[type=checkbox]').check();
   await page.locator('#copy-selection').click();
-  await page.waitForFunction(() => document.querySelector('#copy-status').textContent.includes('copied.'));
-  assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'reference:andhegames/assorted-creatures');
-  await page.evaluate(() => {
-    Object.defineProperty(navigator.clipboard, 'writeText', {
-      value: async () => {
-        throw new Error('Clipboard unavailable');
-      },
-    });
-  });
+  await page.waitForFunction(() => document.querySelector('#copy-status').textContent.includes('1 stable resource ID copied'));
+  assert.equal(await page.evaluate(() => window.__copiedResourceIds), 'reference:andhegames/assorted-creatures');
+  await page.evaluate(() => (window.__clipboardDenied = true));
   await page.locator('#copy-selection').click();
   await page.waitForFunction(() => document.querySelector('#copy-status').textContent.includes('reference:andhegames/assorted-creatures'));
   await page.locator('#details input[type=checkbox]').uncheck();

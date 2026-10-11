@@ -17,6 +17,14 @@ const server = http
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 try {
   const page = await browser.newPage();
+  await page.addInitScript(() => {
+    const match = window.matchMedia.bind(window);
+    window.matchMedia = query => {
+      const media = match(query);
+      if (query === '(prefers-reduced-motion: reduce)' && !window.__systemMotion) window.__systemMotion = media;
+      return media;
+    };
+  });
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(`http://localhost:${server.address().port}/?debug&seed=3`);
@@ -31,6 +39,13 @@ try {
   assert.deepEqual(idle, [true, 'creature-breathe', 'creature-breathe']);
 
   await page.emulateMedia({reducedMotion: 'reduce'});
+  // Exercise the game's listener even if Chromium skips an emulated media change event.
+  await page.evaluate(() => window.__systemMotion.dispatchEvent(new Event('change')));
+  assert.equal(
+    await page.evaluate(() => document.body.classList.contains('reduce-motion')),
+    false,
+    'automatic OS motion must not become a sticky manual override',
+  );
   assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('#fight-buddy')).animationName), 'none');
   await page.emulateMedia({reducedMotion: 'no-preference'});
   await page.waitForFunction(

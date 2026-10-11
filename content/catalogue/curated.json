@@ -98,7 +98,8 @@
         "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return.",
         "Capture beats are derived from the already-resolved throw: a success wobbles three times, a miss wobbles once more the closer it was (1 to 3), and calm motion collapses to a single wobble; the wobble count never changes the outcome.",
         "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion).",
-        "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion. The HUD friend count, coin/XP rewards, quest progress and controller notices also wait for the orb result. Durable capture and objective events still commit before playback. Ally level/HP and move information read the pre-throw presentation snapshot until resolution, including a capture that levels up the companion."
+        "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion. The HUD friend count, coin/XP rewards, quest progress and controller notices also wait for the orb result. Durable capture and objective events still commit before playback. Ally level/HP and move information read the pre-throw presentation snapshot until resolution, including a capture that levels up the companion.",
+        "Automatic calm motion follows the system media query directly; the CSS override class is reserved for the explicit player setting, so returning to normal system motion cannot leave creature animations stuck."
       ],
       "examples": [
         {
@@ -112,7 +113,14 @@
           "expected": "The orb flies in and holds the creature, wobbles, then either settles with a star burst and floating rewards before the result screen, or opens and the creature pops back out."
         }
       ],
-      "references": ["dist/src/controller.js", "dist/src/data/sounds.js", "dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/style.css"],
+      "references": [
+        "dist/src/controller.js",
+        "dist/src/data/sounds.js",
+        "dist/src/ui/battle-fx.js",
+        "dist/src/ui/battle-view.js",
+        "dist/style.css",
+        "dist/src/main.js"
+      ],
       "evidence": [
         {
           "path": "tests/battle-fx.test.mjs",
@@ -125,6 +133,10 @@
         {
           "path": "tests/capture-feel.browser.mjs",
           "assertion": "A real throw shows throw, three wobbles and settle with stars and floating rewards; a miss opens the orb and the creature pops out; a win fades the foe and floats XP; calm motion has no sparks and one wobble per throw. Ownership and HUD counters/rewards/quests retain their pre-throw presentation until resolution, including calm motion and repeated captures."
+        },
+        {
+          "path": "tests/creatures.browser.mjs",
+          "assertion": "Automatic system reduction disables animation and returns to idle breathing without becoming a sticky manual override."
         }
       ],
       "details": {
@@ -267,37 +279,55 @@
       "id": "mechanic:elemental-combat-presentation",
       "kind": "mechanic",
       "name": "Elemental combat presentation",
-      "summary": "Show a distinct, type-colored elemental burst when a companion uses its special move.",
+      "summary": "Send recognizable elemental material toward the opponent and reveal damage at impact, for either side.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
       "limits": [
-        "The burst reuses the optional five-state combat atlas and falls back to the static portrait when a pack has no combat sheet.",
-        "It does not change damage, timing, saves or battle outcomes."
+        "Covers the twelve registered display-name elements; custom elements or unavailable optional effects use an explicit neutral directional fallback.",
+        "Reuses optional five-state creature combat atlases or static portraits. Normal action duration, damage, saves, RNG and rewards are unchanged.",
+        "Calm motion shows one static material-specific impact without travel or camera shake. Internal art review does not imply owner taste approval."
       ],
       "examples": [
         {
-          "intent": "Use the companion's elemental move during a battle.",
-          "usage": "Reuse the existing Element action; the presentation derives its color from the companion type.",
-          "expected": "The ally uses the elemental motion and a type-colored burst while the enemy receives the normal hit reaction."
+          "intent": "Use a Fire companion elemental move in an encounter.",
+          "usage": "Use the existing Element action with a species whose canonical type is Fire.",
+          "expected": "A tapered fireball travels from attacker to rival, then flames and damage appear at contact."
+        },
+        {
+          "intent": "Author a Spark enemy in an optional pack.",
+          "usage": "Use the canonical Spark display-name type on the authored species; keep the existing creature atlas contract.",
+          "expected": "A branching lightning bolt connects enemy to ally in the mirrored direction; ally HP updates at contact."
         }
       ],
-      "references": ["dist/src/controller.js", "dist/src/render/sprites.js", "dist/src/ui/battle-view.js"],
+      "references": [
+        "docs/ELEMENTAL_ATTACKS.md",
+        "dist/src/controller.js",
+        "dist/src/ui/elemental-beats.js",
+        "dist/src/render/elemental-effects.js",
+        "dist/src/ui/battle-view.js",
+        "art/effects/SOURCES.md",
+        "art/effects/metadata.json"
+      ],
       "evidence": [
         {
-          "path": "tests/creature-combat.browser.mjs",
-          "assertion": "Battle playback distinguishes Quick strike and Element, and reduced motion pins the elemental presentation to one frame."
+          "path": "tests/elemental-effects.browser.mjs",
+          "assertion": "Exercises all twelve elements in actual battles on both sides with normal/reduced motion, contact timing, legacy fallback, landscape bounds and cancellation."
+        },
+        {
+          "path": "tests/elemental-effects.test.mjs",
+          "assertion": "Covers canonical element mapping, unchanged beat durations, pre-contact HP/audio, mirroring and clamped geometry."
         }
       ],
       "details": {
-        "trigger": "A resolved battle action with kind element.",
-        "inputs": "The existing companion type and optional five-state combat atlas.",
-        "sequence": "Render the attack row with a deterministic expanding type-colored burst and the elemental lunge motion.",
-        "results": "The ally's elemental move reads differently from Quick strike while the enemy receives the normal hit reaction.",
-        "cancellation": "The existing animation cancellation replaces the effect when the battle view changes.",
-        "errors": "Packs without combat atlases fall back to the static portrait; unsupported types use the shared green fallback color.",
-        "persistence": "Presentation-only; battle rules and saved outcomes are unchanged."
+        "trigger": "A resolved ally Element strike or damaging enemy elemental action.",
+        "inputs": "Canonical species type display-name, resolved event, pre-hit snapshot, optional six-pose effect atlas and existing creature attack pose.",
+        "sequence": "Normal 650 ms ally or 700 ms enemy beat: prepare, directed travel, contact/dissolve. Reveal HP, damage text, pops, target recoil and audio only at contact. Calm motion uses one 250 ms static impact.",
+        "results": "Leaf blades, water splash, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost use distinct authored silhouettes/materials.",
+        "cancellation": "Effects stop when their battle canvas disconnects or is replaced; existing timeline flush skips to already-resolved state.",
+        "errors": "Missing optional effect atlas or unsupported custom type uses a neutral directional mark; missing creature combat sheet uses the existing static portrait.",
+        "persistence": "Presentation only; no changes to rule formulas, RNG draws, save schema, committed damage or rewards."
       }
     },
     {
