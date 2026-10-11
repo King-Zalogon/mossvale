@@ -20,7 +20,7 @@ const targets = [
   {map: 'stilt-isles', id: 'lantern-note', asset: 'prop-hanging-lantern', label: 'Inspect the hanging lantern', at: [40.3, 39.2]},
   {map: 'amber-ridge', id: 'lookout-note', asset: 'prop-sunstone-lookout', label: 'Look from the Sunstone shelf', at: [10.8, 11.6]},
 ];
-targets.push({map: 'frostveil-pass', id: 'cache', asset: 'chest-wooden', label: 'Open the hidden blueglass cache', at: [52, 35]});
+targets.push({map: 'frostveil-pass', id: 'cache', asset: 'chest-pine-frost', label: 'Open the hidden blueglass cache', at: [52, 35]});
 const reviewOffsets = [
   [1, -1],
   [-1, 1],

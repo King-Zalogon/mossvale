@@ -119,12 +119,12 @@ test('all ten hidden landmark objects match their discovery and keep authored id
   }
 });
 
-test('the hidden Blueglass cache remains the existing wooden chest', () => {
+test('the hidden Blueglass cache uses the snowy chest while retaining its reward identity', () => {
   const cache = map('frostveil-pass').landmarks.find(item => item.id === 'cache');
   assert.ok(cache);
   assert.equal(cache.secret, true);
   assert.equal(cache.kind, 'chest');
-  assert.equal(cache.sprite, 'chest-wooden');
+  assert.equal(cache.sprite, 'chest-pine-frost');
 });
 
 test('environmental exploration cues remain authored independently from landmark labels', () => {
