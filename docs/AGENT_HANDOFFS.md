@@ -169,6 +169,9 @@ Claimed `codex/338-specific-discovery-notices` from `origin/main` 9a391e5. Adds 
 ## #346 — capture result timing
 
 Codex claim: `codex/346-capture-result-timing`, from latest `origin/main` `9a391e5` (includes current integration). Throw and wobble frames use the pre-throw ownership snapshot; settled/broken orb reveals the result. Removes failure spoiler text. Browser coverage checks new and owned creatures, successful/failed capture, calm motion and disabled actions. Save/RNG rules are unchanged. Integration-only PR.
+## #355 — CC0 creature concept reference library
+
+ Codex claim: `codex/355-cc0-creature-library`, created from latest `origin/main` `88248ec` and synchronized with `origin/integration` `42263be` (#353). Adds three original AndHeGames 32×32 concept sheets from OpenGameArt with source URLs, CC0 1.0 terms, retrieval date, file hashes/dimensions and a local visual index. This is a reference-only collection: no runtime manifest, shipped map, roster entry, names, stats or behavior. The art style is explicitly marked different from Mossvale's current accepted production art; a later adaptation needs separate review. PR #357 targets `integration`; it was conflict-resolved preserving both the CC0 reference integrity check and #353's third-party import check. On the final synchronized head, `npm run verify` passed (404 Node tests and full browser suite), `npm run build`, `npm run art:check`, `npm run format:check`, `npm run catalogue:check`, `npm run catalogue:impact -- --base origin/integration`, and `git diff --check` passed. One earlier browser run had a timing-sensitive diagonal-run assertion fail while the production build ran concurrently; the focused test and a clean full browser rerun both passed. Hosted Actions/Vercel checks are disabled/unavailable per owner direction; GitHub reports no published checks or review requests.
 
 ## #289 resumed verification
 
