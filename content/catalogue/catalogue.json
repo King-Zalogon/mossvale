@@ -4971,6 +4971,72 @@
       }
     },
     {
+      "id": "mechanic:creature-sheet-export",
+      "kind": "mechanic",
+      "name": "Complete creature frame extraction",
+      "summary": "Recover complete legacy combat poses and reject crowded new source sheets before export.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "creature-combat-v1",
+          "type": "versioned export profile",
+          "default": null,
+          "limits": "Reviewed legacy row bounds, source columns/seam, body-core seeds, four-pixel runtime gutters and one shared species scale. New sources require 15% blank cell margins."
+        },
+        {
+          "name": "--species / --strict-source-grid / --check / --preview-dir",
+          "type": "export command options",
+          "default": null,
+          "limits": "Select a species, reject crowded new sources, verify without mutation and inspect raw/segmented/anchored/runtime stages. All selected inputs preflight before writes."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Legacy recovery preserves original foreground pixels before fitting; it cannot invent missing anatomy or repair a different creature design.",
+        "Indexed species keep their existing no-dither palette conversion.",
+        "The spacing audit verifies hashes, clear margins and baselines; visual review at gameplay scale remains separate from owner taste."
+      ],
+      "examples": [
+        {
+          "intent": "Review a newly generated Emberkin combat sheet without replacing runtime art.",
+          "usage": "python3 art/characters/export-creature-combat.py --root /tmp/creature-candidate --species emberkin --strict-source-grid --check --preview-dir /tmp/creature-review",
+          "expected": "Reject crowded or missing cells, inspect all four stages and leave runtime files unchanged."
+        }
+      ],
+      "references": [
+        "art/characters/export-creature-combat.py",
+        "art/characters/sprite_cells.py",
+        "art/characters/export-profiles.json",
+        "art/characters/CREATURE_SHEET_BRIEF.md",
+        "art/characters/audit-frame-spacing.py",
+        "docs/ART_REVIEW.md"
+      ],
+      "evidence": [
+        {
+          "path": "tests/test_sprite_cells.py",
+          "assertion": "Nonuniform rows, thin tails, detached particles, alpha holes, pixel conservation, shared scale, transparent gutters and 360 combat frames."
+        },
+        {
+          "path": "art/characters/reviews/frame-spacing-347.json",
+          "assertion": "Exact runtime hashes and margin/baseline audit for 40 atlases and 1,160 cells."
+        },
+        {
+          "path": "art/characters/visual-reviews.json",
+          "assertion": "Recorded complete-pose review at 115 px, pinned to current outputs and contact sheet; owner taste remains pending."
+        }
+      ],
+      "details": {
+        "trigger": "Authoring or verifying a creature combat source sheet.",
+        "inputs": "Generated RGBA source, canonical reference, category profile and reviewed legacy separation settings.",
+        "sequence": "Preflight selected sources, identify body ownership, restore original foreground, fit once per species, anchor and compare/write staged outputs.",
+        "results": "Complete 4x5 combat atlas with transparent margins, unchanged state IDs and common baseline.",
+        "cancellation": "--check never writes outputs; invalid input stops before staging.",
+        "errors": "Missing bodies, invalid boundaries, inadequate new-source gutters or output mismatch fail with diagnostics.",
+        "persistence": "Changes source/output provenance and authoring evidence only; no game save or combat rule changes."
+      }
+    },
+    {
       "id": "mechanic:elemental-combat-presentation",
       "kind": "mechanic",
       "name": "Elemental combat presentation",

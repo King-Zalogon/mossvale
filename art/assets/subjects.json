@@ -118,7 +118,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/metadata.json",
@@ -711,7 +711,7 @@
     },
     {
       "id": "creature-fernling",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Small quadrupedal creature with a broad leaf-shaped tail, tall pointed leaf ears, and compact legs.",
         "palette": [
@@ -773,7 +773,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -907,9 +907,9 @@
         {
           "assetId": "creature-fernling-combat",
           "path": "dist/assets/creatures/creature-fernling-combat.png",
-          "sha256": "50c26219f530e42b350351364c71a7465ccb4c84706996f827d2d477154b0cfc",
+          "sha256": "8610670a0aa3898e6c1fa7cb9b86a43227e12cb2011cd267d8e50fad1ca2c396",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-fernling-follower",
@@ -942,13 +942,13 @@
         "assetId": "creature-fernling-combat",
         "fallbackAssetId": "creature-fernling",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -1013,7 +1013,7 @@
     },
     {
       "id": "creature-duskwing",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Small moth-like creature with a rounded body, upright feelers, and two oversized wings.",
         "palette": [
@@ -1205,9 +1205,9 @@
         {
           "assetId": "creature-duskwing-combat",
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
-          "sha256": "2af8f6773c4ccf582a3691492e8e75b3f76f69a1554d255ba91aabf7d81e7a02",
+          "sha256": "c5dd9b5a2844dcdddf087d5b80cd89c33e664eeb2a1aa0e597c72ded508515ed",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-duskwing-follower",
@@ -1240,13 +1240,13 @@
         "assetId": "creature-duskwing-combat",
         "fallbackAssetId": "creature-duskwing",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -1311,7 +1311,7 @@
     },
     {
       "id": "creature-emberkin",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Small quadrupedal fire fox with an upright flame crest, flame-shaped curled tail and compact paws.",
         "palette": [
@@ -1373,7 +1373,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-follower-metadata.json",
@@ -1518,9 +1518,9 @@
         {
           "assetId": "creature-emberkin-combat",
           "path": "dist/assets/creatures/creature-emberkin-combat.png",
-          "sha256": "dbe7f65ae28ad098d8e43521c3f6b092caed7c8f9d220682faa585f90f205b3b",
+          "sha256": "c4d51ae651b65d71ab4805b597acbede2d941710807a8658d2482c615e1272a2",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         }
       ],
       "requiredDirections": [
@@ -1566,7 +1566,7 @@
     },
     {
       "id": "creature-brooklet",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Small four-legged blue river otter with a broad curling water tail and compact paws.",
         "palette": [
@@ -1758,9 +1758,9 @@
         {
           "assetId": "creature-brooklet-combat",
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
-          "sha256": "494e708ad1eab2c84017e3acd36392d5849108edd9d1edeab5a654b703c4a242",
+          "sha256": "126729dbab9d0de335e34af0e8b0f3998f9f7c9dc7c250f911f245235885a0ef",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-brooklet-follower",
@@ -1793,13 +1793,13 @@
         "assetId": "creature-brooklet-combat",
         "fallbackAssetId": "creature-brooklet",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -1864,7 +1864,7 @@
     },
     {
       "id": "creature-hushram",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Sturdy shaggy ram with long curved ice horns, four dark hooves and a low fluffy tail.",
         "palette": [
@@ -2060,9 +2060,9 @@
         {
           "assetId": "creature-hushram-combat",
           "path": "dist/assets/creatures/creature-hushram-combat.png",
-          "sha256": "32a1817ed1f63bb330f4bd59f32355f9517f09a903e22dfd02d60a9e1d41bae4",
+          "sha256": "68a31c52092ca2f1699eaae28e6d8306f01994b35c2d69a86cb02e32b36d8b58",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-hushram-follower",
@@ -2095,13 +2095,13 @@
         "assetId": "creature-hushram-combat",
         "fallbackAssetId": "creature-hushram",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Crop the 4x5 source grid to fixed RGBA frames, preserve pixels, pad transparently, and align visible feet to a common bottom anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -2152,7 +2152,7 @@
     },
     {
       "id": "creature-voltkit",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
         "palette": [
@@ -2215,7 +2215,7 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceBatches": [
         {
@@ -2346,9 +2346,9 @@
         {
           "assetId": "creature-voltkit-combat",
           "path": "dist/assets/creatures/creature-voltkit-combat.png",
-          "sha256": "ce6faf852efddc2dc4b7ea80b5cc313b811d1f266ff4289cbafc49d1f22fdc36",
+          "sha256": "b99db86c5380bf4be12e07768e1ead76b868c11c8f983f7fed22f29ba01eb006",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-voltkit-follower",
@@ -2398,7 +2398,7 @@
     },
     {
       "id": "creature-mushmallow",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "A gentle hedgehog with a cream face and paws, violet spines, a broad mushroom cap and small mushrooms across its back.",
         "palette": [
@@ -2459,11 +2459,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -2601,9 +2601,9 @@
         {
           "assetId": "creature-mushmallow-combat",
           "path": "dist/assets/creatures/creature-mushmallow-combat.png",
-          "sha256": "dc522312ac233dd35462e76dd2050067c058c7f70b3773fd12e92b2c38e02fcb",
+          "sha256": "d012020b698c87a0b1fe83d3a5bab6da265703ebed135436efefa7c4a5c15990",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-mushmallow-follower",
@@ -2617,13 +2617,13 @@
         "assetId": "creature-mushmallow-combat",
         "fallbackAssetId": "creature-mushmallow",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Crop the 4×5 source grid to fixed 288×288 frames, pad transparently and align visible feet to a common bottom anchor without resampling; encode runtime colors as a 256-color indexed PNG without dithering.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -2693,7 +2693,7 @@
     },
     {
       "id": "creature-frostowl",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "A compact white owl with luminous blue eyes, crystalline blue feathers, a dark beak and dark feet.",
         "palette": [
@@ -2754,11 +2754,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/assets/export.py",
@@ -2896,9 +2896,9 @@
         {
           "assetId": "creature-frostowl-combat",
           "path": "dist/assets/creatures/creature-frostowl-combat.png",
-          "sha256": "0ec81b187ff2be0cf4130a518c38bacee56d49e2ac1724f358537b0c710adb32",
+          "sha256": "7d7a73186200be135a76d8cc804a06beaf5a6af7664352674dfa1b77d868e862",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-frostowl-follower",
@@ -2912,13 +2912,13 @@
         "assetId": "creature-frostowl-combat",
         "fallbackAssetId": "creature-frostowl",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Crop the 4×5 source grid to fixed 288×288 frames, pad transparently and align visible feet to a common bottom anchor without resampling; encode runtime colors as a 256-color indexed PNG without dithering.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -2988,7 +2988,7 @@
     },
     {
       "id": "creature-pebblit",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Canonical Pebblit creature silhouette, preserved across combat reactions and eight travel directions.",
         "palette": [
@@ -3044,11 +3044,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -3186,9 +3186,9 @@
         {
           "assetId": "creature-pebblit-combat",
           "path": "dist/assets/creatures/creature-pebblit-combat.png",
-          "sha256": "0c3c42916062ac05d210832e18835b9330e0904af5c288cd214c80114a58b189",
+          "sha256": "f1eeb151b15f323c81db6db17c13d55002f55280434d4dec037ec358d88494bc",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-pebblit-follower",
@@ -3202,13 +3202,13 @@
         "assetId": "creature-pebblit-combat",
         "fallbackAssetId": "creature-pebblit",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -3278,7 +3278,7 @@
     },
     {
       "id": "creature-bramblebuck",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Canonical Bramblebuck creature silhouette, preserved across combat reactions and eight travel directions.",
         "palette": [
@@ -3334,11 +3334,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -3476,9 +3476,9 @@
         {
           "assetId": "creature-bramblebuck-combat",
           "path": "dist/assets/creatures/creature-bramblebuck-combat.png",
-          "sha256": "3d08f6850e19de34e7ca45a22da5a568321b0df4c44b3f4de4d111758221064f",
+          "sha256": "ef1bd806843644a44e98973f7fd5b77ef4569590a0947736e647834890a55d48",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-bramblebuck-follower",
@@ -3492,13 +3492,13 @@
         "assetId": "creature-bramblebuck-combat",
         "fallbackAssetId": "creature-bramblebuck",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -3568,7 +3568,7 @@
     },
     {
       "id": "creature-siltkip",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Canonical Siltkip creature silhouette, preserved across combat reactions and eight travel directions.",
         "palette": [
@@ -3624,11 +3624,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -3766,9 +3766,9 @@
         {
           "assetId": "creature-siltkip-combat",
           "path": "dist/assets/creatures/creature-siltkip-combat.png",
-          "sha256": "3f9e2e60432c80b696e363f63378c6d7c1b6d773f1de73c6c077cbf4762abdb1",
+          "sha256": "7b017385bf71f2d81d1b236c461dbca9ce45b2ca8d9424d20920c170c5265982",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-siltkip-follower",
@@ -3782,13 +3782,13 @@
         "assetId": "creature-siltkip-combat",
         "fallbackAssetId": "creature-siltkip",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -3858,7 +3858,7 @@
     },
     {
       "id": "creature-sunskitter",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Canonical Sunskitter creature silhouette, preserved across combat reactions and eight travel directions.",
         "palette": [
@@ -3914,11 +3914,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export.py",
@@ -4056,9 +4056,9 @@
         {
           "assetId": "creature-sunskitter-combat",
           "path": "dist/assets/creatures/creature-sunskitter-combat.png",
-          "sha256": "ba4bb37e396a8ca4fc41319937ebf23f44bba53ee76125838856303954b1bf88",
+          "sha256": "d569837fdb1d38891618325feda32a2aff8a171778d1874d09cfb5a39e1d6e0a",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-sunskitter-follower",
@@ -4072,13 +4072,13 @@
         "assetId": "creature-sunskitter-combat",
         "fallbackAssetId": "creature-sunskitter",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into species-specific transparent cells and align feet to a common bottom anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -4148,7 +4148,7 @@
     },
     {
       "id": "creature-sedgegnaw",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Six-legged leaf-cutter ant carrying one narrow notched sedge-leaf sail above its thorax.",
         "palette": [
@@ -4212,11 +4212,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -4391,9 +4391,9 @@
         {
           "assetId": "creature-sedgegnaw-combat",
           "path": "dist/assets/creatures/creature-sedgegnaw-combat.png",
-          "sha256": "facee4ffee91342c0f7fcba77dd07b966745b23ce96d80f81674a6cd1efaa344",
+          "sha256": "f121393b9310a9128b26029d6acbfb39d09578161149ec31558d6b21e79bec46",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-sedgegnaw-follower",
@@ -4407,13 +4407,13 @@
         "assetId": "creature-sedgegnaw-combat",
         "fallbackAssetId": "creature-sedgegnaw",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -4483,7 +4483,7 @@
     },
     {
       "id": "creature-petalunge",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Slender orchid mantis with a tapered head and paired petal forelimbs.",
         "palette": [
@@ -4547,11 +4547,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -4726,9 +4726,9 @@
         {
           "assetId": "creature-petalunge-combat",
           "path": "dist/assets/creatures/creature-petalunge-combat.png",
-          "sha256": "7e39a6991e0104ccd69b60a07c6c5b42210eb990f01abc8eda126733377cb9fc",
+          "sha256": "3b34bd12811071f9e943252434337a686ec0a8667477b80b235b74a9231e5eba",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-petalunge-follower",
@@ -4742,13 +4742,13 @@
         "assetId": "creature-petalunge-combat",
         "fallbackAssetId": "creature-petalunge",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -4818,7 +4818,7 @@
     },
     {
       "id": "creature-cindercurl",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail.",
         "palette": [
@@ -4882,11 +4882,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -5061,9 +5061,9 @@
         {
           "assetId": "creature-cindercurl-combat",
           "path": "dist/assets/creatures/creature-cindercurl-combat.png",
-          "sha256": "1c03809059cf3e276cb10510dd71a7d4221c6c94ebf8dbbb2cf056162ab1dbd6",
+          "sha256": "58d8582017d885d525edfdd91ce83cc9a665db1a5fc25f8e450c83ef64d0474b",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-cindercurl-follower",
@@ -5077,13 +5077,13 @@
         "assetId": "creature-cindercurl-combat",
         "fallbackAssetId": "creature-cindercurl",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -5153,7 +5153,7 @@
     },
     {
       "id": "creature-sunsifter",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Stocky scarab with a broad shovel-like forehead plate, six short digging legs and a ridged oval shell.",
         "palette": [
@@ -5216,11 +5216,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -5395,9 +5395,9 @@
         {
           "assetId": "creature-sunsifter-combat",
           "path": "dist/assets/creatures/creature-sunsifter-combat.png",
-          "sha256": "0ccc02755bad86cb86bc20160378176e8c004e887b9e3c31971e4338928f69e7",
+          "sha256": "0a20998db8865566c8af7c938ecfdfe6af1bf9e49f5fa40922df8e517f8a9373",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-sunsifter-follower",
@@ -5411,13 +5411,13 @@
         "assetId": "creature-sunsifter-combat",
         "fallbackAssetId": "creature-sunsifter",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -5487,7 +5487,7 @@
     },
     {
       "id": "creature-rillume",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes.",
         "palette": [
@@ -5550,11 +5550,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -5729,9 +5729,9 @@
         {
           "assetId": "creature-rillume-combat",
           "path": "dist/assets/creatures/creature-rillume-combat.png",
-          "sha256": "38189f28587315b665578bd44b4d4d6c55d5802ff17ca28c0cfa11e81d7b469a",
+          "sha256": "2f2ce2e6807b36d6258f7762022fbf4354d61ef80508f83a469df8fc5a904f81",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-rillume-follower",
@@ -5745,13 +5745,13 @@
         "assetId": "creature-rillume-combat",
         "fallbackAssetId": "creature-rillume",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",
@@ -6371,7 +6371,7 @@
     },
     {
       "id": "creature-lanternix",
-      "revision": 1,
+      "revision": 2,
       "identity": {
         "silhouette": "Small hovering insect with blunt teal wing-case shoulders, a hanging three-banded golden lantern abdomen, six tucked legs and two antennae.",
         "palette": [
@@ -6462,11 +6462,11 @@
       },
       "sourceNotes": {
         "path": "art/characters/SOURCES.md",
-        "sha256": "6eb78b14d1f08a83e54b4ba9f901d869e181103bbbe6da033e2bd0c589f2db62"
+        "sha256": "cb127cb09b3125b273cbfd5753aeeeb404f806b6c6703ec8940f2396187f8e2e"
       },
       "sourceMetadata": {
         "path": "art/characters/creature-combat-metadata.json",
-        "sha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff"
+        "sha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac"
       },
       "exportWorkflow": {
         "path": "art/characters/export-creature-portraits.py",
@@ -6647,9 +6647,9 @@
         {
           "assetId": "creature-lanternix-combat",
           "path": "dist/assets/creatures/creature-lanternix-combat.png",
-          "sha256": "8602b957596b0ab9aa7fcfa549a7a5a041c2e7c13f41357af774de6af040760b",
+          "sha256": "aa3f91701d15671acae3f1bf81938541f7a967b1eaab67c9ca5f672395472d3e",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         {
           "assetId": "creature-lanternix-follower",
@@ -6663,13 +6663,13 @@
         "assetId": "creature-lanternix-combat",
         "fallbackAssetId": "creature-lanternix",
         "contractPath": "art/characters/creature-combat-metadata.json",
-        "contractSha256": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
+        "contractSha256": "21ee518511dd5eda915f3c0387224752ec4c0b0c7968ba04ef6c80bf5bf99bac",
         "exportWorkflow": {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "1eb21e5bc7f54a241703165c8dd09169cd21d4a79ccfc2f0374be12c488177ef",
-          "settings": "Export the 4×5 combat grid into four 288×288 cells per state row and align every pose to a common bottom-center ground anchor without resampling.",
+          "sha256": "81c556b98c22922f658507e7bc1d595e470ae0eb919bf37cb3964de367e5c69b",
+          "settings": "Recover complete original-alpha poses using reviewed row bounds and core ownership; preserve thin anatomy, holes and detached effects. Pack with one shared scale, four transparent pixels and common feet; new sheets require 15% blank source margins. Indexed species retain no-dither quantization.",
           "profileId": "creature-combat-v1",
-          "profileSha256": "4059629f9ffd4095a79417d1573a9313cfc35d8de6098f93e7490b5a420cd3c5"
+          "profileSha256": "3db557da7867dbefb0804507977f87477a32730b2a40b5069d9c00c7e365fcc6"
         },
         "requiredStates": [
           "idle",

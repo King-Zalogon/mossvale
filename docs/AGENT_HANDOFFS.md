@@ -158,6 +158,10 @@ Claude claim: `claude/324-capture-victory-feel`, from `origin/integration` `d646
 
 #315 implementation handoff: four original 4×5 combat forms (80 frames), retained generated sources, dedicated exact-pixel atlas and named shrine overrides are complete on `codex/315-guardian-combat-forms`. Normal allies/wilds/portraits/followers and all battle rules/save fields remain unchanged. `guardian-combat-preview.html` is listed in Testing URLs; source and actual-battle captures are under `art/characters/reviews/315/`. Seven focused Node regressions and the actual four-shrine browser test pass; `npm run build` passes. Latest integration (3013709) was merged, preserving battle key/capture/victory work and Emberkin direction fixes. Full final-head verification is the remaining gate before ordinary integration-only PR merge. Owner taste for the new guardian forms remains pending, separate from internal visual/technical review.
 
+## #347 — complete creature frame extraction
+
+Claimed codex/347-clean-creature-frames from origin/main 9a391e5. Audited all 17 combat atlases and all follower directions. Repairs nonuniform legacy sheet cutting by assigning complete original-alpha poses to reviewed cells, then repacking with four-pixel transparent gutters and one species scale. New source sheets reserve 15% blank margins and have a strict preflight and generation brief. No generated original or source archive is edited. Voltkit identity/tail redesign remains separately tracked in #240. Local verification, combat preview and source/provenance updates accompany this integration-only PR.
+
 ## #338 — specific discovery notices
 
 Claimed `codex/338-specific-discovery-notices` from `origin/main` 9a391e5. Adds validated optional landmark discoveryText and authored notices for all eleven secrets across eight maps. Old packs fall back to the landmark name. Discovery range, hidden-map behavior, save IDs and once-only notices remain unchanged. Integration-only PR.
@@ -172,3 +176,5 @@ Codex claim: `codex/346-capture-result-timing`, from latest `origin/main` `9a391
 ## #289 resumed verification
 
 The existing `codex/289-lanternix` / PR #314 claim is refreshed through integration `f2d2370` (guardian PR #328). Shared manifest/provenance/catalogue conflicts preserve all four guardian forms, eighteen normal species, the canonical follower-preview discovery and the recent player-facing/capture/launch changes. Separate combat and follower review records are retained (26 records); only shared metadata pins changed. The new `tests/lanternix.browser.mjs` real-controls regression passed capture into full-team reserve, activation/reload and relay preparation/reload/switch/element consumption. Scoped impact passed (54 paths). Full final-head verify/build precede ordinary integration-only merge. Owner visual/enjoyment feedback under #289/#267 remains pending; keep those issues open for that acceptance. #315 is complete via PR #328, merge `f2d2370`, with 399 Node tests, 39 browser scripts, build and impact passing.
+
+Integration refresh included PR #314 Lanternix. Its retained source also crossed uniform row cuts, so #347 now recovers all eighteen normal combat sheets; the audit covers forty atlases / 1,160 cells. Its acquisition, relay, source history and canonical design remain intact.
