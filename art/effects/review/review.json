@@ -1,0 +1,57 @@
+{
+  "format": 1,
+  "issue": 173,
+  "technical": {
+    "status": "pass",
+    "poses": 72,
+    "sourceSeparation": "Reviewed extraction boundaries have at least four pixels clearance after low-alpha glow removal; exported material ink has >=16px side/top gutters and 6px baseline inset."
+  },
+  "visual": {
+    "decision": "accept",
+    "reviewer": "Codex internal production review",
+    "ownerTasteApproval": "not-requested-or-inferred",
+    "reason": "All twelve materials remain distinguishable at battle scale and in both attacker directions. Leaf/Bloom, Water/Mire, Stone/Sand and Ice/Frost have different silhouettes, not palette variants. No golden halo or neighboring-frame fragments. Existing creature identity art is unchanged.",
+    "stages": [
+      "design-before-generation",
+      "generated-sheets-and-spacing-revisions",
+      "72-isolated-poses-at-108px",
+      "12-actual-ally-impacts",
+      "12-actual-enemy-impacts",
+      "reduced-motion-key-poses"
+    ]
+  },
+  "files": [
+    {
+      "path": "art/effects/SOURCES.md",
+      "sha256": "0a0be4100cfdc6f4eca662dab4f5bca4300f16e3e126d1ffac9bf4cfc8d7103f"
+    },
+    {
+      "path": "art/effects/generation.json",
+      "sha256": "ed1571297f1fdf241050011d6735bb44a0a4c76a0be12bd1514bd3e48c1972af"
+    },
+    {
+      "path": "art/effects/metadata.json",
+      "sha256": "96be546592f477b181dd4479125ba76ee5ab44f24ce6c8c191ef050d8865516d"
+    },
+    {
+      "path": "art/effects/export.py",
+      "sha256": "31f746cb17b67751eb9b97ef0fb7fbec89132f497340a30fd5b391a016578f3e"
+    },
+    {
+      "path": "dist/assets/props/effect-elemental-materials.png",
+      "sha256": "8b4c6d4dd27ed0283d27d783f1682be6c6bd97a9e1a899d22e365d61a466943a"
+    },
+    {
+      "path": "art/effects/review/material-poses.png",
+      "sha256": "0475076a6cd7cd9472cee0fbd3585e04c0146255720fa0b1d933301a79603397"
+    },
+    {
+      "path": "art/effects/review/battle-ally-impacts.png",
+      "sha256": "f8f0ca8ba67cbb4743a345b35edda80d13abddd8b7fa256b541dd67dc608ffa5"
+    },
+    {
+      "path": "art/effects/review/battle-enemy-impacts.png",
+      "sha256": "057f0f4ae069a6c7605ee573445bcc5bd7d1416140adb228b1037c0185676503"
+    }
+  ]
+}

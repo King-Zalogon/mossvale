@@ -110,6 +110,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
       'creature-frostowl-ice-mantle',
       'creature-siltkip-tide-sail',
       'creature-lanternix',
+      'effect-elemental-materials',
     ],
   );
   const player = registry.subjects[0];
@@ -282,7 +283,8 @@ test('editable portrait and prop atlases cover their runtime sprites and export 
     assert.equal(source.anchor, asset.anchor, source.name);
     assert.equal(source.kind, asset.kind, source.name);
     if (source.kind === 'prop') {
-      const profileId = landmarkSources.has(source.name) ? 'prop-landmark-v1' : 'prop-static-v1';
+      const profileId =
+        source.name === 'effect-elemental-materials' ? 'prop-elemental-effect-v1' : landmarkSources.has(source.name) ? 'prop-landmark-v1' : 'prop-static-v1';
       assert.deepEqual(source.exportProfile, {id: profileId, settingsSha256: propProfileSha256(profileId)}, source.name);
     }
     assert.ok(sheets.has(source.sheet), `${source.name} source sheet exists`);

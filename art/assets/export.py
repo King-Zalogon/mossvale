@@ -102,6 +102,18 @@ GENERATED_SOURCES = {
     "creature-frostowl-combat": ["art/characters/source/creature-frostowl-combat-generated.png"],
 }
 GENERATED_SOURCES.update({name: [source] for name, source in LANDMARK_SOURCES.items()})
+EFFECT_METADATA = ROOT / "art" / "effects" / "metadata.json"
+if EFFECT_METADATA.exists():
+    effects = json.loads(EFFECT_METADATA.read_text())
+    FRAMES["effect-elemental-materials"] = {
+        "columns": 6, "rows": 12, "frameWidth": 128, "frameHeight": 128,
+        "rowOrder": effects["types"], "columnOrder": effects["stages"],
+        "effectPivots": effects["effectPivots"], "defaultFrame": {"column": 4, "row": 0},
+    }
+    GENERATED_SOURCES["effect-elemental-materials"] = [
+        f"art/effects/source/{group}-spaced.png"
+        for group in ["leaf-water-stone", "fire-ice-spark", "air-spore-bloom", "mire-sand-frost"]
+    ]
 
 
 def list_assets() -> list[dict]:
@@ -130,7 +142,7 @@ def list_assets() -> list[dict]:
             },
         }
         if entry["kind"] == "prop":
-            profile_id = "prop-landmark-v1" if name in LANDMARK_SOURCES else PROP_PROFILE_ID
+            profile_id = "prop-elemental-effect-v1" if name == "effect-elemental-materials" else "prop-landmark-v1" if name in LANDMARK_SOURCES else PROP_PROFILE_ID
             entry["exportProfile"] = validate_prop_profile(profile_id)
         entries.append(entry)
     return entries

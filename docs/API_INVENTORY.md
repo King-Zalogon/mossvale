@@ -68,6 +68,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `main.js` | root | — |
 | `map-editor.js` | root | — |
 | `render/battle-art.js` | render | `guardianCombatSprite` |
+| `render/elemental-effects.js` | render | `drawElementalEffect`, `effectPose` |
 | `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
 | `render/terrain.js` | render | `createTerrainPainter`, `mix`, `patchNoise`, `terrainColors` |
 | `render/world.js` | render | `createWorldRenderer` |
@@ -88,6 +89,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `ui/battle-fx.js` | ui | `burstMarkup`, `captureBeats`, `fxForEvent`, `hpPercent`, `orbMarkup`, `popMarkup`, `rewardPops` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
+| `ui/elemental-beats.js` | ui | `elementalBeats` |
 | `ui/hud.js` | ui | `renderHud`, `renderRegion`, `renderSaveStatus` |
 | `ui/menus.js` | ui | `createMenus` |
 | `ui/speech.js` | ui | `createSpeech` |

@@ -1,0 +1,597 @@
+{
+  "format": 1,
+  "types": ["Leaf", "Water", "Stone", "Fire", "Ice", "Spark", "Air", "Spore", "Bloom", "Mire", "Sand", "Frost"],
+  "stages": ["charge", "launch", "travel-a", "travel-b", "impact", "dissolve"],
+  "effectPivots": [
+    [95.0, 87.0, 95.5, 89.0, 81.5, 90.0],
+    [91.5, 91.5, 101.5, 100.5, 86.0, 94.0],
+    [92.0, 85.0, 100.0, 94.5, 85.5, 96.0],
+    [103.5, 93.0, 101.5, 98.0, 85.0, 94.0],
+    [98.0, 90.5, 94.0, 95.0, 78.5, 89.0],
+    [102.5, 95.5, 98.0, 93.5, 85.5, 96.0],
+    [99.5, 88.0, 101.5, 98.5, 83.0, 97.5],
+    [100.5, 89.0, 101.0, 96.0, 87.5, 96.5],
+    [98.0, 89.5, 97.5, 95.5, 83.5, 94.0],
+    [86.5, 87.0, 100.5, 95.5, 90.5, 95.0],
+    [91.0, 90.5, 100.0, 97.0, 90.5, 96.0],
+    [90.5, 87.0, 100.0, 94.5, 90.0, 95.0]
+  ],
+  "cells": [
+    {
+      "type": "Leaf",
+      "stage": "charge",
+      "sourceBounds": [0, 0, 296, 296],
+      "inkBounds": [92, 153, 209, 259],
+      "scale": 0.5079365079365079,
+      "runtimeInkSize": [59, 54]
+    },
+    {
+      "type": "Leaf",
+      "stage": "launch",
+      "sourceBounds": [296, 0, 591, 296],
+      "inkBounds": [55, 136, 209, 275],
+      "scale": 0.5079365079365079,
+      "runtimeInkSize": [78, 70]
+    },
+    {
+      "type": "Leaf",
+      "stage": "travel-a",
+      "sourceBounds": [591, 0, 887, 296],
+      "inkBounds": [48, 159, 237, 263],
+      "scale": 0.5079365079365079,
+      "runtimeInkSize": [96, 53]
+    },
+    {
+      "type": "Leaf",
+      "stage": "travel-b",
+      "sourceBounds": [887, 0, 1183, 296],
+      "inkBounds": [62, 144, 240, 273],
+      "scale": 0.5079365079365079,
+      "runtimeInkSize": [90, 66]
+    },
+    {
+      "type": "Leaf",
+      "stage": "impact",
+      "sourceBounds": [1183, 0, 1478, 296],
+      "inkBounds": [66, 121, 231, 281],
+      "scale": 0.5079365079365079,
+      "runtimeInkSize": [84, 81]
+    },
+    {
+      "type": "Leaf",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 0, 1774, 296],
+      "inkBounds": [71, 146, 210, 273],
+      "scale": 0.5079365079365079,
+      "runtimeInkSize": [71, 64]
+    },
+    {
+      "type": "Water",
+      "stage": "charge",
+      "sourceBounds": [0, 296, 296, 591],
+      "inkBounds": [87, 115, 207, 235],
+      "scale": 0.5052631578947369,
+      "runtimeInkSize": [61, 61]
+    },
+    {
+      "type": "Water",
+      "stage": "launch",
+      "sourceBounds": [296, 296, 591, 591],
+      "inkBounds": [40, 113, 222, 234],
+      "scale": 0.5052631578947369,
+      "runtimeInkSize": [92, 61]
+    },
+    {
+      "type": "Water",
+      "stage": "travel-a",
+      "sourceBounds": [591, 296, 887, 591],
+      "inkBounds": [51, 139, 241, 220],
+      "scale": 0.5052631578947369,
+      "runtimeInkSize": [96, 41]
+    },
+    {
+      "type": "Water",
+      "stage": "travel-b",
+      "sourceBounds": [887, 296, 1183, 591],
+      "inkBounds": [59, 139, 242, 225],
+      "scale": 0.5052631578947369,
+      "runtimeInkSize": [92, 43]
+    },
+    {
+      "type": "Water",
+      "stage": "impact",
+      "sourceBounds": [1183, 296, 1478, 591],
+      "inkBounds": [61, 104, 237, 246],
+      "scale": 0.5052631578947369,
+      "runtimeInkSize": [89, 72]
+    },
+    {
+      "type": "Water",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 296, 1774, 591],
+      "inkBounds": [78, 124, 207, 235],
+      "scale": 0.5052631578947369,
+      "runtimeInkSize": [65, 56]
+    },
+    {
+      "type": "Stone",
+      "stage": "charge",
+      "sourceBounds": [0, 591, 296, 887],
+      "inkBounds": [93, 69, 202, 184],
+      "scale": 0.5245901639344263,
+      "runtimeInkSize": [57, 60]
+    },
+    {
+      "type": "Stone",
+      "stage": "launch",
+      "sourceBounds": [296, 591, 591, 887],
+      "inkBounds": [47, 55, 211, 196],
+      "scale": 0.5245901639344263,
+      "runtimeInkSize": [86, 74]
+    },
+    {
+      "type": "Stone",
+      "stage": "travel-a",
+      "sourceBounds": [591, 591, 887, 887],
+      "inkBounds": [54, 86, 227, 169],
+      "scale": 0.5245901639344263,
+      "runtimeInkSize": [91, 44]
+    },
+    {
+      "type": "Stone",
+      "stage": "travel-b",
+      "sourceBounds": [887, 591, 1183, 887],
+      "inkBounds": [57, 73, 232, 178],
+      "scale": 0.5245901639344263,
+      "runtimeInkSize": [92, 55]
+    },
+    {
+      "type": "Stone",
+      "stage": "impact",
+      "sourceBounds": [1183, 591, 1478, 887],
+      "inkBounds": [59, 55, 242, 196],
+      "scale": 0.5245901639344263,
+      "runtimeInkSize": [96, 73]
+    },
+    {
+      "type": "Stone",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 591, 1774, 887],
+      "inkBounds": [74, 80, 206, 179],
+      "scale": 0.5245901639344263,
+      "runtimeInkSize": [69, 52]
+    },
+    {
+      "type": "Fire",
+      "stage": "charge",
+      "sourceBounds": [0, 0, 296, 310],
+      "inkBounds": [100, 199, 212, 270],
+      "scale": 0.5161290322580645,
+      "runtimeInkSize": [58, 37]
+    },
+    {
+      "type": "Fire",
+      "stage": "launch",
+      "sourceBounds": [296, 0, 591, 310],
+      "inkBounds": [54, 172, 233, 284],
+      "scale": 0.5161290322580645,
+      "runtimeInkSize": [92, 58]
+    },
+    {
+      "type": "Fire",
+      "stage": "travel-a",
+      "sourceBounds": [591, 0, 887, 310],
+      "inkBounds": [55, 187, 241, 269],
+      "scale": 0.5161290322580645,
+      "runtimeInkSize": [96, 41]
+    },
+    {
+      "type": "Fire",
+      "stage": "travel-b",
+      "sourceBounds": [887, 0, 1183, 310],
+      "inkBounds": [64, 182, 241, 275],
+      "scale": 0.5161290322580645,
+      "runtimeInkSize": [91, 48]
+    },
+    {
+      "type": "Fire",
+      "stage": "impact",
+      "sourceBounds": [1183, 0, 1478, 310],
+      "inkBounds": [66, 147, 231, 290],
+      "scale": 0.5161290322580645,
+      "runtimeInkSize": [85, 74]
+    },
+    {
+      "type": "Fire",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 0, 1774, 310],
+      "inkBounds": [73, 182, 202, 290],
+      "scale": 0.5161290322580645,
+      "runtimeInkSize": [67, 56]
+    },
+    {
+      "type": "Ice",
+      "stage": "charge",
+      "sourceBounds": [0, 310, 296, 591],
+      "inkBounds": [91, 108, 204, 196],
+      "scale": 0.5423728813559322,
+      "runtimeInkSize": [61, 48]
+    },
+    {
+      "type": "Ice",
+      "stage": "launch",
+      "sourceBounds": [296, 310, 591, 591],
+      "inkBounds": [56, 92, 230, 208],
+      "scale": 0.5423728813559322,
+      "runtimeInkSize": [94, 63]
+    },
+    {
+      "type": "Ice",
+      "stage": "travel-a",
+      "sourceBounds": [591, 310, 887, 591],
+      "inkBounds": [67, 105, 236, 208],
+      "scale": 0.5423728813559322,
+      "runtimeInkSize": [92, 56]
+    },
+    {
+      "type": "Ice",
+      "stage": "travel-b",
+      "sourceBounds": [887, 310, 1183, 591],
+      "inkBounds": [64, 107, 241, 207],
+      "scale": 0.5423728813559322,
+      "runtimeInkSize": [96, 54]
+    },
+    {
+      "type": "Ice",
+      "stage": "impact",
+      "sourceBounds": [1183, 310, 1478, 591],
+      "inkBounds": [64, 72, 229, 233],
+      "scale": 0.5423728813559322,
+      "runtimeInkSize": [88, 87]
+    },
+    {
+      "type": "Ice",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 310, 1774, 591],
+      "inkBounds": [74, 92, 205, 213],
+      "scale": 0.5423728813559322,
+      "runtimeInkSize": [71, 66]
+    },
+    {
+      "type": "Spark",
+      "stage": "charge",
+      "sourceBounds": [0, 591, 296, 887],
+      "inkBounds": [97, 72, 216, 155],
+      "scale": 0.4729064039408867,
+      "runtimeInkSize": [56, 39]
+    },
+    {
+      "type": "Spark",
+      "stage": "launch",
+      "sourceBounds": [296, 591, 591, 887],
+      "inkBounds": [46, 56, 241, 168],
+      "scale": 0.4729064039408867,
+      "runtimeInkSize": [92, 53]
+    },
+    {
+      "type": "Spark",
+      "stage": "travel-a",
+      "sourceBounds": [591, 591, 887, 887],
+      "inkBounds": [50, 61, 253, 163],
+      "scale": 0.4729064039408867,
+      "runtimeInkSize": [96, 48]
+    },
+    {
+      "type": "Spark",
+      "stage": "travel-b",
+      "sourceBounds": [887, 591, 1183, 887],
+      "inkBounds": [56, 51, 249, 171],
+      "scale": 0.4729064039408867,
+      "runtimeInkSize": [91, 57]
+    },
+    {
+      "type": "Spark",
+      "stage": "impact",
+      "sourceBounds": [1183, 591, 1478, 887],
+      "inkBounds": [59, 30, 240, 185],
+      "scale": 0.4729064039408867,
+      "runtimeInkSize": [86, 73]
+    },
+    {
+      "type": "Spark",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 591, 1774, 887],
+      "inkBounds": [63, 54, 210, 164],
+      "scale": 0.4729064039408867,
+      "runtimeInkSize": [70, 52]
+    },
+    {
+      "type": "Air",
+      "stage": "charge",
+      "sourceBounds": [0, 0, 296, 315],
+      "inkBounds": [67, 162, 190, 271],
+      "scale": 0.41739130434782606,
+      "runtimeInkSize": [51, 45]
+    },
+    {
+      "type": "Air",
+      "stage": "launch",
+      "sourceBounds": [296, 0, 591, 315],
+      "inkBounds": [26, 128, 218, 291],
+      "scale": 0.41739130434782606,
+      "runtimeInkSize": [80, 68]
+    },
+    {
+      "type": "Air",
+      "stage": "travel-a",
+      "sourceBounds": [591, 0, 887, 315],
+      "inkBounds": [32, 171, 232, 269],
+      "scale": 0.41739130434782606,
+      "runtimeInkSize": [83, 41]
+    },
+    {
+      "type": "Air",
+      "stage": "travel-b",
+      "sourceBounds": [887, 0, 1183, 315],
+      "inkBounds": [43, 161, 253, 273],
+      "scale": 0.41739130434782606,
+      "runtimeInkSize": [88, 47]
+    },
+    {
+      "type": "Air",
+      "stage": "impact",
+      "sourceBounds": [1183, 0, 1478, 315],
+      "inkBounds": [45, 111, 275, 299],
+      "scale": 0.41739130434782606,
+      "runtimeInkSize": [96, 78]
+    },
+    {
+      "type": "Air",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 0, 1774, 315],
+      "inkBounds": [88, 155, 248, 273],
+      "scale": 0.41739130434782606,
+      "runtimeInkSize": [67, 49]
+    },
+    {
+      "type": "Spore",
+      "stage": "charge",
+      "sourceBounds": [0, 315, 296, 591],
+      "inkBounds": [64, 97, 196, 202],
+      "scale": 0.41201716738197425,
+      "runtimeInkSize": [54, 43]
+    },
+    {
+      "type": "Spore",
+      "stage": "launch",
+      "sourceBounds": [296, 315, 591, 591],
+      "inkBounds": [19, 59, 215, 220],
+      "scale": 0.41201716738197425,
+      "runtimeInkSize": [81, 66]
+    },
+    {
+      "type": "Spore",
+      "stage": "travel-a",
+      "sourceBounds": [591, 315, 887, 591],
+      "inkBounds": [16, 99, 243, 200],
+      "scale": 0.41201716738197425,
+      "runtimeInkSize": [94, 42]
+    },
+    {
+      "type": "Spore",
+      "stage": "travel-b",
+      "sourceBounds": [887, 315, 1183, 591],
+      "inkBounds": [34, 85, 267, 211],
+      "scale": 0.41201716738197425,
+      "runtimeInkSize": [96, 52]
+    },
+    {
+      "type": "Spore",
+      "stage": "impact",
+      "sourceBounds": [1183, 315, 1478, 591],
+      "inkBounds": [44, 62, 276, 230],
+      "scale": 0.41201716738197425,
+      "runtimeInkSize": [96, 69]
+    },
+    {
+      "type": "Spore",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 315, 1774, 591],
+      "inkBounds": [90, 92, 246, 216],
+      "scale": 0.41201716738197425,
+      "runtimeInkSize": [64, 51]
+    },
+    {
+      "type": "Bloom",
+      "stage": "charge",
+      "sourceBounds": [0, 591, 296, 887],
+      "inkBounds": [63, 62, 196, 176],
+      "scale": 0.42105263157894735,
+      "runtimeInkSize": [56, 48]
+    },
+    {
+      "type": "Bloom",
+      "stage": "launch",
+      "sourceBounds": [296, 591, 591, 887],
+      "inkBounds": [6, 39, 219, 194],
+      "scale": 0.42105263157894735,
+      "runtimeInkSize": [90, 65]
+    },
+    {
+      "type": "Bloom",
+      "stage": "travel-a",
+      "sourceBounds": [591, 591, 887, 887],
+      "inkBounds": [30, 63, 236, 179],
+      "scale": 0.42105263157894735,
+      "runtimeInkSize": [87, 49]
+    },
+    {
+      "type": "Bloom",
+      "stage": "travel-b",
+      "sourceBounds": [887, 591, 1183, 887],
+      "inkBounds": [39, 56, 267, 182],
+      "scale": 0.42105263157894735,
+      "runtimeInkSize": [96, 53]
+    },
+    {
+      "type": "Bloom",
+      "stage": "impact",
+      "sourceBounds": [1183, 591, 1478, 887],
+      "inkBounds": [50, 25, 276, 209],
+      "scale": 0.42105263157894735,
+      "runtimeInkSize": [95, 77]
+    },
+    {
+      "type": "Bloom",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 591, 1774, 887],
+      "inkBounds": [83, 51, 245, 185],
+      "scale": 0.42105263157894735,
+      "runtimeInkSize": [68, 56]
+    },
+    {
+      "type": "Mire",
+      "stage": "charge",
+      "sourceBounds": [0, 0, 296, 296],
+      "inkBounds": [67, 129, 210, 276],
+      "scale": 0.4824120603015075,
+      "runtimeInkSize": [69, 71]
+    },
+    {
+      "type": "Mire",
+      "stage": "launch",
+      "sourceBounds": [296, 0, 591, 296],
+      "inkBounds": [33, 136, 220, 281],
+      "scale": 0.4824120603015075,
+      "runtimeInkSize": [90, 70]
+    },
+    {
+      "type": "Mire",
+      "stage": "travel-a",
+      "sourceBounds": [591, 0, 887, 296],
+      "inkBounds": [51, 164, 223, 254],
+      "scale": 0.4824120603015075,
+      "runtimeInkSize": [83, 43]
+    },
+    {
+      "type": "Mire",
+      "stage": "travel-b",
+      "sourceBounds": [887, 0, 1183, 296],
+      "inkBounds": [47, 157, 246, 267],
+      "scale": 0.4824120603015075,
+      "runtimeInkSize": [96, 53]
+    },
+    {
+      "type": "Mire",
+      "stage": "impact",
+      "sourceBounds": [1183, 0, 1478, 296],
+      "inkBounds": [61, 144, 257, 275],
+      "scale": 0.4824120603015075,
+      "runtimeInkSize": [95, 63]
+    },
+    {
+      "type": "Mire",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 0, 1774, 296],
+      "inkBounds": [78, 160, 236, 271],
+      "scale": 0.4824120603015075,
+      "runtimeInkSize": [76, 54]
+    },
+    {
+      "type": "Sand",
+      "stage": "charge",
+      "sourceBounds": [0, 296, 296, 591],
+      "inkBounds": [75, 100, 208, 235],
+      "scale": 0.46153846153846156,
+      "runtimeInkSize": [61, 62]
+    },
+    {
+      "type": "Sand",
+      "stage": "launch",
+      "sourceBounds": [296, 296, 591, 591],
+      "inkBounds": [29, 100, 213, 236],
+      "scale": 0.46153846153846156,
+      "runtimeInkSize": [85, 63]
+    },
+    {
+      "type": "Sand",
+      "stage": "travel-a",
+      "sourceBounds": [591, 296, 887, 591],
+      "inkBounds": [26, 116, 230, 211],
+      "scale": 0.46153846153846156,
+      "runtimeInkSize": [94, 44]
+    },
+    {
+      "type": "Sand",
+      "stage": "travel-b",
+      "sourceBounds": [887, 296, 1183, 591],
+      "inkBounds": [53, 120, 255, 228],
+      "scale": 0.46153846153846156,
+      "runtimeInkSize": [93, 50]
+    },
+    {
+      "type": "Sand",
+      "stage": "impact",
+      "sourceBounds": [1183, 296, 1478, 591],
+      "inkBounds": [55, 99, 263, 235],
+      "scale": 0.46153846153846156,
+      "runtimeInkSize": [96, 63]
+    },
+    {
+      "type": "Sand",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 296, 1774, 591],
+      "inkBounds": [88, 119, 233, 231],
+      "scale": 0.46153846153846156,
+      "runtimeInkSize": [67, 52]
+    },
+    {
+      "type": "Frost",
+      "stage": "charge",
+      "sourceBounds": [0, 591, 296, 887],
+      "inkBounds": [79, 63, 207, 199],
+      "scale": 0.46601941747572817,
+      "runtimeInkSize": [60, 63]
+    },
+    {
+      "type": "Frost",
+      "stage": "launch",
+      "sourceBounds": [296, 591, 591, 887],
+      "inkBounds": [42, 56, 208, 206],
+      "scale": 0.46601941747572817,
+      "runtimeInkSize": [77, 70]
+    },
+    {
+      "type": "Frost",
+      "stage": "travel-a",
+      "sourceBounds": [591, 591, 887, 887],
+      "inkBounds": [40, 83, 239, 178],
+      "scale": 0.46601941747572817,
+      "runtimeInkSize": [93, 44]
+    },
+    {
+      "type": "Frost",
+      "stage": "travel-b",
+      "sourceBounds": [887, 591, 1183, 887],
+      "inkBounds": [60, 78, 253, 195],
+      "scale": 0.46601941747572817,
+      "runtimeInkSize": [90, 55]
+    },
+    {
+      "type": "Frost",
+      "stage": "impact",
+      "sourceBounds": [1183, 591, 1478, 887],
+      "inkBounds": [61, 64, 267, 202],
+      "scale": 0.46601941747572817,
+      "runtimeInkSize": [96, 64]
+    },
+    {
+      "type": "Frost",
+      "stage": "dissolve",
+      "sourceBounds": [1478, 591, 1774, 887],
+      "inkBounds": [93, 82, 228, 198],
+      "scale": 0.46601941747572817,
+      "runtimeInkSize": [63, 54]
+    }
+  ]
+}

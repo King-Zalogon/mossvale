@@ -1,3 +1,4 @@
+import {drawElementalEffect} from '../render/elemental-effects.js';
 /* Battle panel rendering. Presentation only: all rules are in domain/battle.js. */
 import {species} from '../data/species.js';
 import {regions} from '../data/regions.js';
@@ -113,6 +114,10 @@ export function createBattleView(app) {
     const focus = snap?.focus ?? b.focus;
     const calm = app.motionReduced();
     const orbState = fx?.orb ?? null;
+    const allyElement = animation === 'element' || animation === 'element-windup';
+    const enemyElement = animation === 'enemy-element' || animation === 'enemy-element-windup';
+    const allyHit = animation === 'enemy' || animation === 'enemy-element';
+    const enemyHit = animation === 'attack' || animation === 'element';
     const continuing = shown.battle === b && shown.active === active;
     const fromMine = continuing ? shown.mine : hpPercent(mineHp, maxHP(save, active));
     const fromEnemy = shown.battle === b ? shown.enemy : hpPercent(enemyHp, b.max);
@@ -145,29 +150,32 @@ export function createBattleView(app) {
         : '';
     openModal(
       ui,
-      `${header(b.boss ? 'SHRINE GUARDIAN' : 'WILD ENCOUNTER', b.boss ? 'A shrine begins to stir.' : s.name + ' crossed your path.', false)}<div class="battle-top"><span>Focus <b aria-label="${focus} of ${FOCUS_MAX} focus">${pips}</b> · ${a.type} ${eff > 1 ? 'is strong against' : eff < 1 ? 'is weaker against' : 'meets'} ${s.type}</span><span class="${b.boss ? 'boss-label' : ''}">${b.boss ? regions[save.region].seal : 'Turn ' + (b.turn + 1)}</span></div><div class="battle-scene${guardianTransforming ? ' guardian-transforming' : ''}${!calm && fx?.shake ? ' shake-' + fx.shake : ''}"><div class="fighter"><canvas id="fight-buddy" class="${animation === 'attack' ? 'attack' : animation === 'element' ? 'element' : animation === 'enemy' ? 'hit' : animation === 'victory' && !calm ? 'victory' : ''}" width="160" height="145"></canvas>${popMarkup(fx, 'ally')}<div class="name-line">${a.name} · Lv. ${level(save, active)}</div>${bar(fromMine, toMine, a.color)}<small>${mineHp} / ${maxHP(save, active)} HP</small></div><div class="fighter"><canvas id="fight-wild" class="${animation === 'attack' || animation === 'element' ? 'hit' : animation === 'capture' ? 'catching' : ''}${guardianTransforming ? ' guardian-form-hidden' : ''}${orbState && orbState !== 'throw' && orbState !== 'break' ? ' inside-orb' : ''}${orbState === 'break' ? ' pop-out' : ''}${animation === 'victory' ? ' foe-out' : ''}" width="160" height="145"></canvas>${popMarkup(fx, 'enemy')}${!calm && fx?.burst === 'enemy' ? burstMarkup(a.color) : ''}${!calm && fx?.burst === 'stars' ? burstMarkup('#ffe27a') : ''}${orbState && !(calm && orbState === 'break') ? orbMarkup(orbState) : ''}<div class="name-line">${s.name} · Lv. ${b.level}</div><small class="capture-status">${(snap?.befriended ?? save.caught.includes(b.id)) ? '✓ Already befriended' : 'Not yet befriended'}</small>${bar(fromEnemy, toEnemy, s.color)}<small>${enemyHp} / ${b.max} HP</small></div></div>${guardianTransforming ? '<div class="guardian-reveal" role="status" aria-live="polite">The shrine guardian is awakening…</div>' : ''}<div class="battle-log" role="status" aria-live="polite">${message}</div>${objectiveMarkup}${relay ? `<div class="battle-intent" role="status">${relay}</div>` : ''}${forecastMarkup}<div class="battle-actions">${button('attack', '1 · Quick strike', `Reliable damage · +${FOCUS_GAIN} Focus`, b.busy || guardianTransforming)}${button('element', '2 · ' + moveName(save, active), `${eff > 1 ? 'Super effective!' : eff < 1 ? 'Less effective' : 'Elemental attack'} · costs ${ELEMENT_COST} Focus`, b.busy || guardianTransforming || focus < ELEMENT_COST)}${button('setup', '3 · Prepare relay', `Spend ${RELAY_FOCUS_COST} Focus; switching empowers the next move`, b.busy || guardianTransforming || focus < RELAY_FOCUS_COST || !!b.condition || b.relayReady || save.party.filter(i => i !== active && companion(save, i).hp > 0).length === 0)}${button('objective', '4 · Complete objective', b.objective?.status === 'ready' ? 'Commit the authored reward' : b.objective ? `${b.objective.turns - b.objective.progress} turns remaining` : 'No objective', b.busy || guardianTransforming || b.objective?.status !== 'ready')}${button('catch', '5 · Capture orb', b.boss ? 'Guardians cannot be caught' : Math.round(captureChance(save, b) * 100) + '% chance · ' + save.orbs + ' left', b.busy || guardianTransforming || b.boss || save.orbs === 0, 'capture-button')}${button('potion', '6 · Potion', potionDetail, b.busy || guardianTransforming || potionCount === 0 || mineHp === maxHP(save, active))}${button('guard', '7 · Guard', `Take ${Math.round((1 - GUARD_FACTOR) * 100)}% less next hit${tactic?.guardRiposteFactor ? ' · counter heavy blows' : ''} · +${FOCUS_GAIN} Focus`, b.busy || guardianTransforming)}${button('switch', '8 · Switch friend', 'Choose a companion', b.busy || guardianTransforming || save.party.filter(i => companion(save, i).hp > 0).length < 2)}</div><div class="battle-subactions"><button id="flee" ${b.busy || guardianTransforming ? 'disabled' : ''}>Leave encounter <kbd>Esc</kbd></button><span>${b.boss ? 'Win to awaken the shrine' : 'Weaken it before you catch it'}</span></div>`,
+      `${header(b.boss ? 'SHRINE GUARDIAN' : 'WILD ENCOUNTER', b.boss ? 'A shrine begins to stir.' : s.name + ' crossed your path.', false)}<div class="battle-top"><span>Focus <b aria-label="${focus} of ${FOCUS_MAX} focus">${pips}</b> · ${a.type} ${eff > 1 ? 'is strong against' : eff < 1 ? 'is weaker against' : 'meets'} ${s.type}</span><span class="${b.boss ? 'boss-label' : ''}">${b.boss ? regions[save.region].seal : 'Turn ' + (b.turn + 1)}</span></div><div class="battle-scene${guardianTransforming ? ' guardian-transforming' : ''}${!calm && fx?.shake ? ' shake-' + fx.shake : ''}"><div class="fighter"><canvas id="fight-buddy" class="${animation === 'attack' ? 'attack' : allyElement ? 'element' : allyHit ? 'hit' : animation === 'victory' && !calm ? 'victory' : ''}" width="160" height="145"></canvas>${popMarkup(fx, 'ally')}<div class="name-line">${a.name} · Lv. ${level(save, active)}</div>${bar(fromMine, toMine, a.color)}<small>${mineHp} / ${maxHP(save, active)} HP</small></div><div class="fighter"><canvas id="fight-wild" class="${enemyHit ? 'hit' : enemyElement ? 'element enemy-element' : animation === 'capture' ? 'catching' : ''}${guardianTransforming ? ' guardian-form-hidden' : ''}${orbState && orbState !== 'throw' && orbState !== 'break' ? ' inside-orb' : ''}${orbState === 'break' ? ' pop-out' : ''}${animation === 'victory' ? ' foe-out' : ''}" width="160" height="145"></canvas>${popMarkup(fx, 'enemy')}${!calm && fx?.burst === 'stars' ? burstMarkup('#ffe27a') : ''}${orbState && !(calm && orbState === 'break') ? orbMarkup(orbState) : ''}<div class="name-line">${s.name} · Lv. ${b.level}</div><small class="capture-status">${(snap?.befriended ?? save.caught.includes(b.id)) ? '✓ Already befriended' : 'Not yet befriended'}</small>${bar(fromEnemy, toEnemy, s.color)}<small>${enemyHp} / ${b.max} HP</small></div>${fx?.elemental ? '<canvas class="elemental-effect" aria-hidden="true"></canvas>' : ''}</div>${guardianTransforming ? '<div class="guardian-reveal" role="status" aria-live="polite">The shrine guardian is awakening…</div>' : ''}<div class="battle-log" role="status" aria-live="polite">${message}</div>${objectiveMarkup}${relay ? `<div class="battle-intent" role="status">${relay}</div>` : ''}${forecastMarkup}<div class="battle-actions">${button('attack', '1 · Quick strike', `Reliable damage · +${FOCUS_GAIN} Focus`, b.busy || guardianTransforming)}${button('element', '2 · ' + moveName(save, active), `${eff > 1 ? 'Super effective!' : eff < 1 ? 'Less effective' : 'Elemental attack'} · costs ${ELEMENT_COST} Focus`, b.busy || guardianTransforming || focus < ELEMENT_COST)}${button('setup', '3 · Prepare relay', `Spend ${RELAY_FOCUS_COST} Focus; switching empowers the next move`, b.busy || guardianTransforming || focus < RELAY_FOCUS_COST || !!b.condition || b.relayReady || save.party.filter(i => i !== active && companion(save, i).hp > 0).length === 0)}${button('objective', '4 · Complete objective', b.objective?.status === 'ready' ? 'Commit the authored reward' : b.objective ? `${b.objective.turns - b.objective.progress} turns remaining` : 'No objective', b.busy || guardianTransforming || b.objective?.status !== 'ready')}${button('catch', '5 · Capture orb', b.boss ? 'Guardians cannot be caught' : Math.round(captureChance(save, b) * 100) + '% chance · ' + save.orbs + ' left', b.busy || guardianTransforming || b.boss || save.orbs === 0, 'capture-button')}${button('potion', '6 · Potion', potionDetail, b.busy || guardianTransforming || potionCount === 0 || mineHp === maxHP(save, active))}${button('guard', '7 · Guard', `Take ${Math.round((1 - GUARD_FACTOR) * 100)}% less next hit${tactic?.guardRiposteFactor ? ' · counter heavy blows' : ''} · +${FOCUS_GAIN} Focus`, b.busy || guardianTransforming)}${button('switch', '8 · Switch friend', 'Choose a companion', b.busy || guardianTransforming || save.party.filter(i => companion(save, i).hp > 0).length < 2)}</div><div class="battle-subactions"><button id="flee" ${b.busy || guardianTransforming ? 'disabled' : ''}>Leave encounter <kbd>Esc</kbd></button><span>${b.boss ? 'Win to awaken the shrine' : 'Weaken it before you catch it'}</span></div>`,
       'battle',
       s.name + ' encounter',
     );
-    const allyState = mineHp <= 0 ? 'faint' : animation === 'element' ? 'element' : animation === 'attack' ? 'attack' : animation === 'enemy' ? 'hit' : 'idle';
+    const allyState = mineHp <= 0 ? 'faint' : allyElement ? 'element' : animation === 'attack' ? 'attack' : allyHit ? 'hit' : 'idle';
     const enemyState =
       animation === 'victory'
         ? 'faint'
         : animation === 'capture'
           ? 'capture'
-          : animation === 'enemy'
-            ? 'attack'
-            : animation === 'attack' || animation === 'element'
-              ? enemyHp <= 0
-                ? 'faint'
-                : 'hit'
-              : 'idle';
+          : enemyElement
+            ? 'element'
+            : animation === 'enemy'
+              ? 'attack'
+              : enemyHit
+                ? enemyHp <= 0
+                  ? 'faint'
+                  : 'hit'
+                : 'idle';
     if (!calm) {
       void $('#modal').offsetWidth; // commit the starting widths so the transition runs
       for (const el of document.querySelectorAll('.battle-scene .bar i, .battle-scene .bar b')) el.style.width = el.dataset.to + '%';
     }
     drawCreatureAnimated($('#fight-buddy'), active, 107, allyState, app.motionReduced());
     drawCreatureAnimated($('#fight-wild'), b.id, 107, enemyState, app.motionReduced(), guardianTransforming ? undefined : guardianSprite);
+    if (fx?.elemental) drawElementalEffect($('.elemental-effect'), fx.elemental, calm);
     for (const id of ['attack', 'element', 'setup', 'objective', 'catch', 'potion', 'guard']) $('#' + id).onclick = () => actions.battleAction(id);
     $('#switch').onclick = actions.party;
     $('#flee').onclick = actions.flee;

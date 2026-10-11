@@ -5061,37 +5061,55 @@
       "id": "mechanic:elemental-combat-presentation",
       "kind": "mechanic",
       "name": "Elemental combat presentation",
-      "summary": "Show a distinct, type-colored elemental burst when a companion uses its special move.",
+      "summary": "Send recognizable elemental material toward the opponent and reveal damage at impact, for either side.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
       "limits": [
-        "The burst reuses the optional five-state combat atlas and falls back to the static portrait when a pack has no combat sheet.",
-        "It does not change damage, timing, saves or battle outcomes."
+        "Covers the twelve registered display-name elements; custom elements or unavailable optional effects use an explicit neutral directional fallback.",
+        "Reuses optional five-state creature combat atlases or static portraits. Normal action duration, damage, saves, RNG and rewards are unchanged.",
+        "Calm motion shows one static material-specific impact without travel or camera shake. Internal art review does not imply owner taste approval."
       ],
       "examples": [
         {
-          "intent": "Use the companion's elemental move during a battle.",
-          "usage": "Reuse the existing Element action; the presentation derives its color from the companion type.",
-          "expected": "The ally uses the elemental motion and a type-colored burst while the enemy receives the normal hit reaction."
+          "intent": "Use a Fire companion elemental move in an encounter.",
+          "usage": "Use the existing Element action with a species whose canonical type is Fire.",
+          "expected": "A tapered fireball travels from attacker to rival, then flames and damage appear at contact."
+        },
+        {
+          "intent": "Author a Spark enemy in an optional pack.",
+          "usage": "Use the canonical Spark display-name type on the authored species; keep the existing creature atlas contract.",
+          "expected": "A branching lightning bolt connects enemy to ally in the mirrored direction; ally HP updates at contact."
         }
       ],
-      "references": ["dist/src/controller.js", "dist/src/render/sprites.js", "dist/src/ui/battle-view.js"],
+      "references": [
+        "docs/ELEMENTAL_ATTACKS.md",
+        "dist/src/controller.js",
+        "dist/src/ui/elemental-beats.js",
+        "dist/src/render/elemental-effects.js",
+        "dist/src/ui/battle-view.js",
+        "art/effects/SOURCES.md",
+        "art/effects/metadata.json"
+      ],
       "evidence": [
         {
-          "path": "tests/creature-combat.browser.mjs",
-          "assertion": "Battle playback distinguishes Quick strike and Element, and reduced motion pins the elemental presentation to one frame."
+          "path": "tests/elemental-effects.browser.mjs",
+          "assertion": "Exercises all twelve elements in actual battles on both sides with normal/reduced motion, contact timing, legacy fallback, landscape bounds and cancellation."
+        },
+        {
+          "path": "tests/elemental-effects.test.mjs",
+          "assertion": "Covers canonical element mapping, unchanged beat durations, pre-contact HP/audio, mirroring and clamped geometry."
         }
       ],
       "details": {
-        "trigger": "A resolved battle action with kind element.",
-        "inputs": "The existing companion type and optional five-state combat atlas.",
-        "sequence": "Render the attack row with a deterministic expanding type-colored burst and the elemental lunge motion.",
-        "results": "The ally's elemental move reads differently from Quick strike while the enemy receives the normal hit reaction.",
-        "cancellation": "The existing animation cancellation replaces the effect when the battle view changes.",
-        "errors": "Packs without combat atlases fall back to the static portrait; unsupported types use the shared green fallback color.",
-        "persistence": "Presentation-only; battle rules and saved outcomes are unchanged."
+        "trigger": "A resolved ally Element strike or damaging enemy elemental action.",
+        "inputs": "Canonical species type display-name, resolved event, pre-hit snapshot, optional six-pose effect atlas and existing creature attack pose.",
+        "sequence": "Normal 650 ms ally or 700 ms enemy beat: prepare, directed travel, contact/dissolve. Reveal HP, damage text, pops, target recoil and audio only at contact. Calm motion uses one 250 ms static impact.",
+        "results": "Leaf blades, water splash, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost use distinct authored silhouettes/materials.",
+        "cancellation": "Effects stop when their battle canvas disconnects or is replaced; existing timeline flush skips to already-resolved state.",
+        "errors": "Missing optional effect atlas or unsupported custom type uses a neutral directional mark; missing creature combat sheet uses the existing static portrait.",
+        "persistence": "Presentation only; no changes to rule formulas, RNG draws, save schema, committed damage or rewards."
       }
     },
     {
@@ -17335,6 +17353,89 @@
         {
           "path": "dist/assets/creatures/creature-voltkit-follower.png",
           "description": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal."
+        }
+      ]
+    },
+    {
+      "id": "visual:effect-elemental-materials",
+      "kind": "visual",
+      "name": "effect-elemental-materials",
+      "summary": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "effect-elemental-materials",
+            "kind": "prop",
+            "src": "assets/props/effect-elemental-materials.png",
+            "w": 768,
+            "h": 1536,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 6,
+              "rows": 12,
+              "frameWidth": 128,
+              "frameHeight": 128,
+              "rowOrder": ["Leaf", "Water", "Stone", "Fire", "Ice", "Spark", "Air", "Spore", "Bloom", "Mire", "Sand", "Frost"],
+              "columnOrder": ["charge", "launch", "travel-a", "travel-b", "impact", "dissolve"],
+              "effectPivots": [
+                [95, 87, 95.5, 89, 81.5, 90],
+                [91.5, 91.5, 101.5, 100.5, 86, 94],
+                [92, 85, 100, 94.5, 85.5, 96],
+                [103.5, 93, 101.5, 98, 85, 94],
+                [98, 90.5, 94, 95, 78.5, 89],
+                [102.5, 95.5, 98, 93.5, 85.5, 96],
+                [99.5, 88, 101.5, 98.5, 83, 97.5],
+                [100.5, 89, 101, 96, 87.5, 96.5],
+                [98, 89.5, 97.5, 95.5, 83.5, 94],
+                [86.5, 87, 100.5, 95.5, 90.5, 95],
+                [91, 90.5, 100, 97, 90.5, 96],
+                [90.5, 87, 100, 94.5, 90, 95]
+              ],
+              "defaultFrame": {
+                "column": 4,
+                "row": 0
+              }
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost.",
+          "usage": "Reference effect-elemental-materials in the existing format at dist/src/data/assets.js.",
+          "expected": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "768 by 1536 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "Leaf, Water, Stone, Fire, Ice, Spark, Air, Spore, Bloom, Mire, Sand, Frost materials; charge, launch, travel-a, travel-b, impact, dissolve poses; renderer mirrors enemy travel.",
+        "compatibleUses": "Asset effect-elemental-materials is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/effect-elemental-materials.png",
+          "description": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost."
         }
       ]
     },

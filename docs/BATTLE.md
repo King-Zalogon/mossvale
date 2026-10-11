@@ -53,3 +53,7 @@ Capture presentation keeps the pre-throw befriended label throughout the throw a
 
 Capture also defers the visible HUD friend count, coin/XP rewards, quest progress and new-goal notices until the orb settles or breaks. Save transactions and objective events still commit immediately, so reload safety is unchanged.
  The battle panel likewise uses a pre-throw presentation snapshot for ally level, max HP and move/capture information, so capture XP cannot announce a level-up during a wobble.
+
+## Elemental material presentation
+
+Both sides use [the twelve-element attack design](ELEMENTAL_ATTACKS.md). Optional `effect-elemental-materials` supplies six isolated poses per canonical type display-name. Element uses preparation, directed travel and impact within the previous 650 ms ally / 700 ms enemy action window; HP, damage numbers and contact audio appear at impact. Reduced motion pins one material-specific impact for 250 ms. Existing five-state creature sheets and static portraits remain compatible. Missing effect art or custom type names use a neutral directional fallback. This presentation does not change resolution, RNG, saves or rewards.

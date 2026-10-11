@@ -95,10 +95,12 @@ export function collectFacts() {
           ? combat.frameOrder.join(', ')
           : asset.name === 'person-red-cap-motion'
             ? 'Player idle and walking frames; see character preview and metadata.'
-            : 'No animation states declared for this static image.',
+            : asset.name === 'effect-elemental-materials'
+              ? `${asset.frames.rowOrder.join(', ')} materials; ${asset.frames.columnOrder.join(', ')} poses; renderer mirrors enemy travel.`
+              : 'No animation states declared for this static image.',
       evidence: 'tests/assets.test.mjs',
       preview,
-      animationMetadata: follower ? follower : (battle ?? null),
+      animationMetadata: follower ? follower : (battle ?? (asset.name === 'effect-elemental-materials' ? asset.frames : null)),
       identity: subject?.identity ?? null,
       review: visualReviews.subjects.filter(value => value.asset === asset.name).map(value => value.visual),
       characterMetadata: asset.kind === 'person' || asset.name.startsWith('person-') ? characterMetadata : null,
