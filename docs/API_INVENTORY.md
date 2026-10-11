@@ -68,6 +68,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `main.js` | root | — |
 | `map-editor.js` | root | — |
 | `render/battle-art.js` | render | `guardianCombatSprite` |
+| `render/chest-art.js` | render | `chestPairs`, `chestSprite` |
 | `render/elemental-effects.js` | render | `drawElementalEffect`, `effectPose` |
 | `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
 | `render/terrain.js` | render | `createTerrainPainter`, `mix`, `patchNoise`, `terrainColors` |
