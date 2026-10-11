@@ -64,7 +64,7 @@ All assets use `bottom-center` anchors. World objects set their deliberate appar
 
 See [ART_REVIEW.md](ART_REVIEW.md) for stable identity records, source hashes, versioned category export profiles, contact sheets, and separate technical and visual review. Player motion, NPC turnarounds, creature portraits, combat sheets and follower sheets have export profiles and regression coverage. All 18 active species have combat and directional sheets. Visual taste and gameplay acceptance remain owner review items; terrain-transition art remains pending because no terrain sprite family has been authored.
 
-Rights and attribution for distribution are tracked separately (deferred in the roadmap).
+Rights and attribution for distribution are tracked separately. The curated external reference library under `art/assets/third-party/` keeps source pages, exact terms, source hashes and suitability notes with each pack. [AndHeGames' CC0 creature concept sheets](../art/assets/third-party/andhegames-creatures/index.html) are a local reference-only collection; they are not registered runtime assets or approved Mossvale art. Run `npm run art:check` to verify their license metadata, source hashes, dimensions and local index coverage.
 
 Four optional transformed combat sheets are documented in [guardian battle forms](GUARDIAN_COMBAT_FORMS.md). Each has a dedicated stable appearance ID, generated source, 4×5 frame metadata and an exact editable crop in `art/assets/source/creature-forms-atlas.png`. Shrine-specific pack mappings do not change the normal species artwork.
 
