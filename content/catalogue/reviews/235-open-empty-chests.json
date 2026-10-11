@@ -21,11 +21,12 @@
         "art/assets/reviews/235/meadow-open.png",
         "art/assets/reviews/235/frostveil-pass-open.png",
         "art/assets/reviews/235/meadow-closed.png",
-        "art/characters/visual-reviews.json"
+        "art/characters/visual-reviews.json",
+        "tests/catalogue-browser.browser.mjs"
       ],
       "entries": ["visual:chest-wooden", "visual:chest-wooden-open-empty"],
       "disposition": "updated",
-      "reason": "Adds an opaque empty counterpart for the existing wooden chest. World and minimap read the same persisted landmark flag as claimChest, including independent caches; reward presentation shows the open state. No reward rules, save format or biome variants change. Generation and pixel-preserving source exports are documented; visual catalogue is regenerated. Refreshes only reviewed shared-manifest hashes; existing character artwork and review decisions remain unchanged.",
+      "reason": "Adds an opaque empty counterpart for the existing wooden chest. World and minimap read the same persisted landmark flag as claimChest, including independent caches; reward presentation shows the open state. No reward rules, save format or biome variants change. Generation and pixel-preserving source exports are documented; visual catalogue is regenerated. Refreshes only reviewed shared-manifest hashes; existing character artwork and review decisions remain unchanged. Fixes a pre-existing catalogue browser regression that assumed clipboard failure, verifying both permitted copy and explicit fallback without changing catalogue behavior.",
       "evidence": [
         "tests/chest-state.browser.mjs",
         "tests/economy.test.mjs",
