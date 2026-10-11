@@ -187,3 +187,7 @@ Integration refresh included PR #314 Lanternix. Its retained source also crossed
 ## #173 — directed elemental attack materials
 
 Claimed `codex/173-elemental-projectiles` from origin/main 88248ec, synchronized with origin/integration 0aa7be1. Owner authorized completion. All twelve briefs are internally reviewed in docs/ELEMENTAL_ATTACKS.md before sprite generation. Both sides use registered pack species types, with shared preparation/travel/contact beats, unchanged 650/700 ms round timing and a static calm pose. No creature identity or five-state sheet is replaced. New effect sources, exports, contact-scale evidence and local verification accompany an integration-only PR.
+
+## #337 — biome chest pairs
+
+Codex claim: `codex/337-biome-chests`, created from latest `origin/main` `1c1c984` then synchronized with `origin/integration` `df15a10`. Keep Meadow's accepted wooden pair; add wetland reed/rope, badlands red stone/iron and snowy pine/cold-metal closed/open-empty pairs. Retain generation references and editable/export metadata, integrate named state pairs through the existing renderer, provide labeled actual-scale/context review and extend persistence/anchor/asset regressions. No save/reward rules, production deployment or main promotion. Final verification and integration-only PR pending.

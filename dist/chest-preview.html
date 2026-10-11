@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mossvale — biome treasure chests</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font:
+          16px system-ui,
+          sans-serif;
+        background: #102d28;
+        color: #edf2d1;
+      }
+      body {
+        max-width: 1100px;
+        margin: auto;
+        padding: 24px;
+      }
+      a {
+        color: #d4e598;
+      }
+      h1 {
+        margin-bottom: 8px;
+      }
+      #comparison {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        padding: 16px;
+        background: #193a30;
+      }
+      article {
+        border: 1px solid #577263;
+        border-radius: 12px;
+        padding: 16px;
+      }
+      h2 {
+        font-size: 1.1rem;
+      }
+      #comparison h2 {
+        min-height: 48px;
+      }
+      .poses {
+        display: flex;
+        align-items: flex-end;
+        gap: 24px;
+        min-height: 80px;
+      }
+      figure {
+        margin: 0;
+        text-align: center;
+      }
+      .poses img {
+        display: block;
+        margin: auto;
+        image-rendering: pixelated;
+        width: 44px;
+        max-width: none;
+      }
+      .poses .player {
+        width: 36px;
+      }
+      figcaption {
+        font-size: 12px;
+        margin-top: 8px;
+      }
+      .contexts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .contexts img {
+        width: 100%;
+        height: auto;
+        image-rendering: pixelated;
+      }
+      @media (max-width: 600px) {
+        .contexts {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="testing.html">← Testing URLs</a>
+    <h1>Biome treasure chests</h1>
+    <p>
+      Static closed and open/empty pairs, northwest light and bottom-center ground anchors. Widths below are authored gameplay widths: chest 44px, player 36px.
+      Map captures show the actual renderer's zoom and surroundings.
+    </p>
+    <section id="comparison" aria-label="Labeled gameplay-scale chest pairs"></section>
+    <h2>In-map review</h2>
+    <p>
+      Closed and claimed captures come from real interactions; reload and repeated interaction are covered by the chest regression. Images record this artwork
+      revision, not your current save.
+    </p>
+    <section id="contexts" aria-label="Chest map contexts"></section>
+    <script type="module">
+      import {chestPairs} from './src/render/chest-art.js';
+      const labels = ['Meadow · oak and brass', 'Wetlands · reed and rope', 'Badlands · sandstone and iron', 'Snowy forest · pine and frost'];
+      const maps = ['meadow', 'reedfen-wetlands', 'stilt-isles', 'stone-basin', 'amber-ridge', 'frostveil-grove', 'frostveil-pass'];
+      for (const [index, [closed, open]] of Object.entries(chestPairs).entries()) {
+        const article = document.createElement('article');
+        article.innerHTML = `<h2>${labels[index]}</h2><div class="poses"><figure><img data-chest-pose src="assets/props/${closed}.png" alt="${labels[index]} closed chest"><figcaption>Closed</figcaption></figure><figure><img data-chest-pose src="assets/props/${open}.png" alt="${labels[index]} open and empty chest"><figcaption>Empty</figcaption></figure><figure><img class="player" src="assets/people/person-red-cap-south.png" alt="Player scale reference"><figcaption>Player</figcaption></figure></div>`;
+        document.querySelector('#comparison').append(article);
+      }
+      for (const map of maps) {
+        const article = document.createElement('article');
+        article.innerHTML = `<h2>${map}</h2><div class="contexts">${['closed', 'open'].map(state => `<figure><img data-map-context src="reviews/chests/${map}-${state}.png" alt="${map}: ${state === 'closed' ? 'unclaimed closed' : 'claimed empty'} chest at normal game zoom"><figcaption>${state === 'closed' ? 'Before claiming' : 'After claiming'}</figcaption></figure>`).join('')}</div>`;
+        document.querySelector('#contexts').append(article);
+      }
+    </script>
+  </body>
+</html>

@@ -891,6 +891,36 @@ export const assets = [
     },
   },
   {name: 'chest-wooden-open-empty', kind: 'prop', src: 'assets/props/chest-wooden-open-empty.png', w: 343, h: 330, anchor: 'bottom-center', required: true},
+  {name: 'chest-reed-rope', kind: 'prop', src: 'assets/props/chest-reed-rope.png', w: 343, h: 293, anchor: 'bottom-center', required: true},
+  {
+    name: 'chest-reed-rope-open-empty',
+    kind: 'prop',
+    src: 'assets/props/chest-reed-rope-open-empty.png',
+    w: 343,
+    h: 331,
+    anchor: 'bottom-center',
+    required: true,
+  },
+  {name: 'chest-sandstone-iron', kind: 'prop', src: 'assets/props/chest-sandstone-iron.png', w: 343, h: 279, anchor: 'bottom-center', required: true},
+  {
+    name: 'chest-sandstone-iron-open-empty',
+    kind: 'prop',
+    src: 'assets/props/chest-sandstone-iron-open-empty.png',
+    w: 343,
+    h: 358,
+    anchor: 'bottom-center',
+    required: true,
+  },
+  {name: 'chest-pine-frost', kind: 'prop', src: 'assets/props/chest-pine-frost.png', w: 343, h: 309, anchor: 'bottom-center', required: true},
+  {
+    name: 'chest-pine-frost-open-empty',
+    kind: 'prop',
+    src: 'assets/props/chest-pine-frost-open-empty.png',
+    w: 343,
+    h: 348,
+    anchor: 'bottom-center',
+    required: true,
+  },
 ];
 
 /** Index of an asset by name; used by content that refers to art (species, regions, direction sprites). Throws on a typo. */

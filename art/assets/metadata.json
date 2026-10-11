@@ -68,6 +68,36 @@
       "width": 343,
       "height": 330,
       "mode": "RGBA"
+    },
+    "source/chests/biomes/reed-rope-closed.png": {
+      "width": 343,
+      "height": 293,
+      "mode": "RGBA"
+    },
+    "source/chests/biomes/reed-rope-open-empty.png": {
+      "width": 343,
+      "height": 331,
+      "mode": "RGBA"
+    },
+    "source/chests/biomes/sandstone-iron-closed.png": {
+      "width": 343,
+      "height": 279,
+      "mode": "RGBA"
+    },
+    "source/chests/biomes/sandstone-iron-open-empty.png": {
+      "width": 343,
+      "height": 358,
+      "mode": "RGBA"
+    },
+    "source/chests/biomes/pine-frost-closed.png": {
+      "width": 343,
+      "height": 309,
+      "mode": "RGBA"
+    },
+    "source/chests/biomes/pine-frost-open-empty.png": {
+      "width": 343,
+      "height": 348,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -3322,6 +3352,168 @@
         "id": "prop-static-v1",
         "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
       }
+    },
+    {
+      "name": "chest-reed-rope",
+      "src": "assets/props/chest-reed-rope.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 293,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/reed-rope-closed.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/reed-rope-closed.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/reed-rope.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Unclaimed closed pose."
+    },
+    {
+      "name": "chest-reed-rope-open-empty",
+      "src": "assets/props/chest-reed-rope-open-empty.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 331,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/reed-rope-open-empty.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/reed-rope-open-empty.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/reed-rope.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Raised lid and completely empty interior."
+    },
+    {
+      "name": "chest-sandstone-iron",
+      "src": "assets/props/chest-sandstone-iron.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 279,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/sandstone-iron-closed.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/sandstone-iron-closed.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/sandstone-iron.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Unclaimed closed pose."
+    },
+    {
+      "name": "chest-sandstone-iron-open-empty",
+      "src": "assets/props/chest-sandstone-iron-open-empty.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 358,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/sandstone-iron-open-empty.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/sandstone-iron-open-empty.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/sandstone-iron.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Raised lid and completely empty interior."
+    },
+    {
+      "name": "chest-pine-frost",
+      "src": "assets/props/chest-pine-frost.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 309,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/pine-frost-closed.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/pine-frost-closed.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/pine-frost.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Unclaimed closed pose."
+    },
+    {
+      "name": "chest-pine-frost-open-empty",
+      "src": "assets/props/chest-pine-frost-open-empty.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 348,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/pine-frost-open-empty.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/pine-frost-open-empty.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/pine-frost.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Raised lid and completely empty interior."
     }
   ]
 }
