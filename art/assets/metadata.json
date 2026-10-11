@@ -63,6 +63,11 @@
       "width": 768,
       "height": 1536,
       "mode": "RGBA"
+    },
+    "source/chests/open-empty.png": {
+      "width": 343,
+      "height": 330,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -3286,6 +3291,32 @@
         "editablePixelSource": "art/assets/source atlas cell",
         "originalGeneratedReferences": [],
         "originalGenerationSourceAvailable": false
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "chest-wooden-open-empty",
+      "src": "assets/props/chest-wooden-open-empty.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 330,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/open-empty.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/open-empty.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/open-empty.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
       },
       "exportProfile": {
         "id": "prop-static-v1",

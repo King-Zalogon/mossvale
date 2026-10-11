@@ -464,7 +464,7 @@ export function createController(app) {
       showResult({
         title: 'A little trail treasure',
         copy: 'Something useful for the road ahead.',
-        sprite: spriteId('chest-wooden'),
+        sprite: spriteId('chest-wooden-open-empty'),
         rewards: [`${got.coins} coins`, `${got.potions} potions`, `${got.orbs} capture orbs`],
         button: 'Keep exploring',
         onContinue: () => (close(), checkEnding()),

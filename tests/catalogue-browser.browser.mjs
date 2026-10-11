@@ -39,6 +39,7 @@ try {
   });
   await page.goto(`http://127.0.0.1:${server.address().port}/`);
   const origin = `http://127.0.0.1:${server.address().port}`;
+  await page.context().grantPermissions(['clipboard-read', 'clipboard-write'], {origin});
   assert.equal((await page.request.get(`${origin}/fiche?id=actor%3Anot-a-visual`)).status(), 404);
   assert.equal((await page.request.get(`${origin}/asset?path=docs%2FFEEDBACK.md`)).status(), 404);
   assert.equal((await page.request.get(`${origin}/asset?path=${encodeURIComponent(referenceAssets[0].preview.path)}`)).status(), 200);

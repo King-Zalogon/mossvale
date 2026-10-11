@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-88 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+116 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -49,6 +49,10 @@ npm run validate
 ```
 
 ## Subject identity and provenance
+
+### Chest claimed state
+
+One-time chests use `chest-wooden` before claiming and the opaque `chest-wooden-open-empty` afterward, including the reward result image. The renderer and minimap consult the same landmark flag as `claimChest`; independent side caches do not borrow a region's chest state. Existing saves need no migration. Both poses use the same world width and bottom-center anchor; the open sprite is 343×330, with a lifted lid and no contents. [Source and export notes](../art/assets/source/chests/README.md) document the generated reference and reproducible pixel export. `tests/chest-state.browser.mjs` covers unopened, claimed, reload and repeated interaction states. Biome-specific variants remain separate (#337).
 
 `art/assets/subjects.json` gives stable visual IDs and explicit revisions to the player and all eighteen creatures. Each record describes the visible silhouette, palette and distinguishing features; hashes the canonical reference and exported runtime file; and records the source batches, references and export workflow. The validator checks these hashes and verifies that asset IDs, source-atlas cells, directions and batch outputs still resolve to the manifest. A changed identity needs a reviewed new revision; a retry or sibling frame must keep the existing subject ID and revision.
 

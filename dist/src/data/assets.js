@@ -890,6 +890,7 @@ export const assets = [
       },
     },
   },
+  {name: 'chest-wooden-open-empty', kind: 'prop', src: 'assets/props/chest-wooden-open-empty.png', w: 343, h: 330, anchor: 'bottom-center', required: true},
 ];
 
 /** Index of an asset by name; used by content that refers to art (species, regions, direction sprites). Throws on a typo. */

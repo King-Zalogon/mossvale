@@ -13566,6 +13566,63 @@
       ]
     },
     {
+      "id": "visual:chest-wooden-open-empty",
+      "kind": "visual",
+      "name": "chest-wooden-open-empty",
+      "summary": "chest wooden open empty",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "chest-wooden-open-empty",
+            "kind": "prop",
+            "src": "assets/props/chest-wooden-open-empty.png",
+            "w": 343,
+            "h": 330,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "chest wooden open empty",
+          "usage": "Reference chest-wooden-open-empty in the existing format at dist/src/data/assets.js.",
+          "expected": "chest wooden open empty"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "chest wooden open empty",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "343 by 330 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset chest-wooden-open-empty is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/chest-wooden-open-empty.png",
+          "description": "chest wooden open empty"
+        }
+      ]
+    },
+    {
       "id": "visual:cottage-tiled",
       "kind": "visual",
       "name": "cottage-tiled",
