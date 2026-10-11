@@ -841,6 +841,58 @@
         "errors": "Unknown/mismatched/static references fail pack validation; missing images use existing normal atlas/portrait fallback.",
         "persistence": "No added save fields or schema changes; current map and existing battle identity determine presentation."
       }
+    },
+    {
+      "id": "mechanic:landmark-discovery",
+      "kind": "mechanic",
+      "name": "Specific landmark discoveries",
+      "summary": "Notice a named secret and a short authored clue when approaching it for the first time.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "landmarks[].discoveryText",
+          "type": "string",
+          "default": null,
+          "limits": "Optional trimmed text of 1–160 characters; older packs use Found <mapLabel>."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Secret notices appear only within 2.5 tiles and once per saved landmark id.",
+        "The notice describes a find; interaction dialogue carries the longer story and navigation signs carry directions."
+      ],
+      "examples": [
+        {
+          "intent": "Give a hidden chest its own discovery notice.",
+          "usage": "Set secret: true, mapLabel: Blueglass cache and discoveryText: Blueglass cache: a tucked-away chest waits among the pines. Open it to collect supplies.",
+          "expected": "Only a nearby first discovery displays the notice and records the stable landmark id."
+        }
+      ],
+      "references": ["dist/src/domain/discovery.js", "dist/src/domain/mapdata.js", "docs/MAP_FORMAT.md", "docs/NAVIGATION.md"],
+      "evidence": [
+        {
+          "path": "tests/landmarks.test.mjs",
+          "assertion": "All eleven authored notices compile unchanged; proximity, once-only discovery, old-pack fallback and invalid text are covered."
+        },
+        {
+          "path": "tests/landmarks.browser.mjs",
+          "assertion": "The real controller shows the exact notice for all eleven landmarks and the hidden cache on desktop and phone, within viewport bounds."
+        },
+        {
+          "path": "tests/discovery.browser.mjs",
+          "assertion": "Hidden markers, pack isolation and persisted discovery survive reload."
+        }
+      ],
+      "details": {
+        "inputs": "Landmark discoveryText, mapLabel, secret and stable id.",
+        "sequence": "Approach, record discovery, display authored notice, then optionally interact.",
+        "results": "Named contextual find notice and the existing map/journal marker.",
+        "cancellation": "Nonblocking toast expires through the existing UI.",
+        "errors": "Map validation rejects empty, untrimmed, non-string and overlong notices.",
+        "persistence": "Existing explored seen ids prevent repeat notices; no save format migration.",
+        "trigger": "First nearby discovery of a secret landmark."
+      }
     }
   ],
   "exclusions": [

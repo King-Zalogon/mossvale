@@ -82,3 +82,7 @@ Format version, unique ids, grid size and characters, known sprites and species,
 Regional seals/chests retain their legacy saved region IDs. Completion flags for side maps are stored independently in `mapFlags`, scoped to the selected adventure and preserved by backup/import. Each cache pays once across reloads without consuming another map’s chest. Saves with no side-map flags retain the existing serialized shape.
 
 Optional shrine `guardian.combatSprite` selects an existing same-species 4×5 combat atlas for that shrine's enemy only. All four Mossvale examples and the unique species/tactic selection restriction are documented in [guardian forms](GUARDIAN_COMBAT_FORMS.md). Other creature displays keep normal assets; the field adds no save identity.
+
+### Discovery notices
+
+A landmark may define `discoveryText`: a trimmed string of 1–160 characters describing the specific find and its useful context. Secret landmarks show this nonblocking notice only on their first nearby discovery. Older packs without the field use `Found <mapLabel>.`. Keep names consistent with the map and journal, and reserve directions for navigation signs and longer stories for interaction dialogue. This field does not reveal a secret before discovery or change save data.

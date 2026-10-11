@@ -158,6 +158,10 @@ Claude claim: `claude/324-capture-victory-feel`, from `origin/integration` `d646
 
 #315 implementation handoff: four original 4×5 combat forms (80 frames), retained generated sources, dedicated exact-pixel atlas and named shrine overrides are complete on `codex/315-guardian-combat-forms`. Normal allies/wilds/portraits/followers and all battle rules/save fields remain unchanged. `guardian-combat-preview.html` is listed in Testing URLs; source and actual-battle captures are under `art/characters/reviews/315/`. Seven focused Node regressions and the actual four-shrine browser test pass; `npm run build` passes. Latest integration (3013709) was merged, preserving battle key/capture/victory work and Emberkin direction fixes. Full final-head verification is the remaining gate before ordinary integration-only PR merge. Owner taste for the new guardian forms remains pending, separate from internal visual/technical review.
 
+## #338 — specific discovery notices
+
+Claimed `codex/338-specific-discovery-notices` from `origin/main` 9a391e5. Adds validated optional landmark discoveryText and authored notices for all eleven secrets across eight maps. Old packs fall back to the landmark name. Discovery range, hidden-map behavior, save IDs and once-only notices remain unchanged. Integration-only PR.
+
 ## #346 — capture result timing
 
 Codex claim: `codex/346-capture-result-timing`, from latest `origin/main` `9a391e5` (includes current integration). Throw and wobble frames use the pre-throw ownership snapshot; settled/broken orb reveals the result. Removes failure spoiler text. Browser coverage checks new and owned creatures, successful/failed capture, calm motion and disabled actions. Save/RNG rules are unchanged. Integration-only PR.

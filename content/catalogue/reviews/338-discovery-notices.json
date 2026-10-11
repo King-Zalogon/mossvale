@@ -1,0 +1,45 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/controller.js",
+        "dist/src/domain/discovery.js",
+        "dist/src/domain/mapdata.js",
+        "tests/landmarks.test.mjs",
+        "tests/landmarks.browser.mjs",
+        "tests/discovery.browser.mjs",
+        "docs/MAP_FORMAT.md",
+        "docs/NAVIGATION.md",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/facts.json",
+        "content/catalogue/INDEX.md",
+        "dist/maps/meadow.json",
+        "dist/maps/stone-basin.json",
+        "dist/maps/amber-ridge.json",
+        "dist/maps/reedfen-wetlands.json",
+        "dist/maps/orchard-ruins.json",
+        "dist/maps/frostveil-grove.json",
+        "dist/maps/frostveil-pass.json",
+        "dist/maps/stilt-isles.json",
+        "dist/maps/index.json",
+        "docs/API_INVENTORY.md"
+      ],
+      "entries": [
+        "mechanic:landmark-discovery",
+        "map:mossvale/meadow",
+        "map:mossvale/stone-basin",
+        "map:mossvale/amber-ridge",
+        "map:mossvale/reedfen-wetlands",
+        "map:mossvale/orchard-ruins",
+        "map:mossvale/frostveil-grove",
+        "map:mossvale/frostveil-pass",
+        "map:mossvale/stilt-isles"
+      ],
+      "disposition": "updated",
+      "reason": "Eleven secret finds now name the discovered object and a concrete clue or context. Optional validated discoveryText compiles to world objects; older packs retain a named fallback. Range, discovery IDs, map/journal visibility, rewards and save format are unchanged.",
+      "evidence": ["tests/landmarks.test.mjs", "tests/landmarks.browser.mjs", "tests/discovery.browser.mjs", "docs/MAP_FORMAT.md"]
+    }
+  ]
+}
