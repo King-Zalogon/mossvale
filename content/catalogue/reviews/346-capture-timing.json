@@ -1,0 +1,25 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/controller.js",
+        "dist/src/ui/battle-view.js",
+        "tests/capture-feel.browser.mjs",
+        "docs/BATTLE.md",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/facts.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/reviews/346-capture-timing.json",
+        "dist/src/render/sprites.js",
+        "tests/render-budget.test.mjs",
+        "tests/loader.browser.mjs"
+      ],
+      "entries": ["mechanic:battle-impact-feedback"],
+      "disposition": "updated",
+      "reason": "Capture playback now retains pre-throw ownership until resolution and no longer anticipates failure during wobbles. Durable outcomes and rewards still commit before presentation. Full validation also exposed a queued RAF timestamp predating animation setup; elapsed time now clamps at zero, preventing negative elemental radius/frame indices without changing animation cadence. The stalled-loader browser fixture allows 3 seconds for ordinary atlas decoding instead of 800 ms; its request still never responds, and every failure/retry assertion is retained. The production loader timeout remains unchanged. Capture HUD counters, rewards and quest notices now share the orb resolution boundary, while objective events and save persistence retain their immediate commit order.",
+      "evidence": ["tests/capture-feel.browser.mjs", "docs/BATTLE.md", "tests/render-budget.test.mjs", "tests/loader.browser.mjs"]
+    }
+  ]
+}
