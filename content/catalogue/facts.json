@@ -2,7 +2,8 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/subjects.json": "1cfeabd7d20f68f1548e3a23db0919573624af3fa6ef0e65b99f79c94a0a7757",
+    "art/assets/subjects.json": "3e367c158ebb7faddaa07946686ec4042e65c03447ee94d279188d80676cad20",
+    "art/assets/third-party/registry.json": "e27c8c2428c2562b6aee6be61e50f7e699570b8dc7e8be4a137bcec099973d83",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
     "art/characters/creature-combat-metadata.json": "da227558dcd358faeafd1e4c18550fb01b91acb5e169ab982a7800a78abd65ff",
@@ -11,10 +12,10 @@
     "art/characters/guardian-generation.json": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61",
     "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
     "art/characters/source-archive.json": "4005ba9614a0d08947b703d70c645eadd7640ab9e16ebba5110d51c09a715d7b",
-    "art/characters/visual-reviews.json": "2d7650f83527978df39cc2d0b9d6b80fc0e27691ba0b7cdf59d5b756d5e1fc24",
+    "art/characters/visual-reviews.json": "7987489f7cd6dacb8e94ce3297f7bf8527889573aca4ac82493c49416dfcdbcf",
     "content/catalogue/curated.json": "3aa9e7fdb85cacb84b1cbbb3ca5d4ecd6272cfdd28a81d3bc86b11d9068e405b",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
-    "content/catalogue/templates.json": "7d8194ba6ded41ae517b90bccbcb742ae6184bc90654aa0136e3818cf1047d3f",
+    "content/catalogue/templates.json": "7edbc3abedd700b48c1fe5c9d7d13c2850dde89d814a799949e51d745932f4eb",
     "dist/assets/creatures/creature-bramblebuck-combat.png": "3d08f6850e19de34e7ca45a22da5a568321b0df4c44b3f4de4d111758221064f",
     "dist/assets/creatures/creature-bramblebuck-follower.png": "5620e661b6efe3c603f69d76717aaf05040e2aae1ede9a6b777986af3f602d2d",
     "dist/assets/creatures/creature-bramblebuck.png": "27a7ea4200538dda70528db3f99978e14edd689c71730b1ba4bede6da6b1cfc6",
@@ -73,7 +74,12 @@
     "dist/assets/creatures/creature-voltkit-combat.png": "ce6faf852efddc2dc4b7ea80b5cc313b811d1f266ff4289cbafc49d1f22fdc36",
     "dist/assets/creatures/creature-voltkit-follower.png": "ce9ca12721e87fe13b6d8b527f589f1acb18328f9ed2de99f619b37a037711d6",
     "dist/assets/creatures/creature-voltkit.png": "04d97b8c53aa99d027d072abef780ecb20be01799b292333a1f547683c11eddc",
+    "dist/assets/items/item-apple.png": "be067fc555a54a89b1c8dd56fd630183f8ba03f9c5409fb913f8724cfc221008",
+    "dist/assets/items/item-banana.png": "904f38a72db12518666722b456e2fc333bcf31a1fcfcb43e738c4eb674f13938",
     "dist/assets/items/item-capture-orb.png": "67d9bc68c1b5d0b14812f2d7e4e25acda73c4094937ca18a5b371bc9d661526f",
+    "dist/assets/items/item-melon-slice.png": "0c1fdb6e11fa8135960d71ed448ca7c3b1d802e06316dd74bc5214f525d553f3",
+    "dist/assets/items/item-melon.png": "4fe8ae7d6e25a42bebe57f989659a3b9dae168f16a6b4a00792f678fe317fba7",
+    "dist/assets/items/item-orange.png": "84ddd930f4a05ae5b248fe984888570cb036e5ff70d6aef010a401abc90765db",
     "dist/assets/people/person-gardener.png": "f498db00333f41c5339119d505fc1ac99590d1554c969528b74f39867d2b9016",
     "dist/assets/people/person-red-cap-east.png": "1ea752494f7897b5e512d5885f8c732a06590949c74450f6e6c8744ea4053850",
     "dist/assets/people/person-red-cap-motion.png": "e0dff61fbb1244c92918feef94eb516e8f4090369a53dd95e90f9c5d6355f8e7",
@@ -83,10 +89,25 @@
     "dist/assets/people/person-traveler.png": "59fdaadae4d3c503c8458e406b1e879a5f8ade7281bcf55e2964fdf524f189f1",
     "dist/assets/props/boulder-mossy.png": "870564bfd636df7ee2502186169570694d89d47c218c207f8cbc2b73ba7f872d",
     "dist/assets/props/bush-flowering.png": "3d6369d8ce8b5327bed6b036f8a8c5da38793906c1d775b2b6d96b205a5bd1e4",
+    "dist/assets/props/bush-woodland-low.png": "fd6d6b2cc6c9b985c48b0ddc227da2020391b220b294da3990773ac0c410eacd",
+    "dist/assets/props/bush-woodland-small.png": "151a199195caf229f559fccff508c8a49b35346e7536e2fb6a4feddd6117f05d",
     "dist/assets/props/cattail-clump.png": "f63b05c3e0f0fcbe47f74e0762a1230edadd40618f41633b5b62550d5e632741",
     "dist/assets/props/chest-wooden.png": "49ed0d898d48f20978b35b1e7f764d4d0c8075d9732c9f1590bf9dfa77dea5d0",
     "dist/assets/props/cottage-tiled.png": "8cd1462618c46ded0bec9d75703ca30e2f492804a2050acd1c2c5dae7fed661b",
     "dist/assets/props/grass-tuft.png": "b0ffaab0fecf3a9e2d5e580ccd49ba343421b7ebadb4de99115d4418e0cf4087",
+    "dist/assets/props/plant-fern-frond.png": "6c9d11ed7784c479ef54e1718fcd21192d6fc4c5a46de6de5c8f8e63c2b24e5a",
+    "dist/assets/props/plant-golden-stem.png": "22a8f0d9e1f2166e764c207b46b9b141e84434efb8a3f33d814bf244cccf34ca",
+    "dist/assets/props/plant-groundcover.png": "62a9debfb9919a7cbd711f70046f8da57da8fe2040b41cf2635733a116686149",
+    "dist/assets/props/plant-narrow-leaves.png": "e5f56af11c97bfcddccd144102f2fe72b7f4a97ca7d01947555725bcd762e81b",
+    "dist/assets/props/plant-pot-fronds.png": "c5f2b0647a94490078cf3d90a163f6c87c1402464d28e50516372f5de7cabcb2",
+    "dist/assets/props/plant-pot-red-bloom.png": "4e4d3c69258f2d3e7219a1e010664dd8b997947ebd5afddb85abfa105d26809e",
+    "dist/assets/props/plant-pot-round.png": "cb7222e2650c4e0f91c0f0a3434a0864798ff4c957f329290891c5dfca1b63be",
+    "dist/assets/props/plant-pot-small.png": "654c653eab1a9137156eb81b1cfcd2f094f409a7115922d8bb67164ff80b5624",
+    "dist/assets/props/plant-pot-spiky.png": "621c95d854b85d8ec8393610801888a834d4ae9ec7294a50bd5b27c1dba10377",
+    "dist/assets/props/plant-pot-yellow-bloom.png": "9dd6d2f55a8c1e4207b91ca0fdcac92077a4cf186db8e681c4bd0aa8936e058e",
+    "dist/assets/props/plant-spike.png": "c9a96383474a6b0167c23346b0cd7267bbb4f383bf5e5f54e1c593289ebf9712",
+    "dist/assets/props/plant-sprout.png": "7f42f6ff1c90ce865864d97401ec2af1a00765f46f1e514ee1238ec09152fa42",
+    "dist/assets/props/plant-three-leaf.png": "587fd230046dcca51d45a72e9ced161ce837021f70b6d6e331d735cf1d55a357",
     "dist/assets/props/prop-cider-press.png": "f3170aa88c9a67c73a789545d8036a337850138379175c7ff204184ea46649f6",
     "dist/assets/props/prop-hanging-lantern.png": "76d963bf549f6b128b2087be437ceb4e0fd6ea1f4d36e15b2c05c739746f9c50",
     "dist/assets/props/prop-heron-blind.png": "94be9bf33ac866ea3039723aa20c5014412215dcea2e194cf43bb63246868bc4",
@@ -96,10 +117,17 @@
     "dist/assets/props/prop-rim-overlook.png": "553830b3ac09fad4f245720ba12bbb3fc8569f427148e05c157b5c5489da01ec",
     "dist/assets/props/prop-sunstone-lookout.png": "1ba42961d26ee4c169a0cd24e953603e8ae2f5c43be39f1e42e5063ed470b637",
     "dist/assets/props/prop-well-ruined.png": "27948f93243773fd59b53da1a0bdefb417685d63d2594327dde7577d8cb44d1d",
+    "dist/assets/props/rock-field-large.png": "48ad760a103af348a778a08e50ff4ffab673f4dff1a001738dd0bab0fe8aeada",
+    "dist/assets/props/rock-field-medium.png": "88c145dd9d670ddb269a0b157506bd6dc24556b94f3f86a359584dc72832b7dd",
+    "dist/assets/props/rock-field-small.png": "5c6e15c4390eb5e82f96b5f466c2b18b9ed3adf1f21e74bd55c71430beb63f73",
     "dist/assets/props/rock-spire-red.png": "5b887d757ca2efcf9fc1adee9cb467c63cc8832f21558b80756f2473ecf8419e",
     "dist/assets/props/shrine-crystal-stone.png": "4f881d3a70ee74c0b38e6367961160676259962c98ea637a7d83090917cc73e3",
     "dist/assets/props/signpost-wood.png": "444c43dd1b27ecbb4ba56346be4e1d38ced149f7fa677322dd6b86249d85e570",
+    "dist/assets/props/tree-fir-full.png": "f745cd2f6b5e10146bcef27e8c647dc1fc29bcc37297e02a0778dab512f96b0d",
+    "dist/assets/props/tree-fir-slim.png": "e2516ac68f5bd9aded56152b9253e42d48904f45e650122a31a6aa05487128ab",
     "dist/assets/props/tree-oak-hollow.png": "a5cd55da79820383503b79f536448f12fb80a4223d6c52df09840d5014428bc1",
+    "dist/assets/props/tree-oak-round.png": "8ce9defa6d9d09e39e3eef7c17962b6f5f014ad0775dac3666fa994d230ec664",
+    "dist/assets/props/tree-oak-young.png": "643bb9c1d4462cdf371d7fe213a8390d8acf4bbdf2437e20719f64140c35154d",
     "dist/assets/props/tree-oak.png": "1b8f8ceff2f31568c7d374e6b21d0015add6e68a89db38160bc5da281520cd14",
     "dist/assets/props/tree-pine-snow.png": "a8b182f77bedf48d4110e46332075acc260d782d8d7a7345aaa17dbabb88e1a9",
     "dist/assets/props/tree-pine.png": "073457a7476fd3dc2f4161747886b9667ac204a5a22299d087afa8de7e938459",
@@ -115,9 +143,9 @@
     "dist/maps/amber-ridge.json": "76a4e75e3606210542ef00fb98917f5bb12ecb2f036e551378f54a0dfd0e75ef",
     "dist/maps/frostveil-grove.json": "938d01851b6bf2826da1cb49d6bd140c1a276580858c56607772ef91d207ac84",
     "dist/maps/frostveil-pass.json": "bbf127da1f3cd9b809ce0cd1e4cd96ed0e5378625f7923a1b8cb097bfd3b5843",
-    "dist/maps/index.json": "7ea4ed2e7c25d62982710a7c91cc4243cd0038b9c0f8698e20751b603b7c77b3",
+    "dist/maps/index.json": "4be4ba63b6d35c72f6cdff3345b4bdbaba071c9f26ac05141f71edb84e00ec6d",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
-    "dist/maps/meadow.json": "bdeda06c5726c8d070e7e7661d1c7f7632613e40a6f3261fc511afb134a55e10",
+    "dist/maps/meadow.json": "b57221e9623b5d49928d079864a8b0ae768119d6930ac1170d1d4a04f7a9ccec",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
     "dist/maps/orchard-ruins.json": "6bc792542c629fc48b3562e9f378f9086862b9653d40de69c0f5c6cab596895e",
     "dist/maps/reedfen-wetlands.json": "eb5cac1042f577ff2ef25f65e02ff94e0c5711f10a7fdd37d1d2d200c9e9af35",
@@ -134,7 +162,7 @@
     "dist/src/controller.js": "12cb3848a05564bb73f6a674e1d828e9ed2825de521f78b253a1e81a40c6f3eb",
     "dist/src/creature-combat-preview.js": "54ed3e88504eee78be602a38b7834c43f0aee3d23506d5ea98dabc42bf7fc68a",
     "dist/src/creature-follower-preview.js": "8e6e8c033fbab4ea2bebcb24ffdb9e17319b72b7f532cfd39596a6cd7ee86b7c",
-    "dist/src/data/assets.js": "d00e91299c30919ded30ba80a902ba37d4af46f98b1c772dcd7bd048213f2f10",
+    "dist/src/data/assets.js": "3bd6b908f3bd4009a25466d05f243793069cfa350dc2a55578f1952e6f0afcf3",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "d76691961865a95bc015f483e26c84ee55da9b66bc46d6478fc3a55b419ae3bc",
@@ -205,7 +233,7 @@
     "scripts/check-catalogue-impact.mjs": "a761bbff1a4293637f10f13d4f5d41428e91bc54b8af0dccdc8c0a50a78155e7",
     "scripts/compile-brief.mjs": "56baa0130c5c5f25990c726ed7b53acc4f991e8ad4b77d11c4425385292c15a1",
     "scripts/lib/catalogue-impact.mjs": "35a530ea67d230fec768cccbef91e782776b42dda01162bab3d1b5fadff1b5e0",
-    "scripts/lib/catalogue.mjs": "2d53dd3d1d7ac4d29cd74507dcb3cb9e4ef04357044bfd9a77f6d75499d70233",
+    "scripts/lib/catalogue.mjs": "63b081eeebd2b8994163bfe827a8f80e3940b484060d58f36a24c9bc2da6ba12",
     "scripts/pack.mjs": "281d94ef331a873b38da00114f65b798cbcb72896692680c48bec714484ed53a",
     "tests/fixtures/packs/bakery/bakery-lane.json": "56d9f8dbc8a413179ebb11b41307325d58700ac1303633675c4e3da38fc1124f",
     "tests/fixtures/packs/bakery/index.json": "76c1853fb6c5d0ead74ddd2ae5e1400c773d98e55e81fc259daab402a2854b30",
@@ -226,7 +254,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "a7c23f85daf56cf67972368f1ddc8be8a87852ebaecf310fecf3aa7132d19665",
+  "sourceDigest": "bb53b9c9e6a1f403387135a42ff71cf03c83a283dcb9cc7a9d30a5c6a8fc2b62",
   "exclusions": [
     {
       "family": "module-exports",
@@ -5121,6 +5149,48 @@
             ]
           },
           {
+            "sprite": "tree-oak-round",
+            "kind": "scenery",
+            "w": 72,
+            "solid": 0.48,
+            "at": [
+              [10.5, 25.5],
+              [54.5, 20.5]
+            ]
+          },
+          {
+            "sprite": "tree-fir-slim",
+            "kind": "scenery",
+            "w": 68,
+            "solid": 0.45,
+            "at": [
+              [18.5, 46.5],
+              [60.5, 50.5]
+            ]
+          },
+          {
+            "sprite": "bush-woodland-low",
+            "kind": "flower",
+            "w": 31,
+            "at": [
+              [8.5, 24.5],
+              [12.5, 27.5],
+              [52.5, 19.5],
+              [57.5, 23.5]
+            ]
+          },
+          {
+            "sprite": "plant-fern-frond",
+            "kind": "grass",
+            "w": 24,
+            "at": [
+              [20.5, 24.5],
+              [56.5, 47.5],
+              [38.5, 53.5],
+              [6.5, 45.5]
+            ]
+          },
+          {
             "sprite": "tree-oak",
             "kind": "scenery",
             "w": 79,
@@ -9023,7 +9093,7 @@
           {
             "id": "map:meadow",
             "path": "meadow.json",
-            "sha256": "bdeda06c5726c8d070e7e7661d1c7f7632613e40a6f3261fc511afb134a55e10"
+            "sha256": "b57221e9623b5d49928d079864a8b0ae768119d6930ac1170d1d4a04f7a9ccec"
           },
           {
             "id": "map:amber-ridge",
@@ -12252,7 +12322,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset boulder-mossy is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:bush-flowering",
@@ -12278,7 +12354,77 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset bush-flowering is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:bush-woodland-low",
+      "family": "visual",
+      "runtimeId": "bush-woodland-low",
+      "name": "bush-woodland-low",
+      "description": "A low, spreading green woodland bush.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "bush-woodland-low",
+        "kind": "prop",
+        "src": "assets/props/bush-woodland-low.png",
+        "w": 44,
+        "h": 21,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "44 by 21 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/bush-woodland-low.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a harvest, encounter, interaction or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:bush-woodland-small",
+      "family": "visual",
+      "runtimeId": "bush-woodland-small",
+      "name": "bush-woodland-small",
+      "description": "A compact, low green woodland bush.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "bush-woodland-small",
+        "kind": "prop",
+        "src": "assets/props/bush-woodland-small.png",
+        "w": 34,
+        "h": 15,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "34 by 15 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/bush-woodland-small.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a harvest, encounter, interaction or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "visual:cattail-clump",
@@ -12304,7 +12450,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset cattail-clump is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:chest-wooden",
@@ -12330,7 +12482,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset chest-wooden is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:cottage-tiled",
@@ -12356,7 +12514,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset cottage-tiled is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-bramblebuck",
@@ -12393,7 +12557,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-bramblebuck is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-bramblebuck-combat",
@@ -12442,7 +12612,13 @@
         "distinguishingFeatures": ["Bramblebuck face and silhouette", "species-specific markings and colors"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-bramblebuck-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-bramblebuck-follower",
@@ -12489,7 +12665,13 @@
         "distinguishingFeatures": ["Bramblebuck face and silhouette", "species-specific markings and colors"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-bramblebuck-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-brooklet",
@@ -12519,7 +12701,13 @@
         "distinguishingFeatures": ["large bright eyes", "pale muzzle and chest", "curling blue tail", "water bubbles"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-brooklet is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-brooklet-combat",
@@ -12575,7 +12763,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-brooklet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-brooklet-follower",
@@ -12629,7 +12823,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-brooklet-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-cindercurl",
@@ -12659,7 +12859,13 @@
         "distinguishingFeatures": ["layered armored plates", "fine ember seam accents", "separate curled tail shield", "short planted feet"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-cindercurl is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-cindercurl-combat",
@@ -12715,7 +12921,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-cindercurl-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-cindercurl-follower",
@@ -12762,7 +12974,13 @@
         "distinguishingFeatures": ["layered armored plates", "fine ember seam accents", "separate curled tail shield", "short planted feet"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-cindercurl-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-duskwing",
@@ -12792,7 +13010,13 @@
         "distinguishingFeatures": ["large eye-spotted wings", "pale chest ruff", "magenta eyes", "short dark legs"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-duskwing is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-duskwing-combat",
@@ -12848,7 +13072,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-duskwing-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-duskwing-follower",
@@ -12902,7 +13132,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-duskwing-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-emberkin",
@@ -12932,7 +13168,13 @@
         "distinguishingFeatures": ["large glossy eyes", "upright flame crest", "bright curled flame tail", "cream chest"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-emberkin is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-emberkin-combat",
@@ -12988,7 +13230,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-emberkin-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-emberkin-follower",
@@ -13038,7 +13286,13 @@
         "distinguishingFeatures": ["large glossy eyes", "upright flame crest", "bright curled flame tail", "cream chest"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-emberkin-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-fernling",
@@ -13068,7 +13322,13 @@
         "distinguishingFeatures": ["oversized green eyes", "pale muzzle and chest", "large leaf tail", "pointed leaf ears"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-fernling is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-fernling-combat",
@@ -13124,7 +13384,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-fernling-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-fernling-follower",
@@ -13174,7 +13440,13 @@
         "distinguishingFeatures": ["oversized green eyes", "pale muzzle and chest", "large leaf tail", "pointed leaf ears"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-fernling-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-frostowl",
@@ -13204,7 +13476,13 @@
         "distinguishingFeatures": ["large cyan-blue eyes", "crystalline ear and wing tufts", "white feather face", "dark beak and feet"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-frostowl is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-frostowl-combat",
@@ -13260,7 +13538,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-frostowl-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-frostowl-follower",
@@ -13307,7 +13591,13 @@
         "distinguishingFeatures": ["large cyan-blue eyes", "crystalline ear and wing tufts", "white feather face", "dark beak and feet"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-frostowl-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-frostowl-ice-mantle-combat",
@@ -13370,7 +13660,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-frostowl-ice-mantle-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-hushram",
@@ -13400,7 +13696,13 @@
         "distinguishingFeatures": ["large crystalline curled horns", "blue eye markings", "shaggy cream-white coat", "dark hooves"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-hushram is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-hushram-combat",
@@ -13456,7 +13758,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-hushram-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-hushram-follower",
@@ -13503,7 +13811,13 @@
         "distinguishingFeatures": ["large crystalline curled horns", "blue eye markings", "shaggy cream-white coat", "dark hooves"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-hushram-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-lanternix",
@@ -13533,7 +13847,13 @@
         "distinguishingFeatures": ["three glowing abdomen bands", "blunt teal wing cases", "two forked antenna silhouettes", "six tucked insect legs"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-lanternix is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-lanternix-combat",
@@ -13589,7 +13909,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-lanternix-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-lanternix-follower",
@@ -13636,7 +13962,13 @@
         "distinguishingFeatures": ["three glowing abdomen bands", "blunt teal wing cases", "two forked antenna silhouettes", "six tucked insect legs"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-lanternix-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-mushmallow",
@@ -13666,7 +13998,13 @@
         "distinguishingFeatures": ["large pale-spotted mushroom cap", "violet spines", "cream hedgehog face", "small back mushrooms"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-mushmallow is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-mushmallow-combat",
@@ -13722,7 +14060,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-mushmallow-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-mushmallow-follower",
@@ -13769,7 +14113,13 @@
         "distinguishingFeatures": ["large pale-spotted mushroom cap", "violet spines", "cream hedgehog face", "small back mushrooms"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-mushmallow-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-mushmallow-thorn-mantle-combat",
@@ -13832,7 +14182,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-mushmallow-thorn-mantle-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-pebblit",
@@ -13869,7 +14225,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-pebblit is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-pebblit-combat",
@@ -13918,7 +14280,13 @@
         "distinguishingFeatures": ["Pebblit face and silhouette", "species-specific markings and colors"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-pebblit-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-pebblit-crystal-ridge-combat",
@@ -13981,7 +14349,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-pebblit-crystal-ridge-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-pebblit-follower",
@@ -14028,7 +14402,13 @@
         "distinguishingFeatures": ["Pebblit face and silhouette", "species-specific markings and colors"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-pebblit-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-petalunge",
@@ -14058,7 +14438,13 @@
         "distinguishingFeatures": ["narrow mantis head", "paired petal-shaped forelimbs", "coral throat marking", "long angular legs"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-petalunge is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-petalunge-combat",
@@ -14114,7 +14500,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-petalunge-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-petalunge-follower",
@@ -14161,7 +14553,13 @@
         "distinguishingFeatures": ["narrow mantis head", "paired petal-shaped forelimbs", "coral throat marking", "long angular legs"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-petalunge-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-rillume",
@@ -14191,7 +14589,13 @@
         "distinguishingFeatures": ["clear scalloped bell", "deep blue center core", "four thick flowing ribbon lobes"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-rillume is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-rillume-combat",
@@ -14247,7 +14651,13 @@
           "ownerTaste": "approved"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-rillume-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-rillume-follower",
@@ -14294,7 +14704,13 @@
         "distinguishingFeatures": ["clear scalloped bell", "deep blue center core", "four thick flowing ribbon lobes"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-rillume-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-sedgegnaw",
@@ -14324,7 +14740,13 @@
         "distinguishingFeatures": ["segmented ant body", "six readable legs", "single narrow notched leaf sail", "amber eyes"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-sedgegnaw is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-sedgegnaw-combat",
@@ -14380,7 +14802,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-sedgegnaw-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-sedgegnaw-follower",
@@ -14427,7 +14855,13 @@
         "distinguishingFeatures": ["segmented ant body", "six readable legs", "single narrow notched leaf sail", "amber eyes"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-sedgegnaw-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-siltkip",
@@ -14464,7 +14898,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-siltkip is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-siltkip-combat",
@@ -14513,7 +14953,13 @@
         "distinguishingFeatures": ["Siltkip face and silhouette", "species-specific markings and colors"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-siltkip-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-siltkip-follower",
@@ -14560,7 +15006,13 @@
         "distinguishingFeatures": ["Siltkip face and silhouette", "species-specific markings and colors"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-siltkip-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-siltkip-tide-sail-combat",
@@ -14623,7 +15075,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-siltkip-tide-sail-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-sunsifter",
@@ -14653,7 +15111,13 @@
         "distinguishingFeatures": ["broad shovel brow", "six compact articulated legs", "three ridges across the amber shell"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-sunsifter is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-sunsifter-combat",
@@ -14709,7 +15173,13 @@
           "ownerTaste": "approved"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-sunsifter-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-sunsifter-follower",
@@ -14756,7 +15226,13 @@
         "distinguishingFeatures": ["broad shovel brow", "six compact articulated legs", "three ridges across the amber shell"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-sunsifter-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-sunskitter",
@@ -14793,7 +15269,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-sunskitter is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-sunskitter-combat",
@@ -14842,7 +15324,13 @@
         "distinguishingFeatures": ["Sunskitter face and silhouette", "species-specific markings and colors"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-sunskitter-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-sunskitter-follower",
@@ -14889,7 +15377,13 @@
         "distinguishingFeatures": ["Sunskitter face and silhouette", "species-specific markings and colors"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-sunskitter-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-voltkit",
@@ -14919,7 +15413,13 @@
         "distinguishingFeatures": ["asymmetrical long ears", "blue cheek mark", "crystal-tipped lightning tail", "dark paws"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-voltkit is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-voltkit-combat",
@@ -14975,7 +15475,13 @@
           "ownerTaste": "pending"
         }
       ],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-voltkit-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:creature-voltkit-follower",
@@ -15022,7 +15528,13 @@
         "distinguishingFeatures": ["asymmetrical long ears", "blue cheek mark", "crystal-tipped lightning tail", "dark paws"]
       },
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-voltkit-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:grass-tuft",
@@ -15048,7 +15560,77 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset grass-tuft is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:item-apple",
+      "family": "visual",
+      "runtimeId": "item-apple",
+      "name": "item-apple",
+      "description": "A small red apple viewed from above.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "item-apple",
+        "kind": "item",
+        "src": "assets/items/item-apple.png",
+        "w": 7,
+        "h": 8,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "7 by 8 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/items/item-apple.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:item-banana",
+      "family": "visual",
+      "runtimeId": "item-banana",
+      "name": "item-banana",
+      "description": "A small yellow banana viewed from above.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "item-banana",
+        "kind": "item",
+        "src": "assets/items/item-banana.png",
+        "w": 16,
+        "h": 7,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "16 by 7 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/items/item-banana.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "visual:item-capture-orb",
@@ -15074,7 +15656,109 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset item-capture-orb is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:item-melon",
+      "family": "visual",
+      "runtimeId": "item-melon",
+      "name": "item-melon",
+      "description": "A small whole green melon viewed from above.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "item-melon",
+        "kind": "item",
+        "src": "assets/items/item-melon.png",
+        "w": 15,
+        "h": 15,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "15 by 15 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/items/item-melon.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:item-melon-slice",
+      "family": "visual",
+      "runtimeId": "item-melon-slice",
+      "name": "item-melon-slice",
+      "description": "A small cut slice of red-fleshed melon.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "item-melon-slice",
+        "kind": "item",
+        "src": "assets/items/item-melon-slice.png",
+        "w": 15,
+        "h": 8,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "15 by 8 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/items/item-melon-slice.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:item-orange",
+      "family": "visual",
+      "runtimeId": "item-orange",
+      "name": "item-orange",
+      "description": "A small orange fruit viewed from above.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "item-orange",
+        "kind": "item",
+        "src": "assets/items/item-orange.png",
+        "w": 7,
+        "h": 7,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "7 by 7 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/items/item-orange.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "visual:person-gardener",
@@ -15231,7 +15915,13 @@
             "cadence": "static pose"
           }
         ]
-      }
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-gardener is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:person-red-cap-east",
@@ -15381,7 +16071,13 @@
             "cadence": "static pose"
           }
         ]
-      }
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-red-cap-east is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:person-red-cap-motion",
@@ -15547,7 +16243,13 @@
             "cadence": "static pose"
           }
         ]
-      }
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-red-cap-motion is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:person-red-cap-north",
@@ -15697,7 +16399,13 @@
             "cadence": "static pose"
           }
         ]
-      }
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-red-cap-north is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:person-red-cap-south",
@@ -15847,7 +16555,13 @@
             "cadence": "static pose"
           }
         ]
-      }
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-red-cap-south is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:person-red-cap-west",
@@ -15997,7 +16711,13 @@
             "cadence": "static pose"
           }
         ]
-      }
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-red-cap-west is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:person-traveler",
@@ -16154,7 +16874,429 @@
             "cadence": "static pose"
           }
         ]
-      }
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-traveler is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:plant-fern-frond",
+      "family": "visual",
+      "runtimeId": "plant-fern-frond",
+      "name": "plant-fern-frond",
+      "description": "A leafy fern frond with several branching leaves.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-fern-frond",
+        "kind": "prop",
+        "src": "assets/props/plant-fern-frond.png",
+        "w": 27,
+        "h": 33,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "27 by 33 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-fern-frond.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-golden-stem",
+      "family": "visual",
+      "runtimeId": "plant-golden-stem",
+      "name": "plant-golden-stem",
+      "description": "A slender plant with a warm yellow-green leaf.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-golden-stem",
+        "kind": "prop",
+        "src": "assets/props/plant-golden-stem.png",
+        "w": 14,
+        "h": 23,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "14 by 23 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-golden-stem.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-groundcover",
+      "family": "visual",
+      "runtimeId": "plant-groundcover",
+      "name": "plant-groundcover",
+      "description": "A low, spreading patch of leafy groundcover.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-groundcover",
+        "kind": "prop",
+        "src": "assets/props/plant-groundcover.png",
+        "w": 29,
+        "h": 24,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "29 by 24 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-groundcover.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-narrow-leaves",
+      "family": "visual",
+      "runtimeId": "plant-narrow-leaves",
+      "name": "plant-narrow-leaves",
+      "description": "A narrow plant with long upright leaves.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-narrow-leaves",
+        "kind": "prop",
+        "src": "assets/props/plant-narrow-leaves.png",
+        "w": 9,
+        "h": 33,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "9 by 33 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-narrow-leaves.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-pot-fronds",
+      "family": "visual",
+      "runtimeId": "plant-pot-fronds",
+      "name": "plant-pot-fronds",
+      "description": "A potted plant with a fan of fine green fronds.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-pot-fronds",
+        "kind": "prop",
+        "src": "assets/props/plant-pot-fronds.png",
+        "w": 20,
+        "h": 28,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "20 by 28 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-pot-fronds.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-pot-red-bloom",
+      "family": "visual",
+      "runtimeId": "plant-pot-red-bloom",
+      "name": "plant-pot-red-bloom",
+      "description": "A potted plant with red flowers.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-pot-red-bloom",
+        "kind": "prop",
+        "src": "assets/props/plant-pot-red-bloom.png",
+        "w": 18,
+        "h": 32,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "18 by 32 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-pot-red-bloom.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-pot-round",
+      "family": "visual",
+      "runtimeId": "plant-pot-round",
+      "name": "plant-pot-round",
+      "description": "A small leafy potted plant with a rounded crown.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-pot-round",
+        "kind": "prop",
+        "src": "assets/props/plant-pot-round.png",
+        "w": 14,
+        "h": 34,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "14 by 34 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-pot-round.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-pot-small",
+      "family": "visual",
+      "runtimeId": "plant-pot-small",
+      "name": "plant-pot-small",
+      "description": "A small potted plant with a compact crown.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-pot-small",
+        "kind": "prop",
+        "src": "assets/props/plant-pot-small.png",
+        "w": 26,
+        "h": 24,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "26 by 24 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-pot-small.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-pot-spiky",
+      "family": "visual",
+      "runtimeId": "plant-pot-spiky",
+      "name": "plant-pot-spiky",
+      "description": "A potted plant with upright pointed leaves.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-pot-spiky",
+        "kind": "prop",
+        "src": "assets/props/plant-pot-spiky.png",
+        "w": 19,
+        "h": 26,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "19 by 26 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-pot-spiky.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-pot-yellow-bloom",
+      "family": "visual",
+      "runtimeId": "plant-pot-yellow-bloom",
+      "name": "plant-pot-yellow-bloom",
+      "description": "A potted plant with small yellow flowers.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-pot-yellow-bloom",
+        "kind": "prop",
+        "src": "assets/props/plant-pot-yellow-bloom.png",
+        "w": 20,
+        "h": 33,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "20 by 33 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-pot-yellow-bloom.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-spike",
+      "family": "visual",
+      "runtimeId": "plant-spike",
+      "name": "plant-spike",
+      "description": "A small upright spiky plant.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-spike",
+        "kind": "prop",
+        "src": "assets/props/plant-spike.png",
+        "w": 12,
+        "h": 21,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "12 by 21 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-spike.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-sprout",
+      "family": "visual",
+      "runtimeId": "plant-sprout",
+      "name": "plant-sprout",
+      "description": "A young, narrow green sprout.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-sprout",
+        "kind": "prop",
+        "src": "assets/props/plant-sprout.png",
+        "w": 11,
+        "h": 24,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "11 by 24 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-sprout.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:plant-three-leaf",
+      "family": "visual",
+      "runtimeId": "plant-three-leaf",
+      "name": "plant-three-leaf",
+      "description": "A small plant with three broad leaves.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "plant-three-leaf",
+        "kind": "prop",
+        "src": "assets/props/plant-three-leaf.png",
+        "w": 24,
+        "h": 27,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "24 by 27 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/plant-three-leaf.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "visual:prop-cider-press",
@@ -16180,7 +17322,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-cider-press is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:prop-hanging-lantern",
@@ -16206,7 +17354,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-hanging-lantern is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:prop-heron-blind",
@@ -16232,7 +17386,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-heron-blind is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:prop-icefall-ledge",
@@ -16258,7 +17418,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-icefall-ledge is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:prop-orchard-wall-broken",
@@ -16284,7 +17450,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-orchard-wall-broken is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:prop-quarry-alcove",
@@ -16310,7 +17482,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-quarry-alcove is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:prop-rim-overlook",
@@ -16336,7 +17514,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-rim-overlook is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:prop-sunstone-lookout",
@@ -16362,7 +17546,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-sunstone-lookout is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:prop-well-ruined",
@@ -16388,7 +17578,109 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-well-ruined is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:rock-field-large",
+      "family": "visual",
+      "runtimeId": "rock-field-large",
+      "name": "rock-field-large",
+      "description": "A low, broad cluster of gray-brown stones.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "rock-field-large",
+        "kind": "prop",
+        "src": "assets/props/rock-field-large.png",
+        "w": 46,
+        "h": 25,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "46 by 25 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/rock-field-large.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Non-interactive ground scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define mining, gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:rock-field-medium",
+      "family": "visual",
+      "runtimeId": "rock-field-medium",
+      "name": "rock-field-medium",
+      "description": "A compact cluster of gray-brown stones.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "rock-field-medium",
+        "kind": "prop",
+        "src": "assets/props/rock-field-medium.png",
+        "w": 23,
+        "h": 16,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "23 by 16 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/rock-field-medium.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Non-interactive ground scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define mining, gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:rock-field-small",
+      "family": "visual",
+      "runtimeId": "rock-field-small",
+      "name": "rock-field-small",
+      "description": "A tiny cluster of gray-brown stones.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "rock-field-small",
+        "kind": "prop",
+        "src": "assets/props/rock-field-small.png",
+        "w": 11,
+        "h": 7,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "11 by 7 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/rock-field-small.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Small non-interactive ground scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define mining, gathering, collision or an item reward.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "visual:rock-spire-red",
@@ -16414,7 +17706,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset rock-spire-red is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:shrine-crystal-stone",
@@ -16440,7 +17738,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset shrine-crystal-stone is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:signpost-wood",
@@ -16466,7 +17770,77 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset signpost-wood is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:tree-fir-full",
+      "family": "visual",
+      "runtimeId": "tree-fir-full",
+      "name": "tree-fir-full",
+      "description": "A full, broad evergreen fir tree.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "tree-fir-full",
+        "kind": "prop",
+        "src": "assets/props/tree-fir-full.png",
+        "w": 88,
+        "h": 128,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "88 by 128 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/tree-fir-full.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:tree-fir-slim",
+      "family": "visual",
+      "runtimeId": "tree-fir-slim",
+      "name": "tree-fir-slim",
+      "description": "A narrow evergreen fir tree.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "tree-fir-slim",
+        "kind": "prop",
+        "src": "assets/props/tree-fir-slim.png",
+        "w": 56,
+        "h": 94,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "56 by 94 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/tree-fir-slim.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "visual:tree-oak",
@@ -16492,7 +17866,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset tree-oak is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:tree-oak-hollow",
@@ -16518,7 +17898,77 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset tree-oak-hollow is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:tree-oak-round",
+      "family": "visual",
+      "runtimeId": "tree-oak-round",
+      "name": "tree-oak-round",
+      "description": "A broad round-canopied oak tree with a visible trunk.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "tree-oak-round",
+        "kind": "prop",
+        "src": "assets/props/tree-oak-round.png",
+        "w": 122,
+        "h": 142,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "122 by 142 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/tree-oak-round.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "visual:tree-oak-young",
+      "family": "visual",
+      "runtimeId": "tree-oak-young",
+      "name": "tree-oak-young",
+      "description": "A smaller oak with a compact round canopy.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "tree-oak-young",
+        "kind": "prop",
+        "src": "assets/props/tree-oak-young.png",
+        "w": 68,
+        "h": 90,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "68 by 90 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "preview": "dist/assets/props/tree-oak-young.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "CC0 1.0 Universal; attribution not required.",
+      "allowedUseSummary": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule.",
+      "externalSource": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseReference": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourcePage": "https://opengameart.org/content/nature-props-surface-forest",
+      "licenseLink": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "visual:tree-pine",
@@ -16544,7 +17994,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset tree-pine is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     },
     {
       "id": "visual:tree-pine-snow",
@@ -16570,7 +18026,13 @@
       "animationMetadata": null,
       "identity": null,
       "review": [],
-      "characterMetadata": null
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset tree-pine-snow is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
     }
   ]
 }
