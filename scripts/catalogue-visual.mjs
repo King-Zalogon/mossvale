@@ -2,9 +2,11 @@
 import {createServer} from 'node:http';
 import {readFileSync, existsSync} from 'node:fs';
 import {resolve} from 'node:path';
+import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {ROOT, generateCatalogue, validateCatalogue, validateGenerated, safePath} from './lib/catalogue.mjs';
 import {createVisualIndex, renderCataloguePage, writePortableContext} from './lib/catalogue-visuals.mjs';
+import {createReferenceIndex, safeReferencePath} from './lib/reference-assets.mjs';
 
 const self = fileURLToPath(import.meta.url);
 
@@ -31,7 +33,7 @@ function parseArgs(args) {
     else if (argument.startsWith('--out=')) options.out = argument.slice('--out='.length);
     else if (argument === '--out') throw new Error('Use --out=DIR.');
     else if (argument.startsWith('--ids=')) options.ids = argument.slice('--ids='.length).split(',').filter(Boolean);
-    else if (argument === '--ids') throw new Error('Use --ids=visual:id,visual:id.');
+    else if (argument === '--ids') throw new Error('Use --ids=visual:id,reference:source/id.');
     else if (argument.startsWith('--port=')) options.port = Number(argument.slice('--port='.length));
     else throw new Error(`Unknown argument: ${argument}`);
   }
@@ -49,7 +51,15 @@ function contentType(path) {
 export async function startCatalogueServer({port = 4179, host = '127.0.0.1'} = {}) {
   const {catalogue, facts} = await currentSources();
   const visualIndex = createVisualIndex(catalogue, facts);
-  const allowedPreviews = new Set(visualIndex.flatMap(item => [item.preview?.path, ...item.referencePreviews.map(preview => preview.path)]).filter(Boolean));
+  const referenceRegistryPath = 'art/assets/third-party/andhegames-creatures/registry.json';
+  const referenceIndex = createReferenceIndex(readJson(referenceRegistryPath), {root: ROOT, registryPath: referenceRegistryPath});
+  const allowedPreviews = new Set(
+    [
+      ...visualIndex.flatMap(item => [item.preview?.path, ...item.referencePreviews.map(preview => preview.path)]),
+      ...referenceIndex.map(item => item.preview?.path),
+    ].filter(Boolean),
+  );
+  const referenceHashes = new Map(referenceIndex.map(item => [item.preview.path, item.sha256]));
   const visualFiches = new Map(catalogue.entries.filter(entry => entry.kind === 'visual').map(entry => [entry.id, entry]));
   const appScript = readFileSync(resolve(ROOT, 'scripts/catalogue-browser/app.js'));
   const styles = readFileSync(resolve(ROOT, 'scripts/catalogue-browser/styles.css'));
@@ -72,7 +82,7 @@ export async function startCatalogueServer({port = 4179, host = '127.0.0.1'} = {
       let type;
       if (url.pathname === '/') {
         body = renderCataloguePage(
-          {sourceRevision: catalogue.sourceRevision, entries: [], visuals: visualIndex, ficheEndpoint: '/fiche?id='},
+          {sourceRevision: catalogue.sourceRevision, entries: [], visuals: visualIndex, references: referenceIndex, ficheEndpoint: '/fiche?id='},
           {appScript: '/app.js', stylesheet: '/styles.css', imagePrefix: '/asset?path='},
         );
         type = 'text/html; charset=utf-8';
@@ -97,7 +107,12 @@ export async function startCatalogueServer({port = 4179, host = '127.0.0.1'} = {
           response.writeHead(404, headers).end('Preview not found');
           return;
         }
-        body = readFileSync(safePath(ROOT, previewPath));
+        body = readFileSync(referenceHashes.has(previewPath) ? safeReferencePath(ROOT, previewPath) : safePath(ROOT, previewPath));
+        const expectedHash = referenceHashes.get(previewPath);
+        if (expectedHash && createHash('sha256').update(body).digest('hex') !== expectedHash) {
+          response.writeHead(409, headers).end('Reference changed after catalogue startup.');
+          return;
+        }
         type = contentType(previewPath);
       } else {
         response.writeHead(404, headers).end('Not found');
@@ -136,6 +151,10 @@ async function main() {
       catalogue,
       facts,
       ids: options.ids ?? [],
+      referenceAssets: createReferenceIndex(readJson('art/assets/third-party/andhegames-creatures/registry.json'), {
+        root: ROOT,
+        registryPath: 'art/assets/third-party/andhegames-creatures/registry.json',
+      }),
       all: options.all ?? false,
       appScript,
       stylesheet,
@@ -145,7 +164,7 @@ async function main() {
     );
     return;
   }
-  throw new Error('Usage: node scripts/catalogue-visual.mjs browse [--port=4179] | export --out=DIR (--ids=visual:id,... | --all)');
+  throw new Error('Usage: node scripts/catalogue-visual.mjs browse [--port=4179] | export --out=DIR (--ids=visual:id,reference:source/id,... | --all)');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === self) {

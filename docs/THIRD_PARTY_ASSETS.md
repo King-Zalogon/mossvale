@@ -11,8 +11,16 @@ Third-party art is tracked separately from Mossvale's own artwork and any future
 - The downloaded source archive is retained at `art/assets/third-party/reactorcore-nature-surface.zip`. The registry records the source URL, retrieved date, archive digest, every imported file, source dimensions and hashes, intended use, limits and license evidence. The editable pixel-preserving atlas is `art/assets/third-party/reactorcore-nature-surface-atlas.png`.
 - Four props are currently placed in the Sunlit Trail map: `tree-oak-round`, `tree-fir-slim`, `bush-woodland-low` and `plant-fern-frond`. The pack also contributes optional tree, plant, rock and fruit images to the local visual catalogue. Fruit pictures are not usable inventory items until separately defined by game data and behavior.
 
+## AndHeGames creature concept references
+
+- Three small creature sheets are retained at `art/assets/third-party/andhegames-creatures/`; each source page identifies AndHeGames and CC0 1.0.
+- The source list, per-sheet subject tags, original dimensions, retrieval details, SHA-256 digests and use limits are in that folder's `registry.json`.
+- These sheets are separate `reference:` records in the local visual browser. They have no `visual:` runtime ID, creature species record, gameplay behavior or art approval.
+- Select a sheet and copy its reference ID in `npm run catalogue:browse`, then export only selected images with `npm run catalogue:export -- --out=/tmp/mossvale-writer-context --ids=reference:andhegames/more-assorted-creatures`. Export includes the source, creator, CC0 terms, hash and caveats in `references.json`; it limits each sheet to 2 MiB and each selection to 16 MiB.
+- Adaptation into game art or creature data requires a separate authored design and visual review. Never infer a creature's name, element, lore, behavior, stats or readiness from its pixels.
+
 ## Re-import and review
 
-Run `npm run art:check` to verify the archive and source hashes, exact source-to-atlas/runtime pixels, export metadata and asset manifest. `npm run catalogue:write` updates the portable writer catalogue from the registry; review its output before committing. `npm run catalogue:browse` opens the local visual browser. Select an asset fiche to see the source/license note and preview; `npm run catalogue:export` includes the selected images for another model.
+Run `npm run art:check` to verify the archive and source hashes, exact source-to-atlas/runtime pixels, export metadata and asset manifest. `npm run catalogue:write` updates the portable writer catalogue from the runtime registry; review its output before committing. `npm run catalogue:browse` opens the local visual browser. Select an asset fiche to see the source/license note and preview; `npm run catalogue:export` includes selected registered visuals and separately namespaced reference sheets for another model.
 
 If `art/assets/export.py --pack --force` rebuilds source atlases, re-run `python art/assets/import-third-party-assets.py --write` to restore this package's separate editable atlas and provenance records. Never edit the downloaded source archive or the imported runtime crops to remove attribution or alter their recorded hashes; adaptations should be added as new, clearly identified files with their own provenance.
