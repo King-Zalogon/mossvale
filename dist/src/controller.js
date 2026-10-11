@@ -26,7 +26,6 @@ import {movementFacing} from './domain/exploration.js';
 import {GRACE_AFTER_BATTLE, GRACE_ON_ARRIVAL} from './config.js';
 import {$, environmentalMessage, hideModal, toast as showToast} from './ui/dom.js';
 import {INTENT_TEXT, TACTICS} from './data/tactics.js';
-import {spriteId} from './data/assets.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
@@ -40,6 +39,7 @@ import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
 import {captureBeats, fxForEvent, rewardPops} from './ui/battle-fx.js';
 import {guardianCombatSprite} from './render/battle-art.js';
+import {chestSprite} from './render/chest-art.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
 
 export function createController(app) {
@@ -464,7 +464,7 @@ export function createController(app) {
       showResult({
         title: 'A little trail treasure',
         copy: 'Something useful for the road ahead.',
-        sprite: spriteId('chest-wooden-open-empty'),
+        sprite: chestSprite(o, true),
         rewards: [`${got.coins} coins`, `${got.potions} potions`, `${got.orbs} capture orbs`],
         button: 'Keep exploring',
         onContinue: () => (close(), checkEnding()),

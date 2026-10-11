@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-116 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+123 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -52,7 +52,7 @@ npm run validate
 
 ### Chest claimed state
 
-One-time chests use `chest-wooden` before claiming and the opaque `chest-wooden-open-empty` afterward, including the reward result image. The renderer and minimap consult the same landmark flag as `claimChest`; independent side caches do not borrow a region's chest state. Existing saves need no migration. Both poses use the same world width and bottom-center anchor; the open sprite is 343×330, with a lifted lid and no contents. [Source and export notes](../art/assets/source/chests/README.md) document the generated reference and reproducible pixel export. `tests/chest-state.browser.mjs` covers unopened, claimed, reload and repeated interaction states. Biome-specific variants remain separate (#337).
+One-time chests use `chest-wooden` before claiming and the opaque `chest-wooden-open-empty` afterward, including the reward result image. The renderer and minimap consult the same landmark flag as `claimChest`; independent side caches do not borrow a region's chest state. Existing saves need no migration. Both poses use the same world width and bottom-center anchor; the open sprite is 343×330, with a lifted lid and no contents. [Source and export notes](../art/assets/source/chests/README.md) document the generated reference and reproducible pixel export. `tests/chest-state.browser.mjs` covers unopened, claimed, reload and repeated interaction states. Biome-specific pairs (#337) use `chest-reed-rope`, `chest-sandstone-iron` and `chest-pine-frost`, each with a `-open-empty` counterpart; Meadow retains wooden. Choose the closed ID in the existing map sprite field. The shared chest art resolver selects the corresponding empty image without changing flags or rewards. See [biome source/export notes](../art/assets/source/chests/biomes/README.md) and **Testing URLs → Biome treasure chests** (`/chest-preview.html`) for labeled actual-scale and map-context comparisons. Unknown custom chest images retain the wooden empty fallback.
 
 `art/assets/subjects.json` gives stable visual IDs and explicit revisions to the player and all eighteen creatures. Each record describes the visible silhouette, palette and distinguishing features; hashes the canonical reference and exported runtime file; and records the source batches, references and export workflow. The validator checks these hashes and verifies that asset IDs, source-atlas cells, directions and batch outputs still resolve to the manifest. A changed identity needs a reviewed new revision; a retry or sibling frame must keep the existing subject ID and revision.
 

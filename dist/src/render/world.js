@@ -10,6 +10,7 @@ import {isKnown, isRevealed} from '../domain/discovery.js';
 import {companionRouteDiscovered, companionRouteVisible} from '../domain/companion-routes.js';
 import {drawSprite, drawSpriteFrame, sprites} from './sprites.js';
 import {createTerrainPainter, terrainColors} from './terrain.js';
+import {chestSprite} from './chest-art.js';
 
 const raw = (x, y) => ({x: ((x - y) * TILE_W) / 2, y: ((x + y) * TILE_H) / 2});
 
@@ -191,7 +192,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         ctx.fill();
       }
       const openedChest = o.kind === 'chest' && flagDone(save, o.flag);
-      if (openedChest) drawSprite(ctx, spriteId('chest-wooden-open-empty'), s.x, s.y, o.w * zoom);
+      if (openedChest) drawSprite(ctx, chestSprite(o, true), s.x, s.y, o.w * zoom);
       else {
         // Walking cells carry the gait. Keep feet anchored to the ground instead of adding a distance-driven
         // subpixel bob that makes this small pixel-art sprite pop at every zoom level.

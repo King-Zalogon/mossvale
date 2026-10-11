@@ -13,6 +13,36 @@ import {decodePng, opaqueBounds} from '../scripts/lib/png.mjs';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
+import {chestPairs, chestSprite} from '../dist/src/render/chest-art.js';
+
+test('biome chest pairs retain manifest anchors, transparency and authored map selections', () => {
+  for (const [closed, open] of Object.entries(chestPairs)) {
+    const ids = [closed, open].map(spriteId);
+    for (const id of ids) {
+      const asset = assets[id];
+      assert.equal(asset.anchor, 'bottom-center');
+      assert.equal(asset.w, 343);
+      const image = decodePng(readFileSync(new URL('../dist/' + asset.src, import.meta.url)));
+      assert.equal(image.width, asset.w);
+      assert.equal(image.height, asset.h);
+      assert.ok(opaqueBounds(image), 'pose has visible pixels');
+      assert.ok(image.transparent, 'real transparency is preserved');
+      assert.ok(opaqueBounds(image).bottom <= 2, 'pose stands on the shared ground anchor');
+      if (closed !== 'chest-wooden') {
+        for (let i = 3; i < image.data.length; i += 4) assert.ok(image.data[i] === 0 || image.data[i] === 255, 'new poses have no translucent halo');
+      }
+    }
+    assert.equal(chestSprite({id: ids[0]}, false), ids[0]);
+    assert.equal(chestSprite({id: ids[0]}, true), ids[1]);
+    assert.equal(chestSprite({sprite: closed}, true), ids[1]);
+  }
+  assert.equal(chestSprite({sprite: 'boulder-mossy'}, true), spriteId('chest-wooden-open-empty'), 'legacy/custom packs keep the generic empty fallback');
+  const expected = {meadow: 'chest-wooden', wetland: 'chest-reed-rope', badlands: 'chest-sandstone-iron', 'snowy-forest': 'chest-pine-frost'};
+  for (const id of ['meadow', 'reedfen-wetlands', 'stilt-isles', 'stone-basin', 'amber-ridge', 'frostveil-grove', 'frostveil-pass']) {
+    const map = JSON.parse(readFileSync(new URL(`../dist/maps/${id}.json`, import.meta.url)));
+    for (const chest of map.landmarks.filter(o => o.kind === 'chest')) assert.equal(chest.sprite, expected[map.biome]);
+  }
+});
 
 /** A tiny PNG writer for fixtures. `pixel(x, y)` returns [r, g, b, a] (type 6) or [r, g, b] (type 2). */
 function makePng(w, h, pixel, colorType = 6) {

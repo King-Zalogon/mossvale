@@ -9,6 +9,7 @@ import {biomes} from '../../dist/src/data/biomes.js';
 import {moves} from '../../dist/src/data/moves.js';
 import {SFX, AMBIENCE} from '../../dist/src/data/sounds.js';
 import {LANDMARK_KINDS, TERRAIN} from '../../dist/src/domain/mapdata.js';
+import {chestPairs} from '../../dist/src/render/chest-art.js';
 
 export const ROOT = fileURLToPath(new URL('../..', import.meta.url));
 const json = path => JSON.parse(readFileSync(safePath(ROOT, path), 'utf8'));
@@ -66,11 +67,16 @@ export function collectFacts() {
   const combat = json('art/characters/creature-combat-metadata.json');
   const visualReviews = json('art/characters/visual-reviews.json');
   const characterMetadata = json('art/characters/metadata.json');
+  const artMetadata = json('art/assets/metadata.json');
+  sources.add('art/assets/metadata.json');
+  sources.add('dist/src/render/chest-art.js');
   const thirdParty = json('art/assets/third-party/registry.json');
   const externalAssets = new Map(thirdParty.packages.flatMap(pack => pack.assets.map(asset => [asset.name, {asset, pack}])));
   sources.add('art/characters/visual-reviews.json');
   sources.add('art/characters/metadata.json');
   for (const asset of assets) {
+    const art = artMetadata.assets.find(value => value.name === asset.name);
+    const chestPair = Object.entries(chestPairs).find(([closed, open]) => asset.name === closed || asset.name === open);
     const external = externalAssets.get(asset.name);
     const subject =
       subjects.find(value => value.exports?.some(output => output.assetId === asset.name)) ??
@@ -82,7 +88,7 @@ export function collectFacts() {
     const preview = `dist/${asset.src}`;
     sources.add(preview);
     add('visual', asset.name, asset, 'dist/src/data/assets.js', {
-      description: external?.asset.description ?? subject?.identity?.silhouette ?? words(asset.name),
+      description: external?.asset.description ?? art?.description ?? subject?.identity?.silhouette ?? words(asset.name),
       dimensions: `${asset.w} by ${asset.h} source pixels`,
       directions: follower
         ? followers.directions.join(', ')
@@ -98,7 +104,8 @@ export function collectFacts() {
             : asset.name === 'effect-elemental-materials'
               ? `${asset.frames.rowOrder.join(', ')} materials; ${asset.frames.columnOrder.join(', ')} poses; renderer mirrors enemy travel.`
               : 'No animation states declared for this static image.',
-      evidence: 'tests/assets.test.mjs',
+      evidence: chestPair ? 'tests/chest-state.browser.mjs' : 'tests/assets.test.mjs',
+      references: chestPair ? ['dist/src/render/chest-art.js', 'dist/chest-preview.html', 'art/assets/source/chests/biomes/README.md'] : [],
       preview,
       animationMetadata: follower ? follower : (battle ?? (asset.name === 'effect-elemental-materials' ? asset.frames : null)),
       identity: subject?.identity ?? null,
@@ -107,9 +114,11 @@ export function collectFacts() {
       sourceLicenseSummary: external
         ? `${external.pack.license}; ${external.pack.attributionRequired ? 'attribution required' : 'attribution not required'}.`
         : 'Original Mossvale artwork; see the asset source record.',
-      allowedUseSummary: external
-        ? `${external.asset.intendedUse} License: personal and public-repository use and adaptation are permitted; attribution is not required. ${external.asset.limitations}`
-        : `Asset ${asset.name} is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.`,
+      allowedUseSummary: chestPair
+        ? `Use ${chestPair[0]} in a chest landmark's sprite field; its existing durable flag selects ${chestPair[1]} after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation.`
+        : external
+          ? `${external.asset.intendedUse} License: personal and public-repository use and adaptation are permitted; attribution is not required. ${external.asset.limitations}`
+          : `Asset ${asset.name} is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.`,
       externalSource: external ? external.pack.source : null,
       licenseReference: external ? external.pack.licenseUrl : null,
       sourcePage: external ? external.pack.source : 'See the local artwork provenance record.',
@@ -342,7 +351,7 @@ export async function generateCatalogue() {
       dependencies: record.dependencies ?? [],
       limits: template.limits,
       examples: [{intent: summary, usage: `Reference ${record.runtimeId} in the existing format at ${record.source}.`, expected: summary}],
-      references: [record.source],
+      references: [record.source, ...(record.references ?? [])],
       evidence: [{path: record.evidence, assertion: 'Existing owning-contract regression; does not establish fresh semantic art approval.'}],
       details: Object.fromEntries(Object.entries(template.details).map(([key, value]) => [key, render(value, record)])),
     };
