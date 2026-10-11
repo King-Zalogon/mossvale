@@ -29,6 +29,7 @@ try {
   });
   await page.goto(`http://127.0.0.1:${server.address().port}/`);
   const origin = `http://127.0.0.1:${server.address().port}`;
+  await page.context().grantPermissions(['clipboard-read', 'clipboard-write'], {origin});
   assert.equal((await page.request.get(`${origin}/fiche?id=actor%3Anot-a-visual`)).status(), 404);
   assert.equal((await page.request.get(`${origin}/asset?path=docs%2FFEEDBACK.md`)).status(), 404);
   assert.equal((await page.request.get(`${origin}/asset?path=${encodeURIComponent(referenceAssets[0].preview.path)}`)).status(), 200);
@@ -56,6 +57,16 @@ try {
   assert.match(await page.locator('#details').textContent(), /Not runtime content/);
   assert.equal(referenceImageRequests.length, 1, 'the selected reference sheet loads only after the author opens its details');
   await page.locator('#details input[type=checkbox]').check();
+  await page.locator('#copy-selection').click();
+  await page.waitForFunction(() => document.querySelector('#copy-status').textContent.includes('copied.'));
+  assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'reference:andhegames/assorted-creatures');
+  await page.evaluate(() => {
+    Object.defineProperty(navigator.clipboard, 'writeText', {
+      value: async () => {
+        throw new Error('Clipboard unavailable');
+      },
+    });
+  });
   await page.locator('#copy-selection').click();
   await page.waitForFunction(() => document.querySelector('#copy-status').textContent.includes('reference:andhegames/assorted-creatures'));
   await page.locator('#details input[type=checkbox]').uncheck();
