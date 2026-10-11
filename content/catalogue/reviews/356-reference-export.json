@@ -1,0 +1,29 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "art/assets/third-party/andhegames-creatures/registry.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/curated.json",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/356-reference-export.json",
+        "docs/AGENT_HANDOFFS.md",
+        "docs/CATALOGUE.md",
+        "docs/THIRD_PARTY_ASSETS.md",
+        "scripts/catalogue-browser/app.js",
+        "scripts/catalogue-browser/styles.css",
+        "scripts/catalogue-visual.mjs",
+        "scripts/lib/catalogue-visuals.mjs",
+        "scripts/lib/reference-assets.mjs",
+        "tests/catalogue-browser.browser.mjs",
+        "tests/visual-catalogue.test.mjs"
+      ],
+      "entries": ["mechanic:catalogue-authoring"],
+      "disposition": "updated",
+      "reason": "The local authoring catalogue now discovers CC0 concept sheets in a namespace separate from runtime visuals and exports selected image copies with deterministic licensing/provenance metadata and explicit limits.",
+      "evidence": ["tests/visual-catalogue.test.mjs", "tests/catalogue-browser.browser.mjs"]
+    }
+  ]
+}

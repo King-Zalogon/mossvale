@@ -4903,33 +4903,54 @@
       "id": "mechanic:catalogue-authoring",
       "kind": "mechanic",
       "name": "Local authoring catalogue",
-      "summary": "Generate and validate resource fiches from canonical records and reviewed templates.",
+      "summary": "Generate and validate resource fiches, browse registered art and export selected game visuals or licensed reference sheets for local writers.",
       "status": "available",
       "scope": "authoring-only",
       "configuration": [],
       "dependencies": [],
-      "limits": ["Structural and diff checks do not prove prose accuracy; scoped exceptions require reviewer assessment."],
+      "limits": [
+        "Structural and diff checks do not prove prose accuracy; scoped exceptions require reviewer assessment.",
+        "Third-party concepts use the separate reference: namespace and are never runtime visuals, species identities or approved Mossvale art.",
+        "Reference sheet exports are limited to 2 MiB per image and 16 MiB total per selection; --all exports registered game visuals only."
+      ],
       "examples": [
         {
-          "intent": "Generate and validate resource fiches from canonical records and reviewed templates.",
-          "usage": "Run npm run catalogue:write then npm run catalogue:check.",
-          "expected": "Deterministic output and validated references."
+          "intent": "Give a writer one licensed creature concept sheet to inspect and attach to a design prompt.",
+          "usage": "Run npm run catalogue:browse, filter by source, subject and license, select the reference: record, copy its ID, then run npm run catalogue:export -- --out=/tmp/writer-context --ids=reference:andhegames/more-assorted-creatures.",
+          "expected": "A portable index and only the selected image, with creator, source, CC0 terms, hash and limits; the reference has no runtime identity or game behavior."
         }
       ],
-      "references": ["scripts/catalogue.mjs", "content/catalogue/schema.json", "content/catalogue/templates.json", "content/catalogue/curated.json"],
+      "references": [
+        "scripts/catalogue.mjs",
+        "scripts/catalogue-visual.mjs",
+        "scripts/lib/catalogue-visuals.mjs",
+        "scripts/lib/reference-assets.mjs",
+        "content/catalogue/schema.json",
+        "content/catalogue/templates.json",
+        "content/catalogue/curated.json",
+        "art/assets/third-party/andhegames-creatures/registry.json"
+      ],
       "evidence": [
         {
           "path": "tests/catalogue.test.mjs",
           "assertion": "Deterministic generation, source freshness, references and diff-impact failure cases."
+        },
+        {
+          "path": "tests/visual-catalogue.test.mjs",
+          "assertion": "Stable reference namespace, source metadata, deterministic selected-image export, hash integrity, symlink rejection and export size bounds."
+        },
+        {
+          "path": "tests/catalogue-browser.browser.mjs",
+          "assertion": "Reference source/license/subject filters, deferred full-sheet loading and selectable IDs in the local browser."
         }
       ],
       "details": {
-        "trigger": "Authoring CLI invocation.",
-        "inputs": "Existing registries, audited templates and curated capabilities.",
-        "sequence": "Extract factual records, apply reviewed family descriptions, generate index/fiches/source hashes.",
-        "results": "Portable repository-local text/JSON index; visual browsing/export is a separate later step.",
+        "trigger": "Run the local visual browser or catalogue export command.",
+        "inputs": "Generated game catalogue and separately curated, hash-checked third-party reference registries.",
+        "sequence": "Filter visuals and references by subject, source or license; load the selected fiche and full sheet on demand; copy selected stable IDs; export only selected images with provenance and limits.",
+        "results": "A portable writer context with catalogue visuals and separate reference: records; reference records are never added to gameplay or save identity.",
         "cancellation": "No runtime game state changes.",
-        "errors": "Invalid records, unknown IDs, unsafe/missing paths and stale output fail checks.",
+        "errors": "Invalid records, unknown IDs, hash mismatches, unsafe or symlinked paths, oversized references and stale catalogue output fail closed.",
         "persistence": "Checked-in deterministic documentation, not adventure save data."
       }
     },
