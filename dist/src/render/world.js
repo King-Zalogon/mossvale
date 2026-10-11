@@ -4,7 +4,7 @@ import {assets, spriteId} from '../data/assets.js';
 import {regions} from '../data/regions.js';
 import {TILE_H, TILE_W} from '../config.js';
 import {FACING, directionPose, followerFrame, movementFacing, playerFrame, playerSpritePose} from '../domain/exploration.js';
-import {unlocked} from '../domain/rules.js';
+import {flagDone, unlocked} from '../domain/rules.js';
 import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
 import {isKnown, isRevealed} from '../domain/discovery.js';
 import {companionRouteDiscovered, companionRouteVisible} from '../domain/companion-routes.js';
@@ -190,8 +190,8 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         ctx.ellipse(s.x, s.y - 10 * zoom, 34 * zoom, 13 * zoom, 0, 0, Math.PI * 2);
         ctx.fill();
       }
-      const openedChest = o.kind === 'chest' && save.chests.includes(region);
-      if (openedChest) drawSprite(ctx, o.id, s.x, s.y, o.w * zoom, {alpha: 0.45});
+      const openedChest = o.kind === 'chest' && flagDone(save, o.flag);
+      if (openedChest) drawSprite(ctx, spriteId('chest-wooden-open-empty'), s.x, s.y, o.w * zoom);
       else {
         // Walking cells carry the gait. Keep feet anchored to the ground instead of adding a distance-driven
         // subpixel bob that makes this small pixel-art sprite pop at every zoom level.
@@ -295,7 +295,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
     for (const o of world.objects) {
       if (!['shrine', 'ranger', 'chest', 'gate'].includes(o.kind) || !companionRouteVisible(save, world.map.id, o)) continue;
       if (!isKnown(entry, o) && !(o.route && companionRouteDiscovered(save, world.map.id, o.route.id))) continue;
-      if (o.kind === 'chest' && save.chests.includes(save.region)) continue;
+      if (o.kind === 'chest' && flagDone(save, o.flag)) continue;
       const s = mp(o.x, o.y);
       mini.fillStyle = o.kind === 'shrine' ? '#80dcff' : o.kind === 'chest' ? '#f6c25b' : '#eff3d5';
       mini.fillRect(s.x - 2, s.y - 2, 4, 4);

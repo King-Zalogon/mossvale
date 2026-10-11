@@ -20,7 +20,7 @@
           "expected": "Use the existing wooden chest artwork for a placed prop."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "art/assets/source/chests/README.md"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -33,7 +33,7 @@
         "scale": "Manifest image 343 by 319 pixels; renderer controls displayed size.",
         "directions": "One static asset; no directional poses declared.",
         "animations": "No opening animation declared by this asset.",
-        "compatibleUses": "Visual prop; chest reward behavior comes from a landmark, not the PNG."
+        "compatibleUses": "Closed visual for an unclaimed chest landmark. The existing durable landmark flag selects chest-wooden-open-empty after claiming; reward behavior comes from the landmark, not the PNG."
       },
       "previews": [
         {
@@ -212,7 +212,7 @@
         "sequence": "Collect dialogue actions in order for the existing dialogue presentation.",
         "results": "Speaker-associated dialogue lines; domain function itself does not draw balloons.",
         "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
-        "errors": "Unknown speaker or text outside 1\u2013500 characters fails validation.",
+        "errors": "Unknown speaker or text outside 1–500 characters fails validation.",
         "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
       }
     }

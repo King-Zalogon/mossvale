@@ -1,0 +1,38 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/render/world.js",
+        "dist/src/controller.js",
+        "dist/src/data/assets.js",
+        "dist/assets/props/chest-wooden-open-empty.png",
+        "art/assets/metadata.json",
+        "art/assets/subjects.json",
+        "art/assets/export-chest-state.py",
+        "art/assets/source/chests/README.md",
+        "art/assets/source/chests/open-empty.generated.png",
+        "art/assets/source/chests/open-empty.png",
+        "content/catalogue/examples.json",
+        "docs/ASSETS.md",
+        "tests/chest-state.browser.mjs",
+        "package.json",
+        "art/assets/reviews/235/frostveil-pass-closed.png",
+        "art/assets/reviews/235/meadow-open.png",
+        "art/assets/reviews/235/frostveil-pass-open.png",
+        "art/assets/reviews/235/meadow-closed.png"
+      ],
+      "entries": ["visual:chest-wooden", "visual:chest-wooden-open-empty"],
+      "disposition": "updated",
+      "reason": "Adds an opaque empty counterpart for the existing wooden chest. World and minimap read the same persisted landmark flag as claimChest, including independent caches; reward presentation shows the open state. No reward rules, save format or biome variants change. Generation and pixel-preserving source exports are documented; visual catalogue is regenerated.",
+      "evidence": [
+        "tests/chest-state.browser.mjs",
+        "tests/economy.test.mjs",
+        "art/assets/source/chests/README.md",
+        "art/assets/reviews/235/meadow-open.png",
+        "art/assets/reviews/235/frostveil-pass-open.png",
+        "docs/ASSETS.md"
+      ]
+    }
+  ]
+}

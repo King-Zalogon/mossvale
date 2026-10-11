@@ -855,6 +855,7 @@ export const assets = [
   {name: 'tree-fir-slim', kind: 'prop', src: 'assets/props/tree-fir-slim.png', w: 56, h: 94, anchor: 'bottom-center', required: true},
   {name: 'tree-oak-round', kind: 'prop', src: 'assets/props/tree-oak-round.png', w: 122, h: 142, anchor: 'bottom-center', required: true},
   {name: 'tree-oak-young', kind: 'prop', src: 'assets/props/tree-oak-young.png', w: 68, h: 90, anchor: 'bottom-center', required: false},
+  {name: 'chest-wooden-open-empty', kind: 'prop', src: 'assets/props/chest-wooden-open-empty.png', w: 343, h: 330, anchor: 'bottom-center', required: true},
 ];
 
 /** Index of an asset by name; used by content that refers to art (species, regions, direction sprites). Throws on a typo. */
