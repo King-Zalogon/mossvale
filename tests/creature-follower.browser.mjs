@@ -6,6 +6,12 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import assert from 'node:assert/strict';
 import {species} from '../dist/src/data/species.js';
+import {PREPARED_CREATURE_IDS} from '../dist/src/creature-preview-resources.js';
+
+const previewSpecies = [
+  ...species,
+  ...PREPARED_CREATURE_IDS.map(id => JSON.parse(readFileSync(new URL(`../dist/resources/creatures/${id}.json`, import.meta.url)))),
+];
 import {assets, spriteId} from '../dist/src/data/assets.js';
 import {DIRECTIONS, directionPose, movementFacing} from '../dist/src/domain/exploration.js';
 
@@ -47,7 +53,11 @@ try {
     ),
     true,
   );
-  for (const {id} of species) {
+  assert.deepEqual(
+    await page.locator('#species option').evaluateAll(options => options.map(option => option.value)),
+    previewSpecies.map(entry => entry.id),
+  );
+  for (const {id} of previewSpecies) {
     await page.selectOption('#species', id);
     await page.waitForFunction(
       () =>
@@ -140,7 +150,9 @@ try {
     assert.equal(await game.evaluate(() => window.mossvale.getState().save.active), speciesId);
   }
   assert.deepEqual(errors, []);
-  console.log(`ok follower preview displays all eight directions and five frames for all ${species.length} species; in-game path motion switches all species`);
+  console.log(
+    `ok follower preview displays all eight directions and five frames for all ${previewSpecies.length} review species; in-game path motion keeps the ${species.length}-species adventure roster`,
+  );
 } finally {
   await browser.close();
   server.close();

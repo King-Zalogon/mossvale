@@ -1,9 +1,10 @@
 import {assets, spriteId} from './data/assets.js';
 import {species, replaceSpecies} from './data/species.js';
 import {drawSpriteFrame, drawCreatureAnimated, sprites} from './render/sprites.js';
+import {PREPARED_CREATURE_IDS} from './creature-preview-resources.js';
 
 const resource = document.body.dataset.resource || 'parrocket';
-if (!['parrocket', 'blastoucan', 'rumblet', 'coglet', 'wispurr'].includes(resource)) throw new Error('Unknown creature resource');
+if (!PREPARED_CREATURE_IDS.includes(resource)) throw new Error('Unknown creature resource');
 const definition = await fetch(`resources/creatures/${resource}.json`).then(response => {
   if (!response.ok) throw new Error('Creature resource definition failed to load');
   return response.json();
