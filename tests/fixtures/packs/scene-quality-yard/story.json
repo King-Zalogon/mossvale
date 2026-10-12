@@ -1,0 +1,21 @@
+{
+  "format": 1,
+  "premise": {
+    "title": "Welcome Yard",
+    "paragraphs": [
+      "Wren keeps a small cottage yard open to passing travelers.",
+      "Hear the welcome and choose whether to collect the offered supplies."
+    ],
+    "button": "Begin walking"
+  },
+  "ending": {
+    "when": {
+      "flag": "start.chest"
+    },
+    "title": "Ready for the road",
+    "paragraphs": [
+      "You have collected Wren\u2019s offered supplies. The yard stays open when you need a quiet place."
+    ],
+    "button": "Keep exploring"
+  }
+}

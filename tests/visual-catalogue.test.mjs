@@ -155,7 +155,10 @@ test('portable selected context is deterministic and only copies requested safe 
   for (const path of tree(first)) assert.deepEqual(readFileSync(join(first, path)), readFileSync(join(second, path)), path);
   const manifest = JSON.parse(readFileSync(join(first, 'manifest.json'), 'utf8'));
   assert.equal(manifest.sourceRevision, catalogue.sourceRevision);
-  assert.equal(manifest.files.length, 8);
+  assert.equal(manifest.files.length, 9);
+  assert.ok(manifest.files.some(file => file.path === 'scene-script.schema.json'));
+  assert.match(readFileSync(join(first, 'writer-instructions.md'), 'utf8'), /sceneBrief/);
+  assert.match(readFileSync(join(first, 'writer-instructions.md'), 'utf8'), /unrelated chest/);
   assert.ok(manifest.files.every(file => /^[a-f0-9]{64}$/.test(file.sha256)));
   const exported = JSON.parse(readFileSync(join(first, 'catalogue.json'), 'utf8'));
   assert.equal(exported.entries.length, catalogue.entries.length);
