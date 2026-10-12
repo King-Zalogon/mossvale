@@ -1,0 +1,47 @@
+{
+  "format": 1,
+  "id": "scene-quality-yard",
+  "name": "Quality Gate — Welcome Yard",
+  "brief": "Hear why the supplies are here, then collect them for the road.",
+  "maps": [
+    "start"
+  ],
+  "species": [
+    "fernling"
+  ],
+  "milestones": [
+    "start.chest"
+  ],
+  "ending": "story",
+  "registries": "registries.json",
+  "mapDirectory": "maps/",
+  "objectives": "objectives.json",
+  "story": "story.json",
+  "contentVersion": 1,
+  "requires": {
+    "engineVersion": 1,
+    "saveSchema": 5
+  },
+  "integrity": [
+    {
+      "id": "registry:main",
+      "path": "registries.json",
+      "sha256": "8119b46bfe3b690a99466f8edb1ecd261aa5ef301f07925ef33cab75b28df7c6"
+    },
+    {
+      "id": "map:start",
+      "path": "maps/start.json",
+      "sha256": "9a0f813ea42dc2e75ee2e38584b73684e1dca72cbc0502900b8b6d9a294dec2b"
+    },
+    {
+      "id": "objectives:main",
+      "path": "objectives.json",
+      "sha256": "2002ddc5dcff6c6bc9d7bb05e87b553b076621bdeaced2658fd0b2a0c68d6f5b"
+    },
+    {
+      "id": "story:main",
+      "path": "story.json",
+      "sha256": "c7b51dc7b4ff662c43d0f2a37ce84dca1e9fad64ad571dc26aa22080e4305fa9"
+    }
+  ]
+}

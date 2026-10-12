@@ -1,0 +1,482 @@
+{
+  "format": 1,
+  "sceneId": "quality-yard",
+  "categories": {
+    "schemaData": {
+      "status": "pass",
+      "findings": []
+    },
+    "playableBehavior": {
+      "status": "pass",
+      "findings": []
+    },
+    "visualComposition": {
+      "status": "pass",
+      "review": {
+        "status": "pass",
+        "rationale": "Inspected both dialogue lines and supplied-chest approach at desktop and 390px phone scale. Wren, player, Fernling and chest remain visible; actual text fragments clear Next/Done; the live objective is readable in the sidebar (scrollable on phone). The final fixture keeps the player beside the chest rather than inside its image. Generic engine presentation is not a claim of bespoke adventure polish."
+      }
+    },
+    "narrativePurpose": {
+      "status": "pass",
+      "findings": [],
+      "review": {
+        "status": "pass",
+        "rationale": "Wren explicitly offers supplies for the road and the player acknowledges the host. A useful once-only reward fulfills that practical purpose; no unrelated chest or unresolved mystery is used as a substitute payoff. This is a small teaching beat, not an approval of the archived Fernling mystery or a professional vertical slice."
+      }
+    }
+  },
+  "screenshots": [
+    {
+      "path": "docs/scene-quality/244/desktop-dialogue-1.png",
+      "sha256": "3cfccb7f7406b0d328f9b92a8063152307e5c3eaf6f1fe1f7022e6eb70db1922",
+      "viewport": {
+        "name": "desktop",
+        "width": 1280,
+        "height": 820
+      },
+      "phase": "dialogue",
+      "zoom": 1.45,
+      "layout": {
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 1280,
+          "bottom": 980
+        },
+        "actorViewport": {
+          "left": 39.390625,
+          "right": 920.609375,
+          "top": 212,
+          "bottom": 770
+        },
+        "panel": {
+          "left": 270,
+          "right": 690,
+          "top": 635.8125,
+          "bottom": 746
+        },
+        "required": {
+          "player": {
+            "left": 456.13365885416664,
+            "right": 503.86634114583336,
+            "top": 408.4013157894737,
+            "bottom": 485.49342105263156
+          },
+          "companion": {
+            "left": 455.21572265624997,
+            "right": 504.78427734375,
+            "top": 455.20723684210526,
+            "bottom": 504.7664473684211
+          },
+          "landmark": {
+            "left": 603.0034505208333,
+            "right": 658.99755859375,
+            "top": 466.2203947368421,
+            "bottom": 518.5328947368421
+          },
+          "objective": {
+            "left": 961.609375,
+            "right": 1221.609375,
+            "top": 588.78125,
+            "bottom": 613.78125
+          },
+          "speaker": {
+            "left": 532.32236328125,
+            "right": 581.8909179687499,
+            "top": 365.26644736842104,
+            "bottom": 444.19407894736844
+          },
+          "text": {
+            "left": 286,
+            "right": 547.75,
+            "top": 671.8125,
+            "bottom": 692.8125
+          },
+          "advance": {
+            "left": 613.1875,
+            "right": 674,
+            "top": 703,
+            "bottom": 734
+          }
+        },
+        "textFragments": [
+          {
+            "left": 286,
+            "right": 547.75,
+            "top": 671.8125,
+            "bottom": 692.8125
+          }
+        ],
+        "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
+      }
+    },
+    {
+      "path": "docs/scene-quality/244/desktop-dialogue-2.png",
+      "sha256": "6fc428912958e8d66c5e442a8eea5a60fedeb0fba80e4743603131219389743a",
+      "viewport": {
+        "name": "desktop",
+        "width": 1280,
+        "height": 820
+      },
+      "phase": "dialogue",
+      "zoom": 1.45,
+      "layout": {
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 1280,
+          "bottom": 980
+        },
+        "actorViewport": {
+          "left": 39.390625,
+          "right": 920.609375,
+          "top": 212,
+          "bottom": 770
+        },
+        "panel": {
+          "left": 270,
+          "right": 690,
+          "top": 635.8125,
+          "bottom": 746
+        },
+        "required": {
+          "player": {
+            "left": 456.13365885416664,
+            "right": 503.86634114583336,
+            "top": 408.4013157894737,
+            "bottom": 485.49342105263156
+          },
+          "companion": {
+            "left": 455.21572265624997,
+            "right": 504.78427734375,
+            "top": 455.20723684210526,
+            "bottom": 504.7664473684211
+          },
+          "landmark": {
+            "left": 603.0034505208333,
+            "right": 658.99755859375,
+            "top": 466.2203947368421,
+            "bottom": 518.5328947368421
+          },
+          "objective": {
+            "left": 961.609375,
+            "right": 1221.609375,
+            "top": 588.78125,
+            "bottom": 613.78125
+          },
+          "speaker": {
+            "left": 456.13365885416664,
+            "right": 503.86634114583336,
+            "top": 408.4013157894737,
+            "bottom": 485.49342105263156
+          },
+          "text": {
+            "left": 286,
+            "right": 410.625,
+            "top": 671.8125,
+            "bottom": 692.8125
+          },
+          "advance": {
+            "left": 609.421875,
+            "right": 674,
+            "top": 703,
+            "bottom": 734
+          }
+        },
+        "textFragments": [
+          {
+            "left": 286,
+            "right": 410.625,
+            "top": 671.8125,
+            "bottom": 692.8125
+          }
+        ],
+        "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
+      }
+    },
+    {
+      "path": "docs/scene-quality/244/desktop-offered-supplies.png",
+      "sha256": "8a8710d410290c4e71ca97d450a66ecf4cb51585f932dd73614fead939332d2b",
+      "viewport": {
+        "name": "desktop",
+        "width": 1280,
+        "height": 820
+      },
+      "phase": "offered-supplies",
+      "zoom": 1.45,
+      "layout": {
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 1280,
+          "bottom": 980
+        },
+        "actorViewport": {
+          "left": 39.390625,
+          "right": 920.609375,
+          "top": 212,
+          "bottom": 770
+        },
+        "panel": null,
+        "required": {
+          "player": {
+            "left": 456.13365885416664,
+            "right": 503.86634114583336,
+            "top": 408.4013157894737,
+            "bottom": 485.49342105263156
+          },
+          "companion": {
+            "left": 416.66240234375,
+            "right": 466.23095703125,
+            "top": 435.93421052631584,
+            "bottom": 485.49342105263156
+          },
+          "landmark": {
+            "left": 494.68697916666673,
+            "right": 550.6810872395833,
+            "top": 451.5361842105263,
+            "bottom": 503.8486842105263
+          },
+          "objective": {
+            "left": 961.609375,
+            "right": 1221.609375,
+            "top": 588.78125,
+            "bottom": 613.78125
+          }
+        },
+        "textFragments": [],
+        "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
+      }
+    },
+    {
+      "path": "docs/scene-quality/244/phone-dialogue-1.png",
+      "sha256": "eecd2d9d8359eb33e618cc2e77f027f0c2f64fa205e83de733509d45e06c15b7",
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844
+      },
+      "phase": "dialogue",
+      "zoom": 1.9,
+      "layout": {
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 390,
+          "bottom": 1243
+        },
+        "actorViewport": {
+          "left": 16.59375,
+          "right": 373.40625,
+          "top": 230,
+          "bottom": 569.8125
+        },
+        "panel": {
+          "left": 28.59375,
+          "right": 361.40625,
+          "top": 422.625,
+          "bottom": 545.8125
+        },
+        "required": {
+          "player": {
+            "left": 182.362890625,
+            "right": 207.637109375,
+            "top": 355.6637035010941,
+            "bottom": 396.1883889496718
+          },
+          "companion": {
+            "left": 181.61953125,
+            "right": 207.637109375,
+            "top": 380.57337253829326,
+            "bottom": 406.5983998905908
+          },
+          "landmark": {
+            "left": 259.3005859375,
+            "right": 289.0349609375,
+            "top": 387.265522428884,
+            "bottom": 414.7776942013129
+          },
+          "objective": {
+            "left": 235.59375,
+            "right": 358.40625,
+            "top": 754.8125,
+            "bottom": 796.8125
+          },
+          "speaker": {
+            "left": 221.3892578125,
+            "right": 247.4068359375,
+            "top": 333.7283233041576,
+            "bottom": 375.3683670678337
+          },
+          "text": {
+            "left": 44.59375,
+            "right": 306.34375,
+            "top": 458.625,
+            "bottom": 479.625
+          },
+          "advance": {
+            "left": 284.578125,
+            "right": 345.40625,
+            "top": 489.8125,
+            "bottom": 533.8125
+          }
+        },
+        "textFragments": [
+          {
+            "left": 44.59375,
+            "right": 306.34375,
+            "top": 458.625,
+            "bottom": 479.625
+          }
+        ],
+        "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
+      }
+    },
+    {
+      "path": "docs/scene-quality/244/phone-dialogue-2.png",
+      "sha256": "53bc863f5ddd0f5cba4d7d01077a2335452a64b346669d787adf76ca5b4ec631",
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844
+      },
+      "phase": "dialogue",
+      "zoom": 1.9,
+      "layout": {
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 390,
+          "bottom": 1131
+        },
+        "actorViewport": {
+          "left": 16.59375,
+          "right": 373.40625,
+          "top": 230,
+          "bottom": 569.8125
+        },
+        "panel": {
+          "left": 28.59375,
+          "right": 361.40625,
+          "top": 242,
+          "bottom": 330.5
+        },
+        "required": {
+          "player": {
+            "left": 182.362890625,
+            "right": 207.637109375,
+            "top": 355.6637035010941,
+            "bottom": 396.1883889496718
+          },
+          "companion": {
+            "left": 181.61953125,
+            "right": 207.637109375,
+            "top": 380.57337253829326,
+            "bottom": 406.5983998905908
+          },
+          "landmark": {
+            "left": 259.3005859375,
+            "right": 289.0349609375,
+            "top": 387.265522428884,
+            "bottom": 414.7776942013129
+          },
+          "objective": {
+            "left": 235.59375,
+            "right": 358.40625,
+            "top": 674.8125,
+            "bottom": 716.8125
+          },
+          "speaker": {
+            "left": 182.362890625,
+            "right": 207.637109375,
+            "top": 355.6637035010941,
+            "bottom": 396.1883889496718
+          },
+          "text": {
+            "left": 44.59375,
+            "right": 169.21875,
+            "top": 278,
+            "bottom": 299
+          },
+          "advance": {
+            "left": 280.828125,
+            "right": 345.40625,
+            "top": 287.5,
+            "bottom": 318.5
+          }
+        },
+        "textFragments": [
+          {
+            "left": 44.59375,
+            "right": 169.21875,
+            "top": 278,
+            "bottom": 299
+          }
+        ],
+        "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
+      }
+    },
+    {
+      "path": "docs/scene-quality/244/phone-offered-supplies.png",
+      "sha256": "76bdeb100ab3b6a87c304bce67469f55b011e95cde7d06d61453704853e6a47f",
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844
+      },
+      "phase": "offered-supplies",
+      "zoom": 1.9,
+      "layout": {
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 390,
+          "bottom": 1159
+        },
+        "actorViewport": {
+          "left": 16.59375,
+          "right": 373.40625,
+          "top": 230,
+          "bottom": 569.8125
+        },
+        "panel": null,
+        "required": {
+          "player": {
+            "left": 182.362890625,
+            "right": 207.637109375,
+            "top": 355.6637035010941,
+            "bottom": 396.1883889496718
+          },
+          "companion": {
+            "left": 161.548828125,
+            "right": 187.56640625,
+            "top": 370.535147702407,
+            "bottom": 396.5601750547046
+          },
+          "landmark": {
+            "left": 203.9203125,
+            "right": 233.6546875,
+            "top": 378.7144420131291,
+            "bottom": 406.226613785558
+          },
+          "objective": {
+            "left": 235.59375,
+            "right": 358.40625,
+            "top": 702.8125,
+            "bottom": 744.8125
+          }
+        },
+        "textFragments": [],
+        "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
+      }
+    }
+  ],
+  "readyForOwnerPlaytest": true,
+  "ownerTaste": {
+    "status": "deferred",
+    "reason": "The owner has not evaluated this new teaching fixture; #186/#237 content acceptance remains separate."
+  },
+  "sceneApproved": false,
+  "note": "Rendered geometry and authored intent do not establish enjoyable writing or art. Visual/content review and owner taste remain explicit, independent decisions."
+}

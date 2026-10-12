@@ -4,6 +4,7 @@ import {readFileSync, writeFileSync} from 'node:fs';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import Ajv from 'ajv';
+import {assessSceneBrief} from './lib/scene-quality.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const schema = JSON.parse(readFileSync(resolve(root, 'content/scene-scripts/schema.json'), 'utf8'));
@@ -165,7 +166,9 @@ export function validateSceneScript(script, catalogue) {
   if (!script.continuityIn?.obligations && !script.continuityOut?.obligations)
     warnings.push('legacy continuity has no durable obligations; new scenes should declare obligations explicitly');
 
-  return {errors, warnings, gapReport: makeGapReport(script)};
+  const quality = assessSceneBrief(script);
+  if (quality.status === 'incomplete') warnings.push(...quality.errors.map(error => `quality incomplete: ${error}`));
+  return {errors, warnings, gapReport: makeGapReport(script), quality};
 }
 
 export function makeGapReport(script) {
@@ -188,12 +191,15 @@ export function makeGapReport(script) {
 
 function main(args) {
   const [scriptPath, ...options] = args;
-  if (!scriptPath) throw new Error('usage: node scripts/scene-script.mjs <scene.json> [--catalogue <catalogue.json>] [--report <gap-report.json>]');
+  if (!scriptPath)
+    throw new Error('usage: node scripts/scene-script.mjs <scene.json> [--catalogue <catalogue.json>] [--report <gap-report.json>] [--require-quality]');
   let cataloguePath = resolve(root, 'content/catalogue/catalogue.json');
   let reportPath = null;
+  let requireQuality = false;
   for (let index = 0; index < options.length; index++) {
     if (options[index] === '--catalogue') cataloguePath = options[++index];
     else if (options[index] === '--report') reportPath = options[++index];
+    else if (options[index] === '--require-quality') requireQuality = true;
     else throw new Error(`unknown option ${options[index]}`);
   }
   const script = loadJson(scriptPath);
@@ -203,6 +209,7 @@ function main(args) {
   else process.stdout.write(report);
   for (const warning of result.warnings) console.warn(`warning: ${warning}`);
   if (result.errors.length) throw new Error(result.errors.join('\n'));
+  if (requireQuality && result.quality.status !== 'specified') throw new Error(result.quality.errors.join('\n'));
   console.error(`Valid scene handoff: ${script.id}; ${result.gapReport.gaps.length} requested gap(s)`);
 }
 
