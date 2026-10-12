@@ -145,6 +145,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
       'creature-blastoucan',
       'creature-rumblet',
       'creature-coglet',
+      'creature-wispurr',
     ],
   );
   const player = registry.subjects[0];
@@ -197,6 +198,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
     'creature-sunsifter',
     'creature-sunskitter',
     'creature-voltkit',
+    'creature-wispurr',
   ]);
   for (const creature of followers) {
     assert.equal(creature.runtimeFollower.assetId, `${creature.id}-follower`);

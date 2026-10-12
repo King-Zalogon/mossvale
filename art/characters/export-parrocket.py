@@ -20,6 +20,21 @@ def prepare(kind, spec):
         return pose.resize((round(pose.width * ratio), round(pose.height * ratio)), Image.Resampling.NEAREST)
     cols, rows = spec['columns'], spec['rows']
     poses = extract_poses(source, cols, rows, 128, 4, spec.get('rowBounds'), spec.get('columnBounds'))
+    # A reviewed generated cell can replace a faulty atlas pose without
+    # regenerating its neighbors. Keep the source-pose height and shared scale.
+    for index, path in spec.get('poseOverrides', {}).items():
+        index = int(index)
+        if not 0 <= index < len(poses):
+            raise ValueError(f'{kind}: invalid pose override index {index}')
+        replacement = Image.open(BytesIO(source_bytes(ROOT, path))).convert('RGBA')
+        replacement.putalpha(replacement.getchannel('A').point(lambda a: a if a > 128 else 0))
+        bounds = replacement.getchannel('A').getbbox()
+        if not bounds:
+            raise ValueError(f'{kind}: empty pose override {index}')
+        replacement = replacement.crop(bounds)
+        height = poses[index].height
+        width = max(1, round(replacement.width * height / replacement.height))
+        poses[index] = replacement.resize((width, height), Image.Resampling.NEAREST)
     size = spec['frameSize']
     ratio = min((size - 24) / max(p.width for p in poses), (size - 16) / max(p.height for p in poses))
     atlas = Image.new('RGBA', (cols * size, rows * size))
@@ -37,7 +52,7 @@ def prepare(kind, spec):
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
-    parser.add_argument('--species', choices=['parrocket', 'blastoucan', 'rumblet', 'coglet'], default='parrocket')
+    parser.add_argument('--species', choices=['parrocket', 'blastoucan', 'rumblet', 'coglet', 'wispurr'], default='parrocket')
     args = parser.parse_args()
     specs = json.loads((ROOT / f'art/characters/source/{args.species}/export.json').read_text())['exports']
     for kind, spec in specs.items():

@@ -439,7 +439,7 @@
       "details": {
         "appearance": "A blue cannon-beaked toucan that steadies its fiery tail feathers before firing. Portrait, five-state combat and eight-direction follower are registered shared assets.",
         "behavior": "Pack-owned blastoucan definition uses existing capture, battle, growth and save rules after deliberate import.",
-        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
         "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
       },
       "previews": [
@@ -509,7 +509,7 @@
       "details": {
         "appearance": "A small cream-and-brass round machine with cyan lenses, short jointed legs and a large dorsal cog. Portrait, five-state combat and eight-direction follower are registered shared assets.",
         "behavior": "Pack-owned coglet definition uses existing capture, battle, growth and save rules after deliberate import.",
-        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
         "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
       },
       "previews": [
@@ -579,7 +579,7 @@
       "details": {
         "appearance": "A blue rocket parrot with a red conical beak and flame-colored tail feathers. Portrait, five-state combat and eight-direction follower are registered shared assets.",
         "behavior": "Pack-owned parrocket definition uses existing capture, battle, growth and save rules after deliberate import.",
-        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
         "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
       },
       "previews": [
@@ -649,13 +649,83 @@
       "details": {
         "appearance": "A compact brown beast with sturdy cream-tipped feet and a gray impact plate marked in orange. Portrait, five-state combat and eight-direction follower are registered shared assets.",
         "behavior": "Pack-owned rumblet definition uses existing capture, battle, growth and save rules after deliberate import.",
-        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
         "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
       },
       "previews": [
         {
           "path": "dist/assets/creatures/creature-rumblet.png",
           "description": "A compact brown beast with sturdy cream-tipped feet and a gray impact plate marked in orange."
+        }
+      ]
+    },
+    {
+      "id": "creature-resource:wispurr",
+      "kind": "actor",
+      "name": "Wispurr",
+      "summary": "Wispurr is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "wispurr",
+            "name": "Wispurr",
+            "type": "Air",
+            "stats": {
+              "hp": 42,
+              "attack": 12,
+              "defense": 9
+            },
+            "hp": 42,
+            "move": "gust-spiral",
+            "biome": "meadow",
+            "role": "Quiet floating companion",
+            "personality": "Shy, sensitive and clever; its pale mask reflects emotion while its attached flame body flickers.",
+            "desc": "A small violet floating spirit with a pale oval mask, expressive indigo eyes and cyan-tipped wisps.",
+            "encounterHint": "Authors may place it in quiet groves or old ruins; it has no encounter in current maps.",
+            "strong": ["Leaf", "Spore", "Mire"],
+            "weak": ["Spark", "Ice", "Frost"],
+            "color": "#46308c",
+            "sprite": "creature-wispurr",
+            "habitats": ["quiet-grove", "old-ruins"],
+            "abilities": []
+          },
+          "limits": "Configure through dist/resources/creatures/wispurr.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-wispurr", "visual:creature-wispurr-combat", "visual:creature-wispurr-follower"],
+      "limits": [
+        "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
+      ],
+      "examples": [
+        {
+          "intent": "Wispurr is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+          "usage": "Reference wispurr in the existing format at dist/resources/creatures/wispurr.json.",
+          "expected": "Wispurr is a prepared creature resource for future pack/map placement; it is not in current encounters."
+        }
+      ],
+      "references": ["dist/resources/creatures/wispurr.json", "content/resources/creatures/WISPURR.md", "dist/wispurr-preview.html"],
+      "evidence": [
+        {
+          "path": "tests/wispurr.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small violet floating spirit with a pale oval mask, expressive indigo eyes and cyan-tipped wisps. Portrait, five-state combat and eight-direction follower are registered shared assets.",
+        "behavior": "Pack-owned wispurr definition uses existing capture, battle, growth and save rules after deliberate import.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-wispurr.png",
+          "description": "A small violet floating spirit with a pale oval mask, expressive indigo eyes and cyan-tipped wisps."
         }
       ]
     },
@@ -19470,6 +19540,193 @@
         {
           "path": "dist/assets/creatures/creature-voltkit-follower.png",
           "description": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-wispurr",
+      "kind": "visual",
+      "name": "creature-wispurr",
+      "summary": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-wispurr",
+            "kind": "creature",
+            "src": "assets/creatures/creature-wispurr.png",
+            "w": 189,
+            "h": 264,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+          "usage": "Reference creature-wispurr in the existing format at dist/src/data/assets.js.",
+          "expected": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "189 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-wispurr is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-wispurr.png",
+          "description": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-wispurr-combat",
+      "kind": "visual",
+      "name": "creature-wispurr-combat",
+      "summary": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-wispurr-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-wispurr-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+          "usage": "Reference creature-wispurr-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-wispurr-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-wispurr-combat.png",
+          "description": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-wispurr-follower",
+      "kind": "visual",
+      "name": "creature-wispurr-follower",
+      "summary": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-wispurr-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-wispurr-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+          "usage": "Reference creature-wispurr-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-wispurr-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-wispurr-follower.png",
+          "description": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
         }
       ]
     },

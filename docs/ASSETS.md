@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-135 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+138 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -100,3 +100,7 @@ The shared optional `creature-blastoucan` portrait and `-combat` / `-follower` a
 ## Optional Coglet resource (#371)
 
 [Coglet](../content/resources/creatures/COGLET.md) stages the rounded cream/brass machine with cyan lenses and a dorsal cog as optional portrait, twenty combat poses and forty directional poses. `dist/coglet-preview.html` uses shared renderers at 115/37 px. Its importable definition uses provisional Spark; Machine Starter remains descriptive. Exact prompts/generated sources, reproducible profiles and separate internal/owner review status are retained. Run `python3 art/characters/export-parrocket.py --species coglet --check` for exact source/editable/runtime correspondence.
+
+## Optional Wispurr resource (#373)
+
+[Wispurr](../content/resources/creatures/WISPURR.md) stages the pale-mask violet spirit with attached cyan wisps as optional portrait, twenty combat poses and forty directional hover poses. `dist/wispurr-preview.html` uses shared renderers at 115/37 px. Existing walk slots carry hover artwork while ground collision stays unchanged. Its importable definition uses provisional Air because Spirit is absent from current types; no new starter/ghost rules. Exact prompts/generated sources, reproducible profiles and separate internal/owner review status are retained. Run `python3 art/characters/export-parrocket.py --species wispurr --check` for exact source/editable/runtime correspondence.
