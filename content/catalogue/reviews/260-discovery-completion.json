@@ -37,11 +37,13 @@
         "tests/assets.test.mjs",
         "docs/scene-quality/260/phone-hollow.png",
         "docs/scene-quality/260/routes.json",
-        "tests/landmarks.test.mjs"
+        "tests/landmarks.test.mjs",
+        "art/characters/visual-reviews.json",
+        "tests/scene-quality.browser.mjs"
       ],
       "entries": ["map:mossvale/orchard-ruins", "interactable:scene-event"],
       "disposition": "updated",
-      "reason": "Completes existing orchard evidence with opt-in physical prop interactions, prerequisite reference/cycle validation, discovered-only event notes, quiet approaches and unchanged licensed repair boards. Retained scene quality screenshots were rerun after controller change; Ravenmore README formatting correction preserves license text. No juvenile art, new combat or later story payoff is claimed. Regenerated canonical set pieces including stale Meadow placements inherited from #377; external icon tests assert unchanged original hashes/bytes and padding rather than expecting an atlas crop.",
+      "reason": "Completes existing orchard evidence with opt-in physical prop interactions, prerequisite reference/cycle validation, discovered-only event notes, quiet approaches and unchanged licensed repair boards. Retained scene quality screenshots were rerun after controller change; Ravenmore README formatting correction preserves license text. No juvenile art, new combat or later story payoff is claimed. Regenerated canonical set pieces including stale Meadow placements inherited from #377; external icon tests assert unchanged original hashes/bytes and padding rather than expecting an atlas crop. Repinned shared art metadata after confirming exact reviewed subject records are unchanged from ff25a5a; no image changes or new owner approvals. Real-control phone review now selects touch on the playfield before tapping the dialogue, so input-mode relayout does not move the first tapped control.",
       "evidence": ["tests/orchard-clues.test.mjs", "tests/orchard-clues.browser.mjs", "docs/ORCHARD_DISCOVERIES.md"]
     }
   ]
