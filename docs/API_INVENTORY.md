@@ -67,6 +67,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `input.js` | root | `direction`, `installInput`, `isMoving` |
 | `main.js` | root | — |
 | `map-editor.js` | root | — |
+| `parrocket-preview.js` | root | — |
 | `render/battle-art.js` | render | `guardianCombatSprite` |
 | `render/chest-art.js` | render | `chestPairs`, `chestSprite` |
 | `render/elemental-effects.js` | render | `drawElementalEffect`, `effectPose` |

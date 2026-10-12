@@ -1,0 +1,23 @@
+{
+  "id": "parrocket",
+  "name": "Parrocket",
+  "type": "Fire",
+  "stats": {
+    "hp": 38,
+    "attack": 13,
+    "defense": 7
+  },
+  "hp": 38,
+  "move": "ember-spark",
+  "biome": "meadow",
+  "role": "Fast scout",
+  "personality": "A plucky scout that darts ahead and loops back to guide its friends.",
+  "desc": "A blue rocket parrot with a red conical beak and flame-colored tail feathers.",
+  "encounterHint": "Authors may place it along sunny paths or high woodland edges; it has no encounter in current maps.",
+  "strong": ["Leaf", "Ice", "Bloom", "Frost"],
+  "weak": ["Water", "Stone", "Mire", "Sand"],
+  "color": "#268cda",
+  "sprite": "creature-parrocket",
+  "habitats": ["sunny-path", "woodland-edge"],
+  "abilities": []
+}

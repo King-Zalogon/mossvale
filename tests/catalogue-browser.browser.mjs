@@ -80,7 +80,7 @@ try {
   await page.locator('#tag').selectOption('');
   await page.locator('#element').selectOption('');
   await page.locator('#element').selectOption({label: 'Fire'});
-  await page.waitForFunction(() => document.querySelectorAll('.card').length === 6);
+  await page.waitForFunction(() => document.querySelectorAll('.card').length === 9);
   assert.deepEqual(await page.locator('.card-title').allTextContents(), [
     'creature-cindercurl',
     'creature-cindercurl-combat',
@@ -88,6 +88,9 @@ try {
     'creature-emberkin',
     'creature-emberkin-combat',
     'creature-emberkin-follower',
+    'creature-parrocket',
+    'creature-parrocket-combat',
+    'creature-parrocket-follower',
   ]);
   await page.locator('#search').fill('flame-shaped curled tail');
   await page.waitForFunction(() => document.querySelectorAll('.card').length === 3);

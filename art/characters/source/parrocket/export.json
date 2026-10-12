@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "exports": {
+    "portrait": {
+      "source": "art/characters/source/parrocket/portrait-generated.png",
+      "output": "dist/assets/creatures/creature-parrocket.png",
+      "editable": "art/assets/source/parrocket/portrait.png",
+      "columns": 1,
+      "rows": 1,
+      "frameSize": 264
+    },
+    "combat": {
+      "source": "art/characters/source/parrocket/combat-spaced.png",
+      "output": "dist/assets/creatures/creature-parrocket-combat.png",
+      "editable": "art/assets/source/parrocket/combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frameSize": 288,
+      "rowBounds": [
+        0,
+        315,
+        575,
+        870,
+        1105,
+        1402
+      ],
+      "columnBounds": [
+        [
+          0,
+          290,
+          560,
+          860,
+          1122
+        ],
+        [
+          0,
+          290,
+          560,
+          860,
+          1122
+        ],
+        [
+          0,
+          290,
+          560,
+          860,
+          1122
+        ],
+        [
+          0,
+          290,
+          560,
+          860,
+          1122
+        ],
+        [
+          0,
+          290,
+          560,
+          860,
+          1122
+        ]
+      ]
+    },
+    "follower": {
+      "source": "art/characters/source/parrocket/follower-generated.png",
+      "output": "dist/assets/creatures/creature-parrocket-follower.png",
+      "editable": "art/assets/source/parrocket/follower.png",
+      "columns": 5,
+      "rows": 8,
+      "frameSize": 200
+    }
+  }
+}
