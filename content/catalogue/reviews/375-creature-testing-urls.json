@@ -20,11 +20,12 @@
         "docs/TESTING_URLS.md",
         "tests/creature-combat.browser.mjs",
         "tests/creature-follower.browser.mjs",
-        "tests/testing-urls.browser.mjs"
+        "tests/testing-urls.browser.mjs",
+        "art/characters/visual-reviews.json"
       ],
       "entries": ["mechanic:testing-urls"],
       "disposition": "updated",
-      "reason": "Expose all five prepared resources in shared follower/combat reviews through preview-only definition registration and twelve safe relative Testing URLs links. Centralize resource IDs for shared/dedicated previews; describe direct pose/playback pages and preserve game pack roster/save state. Update source/packaged-path regression coverage, 23-creature shared preview coverage, authoring fiche and documentation. No art, adventure content or battle rules change.",
+      "reason": "Expose all five prepared resources in shared follower/combat reviews through preview-only definition registration and twelve safe relative Testing URLs links. Centralize resource IDs for shared/dedicated previews; describe direct pose/playback pages and preserve game pack roster/save state. Update source/packaged-path regression coverage, 23-creature shared preview coverage, authoring fiche and documentation. No art, adventure content or battle rules change. Refresh the reviewed shared-page pins after actual 23-creature preview checks; canonical sprite pixels, frame geometry, prior review images and owner decisions are unchanged.",
       "evidence": ["tests/testing-urls.browser.mjs", "tests/creature-combat.browser.mjs", "tests/creature-follower.browser.mjs", "docs/TESTING_URLS.md"]
     }
   ]
