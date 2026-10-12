@@ -111,10 +111,10 @@
           "when": {
             "flag": "meadow.seal"
           },
-          "text": "West: Meadow · East: Amber Ridge · The short path slips beneath the oldest trees."
+          "text": "West: Meadow \u00b7 East: Amber Ridge \u00b7 Follow the main orchard trail."
         },
         {
-          "text": "West: Meadow · East: a sealed trail · Look between the old apple rows for a shortcut."
+          "text": "West: Meadow \u00b7 East: a sealed trail \u00b7 Rest with Mara near the entrance."
         }
       ]
     },
@@ -141,6 +141,42 @@
       "mapLabel": "Fallen wall",
       "text": "Part of the old orchard wall. The ruins keep going east, but the trail is safe.",
       "discoveryText": "Fallen wall: another row of orchard ruins continues east along the safe trail."
+    },
+    {
+      "id": "damp-hollow",
+      "kind": "sign",
+      "sprite": "tree-oak-hollow",
+      "at": [42, 36],
+      "w": 65,
+      "label": "Inspect the damp hollow",
+      "secret": true,
+      "mapLabel": "Damp hollow",
+      "text": "Water collects among the roots. Tracks turn in and out of the low opening.",
+      "discoveryText": "Water collects among the roots. Tracks turn in and out of the low opening."
+    },
+    {
+      "id": "bypass-stones",
+      "kind": "sign",
+      "sprite": "boulder-mossy",
+      "at": [49, 41],
+      "w": 42,
+      "label": "Inspect the channel stones",
+      "secret": true,
+      "mapLabel": "Channel stones",
+      "text": "A low channel runs beside the lower orchard row.",
+      "discoveryText": "A low channel runs beside the lower orchard row."
+    },
+    {
+      "id": "upper-hollow",
+      "kind": "sign",
+      "sprite": "tree-oak-hollow",
+      "at": [44, 34],
+      "w": 59,
+      "label": "Inspect the upper hollow",
+      "secret": true,
+      "mapLabel": "Upper hollow",
+      "text": "The roots here sit above the wet ground.",
+      "discoveryText": "The roots here sit above the wet ground."
     }
   ],
   "exits": [
@@ -555,6 +591,12 @@
         [18.7, 5.1]
       ],
       "piece": "cairn-5"
+    },
+    {
+      "sprite": "wood-plank-stack",
+      "kind": "scenery",
+      "w": 32,
+      "at": [[55.4, 28.1]]
     }
   ],
   "zones": [
@@ -629,6 +671,16 @@
       "id": "ridge-gate",
       "rect": [54, 10, 62, 18],
       "label": "Ridge gate"
+    },
+    {
+      "id": "investigation-east",
+      "rect": [38, 25, 59, 43],
+      "label": "Quiet lower row"
+    },
+    {
+      "id": "investigation-press",
+      "rect": [27, 38, 44, 46],
+      "label": "Quiet press approach"
     }
   ],
   "triggers": [
@@ -650,9 +702,12 @@
               "speaker": "orchard-ranger",
               "text": "The lower row is dry again. The feeder board is scraped, but the old channel was failing before that. Find where the water went."
             }
-          ]
+          ],
+          "note": "Mara asked where the lower row\u2019s water went."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-sluice-clue",
@@ -670,11 +725,14 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "The split timber is dark and soft. This break has lasted through more than one rain. Brighter scrapes cut through the old mud toward the lower row."
+              "text": "The stacked repair boards beside the channel are weathered; one matches the old split timber. Dark rot lies beneath bright, fresh scrapes. Someone tried to repair this break before the animal passed. Wet marks lead down the lower row."
             }
-          ]
+          ],
+          "note": "Weathered repair boards and old rot predate the fresh animal scrapes."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-press-clue",
@@ -692,11 +750,14 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "The press marks stop before last harvest. The flow had already dropped before the newest Bramblebuck visit."
+              "text": "A waterline on the press has dried beneath dust from last harvest. The supply dropped before the fresh hoofprints. Those prints turn back toward the damp lower row, not the dry orchard."
             }
-          ]
+          ],
+          "note": "The press\u2019s dried waterline predates the fresh hoofprints."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-den-reveal",
@@ -730,9 +791,12 @@
               "speaker": "narrator",
               "text": "Wet tracks return to a damp hollow. The adult Bramblebuck watches you, then turns back toward the young. The den is where the water is reaching them."
             }
-          ]
+          ],
+          "note": "Wet tracks return to a low hollow occupied by a Bramblebuck family."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-water-bypass",
@@ -765,9 +829,12 @@
               "type": "reward",
               "coins": 10
             }
-          ]
+          ],
+          "note": "Opened the bypass first; water returned to the lower row."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-dry-hollow",
@@ -800,9 +867,12 @@
               "type": "reward",
               "coins": 10
             }
-          ]
+          ],
+          "note": "Moved the family to higher roots first; Mara will finish the slower repair."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "hidden-cut-through",

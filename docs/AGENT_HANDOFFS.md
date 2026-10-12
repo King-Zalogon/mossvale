@@ -226,3 +226,7 @@ Resume existing `codex/258-narrative-continuity` claim and merged PR #302, refre
 ## #375 — all prepared creatures in Testing URLs
 
 Claimed `codex/375-creature-testing-urls` from main `1c1c984`, updated with integration `ae1739d`. Expose Parrocket, Blastoucan, Rumblet, Coglet and Wispurr in shared follower/combat previews and direct resource links. Preview-only registration; preserve adventure roster/save IDs. Validate source and /game packaging, local full verify/build and integration merge.
+
+## #260 — orchard clue completion
+
+Claimed `codex/260-orchard-discovery-completion` from latest `origin/main` `1c1c984`, refreshed with `origin/integration` `e835443`. Preserve PR #299 graph and stable event IDs. Fix prop interaction masking, add unchanged Ravenmore repair boards and physical hollow/channel affordances, validate evidence prerequisites and complete actual keyboard/touch persistence review. #261 follows separately.
