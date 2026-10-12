@@ -59,6 +59,7 @@ try {
     initial.met = true;
     initial.badges = [0];
     initial.mapId = 'orchard-ruins';
+    [initial.x, initial.y] = world.map.spawns.camp ? [world.map.spawns.camp.x, world.map.spawns.camp.y] : [3, 12];
     initial.visitedMaps.push('orchard-ruins');
     await context.addInitScript(raw => {
       if (!localStorage.getItem('mossvale-v3')) localStorage.setItem('mossvale-v3', raw);
