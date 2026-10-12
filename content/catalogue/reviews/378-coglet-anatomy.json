@@ -67,6 +67,13 @@
       "disposition": "no-semantic-impact",
       "reason": "After synchronization with PR381, full verify found its README used a Markdown emphasis delimiter rejected by Prettier. Normalize asterisks to underscores only; the asset permissions, credit text, hashes, pixels and resource semantics remain identical. Implementation review confirms this is formatting only.",
       "evidence": ["art/assets/third-party/ravenmore-resource-icons-01/README.md"]
+    },
+    {
+      "paths": ["tests/assets.test.mjs", "docs/ASSETS.md", "dist/maps/meadow.json", "dist/maps/index.json"],
+      "entries": ["visual:wood-plank-stack", "visual:wood-firewood-bundle", "visual:straw-bundle", "map:mossvale/meadow"],
+      "disposition": "updated",
+      "reason": "Integrated full verify exposed two atlas/tight-crop assumptions incompatible with recorded individual Ravenmore source props, and noncanonical Meadow prop group ordering. Validate pinned originals, full RGBA dimensions/pixels and source padding for individual props; retain atlas crop/anchor assertions for all other art. Document the existing individual-source contract. Restore generator ordering only: all Meadow prop positions, terrain, collision and content are identical; refresh its integrity hash. These fixes preserve the three props and their distribution restrictions rather than removing content or disabling tests.",
+      "evidence": ["tests/assets.test.mjs", "tests/set-pieces.test.mjs", "docs/ASSETS.md", "art/assets/import-ravenmore-icons.py"]
     }
   ]
 }

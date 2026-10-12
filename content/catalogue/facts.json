@@ -183,9 +183,9 @@
     "dist/maps/amber-ridge.json": "972a103e1c5f04e57bb576eb163263c4351dd3db8d93f2f4e7a2f27485c916a0",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
     "dist/maps/frostveil-pass.json": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a",
-    "dist/maps/index.json": "6e6e98cfb12068759737051a9536e49429cf20f63e033b148272fdf10deeddd2",
+    "dist/maps/index.json": "12e451b06517dadbea2ce6efc2c1802f04c18bc94f47aa7874cba099d30bd6bd",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
-    "dist/maps/meadow.json": "7f4bc5773e331409eeb953d393e722f8ef8a4fb9506cd47ca0d1431df50fede2",
+    "dist/maps/meadow.json": "3178995b8e770126b21beb24f740422c935d6658b8a1d6e3641908508da4b4a4",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
     "dist/maps/orchard-ruins.json": "6bc792542c629fc48b3562e9f378f9086862b9653d40de69c0f5c6cab596895e",
     "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
@@ -309,7 +309,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "3ef91812b23f0e415a13a60875293e3e1b61695c790fbf1fa825317bc30b4e9d",
+  "sourceDigest": "ee29215ec85d77378e41c416a689d3750b9fe4bafca87aa857a93735b034580e",
   "exclusions": [
     {
       "family": "module-exports",
@@ -5481,6 +5481,24 @@
             ]
           },
           {
+            "sprite": "wood-plank-stack",
+            "kind": "scenery",
+            "w": 27,
+            "at": [[15.7, 8.8]]
+          },
+          {
+            "sprite": "wood-firewood-bundle",
+            "kind": "scenery",
+            "w": 26,
+            "at": [[16.5, 9.6]]
+          },
+          {
+            "sprite": "straw-bundle",
+            "kind": "scenery",
+            "w": 24,
+            "at": [[11.3, 9.3]]
+          },
+          {
             "sprite": "tree-oak",
             "kind": "scenery",
             "w": 79,
@@ -5597,24 +5615,6 @@
               [57.9, 53.7]
             ],
             "piece": "cairn-5"
-          },
-          {
-            "sprite": "wood-plank-stack",
-            "kind": "scenery",
-            "w": 27,
-            "at": [[15.7, 8.8]]
-          },
-          {
-            "sprite": "wood-firewood-bundle",
-            "kind": "scenery",
-            "w": 26,
-            "at": [[16.5, 9.6]]
-          },
-          {
-            "sprite": "straw-bundle",
-            "kind": "scenery",
-            "w": 24,
-            "at": [[11.3, 9.3]]
           }
         ],
         "zones": [
@@ -9580,7 +9580,7 @@
           {
             "id": "map:meadow",
             "path": "meadow.json",
-            "sha256": "7f4bc5773e331409eeb953d393e722f8ef8a4fb9506cd47ca0d1431df50fede2"
+            "sha256": "3178995b8e770126b21beb24f740422c935d6658b8a1d6e3641908508da4b4a4"
           },
           {
             "id": "map:amber-ridge",
