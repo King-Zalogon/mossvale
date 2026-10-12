@@ -56,6 +56,9 @@ test('actual rectangle gate catches speaker/actor, control and text clipping at 
   const clipped = structuredClone(frame);
   clipped.required.speaker = box(-2, 10, 40, 60);
   assert.ok(checkSceneLayout(clipped).some(error => error.includes('clipped')));
+  const coveredText = structuredClone(frame);
+  coveredText.textFragments = [box(300, 350, 350, 370)];
+  assert.ok(checkSceneLayout(coveredText).some(error => error.includes('obscures dialogue text')));
 });
 
 test('technical-only proof never becomes reviewed readiness or owner approval', () => {
