@@ -128,6 +128,21 @@
       "width": 1000,
       "height": 1600,
       "mode": "RGBA"
+    },
+    "source/rumblet/portrait.png": {
+      "width": 264,
+      "height": 260,
+      "mode": "RGBA"
+    },
+    "source/rumblet/combat.png": {
+      "width": 1152,
+      "height": 1440,
+      "mode": "RGBA"
+    },
+    "source/rumblet/follower.png": {
+      "width": 1000,
+      "height": 1600,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -3782,6 +3797,127 @@
         "editablePixelSource": "art/assets/source/blastoucan/follower.png",
         "originalGeneratedReferences": [
           "art/characters/source/blastoucan/follower-spaced.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-rumblet",
+      "src": "assets/creatures/creature-rumblet.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 264,
+      "height": 260,
+      "anchor": "bottom-center",
+      "sheet": "source/rumblet/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "exportProfile": {
+        "id": "rumblet-portrait-v1",
+        "settingsSha256": "cb60f7f76afa52740ceb14e4a91219293b3db4b5582c5ca9b42a0180321333cc"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/rumblet/portrait.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/rumblet/portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-rumblet-combat",
+      "src": "assets/creatures/creature-rumblet-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/rumblet/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "exportProfile": {
+        "id": "rumblet-combat-v1",
+        "settingsSha256": "0f11438929be88d0630cb3201f8dc6f7f71e9e73d6928312a55ad479535cfe47"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/rumblet/combat.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/rumblet/combat-clean.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-rumblet-follower",
+      "src": "assets/creatures/creature-rumblet-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/rumblet/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      },
+      "exportProfile": {
+        "id": "rumblet-follower-v1",
+        "settingsSha256": "b0e8896ad1388f2b97a357db158bbc63bbcd7347aa42753a0cc8c03eb0adcae8"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/rumblet/follower.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/rumblet/follower-clean.png"
         ],
         "originalGenerationSourceAvailable": true,
         "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."

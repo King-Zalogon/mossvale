@@ -127,7 +127,7 @@ export function collectFacts() {
       identity: subject?.identity ?? null,
       review: visualReviews.subjects.filter(value => value.asset === asset.name).map(value => value.visual),
       characterMetadata: asset.kind === 'person' || asset.name.startsWith('person-') ? characterMetadata : null,
-      sourceLicenseSummary: ['creature-parrocket', 'creature-blastoucan'].includes(subject?.id)
+      sourceLicenseSummary: ['creature-parrocket', 'creature-blastoucan', 'creature-rumblet'].includes(subject?.id)
         ? 'Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.'
         : external
           ? `${external.pack.license}; ${external.pack.attributionRequired ? 'attribution required' : 'attribution not required'}.`

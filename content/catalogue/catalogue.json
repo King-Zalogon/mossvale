@@ -419,8 +419,8 @@
       "dependencies": ["visual:creature-blastoucan", "visual:creature-blastoucan-combat", "visual:creature-blastoucan-follower"],
       "limits": [
         "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
-        "One combat type per species: Fire is primary; the reference Air affinity is a design trait, not dual-type rules.",
-        "No flight, scout AI, speed stat or new exploration ability is implemented; stats are a tunable starting definition."
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
       ],
       "examples": [
         {
@@ -440,7 +440,7 @@
         "appearance": "A blue cannon-beaked toucan that steadies its fiery tail feathers before firing. Portrait, five-state combat and eight-direction follower are registered shared assets.",
         "behavior": "Pack-owned blastoucan definition uses existing capture, battle, growth and save rules after deliberate import.",
         "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
-        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Fire elemental effects and optional animation fallback use existing renderers."
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
       },
       "previews": [
         {
@@ -489,8 +489,8 @@
       "dependencies": ["visual:creature-parrocket", "visual:creature-parrocket-combat", "visual:creature-parrocket-follower"],
       "limits": [
         "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
-        "One combat type per species: Fire is primary; the reference Air affinity is a design trait, not dual-type rules.",
-        "No flight, scout AI, speed stat or new exploration ability is implemented; stats are a tunable starting definition."
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
       ],
       "examples": [
         {
@@ -510,12 +510,82 @@
         "appearance": "A blue rocket parrot with a red conical beak and flame-colored tail feathers. Portrait, five-state combat and eight-direction follower are registered shared assets.",
         "behavior": "Pack-owned parrocket definition uses existing capture, battle, growth and save rules after deliberate import.",
         "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
-        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Fire elemental effects and optional animation fallback use existing renderers."
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
       },
       "previews": [
         {
           "path": "dist/assets/creatures/creature-parrocket.png",
           "description": "A blue rocket parrot with a red conical beak and flame-colored tail feathers."
+        }
+      ]
+    },
+    {
+      "id": "creature-resource:rumblet",
+      "kind": "actor",
+      "name": "Rumblet",
+      "summary": "Rumblet is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "rumblet",
+            "name": "Rumblet",
+            "type": "Stone",
+            "stats": {
+              "hp": 50,
+              "attack": 11,
+              "defense": 14
+            },
+            "hp": 50,
+            "move": "stone-tumble",
+            "biome": "meadow",
+            "role": "Plate-bearing bruiser",
+            "personality": "Brave, impulsive and loyal; it lowers its frontal plate before charging.",
+            "desc": "A compact brown beast with sturdy cream-tipped feet and a gray impact plate marked in orange.",
+            "encounterHint": "Authors may place it along rocky woodland paths; it has no encounter in current maps.",
+            "strong": ["Spark", "Fire", "Ice", "Bloom"],
+            "weak": ["Water", "Leaf", "Mire"],
+            "color": "#965b36",
+            "sprite": "creature-rumblet",
+            "habitats": ["rocky-path", "woodland-edge"],
+            "abilities": []
+          },
+          "limits": "Configure through dist/resources/creatures/rumblet.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-rumblet", "visual:creature-rumblet-combat", "visual:creature-rumblet-follower"],
+      "limits": [
+        "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
+      ],
+      "examples": [
+        {
+          "intent": "Rumblet is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+          "usage": "Reference rumblet in the existing format at dist/resources/creatures/rumblet.json.",
+          "expected": "Rumblet is a prepared creature resource for future pack/map placement; it is not in current encounters."
+        }
+      ],
+      "references": ["dist/resources/creatures/rumblet.json", "content/resources/creatures/RUMBLET.md", "dist/rumblet-preview.html"],
+      "evidence": [
+        {
+          "path": "tests/rumblet.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A compact brown beast with sturdy cream-tipped feet and a gray impact plate marked in orange. Portrait, five-state combat and eight-direction follower are registered shared assets.",
+        "behavior": "Pack-owned rumblet definition uses existing capture, battle, growth and save rules after deliberate import.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-rumblet.png",
+          "description": "A compact brown beast with sturdy cream-tipped feet and a gray impact plate marked in orange."
         }
       ]
     },
@@ -17247,6 +17317,193 @@
         {
           "path": "dist/assets/creatures/creature-rillume-follower.png",
           "description": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-rumblet",
+      "kind": "visual",
+      "name": "creature-rumblet",
+      "summary": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-rumblet",
+            "kind": "creature",
+            "src": "assets/creatures/creature-rumblet.png",
+            "w": 264,
+            "h": 260,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+          "usage": "Reference creature-rumblet in the existing format at dist/src/data/assets.js.",
+          "expected": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "264 by 260 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-rumblet is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-rumblet.png",
+          "description": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-rumblet-combat",
+      "kind": "visual",
+      "name": "creature-rumblet-combat",
+      "summary": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-rumblet-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-rumblet-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+          "usage": "Reference creature-rumblet-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-rumblet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-rumblet-combat.png",
+          "description": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-rumblet-follower",
+      "kind": "visual",
+      "name": "creature-rumblet-follower",
+      "summary": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-rumblet-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-rumblet-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+          "usage": "Reference creature-rumblet-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-rumblet-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-rumblet-follower.png",
+          "description": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
         }
       ]
     },

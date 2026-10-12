@@ -199,3 +199,7 @@ Claimed `codex/364-parrocket-resources` from current origin/main, synchronized w
 ## #366 — optional Blastoucan resource
 
 Claimed `codex/366-blastoucan-resources` from main 1c1c984, synchronized with integration e74f680. Owner requested future-map resources from four inline images; original binary references are not exposed locally and provenance states that. Identity brief fdcb1a7 precedes adaptation. Preserve hollow cylindrical cannon beak, upright blue/cream body, wings and tail; correct repeated direction rows and clipped edge anatomy. Reuse the Parrocket exporter/preview by explicit resource selection, retaining old defaults and pixels. Optional assets/importable definition/catalogue only, no default roster/maps, dual type, ranged-distance or evolution change. Full local verification and integration-only PR precede merge.
+
+## #368 — Rumblet reusable resource
+
+Claimed on `codex/368-rumblet-resources` from `origin/main` (`1c1c984`) updated with integration (`54d4a4d`). Preserve owner-inline compact quadruped/gray impact plate design; optional portrait, directional/combat atlases, importable definition and catalogue. Local full verify/build and actual-size visual review precede integration PR merge.

@@ -3,7 +3,7 @@ import {species, replaceSpecies} from './data/species.js';
 import {drawSpriteFrame, drawCreatureAnimated, sprites} from './render/sprites.js';
 
 const resource = document.body.dataset.resource || 'parrocket';
-if (!['parrocket', 'blastoucan'].includes(resource)) throw new Error('Unknown creature resource');
+if (!['parrocket', 'blastoucan', 'rumblet'].includes(resource)) throw new Error('Unknown creature resource');
 const definition = await fetch(`resources/creatures/${resource}.json`).then(response => {
   if (!response.ok) throw new Error('Creature resource definition failed to load');
   return response.json();
