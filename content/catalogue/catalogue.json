@@ -4423,6 +4423,109 @@
       }
     },
     {
+      "id": "landmark:scene-quality-yard/start/chest",
+      "kind": "interactable",
+      "name": "scene quality yard/start/chest",
+      "summary": "Open the trail chest (chest) on Welcome Yard.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "chest",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [9, 4],
+            "w": 42,
+            "label": "Open the trail chest",
+            "flag": "start.chest",
+            "reward": {
+              "coins": 8,
+              "potions": 1,
+              "orbs": 2
+            }
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/maps/start.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-wooden"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail chest (chest) on Welcome Yard.",
+          "usage": "Reference scene-quality-yard/start/chest in the existing format at tests/fixtures/packs/scene-quality-yard/maps/start.json.",
+          "expected": "Open the trail chest (chest) on Welcome Yard."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/maps/start.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:scene-quality-yard/start/traveler",
+      "kind": "interactable",
+      "name": "Wren",
+      "summary": "Wren (sign) on Welcome Yard.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "traveler",
+            "kind": "sign",
+            "sprite": "person-traveler",
+            "at": [6, 3],
+            "w": 37,
+            "name": "Wren",
+            "tag": "HOST",
+            "label": "Speak with Wren",
+            "text": "The chest holds your road supplies."
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/maps/start.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:person-traveler"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Wren (sign) on Welcome Yard.",
+          "usage": "Reference scene-quality-yard/start/traveler in the existing format at tests/fixtures/packs/scene-quality-yard/maps/start.json.",
+          "expected": "Wren (sign) on Welcome Yard."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/maps/start.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
       "id": "landmark:shrine",
       "kind": "interactable",
       "name": "shrine",
@@ -5048,6 +5151,46 @@
         "cardPreview": "prop-quarry-alcove",
         "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
         "spawns": "{\"camp\":[30,5]}",
+        "access": "Pack progression/region and exit conditions determine access; validate all required routes."
+      }
+    },
+    {
+      "id": "map:scene-quality-yard/start",
+      "kind": "environment",
+      "name": "Welcome Yard",
+      "summary": "Welcome Yard: 12 by 8 authored map.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/maps/start.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Coordinates and connections belong to the referenced map file; do not copy a summary as executable map data."],
+      "examples": [
+        {
+          "intent": "Welcome Yard: 12 by 8 authored map.",
+          "usage": "Reference scene-quality-yard/start in the existing format at tests/fixtures/packs/scene-quality-yard/maps/start.json.",
+          "expected": "Welcome Yard: 12 by 8 authored map."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/maps/start.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "biome": "meadow",
+        "connections": "[]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
+        "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
+        "spawns": "{\"camp\":[3,5]}",
         "access": "Pack progression/region and exit conditions determine access; validate all required routes."
       }
     },
@@ -5763,6 +5906,61 @@
         "cancellation": "Must define interruption behavior before implementation.",
         "errors": "Report as a missing capability in the scene gap report.",
         "persistence": "Must define compatible saved-state behavior before implementation."
+      }
+    },
+    {
+      "id": "mechanic:playable-scene-quality",
+      "kind": "mechanic",
+      "name": "Playable scene quality evidence",
+      "summary": "Specify a player-relevant scene brief and report real-control, visual and narrative acceptance separately.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "sceneBrief",
+          "type": "format-1 scene intent brief",
+          "default": null,
+          "limits": "Required for new quality submissions; legacy scripts remain format-valid but incomplete."
+        }
+      ],
+      "dependencies": ["mechanic:scene-dialogue"],
+      "limits": [
+        "Geometry and reviewed evidence do not establish owner taste or enjoyment.",
+        "Representative desktop/phone captures cover their recorded zoom, not all devices or arbitrary scenes.",
+        "Local evidence and review records are not signed execution attestations."
+      ],
+      "examples": [
+        {
+          "intent": "Review a small scene offering useful supplies.",
+          "usage": "Run npm run test:scene-quality and follow docs/SCENE_QUALITY.md to retain, inspect and report evidence.",
+          "expected": "Separate schema/data, real-control behavior, visual composition, narrative purpose and deferred owner taste."
+        }
+      ],
+      "references": [
+        "docs/SCENE_QUALITY.md",
+        "content/scene-scripts/schema.json",
+        "scripts/scene-script.mjs",
+        "scripts/scene-quality.mjs",
+        "scripts/lib/scene-quality.mjs"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scene-quality.test.mjs",
+          "assertion": "Incomplete briefs, layout overlap and technical-only proofs cannot pass quality acceptance."
+        },
+        {
+          "path": "tests/scene-quality.browser.mjs",
+          "assertion": "Real keyboard/touch controls, actual sprite/UI bounds and once-only rewards on desktop and phone."
+        }
+      ],
+      "details": {
+        "trigger": "Before declaring an AI-written or hand-authored scene proof complete.",
+        "inputs": "Scene intent, selected catalogue resources, runtime pack, hashed captures and separate visual/narrative review.",
+        "sequence": "Validate brief; drive real controls; capture renderer/layout; inspect screenshots and narrative purpose; generate revision-bound report.",
+        "results": "Explicit four-category report, readiness for owner testing and separate owner approval status.",
+        "cancellation": "Required gaps, missing/stale evidence, obscured actors/text/controls or incomplete review prevent readiness.",
+        "errors": "Strict new-scene mode rejects missing payoff/brief; legacy validation emits incomplete-quality warnings. Unsafe/missing evidence paths fail closed.",
+        "persistence": "Authoring artifacts only; canonical pack/save behavior and archived proofs are unchanged."
       }
     },
     {
@@ -6994,6 +7192,88 @@
       }
     },
     {
+      "id": "narrative:scene-quality-yard/objectives",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard objectives",
+      "summary": "Existing objectives data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/objectives.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Existing objectives data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+          "usage": "Reference scene-quality-yard/objectives in the existing format at tests/fixtures/packs/scene-quality-yard/objectives.json.",
+          "expected": "Existing objectives data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/objectives.json"],
+      "evidence": [
+        {
+          "path": "tests/objectives.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Use current validated Quality Gate — Welcome Yard objectives objective/story definitions. Script intent must be translated into supported actions.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "narrative:scene-quality-yard/story",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard story",
+      "summary": "Existing story data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/story.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Existing story data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+          "usage": "Reference scene-quality-yard/story in the existing format at tests/fixtures/packs/scene-quality-yard/story.json.",
+          "expected": "Existing story data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/story.json"],
+      "evidence": [
+        {
+          "path": "tests/story.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Use current validated Quality Gate — Welcome Yard story objective/story definitions. Script intent must be translated into supported actions.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
       "id": "narrative:the-fernling-at-dusk/objectives",
       "kind": "mechanic",
       "name": "The Fernling at Dusk objectives",
@@ -7234,6 +7514,47 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Independent pack Mossvale, with the referenced registries/maps and existing runtime.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "pack:scene-quality-yard",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard",
+      "summary": "Hear why the supplies are here, then collect them for the road.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/index.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Hear why the supplies are here, then collect them for the road.",
+          "usage": "Reference scene-quality-yard in the existing format at tests/fixtures/packs/scene-quality-yard/index.json.",
+          "expected": "Hear why the supplies are here, then collect them for the road."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/index.json"],
+      "evidence": [
+        {
+          "path": "tests/packs.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Independent pack Quality Gate — Welcome Yard, with the referenced registries/maps and existing runtime.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Stable pack identity isolates saves and recovery."
@@ -7745,6 +8066,56 @@
       ],
       "details": {
         "biome": "wetland",
+        "connections": "Region metadata groups maps; it is not a map exit graph.",
+        "walkability": "Region appearance/palette does not grant walkability; consult map collision data.",
+        "spawns": "Placed by map spawn definitions, not this region entry.",
+        "access": "Existing milestone/progression rules; see pack manifest."
+      }
+    },
+    {
+      "id": "region:scene-quality-yard/start",
+      "kind": "environment",
+      "name": "Dusk Trail",
+      "summary": "Meet a traveler, listen to a mystery and explore at your own pace.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "start",
+            "name": "Dusk Trail",
+            "short": "Dusk Trail",
+            "subtitle": "A quiet path at the edge of evening.",
+            "tag": "DUSK TRAIL",
+            "palette": ["#86ae70", "#97b76a", "#8aa55c", "#d6c08b", "#4e9c9a", "#577b48"],
+            "seal": "Trail mark",
+            "desc": "Meet a traveler, listen to a mystery and explore at your own pace.",
+            "preview": "tree-oak",
+            "biome": "meadow"
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:tree-oak"],
+      "limits": ["Keep region and map IDs distinct even when their strings coincide."],
+      "examples": [
+        {
+          "intent": "Meet a traveler, listen to a mystery and explore at your own pace.",
+          "usage": "Reference scene-quality-yard/start in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Meet a traveler, listen to a mystery and explore at your own pace."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "biome": "meadow",
         "connections": "Region metadata groups maps; it is not a map exit graph.",
         "walkability": "Region appearance/palette does not grant walkability; consult map collision data.",
         "spawns": "Placed by map spawn definitions, not this region entry.",
@@ -8616,6 +8987,211 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Configure the existing validated Mossvale tactics registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/battle",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard battle",
+      "summary": "Validated battle tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated battle tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/battle in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated battle tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard battle registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/economy",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard economy",
+      "summary": "Validated economy tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated economy tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/economy in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated economy tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard economy registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/moves",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard moves",
+      "summary": "Validated moves tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated moves tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/moves in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated moves tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard moves registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/progression",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard progression",
+      "summary": "Validated progression tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated progression tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/progression in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated progression tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard progression registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/tactics",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard tactics",
+      "summary": "Validated tactics tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated tactics tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/tactics in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated tactics tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard tactics registry rules. Do not introduce new effects solely by naming them.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Stable pack identity isolates saves and recovery."
@@ -11352,6 +11928,64 @@
       }
     },
     {
+      "id": "species:scene-quality-yard/fernling",
+      "kind": "actor",
+      "name": "Fernling",
+      "summary": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "fernling",
+            "name": "Fernling",
+            "type": "Leaf",
+            "stats": {
+              "hp": 42,
+              "attack": 10,
+              "defense": 10
+            },
+            "move": "leaf-burst",
+            "biome": "meadow",
+            "role": "Balanced trailblazer",
+            "personality": "Curious and brave; it tests every new path before the rest of the team.",
+            "desc": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+            "encounterHint": "Start in the meadow tall grass, close to camp.",
+            "strong": [],
+            "weak": [],
+            "color": "#bade7e",
+            "hp": 42,
+            "sprite": "creature-fernling"
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-fernling"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+          "usage": "Reference scene-quality-yard/fernling in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "A little fox that naps beneath the ferns and wakes at the first rustle."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A little fox that naps beneath the ferns and wakes at the first rustle. Portrait reference: creature-fernling.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
       "id": "species:the-fernling-at-dusk/fernling",
       "kind": "actor",
       "name": "Fernling",
@@ -13454,6 +14088,50 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Element Water; species strong/weak tables and shared multipliers govern matchups.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Save only through existing pack/save contracts; authoring metadata is not simulation state."
+      }
+    },
+    {
+      "id": "type:scene-quality-yard/leaf",
+      "kind": "mechanic",
+      "name": "Leaf",
+      "summary": "Leaf",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "leaf",
+            "name": "Leaf"
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Leaf",
+          "usage": "Reference scene-quality-yard/leaf in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Leaf"
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Element Leaf; species strong/weak tables and shared multipliers govern matchups.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Save only through existing pack/save contracts; authoring metadata is not simulation state."

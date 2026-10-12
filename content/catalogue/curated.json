@@ -1010,6 +1010,61 @@
         "errors": "Missing bodies, invalid boundaries, inadequate new-source gutters or output mismatch fail with diagnostics.",
         "persistence": "Changes source/output provenance and authoring evidence only; no game save or combat rule changes."
       }
+    },
+    {
+      "id": "mechanic:playable-scene-quality",
+      "kind": "mechanic",
+      "name": "Playable scene quality evidence",
+      "summary": "Specify a player-relevant scene brief and report real-control, visual and narrative acceptance separately.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "sceneBrief",
+          "type": "format-1 scene intent brief",
+          "default": null,
+          "limits": "Required for new quality submissions; legacy scripts remain format-valid but incomplete."
+        }
+      ],
+      "dependencies": ["mechanic:scene-dialogue"],
+      "limits": [
+        "Geometry and reviewed evidence do not establish owner taste or enjoyment.",
+        "Representative desktop/phone captures cover their recorded zoom, not all devices or arbitrary scenes.",
+        "Local evidence and review records are not signed execution attestations."
+      ],
+      "examples": [
+        {
+          "intent": "Review a small scene offering useful supplies.",
+          "usage": "Run npm run test:scene-quality and follow docs/SCENE_QUALITY.md to retain, inspect and report evidence.",
+          "expected": "Separate schema/data, real-control behavior, visual composition, narrative purpose and deferred owner taste."
+        }
+      ],
+      "references": [
+        "docs/SCENE_QUALITY.md",
+        "content/scene-scripts/schema.json",
+        "scripts/scene-script.mjs",
+        "scripts/scene-quality.mjs",
+        "scripts/lib/scene-quality.mjs"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scene-quality.test.mjs",
+          "assertion": "Incomplete briefs, layout overlap and technical-only proofs cannot pass quality acceptance."
+        },
+        {
+          "path": "tests/scene-quality.browser.mjs",
+          "assertion": "Real keyboard/touch controls, actual sprite/UI bounds and once-only rewards on desktop and phone."
+        }
+      ],
+      "details": {
+        "trigger": "Before declaring an AI-written or hand-authored scene proof complete.",
+        "inputs": "Scene intent, selected catalogue resources, runtime pack, hashed captures and separate visual/narrative review.",
+        "sequence": "Validate brief; drive real controls; capture renderer/layout; inspect screenshots and narrative purpose; generate revision-bound report.",
+        "results": "Explicit four-category report, readiness for owner testing and separate owner approval status.",
+        "cancellation": "Required gaps, missing/stale evidence, obscured actors/text/controls or incomplete review prevent readiness.",
+        "errors": "Strict new-scene mode rejects missing payoff/brief; legacy validation emits incomplete-quality warnings. Unsafe/missing evidence paths fail closed.",
+        "persistence": "Authoring artifacts only; canonical pack/save behavior and archived proofs are unchanged."
+      }
     }
   ],
   "exclusions": [

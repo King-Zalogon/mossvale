@@ -1,0 +1,23 @@
+{
+  "format": 1,
+  "objectives": [
+    {
+      "id": "open-trail-chest",
+      "step": "01",
+      "title": "Supplies for the road",
+      "copy": "Wren offers the chest supplies to travelers. Hear the welcome and collect them when ready.",
+      "pin": "Talk to Wren, then collect the offered supplies.",
+      "map": "start",
+      "done": {
+        "flag": "start.chest"
+      }
+    },
+    {
+      "id": "trail-complete",
+      "step": "02",
+      "title": "A small kindness",
+      "copy": "The trail is open to explore.",
+      "pin": "Keep exploring at your own pace."
+    }
+  ]
+}

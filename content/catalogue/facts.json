@@ -23,7 +23,7 @@
     "art/characters/source/rumblet/export.json": "092a82479290f113337c957995b4c1d0a0cf87d89a6593711b3b3264025f3d32",
     "art/characters/source/rumblet/generation.json": "8b0c4314672f71764c2a1913e4e556eceb4615c38b47af193ff49bb55d72e3d6",
     "art/characters/visual-reviews.json": "85fa3d3799ed7a7c19a9a6f03fead673b97bbdfe4d518d59de31cda2d259324a",
-    "content/catalogue/curated.json": "862684eeab26bd951ade07c453c073e5a8f01aa48958cb3d183863d713f745bc",
+    "content/catalogue/curated.json": "1773102b2083df443f19069404049851b2c56c1aa71af2e4b5b950367c439294",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "14bd882e32f3bceeafe78a8ebf607632102d7122516d9a3d9f54652843ddc2a5",
     "dist/assets/creatures/creature-blastoucan-combat.png": "032832e63a4aad6b32647cf198176cf03fd5c99b6d6983f8f86e74a07789979c",
@@ -285,6 +285,11 @@
     "tests/fixtures/packs/lantern-crossing/objectives.json": "cf5c3d9e45d692ba5b14c60566f3844ffb4948f282c0d3fc34c698f1263d6b8d",
     "tests/fixtures/packs/lantern-crossing/registries.json": "783678f8ebf83ac64c1aee9c88df71170db2072f4960bef67a99144e482c9a84",
     "tests/fixtures/packs/lantern-crossing/story.json": "337cf6e8d663798941c6911140d5fe8fb5ce781c189e12a944c198df04f0728e",
+    "tests/fixtures/packs/scene-quality-yard/index.json": "a9a0e27d0a42113b990874981fd894d8a9ec7393438621e680e29186a393ffb6",
+    "tests/fixtures/packs/scene-quality-yard/maps/start.json": "9a0f813ea42dc2e75ee2e38584b73684e1dca72cbc0502900b8b6d9a294dec2b",
+    "tests/fixtures/packs/scene-quality-yard/objectives.json": "2002ddc5dcff6c6bc9d7bb05e87b553b076621bdeaced2658fd0b2a0c68d6f5b",
+    "tests/fixtures/packs/scene-quality-yard/registries.json": "8119b46bfe3b690a99466f8edb1ecd261aa5ef301f07925ef33cab75b28df7c6",
+    "tests/fixtures/packs/scene-quality-yard/story.json": "c7b51dc7b4ff662c43d0f2a37ce84dca1e9fad64ad571dc26aa22080e4305fa9",
     "tests/fixtures/packs/the-fernling-at-dusk/index.json": "437ecb2a790284e4fd187058230ee98cc5f57f4d0646c5c0c43ae6150dcdef40",
     "tests/fixtures/packs/the-fernling-at-dusk/maps/start.json": "43e81ec42992aeedbb5dd2e91e861ea23b0f576e1106de33e9420ca740f1f823",
     "tests/fixtures/packs/the-fernling-at-dusk/objectives.json": "842410f67e5c8bc358d8720b775b7479b7bc1b284303617735dd4923ae09d6f6",
@@ -292,7 +297,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "1fcbef259d128ac9e7a777474208eadf3e5251cde1449bf66e9572eda0dea000",
+  "sourceDigest": "2d87e93839d2db05a1198d713f2417679b535979d08a228a93fb774e43f2c6c1",
   "exclusions": [
     {
       "family": "module-exports",
@@ -2550,6 +2555,61 @@
       "rewards": "Existing healing/supply floor; no home sleep bonus.",
       "repetition": "Menu actions repeat subject to supplies/prices.",
       "persistence": "Existing team/supplies/inventory save transaction."
+    },
+    {
+      "id": "landmark:scene-quality-yard/start/chest",
+      "family": "landmark",
+      "runtimeId": "scene-quality-yard/start/chest",
+      "name": "scene quality yard/start/chest",
+      "description": "Open the trail chest (chest) on Welcome Yard.",
+      "source": "tests/fixtures/packs/scene-quality-yard/maps/start.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "chest",
+        "kind": "chest",
+        "sprite": "chest-wooden",
+        "at": [9, 4],
+        "w": 42,
+        "label": "Open the trail chest",
+        "flag": "start.chest",
+        "reward": {
+          "coins": 8,
+          "potions": 1,
+          "orbs": 2
+        }
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-wooden"]
+    },
+    {
+      "id": "landmark:scene-quality-yard/start/traveler",
+      "family": "landmark",
+      "runtimeId": "scene-quality-yard/start/traveler",
+      "name": "Wren",
+      "description": "Wren (sign) on Welcome Yard.",
+      "source": "tests/fixtures/packs/scene-quality-yard/maps/start.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "traveler",
+        "kind": "sign",
+        "sprite": "person-traveler",
+        "at": [6, 3],
+        "w": 37,
+        "name": "Wren",
+        "tag": "HOST",
+        "label": "Speak with Wren",
+        "text": "The chest holds your road supplies."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:person-traveler"]
     },
     {
       "id": "landmark:shrine",
@@ -8265,6 +8325,119 @@
       "dependencies": ["visual:prop-quarry-alcove"]
     },
     {
+      "id": "map:scene-quality-yard/start",
+      "family": "map",
+      "runtimeId": "scene-quality-yard/start",
+      "name": "Welcome Yard",
+      "description": "Welcome Yard: 12 by 8 authored map.",
+      "source": "tests/fixtures/packs/scene-quality-yard/maps/start.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "format": 1,
+        "id": "start",
+        "name": "Welcome Yard",
+        "biome": "meadow",
+        "size": {
+          "w": 12,
+          "h": 8
+        },
+        "legend": {
+          ".": "void",
+          "g": "ground",
+          "p": "path",
+          "w": "water",
+          "t": "tallgrass"
+        },
+        "terrain": ["............", "..gggggggg..", "..ggttgggg..", "..gggggggg..", "..gggggggg..", "..gggggggg..", "..gggggggg..", "............"],
+        "spawns": {
+          "camp": [3, 5]
+        },
+        "landmarks": [
+          {
+            "id": "traveler",
+            "kind": "sign",
+            "sprite": "person-traveler",
+            "at": [6, 3],
+            "w": 37,
+            "name": "Wren",
+            "tag": "HOST",
+            "label": "Speak with Wren",
+            "text": "The chest holds your road supplies."
+          },
+          {
+            "id": "chest",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [9, 4],
+            "w": 42,
+            "label": "Open the trail chest",
+            "flag": "start.chest",
+            "reward": {
+              "coins": 8,
+              "potions": 1,
+              "orbs": 2
+            }
+          }
+        ],
+        "exits": [],
+        "props": [
+          {
+            "sprite": "tree-oak",
+            "kind": "scenery",
+            "w": 48,
+            "at": [[2.4, 2.4]]
+          },
+          {
+            "sprite": "cottage-tiled",
+            "kind": "scenery",
+            "w": 58,
+            "at": [[9.2, 2]]
+          }
+        ],
+        "triggers": [
+          {
+            "id": "hush-conversation",
+            "at": [6, 5],
+            "radius": 0.5,
+            "on": "interact",
+            "once": false,
+            "events": [
+              {
+                "id": "trail-hush",
+                "repeatable": true,
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "traveler",
+                    "text": "The chest holds your road supplies."
+                  },
+                  {
+                    "type": "dialogue",
+                    "speaker": "player",
+                    "text": "Thank you, Wren."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "zones": [
+          {
+            "id": "dusk-meadow",
+            "terrain": ["t"],
+            "pool": ["fernling"],
+            "level": [1, 1],
+            "distance": [4, 7]
+          }
+        ]
+      },
+      "biome": "meadow",
+      "connections": "[]",
+      "spawns": "{\"camp\":[3,5]}",
+      "cardPreview": "No dedicated Island-card preview is configured.",
+      "dependencies": []
+    },
+    {
       "id": "map:the-fernling-at-dusk/start",
       "family": "map",
       "runtimeId": "the-fernling-at-dusk/start",
@@ -9026,6 +9199,72 @@
       }
     },
     {
+      "id": "narrative:scene-quality-yard/objectives",
+      "family": "narrative",
+      "runtimeId": "scene-quality-yard/objectives",
+      "name": "Quality Gate — Welcome Yard objectives",
+      "description": "Existing objectives data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+      "source": "tests/fixtures/packs/scene-quality-yard/objectives.json",
+      "evidence": "tests/objectives.test.mjs",
+      "raw": {
+        "name": "Quality Gate — Welcome Yard objectives",
+        "definition": {
+          "format": 1,
+          "objectives": [
+            {
+              "id": "open-trail-chest",
+              "step": "01",
+              "title": "Supplies for the road",
+              "copy": "Wren offers the chest supplies to travelers. Hear the welcome and collect them when ready.",
+              "pin": "Talk to Wren, then collect the offered supplies.",
+              "map": "start",
+              "done": {
+                "flag": "start.chest"
+              }
+            },
+            {
+              "id": "trail-complete",
+              "step": "02",
+              "title": "A small kindness",
+              "copy": "The trail is open to explore.",
+              "pin": "Keep exploring at your own pace."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "narrative:scene-quality-yard/story",
+      "family": "narrative",
+      "runtimeId": "scene-quality-yard/story",
+      "name": "Quality Gate — Welcome Yard story",
+      "description": "Existing story data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+      "source": "tests/fixtures/packs/scene-quality-yard/story.json",
+      "evidence": "tests/story.test.mjs",
+      "raw": {
+        "name": "Quality Gate — Welcome Yard story",
+        "definition": {
+          "format": 1,
+          "premise": {
+            "title": "Welcome Yard",
+            "paragraphs": [
+              "Wren keeps a small cottage yard open to passing travelers.",
+              "Hear the welcome and choose whether to collect the offered supplies."
+            ],
+            "button": "Begin walking"
+          },
+          "ending": {
+            "when": {
+              "flag": "start.chest"
+            },
+            "title": "Ready for the road",
+            "paragraphs": ["You have collected Wren’s offered supplies. The yard stays open when you need a quiet place."],
+            "button": "Keep exploring"
+          }
+        }
+      }
+    },
+    {
       "id": "narrative:the-fernling-at-dusk/objectives",
       "family": "narrative",
       "runtimeId": "the-fernling-at-dusk/objectives",
@@ -9326,6 +9565,56 @@
             "id": "inventory:main",
             "path": "inventory.json",
             "sha256": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pack:scene-quality-yard",
+      "family": "pack",
+      "runtimeId": "scene-quality-yard",
+      "name": "Quality Gate — Welcome Yard",
+      "description": "Hear why the supplies are here, then collect them for the road.",
+      "source": "tests/fixtures/packs/scene-quality-yard/index.json",
+      "evidence": "tests/packs.test.mjs",
+      "raw": {
+        "format": 1,
+        "id": "scene-quality-yard",
+        "name": "Quality Gate — Welcome Yard",
+        "brief": "Hear why the supplies are here, then collect them for the road.",
+        "maps": ["start"],
+        "species": ["fernling"],
+        "milestones": ["start.chest"],
+        "ending": "story",
+        "registries": "registries.json",
+        "mapDirectory": "maps/",
+        "objectives": "objectives.json",
+        "story": "story.json",
+        "contentVersion": 1,
+        "requires": {
+          "engineVersion": 1,
+          "saveSchema": 5
+        },
+        "integrity": [
+          {
+            "id": "registry:main",
+            "path": "registries.json",
+            "sha256": "8119b46bfe3b690a99466f8edb1ecd261aa5ef301f07925ef33cab75b28df7c6"
+          },
+          {
+            "id": "map:start",
+            "path": "maps/start.json",
+            "sha256": "9a0f813ea42dc2e75ee2e38584b73684e1dca72cbc0502900b8b6d9a294dec2b"
+          },
+          {
+            "id": "objectives:main",
+            "path": "objectives.json",
+            "sha256": "2002ddc5dcff6c6bc9d7bb05e87b553b076621bdeaced2658fd0b2a0c68d6f5b"
+          },
+          {
+            "id": "story:main",
+            "path": "story.json",
+            "sha256": "c7b51dc7b4ff662c43d0f2a37ce84dca1e9fad64ad571dc26aa22080e4305fa9"
           }
         ]
       }
@@ -9722,6 +10011,29 @@
       },
       "biome": "wetland",
       "dependencies": ["visual:cattail-clump"]
+    },
+    {
+      "id": "region:scene-quality-yard/start",
+      "family": "region",
+      "runtimeId": "scene-quality-yard/start",
+      "name": "Dusk Trail",
+      "description": "Meet a traveler, listen to a mystery and explore at your own pace.",
+      "source": "tests/fixtures/packs/scene-quality-yard/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "start",
+        "name": "Dusk Trail",
+        "short": "Dusk Trail",
+        "subtitle": "A quiet path at the edge of evening.",
+        "tag": "DUSK TRAIL",
+        "palette": ["#86ae70", "#97b76a", "#8aa55c", "#d6c08b", "#4e9c9a", "#577b48"],
+        "seal": "Trail mark",
+        "desc": "Meet a traveler, listen to a mystery and explore at your own pace.",
+        "preview": "tree-oak",
+        "biome": "meadow"
+      },
+      "biome": "meadow",
+      "dependencies": ["visual:tree-oak"]
     },
     {
       "id": "region:the-fernling-at-dusk/start",
@@ -10455,6 +10767,152 @@
                 }
               ],
               "intro": "Charge comes after your move and deals no damage; if it survives, the current can restore up to 12% of its maximum HP. An elemental hit this turn (1 Focus) interrupts that recovery. Guarding the charge will not protect you next turn; Guard the heavy forecast to reduce its hit by 65% and riposte for the damage prevented."
+            }
+          },
+          "intentText": {
+            "strike": "a quick strike",
+            "element": "its elemental move",
+            "heavy": "a heavy blow",
+            "charge": "gathering strength",
+            "brace": "bracing"
+          }
+        }
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/battle",
+      "family": "rules",
+      "runtimeId": "scene-quality-yard/battle",
+      "name": "Quality Gate — Welcome Yard battle",
+      "description": "Validated battle tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/scene-quality-yard/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "Quality Gate — Welcome Yard battle",
+        "definition": {
+          "focusMax": 3,
+          "focusStart": 2,
+          "guardFactor": 0.35
+        }
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/economy",
+      "family": "rules",
+      "runtimeId": "scene-quality-yard/economy",
+      "name": "Quality Gate — Welcome Yard economy",
+      "description": "Validated economy tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/scene-quality-yard/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "Quality Gate — Welcome Yard economy",
+        "definition": {
+          "caps": {
+            "coins": 9999,
+            "potions": 99,
+            "orbs": 99
+          },
+          "restFloor": {
+            "orbs": 12,
+            "potions": 1
+          },
+          "shop": [],
+          "rewards": {
+            "wild": {
+              "coins": [0, 0],
+              "xp": 1
+            },
+            "guardianRepeat": {
+              "coins": 0,
+              "xp": 1
+            },
+            "capture": {
+              "coins": 0,
+              "xp": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/moves",
+      "family": "rules",
+      "runtimeId": "scene-quality-yard/moves",
+      "name": "Quality Gate — Welcome Yard moves",
+      "description": "Validated moves tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/scene-quality-yard/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "Quality Gate — Welcome Yard moves",
+        "definition": {
+          "elemental": {
+            "power": 16,
+            "upgradedPower": 20,
+            "focusCost": 1,
+            "focusGain": 1
+          },
+          "strongMultiplier": 1.6,
+          "weakMultiplier": 0.65
+        }
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/progression",
+      "family": "rules",
+      "runtimeId": "scene-quality-yard/progression",
+      "name": "Quality Gate — Welcome Yard progression",
+      "description": "Validated progression tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/scene-quality-yard/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "Quality Gate — Welcome Yard progression",
+        "definition": {
+          "xpPerLevel": 45,
+          "baseLevel": 5,
+          "maxLevel": 15,
+          "moveUpgradeLevel": 10,
+          "maxXp": 450,
+          "catchUpGap": 2,
+          "catchUpBonus": 1.5,
+          "benchShare": 0.5,
+          "partySize": 3
+        }
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/tactics",
+      "family": "rules",
+      "runtimeId": "scene-quality-yard/tactics",
+      "name": "Quality Gate — Welcome Yard tactics",
+      "description": "Validated tactics tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "source": "tests/fixtures/packs/scene-quality-yard/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "name": "Quality Gate — Welcome Yard tactics",
+        "definition": {
+          "defaultPattern": ["strike", "element"],
+          "heavyFactor": 1.8,
+          "braceFactor": 0.5,
+          "patterns": {
+            "spore-guard": {
+              "name": "Spore guard",
+              "pattern": ["strike", "brace"],
+              "intro": "It curls behind a cloud of spores. Right after it braces, your attack is halved, so use that turn to Guard or heal and save your elemental move for when it opens up."
+            },
+            "rolling-charge": {
+              "name": "Rolling charge",
+              "pattern": ["strike", "charge", "heavy"],
+              "intro": "It gathers strength, then lands a heavy blow. Watch the line under the log and Guard when the heavy blow is next."
+            },
+            "frost-chorus": {
+              "name": "Frost chorus",
+              "pattern": ["element", "element", "strike"],
+              "intro": "It keeps using its elemental move. A teammate that resists it, or healing between volleys, makes the difference."
+            },
+            "tidal-current": {
+              "name": "Tidal current",
+              "pattern": ["element", "charge", "heavy"],
+              "intro": "A wave builds before the crash. Use the quiet turn to heal or prepare, then Guard when the line calls out the heavy blow."
             }
           },
           "intentText": {
@@ -11833,6 +12291,38 @@
       "dependencies": ["visual:creature-voltkit"]
     },
     {
+      "id": "species:scene-quality-yard/fernling",
+      "family": "species",
+      "runtimeId": "scene-quality-yard/fernling",
+      "name": "Fernling",
+      "description": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+      "source": "tests/fixtures/packs/scene-quality-yard/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "fernling",
+        "name": "Fernling",
+        "type": "Leaf",
+        "stats": {
+          "hp": 42,
+          "attack": 10,
+          "defense": 10
+        },
+        "move": "leaf-burst",
+        "biome": "meadow",
+        "role": "Balanced trailblazer",
+        "personality": "Curious and brave; it tests every new path before the rest of the team.",
+        "desc": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+        "encounterHint": "Start in the meadow tall grass, close to camp.",
+        "strong": [],
+        "weak": [],
+        "color": "#bade7e",
+        "hp": 42,
+        "sprite": "creature-fernling"
+      },
+      "sprite": "creature-fernling",
+      "dependencies": ["visual:creature-fernling"]
+    },
+    {
       "id": "species:the-fernling-at-dusk/fernling",
       "family": "species",
       "runtimeId": "the-fernling-at-dusk/fernling",
@@ -12465,6 +12955,19 @@
       "raw": {
         "id": "water",
         "name": "Water"
+      }
+    },
+    {
+      "id": "type:scene-quality-yard/leaf",
+      "family": "type",
+      "runtimeId": "scene-quality-yard/leaf",
+      "name": "Leaf",
+      "description": "Leaf",
+      "source": "tests/fixtures/packs/scene-quality-yard/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "leaf",
+        "name": "Leaf"
       }
     },
     {

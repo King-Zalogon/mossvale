@@ -200,6 +200,10 @@ Claimed `codex/364-parrocket-resources` from current origin/main, synchronized w
 
 Claimed `codex/366-blastoucan-resources` from main 1c1c984, synchronized with integration e74f680. Owner requested future-map resources from four inline images; original binary references are not exposed locally and provenance states that. Identity brief fdcb1a7 precedes adaptation. Preserve hollow cylindrical cannon beak, upright blue/cream body, wings and tail; correct repeated direction rows and clipped edge anatomy. Reuse the Parrocket exporter/preview by explicit resource selection, retaining old defaults and pixels. Optional assets/importable definition/catalogue only, no default roster/maps, dual type, ranged-distance or evolution change. Full local verification and integration-only PR precede merge.
 
+## #244 — playable scene quality gate
+
+Claimed `codex/244-playable-scene-quality` from latest `origin/main` `1c1c984`, synchronized with `origin/integration` `54d4a4d`. Add an optional format-1 brief with a strict new-scene readiness mode, portable writer/builder requirements, separately evidenced schema/playable/visual/narrative reports and real-control desktop/mobile captures. Legacy scripts remain valid but incomplete for quality acceptance. Preserve #186 archived writing and pack behavior; report its missing narrative payoff rather than manufacture approval or duplicate #237. Integration-only PR and final verification pending.
+
 ## #368 — Rumblet reusable resource
 
 Claimed on `codex/368-rumblet-resources` from `origin/main` (`1c1c984`) updated with integration (`54d4a4d`). Preserve owner-inline compact quadruped/gray impact plate design; optional portrait, directional/combat atlases, importable definition and catalogue. Local full verify/build and actual-size visual review precede integration PR merge.
@@ -207,3 +211,5 @@ Claimed on `codex/368-rumblet-resources` from `origin/main` (`1c1c984`) updated 
 ## #371 — Coglet reusable resource
 
 Claimed on `codex/371-coglet-resources` from `origin/main` (`1c1c984`) updated with integration (`3df6f72`). Prepare owner-inline rounded mechanical Coglet with dorsal gear/cyan lenses as optional portrait, follower/combat atlases, importable definition and catalogue. Full local verify/build and actual-size art review before integration merge. Live #370 scene-quality PR is separate; preserve both if integration advances.
+
+Coglet integration update: merged `origin/integration` `b6eeb3e` before final verification, preserving #244 scene-quality functionality and both test lists; regenerate the canonical catalogue to include both changes.

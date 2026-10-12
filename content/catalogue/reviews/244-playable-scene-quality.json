@@ -1,0 +1,49 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "content/catalogue/curated.json",
+        "content/scene-scripts/README.md",
+        "content/scene-scripts/examples/incomplete-scene.json",
+        "content/scene-scripts/examples/quality-yard.json",
+        "content/scene-scripts/examples/supported-yard-conversation.json",
+        "content/scene-scripts/schema.json",
+        "docs/SCENE_QUALITY.md",
+        "docs/scene-quality/244/desktop-dialogue-1.png",
+        "docs/scene-quality/244/desktop-dialogue-2.png",
+        "docs/scene-quality/244/desktop-offered-supplies.png",
+        "docs/scene-quality/244/evidence.json",
+        "docs/scene-quality/244/phone-dialogue-1.png",
+        "docs/scene-quality/244/phone-dialogue-2.png",
+        "docs/scene-quality/244/phone-offered-supplies.png",
+        "docs/scene-quality/244/report.json",
+        "docs/scene-quality/244/review.json",
+        "package.json",
+        "scripts/lib/catalogue-visuals.mjs",
+        "scripts/lib/scene-quality.mjs",
+        "scripts/scene-quality.mjs",
+        "scripts/scene-script.mjs",
+        "tests/fixtures/packs/scene-quality-yard/index.json",
+        "tests/fixtures/packs/scene-quality-yard/maps/start.json",
+        "tests/fixtures/packs/scene-quality-yard/objectives.json",
+        "tests/fixtures/packs/scene-quality-yard/registries.json",
+        "tests/fixtures/packs/scene-quality-yard/story.json",
+        "tests/scene-proof.browser.mjs",
+        "tests/scene-quality.browser.mjs",
+        "tests/scene-quality.test.mjs",
+        "tests/visual-catalogue.test.mjs"
+      ],
+      "entries": ["mechanic:playable-scene-quality", "mechanic:scene-dialogue"],
+      "disposition": "updated",
+      "reason": "Adds a backward-compatible sceneBrief and strict new-scene mode, source/capture-bound four-category quality reporting, required writer/builder instructions and portable scene schema. An isolated fixture proves real keyboard/touch movement/dialogue/reward/reload at desktop and phone scale with actual drawn sprite and text-fragment/control assertions. Missing payoff, stale evidence and unreviewed technical-only proofs cannot become ready. Reviewed captures distinguish builder readiness from deferred owner taste; #186 archived content and its separate payoff acceptance remain unchanged. Catalogue documents the reusable authoring capability; no runtime/save/UI placement implementation is duplicated.",
+      "evidence": [
+        "tests/scene-quality.test.mjs",
+        "tests/scene-quality.browser.mjs",
+        "tests/visual-catalogue.test.mjs",
+        "docs/SCENE_QUALITY.md",
+        "docs/scene-quality/244/report.json"
+      ]
+    }
+  ]
+}
