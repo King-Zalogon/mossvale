@@ -181,11 +181,11 @@
     "dist/maps/amber-ridge.json": "972a103e1c5f04e57bb576eb163263c4351dd3db8d93f2f4e7a2f27485c916a0",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
     "dist/maps/frostveil-pass.json": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a",
-    "dist/maps/index.json": "3e2641ae0bcb966d3547f510a120cddbe8d7bbbdd8fc25a558a1c0aefbc25a51",
+    "dist/maps/index.json": "33822287ec5b031ad0b92e07dafeb934ad84d89819dd723ccfccd60816b3a8a0",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
-    "dist/maps/meadow.json": "7f4bc5773e331409eeb953d393e722f8ef8a4fb9506cd47ca0d1431df50fede2",
+    "dist/maps/meadow.json": "f7aa70ef131bef5c1337e17560bada6f8bdc7308a6e55b912be05f2d1c1a5d52",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "0cfa63a7bfee9f72b7199cfdfeb5eed604d65a0c94ceab714c47c8ab9c84a1bb",
+    "dist/maps/orchard-ruins.json": "b67b4ccfb2fff7cbcf205976d934a06dc8bcb089e1b6eeee609bb6931a2d85f1",
     "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
     "dist/maps/registries.json": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc",
     "dist/maps/stilt-isles.json": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c",
@@ -307,7 +307,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "0ae90d8325e1e5e21c1e3dd8fb22050f3959f17da2472064e4592cb878aeaaca",
+  "sourceDigest": "ec8ed261677598d6110252a0661d83fefcb847753a07f4d97b2130d9058a2f6f",
   "exclusions": [
     {
       "family": "module-exports",
@@ -1908,7 +1908,7 @@
         "secret": true,
         "mapLabel": "Channel stones",
         "text": "A low channel runs beside the lower orchard row.",
-        "discoveryText": "A low channel runs beside the lower orchard row."
+        "discoveryText": "Channel stones: A low channel runs beside the lower orchard row."
       },
       "activation": "Existing sign interaction.",
       "actions": "Authored text/conditional dialogue; optional validated route gate.",
@@ -1962,7 +1962,7 @@
         "secret": true,
         "mapLabel": "Damp hollow",
         "text": "Water collects among the roots. Tracks turn in and out of the low opening.",
-        "discoveryText": "Water collects among the roots. Tracks turn in and out of the low opening."
+        "discoveryText": "Damp hollow: Water collects among the roots. Tracks turn in and out of the low opening."
       },
       "activation": "Existing sign interaction.",
       "actions": "Authored text/conditional dialogue; optional validated route gate.",
@@ -2086,7 +2086,7 @@
         "secret": true,
         "mapLabel": "Upper hollow",
         "text": "The roots here sit above the wet ground.",
-        "discoveryText": "The roots here sit above the wet ground."
+        "discoveryText": "Upper hollow: The roots here sit above the wet ground."
       },
       "activation": "Existing sign interaction.",
       "actions": "Authored text/conditional dialogue; optional validated route gate.",
@@ -5560,6 +5560,24 @@
             ]
           },
           {
+            "sprite": "wood-plank-stack",
+            "kind": "scenery",
+            "w": 27,
+            "at": [[15.7, 8.8]]
+          },
+          {
+            "sprite": "wood-firewood-bundle",
+            "kind": "scenery",
+            "w": 26,
+            "at": [[16.5, 9.6]]
+          },
+          {
+            "sprite": "straw-bundle",
+            "kind": "scenery",
+            "w": 24,
+            "at": [[11.3, 9.3]]
+          },
+          {
             "sprite": "tree-oak",
             "kind": "scenery",
             "w": 79,
@@ -5676,24 +5694,6 @@
               [57.9, 53.7]
             ],
             "piece": "cairn-5"
-          },
-          {
-            "sprite": "wood-plank-stack",
-            "kind": "scenery",
-            "w": 27,
-            "at": [[15.7, 8.8]]
-          },
-          {
-            "sprite": "wood-firewood-bundle",
-            "kind": "scenery",
-            "w": 26,
-            "at": [[16.5, 9.6]]
-          },
-          {
-            "sprite": "straw-bundle",
-            "kind": "scenery",
-            "w": 24,
-            "at": [[11.3, 9.3]]
           }
         ],
         "zones": [
@@ -5946,7 +5946,7 @@
             "secret": true,
             "mapLabel": "Damp hollow",
             "text": "Water collects among the roots. Tracks turn in and out of the low opening.",
-            "discoveryText": "Water collects among the roots. Tracks turn in and out of the low opening."
+            "discoveryText": "Damp hollow: Water collects among the roots. Tracks turn in and out of the low opening."
           },
           {
             "id": "bypass-stones",
@@ -5958,7 +5958,7 @@
             "secret": true,
             "mapLabel": "Channel stones",
             "text": "A low channel runs beside the lower orchard row.",
-            "discoveryText": "A low channel runs beside the lower orchard row."
+            "discoveryText": "Channel stones: A low channel runs beside the lower orchard row."
           },
           {
             "id": "upper-hollow",
@@ -5970,7 +5970,7 @@
             "secret": true,
             "mapLabel": "Upper hollow",
             "text": "The roots here sit above the wet ground.",
-            "discoveryText": "The roots here sit above the wet ground."
+            "discoveryText": "Upper hollow: The roots here sit above the wet ground."
           }
         ],
         "exits": [
@@ -6173,8 +6173,6 @@
               [33.9, 26.1],
               [34.4, 34],
               [37.8, 29.9],
-              [42.3, 33.7],
-              [42.1, 37.9],
               [46.3, 9.9],
               [46.2, 13.7],
               [45.7, 22.1],
@@ -6268,6 +6266,12 @@
               [56.5, 50.2],
               [9.5, 50.5]
             ]
+          },
+          {
+            "sprite": "wood-plank-stack",
+            "kind": "scenery",
+            "w": 32,
+            "at": [[55.4, 28.1]]
           },
           {
             "sprite": "tree-oak",
@@ -6385,12 +6389,6 @@
               [18.7, 5.1]
             ],
             "piece": "cairn-5"
-          },
-          {
-            "sprite": "wood-plank-stack",
-            "kind": "scenery",
-            "w": 32,
-            "at": [[55.4, 28.1]]
           }
         ],
         "zones": [
@@ -9729,7 +9727,7 @@
           {
             "id": "map:meadow",
             "path": "meadow.json",
-            "sha256": "7f4bc5773e331409eeb953d393e722f8ef8a4fb9506cd47ca0d1431df50fede2"
+            "sha256": "f7aa70ef131bef5c1337e17560bada6f8bdc7308a6e55b912be05f2d1c1a5d52"
           },
           {
             "id": "map:amber-ridge",
@@ -9754,7 +9752,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "0cfa63a7bfee9f72b7199cfdfeb5eed604d65a0c94ceab714c47c8ab9c84a1bb"
+            "sha256": "b67b4ccfb2fff7cbcf205976d934a06dc8bcb089e1b6eeee609bb6931a2d85f1"
           },
           {
             "id": "map:stilt-isles",

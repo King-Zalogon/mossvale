@@ -14,6 +14,11 @@ import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {chestPairs, chestSprite} from '../dist/src/render/chest-art.js';
+const directSources = new Map(
+  JSON.parse(readFileSync('art/assets/metadata.json'))
+    .assets.filter(a => a.sheet === null && a.sourceFile)
+    .map(a => [a.name, a]),
+);
 
 test('biome chest pairs retain manifest anchors, transparency and authored map selections', () => {
   for (const [closed, open] of Object.entries(chestPairs)) {
@@ -327,6 +332,14 @@ test('editable portrait and prop atlases cover their runtime sprites and export 
         source.name === 'effect-elemental-materials' ? 'prop-elemental-effect-v1' : landmarkSources.has(source.name) ? 'prop-landmark-v1' : 'prop-static-v1';
       assert.deepEqual(source.exportProfile, {id: profileId, settingsSha256: propProfileSha256(profileId)}, source.name);
     }
+    if (directSources.has(source.name)) {
+      assert.equal(source.cell, null, 'unchanged licensed icon is not repacked into an atlas');
+      assert.ok(source.provenance.externalSourceId, 'direct art has identified external provenance');
+      const original = readFileSync(new URL(`../art/assets/${source.sourceFile}`, import.meta.url));
+      assert.equal(createHash('sha256').update(original).digest('hex'), source.sourceSha256);
+      assert.deepEqual(readFileSync(new URL(`../dist/${asset.src}`, import.meta.url)), original, 'licensed image remains byte-identical');
+      continue;
+    }
     assert.ok(sheets.has(source.sheet), `${source.name} source sheet exists`);
     assert.ok(source.provenance.editablePixelSource, source.name);
     for (const ref of source.provenance.originalGeneratedReferences) {
@@ -437,6 +450,10 @@ test('the real sprites decode as tightly cropped RGBA', () => {
           assert.ok(a.frames.frameHeight - 1 - maxY <= 6, `${a.name} frame ${row},${column} feet use the common bottom anchor`);
         }
       }
+    } else if (directSources.has(a.name)) {
+      const original = decodePng(readFileSync(new URL(`../art/assets/${directSources.get(a.name).sourceFile}`, import.meta.url)));
+      assert.deepEqual(opaqueBounds(im), opaqueBounds(original), 'unchanged external icon keeps source padding');
+      assert.ok(opaqueBounds(im).bottom < im.height / 2, 'visible ink stays in the grounded half');
     } else assert.ok(opaqueBounds(im).bottom <= 3, `${a.name} stands on the bottom edge`);
   }
 });
