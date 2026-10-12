@@ -380,6 +380,76 @@
       }
     },
     {
+      "id": "creature-resource:blastoucan",
+      "kind": "actor",
+      "name": "Blastoucan",
+      "summary": "Blastoucan is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "blastoucan",
+            "name": "Blastoucan",
+            "type": "Fire",
+            "stats": {
+              "hp": 52,
+              "attack": 14,
+              "defense": 8
+            },
+            "hp": 52,
+            "move": "ember-spark",
+            "biome": "meadow",
+            "role": "Ranged striker",
+            "personality": "Proud and alert; it plants its feet and raises its wings to steady each shot.",
+            "desc": "A blue cannon-beaked toucan that steadies its fiery tail feathers before firing.",
+            "encounterHint": "Authors may place it along sunny paths or high woodland edges; it has no encounter in current maps.",
+            "strong": ["Leaf", "Ice", "Bloom", "Frost"],
+            "weak": ["Water", "Stone", "Mire", "Sand"],
+            "color": "#2585d0",
+            "sprite": "creature-blastoucan",
+            "habitats": ["sunny-path", "woodland-edge"],
+            "abilities": []
+          },
+          "limits": "Configure through dist/resources/creatures/blastoucan.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-blastoucan", "visual:creature-blastoucan-combat", "visual:creature-blastoucan-follower"],
+      "limits": [
+        "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+        "One combat type per species: Fire is primary; the reference Air affinity is a design trait, not dual-type rules.",
+        "No flight, scout AI, speed stat or new exploration ability is implemented; stats are a tunable starting definition."
+      ],
+      "examples": [
+        {
+          "intent": "Blastoucan is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+          "usage": "Reference blastoucan in the existing format at dist/resources/creatures/blastoucan.json.",
+          "expected": "Blastoucan is a prepared creature resource for future pack/map placement; it is not in current encounters."
+        }
+      ],
+      "references": ["dist/resources/creatures/blastoucan.json", "content/resources/creatures/BLASTOUCAN.md", "dist/blastoucan-preview.html"],
+      "evidence": [
+        {
+          "path": "tests/blastoucan.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A blue cannon-beaked toucan that steadies its fiery tail feathers before firing. Portrait, five-state combat and eight-direction follower are registered shared assets.",
+        "behavior": "Pack-owned blastoucan definition uses existing capture, battle, growth and save rules after deliberate import.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Fire elemental effects and optional animation fallback use existing renderers."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-blastoucan.png",
+          "description": "A blue cannon-beaked toucan that steadies its fiery tail feathers before firing."
+        }
+      ]
+    },
+    {
       "id": "creature-resource:parrocket",
       "kind": "actor",
       "name": "Parrocket",
@@ -14092,6 +14162,193 @@
       ]
     },
     {
+      "id": "visual:creature-blastoucan",
+      "kind": "visual",
+      "name": "creature-blastoucan",
+      "summary": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-blastoucan",
+            "kind": "creature",
+            "src": "assets/creatures/creature-blastoucan.png",
+            "w": 264,
+            "h": 227,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+          "usage": "Reference creature-blastoucan in the existing format at dist/src/data/assets.js.",
+          "expected": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "264 by 227 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-blastoucan is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-blastoucan.png",
+          "description": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-blastoucan-combat",
+      "kind": "visual",
+      "name": "creature-blastoucan-combat",
+      "summary": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-blastoucan-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-blastoucan-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+          "usage": "Reference creature-blastoucan-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-blastoucan-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-blastoucan-combat.png",
+          "description": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-blastoucan-follower",
+      "kind": "visual",
+      "name": "creature-blastoucan-follower",
+      "summary": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-blastoucan-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-blastoucan-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+          "usage": "Reference creature-blastoucan-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-blastoucan-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-blastoucan-follower.png",
+          "description": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ]
+    },
+    {
       "id": "visual:creature-bramblebuck",
       "kind": "visual",
       "name": "creature-bramblebuck",
@@ -16203,7 +16460,7 @@
       ],
       "details": {
         "appearance": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
-        "style": "Owner-supplied Parrocket references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "243 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
@@ -16268,7 +16525,7 @@
       ],
       "details": {
         "appearance": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
-        "style": "Owner-supplied Parrocket references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "idle, attack, hit, faint, capture",
@@ -16333,7 +16590,7 @@
       ],
       "details": {
         "appearance": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
-        "style": "Owner-supplied Parrocket references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
         "animations": "idle, walk-1, walk-2, walk-3, walk-4",

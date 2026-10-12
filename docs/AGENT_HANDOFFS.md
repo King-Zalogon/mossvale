@@ -195,3 +195,7 @@ Codex claim: `codex/337-biome-chests`, created from latest `origin/main` `1c1c98
 ## #364 — optional Parrocket resource
 
 Claimed `codex/364-parrocket-resources` from current origin/main, synchronized with integration af2662b. Owner reference identity and production brief committed before generation in c183069. Adds optional shared portrait, five-state combat and eight-direction follower resources plus a pack-importable species definition and isolated preview. Current eighteen-species roster/maps stay unchanged. Primary Fire uses existing rules; Air remains a reference design trait. Preserve owner JPEGs, original generated combat draft and spacing revision, exact prompts, reproducible exports and internal gameplay-scale evidence. Full local verification and integration-only PR; no production promotion.
+
+## #366 — optional Blastoucan resource
+
+Claimed `codex/366-blastoucan-resources` from main 1c1c984, synchronized with integration e74f680. Owner requested future-map resources from four inline images; original binary references are not exposed locally and provenance states that. Identity brief fdcb1a7 precedes adaptation. Preserve hollow cylindrical cannon beak, upright blue/cream body, wings and tail; correct repeated direction rows and clipped edge anatomy. Reuse the Parrocket exporter/preview by explicit resource selection, retaining old defaults and pixels. Optional assets/importable definition/catalogue only, no default roster/maps, dual type, ranged-distance or evolution change. Full local verification and integration-only PR precede merge.

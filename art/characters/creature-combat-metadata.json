@@ -192,6 +192,15 @@
         1122,
         1402
       ]
+    },
+    "blastoucan": {
+      "generatedSource": "art/characters/source/blastoucan/combat-spaced.png",
+      "referenceAsset": "creature-blastoucan",
+      "promptBrief": "Owner-inline Cannon Beak toucan; exact prompts and initial/spacing sheets retained, no pre-drawn orb.",
+      "sourceSize": [
+        1199,
+        1312
+      ]
     }
   },
   "frameOrder": [
@@ -526,6 +535,20 @@
         1402
       ],
       "output": "dist/assets/creatures/creature-parrocket-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-blastoucan-combat": {
+      "sourceSize": [
+        1199,
+        1312
+      ],
+      "output": "dist/assets/creatures/creature-blastoucan-combat.png",
       "columns": 4,
       "rows": 5,
       "frame": [

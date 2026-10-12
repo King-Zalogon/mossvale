@@ -142,6 +142,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
       'creature-lanternix',
       'effect-elemental-materials',
       'creature-parrocket',
+      'creature-blastoucan',
     ],
   );
   const player = registry.subjects[0];
@@ -172,6 +173,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
   }
   const followers = registry.subjects.filter(subject => subject.runtimeFollower);
   assert.deepEqual(followers.map(subject => subject.id).toSorted(), [
+    'creature-blastoucan',
     'creature-bramblebuck',
     'creature-brooklet',
     'creature-cindercurl',

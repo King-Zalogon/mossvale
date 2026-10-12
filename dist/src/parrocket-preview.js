@@ -2,8 +2,10 @@ import {assets, spriteId} from './data/assets.js';
 import {species, replaceSpecies} from './data/species.js';
 import {drawSpriteFrame, drawCreatureAnimated, sprites} from './render/sprites.js';
 
-const definition = await fetch('resources/creatures/parrocket.json').then(response => {
-  if (!response.ok) throw new Error('Parrocket definition failed to load');
+const resource = document.body.dataset.resource || 'parrocket';
+if (!['parrocket', 'blastoucan'].includes(resource)) throw new Error('Unknown creature resource');
+const definition = await fetch(`resources/creatures/${resource}.json`).then(response => {
+  if (!response.ok) throw new Error('Creature resource definition failed to load');
   return response.json();
 });
 // This isolated review page imports the optional definition; the normal game roster stays unchanged.

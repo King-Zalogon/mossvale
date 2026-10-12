@@ -120,6 +120,11 @@
       "generatedSource": "art/characters/source/parrocket/follower-generated.png",
       "referenceAsset": "creature-parrocket",
       "promptBrief": "Owner-reference blue rocket parrot; distinct rotated anatomy, planted idle and four alternating bird steps."
+    },
+    "blastoucan": {
+      "generatedSource": "art/characters/source/blastoucan/follower-spaced.png",
+      "referenceAsset": "creature-blastoucan",
+      "promptBrief": "Distinct anatomically rotated Cannon Beak toucan views; front cannon bore versus back tail, planted idle/four alternating steps."
     }
   },
   "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
@@ -148,7 +153,8 @@
     "creature-sunsifter-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-rillume-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     "creature-lanternix-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
-    "creature-parrocket-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+    "creature-parrocket-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+    "creature-blastoucan-follower": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
   },
   "sprites": {
     "creature-emberkin-follower": {
@@ -316,6 +322,15 @@
     "creature-parrocket-follower": {
       "sourceSize": [992, 1586],
       "output": "dist/assets/creatures/creature-parrocket-follower.png",
+      "frame": [200, 200],
+      "columns": 5,
+      "rows": 8,
+      "anchor": "bottom-center",
+      "feetY": 196
+    },
+    "creature-blastoucan-follower": {
+      "sourceSize": [992, 1585],
+      "output": "dist/assets/creatures/creature-blastoucan-follower.png",
       "frame": [200, 200],
       "columns": 5,
       "rows": 8,
