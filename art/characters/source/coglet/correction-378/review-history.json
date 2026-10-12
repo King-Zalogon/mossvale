@@ -1,0 +1,106 @@
+{
+  "issue": 378,
+  "ownerFeedback": "Front lenses migrate, dorsal gear plane rotated 90 degrees, legs/flank detail inconsistent. Earlier internal acceptance missed these issues.",
+  "previousReviews": [
+    {
+      "visualId": "creature-coglet",
+      "asset": "creature-coglet-combat",
+      "technical": {
+        "status": "pass",
+        "source": "Resource exporter --species coglet --check and tests/coglet.test.mjs / browser prove all 60 complete-cell gutters, distinct directions, anchors, canonical future-map import and renderer compatibility."
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "Reviewed final shared-renderer canvases at 115/37 px. Rounded cream/brass mechanical casing, paired cyan front lenses, charcoal/brass short legs and dorsal gear remain readable. Rear views hide front lenses; front shows both; side profiles differ from rear diagonals. Walking alternates legs and changes cog angle. Charge braces/lunges; hit tilts/recoveries; final faint pose rests low with dim front lenses after source correction. Complete anatomy is isolated in output gutters; source spacing and faint revisions retained. Generated adaptations are not original owner-reference binaries.",
+        "ownerTaste": "pending"
+      },
+      "evidence": [
+        "art/characters/reviews/coglet/directions.png",
+        "art/characters/reviews/coglet/combat.png",
+        "dist/coglet-preview.html",
+        "content/resources/creatures/COGLET.md"
+      ],
+      "reviewedFiles": [
+        {
+          "path": "art/characters/reviews/coglet/combat.png",
+          "sha256": "8c96a22bed64e8eadf49ad8e1f5fbe0c4a92ea51fb0f97210683751d4dc8483e"
+        },
+        {
+          "path": "art/characters/reviews/coglet/directions.png",
+          "sha256": "4a303ce73e3e3d97d4412798e9ee47436b7f34943539593051348cfe2aee4652"
+        },
+        {
+          "path": "content/resources/creatures/COGLET.md",
+          "sha256": "5fc83a9d6fb4626037f3783ba1b79d7c648086f7437f03aa4f3aeb607565dd15"
+        },
+        {
+          "path": "dist/assets/creatures/creature-coglet-combat.png",
+          "sha256": "2c3afae70b94b937d49dc9a2b6d4f1351a350415b9d4f56ca6d23033c24daa5f"
+        },
+        {
+          "path": "dist/assets/creatures/creature-coglet-follower.png",
+          "sha256": "6a5e02586d993d613ca2cefb99042ec5add09d2bf1003a3d4288cd297fa90ba8"
+        },
+        {
+          "path": "dist/assets/creatures/creature-coglet.png",
+          "sha256": "bde052d60f4481f064cdd8623ac0a0323f45c891818f9f01febb28b0da04d6b5"
+        },
+        {
+          "path": "dist/coglet-preview.html",
+          "sha256": "cefdb4c567c6d5eb8e9560aa7c9f953745df3c879d7b4d7758bafa26a7767bca"
+        }
+      ]
+    },
+    {
+      "visualId": "creature-coglet",
+      "asset": "creature-coglet-follower",
+      "technical": {
+        "status": "pass",
+        "source": "Resource exporter --species coglet --check and tests/coglet.test.mjs / browser prove all 60 complete-cell gutters, distinct directions, anchors, canonical future-map import and renderer compatibility."
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "Reviewed final shared-renderer canvases at 115/37 px. Rounded cream/brass mechanical casing, paired cyan front lenses, charcoal/brass short legs and dorsal gear remain readable. Rear views hide front lenses; front shows both; side profiles differ from rear diagonals. Walking alternates legs and changes cog angle. Charge braces/lunges; hit tilts/recoveries; final faint pose rests low with dim front lenses after source correction. Complete anatomy is isolated in output gutters; source spacing and faint revisions retained. Generated adaptations are not original owner-reference binaries.",
+        "ownerTaste": "pending"
+      },
+      "evidence": [
+        "art/characters/reviews/coglet/directions.png",
+        "art/characters/reviews/coglet/combat.png",
+        "dist/coglet-preview.html",
+        "content/resources/creatures/COGLET.md"
+      ],
+      "reviewedFiles": [
+        {
+          "path": "art/characters/reviews/coglet/combat.png",
+          "sha256": "8c96a22bed64e8eadf49ad8e1f5fbe0c4a92ea51fb0f97210683751d4dc8483e"
+        },
+        {
+          "path": "art/characters/reviews/coglet/directions.png",
+          "sha256": "4a303ce73e3e3d97d4412798e9ee47436b7f34943539593051348cfe2aee4652"
+        },
+        {
+          "path": "content/resources/creatures/COGLET.md",
+          "sha256": "5fc83a9d6fb4626037f3783ba1b79d7c648086f7437f03aa4f3aeb607565dd15"
+        },
+        {
+          "path": "dist/assets/creatures/creature-coglet-combat.png",
+          "sha256": "2c3afae70b94b937d49dc9a2b6d4f1351a350415b9d4f56ca6d23033c24daa5f"
+        },
+        {
+          "path": "dist/assets/creatures/creature-coglet-follower.png",
+          "sha256": "6a5e02586d993d613ca2cefb99042ec5add09d2bf1003a3d4288cd297fa90ba8"
+        },
+        {
+          "path": "dist/assets/creatures/creature-coglet.png",
+          "sha256": "bde052d60f4481f064cdd8623ac0a0323f45c891818f9f01febb28b0da04d6b5"
+        },
+        {
+          "path": "dist/coglet-preview.html",
+          "sha256": "cefdb4c567c6d5eb8e9560aa7c9f953745df3c879d7b4d7758bafa26a7767bca"
+        }
+      ]
+    }
+  ]
+}

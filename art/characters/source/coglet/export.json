@@ -2,7 +2,7 @@
   "version": 1,
   "exports": {
     "portrait": {
-      "source": "art/characters/source/coglet/portrait-generated.png",
+      "source": "art/characters/source/coglet/correction-378/portrait-corrected.png",
       "output": "dist/assets/creatures/creature-coglet.png",
       "editable": "art/assets/source/coglet/portrait.png",
       "columns": 1,
@@ -10,7 +10,7 @@
       "frameSize": 264
     },
     "combat": {
-      "source": "art/characters/source/coglet/combat-faint.png",
+      "source": "art/characters/source/coglet/correction-378/combat-corrected.png",
       "output": "dist/assets/creatures/creature-coglet-combat.png",
       "editable": "art/assets/source/coglet/combat.png",
       "columns": 4,
@@ -18,12 +18,19 @@
       "frameSize": 288
     },
     "follower": {
-      "source": "art/characters/source/coglet/follower-spaced.png",
+      "source": "art/characters/source/coglet/correction-378/follower-corrected.png",
       "output": "dist/assets/creatures/creature-coglet-follower.png",
       "editable": "art/assets/source/coglet/follower.png",
       "columns": 5,
       "rows": 8,
-      "frameSize": 200
+      "frameSize": 200,
+      "poseOverrides": {
+        "35": "art/characters/source/coglet/correction-378/northwest-0.png",
+        "36": "art/characters/source/coglet/correction-378/northwest-1.png",
+        "37": "art/characters/source/coglet/correction-378/northwest-2.png",
+        "38": "art/characters/source/coglet/correction-378/northwest-3.png",
+        "39": "art/characters/source/coglet/correction-378/northwest-4.png"
+      }
     }
   }
 }
