@@ -5,6 +5,7 @@ import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import Ajv from 'ajv';
 import {assessSceneBrief} from './lib/scene-quality.mjs';
+import {validateNarrativeContinuity, validateSceneLink} from './lib/scene-continuity.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const schema = JSON.parse(readFileSync(resolve(root, 'content/scene-scripts/schema.json'), 'utf8'));
@@ -21,7 +22,7 @@ function addUniqueErrors(values, path, errors) {
   }
 }
 
-export function validateSceneScript(script, catalogue) {
+export function validateSceneScript(script, catalogue, options = {}) {
   const errors = [];
   const warnings = [];
   if (!validateShape(script)) errors.push(...validateShape.errors.map(error => `${error.instancePath || '/'} ${error.message}`));
@@ -168,7 +169,25 @@ export function validateSceneScript(script, catalogue) {
 
   const quality = assessSceneBrief(script);
   if (quality.status === 'incomplete') warnings.push(...quality.errors.map(error => `quality incomplete: ${error}`));
+  const narrative = validateNarrativeContinuity(script, catalogue, {required: options.requireContinuity === true});
+  errors.push(...narrative.errors);
+  warnings.push(...narrative.warnings);
   return {errors, warnings, gapReport: makeGapReport(script), quality};
+}
+
+export function validateSceneSequence(scripts, catalogue, options = {}) {
+  const errors = [];
+  const warnings = [];
+  const seen = new Set();
+  for (const [index, script] of scripts.entries()) {
+    const result = validateSceneScript(script, catalogue, options);
+    errors.push(...result.errors.map(error => `${script.id}: ${error}`));
+    warnings.push(...result.warnings.map(warning => `${script.id}: ${warning}`));
+    if (seen.has(script.id)) errors.push(`duplicate scene ${script.id}`);
+    seen.add(script.id);
+    if (index) errors.push(...validateSceneLink(scripts[index - 1], script).map(error => `${script.id}: ${error}`));
+  }
+  return {errors, warnings};
 }
 
 export function makeGapReport(script) {
@@ -192,18 +211,29 @@ export function makeGapReport(script) {
 function main(args) {
   const [scriptPath, ...options] = args;
   if (!scriptPath)
-    throw new Error('usage: node scripts/scene-script.mjs <scene.json> [--catalogue <catalogue.json>] [--report <gap-report.json>] [--require-quality]');
+    throw new Error(
+      'usage: node scripts/scene-script.mjs <scene.json> [--catalogue <catalogue.json>] [--report <gap-report.json>] [--require-quality] [--require-continuity] [--previous <scene.json>]',
+    );
   let cataloguePath = resolve(root, 'content/catalogue/catalogue.json');
   let reportPath = null;
   let requireQuality = false;
+  let requireContinuity = false;
+  let previousPath = null;
   for (let index = 0; index < options.length; index++) {
     if (options[index] === '--catalogue') cataloguePath = options[++index];
     else if (options[index] === '--report') reportPath = options[++index];
     else if (options[index] === '--require-quality') requireQuality = true;
+    else if (options[index] === '--require-continuity') requireContinuity = true;
+    else if (options[index] === '--previous') previousPath = options[++index];
     else throw new Error(`unknown option ${options[index]}`);
   }
   const script = loadJson(scriptPath);
-  const result = validateSceneScript(script, loadJson(cataloguePath));
+  const catalogue = loadJson(cataloguePath);
+  const result = validateSceneScript(script, catalogue, {requireContinuity});
+  if (previousPath) {
+    const linked = validateSceneSequence([loadJson(previousPath), script], catalogue, {requireContinuity});
+    result.errors.push(...linked.errors);
+  }
   const report = JSON.stringify(result.gapReport, null, 2) + '\n';
   if (reportPath) writeFileSync(resolve(reportPath), report, {flag: 'wx'});
   else process.stdout.write(report);

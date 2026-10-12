@@ -251,6 +251,53 @@
     },
     "sceneBrief": {
       "$ref": "#/definitions/sceneBrief"
+    },
+    "continuityChanges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "id", "action", "consequence", "beatIds"],
+        "properties": {
+          "kind": {
+            "enum": ["obligation", "decision", "relationship", "role", "fact", "unknown"]
+          },
+          "id": {
+            "$ref": "#/definitions/id"
+          },
+          "action": {
+            "enum": ["introduce", "advance", "complicate", "resolve", "supersede", "rebind"]
+          },
+          "consequence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1200,
+            "pattern": "\\S"
+          },
+          "beatIds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "dialogueBeatIds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "staging": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1200,
+            "pattern": "\\S"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -439,6 +486,18 @@
               }
             }
           }
+        },
+        "actorRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/actorRole"
+          }
+        },
+        "decisionRecords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/decisionRecord"
+          }
         }
       }
     },
@@ -458,6 +517,12 @@
         },
         "fallbackResourceId": {
           "$ref": "#/definitions/catalogueId"
+        },
+        "roleId": {
+          "$ref": "#/definitions/id"
+        },
+        "ownerIdentityId": {
+          "$ref": "#/definitions/id"
         }
       }
     },
@@ -533,6 +598,76 @@
               }
             }
           }
+        }
+      }
+    },
+    "actorRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "identityId", "owner", "resourceId"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "identityId": {
+          "$ref": "#/definitions/id"
+        },
+        "owner": {
+          "enum": ["player", "companion", "npc", "world"]
+        },
+        "ownerIdentityId": {
+          "$ref": "#/definitions/id"
+        },
+        "resourceId": {
+          "$ref": "#/definitions/catalogueId"
+        },
+        "traits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "required"],
+            "properties": {
+              "id": {
+                "$ref": "#/definitions/id"
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "decisionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "choice", "sourceSceneId", "status"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "choice": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1200,
+          "pattern": "\\S"
+        },
+        "sourceSceneId": {
+          "$ref": "#/definitions/id"
+        },
+        "status": {
+          "enum": ["active", "resolved", "superseded"]
+        },
+        "resolution": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1200,
+          "pattern": "\\S"
         }
       }
     }
