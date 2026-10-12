@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-129 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+132 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -92,3 +92,7 @@ The optional `effect-elemental-materials` prop asset is a presentation atlas: tw
 ## Optional Blastoucan resource (#366)
 
 The shared optional `creature-blastoucan` portrait and `-combat` / `-follower` atlases preserve its hollow cylindrical cannon beak and distinct upright toucan identity. [Resource instructions](../content/resources/creatures/BLASTOUCAN.md) cover future pack/map import, primary Fire versus reference-only Air, starting stats and unimplemented ranged/evolution behavior. Inspect `dist/blastoucan-preview.html`; the existing isolated preview renderer selects its definition explicitly. Reproduce pixels with `python3 art/characters/export-parrocket.py --species blastoucan --check`. Generated originals and spacing corrections are archived under `art/characters/source/blastoucan/`; the original inline owner-reference binaries were not exposed in the workspace and are not claimed as retained. This is a resource addition, not new current-map encounters or owner taste acceptance.
+
+## Optional Rumblet resource (#368)
+
+[Rumblet](../content/resources/creatures/RUMBLET.md) stages a compact brown quadruped with a gray/orange frontal impact plate as optional portrait, twenty combat poses and forty eight-direction follower poses. Its isolated `dist/rumblet-preview.html` uses the shared renderer at 115/37 px. The importable definition has provisional Stone type; Beast Starter is descriptive, with no new starter/charge rules or default encounter. Exact prompts/generated sources, reproducible profiles and separate internal/owner review status are retained. Run `python3 art/characters/export-parrocket.py --species rumblet --check` for exact source/editable/runtime correspondence.

@@ -1,0 +1,13 @@
+# Rumblet reusable creature resource
+
+Rumblet is the owner-supplied compact brown quadruped from two inline concept/movement boards. Preserve its low body, sturdy cream-tipped legs, cream muzzle/inner ears, expressive eyes, angular brown dorsal tuft and short tail. Its defining feature is the large gray frontal impact plate with one orange central accent. Rear views show back anatomy; side and rear-diagonal views must remain distinct.
+
+The optional assets are `creature-rumblet`, `creature-rumblet-combat` and `creature-rumblet-follower`: a portrait, twenty battle poses (idle, charge attack, hit/brace recovery, faint, capture reactions × four) and forty map poses (eight directions × planted idle/four walks). Open `dist/rumblet-preview.html` through a local server to inspect all poses using shared renderers at 115 px battle and 37 px map width. This isolated preview does not modify game saves or the active roster.
+
+## Future map import
+
+Copy `dist/resources/creatures/rumblet.json` into the chosen pack's species registry, add `rumblet` to the pack manifest species list and add `{"species":"rumblet","weight":1}` to a reachable map zone pool. Choose level, rarity, habitat and tuning deliberately. The provisional Stone type and 50 HP / 11 attack / 14 defense are authoring starting values, not approved encounter balance. Keep its stable ID after release. Refresh the selected pack's integrity manifest and run the existing `validate-pack` command; see `docs/PACKS.md` and `docs/MAP_FORMAT.md`.
+
+The engine discovers optional combat/follower sheets by species ID, retaining the portrait fallback. Stone tumble and Stone material effects use existing rules/renderers. The reference label Beast Starter, personality and bruiser role are descriptive; no new Beast element, starter selection, custom charge/brace mechanic, AI or evolution relationship is installed. Current maps and eighteen-species progress are unchanged. For scenery-only placement use the portrait with an authored prop location/width; image placement alone does not create an encounter.
+
+Run `python3 art/characters/export-parrocket.py --species rumblet --check` to verify exact source-to-editable/runtime pixels. Source poses are isolated with broad transparent gaps, common nearest-neighbor scale, alpha threshold and four-pixel output gutters. The production brief is `art/characters/source/rumblet/BRIEF.md`; exact prompts and generated adaptations are retained with reproducible export settings. Original owner images were supplied inline and their binary files are unavailable locally. No original-reference license or owner taste approval is inferred.
