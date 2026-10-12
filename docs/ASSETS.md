@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-132 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+135 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -96,3 +96,7 @@ The shared optional `creature-blastoucan` portrait and `-combat` / `-follower` a
 ## Optional Rumblet resource (#368)
 
 [Rumblet](../content/resources/creatures/RUMBLET.md) stages a compact brown quadruped with a gray/orange frontal impact plate as optional portrait, twenty combat poses and forty eight-direction follower poses. Its isolated `dist/rumblet-preview.html` uses the shared renderer at 115/37 px. The importable definition has provisional Stone type; Beast Starter is descriptive, with no new starter/charge rules or default encounter. Exact prompts/generated sources, reproducible profiles and separate internal/owner review status are retained. Run `python3 art/characters/export-parrocket.py --species rumblet --check` for exact source/editable/runtime correspondence.
+
+## Optional Coglet resource (#371)
+
+[Coglet](../content/resources/creatures/COGLET.md) stages the rounded cream/brass machine with cyan lenses and a dorsal cog as optional portrait, twenty combat poses and forty directional poses. `dist/coglet-preview.html` uses shared renderers at 115/37 px. Its importable definition uses provisional Spark; Machine Starter remains descriptive. Exact prompts/generated sources, reproducible profiles and separate internal/owner review status are retained. Run `python3 art/characters/export-parrocket.py --species coglet --check` for exact source/editable/runtime correspondence.

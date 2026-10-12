@@ -353,6 +353,54 @@
       "palette": "preserve foreground RGBA; no quantization",
       "sourceCells": "art/characters/source/rumblet/export.json",
       "exporter": "art/characters/export-parrocket.py"
+    },
+    "coglet-portrait-v1": {
+      "category": "creature-portrait",
+      "status": "implemented",
+      "sourceGrid": {
+        "columns": 1,
+        "rows": 1
+      },
+      "frame": [264, 264],
+      "resampling": "one shared nearest-neighbor scale per sheet",
+      "alphaThreshold": 128,
+      "footInset": 0,
+      "transparentGutter": 4,
+      "palette": "preserve foreground RGBA; no quantization",
+      "sourceCells": "art/characters/source/coglet/export.json",
+      "exporter": "art/characters/export-parrocket.py"
+    },
+    "coglet-combat-v1": {
+      "category": "creature-combat",
+      "status": "implemented",
+      "sourceGrid": {
+        "columns": 4,
+        "rows": 5
+      },
+      "frame": [288, 288],
+      "resampling": "one shared nearest-neighbor scale per sheet",
+      "alphaThreshold": 128,
+      "footInset": 4,
+      "transparentGutter": 4,
+      "palette": "preserve foreground RGBA; no quantization",
+      "sourceCells": "art/characters/source/coglet/export.json",
+      "exporter": "art/characters/export-parrocket.py"
+    },
+    "coglet-follower-v1": {
+      "category": "creature-follower",
+      "status": "implemented",
+      "sourceGrid": {
+        "columns": 5,
+        "rows": 8
+      },
+      "frame": [200, 200],
+      "resampling": "one shared nearest-neighbor scale per sheet",
+      "alphaThreshold": 128,
+      "footInset": 4,
+      "transparentGutter": 4,
+      "palette": "preserve foreground RGBA; no quantization",
+      "sourceCells": "art/characters/source/coglet/export.json",
+      "exporter": "art/characters/export-parrocket.py"
     }
   }
 }

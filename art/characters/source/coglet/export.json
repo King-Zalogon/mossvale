@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "exports": {
+    "portrait": {
+      "source": "art/characters/source/coglet/portrait-generated.png",
+      "output": "dist/assets/creatures/creature-coglet.png",
+      "editable": "art/assets/source/coglet/portrait.png",
+      "columns": 1,
+      "rows": 1,
+      "frameSize": 264
+    },
+    "combat": {
+      "source": "art/characters/source/coglet/combat-faint.png",
+      "output": "dist/assets/creatures/creature-coglet-combat.png",
+      "editable": "art/assets/source/coglet/combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frameSize": 288
+    },
+    "follower": {
+      "source": "art/characters/source/coglet/follower-spaced.png",
+      "output": "dist/assets/creatures/creature-coglet-follower.png",
+      "editable": "art/assets/source/coglet/follower.png",
+      "columns": 5,
+      "rows": 8,
+      "frameSize": 200
+    }
+  }
+}

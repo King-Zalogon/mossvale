@@ -1,0 +1,13 @@
+# Coglet reusable creature resource
+
+Coglet is the owner-supplied small toy-like machine from two inline concept/movement boards. Preserve its rounded cream/brass casing, four short charcoal jointed legs with brass feet, paired circular cyan lenses and large attached dorsal cog. The gear remains visible from every angle; north shows rear casing/axle and hides front lenses, while south shows both lenses. Side and rear-diagonal views must remain distinct. Its reference personality is curious, methodical and persistent.
+
+The optional assets are `creature-coglet`, `creature-coglet-combat` and `creature-coglet-follower`: a portrait, twenty battle poses (idle, gear-powered lunge, hit/recovery, faint, capture reactions × four) and forty map poses (eight directions × planted idle/four walks). Open `dist/coglet-preview.html` through a local server to inspect all poses using shared renderers at 115 px battle and 37 px map width. The isolated preview does not modify game saves or the active roster.
+
+## Future map import
+
+Copy `dist/resources/creatures/coglet.json` into the chosen pack's species registry, add `coglet` to the pack manifest species list and add `{"species":"coglet","weight":1}` to a reachable map zone pool. Choose level, rarity, habitat and tuning deliberately. The provisional Spark type and 46 HP / 10 attack / 13 defense are authoring starting values, not approved encounter balance. Keep its stable ID after release. Refresh the selected pack's integrity manifest and run the existing `validate-pack` command; see `docs/PACKS.md` and `docs/MAP_FORMAT.md`.
+
+The engine discovers optional combat/follower sheets by species ID, retaining portrait fallback. Spark jolt and directed Spark material effects use existing rules/renderers. Machine Starter and mechanical personality are descriptive; no Machine element, starter selection, immunities, new gear mechanic, AI or evolution relationship is installed. Current maps and eighteen-species progress are unchanged. For scenery-only placement use the portrait with an authored prop location/width; image placement alone does not create an encounter.
+
+Run `python3 art/characters/export-parrocket.py --species coglet --check` for exact source-to-editable/runtime pixels. Complete poses use shared nearest-neighbor scale, alpha threshold and four-pixel output gutters. The brief is `art/characters/source/coglet/BRIEF.md`; exact prompts/generated adaptations and revisions are retained with reproducible settings. Original owner images were supplied inline and their binary files are unavailable locally. No original-reference license or owner taste approval is inferred.
