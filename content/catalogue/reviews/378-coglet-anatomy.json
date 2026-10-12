@@ -60,6 +60,13 @@
       "disposition": "updated",
       "reason": "Correct owner-rejected Coglet portrait and all60 atlas poses: forward-only lenses, sagittal dorsal cog/transverse axle, fixed four-corner legs and rear flank housing. Preserve old sources/rejected review history, archive correction attempts and isolated northwest cells, keep exact export and preview/import compatibility. Audit enlarged/game-scale directions/states and add per-phase lens/gear regressions. Refresh shared provenance/review metadata pins for unchanged other art; no other sprite pixels, rules, stats, maps or roster IDs change. Catalogue describes corrected anatomy and retains pending owner taste.",
       "evidence": ["tests/coglet.test.mjs", "tests/coglet.browser.mjs", "art/characters/reviews/coglet/ANATOMY-378.md", "content/resources/creatures/COGLET.md"]
+    },
+    {
+      "paths": ["art/assets/third-party/ravenmore-resource-icons-01/README.md"],
+      "entries": ["visual:wood-plank-stack", "visual:wood-firewood-bundle", "visual:straw-bundle"],
+      "disposition": "no-semantic-impact",
+      "reason": "After synchronization with PR381, full verify found its README used a Markdown emphasis delimiter rejected by Prettier. Normalize asterisks to underscores only; the asset permissions, credit text, hashes, pixels and resource semantics remain identical. Implementation review confirms this is formatting only.",
+      "evidence": ["art/assets/third-party/ravenmore-resource-icons-01/README.md"]
     }
   ]
 }
