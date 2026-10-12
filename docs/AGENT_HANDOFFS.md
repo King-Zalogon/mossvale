@@ -230,3 +230,7 @@ Claimed `codex/375-creature-testing-urls` from main `1c1c984`, updated with inte
 ## #260 — orchard clue completion
 
 Claimed `codex/260-orchard-discovery-completion` from latest `origin/main` `1c1c984`, refreshed with `origin/integration` `e835443`. Preserve PR #299 graph and stable event IDs. Fix prop interaction masking, add unchanged Ravenmore repair boards and physical hollow/channel affordances, validate evidence prerequisites and complete actual keyboard/touch persistence review. #261 follows separately.
+
+## #261 — optional spoiler-safe leads
+
+Claim `codex/261-spoiler-safe-rumours`, from latest main `f7df1b0` refreshed with integration and #260 dependency. Optional pack-authored map hints, canonical heard event levels, derived relevance/resolution, active healthy companion capability checks and accessible journal help. Merge only after #260 and full local validation.

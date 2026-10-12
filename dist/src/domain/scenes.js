@@ -130,6 +130,13 @@ export function validateSceneGraph(maps) {
     if (condition.not) references(condition.not, key);
   };
   for (const [key, event] of events) references(event.when, key);
+  for (const map of maps)
+    for (const hint of map.hints ?? []) {
+      for (let level = 0; level < (hint.levels?.length ?? 0); level++)
+        if (events.has(`${map.id}/hint-${hint.id}-${level}`)) errors.push(`${map.id}: hint heard key collides with scene event`);
+      references(hint.when, `${map.id}/hint-${hint.id}`);
+      references(hint.resolved, `${map.id}/hint-${hint.id}`);
+    }
   const reachable = new Set(roots);
   const possible = condition => {
     if (!condition || condition.not) return true;

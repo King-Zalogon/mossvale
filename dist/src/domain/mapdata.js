@@ -1,5 +1,6 @@
 /* Map data format (version 1): validation and compilation. Pure functions only.
    Authoring guide: docs/MAP_FORMAT.md. */
+import {validateHints} from './hints.js';
 import {PLAYER_RADIUS} from '../config.js';
 import {TACTICS} from '../data/tactics.js';
 import {validateLines} from './objectives.js';
@@ -45,7 +46,7 @@ const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 /**
  * Checks raw map JSON against the format and cross-references.
  * @param {object[]} rawMaps every map in the adventure
- * @param {{spriteNames:Set<string>, speciesIds:Set<string>}} ctx
+ * @param {{spriteNames:Set<string>, speciesIds:Set<string>, species?:object[]}} ctx
  * @returns {string[]} human-readable errors, each prefixed with the map and field
  */
 export function validateMaps(rawMaps, ctx) {
@@ -285,6 +286,7 @@ function validateOne(m, byId, ctx, errors) {
       at(where + '.rect', `[x0, y0, x1, y1] inside the map (0..${w}, 0..${h}) with x0 <= x1 and y0 <= y1`);
     if (q?.label !== undefined && (typeof q.label !== 'string' || q.label.length > 24)) at(where + '.label', 'a short name (up to 24 characters)');
   });
+  if (m.hints !== undefined) errors.push(...validateHints(m.hints, {mapIds: new Set(byId.keys()), species: ctx.species ?? [], where: `map ${m.id}.hints`}));
   const sceneEventIds = new Set();
   (m.triggers ?? []).forEach((t, i) => {
     const where = `triggers[${i}] (${t?.id})`;
@@ -450,6 +452,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     zones,
     triggers,
     quiet,
+    hints: m.hints ?? [],
   };
 }
 

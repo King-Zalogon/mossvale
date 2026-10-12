@@ -5986,6 +5986,61 @@
       }
     },
     {
+      "id": "mechanic:investigation-hints",
+      "kind": "mechanic",
+      "name": "Optional investigation leads",
+      "summary": "Request progressively clearer help based on discovered evidence, current access and the active companion; heard advice remains in the journal.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "map.hints",
+          "type": "array",
+          "default": [],
+          "limits": "At most 16 hints; stable id, when/resolved conditions, observation/lead disclosure and 1–3 text levels of 320 characters."
+        },
+        {
+          "name": "requires",
+          "type": "object",
+          "default": null,
+          "limits": "Optional registered ability and habitat; uses only the active owned healthy party companion."
+        }
+      ],
+      "dependencies": ["interactable:scene-event"],
+      "limits": [
+        "No automatic timer, autonomous dialogue, answer tier or new field action.",
+        "Text/access truth needs authored review; structural validation cannot detect prose spoilers.",
+        "Heard events share the 256-entry scene journal. Preserve released IDs and level order."
+      ],
+      "examples": [
+        {
+          "intent": "Offer help after an observed water anomaly without disclosing the unseen family.",
+          "usage": "Use the three shipped orchard hints in dist/maps/orchard-ruins.json. Open Field journal after Mara’s brief and request a lead; ask again for clearer wording.",
+          "expected": "Advice progresses only on request, switches after a clue, and stops after either resolution; reload preserves heard levels."
+        }
+      ],
+      "references": ["dist/src/domain/hints.js", "dist/maps/orchard-ruins.json", "docs/INVESTIGATION_HINTS.md"],
+      "evidence": [
+        {
+          "path": "tests/hints.test.mjs",
+          "assertion": "All starters, real/missing capabilities, old/imported history, prerequisites and resolution."
+        },
+        {
+          "path": "tests/hints.browser.mjs",
+          "assertion": "Actual journal keyboard/touch request and persisted disclosure escalation in two investigation states."
+        }
+      ],
+      "details": {
+        "trigger": "Explicit Field journal Ask for a lead button; only current-map eligible hints.",
+        "inputs": "Pack conditions, actual active creature, discovered/access state and canonical heard event history.",
+        "sequence": "Derive relevance/resolution, choose the first relevant authored hint and next tier, persist heard key, then present accessible dialogue.",
+        "results": "Requested observation/lead and labeled journal history; no progression reward or automatic discovery.",
+        "cancellation": "Closing dialogue leaves the already persisted heard key; no late scene callback.",
+        "errors": "Invalid pack hints fail loading; missing capability excludes the hint; capacity or storage failure refuses unsaved advice and rolls back heard state.",
+        "persistence": "Canonical per-adventure scene event keys; relevance/resolution recomputed from current facts and party after reload/import."
+      }
+    },
+    {
       "id": "mechanic:landmark-discovery",
       "kind": "mechanic",
       "name": "Specific landmark discoveries",
