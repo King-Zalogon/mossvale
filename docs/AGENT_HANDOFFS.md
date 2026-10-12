@@ -203,3 +203,7 @@ Claimed `codex/366-blastoucan-resources` from main 1c1c984, synchronized with in
 ## #244 — playable scene quality gate
 
 Claimed `codex/244-playable-scene-quality` from latest `origin/main` `1c1c984`, synchronized with `origin/integration` `54d4a4d`. Add an optional format-1 brief with a strict new-scene readiness mode, portable writer/builder requirements, separately evidenced schema/playable/visual/narrative reports and real-control desktop/mobile captures. Legacy scripts remain valid but incomplete for quality acceptance. Preserve #186 archived writing and pack behavior; report its missing narrative payoff rather than manufacture approval or duplicate #237. Integration-only PR and final verification pending.
+
+## #368 — Rumblet reusable resource
+
+Claimed on `codex/368-rumblet-resources` from `origin/main` (`1c1c984`) updated with integration (`54d4a4d`). Preserve owner-inline compact quadruped/gray impact plate design; optional portrait, directional/combat atlases, importable definition and catalogue. Local full verify/build and actual-size visual review precede integration PR merge.

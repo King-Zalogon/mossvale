@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "exports": {
+    "portrait": {
+      "source": "art/characters/source/rumblet/portrait-generated.png",
+      "output": "dist/assets/creatures/creature-rumblet.png",
+      "editable": "art/assets/source/rumblet/portrait.png",
+      "columns": 1,
+      "rows": 1,
+      "frameSize": 264
+    },
+    "combat": {
+      "source": "art/characters/source/rumblet/combat-clean.png",
+      "output": "dist/assets/creatures/creature-rumblet-combat.png",
+      "editable": "art/assets/source/rumblet/combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frameSize": 288
+    },
+    "follower": {
+      "source": "art/characters/source/rumblet/follower-clean.png",
+      "output": "dist/assets/creatures/creature-rumblet-follower.png",
+      "editable": "art/assets/source/rumblet/follower.png",
+      "columns": 5,
+      "rows": 8,
+      "frameSize": 200
+    }
+  }
+}

@@ -979,6 +979,35 @@ export const assets = [
       columnOrder: ['idle', 'walk-1', 'walk-2', 'walk-3', 'walk-4'],
     },
   },
+
+  {name: 'creature-rumblet', kind: 'creature', src: 'assets/creatures/creature-rumblet.png', w: 264, h: 260, anchor: 'bottom-center', required: false},
+  {
+    name: 'creature-rumblet-combat',
+    kind: 'creature',
+    src: 'assets/creatures/creature-rumblet-combat.png',
+    w: 1152,
+    h: 1440,
+    anchor: 'bottom-center',
+    required: false,
+    frames: {columns: 4, rows: 5, frameWidth: 288, frameHeight: 288, rowOrder: ['idle', 'attack', 'hit', 'faint', 'capture'], columnOrder: [0, 1, 2, 3]},
+  },
+  {
+    name: 'creature-rumblet-follower',
+    kind: 'creature',
+    src: 'assets/creatures/creature-rumblet-follower.png',
+    w: 1000,
+    h: 1600,
+    anchor: 'bottom-center',
+    required: false,
+    frames: {
+      columns: 5,
+      rows: 8,
+      frameWidth: 200,
+      frameHeight: 200,
+      rowOrder: ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'],
+      columnOrder: ['idle', 'walk-1', 'walk-2', 'walk-3', 'walk-4'],
+    },
+  },
 ];
 
 /** Index of an asset by name; used by content that refers to art (species, regions, direction sprites). Throws on a typo. */
