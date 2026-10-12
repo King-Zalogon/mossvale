@@ -183,6 +183,51 @@
       "generatedSource": "art/characters/source/creature-lanternix-combat-generated.png",
       "referenceAsset": "creature-lanternix",
       "promptBrief": "Keep three golden charge bands, teal wing cases, six tucked legs and two antennae; five readable combat states with stable ground anchor."
+    },
+    "parrocket": {
+      "generatedSource": "art/characters/source/parrocket/combat-spaced.png",
+      "referenceAsset": "creature-parrocket",
+      "promptBrief": "Owner-reference Rocket Parrot; 20 isolated idle, attack, hit, faint and capture poses. Exact prompts and spacing revision retained under source/parrocket.",
+      "sourceSize": [
+        1122,
+        1402
+      ]
+    },
+    "blastoucan": {
+      "generatedSource": "art/characters/source/blastoucan/combat-spaced.png",
+      "referenceAsset": "creature-blastoucan",
+      "promptBrief": "Owner-inline Cannon Beak toucan; exact prompts and initial/spacing sheets retained, no pre-drawn orb.",
+      "sourceSize": [
+        1199,
+        1312
+      ]
+    },
+    "rumblet": {
+      "generatedSource": "art/characters/source/rumblet/combat-clean.png",
+      "referenceAsset": "creature-rumblet",
+      "promptBrief": "Owner-inline compact quadruped/impact-plate beast; exact prompts and spacing revisions retained, no pre-drawn orb.",
+      "sourceSize": [
+        1122,
+        1402
+      ]
+    },
+    "coglet": {
+      "generatedSource": "art/characters/source/coglet/combat-faint.png",
+      "referenceAsset": "creature-coglet",
+      "promptBrief": "Owner-inline rounded toy machine/dorsal cog; exact prompts and spacing revisions retained, no pre-drawn orb.",
+      "sourceSize": [
+        1312,
+        1199
+      ]
+    },
+    "wispurr": {
+      "generatedSource": "art/characters/source/wispurr/combat-revised.png",
+      "referenceAsset": "creature-wispurr",
+      "promptBrief": "Owner-inline pale-mask violet spirit/attached cyan wisps; exact prompts and spacing revisions retained, no pre-drawn orb.",
+      "sourceSize": [
+        1122,
+        1402
+      ]
     }
   },
   "frameOrder": [
@@ -503,6 +548,76 @@
         1402
       ],
       "output": "dist/assets/creatures/creature-lanternix-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-parrocket-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-parrocket-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-blastoucan-combat": {
+      "sourceSize": [
+        1199,
+        1312
+      ],
+      "output": "dist/assets/creatures/creature-blastoucan-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-rumblet-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-rumblet-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-coglet-combat": {
+      "sourceSize": [
+        1312,
+        1199
+      ],
+      "output": "dist/assets/creatures/creature-coglet-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-wispurr-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-wispurr-combat.png",
       "columns": 4,
       "rows": 5,
       "frame": [

@@ -247,5 +247,21 @@
     },
     "limits": ["Use the existing validated format; no new runtime behavior is implied."],
     "scope": "optional-pack"
+  },
+  "creature-resource": {
+    "kind": "actor",
+    "scope": "authoring-only",
+    "summary": "%name% is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+    "limits": [
+      "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+      "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+      "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
+    ],
+    "details": {
+      "appearance": "%description% Portrait, five-state combat and eight-direction follower are registered shared assets.",
+      "behavior": "Pack-owned %runtimeId% definition uses existing capture, battle, growth and save rules after deliberate import.",
+      "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+      "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
+    }
   }
 }

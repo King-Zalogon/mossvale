@@ -21,6 +21,16 @@ const server = await startCatalogueServer({port: 0});
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 try {
   const page = await browser.newPage();
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: {
+        writeText: async text => {
+          if (window.__clipboardDenied) throw new DOMException('Denied', 'NotAllowedError');
+          window.__copiedResourceIds = text;
+        },
+      },
+    });
+  });
   const errors = [];
   const referenceImageRequests = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -29,6 +39,7 @@ try {
   });
   await page.goto(`http://127.0.0.1:${server.address().port}/`);
   const origin = `http://127.0.0.1:${server.address().port}`;
+  await page.context().grantPermissions(['clipboard-read', 'clipboard-write'], {origin});
   assert.equal((await page.request.get(`${origin}/fiche?id=actor%3Anot-a-visual`)).status(), 404);
   assert.equal((await page.request.get(`${origin}/asset?path=docs%2FFEEDBACK.md`)).status(), 404);
   assert.equal((await page.request.get(`${origin}/asset?path=${encodeURIComponent(referenceAssets[0].preview.path)}`)).status(), 200);
@@ -57,6 +68,10 @@ try {
   assert.equal(referenceImageRequests.length, 1, 'the selected reference sheet loads only after the author opens its details');
   await page.locator('#details input[type=checkbox]').check();
   await page.locator('#copy-selection').click();
+  await page.waitForFunction(() => document.querySelector('#copy-status').textContent.includes('1 stable resource ID copied'));
+  assert.equal(await page.evaluate(() => window.__copiedResourceIds), 'reference:andhegames/assorted-creatures');
+  await page.evaluate(() => (window.__clipboardDenied = true));
+  await page.locator('#copy-selection').click();
   await page.waitForFunction(() => document.querySelector('#copy-status').textContent.includes('reference:andhegames/assorted-creatures'));
   await page.locator('#details input[type=checkbox]').uncheck();
   await page.locator('#kind').selectOption('');
@@ -64,15 +79,29 @@ try {
   await page.locator('#license').selectOption('');
   await page.locator('#tag').selectOption('');
   await page.locator('#element').selectOption('');
+  await page.locator('#element').selectOption({label: 'Air'});
+  await page.waitForFunction(() => [...document.querySelectorAll('.card-title')].some(card => card.textContent === 'creature-wispurr-follower'));
+  const wispurrCards = (await page.locator('.card-title').allTextContents()).filter(name => name.startsWith('creature-wispurr'));
+  assert.deepEqual(wispurrCards, ['creature-wispurr', 'creature-wispurr-combat', 'creature-wispurr-follower']);
+  await page.locator('#element').selectOption({label: 'Spark'});
+  await page.waitForFunction(() => [...document.querySelectorAll('.card-title')].some(card => card.textContent === 'creature-coglet-follower'));
+  const cogletCards = (await page.locator('.card-title').allTextContents()).filter(name => name.startsWith('creature-coglet'));
+  assert.deepEqual(cogletCards, ['creature-coglet', 'creature-coglet-combat', 'creature-coglet-follower']);
   await page.locator('#element').selectOption({label: 'Fire'});
-  await page.waitForFunction(() => document.querySelectorAll('.card').length === 6);
+  await page.waitForFunction(() => document.querySelectorAll('.card').length === 12);
   assert.deepEqual(await page.locator('.card-title').allTextContents(), [
+    'creature-blastoucan',
+    'creature-blastoucan-combat',
+    'creature-blastoucan-follower',
     'creature-cindercurl',
     'creature-cindercurl-combat',
     'creature-cindercurl-follower',
     'creature-emberkin',
     'creature-emberkin-combat',
     'creature-emberkin-follower',
+    'creature-parrocket',
+    'creature-parrocket-combat',
+    'creature-parrocket-follower',
   ]);
   await page.locator('#search').fill('flame-shaped curled tail');
   await page.waitForFunction(() => document.querySelectorAll('.card').length === 3);

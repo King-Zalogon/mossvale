@@ -6,6 +6,7 @@ import {existsSync, mkdtempSync, readFileSync, rmSync, statSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {extname, join} from 'node:path';
 import assert from 'node:assert/strict';
+import {PREPARED_CREATURE_IDS} from '../dist/src/creature-preview-resources.js';
 
 const build = mkdtempSync(join(tmpdir(), 'mossvale-testing-urls-'));
 const dist = new URL('../dist/', import.meta.url);
@@ -40,7 +41,8 @@ try {
     assert.equal(page.url(), `${base}/${mount}/`, 'game remains open');
     assert.equal(await index.getByRole('heading', {name: 'Testing URLs'}).count(), 1);
     const links = index.getByRole('navigation', {name: 'Testing pages'}).getByRole('link');
-    assert.equal(await links.count(), 6);
+    assert.equal(await links.count(), 7 + PREPARED_CREATURE_IDS.length);
+    for (const id of PREPARED_CREATURE_IDS) assert.equal(await links.filter({hasText: new RegExp(id, 'i')}).count(), 1);
     for (const entry of await links.all()) {
       const href = await entry.getAttribute('href');
       const response = await index.request.get(new URL(href, index.url()).href);
@@ -52,8 +54,18 @@ try {
       preview.on('pageerror', e => errors.push(e.message));
       await preview.waitForLoadState();
       assert.equal(preview.url(), `${base}/${mount}/${href}`);
+      if (PREPARED_CREATURE_IDS.some(id => href === `${id}-preview.html`))
+        await preview.waitForFunction(() => document.querySelector('#status')?.textContent.startsWith('Ready:'));
+      if (href === 'creature-follower-preview.html')
+        await preview.waitForFunction(
+          ids => ids.every(id => [...document.querySelectorAll('#species option')].some(option => option.value === id)),
+          PREPARED_CREATURE_IDS,
+        );
+      if (href === 'creature-combat-preview.html')
+        await preview.waitForFunction(ids => ids.every(id => document.querySelectorAll(`canvas[data-species="${id}"]`).length === 20), PREPARED_CREATURE_IDS);
       await preview.close();
     }
+    assert.equal(await page.evaluate(async () => (await import('./src/data/species.js')).species.length), 18, 'review tabs do not extend the adventure roster');
     await index.close();
     await page.close();
     const game = await browser.newPage({viewport: {width: 390, height: 844}, hasTouch: true, isMobile: true});
@@ -71,7 +83,7 @@ try {
     await game.close();
   }
   assert.deepEqual(errors, []);
-  console.log('ok Testing URLs keyboard/title and touch/game-menu navigation, safe new tabs, all six pages in source and packaged subdirectories');
+  console.log('ok Testing URLs keyboard/title and touch/game-menu navigation, safe new tabs, all twelve pages in source and packaged subdirectories');
 } finally {
   await browser?.close();
   server.close();

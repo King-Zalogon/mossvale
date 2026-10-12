@@ -27,6 +27,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `controller.js` | root | `createController` |
 | `creature-combat-preview.js` | root | — |
 | `creature-follower-preview.js` | root | — |
+| `creature-preview-resources.js` | root | `PREPARED_CREATURE_IDS`, `loadPreparedCreaturePreviews` |
 | `data/assets.js` | data | `assets`, `spriteId` |
 | `data/biomes.js` | data | `biomes` |
 | `data/economy.js` | data | `CAPS`, `REST_FLOOR`, `REWARDS`, `SHOP`, `replaceEconomy` |
@@ -67,7 +68,10 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `input.js` | root | `direction`, `installInput`, `isMoving` |
 | `main.js` | root | — |
 | `map-editor.js` | root | — |
+| `parrocket-preview.js` | root | — |
 | `render/battle-art.js` | render | `guardianCombatSprite` |
+| `render/chest-art.js` | render | `chestPairs`, `chestSprite` |
+| `render/elemental-effects.js` | render | `drawElementalEffect`, `effectPose` |
 | `render/sprites.js` | render | `drawCreature`, `drawCreatureAnimated`, `drawSprite`, `drawSpriteFrame`, `sprites` |
 | `render/terrain.js` | render | `createTerrainPainter`, `mix`, `patchNoise`, `terrainColors` |
 | `render/world.js` | render | `createWorldRenderer` |
@@ -88,6 +92,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `ui/battle-fx.js` | ui | `burstMarkup`, `captureBeats`, `fxForEvent`, `hpPercent`, `orbMarkup`, `popMarkup`, `rewardPops` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
+| `ui/elemental-beats.js` | ui | `elementalBeats` |
 | `ui/hud.js` | ui | `renderHud`, `renderRegion`, `renderSaveStatus` |
 | `ui/menus.js` | ui | `createMenus` |
 | `ui/speech.js` | ui | `createSpeech` |

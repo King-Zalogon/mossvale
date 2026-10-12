@@ -1,0 +1,292 @@
+{
+  "format": 1,
+  "id": "fernling-role-correction-v2",
+  "title": "Fernling at Dusk — role correction v2",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "previousScene": null,
+  "setting": {
+    "biomeId": "biome:meadow",
+    "mapIntent": "An isolated candidate map using the meadow biome, existing map format, static landmark sprites, a scene-event dialogue trigger, and the existing chest contract.",
+    "environment": [
+      "visual:tree-oak"
+    ],
+    "placementConstraints": [
+      "Use a small pack-owned meadow map titled Sunlit Trail — Dusk; do not copy the shipped Mossvale map.",
+      "Keep the traveler and Fernling together in one quiet, accessible spot; no movement choreography.",
+      "The chest is optional and can be approached independently of the conversation."
+    ]
+  },
+  "participants": [
+    {
+      "id": "trail-traveler",
+      "identity": "A road-worn traveler in a patched green coat, carrying a rolled bedroll and a heavy pack.",
+      "resourceId": "visual:person-traveler",
+      "role": "A friendly stranger with a small puzzle about the trail's evening hush.",
+      "startingSituation": "Standing still as a static traveler landmark on reachable ground.",
+      "binding": {
+        "owner": "npc",
+        "identityId": "trail-traveler",
+        "required": true,
+        "roleId": "traveler"
+      }
+    },
+    {
+      "id": "trail-companion",
+      "identity": "The player’s active companion; species comes from the selected adventure.",
+      "resourceId": "visual:creature-fernling",
+      "role": "Player-owned witness, not the traveler’s familiar.",
+      "startingSituation": "Following the player; fallback artwork never replaces a live selected companion.",
+      "binding": {
+        "owner": "companion",
+        "identityId": "companion-active",
+        "required": false,
+        "fallbackResourceId": "visual:creature-fernling",
+        "roleId": "trail-witness"
+      },
+      "traits": [
+        {
+          "id": "player-owned",
+          "required": true,
+          "value": "The player’s active companion."
+        },
+        {
+          "id": "fernling-appearance",
+          "required": false,
+          "value": "Only when the selected companion is Fernling."
+        }
+      ]
+    }
+  ],
+  "uses": [
+    {
+      "resourceId": "visual:person-traveler",
+      "purpose": "Show the traveler using the supplied traveler appearance."
+    },
+    {
+      "resourceId": "visual:chest-wooden",
+      "purpose": "Use the supplied wooden chest appearance for the optional chest."
+    },
+    {
+      "resourceId": "visual:cottage-tiled",
+      "purpose": "Place the existing tiled cottage sprite as scenery on the pack-owned dusk map."
+    },
+    {
+      "resourceId": "visual:tree-oak",
+      "purpose": "Place the existing oak sprite as scenery on the pack-owned dusk map."
+    },
+    {
+      "resourceId": "interactable:scene-event",
+      "purpose": "Present the three repeatable dialogue lines through the existing map scene-event action."
+    },
+    {
+      "resourceId": "landmark:sign",
+      "purpose": "Configure a static traveler sprite as a sign-role landmark, whose existing interaction displays dialogue without opening the ranger menu.",
+      "configurationIntent": "The trigger uses map landmark id traveler as its dialogue speaker."
+    }
+  ],
+  "beats": [
+    {
+      "id": "meet-traveler",
+      "type": "dialogue",
+      "intent": "The traveler welcomes the player and introduces the unusual quiet of the trail.",
+      "speaker": "trail-traveler",
+      "text": "Evening. Your companion usually stirs at every rustle, but tonight it is watching the hill.",
+      "advance": "manual"
+    },
+    {
+      "id": "ask-about-hush",
+      "type": "dialogue",
+      "intent": "The traveler shares a gentle, unresolved mystery without claiming a supernatural event.",
+      "speaker": "trail-traveler",
+      "text": "I heard a second set of footsteps after mine stopped. I looked back; the path was empty. Maybe the wind has learned our pace.",
+      "advance": "manual"
+    },
+    {
+      "id": "fernling-answer",
+      "type": "dialogue",
+      "intent": "The traveler is reassured by the alertness of the player’s companion, without acquiring ownership of it.",
+      "speaker": "trail-traveler",
+      "text": "Your companion heard them too? Then I will not blame the wind just yet. Keep your ears open, friend.",
+      "advance": "manual"
+    },
+    {
+      "id": "optional-chest",
+      "type": "player-action",
+      "intent": "Allow the player to inspect and open the existing treasure chest if they choose.",
+      "interactionIntent": "Interact with the treasure chest on Sunlit Trail.",
+      "expectedResult": "The existing chest interaction offers its authored coins, potions, or orbs reward once; this optional interaction does not gate the conversation."
+    }
+  ],
+  "requirements": [],
+  "completion": "The conversation ends after the traveler's farewell. The player may leave or separately open the existing chest; the encounter requires no combat, movement choreography, new effects, or save-state assumptions.",
+  "continuityIn": {
+    "characters": [
+      {
+        "id": "trail-traveler",
+        "identity": "A road-worn traveler; no NPC familiar is instantiated in the corrected candidate.",
+        "location": "Sunlit Trail"
+      },
+      {
+        "id": "traveler-familiar",
+        "identity": "The old proposed NPC familiar; retained as a discarded authoring assumption.",
+        "location": "Not instantiated in the corrected candidate."
+      },
+      {
+        "id": "companion-active",
+        "identity": "The player’s selected companion.",
+        "location": "Following the player."
+      }
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [],
+    "decisions": [],
+    "pendingThreads": [],
+    "actorRoles": [
+      {
+        "id": "traveler",
+        "identityId": "trail-traveler",
+        "owner": "npc",
+        "resourceId": "visual:person-traveler"
+      },
+      {
+        "id": "trail-witness",
+        "identityId": "traveler-familiar",
+        "owner": "npc",
+        "ownerIdentityId": "trail-traveler",
+        "resourceId": "visual:creature-fernling"
+      }
+    ],
+    "decisionRecords": [],
+    "relationships": [],
+    "intentionalUnknowns": [],
+    "obligations": []
+  },
+  "continuityOut": {
+    "characters": [
+      {
+        "id": "trail-traveler",
+        "identity": "A road-worn traveler; no NPC familiar is instantiated in the corrected candidate.",
+        "location": "Sunlit Trail"
+      },
+      {
+        "id": "traveler-familiar",
+        "identity": "The old proposed NPC familiar; retained as a discarded authoring assumption.",
+        "location": "Not instantiated in the corrected candidate."
+      },
+      {
+        "id": "companion-active",
+        "identity": "The player’s selected companion.",
+        "location": "Following the player."
+      }
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [
+      {
+        "id": "traveler-heard-footsteps",
+        "statement": "The traveler says they heard a second set of footsteps after their own stopped; the path appeared empty.",
+        "status": "active"
+      }
+    ],
+    "obligations": [
+      {
+        "id": "unexplained-footsteps",
+        "kind": "question",
+        "statement": "Who made the second set of footsteps after the traveler stopped?",
+        "status": "active",
+        "sourceSceneId": "fernling-role-correction-v2"
+      }
+    ],
+    "decisions": [],
+    "pendingThreads": [
+      "The unexplained footsteps on Sunlit Trail."
+    ],
+    "actorRoles": [
+      {
+        "id": "traveler",
+        "identityId": "trail-traveler",
+        "owner": "npc",
+        "resourceId": "visual:person-traveler"
+      },
+      {
+        "id": "trail-witness",
+        "identityId": "companion-active",
+        "owner": "companion",
+        "resourceId": "visual:creature-fernling",
+        "traits": [
+          {
+            "id": "player-owned",
+            "required": true,
+            "value": "The player’s active companion."
+          },
+          {
+            "id": "fernling-appearance",
+            "required": false,
+            "value": "Only when the selected companion is Fernling."
+          }
+        ]
+      }
+    ],
+    "decisionRecords": [],
+    "relationships": [],
+    "intentionalUnknowns": [],
+    "dramaticDirection": "The role correction is complete; the unresolved story payoff remains #237/#186 work."
+  },
+  "continuityChanges": [
+    {
+      "kind": "role",
+      "id": "trail-witness",
+      "action": "rebind",
+      "consequence": "The witness is the player’s active companion, not an NPC-owned familiar.",
+      "beatIds": [
+        "meet-traveler",
+        "fernling-answer"
+      ],
+      "dialogueBeatIds": [
+        "meet-traveler",
+        "ask-about-hush",
+        "fernling-answer"
+      ],
+      "staging": "Draw the existing player follower beside the player. Do not spawn an NPC familiar or replace the party."
+    },
+    {
+      "kind": "obligation",
+      "id": "unexplained-footsteps",
+      "action": "introduce",
+      "consequence": "Preserve the unresolved footsteps as an explicit question for later payoff, not a supernatural fact.",
+      "beatIds": [
+        "ask-about-hush"
+      ]
+    },
+    {
+      "kind": "fact",
+      "id": "traveler-heard-footsteps",
+      "action": "introduce",
+      "consequence": "Record only what the traveler reports having observed.",
+      "beatIds": [
+        "ask-about-hush"
+      ]
+    }
+  ],
+  "sceneBrief": {
+    "playerPurpose": "Recognize that the traveler is addressing the player’s own alert companion.",
+    "consequence": {
+      "kind": "atmosphere",
+      "description": "Acknowledge a shared observation while making ownership explicit; this is a role correction, not a newly resolved mystery.",
+      "beatIds": [
+        "fernling-answer"
+      ]
+    },
+    "tone": "Quiet attention.",
+    "setup": "A traveler comments on the player’s active companion.",
+    "action": "Read the ownership-consistent dialogue.",
+    "payoff": "The companion remains player-owned and the old NPC-familiar assumption is retired. Story payoff acceptance remains separate.",
+    "requiredResources": [
+      "visual:person-traveler",
+      "visual:creature-fernling",
+      "interactable:scene-event"
+    ],
+    "continuityState": "Preserve the traveler’s observation without inventing a supernatural fact; preserve player ownership."
+  }
+}

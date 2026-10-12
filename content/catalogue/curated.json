@@ -98,7 +98,8 @@
         "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return.",
         "Capture beats are derived from the already-resolved throw: a success wobbles three times, a miss wobbles once more the closer it was (1 to 3), and calm motion collapses to a single wobble; the wobble count never changes the outcome.",
         "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion).",
-        "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion. The HUD friend count, coin/XP rewards, quest progress and controller notices also wait for the orb result. Durable capture and objective events still commit before playback. Ally level/HP and move information read the pre-throw presentation snapshot until resolution, including a capture that levels up the companion."
+        "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion. The HUD friend count, coin/XP rewards, quest progress and controller notices also wait for the orb result. Durable capture and objective events still commit before playback. Ally level/HP and move information read the pre-throw presentation snapshot until resolution, including a capture that levels up the companion.",
+        "Automatic calm motion follows the system media query directly; the CSS override class is reserved for the explicit player setting, so returning to normal system motion cannot leave creature animations stuck."
       ],
       "examples": [
         {
@@ -112,7 +113,14 @@
           "expected": "The orb flies in and holds the creature, wobbles, then either settles with a star burst and floating rewards before the result screen, or opens and the creature pops back out."
         }
       ],
-      "references": ["dist/src/controller.js", "dist/src/data/sounds.js", "dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/style.css"],
+      "references": [
+        "dist/src/controller.js",
+        "dist/src/data/sounds.js",
+        "dist/src/ui/battle-fx.js",
+        "dist/src/ui/battle-view.js",
+        "dist/style.css",
+        "dist/src/main.js"
+      ],
       "evidence": [
         {
           "path": "tests/battle-fx.test.mjs",
@@ -125,6 +133,10 @@
         {
           "path": "tests/capture-feel.browser.mjs",
           "assertion": "A real throw shows throw, three wobbles and settle with stars and floating rewards; a miss opens the orb and the creature pops out; a win fades the foe and floats XP; calm motion has no sparks and one wobble per throw. Ownership and HUD counters/rewards/quests retain their pre-throw presentation until resolution, including calm motion and repeated captures."
+        },
+        {
+          "path": "tests/creatures.browser.mjs",
+          "assertion": "Automatic system reduction disables animation and returns to idle breathing without becoming a sticky manual override."
         }
       ],
       "details": {
@@ -267,37 +279,55 @@
       "id": "mechanic:elemental-combat-presentation",
       "kind": "mechanic",
       "name": "Elemental combat presentation",
-      "summary": "Show a distinct, type-colored elemental burst when a companion uses its special move.",
+      "summary": "Send recognizable elemental material toward the opponent and reveal damage at impact, for either side.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
       "limits": [
-        "The burst reuses the optional five-state combat atlas and falls back to the static portrait when a pack has no combat sheet.",
-        "It does not change damage, timing, saves or battle outcomes."
+        "Covers the twelve registered display-name elements; custom elements or unavailable optional effects use an explicit neutral directional fallback.",
+        "Reuses optional five-state creature combat atlases or static portraits. Normal action duration, damage, saves, RNG and rewards are unchanged.",
+        "Calm motion shows one static material-specific impact without travel or camera shake. Internal art review does not imply owner taste approval."
       ],
       "examples": [
         {
-          "intent": "Use the companion's elemental move during a battle.",
-          "usage": "Reuse the existing Element action; the presentation derives its color from the companion type.",
-          "expected": "The ally uses the elemental motion and a type-colored burst while the enemy receives the normal hit reaction."
+          "intent": "Use a Fire companion elemental move in an encounter.",
+          "usage": "Use the existing Element action with a species whose canonical type is Fire.",
+          "expected": "A tapered fireball travels from attacker to rival, then flames and damage appear at contact."
+        },
+        {
+          "intent": "Author a Spark enemy in an optional pack.",
+          "usage": "Use the canonical Spark display-name type on the authored species; keep the existing creature atlas contract.",
+          "expected": "A branching lightning bolt connects enemy to ally in the mirrored direction; ally HP updates at contact."
         }
       ],
-      "references": ["dist/src/controller.js", "dist/src/render/sprites.js", "dist/src/ui/battle-view.js"],
+      "references": [
+        "docs/ELEMENTAL_ATTACKS.md",
+        "dist/src/controller.js",
+        "dist/src/ui/elemental-beats.js",
+        "dist/src/render/elemental-effects.js",
+        "dist/src/ui/battle-view.js",
+        "art/effects/SOURCES.md",
+        "art/effects/metadata.json"
+      ],
       "evidence": [
         {
-          "path": "tests/creature-combat.browser.mjs",
-          "assertion": "Battle playback distinguishes Quick strike and Element, and reduced motion pins the elemental presentation to one frame."
+          "path": "tests/elemental-effects.browser.mjs",
+          "assertion": "Exercises all twelve elements in actual battles on both sides with normal/reduced motion, contact timing, legacy fallback, landscape bounds and cancellation."
+        },
+        {
+          "path": "tests/elemental-effects.test.mjs",
+          "assertion": "Covers canonical element mapping, unchanged beat durations, pre-contact HP/audio, mirroring and clamped geometry."
         }
       ],
       "details": {
-        "trigger": "A resolved battle action with kind element.",
-        "inputs": "The existing companion type and optional five-state combat atlas.",
-        "sequence": "Render the attack row with a deterministic expanding type-colored burst and the elemental lunge motion.",
-        "results": "The ally's elemental move reads differently from Quick strike while the enemy receives the normal hit reaction.",
-        "cancellation": "The existing animation cancellation replaces the effect when the battle view changes.",
-        "errors": "Packs without combat atlases fall back to the static portrait; unsupported types use the shared green fallback color.",
-        "persistence": "Presentation-only; battle rules and saved outcomes are unchanged."
+        "trigger": "A resolved ally Element strike or damaging enemy elemental action.",
+        "inputs": "Canonical species type display-name, resolved event, pre-hit snapshot, optional six-pose effect atlas and existing creature attack pose.",
+        "sequence": "Normal 650 ms ally or 700 ms enemy beat: prepare, directed travel, contact/dissolve. Reveal HP, damage text, pops, target recoil and audio only at contact. Calm motion uses one 250 ms static impact.",
+        "results": "Leaf blades, water splash, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost use distinct authored silhouettes/materials.",
+        "cancellation": "Effects stop when their battle canvas disconnects or is replaced; existing timeline flush skips to already-resolved state.",
+        "errors": "Missing optional effect atlas or unsupported custom type uses a neutral directional mark; missing creature combat sheet uses the existing static portrait.",
+        "persistence": "Presentation only; no changes to rule formulas, RNG draws, save schema, committed damage or rewards."
       }
     },
     {
@@ -759,7 +789,7 @@
       "id": "mechanic:testing-urls",
       "kind": "mechanic",
       "name": "Testing URLs and artwork previews",
-      "summary": "Open a discoverable index of shipped artwork and map review pages from the title or in-game menu, keeping the adventure tab open.",
+      "summary": "Review the adventure roster and prepared creature resources through shared follower/combat pages or direct resource previews, keeping the adventure tab open.",
       "status": "available",
       "scope": "authoring-only",
       "configuration": [],
@@ -773,13 +803,25 @@
           "intent": "Review creature facing without changing adventure progress.",
           "usage": "Choose Testing URLs in the menu, then Creature followers. Select a species, inspect turns and stopping, and enable Reduced motion.",
           "expected": "The follower turns through eight directions using its own motion; stopped/calm poses use idle, and the game remains open in its original tab."
+        },
+        {
+          "intent": "Review a prepared creature before placing it in a map.",
+          "usage": "Open Testing URLs and choose a named creature resource, or select it in Creature followers and compare its combat frames in Creature combat animations.",
+          "expected": "All five prepared resources are visible in the shared reviews and their direct pages; the original adventure keeps its pack-owned roster and progress."
         }
       ],
-      "references": ["dist/testing.html", "dist/src/ui/menus.js", "dist/src/creature-follower-preview.js", "docs/TESTING_URLS.md"],
+      "references": [
+        "dist/testing.html",
+        "dist/src/ui/menus.js",
+        "dist/src/creature-follower-preview.js",
+        "docs/TESTING_URLS.md",
+        "dist/src/creature-combat-preview.js",
+        "dist/src/creature-preview-resources.js"
+      ],
       "evidence": [
         {
           "path": "tests/testing-urls.browser.mjs",
-          "assertion": "Keyboard/touch navigation and all five destinations in source and packaged subdirectories."
+          "assertion": "Keyboard/touch navigation, all twelve destinations in source and packaged subdirectories, five resource pages ready and preview-only roster extension."
         },
         {
           "path": "tests/creature-follower.browser.mjs",
@@ -790,7 +832,7 @@
         "trigger": "Select Testing URLs from the title screen or in-game menu.",
         "inputs": "Native keyboard/touch links; review pages expose species/animation and reduced-motion controls.",
         "sequence": "Open the index in a new tab without opener access, then open a described review page in another tab.",
-        "results": "Shipped review routes are discoverable; canonical follower manifest directions/mirroring and runtime cadence are shown at game scale.",
+        "results": "Shared follower and combat pages include the eighteen default Mossvale species plus Parrocket, Blastoucan, Rumblet, Coglet and Wispurr. Direct resource pages show portrait, forty directional poses and twenty battle poses with playback; adventure roster/saves are unchanged.",
         "cancellation": "Close the review/index tabs or use their Mossvale return links. The original game tab stays open.",
         "errors": "A missing required shipped page is a packaging defect; browser regressions request every listed destination. No authentication or authoring API is invoked by index navigation.",
         "persistence": "The index and artwork preview do not mutate adventure saves. Map Workshop exports/edited-map play remain explicit authoring actions."
@@ -979,6 +1021,119 @@
         "cancellation": "--check never writes outputs; invalid input stops before staging.",
         "errors": "Missing bodies, invalid boundaries, inadequate new-source gutters or output mismatch fail with diagnostics.",
         "persistence": "Changes source/output provenance and authoring evidence only; no game save or combat rule changes."
+      }
+    },
+    {
+      "id": "mechanic:playable-scene-quality",
+      "kind": "mechanic",
+      "name": "Playable scene quality evidence",
+      "summary": "Specify a player-relevant scene brief and report real-control, visual and narrative acceptance separately.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "sceneBrief",
+          "type": "format-1 scene intent brief",
+          "default": null,
+          "limits": "Required for new quality submissions; legacy scripts remain format-valid but incomplete."
+        }
+      ],
+      "dependencies": ["mechanic:scene-dialogue"],
+      "limits": [
+        "Geometry and reviewed evidence do not establish owner taste or enjoyment.",
+        "Representative desktop/phone captures cover their recorded zoom, not all devices or arbitrary scenes.",
+        "Local evidence and review records are not signed execution attestations."
+      ],
+      "examples": [
+        {
+          "intent": "Review a small scene offering useful supplies.",
+          "usage": "Run npm run test:scene-quality and follow docs/SCENE_QUALITY.md to retain, inspect and report evidence.",
+          "expected": "Separate schema/data, real-control behavior, visual composition, narrative purpose and deferred owner taste."
+        }
+      ],
+      "references": [
+        "docs/SCENE_QUALITY.md",
+        "content/scene-scripts/schema.json",
+        "scripts/scene-script.mjs",
+        "scripts/scene-quality.mjs",
+        "scripts/lib/scene-quality.mjs"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scene-quality.test.mjs",
+          "assertion": "Incomplete briefs, layout overlap and technical-only proofs cannot pass quality acceptance."
+        },
+        {
+          "path": "tests/scene-quality.browser.mjs",
+          "assertion": "Real keyboard/touch controls, actual sprite/UI bounds and once-only rewards on desktop and phone."
+        }
+      ],
+      "details": {
+        "trigger": "Before declaring an AI-written or hand-authored scene proof complete.",
+        "inputs": "Scene intent, selected catalogue resources, runtime pack, hashed captures and separate visual/narrative review.",
+        "sequence": "Validate brief; drive real controls; capture renderer/layout; inspect screenshots and narrative purpose; generate revision-bound report.",
+        "results": "Explicit four-category report, readiness for owner testing and separate owner approval status.",
+        "cancellation": "Required gaps, missing/stale evidence, obscured actors/text/controls or incomplete review prevent readiness.",
+        "errors": "Strict new-scene mode rejects missing payoff/brief; legacy validation emits incomplete-quality warnings. Unsafe/missing evidence paths fail closed.",
+        "persistence": "Authoring artifacts only; canonical pack/save behavior and archived proofs are unchanged."
+      }
+    },
+    {
+      "id": "mechanic:narrative-continuity",
+      "kind": "mechanic",
+      "name": "Durable narrative and actor-role handoff",
+      "summary": "Carry complete scene history, resolved promises and player choices with explicit role ownership and beat-linked consequences.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "continuityChanges",
+          "type": "format-1 narrative state changes",
+          "default": null,
+          "limits": "Required for strict durable handoffs; links state, consequence and existing beats."
+        }
+      ],
+      "dependencies": ["mechanic:playable-scene-quality"],
+      "limits": [
+        "Authoring continuity does not create runtime save variables, relationship mechanics or automatic story execution.",
+        "Single-file validation cannot verify earlier history; provide the prior handoff or full sequence.",
+        "Structural checks do not judge dialogue truth, literary quality or enjoyment."
+      ],
+      "examples": [
+        {
+          "intent": "Preserve a first-scene promise through a three-scene sequence.",
+          "usage": "Validate the bell-one/bell-two/bell-three examples with --require-continuity and --previous.",
+          "expected": "The original promise, resolved question and resolved player choice survive into scene three."
+        }
+      ],
+      "references": [
+        "docs/NARRATIVE_CONTINUITY.md",
+        "scripts/scene-script.mjs",
+        "scripts/lib/scene-continuity.mjs",
+        "content/scene-scripts/schema.json",
+        "content/scene-scripts/examples/continuity/bell-one.json",
+        "content/scene-scripts/examples/continuity/bell-two.json",
+        "content/scene-scripts/examples/continuity/bell-three.json",
+        "docs/scene-script-proofs/186-the-fernling-at-dusk/corrected-handoff-v2.json"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scene-continuity.test.mjs",
+          "assertion": "Complete chain links, immutable choices, resolved obligations, role/fallback/trait coherence and three starter variants."
+        },
+        {
+          "path": "tests/visual-catalogue.test.mjs",
+          "assertion": "Portable contexts retain hashed three-scene examples and durable-handoff writer instructions."
+        }
+      ],
+      "details": {
+        "trigger": "When a writer or builder submits another scene with canonical history.",
+        "inputs": "Current scene, exact catalogue and previous complete outgoing handoff; declared roles, choices, traits and consequences.",
+        "sequence": "Validate script and structured state; link input to previous output; review beat-linked changes and semantic role mapping; then apply the playable quality gate.",
+        "results": "Contradiction/migration findings; stable history and explicit discarded/rebound role assumptions.",
+        "cancellation": "Missing previous records, reopened closed IDs, rewritten choices, unsupported references or incomplete rebinding prevent strict acceptance.",
+        "errors": "Reject impossible ownership and fallback/trait contradictions; legacy scripts receive migration warnings without a save-format change.",
+        "persistence": "Versioned authoring JSON only; existing runtime pack/save codecs and archived writer outputs are preserved."
       }
     }
   ],

@@ -380,6 +380,356 @@
       }
     },
     {
+      "id": "creature-resource:blastoucan",
+      "kind": "actor",
+      "name": "Blastoucan",
+      "summary": "Blastoucan is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "blastoucan",
+            "name": "Blastoucan",
+            "type": "Fire",
+            "stats": {
+              "hp": 52,
+              "attack": 14,
+              "defense": 8
+            },
+            "hp": 52,
+            "move": "ember-spark",
+            "biome": "meadow",
+            "role": "Ranged striker",
+            "personality": "Proud and alert; it plants its feet and raises its wings to steady each shot.",
+            "desc": "A blue cannon-beaked toucan that steadies its fiery tail feathers before firing.",
+            "encounterHint": "Authors may place it along sunny paths or high woodland edges; it has no encounter in current maps.",
+            "strong": ["Leaf", "Ice", "Bloom", "Frost"],
+            "weak": ["Water", "Stone", "Mire", "Sand"],
+            "color": "#2585d0",
+            "sprite": "creature-blastoucan",
+            "habitats": ["sunny-path", "woodland-edge"],
+            "abilities": []
+          },
+          "limits": "Configure through dist/resources/creatures/blastoucan.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-blastoucan", "visual:creature-blastoucan-combat", "visual:creature-blastoucan-follower"],
+      "limits": [
+        "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
+      ],
+      "examples": [
+        {
+          "intent": "Blastoucan is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+          "usage": "Reference blastoucan in the existing format at dist/resources/creatures/blastoucan.json.",
+          "expected": "Blastoucan is a prepared creature resource for future pack/map placement; it is not in current encounters."
+        }
+      ],
+      "references": ["dist/resources/creatures/blastoucan.json", "content/resources/creatures/BLASTOUCAN.md", "dist/blastoucan-preview.html"],
+      "evidence": [
+        {
+          "path": "tests/blastoucan.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A blue cannon-beaked toucan that steadies its fiery tail feathers before firing. Portrait, five-state combat and eight-direction follower are registered shared assets.",
+        "behavior": "Pack-owned blastoucan definition uses existing capture, battle, growth and save rules after deliberate import.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-blastoucan.png",
+          "description": "A blue cannon-beaked toucan that steadies its fiery tail feathers before firing."
+        }
+      ]
+    },
+    {
+      "id": "creature-resource:coglet",
+      "kind": "actor",
+      "name": "Coglet",
+      "summary": "Coglet is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "coglet",
+            "name": "Coglet",
+            "type": "Spark",
+            "stats": {
+              "hp": 46,
+              "attack": 10,
+              "defense": 13
+            },
+            "hp": 46,
+            "move": "static-leap",
+            "biome": "meadow",
+            "role": "Methodical mechanical companion",
+            "personality": "Curious, methodical and persistent; its dorsal gear clicks and turns with each step.",
+            "desc": "A small cream-and-brass round machine with cyan lenses, short jointed legs and a large dorsal cog.",
+            "encounterHint": "Authors may place it near workshops or old machinery; it has no encounter in current maps.",
+            "strong": ["Water", "Air", "Mire"],
+            "weak": ["Stone", "Sand"],
+            "color": "#02dce4",
+            "sprite": "creature-coglet",
+            "habitats": ["workshop-edge", "old-machinery"],
+            "abilities": []
+          },
+          "limits": "Configure through dist/resources/creatures/coglet.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-coglet", "visual:creature-coglet-combat", "visual:creature-coglet-follower"],
+      "limits": [
+        "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
+      ],
+      "examples": [
+        {
+          "intent": "Coglet is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+          "usage": "Reference coglet in the existing format at dist/resources/creatures/coglet.json.",
+          "expected": "Coglet is a prepared creature resource for future pack/map placement; it is not in current encounters."
+        }
+      ],
+      "references": ["dist/resources/creatures/coglet.json", "content/resources/creatures/COGLET.md", "dist/coglet-preview.html"],
+      "evidence": [
+        {
+          "path": "tests/coglet.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small cream-and-brass round machine with cyan lenses, short jointed legs and a large dorsal cog. Portrait, five-state combat and eight-direction follower are registered shared assets.",
+        "behavior": "Pack-owned coglet definition uses existing capture, battle, growth and save rules after deliberate import.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-coglet.png",
+          "description": "A small cream-and-brass round machine with cyan lenses, short jointed legs and a large dorsal cog."
+        }
+      ]
+    },
+    {
+      "id": "creature-resource:parrocket",
+      "kind": "actor",
+      "name": "Parrocket",
+      "summary": "Parrocket is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "parrocket",
+            "name": "Parrocket",
+            "type": "Fire",
+            "stats": {
+              "hp": 38,
+              "attack": 13,
+              "defense": 7
+            },
+            "hp": 38,
+            "move": "ember-spark",
+            "biome": "meadow",
+            "role": "Fast scout",
+            "personality": "A plucky scout that darts ahead and loops back to guide its friends.",
+            "desc": "A blue rocket parrot with a red conical beak and flame-colored tail feathers.",
+            "encounterHint": "Authors may place it along sunny paths or high woodland edges; it has no encounter in current maps.",
+            "strong": ["Leaf", "Ice", "Bloom", "Frost"],
+            "weak": ["Water", "Stone", "Mire", "Sand"],
+            "color": "#268cda",
+            "sprite": "creature-parrocket",
+            "habitats": ["sunny-path", "woodland-edge"],
+            "abilities": []
+          },
+          "limits": "Configure through dist/resources/creatures/parrocket.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-parrocket", "visual:creature-parrocket-combat", "visual:creature-parrocket-follower"],
+      "limits": [
+        "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
+      ],
+      "examples": [
+        {
+          "intent": "Parrocket is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+          "usage": "Reference parrocket in the existing format at dist/resources/creatures/parrocket.json.",
+          "expected": "Parrocket is a prepared creature resource for future pack/map placement; it is not in current encounters."
+        }
+      ],
+      "references": ["dist/resources/creatures/parrocket.json", "content/resources/creatures/PARROCKET.md", "dist/parrocket-preview.html"],
+      "evidence": [
+        {
+          "path": "tests/parrocket.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A blue rocket parrot with a red conical beak and flame-colored tail feathers. Portrait, five-state combat and eight-direction follower are registered shared assets.",
+        "behavior": "Pack-owned parrocket definition uses existing capture, battle, growth and save rules after deliberate import.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-parrocket.png",
+          "description": "A blue rocket parrot with a red conical beak and flame-colored tail feathers."
+        }
+      ]
+    },
+    {
+      "id": "creature-resource:rumblet",
+      "kind": "actor",
+      "name": "Rumblet",
+      "summary": "Rumblet is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "rumblet",
+            "name": "Rumblet",
+            "type": "Stone",
+            "stats": {
+              "hp": 50,
+              "attack": 11,
+              "defense": 14
+            },
+            "hp": 50,
+            "move": "stone-tumble",
+            "biome": "meadow",
+            "role": "Plate-bearing bruiser",
+            "personality": "Brave, impulsive and loyal; it lowers its frontal plate before charging.",
+            "desc": "A compact brown beast with sturdy cream-tipped feet and a gray impact plate marked in orange.",
+            "encounterHint": "Authors may place it along rocky woodland paths; it has no encounter in current maps.",
+            "strong": ["Spark", "Fire", "Ice", "Bloom"],
+            "weak": ["Water", "Leaf", "Mire"],
+            "color": "#965b36",
+            "sprite": "creature-rumblet",
+            "habitats": ["rocky-path", "woodland-edge"],
+            "abilities": []
+          },
+          "limits": "Configure through dist/resources/creatures/rumblet.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-rumblet", "visual:creature-rumblet-combat", "visual:creature-rumblet-follower"],
+      "limits": [
+        "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
+      ],
+      "examples": [
+        {
+          "intent": "Rumblet is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+          "usage": "Reference rumblet in the existing format at dist/resources/creatures/rumblet.json.",
+          "expected": "Rumblet is a prepared creature resource for future pack/map placement; it is not in current encounters."
+        }
+      ],
+      "references": ["dist/resources/creatures/rumblet.json", "content/resources/creatures/RUMBLET.md", "dist/rumblet-preview.html"],
+      "evidence": [
+        {
+          "path": "tests/rumblet.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A compact brown beast with sturdy cream-tipped feet and a gray impact plate marked in orange. Portrait, five-state combat and eight-direction follower are registered shared assets.",
+        "behavior": "Pack-owned rumblet definition uses existing capture, battle, growth and save rules after deliberate import.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-rumblet.png",
+          "description": "A compact brown beast with sturdy cream-tipped feet and a gray impact plate marked in orange."
+        }
+      ]
+    },
+    {
+      "id": "creature-resource:wispurr",
+      "kind": "actor",
+      "name": "Wispurr",
+      "summary": "Wispurr is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "wispurr",
+            "name": "Wispurr",
+            "type": "Air",
+            "stats": {
+              "hp": 42,
+              "attack": 12,
+              "defense": 9
+            },
+            "hp": 42,
+            "move": "gust-spiral",
+            "biome": "meadow",
+            "role": "Quiet floating companion",
+            "personality": "Shy, sensitive and clever; its pale mask reflects emotion while its attached flame body flickers.",
+            "desc": "A small violet floating spirit with a pale oval mask, expressive indigo eyes and cyan-tipped wisps.",
+            "encounterHint": "Authors may place it in quiet groves or old ruins; it has no encounter in current maps.",
+            "strong": ["Leaf", "Spore", "Mire"],
+            "weak": ["Spark", "Ice", "Frost"],
+            "color": "#46308c",
+            "sprite": "creature-wispurr",
+            "habitats": ["quiet-grove", "old-ruins"],
+            "abilities": []
+          },
+          "limits": "Configure through dist/resources/creatures/wispurr.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-wispurr", "visual:creature-wispurr-combat", "visual:creature-wispurr-follower"],
+      "limits": [
+        "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
+      ],
+      "examples": [
+        {
+          "intent": "Wispurr is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+          "usage": "Reference wispurr in the existing format at dist/resources/creatures/wispurr.json.",
+          "expected": "Wispurr is a prepared creature resource for future pack/map placement; it is not in current encounters."
+        }
+      ],
+      "references": ["dist/resources/creatures/wispurr.json", "content/resources/creatures/WISPURR.md", "dist/wispurr-preview.html"],
+      "evidence": [
+        {
+          "path": "tests/wispurr.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small violet floating spirit with a pale oval mask, expressive indigo eyes and cyan-tipped wisps. Portrait, five-state combat and eight-direction follower are registered shared assets.",
+        "behavior": "Pack-owned wispurr definition uses existing capture, battle, growth and save rules after deliberate import.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-wispurr.png",
+          "description": "A small violet floating spirit with a pale oval mask, expressive indigo eyes and cyan-tipped wisps."
+        }
+      ]
+    },
+    {
       "id": "interactable:scene-event",
       "kind": "interactable",
       "name": "Authored scene event",
@@ -1430,7 +1780,7 @@
           "default": {
             "id": "chest",
             "kind": "chest",
-            "sprite": "chest-wooden",
+            "sprite": "chest-sandstone-iron",
             "at": [45.4, 12],
             "w": 44,
             "label": "Open the treasure chest",
@@ -1445,7 +1795,7 @@
           "limits": "Configure through dist/maps/amber-ridge.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:chest-wooden"],
+      "dependencies": ["visual:chest-sandstone-iron"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
@@ -1804,7 +2154,7 @@
           "default": {
             "id": "chest",
             "kind": "chest",
-            "sprite": "chest-wooden",
+            "sprite": "chest-pine-frost",
             "at": [17.2, 16],
             "w": 44,
             "label": "Open the treasure chest",
@@ -1818,7 +2168,7 @@
           "limits": "Configure through dist/maps/frostveil-grove.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:chest-wooden"],
+      "dependencies": ["visual:chest-pine-frost"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
@@ -2226,7 +2576,7 @@
           "default": {
             "id": "cache",
             "kind": "chest",
-            "sprite": "chest-wooden",
+            "sprite": "chest-pine-frost",
             "at": [52, 35],
             "w": 44,
             "label": "Open the hidden blueglass cache",
@@ -2243,7 +2593,7 @@
           "limits": "Configure through dist/maps/frostveil-pass.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:chest-wooden"],
+      "dependencies": ["visual:chest-pine-frost"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
@@ -3063,7 +3413,7 @@
           "default": {
             "id": "chest",
             "kind": "chest",
-            "sprite": "chest-wooden",
+            "sprite": "chest-reed-rope",
             "at": [44.2, 36.6],
             "w": 44,
             "label": "Open the treasure chest",
@@ -3078,7 +3428,7 @@
           "limits": "Configure through dist/maps/reedfen-wetlands.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:chest-wooden"],
+      "dependencies": ["visual:chest-reed-rope"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
@@ -3489,7 +3839,7 @@
           "default": {
             "id": "stilt-chest",
             "kind": "chest",
-            "sprite": "chest-wooden",
+            "sprite": "chest-reed-rope",
             "at": [66.5, 21.5],
             "w": 44,
             "label": "Open the summit chest",
@@ -3504,7 +3854,7 @@
           "limits": "Configure through dist/maps/stilt-isles.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:chest-wooden"],
+      "dependencies": ["visual:chest-reed-rope"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
@@ -3750,7 +4100,7 @@
           "default": {
             "id": "basin-chest",
             "kind": "chest",
-            "sprite": "chest-wooden",
+            "sprite": "chest-sandstone-iron",
             "at": [11.6, 41.6],
             "w": 44,
             "label": "Open the nook chest",
@@ -3765,7 +4115,7 @@
           "limits": "Configure through dist/maps/stone-basin.json; use its existing validator, not arbitrary new fields."
         }
       ],
-      "dependencies": ["visual:chest-wooden"],
+      "dependencies": ["visual:chest-sandstone-iron"],
       "limits": ["Map geometry, sprite selection and role are independently configured."],
       "examples": [
         {
@@ -4140,6 +4490,109 @@
         "rewards": "Existing healing/supply floor; no home sleep bonus.",
         "repetition": "Menu actions repeat subject to supplies/prices.",
         "persistence": "Existing team/supplies/inventory save transaction."
+      }
+    },
+    {
+      "id": "landmark:scene-quality-yard/start/chest",
+      "kind": "interactable",
+      "name": "scene quality yard/start/chest",
+      "summary": "Open the trail chest (chest) on Welcome Yard.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "chest",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [9, 4],
+            "w": 42,
+            "label": "Open the trail chest",
+            "flag": "start.chest",
+            "reward": {
+              "coins": 8,
+              "potions": 1,
+              "orbs": 2
+            }
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/maps/start.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-wooden"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail chest (chest) on Welcome Yard.",
+          "usage": "Reference scene-quality-yard/start/chest in the existing format at tests/fixtures/packs/scene-quality-yard/maps/start.json.",
+          "expected": "Open the trail chest (chest) on Welcome Yard."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/maps/start.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:scene-quality-yard/start/traveler",
+      "kind": "interactable",
+      "name": "Wren",
+      "summary": "Wren (sign) on Welcome Yard.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "traveler",
+            "kind": "sign",
+            "sprite": "person-traveler",
+            "at": [6, 3],
+            "w": 37,
+            "name": "Wren",
+            "tag": "HOST",
+            "label": "Speak with Wren",
+            "text": "The chest holds your road supplies."
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/maps/start.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:person-traveler"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Wren (sign) on Welcome Yard.",
+          "usage": "Reference scene-quality-yard/start/traveler in the existing format at tests/fixtures/packs/scene-quality-yard/maps/start.json.",
+          "expected": "Wren (sign) on Welcome Yard."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/maps/start.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
       }
     },
     {
@@ -4772,6 +5225,46 @@
       }
     },
     {
+      "id": "map:scene-quality-yard/start",
+      "kind": "environment",
+      "name": "Welcome Yard",
+      "summary": "Welcome Yard: 12 by 8 authored map.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/maps/start.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Coordinates and connections belong to the referenced map file; do not copy a summary as executable map data."],
+      "examples": [
+        {
+          "intent": "Welcome Yard: 12 by 8 authored map.",
+          "usage": "Reference scene-quality-yard/start in the existing format at tests/fixtures/packs/scene-quality-yard/maps/start.json.",
+          "expected": "Welcome Yard: 12 by 8 authored map."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/maps/start.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "biome": "meadow",
+        "connections": "[]",
+        "cardPreview": "No dedicated Island-card preview is configured.",
+        "walkability": "Use authored terrain, prop collision and existing world footprint checks; map shape alone does not prove reachability.",
+        "spawns": "{\"camp\":[3,5]}",
+        "access": "Pack progression/region and exit conditions determine access; validate all required routes."
+      }
+    },
+    {
       "id": "map:the-fernling-at-dusk/start",
       "kind": "environment",
       "name": "Sunlit Trail — Dusk",
@@ -4826,7 +5319,8 @@
         "Each round now ends on a settled frame, so the foe's reply stays on screen for 500-700 ms (250 ms in calm motion) before controls return.",
         "Capture beats are derived from the already-resolved throw: a success wobbles three times, a miss wobbles once more the closer it was (1 to 3), and calm motion collapses to a single wobble; the wobble count never changes the outcome.",
         "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion).",
-        "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion. The HUD friend count, coin/XP rewards, quest progress and controller notices also wait for the orb result. Durable capture and objective events still commit before playback. Ally level/HP and move information read the pre-throw presentation snapshot until resolution, including a capture that levels up the companion."
+        "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion. The HUD friend count, coin/XP rewards, quest progress and controller notices also wait for the orb result. Durable capture and objective events still commit before playback. Ally level/HP and move information read the pre-throw presentation snapshot until resolution, including a capture that levels up the companion.",
+        "Automatic calm motion follows the system media query directly; the CSS override class is reserved for the explicit player setting, so returning to normal system motion cannot leave creature animations stuck."
       ],
       "examples": [
         {
@@ -4840,7 +5334,14 @@
           "expected": "The orb flies in and holds the creature, wobbles, then either settles with a star burst and floating rewards before the result screen, or opens and the creature pops back out."
         }
       ],
-      "references": ["dist/src/controller.js", "dist/src/data/sounds.js", "dist/src/ui/battle-fx.js", "dist/src/ui/battle-view.js", "dist/style.css"],
+      "references": [
+        "dist/src/controller.js",
+        "dist/src/data/sounds.js",
+        "dist/src/ui/battle-fx.js",
+        "dist/src/ui/battle-view.js",
+        "dist/style.css",
+        "dist/src/main.js"
+      ],
       "evidence": [
         {
           "path": "tests/battle-fx.test.mjs",
@@ -4853,6 +5354,10 @@
         {
           "path": "tests/capture-feel.browser.mjs",
           "assertion": "A real throw shows throw, three wobbles and settle with stars and floating rewards; a miss opens the orb and the creature pops out; a win fades the foe and floats XP; calm motion has no sparks and one wobble per throw. Ownership and HUD counters/rewards/quests retain their pre-throw presentation until resolution, including calm motion and repeated captures."
+        },
+        {
+          "path": "tests/creatures.browser.mjs",
+          "assertion": "Automatic system reduction disables animation and returns to idle breathing without becoming a sticky manual override."
         }
       ],
       "details": {
@@ -5061,37 +5566,55 @@
       "id": "mechanic:elemental-combat-presentation",
       "kind": "mechanic",
       "name": "Elemental combat presentation",
-      "summary": "Show a distinct, type-colored elemental burst when a companion uses its special move.",
+      "summary": "Send recognizable elemental material toward the opponent and reveal damage at impact, for either side.",
       "status": "available",
       "scope": "core",
       "configuration": [],
       "dependencies": [],
       "limits": [
-        "The burst reuses the optional five-state combat atlas and falls back to the static portrait when a pack has no combat sheet.",
-        "It does not change damage, timing, saves or battle outcomes."
+        "Covers the twelve registered display-name elements; custom elements or unavailable optional effects use an explicit neutral directional fallback.",
+        "Reuses optional five-state creature combat atlases or static portraits. Normal action duration, damage, saves, RNG and rewards are unchanged.",
+        "Calm motion shows one static material-specific impact without travel or camera shake. Internal art review does not imply owner taste approval."
       ],
       "examples": [
         {
-          "intent": "Use the companion's elemental move during a battle.",
-          "usage": "Reuse the existing Element action; the presentation derives its color from the companion type.",
-          "expected": "The ally uses the elemental motion and a type-colored burst while the enemy receives the normal hit reaction."
+          "intent": "Use a Fire companion elemental move in an encounter.",
+          "usage": "Use the existing Element action with a species whose canonical type is Fire.",
+          "expected": "A tapered fireball travels from attacker to rival, then flames and damage appear at contact."
+        },
+        {
+          "intent": "Author a Spark enemy in an optional pack.",
+          "usage": "Use the canonical Spark display-name type on the authored species; keep the existing creature atlas contract.",
+          "expected": "A branching lightning bolt connects enemy to ally in the mirrored direction; ally HP updates at contact."
         }
       ],
-      "references": ["dist/src/controller.js", "dist/src/render/sprites.js", "dist/src/ui/battle-view.js"],
+      "references": [
+        "docs/ELEMENTAL_ATTACKS.md",
+        "dist/src/controller.js",
+        "dist/src/ui/elemental-beats.js",
+        "dist/src/render/elemental-effects.js",
+        "dist/src/ui/battle-view.js",
+        "art/effects/SOURCES.md",
+        "art/effects/metadata.json"
+      ],
       "evidence": [
         {
-          "path": "tests/creature-combat.browser.mjs",
-          "assertion": "Battle playback distinguishes Quick strike and Element, and reduced motion pins the elemental presentation to one frame."
+          "path": "tests/elemental-effects.browser.mjs",
+          "assertion": "Exercises all twelve elements in actual battles on both sides with normal/reduced motion, contact timing, legacy fallback, landscape bounds and cancellation."
+        },
+        {
+          "path": "tests/elemental-effects.test.mjs",
+          "assertion": "Covers canonical element mapping, unchanged beat durations, pre-contact HP/audio, mirroring and clamped geometry."
         }
       ],
       "details": {
-        "trigger": "A resolved battle action with kind element.",
-        "inputs": "The existing companion type and optional five-state combat atlas.",
-        "sequence": "Render the attack row with a deterministic expanding type-colored burst and the elemental lunge motion.",
-        "results": "The ally's elemental move reads differently from Quick strike while the enemy receives the normal hit reaction.",
-        "cancellation": "The existing animation cancellation replaces the effect when the battle view changes.",
-        "errors": "Packs without combat atlases fall back to the static portrait; unsupported types use the shared green fallback color.",
-        "persistence": "Presentation-only; battle rules and saved outcomes are unchanged."
+        "trigger": "A resolved ally Element strike or damaging enemy elemental action.",
+        "inputs": "Canonical species type display-name, resolved event, pre-hit snapshot, optional six-pose effect atlas and existing creature attack pose.",
+        "sequence": "Normal 650 ms ally or 700 ms enemy beat: prepare, directed travel, contact/dissolve. Reveal HP, damage text, pops, target recoil and audio only at contact. Calm motion uses one 250 ms static impact.",
+        "results": "Leaf blades, water splash, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost use distinct authored silhouettes/materials.",
+        "cancellation": "Effects stop when their battle canvas disconnects or is replaced; existing timeline flush skips to already-resolved state.",
+        "errors": "Missing optional effect atlas or unsupported custom type uses a neutral directional mark; missing creature combat sheet uses the existing static portrait.",
+        "persistence": "Presentation only; no changes to rule formulas, RNG draws, save schema, committed damage or rewards."
       }
     },
     {
@@ -5427,6 +5950,64 @@
       }
     },
     {
+      "id": "mechanic:narrative-continuity",
+      "kind": "mechanic",
+      "name": "Durable narrative and actor-role handoff",
+      "summary": "Carry complete scene history, resolved promises and player choices with explicit role ownership and beat-linked consequences.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "continuityChanges",
+          "type": "format-1 narrative state changes",
+          "default": null,
+          "limits": "Required for strict durable handoffs; links state, consequence and existing beats."
+        }
+      ],
+      "dependencies": ["mechanic:playable-scene-quality"],
+      "limits": [
+        "Authoring continuity does not create runtime save variables, relationship mechanics or automatic story execution.",
+        "Single-file validation cannot verify earlier history; provide the prior handoff or full sequence.",
+        "Structural checks do not judge dialogue truth, literary quality or enjoyment."
+      ],
+      "examples": [
+        {
+          "intent": "Preserve a first-scene promise through a three-scene sequence.",
+          "usage": "Validate the bell-one/bell-two/bell-three examples with --require-continuity and --previous.",
+          "expected": "The original promise, resolved question and resolved player choice survive into scene three."
+        }
+      ],
+      "references": [
+        "docs/NARRATIVE_CONTINUITY.md",
+        "scripts/scene-script.mjs",
+        "scripts/lib/scene-continuity.mjs",
+        "content/scene-scripts/schema.json",
+        "content/scene-scripts/examples/continuity/bell-one.json",
+        "content/scene-scripts/examples/continuity/bell-two.json",
+        "content/scene-scripts/examples/continuity/bell-three.json",
+        "docs/scene-script-proofs/186-the-fernling-at-dusk/corrected-handoff-v2.json"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scene-continuity.test.mjs",
+          "assertion": "Complete chain links, immutable choices, resolved obligations, role/fallback/trait coherence and three starter variants."
+        },
+        {
+          "path": "tests/visual-catalogue.test.mjs",
+          "assertion": "Portable contexts retain hashed three-scene examples and durable-handoff writer instructions."
+        }
+      ],
+      "details": {
+        "trigger": "When a writer or builder submits another scene with canonical history.",
+        "inputs": "Current scene, exact catalogue and previous complete outgoing handoff; declared roles, choices, traits and consequences.",
+        "sequence": "Validate script and structured state; link input to previous output; review beat-linked changes and semantic role mapping; then apply the playable quality gate.",
+        "results": "Contradiction/migration findings; stable history and explicit discarded/rebound role assumptions.",
+        "cancellation": "Missing previous records, reopened closed IDs, rewritten choices, unsupported references or incomplete rebinding prevent strict acceptance.",
+        "errors": "Reject impossible ownership and fallback/trait contradictions; legacy scripts receive migration warnings without a save-format change.",
+        "persistence": "Versioned authoring JSON only; existing runtime pack/save codecs and archived writer outputs are preserved."
+      }
+    },
+    {
       "id": "mechanic:npc-navigation",
       "kind": "mechanic",
       "name": "Autonomous NPC movement and conversation choreography",
@@ -5453,6 +6034,61 @@
         "cancellation": "Must define interruption behavior before implementation.",
         "errors": "Report as a missing capability in the scene gap report.",
         "persistence": "Must define compatible saved-state behavior before implementation."
+      }
+    },
+    {
+      "id": "mechanic:playable-scene-quality",
+      "kind": "mechanic",
+      "name": "Playable scene quality evidence",
+      "summary": "Specify a player-relevant scene brief and report real-control, visual and narrative acceptance separately.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "sceneBrief",
+          "type": "format-1 scene intent brief",
+          "default": null,
+          "limits": "Required for new quality submissions; legacy scripts remain format-valid but incomplete."
+        }
+      ],
+      "dependencies": ["mechanic:scene-dialogue"],
+      "limits": [
+        "Geometry and reviewed evidence do not establish owner taste or enjoyment.",
+        "Representative desktop/phone captures cover their recorded zoom, not all devices or arbitrary scenes.",
+        "Local evidence and review records are not signed execution attestations."
+      ],
+      "examples": [
+        {
+          "intent": "Review a small scene offering useful supplies.",
+          "usage": "Run npm run test:scene-quality and follow docs/SCENE_QUALITY.md to retain, inspect and report evidence.",
+          "expected": "Separate schema/data, real-control behavior, visual composition, narrative purpose and deferred owner taste."
+        }
+      ],
+      "references": [
+        "docs/SCENE_QUALITY.md",
+        "content/scene-scripts/schema.json",
+        "scripts/scene-script.mjs",
+        "scripts/scene-quality.mjs",
+        "scripts/lib/scene-quality.mjs"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scene-quality.test.mjs",
+          "assertion": "Incomplete briefs, layout overlap and technical-only proofs cannot pass quality acceptance."
+        },
+        {
+          "path": "tests/scene-quality.browser.mjs",
+          "assertion": "Real keyboard/touch controls, actual sprite/UI bounds and once-only rewards on desktop and phone."
+        }
+      ],
+      "details": {
+        "trigger": "Before declaring an AI-written or hand-authored scene proof complete.",
+        "inputs": "Scene intent, selected catalogue resources, runtime pack, hashed captures and separate visual/narrative review.",
+        "sequence": "Validate brief; drive real controls; capture renderer/layout; inspect screenshots and narrative purpose; generate revision-bound report.",
+        "results": "Explicit four-category report, readiness for owner testing and separate owner approval status.",
+        "cancellation": "Required gaps, missing/stale evidence, obscured actors/text/controls or incomplete review prevent readiness.",
+        "errors": "Strict new-scene mode rejects missing payoff/brief; legacy validation emits incomplete-quality warnings. Unsafe/missing evidence paths fail closed.",
+        "persistence": "Authoring artifacts only; canonical pack/save behavior and archived proofs are unchanged."
       }
     },
     {
@@ -5643,7 +6279,7 @@
       "id": "mechanic:testing-urls",
       "kind": "mechanic",
       "name": "Testing URLs and artwork previews",
-      "summary": "Open a discoverable index of shipped artwork and map review pages from the title or in-game menu, keeping the adventure tab open.",
+      "summary": "Review the adventure roster and prepared creature resources through shared follower/combat pages or direct resource previews, keeping the adventure tab open.",
       "status": "available",
       "scope": "authoring-only",
       "configuration": [],
@@ -5657,13 +6293,25 @@
           "intent": "Review creature facing without changing adventure progress.",
           "usage": "Choose Testing URLs in the menu, then Creature followers. Select a species, inspect turns and stopping, and enable Reduced motion.",
           "expected": "The follower turns through eight directions using its own motion; stopped/calm poses use idle, and the game remains open in its original tab."
+        },
+        {
+          "intent": "Review a prepared creature before placing it in a map.",
+          "usage": "Open Testing URLs and choose a named creature resource, or select it in Creature followers and compare its combat frames in Creature combat animations.",
+          "expected": "All five prepared resources are visible in the shared reviews and their direct pages; the original adventure keeps its pack-owned roster and progress."
         }
       ],
-      "references": ["dist/testing.html", "dist/src/ui/menus.js", "dist/src/creature-follower-preview.js", "docs/TESTING_URLS.md"],
+      "references": [
+        "dist/testing.html",
+        "dist/src/ui/menus.js",
+        "dist/src/creature-follower-preview.js",
+        "docs/TESTING_URLS.md",
+        "dist/src/creature-combat-preview.js",
+        "dist/src/creature-preview-resources.js"
+      ],
       "evidence": [
         {
           "path": "tests/testing-urls.browser.mjs",
-          "assertion": "Keyboard/touch navigation and all five destinations in source and packaged subdirectories."
+          "assertion": "Keyboard/touch navigation, all twelve destinations in source and packaged subdirectories, five resource pages ready and preview-only roster extension."
         },
         {
           "path": "tests/creature-follower.browser.mjs",
@@ -5674,7 +6322,7 @@
         "trigger": "Select Testing URLs from the title screen or in-game menu.",
         "inputs": "Native keyboard/touch links; review pages expose species/animation and reduced-motion controls.",
         "sequence": "Open the index in a new tab without opener access, then open a described review page in another tab.",
-        "results": "Shipped review routes are discoverable; canonical follower manifest directions/mirroring and runtime cadence are shown at game scale.",
+        "results": "Shared follower and combat pages include the eighteen default Mossvale species plus Parrocket, Blastoucan, Rumblet, Coglet and Wispurr. Direct resource pages show portrait, forty directional poses and twenty battle poses with playback; adventure roster/saves are unchanged.",
         "cancellation": "Close the review/index tabs or use their Mossvale return links. The original game tab stays open.",
         "errors": "A missing required shipped page is a packaging defect; browser regressions request every listed destination. No authentication or authoring API is invoked by index navigation.",
         "persistence": "The index and artwork preview do not mutate adventure saves. Map Workshop exports/edited-map play remain explicit authoring actions."
@@ -6684,6 +7332,88 @@
       }
     },
     {
+      "id": "narrative:scene-quality-yard/objectives",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard objectives",
+      "summary": "Existing objectives data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/objectives.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Existing objectives data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+          "usage": "Reference scene-quality-yard/objectives in the existing format at tests/fixtures/packs/scene-quality-yard/objectives.json.",
+          "expected": "Existing objectives data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/objectives.json"],
+      "evidence": [
+        {
+          "path": "tests/objectives.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Use current validated Quality Gate — Welcome Yard objectives objective/story definitions. Script intent must be translated into supported actions.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "narrative:scene-quality-yard/story",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard story",
+      "summary": "Existing story data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/story.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Existing story data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary.",
+          "usage": "Reference scene-quality-yard/story in the existing format at tests/fixtures/packs/scene-quality-yard/story.json.",
+          "expected": "Existing story data for Quality Gate — Welcome Yard; conditions/dialogue follow the shared vocabulary."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/story.json"],
+      "evidence": [
+        {
+          "path": "tests/story.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Use current validated Quality Gate — Welcome Yard story objective/story definitions. Script intent must be translated into supported actions.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
       "id": "narrative:the-fernling-at-dusk/objectives",
       "kind": "mechanic",
       "name": "The Fernling at Dusk objectives",
@@ -6924,6 +7654,47 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Independent pack Mossvale, with the referenced registries/maps and existing runtime.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "pack:scene-quality-yard",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard",
+      "summary": "Hear why the supplies are here, then collect them for the road.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/index.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Hear why the supplies are here, then collect them for the road.",
+          "usage": "Reference scene-quality-yard in the existing format at tests/fixtures/packs/scene-quality-yard/index.json.",
+          "expected": "Hear why the supplies are here, then collect them for the road."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/index.json"],
+      "evidence": [
+        {
+          "path": "tests/packs.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Independent pack Quality Gate — Welcome Yard, with the referenced registries/maps and existing runtime.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Stable pack identity isolates saves and recovery."
@@ -7435,6 +8206,56 @@
       ],
       "details": {
         "biome": "wetland",
+        "connections": "Region metadata groups maps; it is not a map exit graph.",
+        "walkability": "Region appearance/palette does not grant walkability; consult map collision data.",
+        "spawns": "Placed by map spawn definitions, not this region entry.",
+        "access": "Existing milestone/progression rules; see pack manifest."
+      }
+    },
+    {
+      "id": "region:scene-quality-yard/start",
+      "kind": "environment",
+      "name": "Dusk Trail",
+      "summary": "Meet a traveler, listen to a mystery and explore at your own pace.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "start",
+            "name": "Dusk Trail",
+            "short": "Dusk Trail",
+            "subtitle": "A quiet path at the edge of evening.",
+            "tag": "DUSK TRAIL",
+            "palette": ["#86ae70", "#97b76a", "#8aa55c", "#d6c08b", "#4e9c9a", "#577b48"],
+            "seal": "Trail mark",
+            "desc": "Meet a traveler, listen to a mystery and explore at your own pace.",
+            "preview": "tree-oak",
+            "biome": "meadow"
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:tree-oak"],
+      "limits": ["Keep region and map IDs distinct even when their strings coincide."],
+      "examples": [
+        {
+          "intent": "Meet a traveler, listen to a mystery and explore at your own pace.",
+          "usage": "Reference scene-quality-yard/start in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Meet a traveler, listen to a mystery and explore at your own pace."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "biome": "meadow",
         "connections": "Region metadata groups maps; it is not a map exit graph.",
         "walkability": "Region appearance/palette does not grant walkability; consult map collision data.",
         "spawns": "Placed by map spawn definitions, not this region entry.",
@@ -8306,6 +9127,211 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Configure the existing validated Mossvale tactics registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/battle",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard battle",
+      "summary": "Validated battle tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated battle tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/battle in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated battle tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard battle registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/economy",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard economy",
+      "summary": "Validated economy tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated economy tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/economy in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated economy tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard economy registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/moves",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard moves",
+      "summary": "Validated moves tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated moves tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/moves in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated moves tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard moves registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/progression",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard progression",
+      "summary": "Validated progression tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated progression tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/progression in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated progression tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard progression registry rules. Do not introduce new effects solely by naming them.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Stable pack identity isolates saves and recovery."
+      }
+    },
+    {
+      "id": "rules:scene-quality-yard/tactics",
+      "kind": "mechanic",
+      "name": "Quality Gate — Welcome Yard tactics",
+      "summary": "Validated tactics tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": null,
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Validated tactics tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics.",
+          "usage": "Reference scene-quality-yard/tactics in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Validated tactics tuning for Quality Gate — Welcome Yard; configure existing rules, not new mechanics."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Configure the existing validated Quality Gate — Welcome Yard tactics registry rules. Do not introduce new effects solely by naming them.",
         "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Stable pack identity isolates saves and recovery."
@@ -11042,6 +12068,64 @@
       }
     },
     {
+      "id": "species:scene-quality-yard/fernling",
+      "kind": "actor",
+      "name": "Fernling",
+      "summary": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "fernling",
+            "name": "Fernling",
+            "type": "Leaf",
+            "stats": {
+              "hp": 42,
+              "attack": 10,
+              "defense": 10
+            },
+            "move": "leaf-burst",
+            "biome": "meadow",
+            "role": "Balanced trailblazer",
+            "personality": "Curious and brave; it tests every new path before the rest of the team.",
+            "desc": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+            "encounterHint": "Start in the meadow tall grass, close to camp.",
+            "strong": [],
+            "weak": [],
+            "color": "#bade7e",
+            "hp": 42,
+            "sprite": "creature-fernling"
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-fernling"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+          "usage": "Reference scene-quality-yard/fernling in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "A little fox that naps beneath the ferns and wakes at the first rustle."
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A little fox that naps beneath the ferns and wakes at the first rustle. Portrait reference: creature-fernling.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
       "id": "species:the-fernling-at-dusk/fernling",
       "kind": "actor",
       "name": "Fernling",
@@ -13150,6 +14234,50 @@
       }
     },
     {
+      "id": "type:scene-quality-yard/leaf",
+      "kind": "mechanic",
+      "name": "Leaf",
+      "summary": "Leaf",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "leaf",
+            "name": "Leaf"
+          },
+          "limits": "Configure through tests/fixtures/packs/scene-quality-yard/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Leaf",
+          "usage": "Reference scene-quality-yard/leaf in the existing format at tests/fixtures/packs/scene-quality-yard/registries.json.",
+          "expected": "Leaf"
+        }
+      ],
+      "references": ["tests/fixtures/packs/scene-quality-yard/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Element Leaf; species strong/weak tables and shared multipliers govern matchups.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Save only through existing pack/save contracts; authoring metadata is not simulation state."
+      }
+    },
+    {
       "id": "type:the-fernling-at-dusk/leaf",
       "kind": "mechanic",
       "name": "Leaf",
@@ -13342,7 +14470,7 @@
           "expected": "A low, spreading green woodland bush."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -13355,7 +14483,7 @@
         "scale": "44 by 21 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a harvest, encounter, interaction or collision rule."
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a harvest, encounter, interaction or collision rule."
       },
       "previews": [
         {
@@ -13399,7 +14527,7 @@
           "expected": "A compact, low green woodland bush."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -13412,7 +14540,7 @@
         "scale": "34 by 15 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a harvest, encounter, interaction or collision rule."
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a harvest, encounter, interaction or collision rule."
       },
       "previews": [
         {
@@ -13479,6 +14607,348 @@
       ]
     },
     {
+      "id": "visual:chest-pine-frost",
+      "kind": "visual",
+      "name": "chest-pine-frost",
+      "summary": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Unclaimed closed pose.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "chest-pine-frost",
+            "kind": "prop",
+            "src": "assets/props/chest-pine-frost.png",
+            "w": 343,
+            "h": 309,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Unclaimed closed pose.",
+          "usage": "Reference chest-pine-frost in the existing format at dist/src/data/assets.js.",
+          "expected": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Unclaimed closed pose."
+        }
+      ],
+      "references": ["dist/src/data/assets.js", "dist/src/render/chest-art.js", "dist/chest-preview.html", "art/assets/source/chests/biomes/README.md"],
+      "evidence": [
+        {
+          "path": "tests/chest-state.browser.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Unclaimed closed pose.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "343 by 309 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Use chest-pine-frost in a chest landmark's sprite field; its existing durable flag selects chest-pine-frost-open-empty after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/chest-pine-frost.png",
+          "description": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Unclaimed closed pose."
+        }
+      ]
+    },
+    {
+      "id": "visual:chest-pine-frost-open-empty",
+      "kind": "visual",
+      "name": "chest-pine-frost-open-empty",
+      "summary": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Raised lid and completely empty interior.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "chest-pine-frost-open-empty",
+            "kind": "prop",
+            "src": "assets/props/chest-pine-frost-open-empty.png",
+            "w": 343,
+            "h": 348,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Raised lid and completely empty interior.",
+          "usage": "Reference chest-pine-frost-open-empty in the existing format at dist/src/data/assets.js.",
+          "expected": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Raised lid and completely empty interior."
+        }
+      ],
+      "references": ["dist/src/data/assets.js", "dist/src/render/chest-art.js", "dist/chest-preview.html", "art/assets/source/chests/biomes/README.md"],
+      "evidence": [
+        {
+          "path": "tests/chest-state.browser.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Raised lid and completely empty interior.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "343 by 348 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Use chest-pine-frost in a chest landmark's sprite field; its existing durable flag selects chest-pine-frost-open-empty after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/chest-pine-frost-open-empty.png",
+          "description": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Raised lid and completely empty interior."
+        }
+      ]
+    },
+    {
+      "id": "visual:chest-reed-rope",
+      "kind": "visual",
+      "name": "chest-reed-rope",
+      "summary": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Unclaimed closed pose.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "chest-reed-rope",
+            "kind": "prop",
+            "src": "assets/props/chest-reed-rope.png",
+            "w": 343,
+            "h": 293,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Unclaimed closed pose.",
+          "usage": "Reference chest-reed-rope in the existing format at dist/src/data/assets.js.",
+          "expected": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Unclaimed closed pose."
+        }
+      ],
+      "references": ["dist/src/data/assets.js", "dist/src/render/chest-art.js", "dist/chest-preview.html", "art/assets/source/chests/biomes/README.md"],
+      "evidence": [
+        {
+          "path": "tests/chest-state.browser.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Unclaimed closed pose.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "343 by 293 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Use chest-reed-rope in a chest landmark's sprite field; its existing durable flag selects chest-reed-rope-open-empty after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/chest-reed-rope.png",
+          "description": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Unclaimed closed pose."
+        }
+      ]
+    },
+    {
+      "id": "visual:chest-reed-rope-open-empty",
+      "kind": "visual",
+      "name": "chest-reed-rope-open-empty",
+      "summary": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Raised lid and completely empty interior.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "chest-reed-rope-open-empty",
+            "kind": "prop",
+            "src": "assets/props/chest-reed-rope-open-empty.png",
+            "w": 343,
+            "h": 331,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Raised lid and completely empty interior.",
+          "usage": "Reference chest-reed-rope-open-empty in the existing format at dist/src/data/assets.js.",
+          "expected": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Raised lid and completely empty interior."
+        }
+      ],
+      "references": ["dist/src/data/assets.js", "dist/src/render/chest-art.js", "dist/chest-preview.html", "art/assets/source/chests/biomes/README.md"],
+      "evidence": [
+        {
+          "path": "tests/chest-state.browser.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Raised lid and completely empty interior.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "343 by 331 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Use chest-reed-rope in a chest landmark's sprite field; its existing durable flag selects chest-reed-rope-open-empty after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/chest-reed-rope-open-empty.png",
+          "description": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Raised lid and completely empty interior."
+        }
+      ]
+    },
+    {
+      "id": "visual:chest-sandstone-iron",
+      "kind": "visual",
+      "name": "chest-sandstone-iron",
+      "summary": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Unclaimed closed pose.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "chest-sandstone-iron",
+            "kind": "prop",
+            "src": "assets/props/chest-sandstone-iron.png",
+            "w": 343,
+            "h": 279,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Unclaimed closed pose.",
+          "usage": "Reference chest-sandstone-iron in the existing format at dist/src/data/assets.js.",
+          "expected": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Unclaimed closed pose."
+        }
+      ],
+      "references": ["dist/src/data/assets.js", "dist/src/render/chest-art.js", "dist/chest-preview.html", "art/assets/source/chests/biomes/README.md"],
+      "evidence": [
+        {
+          "path": "tests/chest-state.browser.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Unclaimed closed pose.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "343 by 279 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Use chest-sandstone-iron in a chest landmark's sprite field; its existing durable flag selects chest-sandstone-iron-open-empty after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/chest-sandstone-iron.png",
+          "description": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Unclaimed closed pose."
+        }
+      ]
+    },
+    {
+      "id": "visual:chest-sandstone-iron-open-empty",
+      "kind": "visual",
+      "name": "chest-sandstone-iron-open-empty",
+      "summary": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Raised lid and completely empty interior.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "chest-sandstone-iron-open-empty",
+            "kind": "prop",
+            "src": "assets/props/chest-sandstone-iron-open-empty.png",
+            "w": 343,
+            "h": 358,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Raised lid and completely empty interior.",
+          "usage": "Reference chest-sandstone-iron-open-empty in the existing format at dist/src/data/assets.js.",
+          "expected": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Raised lid and completely empty interior."
+        }
+      ],
+      "references": ["dist/src/data/assets.js", "dist/src/render/chest-art.js", "dist/chest-preview.html", "art/assets/source/chests/biomes/README.md"],
+      "evidence": [
+        {
+          "path": "tests/chest-state.browser.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Raised lid and completely empty interior.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "343 by 358 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Use chest-sandstone-iron in a chest landmark's sprite field; its existing durable flag selects chest-sandstone-iron-open-empty after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/chest-sandstone-iron-open-empty.png",
+          "description": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Raised lid and completely empty interior."
+        }
+      ]
+    },
+    {
       "id": "visual:chest-wooden",
       "kind": "visual",
       "name": "chest-wooden",
@@ -13513,10 +14983,10 @@
           "expected": "chest wooden"
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "dist/src/render/chest-art.js", "dist/chest-preview.html", "art/assets/source/chests/biomes/README.md"],
       "evidence": [
         {
-          "path": "tests/assets.test.mjs",
+          "path": "tests/chest-state.browser.mjs",
           "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
         }
       ],
@@ -13526,12 +14996,69 @@
         "scale": "343 by 319 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Asset chest-wooden is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+        "compatibleUses": "Use chest-wooden in a chest landmark's sprite field; its existing durable flag selects chest-wooden-open-empty after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation."
       },
       "previews": [
         {
           "path": "dist/assets/props/chest-wooden.png",
           "description": "chest wooden"
+        }
+      ]
+    },
+    {
+      "id": "visual:chest-wooden-open-empty",
+      "kind": "visual",
+      "name": "chest-wooden-open-empty",
+      "summary": "chest wooden open empty",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "chest-wooden-open-empty",
+            "kind": "prop",
+            "src": "assets/props/chest-wooden-open-empty.png",
+            "w": 343,
+            "h": 330,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "chest wooden open empty",
+          "usage": "Reference chest-wooden-open-empty in the existing format at dist/src/data/assets.js.",
+          "expected": "chest wooden open empty"
+        }
+      ],
+      "references": ["dist/src/data/assets.js", "dist/src/render/chest-art.js", "dist/chest-preview.html", "art/assets/source/chests/biomes/README.md"],
+      "evidence": [
+        {
+          "path": "tests/chest-state.browser.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "chest wooden open empty",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "343 by 330 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Use chest-wooden in a chest landmark's sprite field; its existing durable flag selects chest-wooden-open-empty after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/chest-wooden-open-empty.png",
+          "description": "chest wooden open empty"
         }
       ]
     },
@@ -13589,6 +15116,193 @@
         {
           "path": "dist/assets/props/cottage-tiled.png",
           "description": "cottage tiled"
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-blastoucan",
+      "kind": "visual",
+      "name": "creature-blastoucan",
+      "summary": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-blastoucan",
+            "kind": "creature",
+            "src": "assets/creatures/creature-blastoucan.png",
+            "w": 264,
+            "h": 227,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+          "usage": "Reference creature-blastoucan in the existing format at dist/src/data/assets.js.",
+          "expected": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "264 by 227 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-blastoucan is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-blastoucan.png",
+          "description": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-blastoucan-combat",
+      "kind": "visual",
+      "name": "creature-blastoucan-combat",
+      "summary": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-blastoucan-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-blastoucan-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+          "usage": "Reference creature-blastoucan-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-blastoucan-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-blastoucan-combat.png",
+          "description": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-blastoucan-follower",
+      "kind": "visual",
+      "name": "creature-blastoucan-follower",
+      "summary": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-blastoucan-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-blastoucan-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+          "usage": "Reference creature-blastoucan-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-blastoucan-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-blastoucan-follower.png",
+          "description": "Upright vivid-blue and cream cannon-beaked toucan with sharp spread wings and a fiery feather tail stabilizer."
         }
       ]
     },
@@ -14165,6 +15879,193 @@
         {
           "path": "dist/assets/creatures/creature-cindercurl-follower.png",
           "description": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-coglet",
+      "kind": "visual",
+      "name": "creature-coglet",
+      "summary": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-coglet",
+            "kind": "creature",
+            "src": "assets/creatures/creature-coglet.png",
+            "w": 237,
+            "h": 264,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+          "usage": "Reference creature-coglet in the existing format at dist/src/data/assets.js.",
+          "expected": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "237 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-coglet is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-coglet.png",
+          "description": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-coglet-combat",
+      "kind": "visual",
+      "name": "creature-coglet-combat",
+      "summary": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-coglet-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-coglet-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+          "usage": "Reference creature-coglet-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-coglet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-coglet-combat.png",
+          "description": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-coglet-follower",
+      "kind": "visual",
+      "name": "creature-coglet-follower",
+      "summary": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-coglet-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-coglet-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+          "usage": "Reference creature-coglet-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-coglet-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-coglet-follower.png",
+          "description": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
         }
       ]
     },
@@ -15661,6 +17562,193 @@
       ]
     },
     {
+      "id": "visual:creature-parrocket",
+      "kind": "visual",
+      "name": "creature-parrocket",
+      "summary": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-parrocket",
+            "kind": "creature",
+            "src": "assets/creatures/creature-parrocket.png",
+            "w": 243,
+            "h": 264,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
+          "usage": "Reference creature-parrocket in the existing format at dist/src/data/assets.js.",
+          "expected": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "243 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-parrocket is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-parrocket.png",
+          "description": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-parrocket-combat",
+      "kind": "visual",
+      "name": "creature-parrocket-combat",
+      "summary": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-parrocket-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-parrocket-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
+          "usage": "Reference creature-parrocket-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-parrocket-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-parrocket-combat.png",
+          "description": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-parrocket-follower",
+      "kind": "visual",
+      "name": "creature-parrocket-follower",
+      "summary": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-parrocket-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-parrocket-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
+          "usage": "Reference creature-parrocket-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-parrocket-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-parrocket-follower.png",
+          "description": "Blue rocket parrot with a white face and belly, red conical beak, tri-color crest and attached flame-feather tail."
+        }
+      ]
+    },
+    {
       "id": "visual:creature-pebblit",
       "kind": "visual",
       "name": "creature-pebblit",
@@ -16304,6 +18392,193 @@
         {
           "path": "dist/assets/creatures/creature-rillume-follower.png",
           "description": "Floating jelly creature with a clear rounded bell, dark blue core and four thick ribbon-like lobes."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-rumblet",
+      "kind": "visual",
+      "name": "creature-rumblet",
+      "summary": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-rumblet",
+            "kind": "creature",
+            "src": "assets/creatures/creature-rumblet.png",
+            "w": 264,
+            "h": 260,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+          "usage": "Reference creature-rumblet in the existing format at dist/src/data/assets.js.",
+          "expected": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "264 by 260 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-rumblet is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-rumblet.png",
+          "description": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-rumblet-combat",
+      "kind": "visual",
+      "name": "creature-rumblet-combat",
+      "summary": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-rumblet-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-rumblet-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+          "usage": "Reference creature-rumblet-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-rumblet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-rumblet-combat.png",
+          "description": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-rumblet-follower",
+      "kind": "visual",
+      "name": "creature-rumblet-follower",
+      "summary": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-rumblet-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-rumblet-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+          "usage": "Reference creature-rumblet-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-rumblet-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-rumblet-follower.png",
+          "description": "Low compact brown quadruped with sturdy short legs and a large attached gray frontal impact plate."
         }
       ]
     },
@@ -17339,6 +19614,276 @@
       ]
     },
     {
+      "id": "visual:creature-wispurr",
+      "kind": "visual",
+      "name": "creature-wispurr",
+      "summary": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-wispurr",
+            "kind": "creature",
+            "src": "assets/creatures/creature-wispurr.png",
+            "w": 189,
+            "h": 264,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+          "usage": "Reference creature-wispurr in the existing format at dist/src/data/assets.js.",
+          "expected": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "189 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-wispurr is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-wispurr.png",
+          "description": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-wispurr-combat",
+      "kind": "visual",
+      "name": "creature-wispurr-combat",
+      "summary": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-wispurr-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-wispurr-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+          "usage": "Reference creature-wispurr-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-wispurr-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-wispurr-combat.png",
+          "description": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-wispurr-follower",
+      "kind": "visual",
+      "name": "creature-wispurr-follower",
+      "summary": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-wispurr-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-wispurr-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+          "usage": "Reference creature-wispurr-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-wispurr-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-wispurr-follower.png",
+          "description": "Small violet flame-shaped floating spirit with a pale oval mask, two pointed cyan-tipped head wisps and curling attached lower flame."
+        }
+      ]
+    },
+    {
+      "id": "visual:effect-elemental-materials",
+      "kind": "visual",
+      "name": "effect-elemental-materials",
+      "summary": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "effect-elemental-materials",
+            "kind": "prop",
+            "src": "assets/props/effect-elemental-materials.png",
+            "w": 768,
+            "h": 1536,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 6,
+              "rows": 12,
+              "frameWidth": 128,
+              "frameHeight": 128,
+              "rowOrder": ["Leaf", "Water", "Stone", "Fire", "Ice", "Spark", "Air", "Spore", "Bloom", "Mire", "Sand", "Frost"],
+              "columnOrder": ["charge", "launch", "travel-a", "travel-b", "impact", "dissolve"],
+              "effectPivots": [
+                [95, 87, 95.5, 89, 81.5, 90],
+                [91.5, 91.5, 101.5, 100.5, 86, 94],
+                [92, 85, 100, 94.5, 85.5, 96],
+                [103.5, 93, 101.5, 98, 85, 94],
+                [98, 90.5, 94, 95, 78.5, 89],
+                [102.5, 95.5, 98, 93.5, 85.5, 96],
+                [99.5, 88, 101.5, 98.5, 83, 97.5],
+                [100.5, 89, 101, 96, 87.5, 96.5],
+                [98, 89.5, 97.5, 95.5, 83.5, 94],
+                [86.5, 87, 100.5, 95.5, 90.5, 95],
+                [91, 90.5, 100, 97, 90.5, 96],
+                [90.5, 87, 100, 94.5, 90, 95]
+              ],
+              "defaultFrame": {
+                "column": 4,
+                "row": 0
+              }
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost.",
+          "usage": "Reference effect-elemental-materials in the existing format at dist/src/data/assets.js.",
+          "expected": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "768 by 1536 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "Leaf, Water, Stone, Fire, Ice, Spark, Air, Spore, Bloom, Mire, Sand, Frost materials; charge, launch, travel-a, travel-b, impact, dissolve poses; renderer mirrors enemy travel.",
+        "compatibleUses": "Asset effect-elemental-materials is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/effect-elemental-materials.png",
+          "description": "Twelve distinct offensive materials: cutting leaves, water jet, rock, fireball, ice spears, lightning, wind, spores, petals, mud, sand and frost."
+        }
+      ]
+    },
+    {
       "id": "visual:grass-tuft",
       "kind": "visual",
       "name": "grass-tuft",
@@ -17430,7 +19975,7 @@
           "expected": "A small red apple viewed from above."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -17443,7 +19988,7 @@
         "scale": "7 by 8 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Image only; it does not create an item, reward, consumption effect or save identity."
       },
       "previews": [
         {
@@ -17487,7 +20032,7 @@
           "expected": "A small yellow banana viewed from above."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -17500,7 +20045,7 @@
         "scale": "16 by 7 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Image only; it does not create an item, reward, consumption effect or save identity."
       },
       "previews": [
         {
@@ -17601,7 +20146,7 @@
           "expected": "A small whole green melon viewed from above."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -17614,7 +20159,7 @@
         "scale": "15 by 15 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Image only; it does not create an item, reward, consumption effect or save identity."
       },
       "previews": [
         {
@@ -17658,7 +20203,7 @@
           "expected": "A small cut slice of red-fleshed melon."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -17671,7 +20216,7 @@
         "scale": "15 by 8 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Image only; it does not create an item, reward, consumption effect or save identity."
       },
       "previews": [
         {
@@ -17715,7 +20260,7 @@
           "expected": "A small orange fruit viewed from above."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -17728,7 +20273,7 @@
         "scale": "7 by 7 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. License: personal and public-repository use and adaptation are permitted; attribution is not required. Image only; it does not create an item, reward, consumption effect or save identity."
+        "compatibleUses": "Optional inventory or reward icon when a separate item definition exists. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Image only; it does not create an item, reward, consumption effect or save identity."
       },
       "previews": [
         {
@@ -18202,7 +20747,7 @@
           "expected": "A leafy fern frond with several branching leaves."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18215,7 +20760,7 @@
         "scale": "27 by 33 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+        "compatibleUses": "Small non-interactive forest-floor scenery. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -18259,7 +20804,7 @@
           "expected": "A slender plant with a warm yellow-green leaf."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18272,7 +20817,7 @@
         "scale": "14 by 23 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+        "compatibleUses": "Small non-interactive forest-floor scenery. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -18316,7 +20861,7 @@
           "expected": "A low, spreading patch of leafy groundcover."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18329,7 +20874,7 @@
         "scale": "29 by 24 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+        "compatibleUses": "Small non-interactive forest-floor scenery. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -18373,7 +20918,7 @@
           "expected": "A narrow plant with long upright leaves."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18386,7 +20931,7 @@
         "scale": "9 by 33 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+        "compatibleUses": "Small non-interactive forest-floor scenery. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -18430,7 +20975,7 @@
           "expected": "A potted plant with a fan of fine green fronds."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18443,7 +20988,7 @@
         "scale": "20 by 28 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a house, rest action, interaction or collision rule."
       },
       "previews": [
         {
@@ -18487,7 +21032,7 @@
           "expected": "A potted plant with red flowers."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18500,7 +21045,7 @@
         "scale": "18 by 32 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a house, rest action, interaction or collision rule."
       },
       "previews": [
         {
@@ -18544,7 +21089,7 @@
           "expected": "A small leafy potted plant with a rounded crown."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18557,7 +21102,7 @@
         "scale": "14 by 34 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a house, rest action, interaction or collision rule."
       },
       "previews": [
         {
@@ -18601,7 +21146,7 @@
           "expected": "A small potted plant with a compact crown."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18614,7 +21159,7 @@
         "scale": "26 by 24 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a house, rest action, interaction or collision rule."
       },
       "previews": [
         {
@@ -18658,7 +21203,7 @@
           "expected": "A potted plant with upright pointed leaves."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18671,7 +21216,7 @@
         "scale": "19 by 26 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a house, rest action, interaction or collision rule."
       },
       "previews": [
         {
@@ -18715,7 +21260,7 @@
           "expected": "A potted plant with small yellow flowers."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18728,7 +21273,7 @@
         "scale": "20 by 33 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a house, rest action, interaction or collision rule."
+        "compatibleUses": "Interior or settlement scenery; placement alone has no interaction. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a house, rest action, interaction or collision rule."
       },
       "previews": [
         {
@@ -18772,7 +21317,7 @@
           "expected": "A small upright spiky plant."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18785,7 +21330,7 @@
         "scale": "12 by 21 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+        "compatibleUses": "Small non-interactive forest-floor scenery. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -18829,7 +21374,7 @@
           "expected": "A young, narrow green sprout."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18842,7 +21387,7 @@
         "scale": "11 by 24 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+        "compatibleUses": "Small non-interactive forest-floor scenery. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -18886,7 +21431,7 @@
           "expected": "A small plant with three broad leaves."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -18899,7 +21444,7 @@
         "scale": "24 by 27 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Small non-interactive forest-floor scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define gathering, collision or an item reward."
+        "compatibleUses": "Small non-interactive forest-floor scenery. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -19456,7 +22001,7 @@
           "expected": "A low, broad cluster of gray-brown stones."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -19469,7 +22014,7 @@
         "scale": "46 by 25 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Non-interactive ground scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define mining, gathering, collision or an item reward."
+        "compatibleUses": "Non-interactive ground scenery; a map may separately configure solid collision. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define mining, gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -19513,7 +22058,7 @@
           "expected": "A compact cluster of gray-brown stones."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -19526,7 +22071,7 @@
         "scale": "23 by 16 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Non-interactive ground scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define mining, gathering, collision or an item reward."
+        "compatibleUses": "Non-interactive ground scenery; a map may separately configure solid collision. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define mining, gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -19570,7 +22115,7 @@
           "expected": "A tiny cluster of gray-brown stones."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -19583,7 +22128,7 @@
         "scale": "11 by 7 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Small non-interactive ground scenery. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define mining, gathering, collision or an item reward."
+        "compatibleUses": "Small non-interactive ground scenery. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define mining, gathering, collision or an item reward."
       },
       "previews": [
         {
@@ -19764,6 +22309,69 @@
       ]
     },
     {
+      "id": "visual:straw-bundle",
+      "kind": "visual",
+      "name": "straw-bundle",
+      "summary": "A small tied bundle of golden straw or dried stalks.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "straw-bundle",
+            "kind": "prop",
+            "src": "assets/props/straw-bundle.png",
+            "w": 64,
+            "h": 64,
+            "anchor": "bottom-center",
+            "required": true,
+            "portablePreviewAllowed": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small tied bundle of golden straw or dried stalks.",
+          "usage": "Reference straw-bundle in the existing format at dist/src/data/assets.js.",
+          "expected": "A small tied bundle of golden straw or dried stalks."
+        }
+      ],
+      "references": [
+        "dist/src/data/assets.js",
+        "docs/THIRD_PARTY_ASSETS.md",
+        "art/assets/third-party/registry.json",
+        "art/assets/third-party/ravenmore-resource-icons-01/README.md"
+      ],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small tied bundle of golden straw or dried stalks.",
+        "style": "Ravenmore custom game-use terms (itch.io page; no SPDX license stated); attribution recommended. Source page: https://ravenmore.itch.io/survival-crafting-resource-icons-01 License: https://ravenmore.itch.io/survival-crafting-resource-icons-01",
+        "scale": "64 by 64 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive settlement scenery beside a home or workshop. In-game permission: permitted. Modification/adaptation: not stated; these files are used unchanged. Public repository use: game-embedded use only; no standalone pack redistribution. Not stated as required; creator recommends linking to the source page. Credit Ravenmore and link the source page. Game scenery only. The image does not define an item, interaction, harvest, reward, collision, or mechanic; do not redistribute it as a separate resource or asset bundle."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/straw-bundle.png",
+          "description": "A small tied bundle of golden straw or dried stalks."
+        }
+      ]
+    },
+    {
       "id": "visual:tree-fir-full",
       "kind": "visual",
       "name": "tree-fir-full",
@@ -19798,7 +22406,7 @@
           "expected": "A full, broad evergreen fir tree."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -19811,7 +22419,7 @@
         "scale": "88 by 128 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule."
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a forest biome, harvest, encounter or collision rule."
       },
       "previews": [
         {
@@ -19855,7 +22463,7 @@
           "expected": "A narrow evergreen fir tree."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -19868,7 +22476,7 @@
         "scale": "56 by 94 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule."
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a forest biome, harvest, encounter or collision rule."
       },
       "previews": [
         {
@@ -20026,7 +22634,7 @@
           "expected": "A broad round-canopied oak tree with a visible trunk."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -20039,7 +22647,7 @@
         "scale": "122 by 142 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule."
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a forest biome, harvest, encounter or collision rule."
       },
       "previews": [
         {
@@ -20083,7 +22691,7 @@
           "expected": "A smaller oak with a compact round canopy."
         }
       ],
-      "references": ["dist/src/data/assets.js"],
+      "references": ["dist/src/data/assets.js", "docs/THIRD_PARTY_ASSETS.md", "art/assets/third-party/registry.json"],
       "evidence": [
         {
           "path": "tests/assets.test.mjs",
@@ -20096,7 +22704,7 @@
         "scale": "68 by 90 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
         "animations": "No animation states declared for this static image.",
-        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. License: personal and public-repository use and adaptation are permitted; attribution is not required. Does not define a forest biome, harvest, encounter or collision rule."
+        "compatibleUses": "Non-interactive map scenery; a map may separately configure solid collision. In-game permission: permitted. Modification/adaptation: permitted. Public repository use: permitted. Not required by CC0. Optional credit: ‘Nature Props Surface Forest’ by Reactorcore via OpenGameArt, CC0 1.0. Does not define a forest biome, harvest, encounter or collision rule."
       },
       "previews": [
         {
@@ -20216,6 +22824,132 @@
         {
           "path": "dist/assets/props/tree-pine-snow.png",
           "description": "tree pine snow"
+        }
+      ]
+    },
+    {
+      "id": "visual:wood-firewood-bundle",
+      "kind": "visual",
+      "name": "wood-firewood-bundle",
+      "summary": "A bundle of cut firewood logs.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "wood-firewood-bundle",
+            "kind": "prop",
+            "src": "assets/props/wood-firewood-bundle.png",
+            "w": 64,
+            "h": 64,
+            "anchor": "bottom-center",
+            "required": true,
+            "portablePreviewAllowed": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A bundle of cut firewood logs.",
+          "usage": "Reference wood-firewood-bundle in the existing format at dist/src/data/assets.js.",
+          "expected": "A bundle of cut firewood logs."
+        }
+      ],
+      "references": [
+        "dist/src/data/assets.js",
+        "docs/THIRD_PARTY_ASSETS.md",
+        "art/assets/third-party/registry.json",
+        "art/assets/third-party/ravenmore-resource-icons-01/README.md"
+      ],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A bundle of cut firewood logs.",
+        "style": "Ravenmore custom game-use terms (itch.io page; no SPDX license stated); attribution recommended. Source page: https://ravenmore.itch.io/survival-crafting-resource-icons-01 License: https://ravenmore.itch.io/survival-crafting-resource-icons-01",
+        "scale": "64 by 64 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive settlement scenery beside a home or workshop. In-game permission: permitted. Modification/adaptation: not stated; these files are used unchanged. Public repository use: game-embedded use only; no standalone pack redistribution. Not stated as required; creator recommends linking to the source page. Credit Ravenmore and link the source page. Game scenery only. The image does not define an item, interaction, harvest, reward, collision, or mechanic; do not redistribute it as a separate resource or asset bundle."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/wood-firewood-bundle.png",
+          "description": "A bundle of cut firewood logs."
+        }
+      ]
+    },
+    {
+      "id": "visual:wood-plank-stack",
+      "kind": "visual",
+      "name": "wood-plank-stack",
+      "summary": "A small stack of cut lumber boards.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "wood-plank-stack",
+            "kind": "prop",
+            "src": "assets/props/wood-plank-stack.png",
+            "w": 64,
+            "h": 64,
+            "anchor": "bottom-center",
+            "required": true,
+            "portablePreviewAllowed": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "A small stack of cut lumber boards.",
+          "usage": "Reference wood-plank-stack in the existing format at dist/src/data/assets.js.",
+          "expected": "A small stack of cut lumber boards."
+        }
+      ],
+      "references": [
+        "dist/src/data/assets.js",
+        "docs/THIRD_PARTY_ASSETS.md",
+        "art/assets/third-party/registry.json",
+        "art/assets/third-party/ravenmore-resource-icons-01/README.md"
+      ],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small stack of cut lumber boards.",
+        "style": "Ravenmore custom game-use terms (itch.io page; no SPDX license stated); attribution recommended. Source page: https://ravenmore.itch.io/survival-crafting-resource-icons-01 License: https://ravenmore.itch.io/survival-crafting-resource-icons-01",
+        "scale": "64 by 64 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Non-interactive settlement scenery beside a home or workshop. In-game permission: permitted. Modification/adaptation: not stated; these files are used unchanged. Public repository use: game-embedded use only; no standalone pack redistribution. Not stated as required; creator recommends linking to the source page. Credit Ravenmore and link the source page. Game scenery only. The image does not define an item, interaction, harvest, reward, collision, or mechanic; do not redistribute it as a separate resource or asset bundle."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/props/wood-plank-stack.png",
+          "description": "A small stack of cut lumber boards."
         }
       ]
     }

@@ -1,5 +1,6 @@
 """Generated-source chunks reconstruct the immutable PNG bytes without truncation."""
 import json
+import math
 from pathlib import Path
 import sys
 import unittest
@@ -18,7 +19,7 @@ class SourceArchiveTests(unittest.TestCase):
                 data = source_bytes(ROOT, source)
                 self.assertEqual(len(data), record["bytes"])
                 self.assertEqual(__import__("hashlib").sha256(data).hexdigest(), record["sha256"])
-                self.assertGreaterEqual(len(record["parts"]), 3)
+                self.assertGreaterEqual(len(record["parts"]), math.ceil(record["bytes"] / archive["chunkBytes"]))
                 self.assertTrue(all((ROOT / part).stat().st_size <= archive["chunkBytes"] for part in record["parts"]))
                 self.assertFalse((ROOT / source).exists(), "the verified archive remains the canonical source")
 

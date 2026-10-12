@@ -1,3 +1,4 @@
+import {elementalBeats} from './ui/elemental-beats.js';
 /* Game flow: connects domain rules, menus and services. Owns timers (battle pacing) and screen transitions.
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
 import {species} from './data/species.js';
@@ -25,7 +26,6 @@ import {movementFacing} from './domain/exploration.js';
 import {GRACE_AFTER_BATTLE, GRACE_ON_ARRIVAL} from './config.js';
 import {$, environmentalMessage, hideModal, toast as showToast} from './ui/dom.js';
 import {INTENT_TEXT, TACTICS} from './data/tactics.js';
-import {spriteId} from './data/assets.js';
 import {buy as buyOffer, claimChest, restAtCamp} from './domain/economy.js';
 import {currentObjective, pickLine} from './domain/objectives.js';
 import {endingDue, markSeen, pendingHint} from './domain/story.js';
@@ -39,6 +39,7 @@ import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
 import {captureBeats, fxForEvent, rewardPops} from './ui/battle-fx.js';
 import {guardianCombatSprite} from './render/battle-art.js';
+import {chestSprite} from './render/chest-art.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
 
 export function createController(app) {
@@ -463,7 +464,7 @@ export function createController(app) {
       showResult({
         title: 'A little trail treasure',
         copy: 'Something useful for the road ahead.',
-        sprite: spriteId('chest-wooden'),
+        sprite: chestSprite(o, true),
         rewards: [`${got.coins} coins`, `${got.potions} potions`, `${got.orbs} capture orbs`],
         button: 'Keep exploring',
         onContinue: () => (close(), checkEnding()),
@@ -853,7 +854,13 @@ export function createController(app) {
     const b = game.battle;
     if (!b || b.busy || b.over || game.phase !== 'battle' || (ui.modalMode !== 'battle' && action.kind !== 'switch')) return;
     const s = save();
-    const before = {active: s.active, befriended: s.caught.includes(b.id), captureSave: action.kind === 'catch' ? structuredClone(s) : null};
+    const before = {
+      active: s.active,
+      befriended: s.caught.includes(b.id),
+      captureSave: action.kind === 'catch' ? structuredClone(s) : null,
+      state: {active: s.active, mine: companion(s).hp, enemy: b.hp, focus: b.focus},
+      presentationSave: structuredClone(s),
+    };
     const decisionContext = app.combatTrace ? combatDecisionContext(s, b) : null;
     const throwChance = action.kind === 'catch' ? captureChance(s, b) : 0; // shown on the button; sets how the orb wobbles
     const turn = resolveTurn(s, b, action, rng, {
@@ -861,7 +868,8 @@ export function createController(app) {
       inventoryRules: app.inventoryRules,
     });
     if (!turn) return;
-    if (action.kind === 'catch') pendingCapturePresentation = [];
+    const elementalRound = turn.events.some(event => event.kind === 'element' || event.element);
+    if (action.kind === 'catch' || elementalRound) pendingCapturePresentation = [];
     combatDecision(decisionContext, action, turn, s, b);
     emit('turn.resolved', {
       mapId: game.world.map.id,
@@ -899,6 +907,10 @@ export function createController(app) {
     }
     b.busy = true;
     const frames = framesFor(turn, before, b, throwChance);
+    if (elementalRound)
+      for (const frame of frames) {
+        if (frame.after && frame.animation !== 'victory') frame.after = {...frame.after, presentationSave: before.presentationSave};
+      }
     if (!turn.ended && companion(s).hp < maxHP(s, s.active) * 0.35 && frames.length) frames.at(-1).message += tip('low-health');
     if (turn.ended) {
       game.battle = null;
@@ -915,6 +927,12 @@ export function createController(app) {
     timeline.play(frames, {
       render: f => {
         if (f.fx?.orb === 'caught' || f.fx?.orb === 'break') revealCaptureProgress();
+        if (elementalRound && f.after) {
+          const presented = structuredClone(f.after.presentationSave ?? s);
+          presented.active = f.after.active;
+          companion(presented).hp = f.after.mine;
+          renderHud(presented);
+        }
         if (f.sfx) sfx(f.sfx);
         renderBattle(f.message, f.animation, f.after, b, f.fx);
       },
@@ -952,18 +970,25 @@ export function createController(app) {
   function framesFor(turn, before, b, throwChance = 0) {
     const frames = [];
     let player = '';
+    let previous = before.state;
     for (const e of turn.events) {
       const start = frames.length;
       const a = species[e.type === 'switch' ? e.id : before.active];
       if (e.type === 'strike') {
         player = `${species[before.active].name} used ${e.move} for ${e.damage} damage.${e.prepared ? ' The relay amplified the setup!' : ''}${e.brokeBrace ? ' It broke through the brace!' : e.braced ? ' It was braced for the hit.' : e.eff > 1 ? ' Super effective!' : e.eff < 1 ? ' Not very effective.' : ''}`;
-        frames.push({
-          message: player,
-          animation: e.kind === 'element' ? 'element' : 'attack',
-          after: e.after,
-          sfx: e.kind === 'element' ? 'element' : 'strike',
-          wait: wait(650),
-        });
+        if (e.kind === 'element')
+          frames.push(
+            ...elementalBeats({
+              event: e,
+              type: a.type,
+              side: 'ally',
+              previous,
+              message: player,
+              introduction: `${a.name} used ${e.move}…`,
+              calm: app.motionReduced(),
+            }),
+          );
+        else frames.push({message: player, animation: 'attack', after: e.after, sfx: 'strike', wait: wait(650)});
       } else if (e.type === 'throw') {
         player = 'The creature broke free of the orb.';
         const caught = turn.ended === 'caught';
@@ -1038,25 +1063,41 @@ export function createController(app) {
         });
       } else if (e.type === 'enemy') {
         const foe = species[b.id];
-        frames.push({
-          message: `${player} ${enemyText(foe, e)}`,
-          animation: e.damage > 0 ? 'enemy' : '',
-          after: e.after,
-          sfx: 'hurt',
-          wait: wait(e.damage > 0 ? 700 : 500),
-        });
+        if (e.element && e.damage > 0)
+          frames.push(
+            ...elementalBeats({
+              event: e,
+              type: foe.type,
+              side: 'enemy',
+              previous,
+              message: `${player} ${enemyText(foe, e)}`,
+              introduction: `${foe.name} used ${moves[foe.move]?.name ?? foe.move}…`,
+              calm: app.motionReduced(),
+            }),
+          );
+        else
+          frames.push({
+            message: `${player} ${enemyText(foe, e)}`,
+            animation: e.damage > 0 ? 'enemy' : '',
+            after: e.after,
+            sfx: 'hurt',
+            wait: wait(e.damage > 0 ? 700 : 500),
+          });
       } else if (e.type === 'faint-switch') {
-        frames[frames.length - 1] = {
+        const replacement = {
           message: `${species[e.fainted].name} needs a rest. ${species[e.replacement].name} stepped in!`,
-          animation: 'enemy',
-          fx: frames[frames.length - 1].fx,
+          animation: frames.at(-1)?.fx?.elemental ? '' : 'enemy',
+          fx: frames.at(-1)?.fx?.elemental ? null : frames.at(-1)?.fx,
           after: e.after,
           sfx: 'hurt',
           wait: wait(700),
         };
+        if (frames.at(-1)?.fx?.elemental) frames.push({...replacement, sfx: null, wait: 0});
+        else frames[frames.length - 1] = replacement;
       }
       const fx = fxForEvent(e);
-      if (frames.length > start && (fx.pops.length || fx.shake)) frames[start].fx = fx;
+      if (frames.length > start && !frames[start].fx?.elemental && (fx.pops.length || fx.shake)) frames[start].fx = fx;
+      if (e.after) previous = e.after;
     }
     lastMessage = frames.at(-1)?.message ?? '';
     // The last frame's wait is never honoured (playback completes right after it), so end on a settled frame and the blow stays visible.

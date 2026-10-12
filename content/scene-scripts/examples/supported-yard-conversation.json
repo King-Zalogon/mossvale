@@ -28,13 +28,22 @@
     }
   ],
   "uses": [
-    {"resourceId": "mechanic:scene-dialogue", "purpose": "Show a short, manually advanced line from each existing map speaker."},
-    {"resourceId": "interactable:scene-event", "purpose": "Use the existing validated interaction/action flow for authored scene dialogue."},
+    {
+      "resourceId": "mechanic:scene-dialogue",
+      "purpose": "Show a short, manually advanced line from each existing map speaker."
+    },
+    {
+      "resourceId": "interactable:scene-event",
+      "purpose": "Use the existing validated interaction/action flow for authored scene dialogue."
+    },
     {
       "resourceId": "landmark:hearth-hamlet/hearth-yard/box",
       "purpose": "Use the already-authored chest interaction and reward as an optional nearby activity."
     },
-    {"resourceId": "visual:chest-wooden", "purpose": "Keep the existing chest appearance; no new art or behavior is requested."}
+    {
+      "resourceId": "visual:chest-wooden",
+      "purpose": "Keep the existing chest appearance; no new art or behavior is requested."
+    }
   ],
   "beats": [
     {
@@ -69,18 +78,51 @@
   ],
   "requirements": [],
   "completion": "Both dialogue lines can be read and manually advanced, the player can reach the chest, and the chest's existing reward is awarded at most once across save and reload.",
-  "continuityIn": {"characters": [], "flags": [], "items": [], "canonicalFacts": [], "decisions": [], "pendingThreads": []},
+  "continuityIn": {
+    "characters": [],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [],
+    "decisions": [],
+    "pendingThreads": []
+  },
   "continuityOut": {
     "characters": [
-      {"id": "healer-wren", "identity": "Healer Wren", "location": "Hearth Hamlet cottage yard"},
-      {"id": "yard-villager", "identity": "A visiting villager", "location": "Hearth Hamlet cottage yard"}
+      {
+        "id": "healer-wren",
+        "identity": "Healer Wren",
+        "location": "Hearth Hamlet cottage yard"
+      },
+      {
+        "id": "yard-villager",
+        "identity": "A visiting villager",
+        "location": "Hearth Hamlet cottage yard"
+      }
     ],
     "flags": [],
     "items": [],
     "canonicalFacts": [
-      {"id": "wren-welcomes-travelers", "statement": "Healer Wren welcomes travelers and keeps supplies in the yard chest.", "status": "active"}
+      {
+        "id": "wren-welcomes-travelers",
+        "statement": "Healer Wren welcomes travelers and keeps supplies in the yard chest.",
+        "status": "active"
+      }
     ],
     "decisions": [],
     "pendingThreads": ["The player may ask Wren about the road in a later scene."]
+  },
+  "sceneBrief": {
+    "playerPurpose": "Learn that this cottage is a safe stopping place and find supplies for the road.",
+    "consequence": {
+      "kind": "reward",
+      "description": "Wren explicitly offers the yard supplies; the player can claim them once before leaving.",
+      "beatIds": ["wren-greeting", "open-chest"]
+    },
+    "tone": "Warm welcome and practical reassurance.",
+    "setup": "A traveler enters the cottage yard and meets its host.",
+    "action": "Read the welcome and choose whether to collect the offered supplies.",
+    "payoff": "The host establishes a friendly place and the player receives useful supplies, rather than an unrelated test chest.",
+    "requiredResources": ["mechanic:scene-dialogue", "interactable:scene-event", "landmark:hearth-hamlet/hearth-yard/box", "visual:chest-wooden"],
+    "continuityState": "Wren welcomes travelers; existing chest state persists. No new mystery or mandatory relationship change."
   }
 }

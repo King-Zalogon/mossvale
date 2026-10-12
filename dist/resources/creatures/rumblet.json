@@ -1,0 +1,23 @@
+{
+  "id": "rumblet",
+  "name": "Rumblet",
+  "type": "Stone",
+  "stats": {
+    "hp": 50,
+    "attack": 11,
+    "defense": 14
+  },
+  "hp": 50,
+  "move": "stone-tumble",
+  "biome": "meadow",
+  "role": "Plate-bearing bruiser",
+  "personality": "Brave, impulsive and loyal; it lowers its frontal plate before charging.",
+  "desc": "A compact brown beast with sturdy cream-tipped feet and a gray impact plate marked in orange.",
+  "encounterHint": "Authors may place it along rocky woodland paths; it has no encounter in current maps.",
+  "strong": ["Spark", "Fire", "Ice", "Bloom"],
+  "weak": ["Water", "Leaf", "Mire"],
+  "color": "#965b36",
+  "sprite": "creature-rumblet",
+  "habitats": ["rocky-path", "woodland-edge"],
+  "abilities": []
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Parrocket resource preview</title>
+    <link rel="stylesheet" href="creature-combat-preview.css" />
+    <style>
+      #directions .frames {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      }
+      #states .frames {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
+      #directions canvas {
+        width: 80px;
+        height: 80px;
+      }
+      #states canvas,
+      #playback {
+        width: 160px;
+        height: 160px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./">← Mossvale</a>
+      <div>
+        <span>CREATURE RESOURCE</span>
+        <h1>Parrocket</h1>
+      </div>
+      <label><input id="calm" type="checkbox" /> Reduced motion</label>
+    </header>
+    <main>
+      <p>Rocket Parrot · Fire · Fast scout. Prepared for future maps; not placed in current encounters.</p>
+      <p>The reference also describes an Air affinity. The current game uses one combat element per creature.</p>
+      <section>
+        <h2>Portrait and battle playback</h2>
+        <img id="portrait" width="115" alt="Parrocket canonical portrait" /><canvas
+          id="playback"
+          width="160"
+          height="160"
+          aria-label="Parrocket live battle animation"
+        ></canvas
+        ><label
+          >Action
+          <select id="action">
+            <option>idle</option>
+            <option>attack</option>
+            <option>hit</option>
+            <option>faint</option>
+            <option>capture</option>
+          </select></label
+        ><button id="replay" type="button">Play action</button>
+      </section>
+      <section>
+        <h2>Eight directions at map scale</h2>
+        <p>Each row shows planted idle followed by four walking poses, at 37 px gameplay width.</p>
+        <div id="directions"></div>
+      </section>
+      <section>
+        <h2>Five battle states at gameplay scale</h2>
+        <p>Each row contains four authored poses at 115 px gameplay width.</p>
+        <div id="states"></div>
+      </section>
+      <p id="status" role="status">Loading resource…</p>
+    </main>
+    <script type="module" src="src/parrocket-preview.js"></script>
+  </body>
+</html>

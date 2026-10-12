@@ -1,0 +1,42 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "content/catalogue/curated.json",
+        "content/scene-scripts/README.md",
+        "content/scene-scripts/examples/continuity/bell-one.json",
+        "content/scene-scripts/examples/continuity/bell-three.json",
+        "content/scene-scripts/examples/continuity/bell-two.json",
+        "content/scene-scripts/schema.json",
+        "docs/NARRATIVE_CONTINUITY.md",
+        "docs/scene-quality/244/desktop-dialogue-1.png",
+        "docs/scene-quality/244/desktop-dialogue-2.png",
+        "docs/scene-quality/244/desktop-offered-supplies.png",
+        "docs/scene-quality/244/evidence.json",
+        "docs/scene-quality/244/phone-dialogue-1.png",
+        "docs/scene-quality/244/phone-dialogue-2.png",
+        "docs/scene-quality/244/phone-offered-supplies.png",
+        "docs/scene-quality/244/report.json",
+        "docs/scene-quality/244/review.json",
+        "docs/scene-script-proofs/186-the-fernling-at-dusk/corrected-handoff-v2.json",
+        "package.json",
+        "scripts/lib/catalogue-visuals.mjs",
+        "scripts/lib/scene-continuity.mjs",
+        "scripts/scene-script.mjs",
+        "tests/scene-continuity.test.mjs",
+        "tests/visual-catalogue.test.mjs"
+      ],
+      "entries": ["mechanic:narrative-continuity", "mechanic:playable-scene-quality"],
+      "disposition": "updated",
+      "reason": "Completes the existing #258 claim/PR302 with exact cross-scene history links, stable decisions/actor roles/required traits, explicit beat consequences and ownership/rebinding checks. Three inspectable handoffs retain first-scene obligations and already-resolved choices/questions. Versioned Fernling handoff corrects NPC-familiar versus player-companion semantics without changing archives, save codecs or runtime. Portable writer exports carry schema/instructions/examples and hashes. Refreshes #244 schema-bound evidence through actual browser controls and inspected captures, preserving deferred owner status rather than manufacturing approval.",
+      "evidence": [
+        "tests/scene-continuity.test.mjs",
+        "tests/authoring-tools.test.mjs",
+        "tests/visual-catalogue.test.mjs",
+        "docs/NARRATIVE_CONTINUITY.md",
+        "docs/scene-quality/244/report.json"
+      ]
+    }
+  ]
+}

@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-88 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+138 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -50,6 +50,10 @@ npm run validate
 
 ## Subject identity and provenance
 
+### Chest claimed state
+
+One-time chests use `chest-wooden` before claiming and the opaque `chest-wooden-open-empty` afterward, including the reward result image. The renderer and minimap consult the same landmark flag as `claimChest`; independent side caches do not borrow a region's chest state. Existing saves need no migration. Both poses use the same world width and bottom-center anchor; the open sprite is 343×330, with a lifted lid and no contents. [Source and export notes](../art/assets/source/chests/README.md) document the generated reference and reproducible pixel export. `tests/chest-state.browser.mjs` covers unopened, claimed, reload and repeated interaction states. Biome-specific pairs (#337) use `chest-reed-rope`, `chest-sandstone-iron` and `chest-pine-frost`, each with a `-open-empty` counterpart; Meadow retains wooden. Choose the closed ID in the existing map sprite field. The shared chest art resolver selects the corresponding empty image without changing flags or rewards. See [biome source/export notes](../art/assets/source/chests/biomes/README.md) and **Testing URLs → Biome treasure chests** (`/chest-preview.html`) for labeled actual-scale and map-context comparisons. Unknown custom chest images retain the wooden empty fallback.
+
 `art/assets/subjects.json` gives stable visual IDs and explicit revisions to the player and all eighteen creatures. Each record describes the visible silhouette, palette and distinguishing features; hashes the canonical reference and exported runtime file; and records the source batches, references and export workflow. The validator checks these hashes and verifies that asset IDs, source-atlas cells, directions and batch outputs still resolve to the manifest. A changed identity needs a reviewed new revision; a retry or sibling frame must keep the existing subject ID and revision.
 
 Generation history distinguishes retained evidence from missing history. The red-cap source notes retain a brief summary and the directional reference assets, but not an exact prompt, provider, model version, seed or masks. The original twelve creature source-atlas cells are canonical references for those portraits; their original prompts and provider/model/seed/mask history were not retained. The six additions retain generated portrait, combat and directional follower source PNGs directly under `art/characters/source/`. Existing archived sheets remain byte-for-byte checked in bounded chunks, while the new normalized combat and follower cells are packed into editable source atlases. Prompt summaries, references, output frames and category profiles are linked and hashed in `subjects.json`. Every species now has idle, attack, hit, faint and capture combat rows and idle plus four walk frames in eight directions. Static portraits remain the fallback when an optional animation atlas fails to load.
@@ -76,3 +80,27 @@ For future sheets use [the combat sheet generation brief](../art/characters/CREA
 Third-party asset rights and source attribution are tracked separately from original Mossvale art. See [THIRD_PARTY_ASSETS.md](THIRD_PARTY_ASSETS.md) and `art/assets/third-party/registry.json`; a game or framework code license does not automatically cover these works.
 
 Third-party visual assets use the same runtime manifest and pixel-preserving atlas exporter as other props/items. Keep the original source archive, license evidence, source-file hashes, intended uses and limits in the package registry. Verify with `python art/assets/import-third-party-assets.py --check` (also included by `npm run art:check`). Do not infer a license from a Reddit post or from free availability.
+
+## Elemental material atlas (#173)
+
+The optional `effect-elemental-materials` prop asset is a presentation atlas: twelve 128-pixel rows in canonical type display-name order, six columns (charge, launch, travel A/B, impact, dissolve). It accompanies the existing five-state creature attack row or static portrait. It does not add terrain, an interactable prop or a creature animation state. `effectPivots` centers each isolated material shape in the battle overlay; the general bottom-center asset anchor remains compatible. Unknown custom type names and missing optional art use a neutral directional fallback. Source design, generation prompts, immutable archived sheets, deterministic exporter, metadata and internal visual review live under `art/effects/`; run `python3 art/effects/export.py --check` and the elemental browser regression to validate an art revision.
+
+## Optional Parrocket resource (#364)
+
+`creature-parrocket`, `creature-parrocket-combat` and `creature-parrocket-follower` are shared optional assets prepared from the owner's Rocket Parrot references. They are not part of the active eighteen-species roster or current encounters. The combat atlas uses the existing 4×5 action contract; the follower uses the existing 5×8 direction/stride contract with distinct west and northwest views. The [resource instructions](../content/resources/creatures/PARROCKET.md) explain pack import, primary Fire versus reference Air affinity, placement and limitations. Inspect `dist/parrocket-preview.html`; reproduce exact editable/runtime pixels with `python3 art/characters/export-parrocket.py --check`. Original owner images and generated sources/prompts are retained under `art/characters/source/parrocket/`, with large generated PNGs archived byte-for-byte. Technical and internal identity review do not imply owner taste approval or a playtested new encounter.
+
+## Optional Blastoucan resource (#366)
+
+The shared optional `creature-blastoucan` portrait and `-combat` / `-follower` atlases preserve its hollow cylindrical cannon beak and distinct upright toucan identity. [Resource instructions](../content/resources/creatures/BLASTOUCAN.md) cover future pack/map import, primary Fire versus reference-only Air, starting stats and unimplemented ranged/evolution behavior. Inspect `dist/blastoucan-preview.html`; the existing isolated preview renderer selects its definition explicitly. Reproduce pixels with `python3 art/characters/export-parrocket.py --species blastoucan --check`. Generated originals and spacing corrections are archived under `art/characters/source/blastoucan/`; the original inline owner-reference binaries were not exposed in the workspace and are not claimed as retained. This is a resource addition, not new current-map encounters or owner taste acceptance.
+
+## Optional Rumblet resource (#368)
+
+[Rumblet](../content/resources/creatures/RUMBLET.md) stages a compact brown quadruped with a gray/orange frontal impact plate as optional portrait, twenty combat poses and forty eight-direction follower poses. Its isolated `dist/rumblet-preview.html` uses the shared renderer at 115/37 px. The importable definition has provisional Stone type; Beast Starter is descriptive, with no new starter/charge rules or default encounter. Exact prompts/generated sources, reproducible profiles and separate internal/owner review status are retained. Run `python3 art/characters/export-parrocket.py --species rumblet --check` for exact source/editable/runtime correspondence.
+
+## Optional Coglet resource (#371)
+
+[Coglet](../content/resources/creatures/COGLET.md) stages the rounded cream/brass machine with cyan lenses and a dorsal cog as optional portrait, twenty combat poses and forty directional poses. `dist/coglet-preview.html` uses shared renderers at 115/37 px. Its importable definition uses provisional Spark; Machine Starter remains descriptive. Exact prompts/generated sources, reproducible profiles and separate internal/owner review status are retained. Run `python3 art/characters/export-parrocket.py --species coglet --check` for exact source/editable/runtime correspondence.
+
+## Optional Wispurr resource (#373)
+
+[Wispurr](../content/resources/creatures/WISPURR.md) stages the pale-mask violet spirit with attached cyan wisps as optional portrait, twenty combat poses and forty directional hover poses. `dist/wispurr-preview.html` uses shared renderers at 115/37 px. Existing walk slots carry hover artwork while ground collision stays unchanged. Its importable definition uses provisional Air because Spirit is absent from current types; no new starter/ghost rules. Exact prompts/generated sources, reproducible profiles and separate internal/owner review status are retained. Run `python3 art/characters/export-parrocket.py --species wispurr --check` for exact source/editable/runtime correspondence.

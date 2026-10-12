@@ -142,7 +142,9 @@ try {
     [afterChest.coins, afterChest.potions, afterChest.orbs, 1],
   );
   assert.deepEqual(errors, []);
-  console.log('ok #186 scene starts, presents dialogue, reaches optional chest, awards once, and reloads its completion');
+  console.log(
+    'ok #186 historical functional checks only (not visual/content acceptance): scene starts, presents dialogue, reaches optional chest, awards once, and reloads its completion',
+  );
 } finally {
   await browser.close();
   server.close();

@@ -6,6 +6,8 @@ GitHub issues and pull requests are authoritative for current status. Use this l
 
 | Date | Issue / scope | Owner lane | Branch | Head / base | Evidence | Blockers / next step |
 | --- | --- | --- | --- | --- | --- | --- |
+| 2026-10-12 | #377 Ravenmore settlement props | Art / third-party assets | `codex/377-ravenmore-settlement-props` | Base `origin/integration` `4009c58` | Three unchanged 64×64 Ravenmore free-tier icons are registered as separate source files, used near the Meadow cottage, and excluded from portable writer-context previews under the source's no-bundling terms. `npm run validate`, `npm run build:game`, direct-source/export checks and manual Chromium map review pass. | PR to `integration`; owner should confirm the props' visual fit and review the custom game-use terms before merge. |
+| 2026-10-11 | #235 open and empty claimed chests | Art / renderer | `codex/235-open-empty-chests` | From `origin/main` `1c1c984`, aligned with integration `9acc228` | Generated matching empty wooden chest, exact editable source export, named manifest/catalogue; real renderer checks region and side-cache claim/reload/repeat states. | Final verify/build and integration PR pending; #337 variants remain separate. |
 | 2026-10-09 | #324 player eight-direction facing and gait polish | Character art / animation | `codex/324-player-facing-polish` | Created from `origin/main` `021893e`, then aligned with `origin/integration` through `2f918e8` | Corrected NE/NW source-row mapping and diagonal idles, reauthored East gait, added 52×84 all-pose contact evidence, art regression checks and stable full-cycle browser sampling. `npm run verify`, `npm run build`, catalogue impact and art checks pass locally after the latest integration merge. | Publish PR to `integration`; follow the owner-authorized local validation/merge flow. Owner visual taste remains available for follow-up feedback. |
 | 2026-10-08 | #286 Sedgegnaw, #287 Petalunge, #288 Cindercurl | Creature content / art | `codex/286-first-three-creatures` | Feature commit `dc31c04`; refreshed through `origin/integration` `aeb699e`, including #260/#262 changes. | Original portrait/combat/follower art, named manifest IDs, optional home-biome encounters, previews and catalogue records. `npm run check` (356 Node tests and art review), `npm run build`, catalogue-impact review, and focused Chromium checks for creatures/combat/followers/biome maps passed. The full browser-suite rerun was stopped after startup coverage; the suite had passed before the latest integration update. | PR #301 merged to `integration` as `80725f6`; issues #286–288 remain open for owner visual/gameplay acceptance in #267. No main promotion or deployment. |
 | 2026-10-08 | #245 playable-slice evidence: complete guardian battle, reward and return to exploration after reload | Gameplay quality | `codex/245-playable-slice` | Created from `origin/main` `ea08af9`; combined tree includes #236 merge `361acf` | `tests/playthrough.browser.mjs` continues the normal-control battle after reload, earns the seal/reward, returns to exploration, reloads again and checks the result; actual-scale captures are linked in `docs/QUALITY_REVIEW.md`. Focused Playwright proof passes twice. | Full `npm run verify` non-browser checks and production build pass. Broad browser execution hit Chromium resource limits after earlier cases; the focused route passes. PR #296 remains in progress. Seeded browser evidence does not substitute for a fresh-save owner playtest or final art approval. |
@@ -182,3 +184,45 @@ Codex claim: `codex/356-reference-export`, created from latest `origin/main` `88
 The existing `codex/289-lanternix` / PR #314 claim is refreshed through integration `f2d2370` (guardian PR #328). Shared manifest/provenance/catalogue conflicts preserve all four guardian forms, eighteen normal species, the canonical follower-preview discovery and the recent player-facing/capture/launch changes. Separate combat and follower review records are retained (26 records); only shared metadata pins changed. The new `tests/lanternix.browser.mjs` real-controls regression passed capture into full-team reserve, activation/reload and relay preparation/reload/switch/element consumption. Scoped impact passed (54 paths). Full final-head verify/build precede ordinary integration-only merge. Owner visual/enjoyment feedback under #289/#267 remains pending; keep those issues open for that acceptance. #315 is complete via PR #328, merge `f2d2370`, with 399 Node tests, 39 browser scripts, build and impact passing.
 
 Integration refresh included PR #314 Lanternix. Its retained source also crossed uniform row cuts, so #347 now recovers all eighteen normal combat sheets; the audit covers forty atlases / 1,160 cells. Its acquisition, relay, source history and canonical design remain intact.
+
+## #173 — directed elemental attack materials
+
+Claimed `codex/173-elemental-projectiles` from origin/main 88248ec, synchronized with origin/integration 0aa7be1. Owner authorized completion. All twelve briefs are internally reviewed in docs/ELEMENTAL_ATTACKS.md before sprite generation. Both sides use registered pack species types, with shared preparation/travel/contact beats, unchanged 650/700 ms round timing and a static calm pose. No creature identity or five-state sheet is replaced. New effect sources, exports, contact-scale evidence and local verification accompany an integration-only PR.
+
+## #337 — biome chest pairs
+
+Codex claim: `codex/337-biome-chests`, created from latest `origin/main` `1c1c984` then synchronized with `origin/integration` `df15a10`. Keep Meadow's accepted wooden pair; add wetland reed/rope, badlands red stone/iron and snowy pine/cold-metal closed/open-empty pairs. Retain generation references and editable/export metadata, integrate named state pairs through the existing renderer, provide labeled actual-scale/context review and extend persistence/anchor/asset regressions. No save/reward rules, production deployment or main promotion. Final verification and integration-only PR pending.
+
+## #364 — optional Parrocket resource
+
+Claimed `codex/364-parrocket-resources` from current origin/main, synchronized with integration af2662b. Owner reference identity and production brief committed before generation in c183069. Adds optional shared portrait, five-state combat and eight-direction follower resources plus a pack-importable species definition and isolated preview. Current eighteen-species roster/maps stay unchanged. Primary Fire uses existing rules; Air remains a reference design trait. Preserve owner JPEGs, original generated combat draft and spacing revision, exact prompts, reproducible exports and internal gameplay-scale evidence. Full local verification and integration-only PR; no production promotion.
+
+## #366 — optional Blastoucan resource
+
+Claimed `codex/366-blastoucan-resources` from main 1c1c984, synchronized with integration e74f680. Owner requested future-map resources from four inline images; original binary references are not exposed locally and provenance states that. Identity brief fdcb1a7 precedes adaptation. Preserve hollow cylindrical cannon beak, upright blue/cream body, wings and tail; correct repeated direction rows and clipped edge anatomy. Reuse the Parrocket exporter/preview by explicit resource selection, retaining old defaults and pixels. Optional assets/importable definition/catalogue only, no default roster/maps, dual type, ranged-distance or evolution change. Full local verification and integration-only PR precede merge.
+
+## #244 — playable scene quality gate
+
+Claimed `codex/244-playable-scene-quality` from latest `origin/main` `1c1c984`, synchronized with `origin/integration` `54d4a4d`. Add an optional format-1 brief with a strict new-scene readiness mode, portable writer/builder requirements, separately evidenced schema/playable/visual/narrative reports and real-control desktop/mobile captures. Legacy scripts remain valid but incomplete for quality acceptance. Preserve #186 archived writing and pack behavior; report its missing narrative payoff rather than manufacture approval or duplicate #237. Integration-only PR and final verification pending.
+
+## #368 — Rumblet reusable resource
+
+Claimed on `codex/368-rumblet-resources` from `origin/main` (`1c1c984`) updated with integration (`54d4a4d`). Preserve owner-inline compact quadruped/gray impact plate design; optional portrait, directional/combat atlases, importable definition and catalogue. Local full verify/build and actual-size visual review precede integration PR merge.
+
+## #371 — Coglet reusable resource
+
+Claimed on `codex/371-coglet-resources` from `origin/main` (`1c1c984`) updated with integration (`3df6f72`). Prepare owner-inline rounded mechanical Coglet with dorsal gear/cyan lenses as optional portrait, follower/combat atlases, importable definition and catalogue. Full local verify/build and actual-size art review before integration merge. Live #370 scene-quality PR is separate; preserve both if integration advances.
+
+Coglet integration update: merged `origin/integration` `b6eeb3e` before final verification, preserving #244 scene-quality functionality and both test lists; regenerate the canonical catalogue to include both changes.
+
+## #373 — Wispurr reusable resource
+
+Claimed `codex/373-wispurr-resources` from `origin/main` `1c1c984`, updated with integration `7a80b7f`. Preserve owner-inline pale mask/violet flame/cyan wisps as optional portrait, directional hover/combat atlases, importable definition and catalogue. Air provisional; no Spirit rules, default encounters or starter change. Actual-size art review, full local verify/build and integration-only merge.
+
+## #258 resumed — complete narrative/role continuity
+
+Resume existing `codex/258-narrative-continuity` claim and merged PR #302, refreshed with `origin/integration` `ae1739d` (the original branch was created from then-current main). Preserve existing obligations/identity fields and add explicit chained history checks, stable decision/role records, beat-linked consequence/rebinding validation, inspectable three-scene fixtures and a versioned Fernling correction without rewriting writer archives. Refresh #244's schema-bound review honestly after testing the compatible addition. No new runtime/save codec or production deployment; final verification and integration-only follow-up PR pending.
+
+## #375 — all prepared creatures in Testing URLs
+
+Claimed `codex/375-creature-testing-urls` from main `1c1c984`, updated with integration `ae1739d`. Expose Parrocket, Blastoucan, Rumblet, Coglet and Wispurr in shared follower/combat previews and direct resource links. Preview-only registration; preserve adventure roster/save IDs. Validate source and /game packaging, local full verify/build and integration merge.

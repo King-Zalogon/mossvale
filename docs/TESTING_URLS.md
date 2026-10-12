@@ -4,16 +4,22 @@ Open **Testing URLs** from the title screen or in-game menu. It opens `testing.h
 
 | Page | What to review |
 | --- | --- |
-| `creature-follower-preview.html` | All registered creatures, eight facings, idle/four-frame walk, own-motion turns, retained facing at rest, reduced motion and foreground occlusion at gameplay scale. |
+| `creature-follower-preview.html` | The 18 default Mossvale creatures plus Parrocket, Blastoucan, Rumblet, Coglet and Wispurr, eight facings, idle/four-frame travel, own-motion turns, retained facing at rest, reduced motion and foreground occlusion at gameplay scale. |
 | `creature-combat-preview.html` | Creature combat idle, attack, hit, faint and capture states with calm-motion playback. |
 | `guardian-combat-preview.html` | Four normal/shrine combat pairs at actual battle scale, all five action states and individual frames, with reduced motion. |
 | `character-preview.html` | Red-cap player walk/idle directions and reusable traveler/gardener appearances. |
 | `player-idle-review.html` | Neutral standing pose compared with walking poses in all directions. |
 | `map-editor.html` | Map Workshop topology, authored terrain and terrain-family compilation. Editing remains in workshop memory until an explicit export or edited-map play action. |
+| `chest-preview.html` | Closed and empty biome chests at gameplay scale. |
+| `parrocket-preview.html` | Parrocket portrait, forty directional poses, twenty battle poses and live playback/reduced motion. |
+| `blastoucan-preview.html` | Blastoucan portrait, forty directional poses, twenty battle poses and live playback/reduced motion. |
+| `rumblet-preview.html` | Rumblet portrait, forty directional poses, twenty battle poses and live playback/reduced motion. |
+| `coglet-preview.html` | Coglet portrait, forty directional poses, twenty battle poses and live playback/reduced motion. |
+| `wispurr-preview.html` | Wispurr portrait, forty directional poses, twenty battle poses and live playback/reduced motion. |
 
 The index keeps each opened review in a separate tab. Close it to return to the index or use its Mossvale link to open the game. The index itself also has a Mossvale return link. It contains no debug cheats, credentials, grant changes, save mutations or server-only API links. The separately served authoring catalogue is available through `npm run catalogue:browse`; it is not a static game URL.
 
-The follower preview derives the creature list and atlas rows/mirroring from the canonical species registry and asset manifest. It uses the game's normalized `movementFacing`, stride-based `playerFrame`/`followerFrame`, `directionPose` and player mirroring. Facing follows the follower's own displacement, not the player's direction. A stopped or manually paused follower uses idle and retains its last direction; reduced motion keeps facing changes while using idle cells. The trail demonstration is illustrative, not an adventure collision or acquisition test.
+The shared follower and combat previews append the five prepared definitions only inside their isolated review documents. The normal adventure roster and saves remain unchanged. The follower preview derives the creature list and atlas rows/mirroring from the canonical species registry and asset manifest. It uses the game's normalized `movementFacing`, stride-based `playerFrame`/`followerFrame`, `directionPose` and player mirroring. Facing follows the follower's own displacement, not the player's direction. A stopped or manually paused follower uses idle and retains its last direction; reduced motion keeps facing changes while using idle cells. The trail demonstration is illustrative, not an adventure collision or acquisition test.
 
 Regression coverage: `tests/creature-follower.browser.mjs` checks actual stage draw rows in all eight directions, including nonstandard row orders, small displacements, idle, manual pause and calm motion. `tests/testing-urls.browser.mjs` exercises keyboard title-menu and touch in-game-menu access, every index destination, safe new tabs and source/packaged paths. Both run in `npm run verify`.
 

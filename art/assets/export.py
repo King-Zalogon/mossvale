@@ -102,10 +102,29 @@ GENERATED_SOURCES = {
     "creature-frostowl-combat": ["art/characters/source/creature-frostowl-combat-generated.png"],
 }
 GENERATED_SOURCES.update({name: [source] for name, source in LANDMARK_SOURCES.items()})
+EFFECT_METADATA = ROOT / "art" / "effects" / "metadata.json"
+if EFFECT_METADATA.exists():
+    effects = json.loads(EFFECT_METADATA.read_text())
+    FRAMES["effect-elemental-materials"] = {
+        "columns": 6, "rows": 12, "frameWidth": 128, "frameHeight": 128,
+        "rowOrder": effects["types"], "columnOrder": effects["stages"],
+        "effectPivots": effects["effectPivots"], "defaultFrame": {"column": 4, "row": 0},
+    }
+    GENERATED_SOURCES["effect-elemental-materials"] = [
+        f"art/effects/source/{group}-spaced.png"
+        for group in ["leaf-water-stone", "fire-ice-spark", "air-spore-bloom", "mire-sand-frost"]
+    ]
 
 
 def list_assets() -> list[dict]:
     entries = []
+    third_party = json.loads((ROOT / "art/assets/third-party/registry.json").read_text(encoding="utf-8"))
+    direct_sources = {
+        asset["name"]: (package, asset)
+        for package in third_party.get("packages", [])
+        for asset in package.get("assets", [])
+        if asset.get("sourceFile")
+    }
     for path in sorted(ASSET_ROOT.glob("*/*.png")):
         with Image.open(path) as source:
             source = source.convert("RGBA")
@@ -129,8 +148,22 @@ def list_assets() -> list[dict]:
                 "originalGenerationSourceAvailable": bool(generated),
             },
         }
+        if name in direct_sources:
+            package, source = direct_sources[name]
+            entry.update({
+                "sheet": None,
+                "cell": None,
+                "sourceFile": source["sourceFile"],
+                "sourceSha256": source["sourceSha256"],
+                "provenance": {
+                    "editablePixelSource": source["sourceFile"],
+                    "originalGeneratedReferences": [],
+                    "originalGenerationSourceAvailable": True,
+                    "externalSourceId": package["id"],
+                },
+            })
         if entry["kind"] == "prop":
-            profile_id = "prop-landmark-v1" if name in LANDMARK_SOURCES else PROP_PROFILE_ID
+            profile_id = "prop-elemental-effect-v1" if name == "effect-elemental-materials" else "prop-landmark-v1" if name in LANDMARK_SOURCES else PROP_PROFILE_ID
             entry["exportProfile"] = validate_prop_profile(profile_id)
         entries.append(entry)
     return entries
@@ -144,8 +177,8 @@ def pack() -> None:
         raise ValueError("no dist/assets PNGs found")
     SOURCE_ROOT.mkdir(parents=True)
     sheets = {}
-    for folder in sorted({item["folder"] for item in entries}):
-        group = [item for item in entries if item["folder"] == folder]
+    for folder in sorted({item["folder"] for item in entries if not item.get("sourceFile")}):
+        group = [item for item in entries if item["folder"] == folder and not item.get("sourceFile")]
         x = y = row_height = 0
         for item in sorted(group, key=lambda asset: (-asset["height"], -asset["width"], asset["name"])):
             if x and x + item["width"] > SHEET_WIDTH:
@@ -195,12 +228,23 @@ def export(check_only: bool = False) -> None:
                 raise ValueError(f"{sheet_name} dimensions do not match metadata")
     prepared = []
     for item in metadata["assets"]:
-        x, y = item["cell"]["x"], item["cell"]["y"]
         width, height = item["width"], item["height"]
-        with Image.open(ROOT / "art" / "assets" / item["sheet"]) as sheet:
-            if min(x, y) < 0 or x + width > sheet.width or y + height > sheet.height:
-                raise ValueError(f"{item['name']} cell is outside {item['sheet']}")
-            crop = sheet.crop((x, y, x + width, y + height))
+        if item.get("sourceFile"):
+            source_path = ROOT / "art" / "assets" / item["sourceFile"]
+            if ROOT not in source_path.resolve().parents:
+                raise ValueError(f"{item['name']} source file escapes the repository")
+            with Image.open(source_path) as source:
+                crop = source.convert("RGBA")
+            if hashlib.sha256(source_path.read_bytes()).hexdigest() != item.get("sourceSha256"):
+                raise ValueError(f"{item['name']} direct source hash is stale")
+        else:
+            x, y = item["cell"]["x"], item["cell"]["y"]
+            with Image.open(ROOT / "art" / "assets" / item["sheet"]) as sheet:
+                if min(x, y) < 0 or x + width > sheet.width or y + height > sheet.height:
+                    raise ValueError(f"{item['name']} cell is outside {item['sheet']}")
+                crop = sheet.crop((x, y, x + width, y + height))
+        if crop.size != (width, height) or crop.mode != "RGBA":
+            raise ValueError(f"{item['name']} source must remain its recorded RGBA dimensions")
         destination = ROOT / "dist" / item["src"]
         same_pixels = False
         if destination.exists():

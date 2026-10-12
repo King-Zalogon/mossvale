@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "exports": {
+    "portrait": {
+      "source": "art/characters/source/wispurr/portrait-generated.png",
+      "output": "dist/assets/creatures/creature-wispurr.png",
+      "editable": "art/assets/source/wispurr/portrait.png",
+      "columns": 1,
+      "rows": 1,
+      "frameSize": 264
+    },
+    "combat": {
+      "source": "art/characters/source/wispurr/combat-revised.png",
+      "output": "dist/assets/creatures/creature-wispurr-combat.png",
+      "editable": "art/assets/source/wispurr/combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frameSize": 288
+    },
+    "follower": {
+      "source": "art/characters/source/wispurr/follower-revised.png",
+      "output": "dist/assets/creatures/creature-wispurr-follower.png",
+      "editable": "art/assets/source/wispurr/follower.png",
+      "columns": 5,
+      "rows": 8,
+      "frameSize": 200,
+      "poseOverrides": {
+        "28": "art/characters/source/wispurr/southwest-phase-generated.png"
+      }
+    }
+  }
+}

@@ -10,6 +10,23 @@ import {changedPaths, validateImpact} from '../scripts/lib/catalogue-impact.mjs'
 const output = () => generateCatalogue();
 const catalogue = async () => JSON.parse((await output())['content/catalogue/catalogue.json']);
 
+test('chest fiches describe materials and the actual persisted state pair', async () => {
+  const entries = (await catalogue()).entries;
+  for (const [id, material] of [
+    ['chest-reed-rope', /Woven reed/],
+    ['chest-sandstone-iron', /Red sandstone/],
+    ['chest-pine-frost', /Pale pine/],
+  ]) {
+    const closed = entries.find(value => value.id === `visual:${id}`);
+    const open = entries.find(value => value.id === `visual:${id}-open-empty`);
+    assert.match(closed.summary, material);
+    assert.match(open.summary, /completely empty/);
+    assert.ok(open.references.includes('dist/chest-preview.html'));
+    assert.ok(closed.details.compatibleUses.includes(`${id}-open-empty`));
+    assert.match(closed.details.compatibleUses, /durable flag/);
+  }
+});
+
 test('catalogue deterministically covers canonical resources, real pack variants and explicit gaps', async () => {
   const first = await output();
   assert.deepEqual(first, await output());

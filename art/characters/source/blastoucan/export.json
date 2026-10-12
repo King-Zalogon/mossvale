@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "exports": {
+    "portrait": {
+      "source": "art/characters/source/blastoucan/portrait-generated.png",
+      "output": "dist/assets/creatures/creature-blastoucan.png",
+      "editable": "art/assets/source/blastoucan/portrait.png",
+      "columns": 1,
+      "rows": 1,
+      "frameSize": 264
+    },
+    "combat": {
+      "source": "art/characters/source/blastoucan/combat-spaced.png",
+      "output": "dist/assets/creatures/creature-blastoucan-combat.png",
+      "editable": "art/assets/source/blastoucan/combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frameSize": 288
+    },
+    "follower": {
+      "source": "art/characters/source/blastoucan/follower-spaced.png",
+      "output": "dist/assets/creatures/creature-blastoucan-follower.png",
+      "editable": "art/assets/source/blastoucan/follower.png",
+      "columns": 5,
+      "rows": 8,
+      "frameSize": 200
+    }
+  }
+}
