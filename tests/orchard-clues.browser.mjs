@@ -70,7 +70,11 @@ try {
     await page.goto(`http://localhost:${server.address().port}/?debug&seed=2`);
     await page.waitForSelector('#loading', {state: 'hidden'});
     if (touch) await page.locator('#game').tap();
-    const state = () => page.evaluate(() => window.mossvale.getState());
+    const state = () =>
+      page.evaluate(() => {
+        const {player, save} = window.mossvale.getState();
+        return {player: {x: player.x, y: player.y}, save};
+      });
     const finish = async () => {
       for (let i = 0; i < 15; i++) {
         const active = await page.locator('#speech-bubble').isVisible();
@@ -141,6 +145,13 @@ try {
     await page.reload();
     await page.waitForSelector('#loading', {state: 'hidden'});
     assert.equal((await state()).save.coins, coins + 10);
+    if (touch) await page.locator('#game').tap();
+    await walk(touch ? [47, 34] : [52, 41]); // Leave the resolved interaction radius before returning.
+    await walk(touch ? [44, 34] : [49, 41]);
+    if (touch) await page.locator('#touch-e').tap();
+    else await page.keyboard.press('e');
+    await finish();
+    assert.equal((await state()).save.coins, coins + 10, 're-entering the resolved interaction after reload cannot duplicate its reward');
     assert.equal(new Set((await state()).save.events).size, (await state()).save.events.length);
     assert.deepEqual(errors, []);
     report.push({input: touch ? 'touch' : 'keyboard', clue, distanceTiles: distance, wallSeconds: (Date.now() - started) / 1000});
