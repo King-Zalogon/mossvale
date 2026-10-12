@@ -29,9 +29,11 @@ def digest(content: bytes) -> str:
 
 def read_registry() -> tuple[dict, dict, list[dict], bytes]:
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
-    if registry.get("format") != 1 or len(registry.get("packages", [])) != 1:
-        raise ValueError("expected registry format 1 with exactly one package")
-    package = registry["packages"][0]
+    if registry.get("format") != 1 or not isinstance(registry.get("packages"), list):
+        raise ValueError("expected third-party registry format 1 with a package list")
+    package = next((item for item in registry["packages"] if item.get("id") == "reactorcore-nature-surface"), None)
+    if package is None:
+        raise ValueError("missing Reactorcore Nature Props package")
     if package.get("id") != "reactorcore-nature-surface":
         raise ValueError("unexpected source package ID")
     if package.get("license") != "CC0 1.0 Universal" or package.get("licenseUrl") != "https://creativecommons.org/publicdomain/zero/1.0/":

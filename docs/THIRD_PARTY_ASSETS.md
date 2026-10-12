@@ -1,6 +1,6 @@
 # Third-party assets
 
-Third-party art is tracked separately from Mossvale's own artwork and any future code license. A source package is eligible for the public repository only when its recorded license permits redistribution and adaptation. Discovery posts (including Reddit) are leads, not license evidence; the original asset page and license control.
+Third-party art is tracked separately from Mossvale's own artwork and any future code license. Include assets only through the specific distribution route their source terms allow; never infer permissions from a discovery post (including Reddit) or from free availability. The original asset page and license control.
 
 ## Reactorcore: Nature Props Surface Forest
 
@@ -10,6 +10,15 @@ Third-party art is tracked separately from Mossvale's own artwork and any future
 - CC0 does not grant unrelated trademark, patent, privacy or publicity rights, and supplies the work without warranty. The art is imagery only: it does not provide collision, interactions, loot, items, or mechanics. The source page does not disclose AI use, so no claim is made about that.
 - The downloaded source archive is retained at `art/assets/third-party/reactorcore-nature-surface.zip`. The registry records the source URL, retrieved date, archive digest, every imported file, source dimensions and hashes, intended use, limits and license evidence. The editable pixel-preserving atlas is `art/assets/third-party/reactorcore-nature-surface-atlas.png`.
 - Four props are currently placed in the Sunlit Trail map: `tree-oak-round`, `tree-fir-slim`, `bush-woodland-low` and `plant-fern-frond`. The pack also contributes optional tree, plant, rock and fruit images to the local visual catalogue. Fruit pictures are not usable inventory items until separately defined by game data and behavior.
+
+## Ravenmore: selected Survival / Crafting Resource Icons 01
+
+- [Official pack page](https://ravenmore.itch.io/survival-crafting-resource-icons-01), discovered through [r/gameassets](https://www.reddit.com/r/gameassets/comments/1uq48uc/free_stylized_survivalcrafting_icons/), by Ravenmore.
+- Checked 2026-10-12. The free tier contains 100 separate 64×64 PNG icons; the paid tier is not used.
+- The author publishes custom game-use terms, not an SPDX or Creative Commons license. The page permits use in a game and recommends linking back to the source. It forbids repackaging/reselling and placing the art in another asset bundle.
+- Only three unchanged icons used as actual Meadow map scenery are retained individually in `art/assets/third-party/ravenmore-resource-icons-01/`: `wood-plank-stack`, `wood-firewood-bundle` and `straw-bundle`. The full download archive, unused icons and a packed atlas are intentionally absent.
+- The registry records each source member, hash, dimensions, intended use and limits. Portable writer-context exports include their textual fiches but omit the images, because copying them into a separate context bundle is outside the published permission. The local repository catalogue can show them in their in-game context.
+- These images are props only: no inventory, resource gathering, crafting, collision or reward behavior is implied. Suggested credit: “Selected resource icons from *Survival / Crafting Resource Icons 01* by Ravenmore” with a link to the source page.
 
 ## AndHeGames creature concept references
 
