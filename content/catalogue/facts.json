@@ -181,11 +181,11 @@
     "dist/maps/amber-ridge.json": "972a103e1c5f04e57bb576eb163263c4351dd3db8d93f2f4e7a2f27485c916a0",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
     "dist/maps/frostveil-pass.json": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a",
-    "dist/maps/index.json": "723d68d00921b2c93bfb947429d18add32d60105b60fb5620a5d8d2f05d66c8f",
+    "dist/maps/index.json": "cc810d85bfb9322a01cb0bd850ac906f54b717b76a780201fbe3d2280894572b",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "f7aa70ef131bef5c1337e17560bada6f8bdc7308a6e55b912be05f2d1c1a5d52",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "891cf8e16691fbb82ff7c67dab67983bbfce7ca45e9e522f741b9813c6b9e81c",
+    "dist/maps/orchard-ruins.json": "11cb518499df68ad560d68e6c7d627ee0831b7ab982d96dc4b586952636c36b0",
     "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
     "dist/maps/registries.json": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc",
     "dist/maps/stilt-isles.json": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c",
@@ -308,7 +308,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "50b868d586b8d8c3f9923f4e1b5606f14c4b1d83d9ffd11ce50eee1080e6bfa1",
+  "sourceDigest": "90f656e7a2cc291a0870689ca1387970de3005e98243d5fcb752551ef145acf5",
   "exclusions": [
     {
       "family": "module-exports",
@@ -6712,7 +6712,7 @@
             "disclosure": "observation",
             "levels": [
               "Compare an old trace with a fresh one. A scrape alone cannot tell you when the water stopped.",
-              "Inspect the old press along the southern path, or the repair boards beside the eastern broken wall. Both can tell you which marks came first."
+              "Follow the southern orchard path to the old machinery, or inspect the repair boards beside the eastern broken wall. Compare weathering with fresh marks."
             ]
           },
           {
@@ -9818,7 +9818,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "891cf8e16691fbb82ff7c67dab67983bbfce7ca45e9e522f741b9813c6b9e81c"
+            "sha256": "11cb518499df68ad560d68e6c7d627ee0831b7ab982d96dc4b586952636c36b0"
           },
           {
             "id": "map:stilt-isles",

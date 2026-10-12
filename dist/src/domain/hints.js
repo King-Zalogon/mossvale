@@ -40,7 +40,7 @@ export function validateHints(hints, {mapIds, species, where = 'hints'}) {
   return errors;
 }
 export function hintState(hint, mapId, save, context) {
-  const heard = hint.levels.filter((_, level) => (save.events ?? []).includes(hintKey(mapId, hint.id, level))).length;
+  const heard = hint.levels.reduce((depth, _, level) => ((save.events ?? []).includes(hintKey(mapId, hint.id, level)) ? Math.max(depth, level + 1) : depth), 0);
   const resolved = holds(hint.resolved, save, context);
   const companion = context.species?.[save.active];
   const present = (save.party ?? []).includes(save.active) && (save.caught ?? []).includes(save.active) && (save.team?.[save.active]?.hp ?? 0) > 0;
@@ -52,7 +52,14 @@ export function nextHint(map, save, context) {
     const state = hintState(hint, map.id, save, context);
     if (state.relevant) {
       const level = Math.min(state.heard, hint.levels.length - 1);
-      return {...state, level, key: hintKey(map.id, hint.id, level), text: hint.levels[level], disclosure: hint.disclosure};
+      return {
+        ...state,
+        level,
+        repeat: state.heard >= hint.levels.length,
+        key: hintKey(map.id, hint.id, level),
+        text: hint.levels[level],
+        disclosure: hint.disclosure,
+      };
     }
   }
   return null;

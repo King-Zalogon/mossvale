@@ -119,7 +119,7 @@ export function createMenus(app) {
     );
     const help =
       lead || heard.length
-        ? `<section aria-label="Optional investigation help"><h3>Asked-for leads</h3>${lead ? '<button id="ask-investigation-hint">Ask for a lead</button><p>Ask again for a clearer observation. Help is optional.</p>' : ''}${heard.length ? `<ul>${heard.join('')}</ul>` : ''}</section>`
+        ? `<section aria-label="Optional investigation help"><h3>Asked-for leads</h3>${lead ? `<button id="ask-investigation-hint">${lead.repeat ? 'Repeat this lead' : 'Ask for a lead'}</button><p>${lead.repeat ? 'You have heard the clearest available lead for this step.' : 'Help is optional. Ask again for a clearer lead for this step.'}</p>` : ''}${heard.length ? `<ul>${heard.join('')}</ul>` : ''}</section>`
         : '';
     const discoveries = notes.length ? `<section aria-label="Investigation notes"><h3>Discoveries</h3><ul>${notes.join('')}</ul></section>` : '';
     open(

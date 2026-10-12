@@ -1,6 +1,6 @@
 # Optional investigation leads
 
-Issue #261. Map `hints` are authored help, not automatic rumours, timers, generated dialogue or a new quest engine. Open **Field journal** on the current investigation map and choose **Ask for a lead**. Ask again for a clearer observation. Heard text remains in the journal after reload; it is labeled **Relevant here**, **Heard earlier** or **Resolved**. No lead is shown before its prerequisites or after its task is resolved.
+Issue #261. Map `hints` are authored help, not automatic rumours, timers, generated dialogue or a new quest engine. Open **Field journal** on the current investigation map and choose **Ask for a lead**. Ask again for a clearer observation; after the last tier the button says **Repeat this lead**. Heard text remains in the journal after reload; it is labeled **Relevant here**, **Heard earlier** or **Resolved**. No lead is shown before its prerequisites or after its task is resolved.
 
 ## Pack contract
 

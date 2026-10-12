@@ -59,6 +59,7 @@ try {
     initial.met = true;
     initial.badges = [0];
     initial.mapId = 'orchard-ruins';
+    [initial.x, initial.y] = world.map.spawns.camp ? [world.map.spawns.camp.x, world.map.spawns.camp.y] : [3, 12];
     initial.visitedMaps.push('orchard-ruins');
     await context.addInitScript(raw => {
       if (!localStorage.getItem('mossvale-v3')) localStorage.setItem('mossvale-v3', raw);
@@ -70,7 +71,7 @@ try {
     await page.goto(`http://localhost:${server.address().port}/?debug&seed=2`);
     await page.waitForSelector('#loading', {state: 'hidden'});
     if (touch) await page.locator('#game').tap();
-    const state = () => page.evaluate(() => window.mossvale.getState());
+    const state = () => page.evaluate(() => { const {player, save} = window.mossvale.getState(); return {player: {x: player.x, y: player.y}, save}; });
     const finish = async () => {
       for (let i = 0; i < 15; i++) {
         const active = await page.locator('#speech-bubble').isVisible();
@@ -81,14 +82,20 @@ try {
       }
     };
     const started = Date.now();
-    let distance = 0;
+    let distance = 0, observedDistance = 0, repeatedEdges = 0;
+    const edges = new Set();
     const walk = async target => {
       console.log(touch ? 'touch' : 'keyboard', 'walk', target);
-      const route = path((await state()).player, target);
+      let previous = (await state()).player;
+      const route = path(previous, target);
+      let from = [Math.round(previous.x * 2), Math.round(previous.y * 2)].join(",");
+      for (const point of route) { const to = point.map(n => Math.round(n * 2)).join(","); const edge = [from, to].sort().join("|"); if (edges.has(edge)) repeatedEdges++; edges.add(edge); from = to; }
       distance += route.length * 0.5;
       for (const [x, y] of route) {
         for (let n = 0; n < 60; n++) {
           const p = (await state()).player;
+          observedDistance += Math.hypot(p.x - previous.x, p.y - previous.y);
+          previous = p;
           if (Math.hypot(p.x - x, p.y - y) < 0.22) break;
           const input = inputForWorldTarget(p, {x, y});
           if (touch) {
@@ -141,9 +148,16 @@ try {
     await page.reload();
     await page.waitForSelector('#loading', {state: 'hidden'});
     assert.equal((await state()).save.coins, coins + 10);
+    if (touch) await page.locator('#game').tap();
+    await walk(touch ? [47, 34] : [52, 41]); // Leave the resolved interaction radius before returning.
+    await walk(touch ? [44, 34] : [49, 41]);
+    if (touch) await page.locator('#touch-e').tap();
+    else await page.keyboard.press('e');
+    await finish();
+    assert.equal((await state()).save.coins, coins + 10, 're-entering the resolved interaction after reload cannot duplicate its reward');
     assert.equal(new Set((await state()).save.events).size, (await state()).save.events.length);
     assert.deepEqual(errors, []);
-    report.push({input: touch ? 'touch' : 'keyboard', clue, distanceTiles: distance, wallSeconds: (Date.now() - started) / 1000});
+    report.push({input: touch ? 'touch' : 'keyboard', clue, plannedDistanceTiles: distance, observedDistanceTiles: Math.round(observedDistance * 100) / 100, repeatedHalfTileEdges: repeatedEdges, wallSeconds: (Date.now() - started) / 1000});
     await context.close();
   }
   if (process.env.ORCHARD_REVIEW) writeFileSync('docs/scene-quality/260/routes.json', JSON.stringify(report, null, 2) + '\n');

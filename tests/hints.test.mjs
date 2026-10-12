@@ -93,3 +93,12 @@ test('invalid capability shapes and collisions with real scene IDs are refused',
   raw.find(m => m.id === map.id).triggers.push({events: [{id: 'hint-old-water-0'}]});
   assert.match(validateSceneGraph(raw).join('\n'), /collides/);
 });
+
+test('sparse imported heard history keeps the clearest known level and identifies repeats', () => {
+  const save = newSave();
+  seen(save, 'mara-water-loss');
+  seen(save, 'hint-old-water-1');
+  const hint = nextHint(map, save, context);
+  assert.equal(hint.level, 1);
+  assert.equal(hint.repeat, true);
+});
