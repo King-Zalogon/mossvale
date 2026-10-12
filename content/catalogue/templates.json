@@ -260,7 +260,7 @@
     "details": {
       "appearance": "%description% Portrait, five-state combat and eight-direction follower are registered shared assets.",
       "behavior": "Pack-owned %runtimeId% definition uses existing capture, battle, growth and save rules after deliberate import.",
-      "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+      "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced travel poses (walking or authored hovering) in shared walk frame slots; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
       "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
     }
   }

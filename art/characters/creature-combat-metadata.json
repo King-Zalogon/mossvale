@@ -15,7 +15,7 @@
     "brooklet": {
       "generatedSource": "art/characters/source/creature-brooklet-combat-generated.png",
       "referenceAsset": "creature-brooklet",
-      "promptBrief": "Preserve Brooklet\u2019s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
+      "promptBrief": "Preserve Brooklet’s round blue river-otter silhouette, cream chest and curling water tail; create idle, water attack, hit recovery, faint and capture reactions.",
       "sourceSize": [
         1122,
         1402
@@ -24,7 +24,7 @@
     "hushram": {
       "generatedSource": "art/characters/source/creature-hushram-combat-generated.png",
       "referenceAsset": "creature-hushram",
-      "promptBrief": "Preserve Hushram\u2019s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
+      "promptBrief": "Preserve Hushram’s shaggy white ram silhouette, curved blue ice horns, pale blue markings and dark hooves; create idle, ice attack, hit recovery, faint and capture reactions.",
       "sourceSize": [
         1122,
         1402
@@ -33,21 +33,21 @@
     "emberkin": {
       "generatedSource": "art/characters/source/creature-emberkin-combat-generated.png",
       "referenceAsset": "creature-emberkin",
-      "promptBrief": "Preserve Emberkin\u2019s rusty orange forest-mammal identity, cream chest, dark paws and three flame tail tufts; add idle, fire attack, hit, faint and capture states in a fixed-anchor 4\u00d75 atlas.",
+      "promptBrief": "Preserve Emberkin’s rusty orange forest-mammal identity, cream chest, dark paws and three flame tail tufts; add idle, fire attack, hit, faint and capture states in a fixed-anchor 4×5 atlas.",
       "originalSha256": "0569b8567de7ecbd2056b92c7f3c77bf8f447f5bd4bbea7cffc5ed90be8e584a",
       "originalBytes": 2174056
     },
     "voltkit": {
       "generatedSource": "art/characters/source/creature-voltkit-combat-generated.png",
       "referenceAsset": "creature-voltkit",
-      "promptBrief": "Preserve Voltkit\u2019s gold and cream electric companion identity, long asymmetrical ears, dark paws, blue cheek mark and crystal-tipped zigzag tail; add idle, electric attack, hit, faint and capture states in a fixed-anchor 4\u00d75 atlas.",
+      "promptBrief": "Preserve Voltkit’s gold and cream electric companion identity, long asymmetrical ears, dark paws, blue cheek mark and crystal-tipped zigzag tail; add idle, electric attack, hit, faint and capture states in a fixed-anchor 4×5 atlas.",
       "originalSha256": "537e1d98706f0748927f0ef1b8e18b7e23c8c6872cc05085e53d48d31d030f0c",
       "originalBytes": 2019687
     },
     "mushmallow": {
       "generatedSource": "art/characters/source/creature-mushmallow-combat-generated.png",
       "referenceAsset": "creature-mushmallow",
-      "promptBrief": "Preserve Mushmallow\u2019s cream hedgehog face and paws, violet spines and spotted lilac mushroom cap; create a transparent 4\u00d75 battle atlas with distinct idle, lunge/attack, recoil, faint and capture poses at a shared ground anchor.",
+      "promptBrief": "Preserve Mushmallow’s cream hedgehog face and paws, violet spines and spotted lilac mushroom cap; create a transparent 4×5 battle atlas with distinct idle, lunge/attack, recoil, faint and capture poses at a shared ground anchor.",
       "sourceSize": [
         1122,
         1402
@@ -58,7 +58,7 @@
     "frostowl": {
       "generatedSource": "art/characters/source/creature-frostowl-combat-generated.png",
       "referenceAsset": "creature-frostowl",
-      "promptBrief": "Preserve Frostowl\u2019s white owl body, cyan-blue eyes, crystalline blue tufts, dark beak and feet; create a transparent 4\u00d75 battle atlas with idle, ice attack, hit recoil, faint and capture poses at a shared ground anchor.",
+      "promptBrief": "Preserve Frostowl’s white owl body, cyan-blue eyes, crystalline blue tufts, dark beak and feet; create a transparent 4×5 battle atlas with idle, ice attack, hit recoil, faint and capture poses at a shared ground anchor.",
       "sourceSize": [
         1122,
         1402
@@ -124,7 +124,7 @@
     "sunsifter": {
       "generatedSource": "art/characters/source/creature-sunsifter-combat-generated.png",
       "referenceAsset": "creature-sunsifter",
-      "promptBrief": "Keep Sunsifter\u2019s gold shovel brow, broad orange-ridged carapace and six short articulated legs recognizable through idle, burrowing rake, recoil, faint and capture. Transparent 4\u00d75 action atlas; four poses per state; stable bottom-center anchor.",
+      "promptBrief": "Keep Sunsifter’s gold shovel brow, broad orange-ridged carapace and six short articulated legs recognizable through idle, burrowing rake, recoil, faint and capture. Transparent 4×5 action atlas; four poses per state; stable bottom-center anchor.",
       "sourceSize": [
         1122,
         1402
@@ -133,7 +133,7 @@
     "rillume": {
       "generatedSource": "art/characters/source/creature-rillume-combat-generated.png",
       "referenceAsset": "creature-rillume",
-      "promptBrief": "Preserve Rillume\u2019s clear turquoise bell, dark blue core and four thick ribbon lobes. Create distinct idle, bell-pulse attack, hit, faint and capture reactions in a transparent 4\u00d75 atlas with stable bottom-center anchor.",
+      "promptBrief": "Preserve Rillume’s clear turquoise bell, dark blue core and four thick ribbon lobes. Create distinct idle, bell-pulse attack, hit, faint and capture reactions in a transparent 4×5 atlas with stable bottom-center anchor.",
       "sourceSize": [
         1122,
         1402
@@ -218,6 +218,15 @@
       "sourceSize": [
         1312,
         1199
+      ]
+    },
+    "wispurr": {
+      "generatedSource": "art/characters/source/wispurr/combat-revised.png",
+      "referenceAsset": "creature-wispurr",
+      "promptBrief": "Owner-inline pale-mask violet spirit/attached cyan wisps; exact prompts and spacing revisions retained, no pre-drawn orb.",
+      "sourceSize": [
+        1122,
+        1402
       ]
     }
   },
@@ -595,6 +604,20 @@
         1199
       ],
       "output": "dist/assets/creatures/creature-coglet-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-wispurr-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-wispurr-combat.png",
       "columns": 4,
       "rows": 5,
       "frame": [

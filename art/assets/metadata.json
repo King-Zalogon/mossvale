@@ -158,6 +158,21 @@
       "width": 1000,
       "height": 1600,
       "mode": "RGBA"
+    },
+    "source/wispurr/portrait.png": {
+      "width": 189,
+      "height": 264,
+      "mode": "RGBA"
+    },
+    "source/wispurr/combat.png": {
+      "width": 1152,
+      "height": 1440,
+      "mode": "RGBA"
+    },
+    "source/wispurr/follower.png": {
+      "width": 1000,
+      "height": 1600,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -4054,6 +4069,128 @@
         "editablePixelSource": "art/assets/source/coglet/follower.png",
         "originalGeneratedReferences": [
           "art/characters/source/coglet/follower-spaced.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-wispurr",
+      "src": "assets/creatures/creature-wispurr.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 189,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/wispurr/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "exportProfile": {
+        "id": "wispurr-portrait-v1",
+        "settingsSha256": "20a116c9bb620f338bc7a20c4fec4b95c9d080816165d1a673685daddc03f823"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/wispurr/portrait.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/wispurr/portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-wispurr-combat",
+      "src": "assets/creatures/creature-wispurr-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/wispurr/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "exportProfile": {
+        "id": "wispurr-combat-v1",
+        "settingsSha256": "e3bbd0db5bbd0251250f12f07d13857ee2cc2017e843f0d9473aaf94305e79c1"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/wispurr/combat.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/wispurr/combat-revised.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-wispurr-follower",
+      "src": "assets/creatures/creature-wispurr-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/wispurr/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      },
+      "exportProfile": {
+        "id": "wispurr-follower-v1",
+        "settingsSha256": "65f571f8cfbad8742db7b61561b6e26eeaafb0f43bce829c081491236ddf633c"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/wispurr/follower.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/wispurr/follower-revised.png",
+          "art/characters/source/wispurr/southwest-phase-generated.png"
         ],
         "originalGenerationSourceAvailable": true,
         "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
