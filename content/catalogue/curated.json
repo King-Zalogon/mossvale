@@ -36,7 +36,7 @@
           "expected": "Resolve bounded actor actions and commit durable scene results before transient presentation."
         }
       ],
-      "references": ["dist/src/domain/scenes.js", "docs/ORCHARD_DISCOVERIES.md"],
+      "references": ["dist/src/domain/scenes.js", "docs/ORCHARD_DISCOVERIES.md", "docs/MAP_FORMAT.md"],
       "evidence": [
         {
           "path": "tests/scenes.test.mjs",
@@ -48,7 +48,7 @@
         }
       ],
       "details": {
-        "activation": "Existing map scene interaction dispatch.",
+        "activation": "Existing map scene interaction dispatch. Optional landmark.labels conditions disclose the action before interacting; they fall back to the ordinary inspection label and never change map labels.",
         "conditions": "Optional event/all/any/not and existing objective conditions; map validation rejects unknown scene/route evidence and positive prerequisite cycles. An explicitly configured beforeLandmark prop scene interaction takes precedence over generic landmark text.",
         "actions": "Dialogue, reward, flag, challenge, move, face, wait and react; challenge must be last. See docs/SCENE_ACTIONS.md for choreography limits.",
         "rewards": "Scene rewards accept coins, potions and orbs, not arbitrary inventory item IDs.",

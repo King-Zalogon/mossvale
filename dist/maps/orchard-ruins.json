@@ -41,9 +41,9 @@
     "........ggggppggg.............ggttttttttpppgggttttttttgggggggg..",
     ".........gggppggg.............gggtttttttpppggggttttttggggggggg..",
     ".........gggppggg.............gggtttttgggppgggggtttttggggggggg..",
-    ".........gggppggg.............gggggggggggppggggggggggggggggggg..",
-    ".........gggppggg.............gggggggggggpppgggggggggggggggggg..",
-    ".........gggppggg.............ggggggggggggpppggggggggggggggggg..",
+    ".........gggppggg.............gggggggggggppgggggggggggwggggggg..",
+    ".........gggppggg.............gggggggggggpppggggggggggwwgggggg..",
+    ".........gggppggg.............ggggggggggggpppgggggggggwwgggggg..",
     ".........gggppggg.............ttgggggggggggpppggggggggppppgggg..",
     ".........ggtppttt..............ttgggggggggggpppgggggppppppggg...",
     ".........ggtppttt..............ttggggggggggggppppppppppgggggg...",
@@ -52,8 +52,8 @@
     ".........ggggppgggggggg.........ggggggggggggggggpppwwwwggggg....",
     ".......ggggggpppggggggggg.......ggggggggggggggggpppwwwwggggg....",
     "......ggggggggpppggggggggg.......ggggggggggggggggpppwwwttgg.....",
-    ".....gggggggggpppgggggggggg.......ggggggggggggggggpppwtttt......",
-    "....gggggggggggpppgggggggggg......gggggggtggggggggpppttttt......",
+    ".....gggggggggpppgggggggggg.......gggggggwggggggggpppwtttt......",
+    "....gggggggggggpppgggggggggg......gggggggwggggggggpppttttt......",
     "....ggggggggggggpppggggggggpppppp..gggtttttttggggggpppttt.......",
     "...gggggggggggggpppgggggppppppppppp.ggttttttttggggpppptt........",
     "...ggggggggggggggpppppppppppp.pppppppgttttttttgggpppgggtt.......",
@@ -164,7 +164,34 @@
       "secret": true,
       "mapLabel": "Channel stones",
       "text": "A low channel runs beside the lower orchard row.",
-      "discoveryText": "Channel stones: A low channel runs beside the lower orchard row."
+      "discoveryText": "Channel stones: A low channel runs beside the lower orchard row.",
+      "labels": [
+        {
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/den-family-seen"
+              },
+              {
+                "not": {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/outcome-water-first"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "text": "Open the water bypass first"
+        },
+        {
+          "text": "Inspect the channel stones"
+        }
+      ]
     },
     {
       "id": "upper-hollow",
@@ -176,7 +203,34 @@
       "secret": true,
       "mapLabel": "Upper hollow",
       "text": "The roots here sit above the wet ground.",
-      "discoveryText": "Upper hollow: The roots here sit above the wet ground."
+      "discoveryText": "Upper hollow: The roots here sit above the wet ground.",
+      "labels": [
+        {
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/den-family-seen"
+              },
+              {
+                "not": {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/outcome-water-first"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "text": "Guide the family to dry roots first"
+        },
+        {
+          "text": "Inspect the upper hollow"
+        }
+      ]
     }
   ],
   "exits": [
@@ -698,7 +752,7 @@
             {
               "type": "dialogue",
               "speaker": "orchard-ranger",
-              "text": "The lower row is dry again. The feeder board is scraped, but the old channel was failing before that. Find where the water went."
+              "text": "Fresh hoof-scrapes have everyone blaming a wild Bramblebuck. The lower row is dry, but water collects below the old feeder. Will you look for what changed?"
             }
           ],
           "note": "Mara asked where the lower row\u2019s water went."

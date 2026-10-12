@@ -182,6 +182,14 @@ function validateOne(m, byId, ctx, errors) {
       if (!isObj(l.reward)) at(where + '.reward', 'chests need { coins, potions, orbs }');
     }
     if (l.kind === 'sign' && typeof l.text !== 'string' && !Array.isArray(l.lines)) at(where + '.text', 'signs need text (or lines)');
+    if (l.labels !== undefined) {
+      if (!Array.isArray(l.labels) || !l.labels.length || l.labels.length > 8) at(where + '.labels', '1–8 conditional prompt lines required');
+      else {
+        errors.push(...validateLines(l.labels, `map ${m.id}: ${where}.labels`, {mapIds: new Set(byId.keys())}));
+        for (const line of l.labels)
+          if (typeof line?.text !== 'string' || !line.text.trim() || line.text.length > 80) at(where + '.labels', 'prompt text must be 1–80 characters');
+      }
+    }
     if (l.lines !== undefined) errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys())}));
     if (l.choices !== undefined)
       errors.push(
@@ -378,6 +386,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     mk(l, l.kind, {
       ref: l.id,
       label: l.label,
+      labels: l.labels,
       name: l.name,
       flag: l.flag,
       text: l.text,

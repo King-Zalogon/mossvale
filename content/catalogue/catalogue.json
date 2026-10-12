@@ -763,7 +763,7 @@
           "expected": "Resolve bounded actor actions and commit durable scene results before transient presentation."
         }
       ],
-      "references": ["dist/src/domain/scenes.js", "docs/ORCHARD_DISCOVERIES.md"],
+      "references": ["dist/src/domain/scenes.js", "docs/ORCHARD_DISCOVERIES.md", "docs/MAP_FORMAT.md"],
       "evidence": [
         {
           "path": "tests/scenes.test.mjs",
@@ -775,7 +775,7 @@
         }
       ],
       "details": {
-        "activation": "Existing map scene interaction dispatch.",
+        "activation": "Existing map scene interaction dispatch. Optional landmark.labels conditions disclose the action before interacting; they fall back to the ordinary inspection label and never change map labels.",
         "conditions": "Optional event/all/any/not and existing objective conditions; map validation rejects unknown scene/route evidence and positive prerequisite cycles. An explicitly configured beforeLandmark prop scene interaction takes precedence over generic landmark text.",
         "actions": "Dialogue, reward, flag, challenge, move, face, wait and react; challenge must be last. See docs/SCENE_ACTIONS.md for choreography limits.",
         "rewards": "Scene rewards accept coins, potions and orbs, not arbitrary inventory item IDs.",
@@ -3210,7 +3210,34 @@
             "secret": true,
             "mapLabel": "Channel stones",
             "text": "A low channel runs beside the lower orchard row.",
-            "discoveryText": "Channel stones: A low channel runs beside the lower orchard row."
+            "discoveryText": "Channel stones: A low channel runs beside the lower orchard row.",
+            "labels": [
+              {
+                "when": {
+                  "all": [
+                    {
+                      "event": "orchard-ruins/den-family-seen"
+                    },
+                    {
+                      "not": {
+                        "any": [
+                          {
+                            "event": "orchard-ruins/outcome-water-first"
+                          },
+                          {
+                            "event": "orchard-ruins/outcome-family-first"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "text": "Open the water bypass first"
+              },
+              {
+                "text": "Inspect the channel stones"
+              }
+            ]
           },
           "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
         }
@@ -3532,7 +3559,34 @@
             "secret": true,
             "mapLabel": "Upper hollow",
             "text": "The roots here sit above the wet ground.",
-            "discoveryText": "Upper hollow: The roots here sit above the wet ground."
+            "discoveryText": "Upper hollow: The roots here sit above the wet ground.",
+            "labels": [
+              {
+                "when": {
+                  "all": [
+                    {
+                      "event": "orchard-ruins/den-family-seen"
+                    },
+                    {
+                      "not": {
+                        "any": [
+                          {
+                            "event": "orchard-ruins/outcome-water-first"
+                          },
+                          {
+                            "event": "orchard-ruins/outcome-family-first"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "text": "Guide the family to dry roots first"
+              },
+              {
+                "text": "Inspect the upper hollow"
+              }
+            ]
           },
           "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
         }
