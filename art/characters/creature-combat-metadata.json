@@ -183,6 +183,15 @@
       "generatedSource": "art/characters/source/creature-lanternix-combat-generated.png",
       "referenceAsset": "creature-lanternix",
       "promptBrief": "Keep three golden charge bands, teal wing cases, six tucked legs and two antennae; five readable combat states with stable ground anchor."
+    },
+    "parrocket": {
+      "generatedSource": "art/characters/source/parrocket/combat-spaced.png",
+      "referenceAsset": "creature-parrocket",
+      "promptBrief": "Owner-reference Rocket Parrot; 20 isolated idle, attack, hit, faint and capture poses. Exact prompts and spacing revision retained under source/parrocket.",
+      "sourceSize": [
+        1122,
+        1402
+      ]
     }
   },
   "frameOrder": [
@@ -503,6 +512,20 @@
         1402
       ],
       "output": "dist/assets/creatures/creature-lanternix-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-parrocket-combat": {
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output": "dist/assets/creatures/creature-parrocket-combat.png",
       "columns": 4,
       "rows": 5,
       "frame": [

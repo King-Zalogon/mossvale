@@ -209,6 +209,54 @@
         "mire-sand-frost": [0, 296, 591, 887]
       },
       "reviewStages": ["generated-source", "complete-isolated-poses", "battle-scale-both-sides"]
+    },
+    "parrocket-portrait-v1": {
+      "category": "creature-portrait",
+      "status": "implemented",
+      "sourceGrid": {
+        "columns": 1,
+        "rows": 1
+      },
+      "frame": [264, 264],
+      "resampling": "one shared nearest-neighbor scale per sheet",
+      "alphaThreshold": 128,
+      "footInset": 0,
+      "transparentGutter": 4,
+      "palette": "preserve foreground RGBA; no quantization",
+      "sourceCells": "art/characters/source/parrocket/export.json",
+      "exporter": "art/characters/export-parrocket.py"
+    },
+    "parrocket-combat-v1": {
+      "category": "creature-combat",
+      "status": "implemented",
+      "sourceGrid": {
+        "columns": 4,
+        "rows": 5
+      },
+      "frame": [288, 288],
+      "resampling": "one shared nearest-neighbor scale per sheet",
+      "alphaThreshold": 128,
+      "footInset": 4,
+      "transparentGutter": 4,
+      "palette": "preserve foreground RGBA; no quantization",
+      "sourceCells": "art/characters/source/parrocket/export.json",
+      "exporter": "art/characters/export-parrocket.py"
+    },
+    "parrocket-follower-v1": {
+      "category": "creature-follower",
+      "status": "implemented",
+      "sourceGrid": {
+        "columns": 5,
+        "rows": 8
+      },
+      "frame": [200, 200],
+      "resampling": "one shared nearest-neighbor scale per sheet",
+      "alphaThreshold": 128,
+      "footInset": 4,
+      "transparentGutter": 4,
+      "palette": "preserve foreground RGBA; no quantization",
+      "sourceCells": "art/characters/source/parrocket/export.json",
+      "exporter": "art/characters/export-parrocket.py"
     }
   }
 }

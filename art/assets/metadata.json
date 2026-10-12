@@ -98,6 +98,21 @@
       "width": 343,
       "height": 348,
       "mode": "RGBA"
+    },
+    "source/parrocket/portrait.png": {
+      "width": 243,
+      "height": 264,
+      "mode": "RGBA"
+    },
+    "source/parrocket/combat.png": {
+      "width": 1152,
+      "height": 1440,
+      "mode": "RGBA"
+    },
+    "source/parrocket/follower.png": {
+      "width": 1000,
+      "height": 1600,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -3514,6 +3529,127 @@
         "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
       },
       "description": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Raised lid and completely empty interior."
+    },
+    {
+      "name": "creature-parrocket",
+      "src": "assets/creatures/creature-parrocket.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 243,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/parrocket/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "exportProfile": {
+        "id": "parrocket-portrait-v1",
+        "settingsSha256": "bd406f2de8dc2c837b182893e081440aabf7cf4a900f4e25a7be2e432f7e9028"
+      },
+      "provenance": {
+        "originalGeneratedReferences": [
+          "art/characters/source/parrocket/portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Owner reference identity; export-parrocket.py reproduces the exact editable/runtime pixels.",
+        "editablePixelSource": "art/assets/source/parrocket/portrait.png"
+      },
+      "frames": null
+    },
+    {
+      "name": "creature-parrocket-combat",
+      "src": "assets/creatures/creature-parrocket-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/parrocket/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "exportProfile": {
+        "id": "parrocket-combat-v1",
+        "settingsSha256": "64f50dc8f9d9e19ccd6b65afed0b37027d2d241f9154edf2ee1a0686dc92b307"
+      },
+      "provenance": {
+        "originalGeneratedReferences": [
+          "art/characters/source/parrocket/combat-spaced.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Owner reference identity; export-parrocket.py reproduces the exact editable/runtime pixels.",
+        "editablePixelSource": "art/assets/source/parrocket/combat.png"
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "creature-parrocket-follower",
+      "src": "assets/creatures/creature-parrocket-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/parrocket/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "exportProfile": {
+        "id": "parrocket-follower-v1",
+        "settingsSha256": "1af3ad8854359c3191fcf78efadf4b0ea259670c6681657a3d9cc2e03ed3d998"
+      },
+      "provenance": {
+        "originalGeneratedReferences": [
+          "art/characters/source/parrocket/follower-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Owner reference identity; export-parrocket.py reproduces the exact editable/runtime pixels.",
+        "editablePixelSource": "art/assets/source/parrocket/follower.png"
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      }
     }
   ]
 }

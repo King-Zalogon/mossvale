@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-123 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+126 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -84,3 +84,7 @@ Third-party visual assets use the same runtime manifest and pixel-preserving atl
 ## Elemental material atlas (#173)
 
 The optional `effect-elemental-materials` prop asset is a presentation atlas: twelve 128-pixel rows in canonical type display-name order, six columns (charge, launch, travel A/B, impact, dissolve). It accompanies the existing five-state creature attack row or static portrait. It does not add terrain, an interactable prop or a creature animation state. `effectPivots` centers each isolated material shape in the battle overlay; the general bottom-center asset anchor remains compatible. Unknown custom type names and missing optional art use a neutral directional fallback. Source design, generation prompts, immutable archived sheets, deterministic exporter, metadata and internal visual review live under `art/effects/`; run `python3 art/effects/export.py --check` and the elemental browser regression to validate an art revision.
+
+## Optional Parrocket resource (#364)
+
+`creature-parrocket`, `creature-parrocket-combat` and `creature-parrocket-follower` are shared optional assets prepared from the owner's Rocket Parrot references. They are not part of the active eighteen-species roster or current encounters. The combat atlas uses the existing 4×5 action contract; the follower uses the existing 5×8 direction/stride contract with distinct west and northwest views. The [resource instructions](../content/resources/creatures/PARROCKET.md) explain pack import, primary Fire versus reference Air affinity, placement and limitations. Inspect `dist/parrocket-preview.html`; reproduce exact editable/runtime pixels with `python3 art/characters/export-parrocket.py --check`. Original owner images and generated sources/prompts are retained under `art/characters/source/parrocket/`, with large generated PNGs archived byte-for-byte. Technical and internal identity review do not imply owner taste approval or a playtested new encounter.

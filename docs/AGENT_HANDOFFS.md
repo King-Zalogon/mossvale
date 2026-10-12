@@ -191,3 +191,7 @@ Claimed `codex/173-elemental-projectiles` from origin/main 88248ec, synchronized
 ## #337 — biome chest pairs
 
 Codex claim: `codex/337-biome-chests`, created from latest `origin/main` `1c1c984` then synchronized with `origin/integration` `df15a10`. Keep Meadow's accepted wooden pair; add wetland reed/rope, badlands red stone/iron and snowy pine/cold-metal closed/open-empty pairs. Retain generation references and editable/export metadata, integrate named state pairs through the existing renderer, provide labeled actual-scale/context review and extend persistence/anchor/asset regressions. No save/reward rules, production deployment or main promotion. Final verification and integration-only PR pending.
+
+## #364 — optional Parrocket resource
+
+Claimed `codex/364-parrocket-resources` from current origin/main, synchronized with integration af2662b. Owner reference identity and production brief committed before generation in c183069. Adds optional shared portrait, five-state combat and eight-direction follower resources plus a pack-importable species definition and isolated preview. Current eighteen-species roster/maps stay unchanged. Primary Fire uses existing rules; Air remains a reference design trait. Preserve owner JPEGs, original generated combat draft and spacing revision, exact prompts, reproducible exports and internal gameplay-scale evidence. Full local verification and integration-only PR; no production promotion.
