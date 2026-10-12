@@ -121,7 +121,15 @@ export function collectFacts() {
               ? `${asset.frames.rowOrder.join(', ')} materials; ${asset.frames.columnOrder.join(', ')} poses; renderer mirrors enemy travel.`
               : 'No animation states declared for this static image.',
       evidence: chestPair ? 'tests/chest-state.browser.mjs' : 'tests/assets.test.mjs',
-      references: chestPair ? ['dist/src/render/chest-art.js', 'dist/chest-preview.html', 'art/assets/source/chests/biomes/README.md'] : [],
+      references: chestPair
+        ? ['dist/src/render/chest-art.js', 'dist/chest-preview.html', 'art/assets/source/chests/biomes/README.md']
+        : external
+          ? [
+              'docs/THIRD_PARTY_ASSETS.md',
+              'art/assets/third-party/registry.json',
+              ...(external.pack.id === 'ravenmore-survival-crafting-icons-01' ? ['art/assets/third-party/ravenmore-resource-icons-01/README.md'] : []),
+            ]
+          : [],
       preview,
       animationMetadata: follower ? follower : (battle ?? (asset.name === 'effect-elemental-materials' ? asset.frames : null)),
       identity: subject?.identity ?? null,
@@ -130,12 +138,12 @@ export function collectFacts() {
       sourceLicenseSummary: ['creature-parrocket', 'creature-blastoucan', 'creature-rumblet', 'creature-coglet', 'creature-wispurr'].includes(subject?.id)
         ? 'Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.'
         : external
-          ? `${external.pack.license}; ${external.pack.attributionRequired ? 'attribution required' : 'attribution not required'}.`
+          ? `${external.pack.license}; ${external.pack.permissions.attributionRequired ? 'attribution required' : external.pack.permissions.attributionRecommended ? 'attribution recommended' : 'attribution not required'}.`
           : 'Original Mossvale artwork; see the asset source record.',
       allowedUseSummary: chestPair
         ? `Use ${chestPair[0]} in a chest landmark's sprite field; its existing durable flag selects ${chestPair[1]} after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation.`
         : external
-          ? `${external.asset.intendedUse} License: personal and public-repository use and adaptation are permitted; attribution is not required. ${external.asset.limitations}`
+          ? `${external.asset.intendedUse} In-game permission: ${external.pack.permissions.personalGameUse}. Modification/adaptation: ${external.pack.permissions.modifyAndAdapt}. Public repository use: ${external.pack.permissions.publicRepositoryRedistribution}. ${external.pack.attribution} ${external.asset.limitations}`
           : `Asset ${asset.name} is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.`,
       externalSource: external ? external.pack.source : null,
       licenseReference: external ? external.pack.licenseUrl : null,
