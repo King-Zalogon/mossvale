@@ -203,3 +203,7 @@ Claimed `codex/366-blastoucan-resources` from main 1c1c984, synchronized with in
 ## #368 — Rumblet reusable resource
 
 Claimed on `codex/368-rumblet-resources` from `origin/main` (`1c1c984`) updated with integration (`54d4a4d`). Preserve owner-inline compact quadruped/gray impact plate design; optional portrait, directional/combat atlases, importable definition and catalogue. Local full verify/build and actual-size visual review precede integration PR merge.
+
+## #371 — Coglet reusable resource
+
+Claimed on `codex/371-coglet-resources` from `origin/main` (`1c1c984`) updated with integration (`3df6f72`). Prepare owner-inline rounded mechanical Coglet with dorsal gear/cyan lenses as optional portrait, follower/combat atlases, importable definition and catalogue. Full local verify/build and actual-size art review before integration merge. Live #370 scene-quality PR is separate; preserve both if integration advances.
