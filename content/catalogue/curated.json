@@ -1065,6 +1065,64 @@
         "errors": "Strict new-scene mode rejects missing payoff/brief; legacy validation emits incomplete-quality warnings. Unsafe/missing evidence paths fail closed.",
         "persistence": "Authoring artifacts only; canonical pack/save behavior and archived proofs are unchanged."
       }
+    },
+    {
+      "id": "mechanic:narrative-continuity",
+      "kind": "mechanic",
+      "name": "Durable narrative and actor-role handoff",
+      "summary": "Carry complete scene history, resolved promises and player choices with explicit role ownership and beat-linked consequences.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "continuityChanges",
+          "type": "format-1 narrative state changes",
+          "default": null,
+          "limits": "Required for strict durable handoffs; links state, consequence and existing beats."
+        }
+      ],
+      "dependencies": ["mechanic:playable-scene-quality"],
+      "limits": [
+        "Authoring continuity does not create runtime save variables, relationship mechanics or automatic story execution.",
+        "Single-file validation cannot verify earlier history; provide the prior handoff or full sequence.",
+        "Structural checks do not judge dialogue truth, literary quality or enjoyment."
+      ],
+      "examples": [
+        {
+          "intent": "Preserve a first-scene promise through a three-scene sequence.",
+          "usage": "Validate the bell-one/bell-two/bell-three examples with --require-continuity and --previous.",
+          "expected": "The original promise, resolved question and resolved player choice survive into scene three."
+        }
+      ],
+      "references": [
+        "docs/NARRATIVE_CONTINUITY.md",
+        "scripts/scene-script.mjs",
+        "scripts/lib/scene-continuity.mjs",
+        "content/scene-scripts/schema.json",
+        "content/scene-scripts/examples/continuity/bell-one.json",
+        "content/scene-scripts/examples/continuity/bell-two.json",
+        "content/scene-scripts/examples/continuity/bell-three.json",
+        "docs/scene-script-proofs/186-the-fernling-at-dusk/corrected-handoff-v2.json"
+      ],
+      "evidence": [
+        {
+          "path": "tests/scene-continuity.test.mjs",
+          "assertion": "Complete chain links, immutable choices, resolved obligations, role/fallback/trait coherence and three starter variants."
+        },
+        {
+          "path": "tests/visual-catalogue.test.mjs",
+          "assertion": "Portable contexts retain hashed three-scene examples and durable-handoff writer instructions."
+        }
+      ],
+      "details": {
+        "trigger": "When a writer or builder submits another scene with canonical history.",
+        "inputs": "Current scene, exact catalogue and previous complete outgoing handoff; declared roles, choices, traits and consequences.",
+        "sequence": "Validate script and structured state; link input to previous output; review beat-linked changes and semantic role mapping; then apply the playable quality gate.",
+        "results": "Contradiction/migration findings; stable history and explicit discarded/rebound role assumptions.",
+        "cancellation": "Missing previous records, reopened closed IDs, rewritten choices, unsupported references or incomplete rebinding prevent strict acceptance.",
+        "errors": "Reject impossible ownership and fallback/trait contradictions; legacy scripts receive migration warnings without a save-format change.",
+        "persistence": "Versioned authoring JSON only; existing runtime pack/save codecs and archived writer outputs are preserved."
+      }
     }
   ],
   "exclusions": [

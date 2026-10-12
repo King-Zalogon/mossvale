@@ -217,3 +217,7 @@ Coglet integration update: merged `origin/integration` `b6eeb3e` before final ve
 ## #373 — Wispurr reusable resource
 
 Claimed `codex/373-wispurr-resources` from `origin/main` `1c1c984`, updated with integration `7a80b7f`. Preserve owner-inline pale mask/violet flame/cyan wisps as optional portrait, directional hover/combat atlases, importable definition and catalogue. Air provisional; no Spirit rules, default encounters or starter change. Actual-size art review, full local verify/build and integration-only merge.
+
+## #258 resumed — complete narrative/role continuity
+
+Resume existing `codex/258-narrative-continuity` claim and merged PR #302, refreshed with `origin/integration` `ae1739d` (the original branch was created from then-current main). Preserve existing obligations/identity fields and add explicit chained history checks, stable decision/role records, beat-linked consequence/rebinding validation, inspectable three-scene fixtures and a versioned Fernling correction without rewriting writer archives. Refresh #244's schema-bound review honestly after testing the compatible addition. No new runtime/save codec or production deployment; final verification and integration-only follow-up PR pending.
