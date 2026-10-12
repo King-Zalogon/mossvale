@@ -4,7 +4,7 @@ Issue [#32](https://github.com/King-Zalogon/mossvale/issues/32). The manifest is
 
 ## What exists
 
-126 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
+129 PNGs in `dist/assets/{props,creatures,people,items}/`, named by what they look like:
 
 | Kind | Folder | Name pattern | Examples |
 | --- | --- | --- | --- |
@@ -88,3 +88,7 @@ The optional `effect-elemental-materials` prop asset is a presentation atlas: tw
 ## Optional Parrocket resource (#364)
 
 `creature-parrocket`, `creature-parrocket-combat` and `creature-parrocket-follower` are shared optional assets prepared from the owner's Rocket Parrot references. They are not part of the active eighteen-species roster or current encounters. The combat atlas uses the existing 4×5 action contract; the follower uses the existing 5×8 direction/stride contract with distinct west and northwest views. The [resource instructions](../content/resources/creatures/PARROCKET.md) explain pack import, primary Fire versus reference Air affinity, placement and limitations. Inspect `dist/parrocket-preview.html`; reproduce exact editable/runtime pixels with `python3 art/characters/export-parrocket.py --check`. Original owner images and generated sources/prompts are retained under `art/characters/source/parrocket/`, with large generated PNGs archived byte-for-byte. Technical and internal identity review do not imply owner taste approval or a playtested new encounter.
+
+## Optional Blastoucan resource (#366)
+
+The shared optional `creature-blastoucan` portrait and `-combat` / `-follower` atlases preserve its hollow cylindrical cannon beak and distinct upright toucan identity. [Resource instructions](../content/resources/creatures/BLASTOUCAN.md) cover future pack/map import, primary Fire versus reference-only Air, starting stats and unimplemented ranged/evolution behavior. Inspect `dist/blastoucan-preview.html`; the existing isolated preview renderer selects its definition explicitly. Reproduce pixels with `python3 art/characters/export-parrocket.py --species blastoucan --check`. Generated originals and spacing corrections are archived under `art/characters/source/blastoucan/`; the original inline owner-reference binaries were not exposed in the workspace and are not claimed as retained. This is a resource addition, not new current-map encounters or owner taste acceptance.

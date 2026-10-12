@@ -1,4 +1,4 @@
-"""Export the optional Parrocket resource using reviewed cells and shared anchors."""
+"""Export optional creature resources using reviewed cells and shared anchors."""
 from argparse import ArgumentParser
 from io import BytesIO
 import json
@@ -37,19 +37,20 @@ def prepare(kind, spec):
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--species', choices=['parrocket', 'blastoucan'], default='parrocket')
     args = parser.parse_args()
-    specs = json.loads((ROOT / 'art/characters/source/parrocket/export.json').read_text())['exports']
+    specs = json.loads((ROOT / f'art/characters/source/{args.species}/export.json').read_text())['exports']
     for kind, spec in specs.items():
         image = prepare(kind, spec)
         for path in [spec['output'], spec['editable']]:
             target = ROOT / path
             if args.check:
                 if not target.exists() or Image.open(target).convert('RGBA').size != image.size or Image.open(target).convert('RGBA').tobytes() != image.tobytes():
-                    raise ValueError(f'{path}: stale Parrocket export')
+                    raise ValueError(f'{path}: stale creature resource export')
             else:
                 target.parent.mkdir(parents=True, exist_ok=True)
                 image.save(target, optimize=True)
-        print(f'verified Parrocket {kind}: {image.width}x{image.height}' if args.check else f'exported Parrocket {kind}: {image.width}x{image.height}')
+        print(f'{"verified" if args.check else "exported"} {args.species} {kind}: {image.width}x{image.height}')
 
 
 if __name__ == '__main__':

@@ -113,6 +113,21 @@
       "width": 1000,
       "height": 1600,
       "mode": "RGBA"
+    },
+    "source/blastoucan/portrait.png": {
+      "width": 264,
+      "height": 227,
+      "mode": "RGBA"
+    },
+    "source/blastoucan/combat.png": {
+      "width": 1152,
+      "height": 1440,
+      "mode": "RGBA"
+    },
+    "source/blastoucan/follower.png": {
+      "width": 1000,
+      "height": 1600,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -3649,6 +3664,127 @@
           "walk-3",
           "walk-4"
         ]
+      }
+    },
+    {
+      "name": "creature-blastoucan",
+      "src": "assets/creatures/creature-blastoucan.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 264,
+      "height": 227,
+      "anchor": "bottom-center",
+      "sheet": "source/blastoucan/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "exportProfile": {
+        "id": "blastoucan-portrait-v1",
+        "settingsSha256": "5d1c234ca5df5d319ddeeb218b2eecbfc4238c73782d394ccbc5348e239de822"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/blastoucan/portrait.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/blastoucan/portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-blastoucan-combat",
+      "src": "assets/creatures/creature-blastoucan-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/blastoucan/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "exportProfile": {
+        "id": "blastoucan-combat-v1",
+        "settingsSha256": "c9dbf0274610ebced38ee95c0cd069db789595b89fffcc80fa6be9eb734d7531"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/blastoucan/combat.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/blastoucan/combat-spaced.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-blastoucan-follower",
+      "src": "assets/creatures/creature-blastoucan-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/blastoucan/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      },
+      "exportProfile": {
+        "id": "blastoucan-follower-v1",
+        "settingsSha256": "ebaec7fc8be666b4a27e4861a33dde414f8fe09a4bb75c8d8dea1e7a9bd78121"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/blastoucan/follower.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/blastoucan/follower-spaced.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
       }
     }
   ]

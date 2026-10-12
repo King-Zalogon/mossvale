@@ -73,8 +73,8 @@ export function collectFacts() {
         sprite: definition.sprite,
         dependencies: [definition.sprite, `${definition.sprite}-combat`, `${definition.sprite}-follower`].map(id => `visual:${id}`),
         preview: `dist/assets/creatures/${definition.sprite}.png`,
-        evidence: 'tests/parrocket.test.mjs',
-        references: ['content/resources/creatures/PARROCKET.md', 'dist/parrocket-preview.html'],
+        evidence: `tests/${definition.id}.test.mjs`,
+        references: [`content/resources/creatures/${definition.id.toUpperCase()}.md`, `dist/${definition.id}-preview.html`],
       });
     }
   }
@@ -127,12 +127,11 @@ export function collectFacts() {
       identity: subject?.identity ?? null,
       review: visualReviews.subjects.filter(value => value.asset === asset.name).map(value => value.visual),
       characterMetadata: asset.kind === 'person' || asset.name.startsWith('person-') ? characterMetadata : null,
-      sourceLicenseSummary:
-        subject?.id === 'creature-parrocket'
-          ? 'Owner-supplied Parrocket references with generated runtime adaptations; original-reference license was not supplied.'
-          : external
-            ? `${external.pack.license}; ${external.pack.attributionRequired ? 'attribution required' : 'attribution not required'}.`
-            : 'Original Mossvale artwork; see the asset source record.',
+      sourceLicenseSummary: ['creature-parrocket', 'creature-blastoucan'].includes(subject?.id)
+        ? 'Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.'
+        : external
+          ? `${external.pack.license}; ${external.pack.attributionRequired ? 'attribution required' : 'attribution not required'}.`
+          : 'Original Mossvale artwork; see the asset source record.',
       allowedUseSummary: chestPair
         ? `Use ${chestPair[0]} in a chest landmark's sprite field; its existing durable flag selects ${chestPair[1]} after claiming. The pair shares world width and bottom-center anchor. Images do not grant rewards. Unknown custom chest images retain the wooden empty fallback; no save migration or opening animation.`
         : external
