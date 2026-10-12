@@ -27,6 +27,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `controller.js` | root | `createController` |
 | `creature-combat-preview.js` | root | — |
 | `creature-follower-preview.js` | root | — |
+| `creature-preview-resources.js` | root | `PREPARED_CREATURE_IDS`, `loadPreparedCreaturePreviews` |
 | `data/assets.js` | data | `assets`, `spriteId` |
 | `data/biomes.js` | data | `biomes` |
 | `data/economy.js` | data | `CAPS`, `REST_FLOOR`, `REWARDS`, `SHOP`, `replaceEconomy` |

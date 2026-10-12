@@ -6,6 +6,12 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import assert from 'node:assert/strict';
 import {species} from '../dist/src/data/species.js';
+import {PREPARED_CREATURE_IDS} from '../dist/src/creature-preview-resources.js';
+
+const previewSpecies = [
+  ...species,
+  ...PREPARED_CREATURE_IDS.map(id => JSON.parse(readFileSync(new URL(`../dist/resources/creatures/${id}.json`, import.meta.url)))),
+];
 
 const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png', svg: 'image/svg+xml'};
@@ -29,11 +35,11 @@ try {
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
         [...canvas.getContext('2d').getImageData(0, 0, 160, 160).data].some((value, index) => index % 4 === 3 && value > 0),
       ),
-    species.length * 20,
+    previewSpecies.length * 20,
   );
   assert.deepEqual(
     await page.locator('.creature h2').allTextContents(),
-    species.map(entry => entry.name),
+    previewSpecies.map(entry => entry.name),
   );
   assert.equal(await page.locator('.reference img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), true);
   assert.deepEqual(
@@ -44,9 +50,12 @@ try {
         return counts;
       }, {}),
     ),
-    Object.fromEntries(['idle', 'attack', 'hit', 'faint', 'capture'].map(state => [state, species.length * 4])),
+    Object.fromEntries(['idle', 'attack', 'hit', 'faint', 'capture'].map(state => [state, previewSpecies.length * 4])),
   );
-  assert.deepEqual(await page.locator('.frame figcaption').allTextContents(), Array.from({length: species.length * 5}, () => ['1', '2', '3', '4']).flat());
+  assert.deepEqual(
+    await page.locator('.frame figcaption').allTextContents(),
+    Array.from({length: previewSpecies.length * 5}, () => ['1', '2', '3', '4']).flat(),
+  );
   assert.equal(
     await page.evaluate(() =>
       [...document.querySelectorAll('.creature canvas')].every(canvas =>
@@ -104,7 +113,7 @@ try {
   assert.match(await battle.locator('#fight-buddy').getAttribute('class'), /element/);
   await battle.waitForSelector('#result-continue');
   assert.deepEqual(errors, []);
-  console.log(`ok all ${species.length} transparent combat atlases preview every state and battle playback attacks/faints without changing rules`);
+  console.log(`ok all ${previewSpecies.length} transparent combat atlases preview every state and battle playback attacks/faints without changing rules`);
 } finally {
   await browser.close();
   server.close();

@@ -1,6 +1,9 @@
 import {assets, spriteId} from './data/assets.js';
 import {species} from './data/species.js';
 import {DIRECTIONS, directionPose, followerFrame, movementFacing, playerFrame, playerSpritePose} from './domain/exploration.js';
+import {loadPreparedCreaturePreviews} from './creature-preview-resources.js';
+
+await loadPreparedCreaturePreviews();
 
 const VECTORS = [
   [-1, -1],
@@ -137,7 +140,7 @@ function project(x, y) {
 
 function drawStage() {
   const creature = sources[speciesSelect.value];
-  stateLabel.textContent = `${DIRECTIONS[follower.dir]} · ${running && follower.moving ? 'walking' : 'idle'}${running ? '' : ' · paused'}`;
+  stateLabel.textContent = `${DIRECTIONS[follower.dir]} · ${running && follower.moving ? 'moving' : 'idle'}${running ? '' : ' · paused'}`;
   ctx.clearRect(0, 0, stage.width, stage.height);
   ctx.fillStyle = '#31543e';
   ctx.fillRect(0, 0, stage.width, stage.height);

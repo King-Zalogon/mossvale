@@ -217,3 +217,7 @@ Coglet integration update: merged `origin/integration` `b6eeb3e` before final ve
 ## #373 — Wispurr reusable resource
 
 Claimed `codex/373-wispurr-resources` from `origin/main` `1c1c984`, updated with integration `7a80b7f`. Preserve owner-inline pale mask/violet flame/cyan wisps as optional portrait, directional hover/combat atlases, importable definition and catalogue. Air provisional; no Spirit rules, default encounters or starter change. Actual-size art review, full local verify/build and integration-only merge.
+
+## #375 — all prepared creatures in Testing URLs
+
+Claimed `codex/375-creature-testing-urls` from main `1c1c984`, updated with integration `ae1739d`. Expose Parrocket, Blastoucan, Rumblet, Coglet and Wispurr in shared follower/combat previews and direct resource links. Preview-only registration; preserve adventure roster/save IDs. Validate source and /game packaging, local full verify/build and integration merge.

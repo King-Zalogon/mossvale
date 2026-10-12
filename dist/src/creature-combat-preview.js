@@ -1,6 +1,9 @@
 import {assets, spriteId} from './data/assets.js';
 import {species} from './data/species.js';
 import {drawSprite, sprites} from './render/sprites.js';
+import {loadPreparedCreaturePreviews} from './creature-preview-resources.js';
+
+await loadPreparedCreaturePreviews();
 
 const kinds = species.map(entry => entry.id);
 const states = ['idle', 'attack', 'hit', 'faint', 'capture'];
