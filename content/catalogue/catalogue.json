@@ -742,6 +742,12 @@
           "type": "boolean",
           "default": null,
           "limits": "Required explicit value; challenge requires true."
+        },
+        {
+          "name": "note",
+          "type": "string",
+          "default": null,
+          "limits": "Optional 1–320 character discovered journal note; shown only after this event has run."
         }
       ],
       "dependencies": [],
@@ -757,20 +763,24 @@
           "expected": "Resolve bounded actor actions and commit durable scene results before transient presentation."
         }
       ],
-      "references": ["dist/src/domain/scenes.js"],
+      "references": ["dist/src/domain/scenes.js", "docs/ORCHARD_DISCOVERIES.md"],
       "evidence": [
         {
           "path": "tests/scenes.test.mjs",
           "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
+        },
+        {
+          "path": "tests/orchard-clues.test.mjs",
+          "assertion": "Independent evidence alternatives, prerequisite failures, reload and mutually exclusive outcomes."
         }
       ],
       "details": {
         "activation": "Existing map scene interaction dispatch.",
-        "conditions": "Optional when condition evaluated through objective conditions.",
+        "conditions": "Optional event/all/any/not and existing objective conditions; map validation rejects unknown scene/route evidence and positive prerequisite cycles. An explicitly configured beforeLandmark prop scene interaction takes precedence over generic landmark text.",
         "actions": "Dialogue, reward, flag, challenge, move, face, wait and react; challenge must be last. See docs/SCENE_ACTIONS.md for choreography limits.",
         "rewards": "Scene rewards accept coins, potions and orbs, not arbitrary inventory item IDs.",
         "repetition": "Explicit repeatable boolean; challenge events must be repeatable.",
-        "persistence": "Non-repeatable events use saved map/event keys; rewards and flags commit before choreography and roll back if saving fails."
+        "persistence": "Non-repeatable events use saved map/event keys; rewards and flags commit before choreography and roll back if saving fails. Optional notes appear in the journal only after the saved event."
       }
     },
     {
@@ -3180,6 +3190,57 @@
       }
     },
     {
+      "id": "landmark:mossvale/orchard-ruins/bypass-stones",
+      "kind": "interactable",
+      "name": "mossvale/orchard ruins/bypass stones",
+      "summary": "Inspect the channel stones (sign) on The Ruined Orchard.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "bypass-stones",
+            "kind": "sign",
+            "sprite": "boulder-mossy",
+            "at": [49, 41],
+            "w": 42,
+            "label": "Inspect the channel stones",
+            "secret": true,
+            "mapLabel": "Channel stones",
+            "text": "A low channel runs beside the lower orchard row.",
+            "discoveryText": "Channel stones: A low channel runs beside the lower orchard row."
+          },
+          "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:boulder-mossy"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Inspect the channel stones (sign) on The Ruined Orchard.",
+          "usage": "Reference mossvale/orchard-ruins/bypass-stones in the existing format at dist/maps/orchard-ruins.json.",
+          "expected": "Inspect the channel stones (sign) on The Ruined Orchard."
+        }
+      ],
+      "references": ["dist/maps/orchard-ruins.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
       "id": "landmark:mossvale/orchard-ruins/cider-press",
       "kind": "interactable",
       "name": "mossvale/orchard ruins/cider press",
@@ -3212,6 +3273,57 @@
           "intent": "Inspect the cider press (sign) on The Ruined Orchard.",
           "usage": "Reference mossvale/orchard-ruins/cider-press in the existing format at dist/maps/orchard-ruins.json.",
           "expected": "Inspect the cider press (sign) on The Ruined Orchard."
+        }
+      ],
+      "references": ["dist/maps/orchard-ruins.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
+      "id": "landmark:mossvale/orchard-ruins/damp-hollow",
+      "kind": "interactable",
+      "name": "mossvale/orchard ruins/damp hollow",
+      "summary": "Inspect the damp hollow (sign) on The Ruined Orchard.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "damp-hollow",
+            "kind": "sign",
+            "sprite": "tree-oak-hollow",
+            "at": [42, 36],
+            "w": 65,
+            "label": "Inspect the damp hollow",
+            "secret": true,
+            "mapLabel": "Damp hollow",
+            "text": "Water collects among the roots. Tracks turn in and out of the low opening.",
+            "discoveryText": "Damp hollow: Water collects among the roots. Tracks turn in and out of the low opening."
+          },
+          "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:tree-oak-hollow"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Inspect the damp hollow (sign) on The Ruined Orchard.",
+          "usage": "Reference mossvale/orchard-ruins/damp-hollow in the existing format at dist/maps/orchard-ruins.json.",
+          "expected": "Inspect the damp hollow (sign) on The Ruined Orchard."
         }
       ],
       "references": ["dist/maps/orchard-ruins.json"],
@@ -3364,10 +3476,10 @@
                 "when": {
                   "flag": "meadow.seal"
                 },
-                "text": "West: Meadow · East: Amber Ridge · The short path slips beneath the oldest trees."
+                "text": "West: Meadow · East: Amber Ridge · Follow the main orchard trail."
               },
               {
-                "text": "West: Meadow · East: a sealed trail · Look between the old apple rows for a shortcut."
+                "text": "West: Meadow · East: a sealed trail · Rest with Mara near the entrance."
               }
             ]
           },
@@ -3381,6 +3493,57 @@
           "intent": "Read the orchard sign (sign) on The Ruined Orchard.",
           "usage": "Reference mossvale/orchard-ruins/trail-sign in the existing format at dist/maps/orchard-ruins.json.",
           "expected": "Read the orchard sign (sign) on The Ruined Orchard."
+        }
+      ],
+      "references": ["dist/maps/orchard-ruins.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing sign interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Authored text/conditional dialogue; optional validated route gate.",
+        "rewards": "No automatic reward solely from a sign image.",
+        "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+        "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
+      "id": "landmark:mossvale/orchard-ruins/upper-hollow",
+      "kind": "interactable",
+      "name": "mossvale/orchard ruins/upper hollow",
+      "summary": "Inspect the upper hollow (sign) on The Ruined Orchard.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "upper-hollow",
+            "kind": "sign",
+            "sprite": "tree-oak-hollow",
+            "at": [44, 34],
+            "w": 59,
+            "label": "Inspect the upper hollow",
+            "secret": true,
+            "mapLabel": "Upper hollow",
+            "text": "The roots here sit above the wet ground.",
+            "discoveryText": "Upper hollow: The roots here sit above the wet ground."
+          },
+          "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:tree-oak-hollow"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Inspect the upper hollow (sign) on The Ruined Orchard.",
+          "usage": "Reference mossvale/orchard-ruins/upper-hollow in the existing format at dist/maps/orchard-ruins.json.",
+          "expected": "Inspect the upper hollow (sign) on The Ruined Orchard."
         }
       ],
       "references": ["dist/maps/orchard-ruins.json"],

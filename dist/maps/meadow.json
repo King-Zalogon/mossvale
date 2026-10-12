@@ -180,7 +180,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine · East: the long trail to the orchard · South: the pond trail and a quiet grove · Blue minimap marker: shrine"
+      "text": "North: crystal shrine \u00b7 East: the long trail to the orchard \u00b7 South: the pond trail and a quiet grove \u00b7 Blue minimap marker: shrine"
     },
     {
       "id": "chest",
@@ -746,6 +746,24 @@
       ]
     },
     {
+      "sprite": "wood-plank-stack",
+      "kind": "scenery",
+      "w": 27,
+      "at": [[15.7, 8.8]]
+    },
+    {
+      "sprite": "wood-firewood-bundle",
+      "kind": "scenery",
+      "w": 26,
+      "at": [[16.5, 9.6]]
+    },
+    {
+      "sprite": "straw-bundle",
+      "kind": "scenery",
+      "w": 24,
+      "at": [[11.3, 9.3]]
+    },
+    {
       "sprite": "tree-oak",
       "kind": "scenery",
       "w": 79,
@@ -754,7 +772,7 @@
         [26.5, 34.6],
         [24.2, 32.8],
         [24.2, 29.8],
-        [26.5, 28],
+        [26.5, 28.0],
         [29.4, 28.6],
         [30.7, 31.3]
       ],
@@ -766,7 +784,7 @@
       "w": 32,
       "at": [
         [26.5, 31.6],
-        [28, 30.7],
+        [28.0, 30.7],
         [27.7, 32.2]
       ],
       "piece": "oak-grove-1"
@@ -778,8 +796,8 @@
       "solid": 0.52,
       "at": [
         [13.3, 56.1],
-        [11, 54.3],
-        [11, 51.3],
+        [11.0, 54.3],
+        [11.0, 51.3],
         [13.3, 49.5],
         [16.2, 50.2],
         [17.5, 52.8]
@@ -827,7 +845,7 @@
       "at": [
         [60.4, 36.6],
         [61.9, 37.1],
-        [61, 35.2]
+        [61.0, 35.2]
       ],
       "piece": "cairn-4"
     },
@@ -837,7 +855,7 @@
       "w": 32,
       "at": [
         [59.3, 37.4],
-        [62.3, 36]
+        [62.3, 36.0]
       ],
       "piece": "cairn-4"
     },
@@ -847,7 +865,7 @@
       "w": 49,
       "solid": 0.42,
       "at": [
-        [56, 54.3],
+        [56.0, 54.3],
         [57.5, 54.8],
         [56.6, 52.9]
       ],
@@ -862,24 +880,6 @@
         [57.9, 53.7]
       ],
       "piece": "cairn-5"
-    },
-    {
-      "sprite": "wood-plank-stack",
-      "kind": "scenery",
-      "w": 27,
-      "at": [[15.7, 8.8]]
-    },
-    {
-      "sprite": "wood-firewood-bundle",
-      "kind": "scenery",
-      "w": 26,
-      "at": [[16.5, 9.6]]
-    },
-    {
-      "sprite": "straw-bundle",
-      "kind": "scenery",
-      "w": 24,
-      "at": [[11.3, 9.3]]
     }
   ],
   "zones": [

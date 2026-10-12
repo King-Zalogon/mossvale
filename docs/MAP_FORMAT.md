@@ -86,3 +86,5 @@ Optional shrine `guardian.combatSprite` selects an existing same-species 4×5 co
 ### Discovery notices
 
 A landmark may define `discoveryText`: a trimmed string of 1–160 characters describing the specific find and its useful context. Secret landmarks show this nonblocking notice only on their first nearby discovery. Older packs without the field use `Found <mapLabel>.`. Keep names consistent with the map and journal, and reserve directions for navigation signs and longer stories for interaction dialogue. This field does not reveal a secret before discovery or change save data.
+
+Interaction triggers may opt into `beforeLandmark: true` to let eligible scene events run before a nearby prop's generic inspection. Default false preserves older packs. This option is valid only with `on: "interact"`. For conditional one-time evidence, set trigger `once: false`; each non-repeatable scene event has its own durable once-only key. Otherwise a premature interaction can consume the trigger before prerequisites are met. Optional event `note` records discovered text for the field journal; see [scene actions](SCENE_ACTIONS.md).

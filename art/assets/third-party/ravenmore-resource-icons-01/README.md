@@ -8,6 +8,6 @@
 - Terms published on the source page: “Don't repackage and resell. Don't put in bundles of other assets, free or paid.” The creator also says that use in a game is allowed and recommends linking back to the source page. This is a custom game-use permission, not CC0 and not a general redistribution license.
 - Mossvale uses the three unchanged images only as non-interactive props in its game map. They are not distributed as a standalone or reusable asset pack. Portable writer-context exports omit their image previews; browse the local visual catalogue inside this repository to inspect them.
 - They do not create items, harvesting, crafting, inventory, rewards, collision or any other mechanic. Their visual fit remains subject to owner review.
-- Suggested credit: “Selected resource icons from *Survival / Crafting Resource Icons 01* by Ravenmore: https://ravenmore.itch.io/survival-crafting-resource-icons-01”. Attribution is recommended by the creator, not stated as a condition.
+- Suggested credit: “Selected resource icons from _Survival / Crafting Resource Icons 01_ by Ravenmore: https://ravenmore.itch.io/survival-crafting-resource-icons-01”. Attribution is recommended by the creator, not stated as a condition.
 
 `art/assets/import-ravenmore-icons.py` verifies the three retained files, hashes, direct-source metadata, runtime pixels and the portable-export restriction. The icons remain separate PNGs; do not pack them into an atlas or add unused files from the download.

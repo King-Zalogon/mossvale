@@ -3,7 +3,7 @@
 import {PLAYER_RADIUS} from '../config.js';
 import {TACTICS} from '../data/tactics.js';
 import {validateLines} from './objectives.js';
-import {validateSceneEvent} from './scenes.js';
+import {validateSceneEvent, validateSceneGraph} from './scenes.js';
 import {validateDialogueChoices} from './dialogue-choices.js';
 
 export const MAP_FORMAT = 1;
@@ -57,6 +57,7 @@ export function validateMaps(rawMaps, ctx) {
     else byId.set(m.id, m);
   }
   for (const m of rawMaps) if (isObj(m) && byId.get(m.id) === m) validateOne(m, byId, ctx, errors);
+  if (!errors.length) errors.push(...validateSceneGraph(rawMaps));
   if (!errors.length) {
     for (const m of rawMaps) {
       const compiled = compileMap(m, {
@@ -288,6 +289,8 @@ function validateOne(m, byId, ctx, errors) {
   (m.triggers ?? []).forEach((t, i) => {
     const where = `triggers[${i}] (${t?.id})`;
     if (!inside(t?.at)) at(where + '.at', 'must be [x, y] inside the map');
+    if (t.beforeLandmark !== undefined && (typeof t.beforeLandmark !== 'boolean' || t.on !== 'interact'))
+      at(where + '.beforeLandmark', 'boolean allowed only on interact triggers');
     if (!['enter', 'interact'].includes(t?.on)) at(where + '.on', 'enter or interact');
     const hasEvents = Array.isArray(t?.events) && t.events.length > 0;
     if (t?.do === undefined && hasEvents) {
@@ -425,6 +428,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     y: t.at[1],
     radius: t.radius ?? 1.5,
     on: t.on,
+    beforeLandmark: t.beforeLandmark === true,
     once: t.once !== false,
     actions: (t.do ?? []).map(a => (a.type === 'battle' ? {type: 'battle', id: speciesIndex(a.species), level: a.level} : a)),
     events: t.events?.map(event => ({
