@@ -25,7 +25,7 @@
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
     "art/characters/visual-reviews.json": "2054576ccb15199f836e44cb660a9b382d7269438dd762dc82b18fa5eed8e397",
-    "content/catalogue/curated.json": "9b14c0cf1180c9c8b6332ccbbbe9b8f615c0abf5292bf128277cd428a8ed2220",
+    "content/catalogue/curated.json": "fab3f390124c78c986bc30633d25c6ec73a76c7ebe693907eaaddc363cda30f8",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
     "dist/assets/creatures/creature-blastoucan-combat.png": "032832e63a4aad6b32647cf198176cf03fd5c99b6d6983f8f86e74a07789979c",
@@ -181,11 +181,11 @@
     "dist/maps/amber-ridge.json": "972a103e1c5f04e57bb576eb163263c4351dd3db8d93f2f4e7a2f27485c916a0",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
     "dist/maps/frostveil-pass.json": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a",
-    "dist/maps/index.json": "33822287ec5b031ad0b92e07dafeb934ad84d89819dd723ccfccd60816b3a8a0",
+    "dist/maps/index.json": "3c66af022090de5e60f917db8521239ea08b02dedf889f7055438d067b2d094f",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "f7aa70ef131bef5c1337e17560bada6f8bdc7308a6e55b912be05f2d1c1a5d52",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "b67b4ccfb2fff7cbcf205976d934a06dc8bcb089e1b6eeee609bb6931a2d85f1",
+    "dist/maps/orchard-ruins.json": "84d3a070f72530ab7cb4468d792d67232fd1a310c1a8090a41f71bf046efb80c",
     "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
     "dist/maps/registries.json": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc",
     "dist/maps/stilt-isles.json": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c",
@@ -202,7 +202,7 @@
     "dist/src/character-preview.js": "00058680f6a8971cc2cb974bf0c7d450b34a7d39ad1c28b5c37285a712973c54",
     "dist/src/compatibility.js": "cb16e68f3c5fefc86c7e6068f1f7a5e832e009647baa07641a4bd1ed06349ca3",
     "dist/src/config.js": "8c60c45a799c27fdddd30c02f08ca85c903900668f8b8a0d143b7445ecb8fff4",
-    "dist/src/controller.js": "a08e3a60ebead60a91dd5ed4e8117aa211bcdf7f22493062bad47437b1aa6aa5",
+    "dist/src/controller.js": "67454033162c604426ac51ad7abc13ebc331bc656dbddc97b04351b19346872b",
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
@@ -228,7 +228,7 @@
     "dist/src/domain/events.js": "195cd9d65e5e0bd90659d15bca993d50c94eb7cde4a1d103c612ccdbda9761d3",
     "dist/src/domain/exploration.js": "9fe89b19490390bb129ed0a887ae30c8f0dadfbe787d3149843b501069af71e3",
     "dist/src/domain/inventory.js": "198e9b236379a419e9b316205dd458d83fa8fc5e9c799d73818efb14daeefbc8",
-    "dist/src/domain/mapdata.js": "9d84433aa630f3070190f8392df842b0c54abb5b5e0b3f1bc1914ec23d160559",
+    "dist/src/domain/mapdata.js": "4fff691644fa78ef89d40bc86164f91f912df786fd112c735e75d9256dc442f3",
     "dist/src/domain/objective-events.js": "7ea11e81899424623e230c55ddc90c42c77c9df88532b91832cf39d23991128e",
     "dist/src/domain/objectives.js": "74b325d07025a7341032f3d5f5b8a5d01918a8e72cb9863c9b833acb9b3ee912",
     "dist/src/domain/pack.js": "77730dcfa0a58ed1caf0fa966ed509bae2670f9dfde4f2b7be4bdffa98cd2151",
@@ -238,7 +238,7 @@
     "dist/src/domain/rng.js": "853506e8d4bd195882b044a2302f884573d253f4978f075b2a194b82212f0430",
     "dist/src/domain/rules.js": "0b66c835e8f3462830ce1aa6a202c32e51216942d1762fea978b075f7aacbc4b",
     "dist/src/domain/scene-path.js": "f8016abf188ce2dccebceadfffc2279671b923b566a2a744defb66578931361c",
-    "dist/src/domain/scenes.js": "2466615baefe7df2970fd0aa5a0615b114a4b2947e7330cf6c3736f845dab17f",
+    "dist/src/domain/scenes.js": "625ad022fa8f311bf48a138ec5079fd688bb6d7e7b9252f912949573e8bc3c98",
     "dist/src/domain/story.js": "76aca33499825ab396db075379a05ff5343bfeec2d82ec6eb715b6026372c381",
     "dist/src/domain/terrain-family.js": "e9828ed285b9ffd558a9f168fa71f5477ffd6ee75a1359a874bfcfcd7101476e",
     "dist/src/domain/world.js": "33283839346a885c8004cb5c5682d29e0d0f6758d36a5698b0eb85b3d3eca383",
@@ -307,7 +307,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "c41d3e8253135dbbcf686f8e10cd539afe58a51f8338c55abec836159be9a7a1",
+  "sourceDigest": "d1a9516eff83ff1b8f3eca0f8cdd2da90f383934395a00f598474acf39860706",
   "exclusions": [
     {
       "family": "module-exports",
@@ -1908,7 +1908,34 @@
         "secret": true,
         "mapLabel": "Channel stones",
         "text": "A low channel runs beside the lower orchard row.",
-        "discoveryText": "Channel stones: A low channel runs beside the lower orchard row."
+        "discoveryText": "Channel stones: A low channel runs beside the lower orchard row.",
+        "labels": [
+          {
+            "when": {
+              "all": [
+                {
+                  "event": "orchard-ruins/den-family-seen"
+                },
+                {
+                  "not": {
+                    "any": [
+                      {
+                        "event": "orchard-ruins/outcome-water-first"
+                      },
+                      {
+                        "event": "orchard-ruins/outcome-family-first"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "text": "Open the water bypass first"
+          },
+          {
+            "text": "Inspect the channel stones"
+          }
+        ]
       },
       "activation": "Existing sign interaction.",
       "actions": "Authored text/conditional dialogue; optional validated route gate.",
@@ -2086,7 +2113,34 @@
         "secret": true,
         "mapLabel": "Upper hollow",
         "text": "The roots here sit above the wet ground.",
-        "discoveryText": "Upper hollow: The roots here sit above the wet ground."
+        "discoveryText": "Upper hollow: The roots here sit above the wet ground.",
+        "labels": [
+          {
+            "when": {
+              "all": [
+                {
+                  "event": "orchard-ruins/den-family-seen"
+                },
+                {
+                  "not": {
+                    "any": [
+                      {
+                        "event": "orchard-ruins/outcome-water-first"
+                      },
+                      {
+                        "event": "orchard-ruins/outcome-family-first"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "text": "Guide the family to dry roots first"
+          },
+          {
+            "text": "Inspect the upper hollow"
+          }
+        ]
       },
       "activation": "Existing sign interaction.",
       "actions": "Authored text/conditional dialogue; optional validated route gate.",
@@ -5835,9 +5889,9 @@
           "........ggggppggg.............ggttttttttpppgggttttttttgggggggg..",
           ".........gggppggg.............gggtttttttpppggggttttttggggggggg..",
           ".........gggppggg.............gggtttttgggppgggggtttttggggggggg..",
-          ".........gggppggg.............gggggggggggppggggggggggggggggggg..",
-          ".........gggppggg.............gggggggggggpppgggggggggggggggggg..",
-          ".........gggppggg.............ggggggggggggpppggggggggggggggggg..",
+          ".........gggppggg.............gggggggggggppgggggggggggwggggggg..",
+          ".........gggppggg.............gggggggggggpppggggggggggwwgggggg..",
+          ".........gggppggg.............ggggggggggggpppgggggggggwwgggggg..",
           ".........gggppggg.............ttgggggggggggpppggggggggppppgggg..",
           ".........ggtppttt..............ttgggggggggggpppgggggppppppggg...",
           ".........ggtppttt..............ttggggggggggggppppppppppgggggg...",
@@ -5846,8 +5900,8 @@
           ".........ggggppgggggggg.........ggggggggggggggggpppwwwwggggg....",
           ".......ggggggpppggggggggg.......ggggggggggggggggpppwwwwggggg....",
           "......ggggggggpppggggggggg.......ggggggggggggggggpppwwwttgg.....",
-          ".....gggggggggpppgggggggggg.......ggggggggggggggggpppwtttt......",
-          "....gggggggggggpppgggggggggg......gggggggtggggggggpppttttt......",
+          ".....gggggggggpppgggggggggg.......gggggggwggggggggpppwtttt......",
+          "....gggggggggggpppgggggggggg......gggggggwggggggggpppttttt......",
           "....ggggggggggggpppggggggggpppppp..gggtttttttggggggpppttt.......",
           "...gggggggggggggpppgggggppppppppppp.ggttttttttggggpppptt........",
           "...ggggggggggggggpppppppppppp.pppppppgttttttttgggpppgggtt.......",
@@ -5958,7 +6012,34 @@
             "secret": true,
             "mapLabel": "Channel stones",
             "text": "A low channel runs beside the lower orchard row.",
-            "discoveryText": "Channel stones: A low channel runs beside the lower orchard row."
+            "discoveryText": "Channel stones: A low channel runs beside the lower orchard row.",
+            "labels": [
+              {
+                "when": {
+                  "all": [
+                    {
+                      "event": "orchard-ruins/den-family-seen"
+                    },
+                    {
+                      "not": {
+                        "any": [
+                          {
+                            "event": "orchard-ruins/outcome-water-first"
+                          },
+                          {
+                            "event": "orchard-ruins/outcome-family-first"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "text": "Open the water bypass first"
+              },
+              {
+                "text": "Inspect the channel stones"
+              }
+            ]
           },
           {
             "id": "upper-hollow",
@@ -5970,7 +6051,34 @@
             "secret": true,
             "mapLabel": "Upper hollow",
             "text": "The roots here sit above the wet ground.",
-            "discoveryText": "Upper hollow: The roots here sit above the wet ground."
+            "discoveryText": "Upper hollow: The roots here sit above the wet ground.",
+            "labels": [
+              {
+                "when": {
+                  "all": [
+                    {
+                      "event": "orchard-ruins/den-family-seen"
+                    },
+                    {
+                      "not": {
+                        "any": [
+                          {
+                            "event": "orchard-ruins/outcome-water-first"
+                          },
+                          {
+                            "event": "orchard-ruins/outcome-family-first"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "text": "Guide the family to dry roots first"
+              },
+              {
+                "text": "Inspect the upper hollow"
+              }
+            ]
           }
         ],
         "exits": [
@@ -6492,7 +6600,7 @@
                   {
                     "type": "dialogue",
                     "speaker": "orchard-ranger",
-                    "text": "The lower row is dry again. The feeder board is scraped, but the old channel was failing before that. Find where the water went."
+                    "text": "Fresh hoof-scrapes have everyone blaming a wild Bramblebuck. The lower row is dry, but water collects below the old feeder. Will you look for what changed?"
                   }
                 ],
                 "note": "Mara asked where the lower row’s water went."
@@ -9752,7 +9860,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "b67b4ccfb2fff7cbcf205976d934a06dc8bcb089e1b6eeee609bb6931a2d85f1"
+            "sha256": "84d3a070f72530ab7cb4468d792d67232fd1a310c1a8090a41f71bf046efb80c"
           },
           {
             "id": "map:stilt-isles",

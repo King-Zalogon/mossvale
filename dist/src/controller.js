@@ -372,7 +372,8 @@ export function createController(app) {
 
   function nearest() {
     const object = nearestInteractive(game.world, game.player);
-    return object && companionRouteVisible(save(), game.world.map.id, object) ? object : null;
+    if (!object || !companionRouteVisible(save(), game.world.map.id, object)) return null;
+    return object.labels ? {...object, label: pickLine(object.labels, save(), objCtx) || object.label} : object;
   }
 
   /** Marks what the player can see as explored and notes landmarks they have come across (domain/discovery.js). */

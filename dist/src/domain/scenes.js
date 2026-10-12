@@ -130,6 +130,8 @@ export function validateSceneGraph(maps) {
     if (condition.not) references(condition.not, key);
   };
   for (const [key, event] of events) references(event.when, key);
+  for (const map of maps)
+    for (const landmark of map.landmarks ?? []) for (const line of landmark.labels ?? []) references(line.when, `${map.id}/${landmark.id}.labels`);
   const reachable = new Set(roots);
   const possible = condition => {
     if (!condition || condition.not) return true;
