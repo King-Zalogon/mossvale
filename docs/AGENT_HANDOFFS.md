@@ -213,3 +213,7 @@ Claimed on `codex/368-rumblet-resources` from `origin/main` (`1c1c984`) updated 
 Claimed on `codex/371-coglet-resources` from `origin/main` (`1c1c984`) updated with integration (`3df6f72`). Prepare owner-inline rounded mechanical Coglet with dorsal gear/cyan lenses as optional portrait, follower/combat atlases, importable definition and catalogue. Full local verify/build and actual-size art review before integration merge. Live #370 scene-quality PR is separate; preserve both if integration advances.
 
 Coglet integration update: merged `origin/integration` `b6eeb3e` before final verification, preserving #244 scene-quality functionality and both test lists; regenerate the canonical catalogue to include both changes.
+
+## #373 — Wispurr reusable resource
+
+Claimed `codex/373-wispurr-resources` from `origin/main` `1c1c984`, updated with integration `7a80b7f`. Preserve owner-inline pale mask/violet flame/cyan wisps as optional portrait, directional hover/combat atlases, importable definition and catalogue. Air provisional; no Spirit rules, default encounters or starter change. Actual-size art review, full local verify/build and integration-only merge.
