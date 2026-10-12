@@ -2,21 +2,23 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/metadata.json": "c13f58015538a70848160ff1c6fbd721e4547c3002d58e917e13782d3b0e8215",
-    "art/assets/subjects.json": "5f8805ea106c4a0139b39d8d6eea9bd7f2dddafe6d6de223815c6c833ca4182c",
+    "art/assets/metadata.json": "9781b1fa6e3e31cba057a358fbf7352d0ed8fd3b8df7c885a59a3deba557ea56",
+    "art/assets/subjects.json": "4ea3445317443794083459081781f176e74107fb6ed804df7d4c983720f8941a",
     "art/assets/third-party/registry.json": "e27c8c2428c2562b6aee6be61e50f7e699570b8dc7e8be4a137bcec099973d83",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-    "art/characters/creature-combat-metadata.json": "5c4234ceb720bdc0b9f8b3fa1a8e8694f77de630b393dfbf5191b475e2e000e0",
-    "art/characters/creature-follower-metadata.json": "a1cb0c789bf6f382dd918b0872a04bc5133d188768632b0022e5703c0837adf8",
+    "art/characters/creature-combat-metadata.json": "b230e955640dfa308ea25f6b337dfa814f2d8ac71732cec13dfed15f5aa53dee",
+    "art/characters/creature-follower-metadata.json": "18da1223d211b9ca13128e15ba19a6496d7c8d7e09486bce07f22242bbf90e20",
     "art/characters/export-profiles.json": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05",
     "art/characters/guardian-generation.json": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61",
     "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
     "art/characters/reviews/frame-spacing-347.json": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17",
-    "art/characters/source-archive.json": "1a5e6bace56bc4e88edb48b53ffac3aa98c0ea30767ba74a5b27e2414231a5e9",
+    "art/characters/source-archive.json": "dd086b6798543cd899a778c5be9cb4b34b7c2167c5cb0d16217fe12c63811e49",
     "art/characters/source/blastoucan/export.json": "84e45fc1ca2edd83ad1044640062a8e38cccdf4e477287568452408fe0de0b27",
     "art/characters/source/blastoucan/generation.json": "d0771206c9230033a553025f1d54776c62ec35c453ca20f12812b3464b29c23b",
-    "art/characters/source/coglet/export.json": "ca963d73f00ba0bdaed7c0a68110b1921d2fdd8b1637dac72a19d714b58bf3a5",
+    "art/characters/source/coglet/correction-378/generation.json": "d8e53015afa594e559e012a061a8f517a2901bd5a79a042527820bacf95dda7e",
+    "art/characters/source/coglet/correction-378/review-history.json": "fca8b920ed9ba6b56ddb5e8aed024f63e0395ae38670d4a20637716a6669e299",
+    "art/characters/source/coglet/export.json": "00438ea0a36f05364bd9aeeb1a6d3e846f93e7b2ebb5d660b8c5b799bfcd0857",
     "art/characters/source/coglet/generation.json": "d622b5efbef04f9122f66a918532a39d9a374fad9cc4bca708596288eeda26a6",
     "art/characters/source/parrocket/export.json": "7d423aedce99c9f159f3e096eff02a3f7fb4316d9c863a04b9fb2fa6d0c25a84",
     "art/characters/source/parrocket/generation.json": "6387ab7d92104dd9534ceebb04a5327d3aaf3cb8e00a5c19cd230dd9996e5da0",
@@ -24,7 +26,7 @@
     "art/characters/source/rumblet/generation.json": "8b0c4314672f71764c2a1913e4e556eceb4615c38b47af193ff49bb55d72e3d6",
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
-    "art/characters/visual-reviews.json": "575e04cff80d9730f50890c58f44b370112e57706108a67e0a0b1c3bb699ba3d",
+    "art/characters/visual-reviews.json": "d57889974ac529c684b3a4185398e69b765c2301367c9e6ac144fdf90b7fafab",
     "content/catalogue/curated.json": "22b55a33e15a36e0282a93b61f144eafb577ad4f4b62a4905cbb40418f6d7961",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
@@ -40,9 +42,9 @@
     "dist/assets/creatures/creature-cindercurl-combat.png": "58d8582017d885d525edfdd91ce83cc9a665db1a5fc25f8e450c83ef64d0474b",
     "dist/assets/creatures/creature-cindercurl-follower.png": "8fc23c0ae05f4874ac8b4e6873f3f031eb2c5ffafa976221b99736d4e348cfd5",
     "dist/assets/creatures/creature-cindercurl.png": "7c1d989ec530db910095eb8d4a773e2f88fc668eac7422aab9d29abbb3b208ab",
-    "dist/assets/creatures/creature-coglet-combat.png": "2c3afae70b94b937d49dc9a2b6d4f1351a350415b9d4f56ca6d23033c24daa5f",
-    "dist/assets/creatures/creature-coglet-follower.png": "6a5e02586d993d613ca2cefb99042ec5add09d2bf1003a3d4288cd297fa90ba8",
-    "dist/assets/creatures/creature-coglet.png": "bde052d60f4481f064cdd8623ac0a0323f45c891818f9f01febb28b0da04d6b5",
+    "dist/assets/creatures/creature-coglet-combat.png": "2befb78054e37e540dc24247959818ff8f026a8e4207b04e6c2803893935e63b",
+    "dist/assets/creatures/creature-coglet-follower.png": "3f0609f33f82410edf19d26022958d11cf46109b4d2cd7e086064ad2766b6175",
+    "dist/assets/creatures/creature-coglet.png": "7dbe3861674aa938fb85eb0dfc7946f789d8a966d8a2d6dbef59db2eca920c29",
     "dist/assets/creatures/creature-duskwing-combat.png": "c5dd9b5a2844dcdddf087d5b80cd89c33e664eeb2a1aa0e597c72ded508515ed",
     "dist/assets/creatures/creature-duskwing-follower.png": "a830a4af7257c404a0b31827a4a16bd33979a2693c719ea9886bb627d534c5ae",
     "dist/assets/creatures/creature-duskwing.png": "337ff727185c503b8eccb08f55c828fc4b9b5f5a2fce17741003718f55e1f4c1",
@@ -203,7 +205,7 @@
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
-    "dist/src/data/assets.js": "12507ce9b2bda35735ebca4b7189326c531ad8444e45eb85ba94ba78c7381e46",
+    "dist/src/data/assets.js": "1b0c41cbfb09792723047cf4ade12c30c72fc27efd0b60bb482efdfd1c924ad3",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "d76691961865a95bc015f483e26c84ee55da9b66bc46d6478fc3a55b419ae3bc",
@@ -304,7 +306,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "5be6b7fd0e2469ae6b7c869b397d6ba460471db91bde6ab4231708e44d20951b",
+  "sourceDigest": "822ccca9e827c0a6a3ef5b02d73568cfacc3c39dd02962b8e57e78ecdf7eb46a",
   "exclusions": [
     {
       "family": "module-exports",
@@ -14136,32 +14138,33 @@
       "family": "visual",
       "runtimeId": "creature-coglet",
       "name": "creature-coglet",
-      "description": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+      "description": "Cream-and-brass quadruped machine with paired forward cyan lenses and a longitudinal dorsal gear.",
       "source": "dist/src/data/assets.js",
       "evidence": "tests/assets.test.mjs",
       "raw": {
         "name": "creature-coglet",
         "kind": "creature",
         "src": "assets/creatures/creature-coglet.png",
-        "w": 237,
+        "w": 234,
         "h": 264,
         "anchor": "bottom-center",
         "required": false
       },
-      "dimensions": "237 by 264 source pixels",
+      "dimensions": "234 by 264 source pixels",
       "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
       "animations": "No animation states declared for this static image.",
       "references": [],
       "preview": "dist/assets/creatures/creature-coglet.png",
       "animationMetadata": null,
       "identity": {
-        "silhouette": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+        "silhouette": "Cream-and-brass quadruped machine with paired forward cyan lenses and a longitudinal dorsal gear.",
         "palette": ["brass brown", "cream", "gray", "charcoal", "near-black", "cyan"],
         "distinguishingFeatures": [
-          "Large brass dorsal cog with central cyan bearing",
-          "Rounded cream shell with brass bands",
-          "Paired circular cyan front lenses in dark rims",
-          "Four short charcoal jointed legs with brass feet"
+          "Sagittal dorsal gear, transverse axle: thin rim from front/rear and broad disc from flanks",
+          "Rounded cream shell with fixed brass center band",
+          "Exactly two cyan forward lenses, occluded from rear",
+          "Four identical charcoal joints/short segments/brass wedge feet at fixed corners",
+          "Brass-centered dark rear flank housing above rear leg"
         ]
       },
       "review": [],
@@ -14178,7 +14181,7 @@
       "family": "visual",
       "runtimeId": "creature-coglet-combat",
       "name": "creature-coglet-combat",
-      "description": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+      "description": "Cream-and-brass quadruped machine with paired forward cyan lenses and a longitudinal dorsal gear.",
       "source": "dist/src/data/assets.js",
       "evidence": "tests/assets.test.mjs",
       "raw": {
@@ -14204,7 +14207,7 @@
       "references": [],
       "preview": "dist/assets/creatures/creature-coglet-combat.png",
       "animationMetadata": {
-        "sourceSize": [1312, 1199],
+        "sourceSize": [1122, 1402],
         "output": "dist/assets/creatures/creature-coglet-combat.png",
         "columns": 4,
         "rows": 5,
@@ -14212,20 +14215,21 @@
         "anchor": "bottom-center"
       },
       "identity": {
-        "silhouette": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+        "silhouette": "Cream-and-brass quadruped machine with paired forward cyan lenses and a longitudinal dorsal gear.",
         "palette": ["brass brown", "cream", "gray", "charcoal", "near-black", "cyan"],
         "distinguishingFeatures": [
-          "Large brass dorsal cog with central cyan bearing",
-          "Rounded cream shell with brass bands",
-          "Paired circular cyan front lenses in dark rims",
-          "Four short charcoal jointed legs with brass feet"
+          "Sagittal dorsal gear, transverse axle: thin rim from front/rear and broad disc from flanks",
+          "Rounded cream shell with fixed brass center band",
+          "Exactly two cyan forward lenses, occluded from rear",
+          "Four identical charcoal joints/short segments/brass wedge feet at fixed corners",
+          "Brass-centered dark rear flank housing above rear leg"
         ]
       },
       "review": [
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Rounded cream/brass mechanical casing, paired cyan front lenses, charcoal/brass short legs and dorsal gear remain readable. Rear views hide front lenses; front shows both; side profiles differ from rear diagonals. Walking alternates legs and changes cog angle. Charge braces/lunges; hit tilts/recoveries; final faint pose rests low with dim front lenses after source correction. Complete anatomy is isolated in output gutters; source spacing and faint revisions retained. Generated adaptations are not original owner-reference binaries.",
+          "reason": "Correction #378 replaces rejected anatomy. Inspected portrait and all40 follower/20 battle cells enlarged and at37/115px. Front/rear gear shows rim, profiles show broad side disc, diagonals oblique face; gear plane stays longitudinal. Front-only paired lenses, hidden rear lenses, identical four-corner leg construction and rear flank housing remain identifiable. Rejected first follower angle layout, replaced five northwest cells to remove rear eye; rejected disappearing faint gear and regenerated intact low resting faint row. Detailed angle/state observations and limitations in ANATOMY-378.md. Owner taste pending; earlier internal review missed owner-reported defects and is retained separately.",
           "ownerTaste": "pending"
         }
       ],
@@ -14242,7 +14246,7 @@
       "family": "visual",
       "runtimeId": "creature-coglet-follower",
       "name": "creature-coglet-follower",
-      "description": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+      "description": "Cream-and-brass quadruped machine with paired forward cyan lenses and a longitudinal dorsal gear.",
       "source": "dist/src/data/assets.js",
       "evidence": "tests/assets.test.mjs",
       "raw": {
@@ -14268,7 +14272,7 @@
       "references": [],
       "preview": "dist/assets/creatures/creature-coglet-follower.png",
       "animationMetadata": {
-        "sourceSize": [992, 1585],
+        "sourceSize": [992, 1586],
         "output": "dist/assets/creatures/creature-coglet-follower.png",
         "frame": [200, 200],
         "columns": 5,
@@ -14277,20 +14281,21 @@
         "feetY": 196
       },
       "identity": {
-        "silhouette": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+        "silhouette": "Cream-and-brass quadruped machine with paired forward cyan lenses and a longitudinal dorsal gear.",
         "palette": ["brass brown", "cream", "gray", "charcoal", "near-black", "cyan"],
         "distinguishingFeatures": [
-          "Large brass dorsal cog with central cyan bearing",
-          "Rounded cream shell with brass bands",
-          "Paired circular cyan front lenses in dark rims",
-          "Four short charcoal jointed legs with brass feet"
+          "Sagittal dorsal gear, transverse axle: thin rim from front/rear and broad disc from flanks",
+          "Rounded cream shell with fixed brass center band",
+          "Exactly two cyan forward lenses, occluded from rear",
+          "Four identical charcoal joints/short segments/brass wedge feet at fixed corners",
+          "Brass-centered dark rear flank housing above rear leg"
         ]
       },
       "review": [
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Rounded cream/brass mechanical casing, paired cyan front lenses, charcoal/brass short legs and dorsal gear remain readable. Rear views hide front lenses; front shows both; side profiles differ from rear diagonals. Walking alternates legs and changes cog angle. Charge braces/lunges; hit tilts/recoveries; final faint pose rests low with dim front lenses after source correction. Complete anatomy is isolated in output gutters; source spacing and faint revisions retained. Generated adaptations are not original owner-reference binaries.",
+          "reason": "Correction #378 replaces rejected anatomy. Inspected portrait and all40 follower/20 battle cells enlarged and at37/115px. Front/rear gear shows rim, profiles show broad side disc, diagonals oblique face; gear plane stays longitudinal. Front-only paired lenses, hidden rear lenses, identical four-corner leg construction and rear flank housing remain identifiable. Rejected first follower angle layout, replaced five northwest cells to remove rear eye; rejected disappearing faint gear and regenerated intact low resting faint row. Detailed angle/state observations and limitations in ANATOMY-378.md. Owner taste pending; earlier internal review missed owner-reported defects and is retained separately.",
           "ownerTaste": "pending"
         }
       ],

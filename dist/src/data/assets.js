@@ -1009,7 +1009,7 @@ export const assets = [
     },
   },
 
-  {name: 'creature-coglet', kind: 'creature', src: 'assets/creatures/creature-coglet.png', w: 237, h: 264, anchor: 'bottom-center', required: false},
+  {name: 'creature-coglet', kind: 'creature', src: 'assets/creatures/creature-coglet.png', w: 234, h: 264, anchor: 'bottom-center', required: false},
   {
     name: 'creature-coglet-combat',
     kind: 'creature',
