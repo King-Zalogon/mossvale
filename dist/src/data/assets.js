@@ -1066,6 +1066,36 @@ export const assets = [
       columnOrder: ['idle', 'walk-1', 'walk-2', 'walk-3', 'walk-4'],
     },
   },
+  {
+    name: 'wood-plank-stack',
+    kind: 'prop',
+    src: 'assets/props/wood-plank-stack.png',
+    w: 64,
+    h: 64,
+    anchor: 'bottom-center',
+    required: true,
+    portablePreviewAllowed: false,
+  },
+  {
+    name: 'wood-firewood-bundle',
+    kind: 'prop',
+    src: 'assets/props/wood-firewood-bundle.png',
+    w: 64,
+    h: 64,
+    anchor: 'bottom-center',
+    required: true,
+    portablePreviewAllowed: false,
+  },
+  {
+    name: 'straw-bundle',
+    kind: 'prop',
+    src: 'assets/props/straw-bundle.png',
+    w: 64,
+    h: 64,
+    anchor: 'bottom-center',
+    required: true,
+    portablePreviewAllowed: false,
+  },
 ];
 
 /** Index of an asset by name; used by content that refers to art (species, regions, direction sprites). Throws on a typo. */
