@@ -26,7 +26,7 @@
       "asset": "person-red-cap-motion",
       "technical": {
         "status": "pass",
-        "source": "npm run art:check; player motion regressions check fixed y=250 foot anchors, transparent cells, four distinct East gait frames, and distinct NE/NW/SW idle cells. All 40 poses were visually checked at the 52x84 px gameplay size."
+        "source": "npm run art:check; player motion regressions check fixed y=250 foot anchors, transparent cells, four distinct East gait frames, and distinct NE/NW/SW idle cells. All 40 poses were visually checked at the 52x84 px gameplay size. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
       },
       "visual": {
         "decision": "accept",
@@ -82,7 +82,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "5f8805ea106c4a0139b39d8d6eea9bd7f2dddafe6d6de223815c6c833ca4182c"
+          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
         }
       ]
     },
@@ -1065,7 +1065,7 @@
       "asset": "creature-sedgegnaw-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
       },
       "visual": {
         "decision": "accept",
@@ -1082,7 +1082,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "c13f58015538a70848160ff1c6fbd721e4547c3002d58e917e13782d3b0e8215"
+          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1090,7 +1090,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "5f8805ea106c4a0139b39d8d6eea9bd7f2dddafe6d6de223815c6c833ca4182c"
+          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -1183,7 +1183,7 @@
       "asset": "creature-petalunge-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
       },
       "visual": {
         "decision": "accept",
@@ -1200,7 +1200,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "c13f58015538a70848160ff1c6fbd721e4547c3002d58e917e13782d3b0e8215"
+          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1208,7 +1208,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "5f8805ea106c4a0139b39d8d6eea9bd7f2dddafe6d6de223815c6c833ca4182c"
+          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -1301,7 +1301,7 @@
       "asset": "creature-cindercurl-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
       },
       "visual": {
         "decision": "accept",
@@ -1318,7 +1318,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "c13f58015538a70848160ff1c6fbd721e4547c3002d58e917e13782d3b0e8215"
+          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1326,7 +1326,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "5f8805ea106c4a0139b39d8d6eea9bd7f2dddafe6d6de223815c6c833ca4182c"
+          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -1419,12 +1419,12 @@
       "asset": "creature-sunsifter-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites est\u00e1n muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "approved"
       },
       "evidence": [
@@ -1439,7 +1439,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "c13f58015538a70848160ff1c6fbd721e4547c3002d58e917e13782d3b0e8215"
+          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1455,7 +1455,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "5f8805ea106c4a0139b39d8d6eea9bd7f2dddafe6d6de223815c6c833ca4182c"
+          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -1560,12 +1560,12 @@
       "asset": "creature-rillume-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites est\u00e1n muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "approved"
       },
       "evidence": [
@@ -1580,7 +1580,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "c13f58015538a70848160ff1c6fbd721e4547c3002d58e917e13782d3b0e8215"
+          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1596,7 +1596,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "5f8805ea106c4a0139b39d8d6eea9bd7f2dddafe6d6de223815c6c833ca4182c"
+          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -1981,7 +1981,7 @@
       "asset": "creature-lanternix-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
       },
       "visual": {
         "decision": "accept",
@@ -2002,7 +2002,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "c13f58015538a70848160ff1c6fbd721e4547c3002d58e917e13782d3b0e8215"
+          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -2018,7 +2018,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "5f8805ea106c4a0139b39d8d6eea9bd7f2dddafe6d6de223815c6c833ca4182c"
+          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -2673,7 +2673,7 @@
       },
       "visual": {
         "decision": "quarantine",
-        "reason": "Deliberate hue shift destroys Fernling’s defining leaf-green palette despite a valid PNG."
+        "reason": "Deliberate hue shift destroys Fernling\u2019s defining leaf-green palette despite a valid PNG."
       }
     },
     {
