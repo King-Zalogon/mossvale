@@ -1,0 +1,9 @@
+# Parrocket production brief
+
+Owner-supplied Rocket Parrot, 0.45 m, 4.8 kg. Preserve the rounded royal-blue body, white face/belly, teal iris, red cheek and conical rocket beak with dark collar, three blue/yellow/red crest feathers, teal/yellow wing feathers, charcoal feet and red/orange/yellow rocket-feather tail with striped collar. No crystals, armor, detachable rockets or creature substitution.
+
+Prepare shared optional assets without changing the active eighteen-species roster or existing encounters. Runtime species IDs remain pack-owned. A reusable JSON definition will use `parrocket`, primary Fire and existing move rules; Air is a design trait, not an implemented second combat type. Future authors choose habitat, acquisition, encounter balance and pack availability deliberately.
+
+Portrait: the supplied three-quarter left-facing design, isolated on real transparency with no ground shadow. Combat: four authored poses in each of idle, attack, hit, faint and capture; same left-facing body identity, actual foot motion and expressive recovery. Directional movement: eight distinct views, each neutral planted idle followed by four alternating-foot walking poses. North shows the back, northwest a rear-left view, west a left profile, southwest a front-left view; their eastern counterparts are corresponding actual views. South faces the viewer. Match the game's row order, shared scale and bottom-center feet. Tail feathers remain part of the body and may brighten during attack, never transform into a different object.
+
+Leave broad transparent gutters between every source pose. Export by explicit reviewed cells with one scale per sheet, preserving appendages and rejecting adjoining fragments. Review at 37-pixel follower and 115-pixel battle widths, including west versus northwest. Preserve supplied reference bytes and exact generation instructions. Technical/internal review is separate from owner taste approval.
