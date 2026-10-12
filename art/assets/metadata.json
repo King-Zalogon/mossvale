@@ -143,6 +143,21 @@
       "width": 1000,
       "height": 1600,
       "mode": "RGBA"
+    },
+    "source/coglet/portrait.png": {
+      "width": 237,
+      "height": 264,
+      "mode": "RGBA"
+    },
+    "source/coglet/combat.png": {
+      "width": 1152,
+      "height": 1440,
+      "mode": "RGBA"
+    },
+    "source/coglet/follower.png": {
+      "width": 1000,
+      "height": 1600,
+      "mode": "RGBA"
     }
   },
   "assets": [
@@ -3918,6 +3933,127 @@
         "editablePixelSource": "art/assets/source/rumblet/follower.png",
         "originalGeneratedReferences": [
           "art/characters/source/rumblet/follower-clean.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-coglet",
+      "src": "assets/creatures/creature-coglet.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 237,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/coglet/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "exportProfile": {
+        "id": "coglet-portrait-v1",
+        "settingsSha256": "c8c8475cf26a48feb242ba2154aaf73da6229a976ce6cf97e69a3505b73c8e82"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/coglet/portrait.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/coglet/portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-coglet-combat",
+      "src": "assets/creatures/creature-coglet-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/coglet/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "exportProfile": {
+        "id": "coglet-combat-v1",
+        "settingsSha256": "05a6c8296a8653a43774c4ce76ec8ce062f2ff1fed48e8db876e7aafd884bf79"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/coglet/combat.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/coglet/combat-faint.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-coglet-follower",
+      "src": "assets/creatures/creature-coglet-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/coglet/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      },
+      "exportProfile": {
+        "id": "coglet-follower-v1",
+        "settingsSha256": "7dc9ea39940292b596cd5973a34464428d1a0364dc82377d81a42de4a4ff609a"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/coglet/follower.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/coglet/follower-spaced.png"
         ],
         "originalGenerationSourceAvailable": true,
         "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."

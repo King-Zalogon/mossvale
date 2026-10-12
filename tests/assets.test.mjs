@@ -144,6 +144,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
       'creature-parrocket',
       'creature-blastoucan',
       'creature-rumblet',
+      'creature-coglet',
     ],
   );
   const player = registry.subjects[0];
@@ -178,6 +179,7 @@ test('sample visual subjects have hashed canonical references, exports and linke
     'creature-bramblebuck',
     'creature-brooklet',
     'creature-cindercurl',
+    'creature-coglet',
     'creature-duskwing',
     'creature-emberkin',
     'creature-fernling',

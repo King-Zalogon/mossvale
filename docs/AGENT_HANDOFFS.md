@@ -207,3 +207,9 @@ Claimed `codex/244-playable-scene-quality` from latest `origin/main` `1c1c984`, 
 ## #368 — Rumblet reusable resource
 
 Claimed on `codex/368-rumblet-resources` from `origin/main` (`1c1c984`) updated with integration (`54d4a4d`). Preserve owner-inline compact quadruped/gray impact plate design; optional portrait, directional/combat atlases, importable definition and catalogue. Local full verify/build and actual-size visual review precede integration PR merge.
+
+## #371 — Coglet reusable resource
+
+Claimed on `codex/371-coglet-resources` from `origin/main` (`1c1c984`) updated with integration (`3df6f72`). Prepare owner-inline rounded mechanical Coglet with dorsal gear/cyan lenses as optional portrait, follower/combat atlases, importable definition and catalogue. Full local verify/build and actual-size art review before integration merge. Live #370 scene-quality PR is separate; preserve both if integration advances.
+
+Coglet integration update: merged `origin/integration` `b6eeb3e` before final verification, preserving #244 scene-quality functionality and both test lists; regenerate the canonical catalogue to include both changes.

@@ -1,0 +1,23 @@
+{
+  "id": "coglet",
+  "name": "Coglet",
+  "type": "Spark",
+  "stats": {
+    "hp": 46,
+    "attack": 10,
+    "defense": 13
+  },
+  "hp": 46,
+  "move": "static-leap",
+  "biome": "meadow",
+  "role": "Methodical mechanical companion",
+  "personality": "Curious, methodical and persistent; its dorsal gear clicks and turns with each step.",
+  "desc": "A small cream-and-brass round machine with cyan lenses, short jointed legs and a large dorsal cog.",
+  "encounterHint": "Authors may place it near workshops or old machinery; it has no encounter in current maps.",
+  "strong": ["Water", "Air", "Mire"],
+  "weak": ["Stone", "Sand"],
+  "color": "#02dce4",
+  "sprite": "creature-coglet",
+  "habitats": ["workshop-edge", "old-machinery"],
+  "abilities": []
+}

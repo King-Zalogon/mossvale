@@ -210,6 +210,15 @@
         1122,
         1402
       ]
+    },
+    "coglet": {
+      "generatedSource": "art/characters/source/coglet/combat-faint.png",
+      "referenceAsset": "creature-coglet",
+      "promptBrief": "Owner-inline rounded toy machine/dorsal cog; exact prompts and spacing revisions retained, no pre-drawn orb.",
+      "sourceSize": [
+        1312,
+        1199
+      ]
     }
   },
   "frameOrder": [
@@ -572,6 +581,20 @@
         1402
       ],
       "output": "dist/assets/creatures/creature-rumblet-combat.png",
+      "columns": 4,
+      "rows": 5,
+      "frame": [
+        288,
+        288
+      ],
+      "anchor": "bottom-center"
+    },
+    "creature-coglet-combat": {
+      "sourceSize": [
+        1312,
+        1199
+      ],
+      "output": "dist/assets/creatures/creature-coglet-combat.png",
       "columns": 4,
       "rows": 5,
       "frame": [

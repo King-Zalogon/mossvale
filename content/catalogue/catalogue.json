@@ -450,6 +450,76 @@
       ]
     },
     {
+      "id": "creature-resource:coglet",
+      "kind": "actor",
+      "name": "Coglet",
+      "summary": "Coglet is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "coglet",
+            "name": "Coglet",
+            "type": "Spark",
+            "stats": {
+              "hp": 46,
+              "attack": 10,
+              "defense": 13
+            },
+            "hp": 46,
+            "move": "static-leap",
+            "biome": "meadow",
+            "role": "Methodical mechanical companion",
+            "personality": "Curious, methodical and persistent; its dorsal gear clicks and turns with each step.",
+            "desc": "A small cream-and-brass round machine with cyan lenses, short jointed legs and a large dorsal cog.",
+            "encounterHint": "Authors may place it near workshops or old machinery; it has no encounter in current maps.",
+            "strong": ["Water", "Air", "Mire"],
+            "weak": ["Stone", "Sand"],
+            "color": "#02dce4",
+            "sprite": "creature-coglet",
+            "habitats": ["workshop-edge", "old-machinery"],
+            "abilities": []
+          },
+          "limits": "Configure through dist/resources/creatures/coglet.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-coglet", "visual:creature-coglet-combat", "visual:creature-coglet-follower"],
+      "limits": [
+        "Import the definition into a chosen pack registry, add its stable ID to the pack species list and author a reachable encounter before enabling it.",
+        "One primary combat type per species, as declared in its definition. Descriptive reference affinities do not install additional type rules.",
+        "No new starter-selection rule, flight, scout AI, speed stat or exploration ability is implemented; stats are a tunable starting definition."
+      ],
+      "examples": [
+        {
+          "intent": "Coglet is a prepared creature resource for future pack/map placement; it is not in current encounters.",
+          "usage": "Reference coglet in the existing format at dist/resources/creatures/coglet.json.",
+          "expected": "Coglet is a prepared creature resource for future pack/map placement; it is not in current encounters."
+        }
+      ],
+      "references": ["dist/resources/creatures/coglet.json", "content/resources/creatures/COGLET.md", "dist/coglet-preview.html"],
+      "evidence": [
+        {
+          "path": "tests/coglet.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small cream-and-brass round machine with cyan lenses, short jointed legs and a large dorsal cog. Portrait, five-state combat and eight-direction follower are registered shared assets.",
+        "behavior": "Pack-owned coglet definition uses existing capture, battle, growth and save rules after deliberate import.",
+        "locomotion": "Eight distinct facing rows, neutral idle and four distance-paced walk poses; reduced motion keeps idle. Movement uses existing collision and ground-following rules.",
+        "interactions": "No interaction is installed in current maps. Add to an encounter pool or use the portrait as shared scenery; Primary-type elemental effects and optional animation fallback use existing renderers."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-coglet.png",
+          "description": "A small cream-and-brass round machine with cyan lenses, short jointed legs and a large dorsal cog."
+        }
+      ]
+    },
+    {
       "id": "creature-resource:parrocket",
       "kind": "actor",
       "name": "Parrocket",
@@ -15669,6 +15739,193 @@
         {
           "path": "dist/assets/creatures/creature-cindercurl-follower.png",
           "description": "Low, stocky pangolin with overlapping kiln plates and a separate curled shield tail."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-coglet",
+      "kind": "visual",
+      "name": "creature-coglet",
+      "summary": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-coglet",
+            "kind": "creature",
+            "src": "assets/creatures/creature-coglet.png",
+            "w": 237,
+            "h": 264,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+          "usage": "Reference creature-coglet in the existing format at dist/src/data/assets.js.",
+          "expected": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "237 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-coglet is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-coglet.png",
+          "description": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-coglet-combat",
+      "kind": "visual",
+      "name": "creature-coglet-combat",
+      "summary": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-coglet-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-coglet-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "columnOrder": [0, 1, 2, 3]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+          "usage": "Reference creature-coglet-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-coglet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-coglet-combat.png",
+          "description": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-coglet-follower",
+      "kind": "visual",
+      "name": "creature-coglet-follower",
+      "summary": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-coglet-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-coglet-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+          "usage": "Reference creature-coglet-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog.",
+        "style": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-coglet-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-coglet-follower.png",
+          "description": "Small round cream-and-brass mechanical body with four short articulated legs and a large attached dorsal cog."
         }
       ]
     },

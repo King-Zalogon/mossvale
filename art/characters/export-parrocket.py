@@ -37,7 +37,7 @@ def prepare(kind, spec):
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
-    parser.add_argument('--species', choices=['parrocket', 'blastoucan', 'rumblet'], default='parrocket')
+    parser.add_argument('--species', choices=['parrocket', 'blastoucan', 'rumblet', 'coglet'], default='parrocket')
     args = parser.parse_args()
     specs = json.loads((ROOT / f'art/characters/source/{args.species}/export.json').read_text())['exports']
     for kind, spec in specs.items():

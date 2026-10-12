@@ -1008,6 +1008,35 @@ export const assets = [
       columnOrder: ['idle', 'walk-1', 'walk-2', 'walk-3', 'walk-4'],
     },
   },
+
+  {name: 'creature-coglet', kind: 'creature', src: 'assets/creatures/creature-coglet.png', w: 237, h: 264, anchor: 'bottom-center', required: false},
+  {
+    name: 'creature-coglet-combat',
+    kind: 'creature',
+    src: 'assets/creatures/creature-coglet-combat.png',
+    w: 1152,
+    h: 1440,
+    anchor: 'bottom-center',
+    required: false,
+    frames: {columns: 4, rows: 5, frameWidth: 288, frameHeight: 288, rowOrder: ['idle', 'attack', 'hit', 'faint', 'capture'], columnOrder: [0, 1, 2, 3]},
+  },
+  {
+    name: 'creature-coglet-follower',
+    kind: 'creature',
+    src: 'assets/creatures/creature-coglet-follower.png',
+    w: 1000,
+    h: 1600,
+    anchor: 'bottom-center',
+    required: false,
+    frames: {
+      columns: 5,
+      rows: 8,
+      frameWidth: 200,
+      frameHeight: 200,
+      rowOrder: ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'],
+      columnOrder: ['idle', 'walk-1', 'walk-2', 'walk-3', 'walk-4'],
+    },
+  },
 ];
 
 /** Index of an asset by name; used by content that refers to art (species, regions, direction sprites). Throws on a typo. */

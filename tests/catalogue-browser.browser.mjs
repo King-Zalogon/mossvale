@@ -79,6 +79,10 @@ try {
   await page.locator('#license').selectOption('');
   await page.locator('#tag').selectOption('');
   await page.locator('#element').selectOption('');
+  await page.locator('#element').selectOption({label: 'Spark'});
+  await page.waitForFunction(() => [...document.querySelectorAll('.card-title')].some(card => card.textContent === 'creature-coglet-follower'));
+  const cogletCards = (await page.locator('.card-title').allTextContents()).filter(name => name.startsWith('creature-coglet'));
+  assert.deepEqual(cogletCards, ['creature-coglet', 'creature-coglet-combat', 'creature-coglet-follower']);
   await page.locator('#element').selectOption({label: 'Fire'});
   await page.waitForFunction(() => document.querySelectorAll('.card').length === 12);
   assert.deepEqual(await page.locator('.card-title').allTextContents(), [
