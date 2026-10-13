@@ -951,5 +951,70 @@
         }
       ]
     }
+  ],
+  "hints": [
+    {
+      "id": "old-water",
+      "when": {
+        "event": "orchard-ruins/mara-water-loss"
+      },
+      "resolved": {
+        "any": [
+          {
+            "event": "orchard-ruins/sluice-old-mark"
+          },
+          {
+            "event": "orchard-ruins/press-repair-record"
+          }
+        ]
+      },
+      "disclosure": "observation",
+      "levels": [
+        "Compare an old trace with a fresh one. A scrape alone cannot tell you when the water stopped.",
+        "Follow the southern orchard path to the old machinery, or inspect the repair boards beside the eastern broken wall. Compare weathering with fresh marks."
+      ]
+    },
+    {
+      "id": "returning-tracks",
+      "when": {
+        "any": [
+          {
+            "event": "orchard-ruins/sluice-old-mark"
+          },
+          {
+            "event": "orchard-ruins/press-repair-record"
+          }
+        ]
+      },
+      "resolved": {
+        "event": "orchard-ruins/den-family-seen"
+      },
+      "disclosure": "lead",
+      "levels": [
+        "Follow where the wet marks return, rather than assuming every track points away.",
+        "Look between the lower orchard row and the channel. Follow the visible damp ground to the low opening among the roots. You can get there on foot."
+      ]
+    },
+    {
+      "id": "two-priorities",
+      "when": {
+        "event": "orchard-ruins/den-family-seen"
+      },
+      "resolved": {
+        "any": [
+          {
+            "event": "orchard-ruins/outcome-water-first"
+          },
+          {
+            "event": "orchard-ruins/outcome-family-first"
+          }
+        ]
+      },
+      "disclosure": "lead",
+      "levels": [
+        "Look for a higher resting place and a way to redirect the water. Choose which needs attention first.",
+        "Inspect the higher roots beside the low opening, or the stones along the nearby channel. Neither requires a particular companion."
+      ]
+    }
   ]
 }
