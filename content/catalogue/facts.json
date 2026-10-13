@@ -178,14 +178,14 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "972a103e1c5f04e57bb576eb163263c4351dd3db8d93f2f4e7a2f27485c916a0",
+    "dist/maps/amber-ridge.json": "1cca9d85f53b907e4c4121c92b9911a608f9b7d103872a3c019f6ba8089baf3c",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
     "dist/maps/frostveil-pass.json": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a",
-    "dist/maps/index.json": "6e6e98cfb12068759737051a9536e49429cf20f63e033b148272fdf10deeddd2",
+    "dist/maps/index.json": "07c675de60b562850b89752c4aee81c4e9c9e306269b4f5fa68a6776c39c1ad8",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "7f4bc5773e331409eeb953d393e722f8ef8a4fb9506cd47ca0d1431df50fede2",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "6bc792542c629fc48b3562e9f378f9086862b9653d40de69c0f5c6cab596895e",
+    "dist/maps/orchard-ruins.json": "feddfbb53b808c995a07a09bc1141f67da124a687d705a5830afc6da9625f3ae",
     "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
     "dist/maps/registries.json": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc",
     "dist/maps/stilt-isles.json": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c",
@@ -202,7 +202,7 @@
     "dist/src/character-preview.js": "00058680f6a8971cc2cb974bf0c7d450b34a7d39ad1c28b5c37285a712973c54",
     "dist/src/compatibility.js": "cb16e68f3c5fefc86c7e6068f1f7a5e832e009647baa07641a4bd1ed06349ca3",
     "dist/src/config.js": "8c60c45a799c27fdddd30c02f08ca85c903900668f8b8a0d143b7445ecb8fff4",
-    "dist/src/controller.js": "801939a1364d6db97c82525386357429a0488976466c2156249d95753fcf37d2",
+    "dist/src/controller.js": "59755c4ad81000c5dc4d2ea216e539e63e0e3a86a083f897142d7984446935f8",
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
@@ -307,7 +307,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "b3897a58fed1f50de6dff8c843e172bdbabaa0bfe7141ec1926bf1c2d054c22c",
+  "sourceDigest": "5292e8b7ad722116bd46deb86f1a6ed01974fb50ee9ab2d3fe26e86976606737",
   "exclusions": [
     {
       "family": "module-exports",
@@ -1226,6 +1226,18 @@
         "tag": "ROWAN",
         "mapLabel": "Supply point",
         "lines": [
+          {
+            "when": {
+              "event": "orchard-ruins/outcome-water-first"
+            },
+            "text": "Mara's lower row is flowing again. The orchard family stayed in its dry upper nook, and the eastern trail is still the way forward."
+          },
+          {
+            "when": {
+              "event": "orchard-ruins/family-first-state"
+            },
+            "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
+          },
           {
             "when": {
               "flag": "amber-ridge.seal"
@@ -3194,6 +3206,18 @@
             "tag": "ROWAN",
             "mapLabel": "Supply point",
             "lines": [
+              {
+                "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "text": "Mara's lower row is flowing again. The orchard family stayed in its dry upper nook, and the eastern trail is still the way forward."
+              },
+              {
+                "when": {
+                  "event": "orchard-ruins/family-first-state"
+                },
+                "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
+              },
               {
                 "when": {
                   "flag": "amber-ridge.seal"
@@ -6463,7 +6487,14 @@
                     },
                     {
                       "not": {
-                        "event": "orchard-ruins/outcome-family-first"
+                        "any": [
+                          {
+                            "event": "orchard-ruins/outcome-family-first"
+                          },
+                          {
+                            "event": "orchard-ruins/orchard-family"
+                          }
+                        ]
                       }
                     }
                   ]
@@ -6479,6 +6510,29 @@
                     "coins": 10
                   }
                 ]
+              },
+              {
+                "id": "water-first-state",
+                "repeatable": false,
+                "when": {
+                  "all": [
+                    {
+                      "event": "orchard-ruins/outcome-water-first"
+                    },
+                    {
+                      "not": {
+                        "event": "orchard-ruins/water-first-state"
+                      }
+                    }
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "narrator",
+                    "text": "The lower row is visibly running again. The family has settled above the waterline; Mara's repair holds for this visit."
+                  }
+                ]
               }
             ]
           },
@@ -6490,7 +6544,7 @@
             "events": [
               {
                 "id": "outcome-family-first",
-                "repeatable": false,
+                "repeatable": true,
                 "when": {
                   "all": [
                     {
@@ -6498,7 +6552,14 @@
                     },
                     {
                       "not": {
-                        "event": "orchard-ruins/outcome-water-first"
+                        "any": [
+                          {
+                            "event": "orchard-ruins/outcome-water-first"
+                          },
+                          {
+                            "event": "orchard-ruins/orchard-family"
+                          }
+                        ]
                       }
                     }
                   ]
@@ -6507,11 +6568,47 @@
                   {
                     "type": "dialogue",
                     "speaker": "narrator",
-                    "text": "You guide the young to the dry hollow first. The adult follows, leaving Mara the slower channel repair."
+                    "text": "The young are almost through the dry hollow. Hold the adult's attention until they reach shelter; this is a rescue, not a capture."
                   },
                   {
-                    "type": "reward",
-                    "coins": 10
+                    "type": "challenge",
+                    "species": "bramblebuck",
+                    "level": 7,
+                    "objective": {
+                      "id": "orchard-family",
+                      "kind": "survive",
+                      "turns": 2,
+                      "title": "Hold the adult's attention",
+                      "description": "Survive two turns while the young reach the dry hollow. The adult will retreat safely when the family is clear.",
+                      "reward": {
+                        "coins": 10,
+                        "potions": 0,
+                        "xp": 12
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "family-first-state",
+                "repeatable": false,
+                "when": {
+                  "all": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "not": {
+                        "event": "orchard-ruins/family-first-state"
+                      }
+                    }
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "dialogue",
+                    "speaker": "narrator",
+                    "text": "The young reach the dry hollow and the adult follows them. The lower row stays dry for this visit while Mara prepares the slower repair."
                   }
                 ]
               }
@@ -9583,7 +9680,7 @@
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "972a103e1c5f04e57bb576eb163263c4351dd3db8d93f2f4e7a2f27485c916a0"
+            "sha256": "1cca9d85f53b907e4c4121c92b9911a608f9b7d103872a3c019f6ba8089baf3c"
           },
           {
             "id": "map:frostveil-grove",
@@ -9603,7 +9700,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "6bc792542c629fc48b3562e9f378f9086862b9653d40de69c0f5c6cab596895e"
+            "sha256": "feddfbb53b808c995a07a09bc1141f67da124a687d705a5830afc6da9625f3ae"
           },
           {
             "id": "map:stilt-isles",

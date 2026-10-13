@@ -750,7 +750,14 @@
               },
               {
                 "not": {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    },
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    }
+                  ]
                 }
               }
             ]
@@ -766,6 +773,29 @@
               "coins": 10
             }
           ]
+        },
+        {
+          "id": "water-first-state",
+          "repeatable": false,
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/outcome-water-first"
+              },
+              {
+                "not": {
+                  "event": "orchard-ruins/water-first-state"
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "narrator",
+              "text": "The lower row is visibly running again. The family has settled above the waterline; Mara's repair holds for this visit."
+            }
+          ]
         }
       ]
     },
@@ -777,7 +807,7 @@
       "events": [
         {
           "id": "outcome-family-first",
-          "repeatable": false,
+          "repeatable": true,
           "when": {
             "all": [
               {
@@ -785,7 +815,14 @@
               },
               {
                 "not": {
-                  "event": "orchard-ruins/outcome-water-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/outcome-water-first"
+                    },
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    }
+                  ]
                 }
               }
             ]
@@ -794,11 +831,47 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "You guide the young to the dry hollow first. The adult follows, leaving Mara the slower channel repair."
+              "text": "The young are almost through the dry hollow. Hold the adult's attention until they reach shelter; this is a rescue, not a capture."
             },
             {
-              "type": "reward",
-              "coins": 10
+              "type": "challenge",
+              "species": "bramblebuck",
+              "level": 7,
+              "objective": {
+                "id": "orchard-family",
+                "kind": "survive",
+                "turns": 2,
+                "title": "Hold the adult's attention",
+                "description": "Survive two turns while the young reach the dry hollow. The adult will retreat safely when the family is clear.",
+                "reward": {
+                  "coins": 10,
+                  "potions": 0,
+                  "xp": 12
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "family-first-state",
+          "repeatable": false,
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "not": {
+                  "event": "orchard-ruins/family-first-state"
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "narrator",
+              "text": "The young reach the dry hollow and the adult follows them. The lower row stays dry for this visit while Mara prepares the slower repair."
             }
           ]
         }

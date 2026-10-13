@@ -124,6 +124,18 @@
       "lines": [
         {
           "when": {
+            "event": "orchard-ruins/outcome-water-first"
+          },
+          "text": "Mara's lower row is flowing again. The orchard family stayed in its dry upper nook, and the eastern trail is still the way forward."
+        },
+        {
+          "when": {
+            "event": "orchard-ruins/family-first-state"
+          },
+          "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
+        },
+        {
+          "when": {
             "flag": "amber-ridge.seal"
           },
           "text": "The ridge shrine hums again. Frostveil Grove lies far to the east."
