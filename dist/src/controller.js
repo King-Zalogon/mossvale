@@ -372,7 +372,8 @@ export function createController(app) {
 
   function nearest() {
     const object = nearestInteractive(game.world, game.player);
-    return object && companionRouteVisible(save(), game.world.map.id, object) ? object : null;
+    if (!object || !companionRouteVisible(save(), game.world.map.id, object)) return null;
+    return object.labels ? {...object, label: pickLine(object.labels, save(), objCtx) || object.label} : object;
   }
 
   /** Marks what the player can see as explored and notes landmarks they have come across (domain/discovery.js). */
@@ -440,6 +441,16 @@ export function createController(app) {
     if (game.battle || ui.modalMode || ui.paused) return;
     if (ui.now - lastInteract < INTERACT_COOLDOWN_MS && ui.now >= lastInteract) return; // double taps do nothing
     lastInteract = ui.now;
+    // An eligible authored interaction at a prop takes precedence over its generic landmark text.
+    const sceneTrigger = triggersAt(game.world, game.player, 'interact').find(
+      t =>
+        t.beforeLandmark &&
+        (t.events ?? []).some(event => (event.repeatable || !sceneHasRun(save(), game.world.map.id, event.id)) && sceneConditionHolds(event, save(), objCtx)),
+    );
+    if (sceneTrigger) {
+      runTrigger(sceneTrigger);
+      return;
+    }
     const o = nearest();
     if (!o) {
       const t = triggersAt(game.world, game.player, 'interact')[0];

@@ -15,6 +15,12 @@
           "type": "boolean",
           "default": null,
           "limits": "Required explicit value; challenge requires true."
+        },
+        {
+          "name": "note",
+          "type": "string",
+          "default": null,
+          "limits": "Optional 1\u2013320 character discovered journal note; shown only after this event has run."
         }
       ],
       "dependencies": [],
@@ -30,20 +36,24 @@
           "expected": "Resolve bounded actor actions and commit durable scene results before transient presentation."
         }
       ],
-      "references": ["dist/src/domain/scenes.js"],
+      "references": ["dist/src/domain/scenes.js", "docs/ORCHARD_DISCOVERIES.md", "docs/MAP_FORMAT.md"],
       "evidence": [
         {
           "path": "tests/scenes.test.mjs",
           "assertion": "Regression coverage of the existing contract; this is not a new visual approval."
+        },
+        {
+          "path": "tests/orchard-clues.test.mjs",
+          "assertion": "Independent evidence alternatives, prerequisite failures, reload and mutually exclusive outcomes."
         }
       ],
       "details": {
-        "activation": "Existing map scene interaction dispatch.",
-        "conditions": "Optional when condition evaluated through objective conditions.",
+        "activation": "Existing map scene interaction dispatch. Optional landmark.labels conditions disclose the action before interacting; they fall back to the ordinary inspection label and never change map labels.",
+        "conditions": "Optional event/all/any/not and existing objective conditions; map validation rejects unknown scene/route evidence and positive prerequisite cycles. An explicitly configured beforeLandmark prop scene interaction takes precedence over generic landmark text.",
         "actions": "Dialogue, reward, flag, challenge, move, face, wait and react; challenge must be last. See docs/SCENE_ACTIONS.md for choreography limits.",
         "rewards": "Scene rewards accept coins, potions and orbs, not arbitrary inventory item IDs.",
         "repetition": "Explicit repeatable boolean; challenge events must be repeatable.",
-        "persistence": "Non-repeatable events use saved map/event keys; rewards and flags commit before choreography and roll back if saving fails."
+        "persistence": "Non-repeatable events use saved map/event keys; rewards and flags commit before choreography and roll back if saving fails. Optional notes appear in the journal only after the saved event."
       }
     },
     {
@@ -718,7 +728,7 @@
         "sequence": "Collect dialogue actions in order for the existing dialogue presentation.",
         "results": "Speaker-associated dialogue lines; domain function itself does not draw balloons.",
         "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
-        "errors": "Unknown speaker or text outside 1–500 characters fails validation.",
+        "errors": "Unknown speaker or text outside 1\u2013500 characters fails validation.",
         "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
       }
     },
@@ -850,13 +860,13 @@
           "name": "guardian.combatSprite",
           "type": "named same-species combat asset",
           "default": null,
-          "limits": "Optional shrine field; creature-<species>-…-combat ID, transparent 4×5 idle/attack/hit/faint/capture atlas. Unique guardian species/tactic per map."
+          "limits": "Optional shrine field; creature-<species>-\u2026-combat ID, transparent 4\u00d75 idle/attack/hit/faint/capture atlas. Unique guardian species/tactic per map."
         },
         {
           "name": "frames.combatDisplayWidth",
           "type": "integer pixels",
           "default": 107,
-          "limits": "Optional override atlas display width; delivered forms use 132 inside the existing 160×145 battle canvas."
+          "limits": "Optional override atlas display width; delivered forms use 132 inside the existing 160\u00d7145 battle canvas."
         }
       ],
       "dependencies": [
@@ -873,7 +883,7 @@
       ],
       "examples": [
         {
-          "intent": "Give Meadow’s Mushmallow its thorn mantle in the shrine encounter.",
+          "intent": "Give Meadow\u2019s Mushmallow its thorn mantle in the shrine encounter.",
           "usage": "Set Meadow shrine guardian.combatSprite to creature-mushmallow-thorn-mantle-combat; refresh pack integrity. See docs/GUARDIAN_COMBAT_FORMS.md.",
           "expected": "Shrine enemy uses the transformed form; same-species allies, wild encounters, portraits and followers retain normal art."
         }
@@ -896,7 +906,7 @@
         }
       ],
       "details": {
-        "trigger": "A boss battle matching the current map’s unique configured shrine species/tactic.",
+        "trigger": "A boss battle matching the current map\u2019s unique configured shrine species/tactic.",
         "inputs": "Optional guardian.combatSprite manifest ID and standard combat atlas metadata.",
         "sequence": "Validate and compile the pack reference; select the override for the enemy; retain it across action-to-idle transitions and derive it again after reload.",
         "results": "A species-specific transformed appearance confined to the configured shrine encounter.",
@@ -917,7 +927,7 @@
           "name": "landmarks[].discoveryText",
           "type": "string",
           "default": null,
-          "limits": "Optional trimmed text of 1–160 characters; older packs use Found <mapLabel>."
+          "limits": "Optional trimmed text of 1\u2013160 characters; older packs use Found <mapLabel>."
         }
       ],
       "dependencies": [],

@@ -1,4 +1,5 @@
 /* A deliberately small, data-only vocabulary for reusable map interactions. */
+import {companionRouteEventId} from './companion-routes.js';
 import {holds, validateLines} from './objectives.js';
 import {OBJECTIVE_MAX_TURNS, OBJECTIVE_REWARD_CAP} from '../config.js';
 
@@ -29,6 +30,8 @@ export function validateSceneEvent(event, {speciesIds, speakerIds = new Set(), a
   const at = (field, message) => errors.push(`${where}.${field}: ${message}`);
   if (!event || typeof event !== 'object' || Array.isArray(event)) return [`${where}: expected an event object`];
   if (typeof event.id !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(event.id)) at('id', 'stable lowercase-kebab-case id required');
+  if (event.note !== undefined && (typeof event.note !== 'string' || !event.note.trim() || event.note.length > 320))
+    at('note', 'discovered journal text must be 1–320 characters');
   if (event.when !== undefined) {
     const conditionErrors = validateLines([{when: event.when, text: 'x'}], `${where}.when`, {mapIds}).filter(error => !error.includes('.text:'));
     errors.push(...conditionErrors);
@@ -109,3 +112,43 @@ export function applySceneActions(save, event, context) {
 }
 
 export const sceneConditionHolds = (event, save, context) => !event.when || holds(event.when, save, context);
+
+/** Validate persisted scene prerequisites, including alternatives; negative outcome guards do not create dependencies. */
+export function validateSceneGraph(maps) {
+  const events = new Map();
+  const roots = new Set();
+  for (const map of maps) {
+    for (const trigger of Array.isArray(map.triggers) ? map.triggers : [])
+      for (const event of Array.isArray(trigger.events) ? trigger.events : []) events.set(sceneEventKey(map.id, event.id), event);
+    for (const exit of Array.isArray(map.exits) ? map.exits : []) if (exit.route?.id) roots.add(sceneEventKey(map.id, companionRouteEventId(exit.route.id)));
+  }
+  const errors = [];
+  const references = (condition, key) => {
+    if (!condition || typeof condition !== 'object') return;
+    if (condition.event && !events.has(condition.event) && !roots.has(condition.event)) errors.push(`${key}: unknown evidence event "${condition.event}"`);
+    for (const child of condition.all ?? condition.any ?? []) references(child, key);
+    if (condition.not) references(condition.not, key);
+  };
+  for (const [key, event] of events) references(event.when, key);
+  for (const map of maps)
+    for (const landmark of map.landmarks ?? []) for (const line of landmark.labels ?? []) references(line.when, `${map.id}/${landmark.id}.labels`);
+  const reachable = new Set(roots);
+  const possible = condition => {
+    if (!condition || condition.not) return true;
+    if (condition.event) return reachable.has(condition.event);
+    if (condition.all) return condition.all.every(possible);
+    if (condition.any) return condition.any.some(possible);
+    return true; // External flags and party progression are checked by their owning validators.
+  };
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const [key, event] of events)
+      if (!reachable.has(key) && possible(event.when)) {
+        reachable.add(key);
+        changed = true;
+      }
+  }
+  for (const key of events.keys()) if (!reachable.has(key)) errors.push(`${key}: unreachable evidence prerequisite cycle or missing source`);
+  return errors;
+}
