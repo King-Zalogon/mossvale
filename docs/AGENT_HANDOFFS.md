@@ -227,3 +227,7 @@ Resume existing `codex/258-narrative-continuity` claim and merged PR #302, refre
 ## #375 — all prepared creatures in Testing URLs
 
 Claimed `codex/375-creature-testing-urls` from main `1c1c984`, updated with integration `ae1739d`. Expose Parrocket, Blastoucan, Rumblet, Coglet and Wispurr in shared follower/combat previews and direct resource links. Preview-only registration; preserve adventure roster/save IDs. Validate source and /game packaging, local full verify/build and integration merge.
+
+## #378 — Coglet anatomical correction
+
+Claimed `codex/378-coglet-anatomy` from main `1c1c984`, updated with integration `4009c58`. Owner reports missed front-eye/gear-plane/leg/flank inconsistency. Fixed body-coordinate brief precedes regeneration; preserve rejected draft history, review enlarged and game-scale poses, update provenance/catalogue and validate before integration merge. IDs/stats/game rules unchanged.

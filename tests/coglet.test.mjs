@@ -20,6 +20,42 @@ test('Coglet is importable pack data without altering active maps or persisted r
   assert.equal(definition.sprite, 'creature-coglet');
 });
 
+test('Coglet lenses stay on the forward shell and the sagittal gear presents its edge front/rear', () => {
+  const image = decodePng(readFileSync(new URL('../dist/assets/creatures/creature-coglet-follower.png', import.meta.url)));
+  const observations = [];
+  for (let row = 0; row < 8; row++) {
+    observations[row] = [];
+    for (let col = 0; col < 5; col++) {
+      const pixels = [];
+      for (let y = 0; y < 200; y++)
+        for (let x = 0; x < 200; x++) {
+          const offset = ((row * 200 + y) * image.width + col * 200 + x) * 4;
+          const [r, g, b, a] = image.data.slice(offset, offset + 4);
+          if (a) pixels.push({x, y, r, g, b});
+        }
+      const top = Math.min(...pixels.map(p => p.y));
+      const bottom = Math.max(...pixels.map(p => p.y));
+      // Separate the dorsal bearing from the large lenses on the lower shell.
+      const eyes = pixels.filter(p => p.y >= top + (bottom - top) * 0.48 && p.g > 100 && p.b > 100 && p.r < p.g * 0.7 && p.r < p.b * 0.7);
+      const gear = pixels.filter(p => p.y < top + (bottom - top) * 0.3 && p.r > 100 && p.g > 45 && p.b < p.g * 0.65);
+      assert.ok(gear.length > 20, `direction ${row}/${col}: intact dorsal gear`);
+      const gearWidth = Math.max(...gear.map(p => p.x)) - Math.min(...gear.map(p => p.x)) + 1;
+      observations[row].push(gearWidth);
+      if ([0, 1, 7].includes(row)) assert.ok(eyes.length < 20, `rear ${row}/${col}: no large front lens on rear shell`);
+      else assert.ok(eyes.length > 150, `front/profile ${row}/${col}: readable forward lens`);
+      if ([2, 6].includes(row)) {
+        const meanX = eyes.reduce((sum, p) => sum + p.x, 0) / eyes.length;
+        assert.ok(row === 2 ? meanX > 130 : meanX < 70, `profile ${row}/${col}: lens stays at leading end`);
+      }
+    }
+  }
+  for (let col = 0; col < 5; col++) {
+    const narrow = Math.max(observations[0][col], observations[4][col]);
+    const broad = Math.min(observations[2][col], observations[6][col]);
+    assert.ok(broad > narrow * 1.6, `phase ${col}: flank gear disc is broader than front/rear rim`);
+  }
+});
+
 test('the documented future-map import compiles through the existing adventure builder', () => {
   const maps = rawMaps();
   const pack = rawPack();
