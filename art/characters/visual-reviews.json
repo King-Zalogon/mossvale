@@ -26,7 +26,7 @@
       "asset": "person-red-cap-motion",
       "technical": {
         "status": "pass",
-        "source": "npm run art:check; player motion regressions check fixed y=250 foot anchors, transparent cells, four distinct East gait frames, and distinct NE/NW/SW idle cells. All 40 poses were visually checked at the 52x84 px gameplay size. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
+        "source": "npm run art:check; player motion regressions check fixed y=250 foot anchors, transparent cells, four distinct East gait frames, and distinct NE/NW/SW idle cells. All 40 poses were visually checked at the 52x84 px gameplay size."
       },
       "visual": {
         "decision": "accept",
@@ -82,7 +82,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
+          "sha256": "11249527855a79e4b7f4cf31d23dbc2c739b0a4729df6d24f30117b5627daffb"
         }
       ]
     },
@@ -1065,7 +1065,7 @@
       "asset": "creature-sedgegnaw-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
       },
       "visual": {
         "decision": "accept",
@@ -1082,7 +1082,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
+          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1090,15 +1090,15 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
+          "sha256": "11249527855a79e4b7f4cf31d23dbc2c739b0a4729df6d24f30117b5627daffb"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "5c4234ceb720bdc0b9f8b3fa1a8e8694f77de630b393dfbf5191b475e2e000e0"
+          "sha256": "b230e955640dfa308ea25f6b337dfa814f2d8ac71732cec13dfed15f5aa53dee"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "a1cb0c789bf6f382dd918b0872a04bc5133d188768632b0022e5703c0837adf8"
+          "sha256": "18da1223d211b9ca13128e15ba19a6496d7c8d7e09486bce07f22242bbf90e20"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -1183,7 +1183,7 @@
       "asset": "creature-petalunge-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
       },
       "visual": {
         "decision": "accept",
@@ -1200,7 +1200,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
+          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1208,15 +1208,15 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
+          "sha256": "11249527855a79e4b7f4cf31d23dbc2c739b0a4729df6d24f30117b5627daffb"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "5c4234ceb720bdc0b9f8b3fa1a8e8694f77de630b393dfbf5191b475e2e000e0"
+          "sha256": "b230e955640dfa308ea25f6b337dfa814f2d8ac71732cec13dfed15f5aa53dee"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "a1cb0c789bf6f382dd918b0872a04bc5133d188768632b0022e5703c0837adf8"
+          "sha256": "18da1223d211b9ca13128e15ba19a6496d7c8d7e09486bce07f22242bbf90e20"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -1301,7 +1301,7 @@
       "asset": "creature-cindercurl-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
       },
       "visual": {
         "decision": "accept",
@@ -1318,7 +1318,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
+          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1326,15 +1326,15 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
+          "sha256": "11249527855a79e4b7f4cf31d23dbc2c739b0a4729df6d24f30117b5627daffb"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "5c4234ceb720bdc0b9f8b3fa1a8e8694f77de630b393dfbf5191b475e2e000e0"
+          "sha256": "b230e955640dfa308ea25f6b337dfa814f2d8ac71732cec13dfed15f5aa53dee"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "a1cb0c789bf6f382dd918b0872a04bc5133d188768632b0022e5703c0837adf8"
+          "sha256": "18da1223d211b9ca13128e15ba19a6496d7c8d7e09486bce07f22242bbf90e20"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -1419,12 +1419,12 @@
       "asset": "creature-sunsifter-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites est\u00e1n muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "approved"
       },
       "evidence": [
@@ -1439,7 +1439,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
+          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1455,7 +1455,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
+          "sha256": "11249527855a79e4b7f4cf31d23dbc2c739b0a4729df6d24f30117b5627daffb"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -1463,11 +1463,11 @@
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "5c4234ceb720bdc0b9f8b3fa1a8e8694f77de630b393dfbf5191b475e2e000e0"
+          "sha256": "b230e955640dfa308ea25f6b337dfa814f2d8ac71732cec13dfed15f5aa53dee"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "a1cb0c789bf6f382dd918b0872a04bc5133d188768632b0022e5703c0837adf8"
+          "sha256": "18da1223d211b9ca13128e15ba19a6496d7c8d7e09486bce07f22242bbf90e20"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -1560,12 +1560,12 @@
       "asset": "creature-rillume-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites est\u00e1n muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "approved"
       },
       "evidence": [
@@ -1580,7 +1580,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
+          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1596,7 +1596,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
+          "sha256": "11249527855a79e4b7f4cf31d23dbc2c739b0a4729df6d24f30117b5627daffb"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -1604,11 +1604,11 @@
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "5c4234ceb720bdc0b9f8b3fa1a8e8694f77de630b393dfbf5191b475e2e000e0"
+          "sha256": "b230e955640dfa308ea25f6b337dfa814f2d8ac71732cec13dfed15f5aa53dee"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "a1cb0c789bf6f382dd918b0872a04bc5133d188768632b0022e5703c0837adf8"
+          "sha256": "18da1223d211b9ca13128e15ba19a6496d7c8d7e09486bce07f22242bbf90e20"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -1981,7 +1981,7 @@
       "asset": "creature-lanternix-combat",
       "technical": {
         "status": "pass",
-        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged. Shared metadata pins refreshed after #377 added three unrelated Ravenmore icons; this exact reviewed character identity and its image hashes are unchanged."
+        "source": "npm run verify; tests/test_sprite_cells.py verifies source pixel conservation, thin anatomy and effects, nonuniform rows, common scale and all 360 normal combat cells. audit-frame-spacing.py verifies 40 atlases / 1160 cells; generated originals remain unchanged."
       },
       "visual": {
         "decision": "accept",
@@ -2002,7 +2002,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "5c6ebd63b0eb4e5d1304c50ebf2a3ee730735bb17d6747d3039dd93306789042"
+          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -2018,7 +2018,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "6133d93c714ad074a517ce519948a7a0ed3ffeea5d4b818240534b32b7e9bb94"
+          "sha256": "11249527855a79e4b7f4cf31d23dbc2c739b0a4729df6d24f30117b5627daffb"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -2026,11 +2026,11 @@
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "5c4234ceb720bdc0b9f8b3fa1a8e8694f77de630b393dfbf5191b475e2e000e0"
+          "sha256": "b230e955640dfa308ea25f6b337dfa814f2d8ac71732cec13dfed15f5aa53dee"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "a1cb0c789bf6f382dd918b0872a04bc5133d188768632b0022e5703c0837adf8"
+          "sha256": "18da1223d211b9ca13128e15ba19a6496d7c8d7e09486bce07f22242bbf90e20"
         },
         {
           "path": "art/characters/export-creature-combat.py",
@@ -2455,44 +2455,69 @@
       "asset": "creature-coglet-combat",
       "technical": {
         "status": "pass",
-        "source": "Resource exporter --species coglet --check and tests/coglet.test.mjs / browser prove all 60 complete-cell gutters, distinct directions, anchors, canonical future-map import and renderer compatibility."
+        "source": "Exact Coglet source/export check, all60 gutters, canonical import, shared renderer/browser review; new per-phase rear lens occlusion/profile leading-edge and front/rear-versus-side gear width regressions."
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "Reviewed final shared-renderer canvases at 115/37 px. Rounded cream/brass mechanical casing, paired cyan front lenses, charcoal/brass short legs and dorsal gear remain readable. Rear views hide front lenses; front shows both; side profiles differ from rear diagonals. Walking alternates legs and changes cog angle. Charge braces/lunges; hit tilts/recoveries; final faint pose rests low with dim front lenses after source correction. Complete anatomy is isolated in output gutters; source spacing and faint revisions retained. Generated adaptations are not original owner-reference binaries.",
+        "reason": "Correction #378 replaces rejected anatomy. Inspected portrait and all40 follower/20 battle cells enlarged and at37/115px. Front/rear gear shows rim, profiles show broad side disc, diagonals oblique face; gear plane stays longitudinal. Front-only paired lenses, hidden rear lenses, identical four-corner leg construction and rear flank housing remain identifiable. Rejected first follower angle layout, replaced five northwest cells to remove rear eye; rejected disappearing faint gear and regenerated intact low resting faint row. Detailed angle/state observations and limitations in ANATOMY-378.md. Owner taste pending; earlier internal review missed owner-reported defects and is retained separately.",
         "ownerTaste": "pending"
       },
       "evidence": [
+        "art/characters/reviews/coglet/ANATOMY-378.md",
+        "art/characters/reviews/coglet/follower-enlarged.png",
+        "art/characters/reviews/coglet/combat-enlarged.png",
         "art/characters/reviews/coglet/directions.png",
         "art/characters/reviews/coglet/combat.png",
         "dist/coglet-preview.html",
-        "content/resources/creatures/COGLET.md"
+        "content/resources/creatures/COGLET.md",
+        "art/characters/source/coglet/correction-378/BRIEF.md",
+        "art/characters/source/coglet/correction-378/review-history.json"
       ],
       "reviewedFiles": [
         {
+          "path": "art/characters/reviews/coglet/ANATOMY-378.md",
+          "sha256": "4187151622deef4a96e9ecd129ee6a79760270868b787c0ba84037e11e7605b7"
+        },
+        {
+          "path": "art/characters/reviews/coglet/combat-enlarged.png",
+          "sha256": "4f85b062afa1a5cd93d195cb65de069002898d5b8239bce3c2005ca1afb36ed0"
+        },
+        {
           "path": "art/characters/reviews/coglet/combat.png",
-          "sha256": "8c96a22bed64e8eadf49ad8e1f5fbe0c4a92ea51fb0f97210683751d4dc8483e"
+          "sha256": "56ec8d9a27187bc6842122c9942dc8a509d206a4cb5cd4dbbb4c8a5eb2338022"
         },
         {
           "path": "art/characters/reviews/coglet/directions.png",
-          "sha256": "4a303ce73e3e3d97d4412798e9ee47436b7f34943539593051348cfe2aee4652"
+          "sha256": "878847117b045acb301f2a162da3c886c293c61565bd7a714326b820bcd68efb"
+        },
+        {
+          "path": "art/characters/reviews/coglet/follower-enlarged.png",
+          "sha256": "eac8b6f5455a64cf1c067b51716e2bf39107f4d0ef87e802b84b328c20dc3e30"
+        },
+        {
+          "path": "art/characters/source/coglet/correction-378/BRIEF.md",
+          "sha256": "fb9407fc3ad743358b2da512954d739c93b5e7de26f61a2896d8e9ae1bd68239"
+        },
+        {
+          "path": "art/characters/source/coglet/correction-378/review-history.json",
+          "sha256": "fca8b920ed9ba6b56ddb5e8aed024f63e0395ae38670d4a20637716a6669e299"
         },
         {
           "path": "content/resources/creatures/COGLET.md",
-          "sha256": "5fc83a9d6fb4626037f3783ba1b79d7c648086f7437f03aa4f3aeb607565dd15"
+          "sha256": "2f6d20ec3cafe05731275e22aab924e07279c7b463ff0d918aaaa32c1de49e1e"
         },
         {
           "path": "dist/assets/creatures/creature-coglet-combat.png",
-          "sha256": "2c3afae70b94b937d49dc9a2b6d4f1351a350415b9d4f56ca6d23033c24daa5f"
+          "sha256": "2befb78054e37e540dc24247959818ff8f026a8e4207b04e6c2803893935e63b"
         },
         {
           "path": "dist/assets/creatures/creature-coglet-follower.png",
-          "sha256": "6a5e02586d993d613ca2cefb99042ec5add09d2bf1003a3d4288cd297fa90ba8"
+          "sha256": "3f0609f33f82410edf19d26022958d11cf46109b4d2cd7e086064ad2766b6175"
         },
         {
           "path": "dist/assets/creatures/creature-coglet.png",
-          "sha256": "bde052d60f4481f064cdd8623ac0a0323f45c891818f9f01febb28b0da04d6b5"
+          "sha256": "7dbe3861674aa938fb85eb0dfc7946f789d8a966d8a2d6dbef59db2eca920c29"
         },
         {
           "path": "dist/coglet-preview.html",
@@ -2505,44 +2530,69 @@
       "asset": "creature-coglet-follower",
       "technical": {
         "status": "pass",
-        "source": "Resource exporter --species coglet --check and tests/coglet.test.mjs / browser prove all 60 complete-cell gutters, distinct directions, anchors, canonical future-map import and renderer compatibility."
+        "source": "Exact Coglet source/export check, all60 gutters, canonical import, shared renderer/browser review; new per-phase rear lens occlusion/profile leading-edge and front/rear-versus-side gear width regressions."
       },
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "Reviewed final shared-renderer canvases at 115/37 px. Rounded cream/brass mechanical casing, paired cyan front lenses, charcoal/brass short legs and dorsal gear remain readable. Rear views hide front lenses; front shows both; side profiles differ from rear diagonals. Walking alternates legs and changes cog angle. Charge braces/lunges; hit tilts/recoveries; final faint pose rests low with dim front lenses after source correction. Complete anatomy is isolated in output gutters; source spacing and faint revisions retained. Generated adaptations are not original owner-reference binaries.",
+        "reason": "Correction #378 replaces rejected anatomy. Inspected portrait and all40 follower/20 battle cells enlarged and at37/115px. Front/rear gear shows rim, profiles show broad side disc, diagonals oblique face; gear plane stays longitudinal. Front-only paired lenses, hidden rear lenses, identical four-corner leg construction and rear flank housing remain identifiable. Rejected first follower angle layout, replaced five northwest cells to remove rear eye; rejected disappearing faint gear and regenerated intact low resting faint row. Detailed angle/state observations and limitations in ANATOMY-378.md. Owner taste pending; earlier internal review missed owner-reported defects and is retained separately.",
         "ownerTaste": "pending"
       },
       "evidence": [
+        "art/characters/reviews/coglet/ANATOMY-378.md",
+        "art/characters/reviews/coglet/follower-enlarged.png",
+        "art/characters/reviews/coglet/combat-enlarged.png",
         "art/characters/reviews/coglet/directions.png",
         "art/characters/reviews/coglet/combat.png",
         "dist/coglet-preview.html",
-        "content/resources/creatures/COGLET.md"
+        "content/resources/creatures/COGLET.md",
+        "art/characters/source/coglet/correction-378/BRIEF.md",
+        "art/characters/source/coglet/correction-378/review-history.json"
       ],
       "reviewedFiles": [
         {
+          "path": "art/characters/reviews/coglet/ANATOMY-378.md",
+          "sha256": "4187151622deef4a96e9ecd129ee6a79760270868b787c0ba84037e11e7605b7"
+        },
+        {
+          "path": "art/characters/reviews/coglet/combat-enlarged.png",
+          "sha256": "4f85b062afa1a5cd93d195cb65de069002898d5b8239bce3c2005ca1afb36ed0"
+        },
+        {
           "path": "art/characters/reviews/coglet/combat.png",
-          "sha256": "8c96a22bed64e8eadf49ad8e1f5fbe0c4a92ea51fb0f97210683751d4dc8483e"
+          "sha256": "56ec8d9a27187bc6842122c9942dc8a509d206a4cb5cd4dbbb4c8a5eb2338022"
         },
         {
           "path": "art/characters/reviews/coglet/directions.png",
-          "sha256": "4a303ce73e3e3d97d4412798e9ee47436b7f34943539593051348cfe2aee4652"
+          "sha256": "878847117b045acb301f2a162da3c886c293c61565bd7a714326b820bcd68efb"
+        },
+        {
+          "path": "art/characters/reviews/coglet/follower-enlarged.png",
+          "sha256": "eac8b6f5455a64cf1c067b51716e2bf39107f4d0ef87e802b84b328c20dc3e30"
+        },
+        {
+          "path": "art/characters/source/coglet/correction-378/BRIEF.md",
+          "sha256": "fb9407fc3ad743358b2da512954d739c93b5e7de26f61a2896d8e9ae1bd68239"
+        },
+        {
+          "path": "art/characters/source/coglet/correction-378/review-history.json",
+          "sha256": "fca8b920ed9ba6b56ddb5e8aed024f63e0395ae38670d4a20637716a6669e299"
         },
         {
           "path": "content/resources/creatures/COGLET.md",
-          "sha256": "5fc83a9d6fb4626037f3783ba1b79d7c648086f7437f03aa4f3aeb607565dd15"
+          "sha256": "2f6d20ec3cafe05731275e22aab924e07279c7b463ff0d918aaaa32c1de49e1e"
         },
         {
           "path": "dist/assets/creatures/creature-coglet-combat.png",
-          "sha256": "2c3afae70b94b937d49dc9a2b6d4f1351a350415b9d4f56ca6d23033c24daa5f"
+          "sha256": "2befb78054e37e540dc24247959818ff8f026a8e4207b04e6c2803893935e63b"
         },
         {
           "path": "dist/assets/creatures/creature-coglet-follower.png",
-          "sha256": "6a5e02586d993d613ca2cefb99042ec5add09d2bf1003a3d4288cd297fa90ba8"
+          "sha256": "3f0609f33f82410edf19d26022958d11cf46109b4d2cd7e086064ad2766b6175"
         },
         {
           "path": "dist/assets/creatures/creature-coglet.png",
-          "sha256": "bde052d60f4481f064cdd8623ac0a0323f45c891818f9f01febb28b0da04d6b5"
+          "sha256": "7dbe3861674aa938fb85eb0dfc7946f789d8a966d8a2d6dbef59db2eca920c29"
         },
         {
           "path": "dist/coglet-preview.html",
@@ -2673,7 +2723,7 @@
       },
       "visual": {
         "decision": "quarantine",
-        "reason": "Deliberate hue shift destroys Fernling\u2019s defining leaf-green palette despite a valid PNG."
+        "reason": "Deliberate hue shift destroys Fernling’s defining leaf-green palette despite a valid PNG."
       }
     },
     {

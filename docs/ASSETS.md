@@ -20,10 +20,10 @@ Secret place discoveries should show the place itself rather than an announcemen
 ## Conventions (checked)
 
 - **Format**: 8-bit RGBA PNG with real transparency, non-interlaced.
-- **Crop**: tight. At most 8 px of empty space on the sides and top, and at most 6 px under the feet, so the anchor is predictable. All current sprites are within 3 px.
+- **Crop**: normally tight, with at most 8 px of empty space on the sides/top and 6 px under the feet. Individually sourced props may retain their original padding when the source contract requires unchanged images; exact source hashes and RGBA pixels must be verified instead of treating them as atlas crops.
 - **Anchor**: `bottom-center`. A sprite stands with its bottom-centre on the point it represents (a tile position, the feet of a character). Draw width is set where it is used (`w` in map data; 105–110 for portraits in menus and battle) and height follows the aspect ratio.
 - **Perspective and scale**: 2:1 isometric tiles of 56 × 28 px (`config.js`). Each map prop's authored `w` sets its gameplay size; source dimensions vary by category and versioned export profile. Keep a new asset's apparent pixel size and viewing angle consistent with its neighbours, and inspect it in the actual renderer rather than inferring scale from source pixels.
-- **Frames**: single images remain tightly cropped. Animation atlases declare `frames` in the manifest: fixed `frameWidth`/`frameHeight`, `columns`/`rows`, and row/column order. Every cell shares the same bottom-center anchor; validation checks each cell is visible and has at most 6 px beneath its feet. Padding inside a fixed cell is intentional and keeps animation size stable.
+- **Frames**: single images remain tightly cropped except recorded individual-source props. Animation atlases declare `frames` in the manifest: fixed `frameWidth`/`frameHeight`, `columns`/`rows`, and row/column order. Every cell shares the same bottom-center anchor; validation checks each cell is visible and has at most 6 px beneath its feet. Padding inside a fixed cell is intentional and keeps animation size stable.
 - **Player idle pose**: the red-cap atlas keeps one `idle` cell followed by four distance-paced walk cells in each direction. Idle is authored as a calm planted stance from the separate source sheet in `art/characters/metadata.json`; walk frames remain tied to their gait-source rows. Stopping and reduced motion hold that neutral cell while preserving facing.
 - **Palette**: terrain palettes per region are in `data/regions.js`; sprite colours follow the existing warm, saturated look.
 - **Required vs optional**: `required: true` blocks play until the image loads (with retry); `required: false` falls back silently.
@@ -36,6 +36,8 @@ Secret place discoveries should show the place itself rather than an announcemen
 4. `npm run map:preview -- <map>` and play it.
 
 ## Source and provenance
+
+Individual source props use `sourceFile` and `sourceSha256`, with `sheet`/`cell` null, in `art/assets/metadata.json`. The exporter verifies the retained original and copies its complete RGBA image, including padding. The three Ravenmore scenery props use this contract and remain separate 64×64 PNGs; their game-use and portable-export restrictions still apply. Tests require exact original pixels and dimensions for this exception, while atlas-backed sprites retain the common crop/ground-anchor checks.
 
 Runtime PNGs have either a pixel-preserving editable cell in an RGBA source atlas or a generated source sheet with a category-specific exporter. `art/assets/metadata.json` maps atlas-backed assets to their sheet, cell rectangle, dimensions, anchor and animation frame order. The new creature portraits use a recorded nearest-neighbor compact-portrait profile; their battle and follower cells are packed into separate editable source atlases while the original generated sheets remain in `art/characters/source/`. The outputs carry profile IDs and source/output hashes in `art/assets/subjects.json`. `art/assets/export.py` crops atlas-backed cells back into `dist/assets/` without changing their pixels:
 
