@@ -41,9 +41,9 @@
     "........ggggppggg.............ggttttttttpppgggttttttttgggggggg..",
     ".........gggppggg.............gggtttttttpppggggttttttggggggggg..",
     ".........gggppggg.............gggtttttgggppgggggtttttggggggggg..",
-    ".........gggppggg.............gggggggggggppggggggggggggggggggg..",
-    ".........gggppggg.............gggggggggggpppgggggggggggggggggg..",
-    ".........gggppggg.............ggggggggggggpppggggggggggggggggg..",
+    ".........gggppggg.............gggggggggggppgggggggggggwggggggg..",
+    ".........gggppggg.............gggggggggggpppggggggggggwwgggggg..",
+    ".........gggppggg.............ggggggggggggpppgggggggggwwgggggg..",
     ".........gggppggg.............ttgggggggggggpppggggggggppppgggg..",
     ".........ggtppttt..............ttgggggggggggpppgggggppppppggg...",
     ".........ggtppttt..............ttggggggggggggppppppppppgggggg...",
@@ -52,8 +52,8 @@
     ".........ggggppgggggggg.........ggggggggggggggggpppwwwwggggg....",
     ".......ggggggpppggggggggg.......ggggggggggggggggpppwwwwggggg....",
     "......ggggggggpppggggggggg.......ggggggggggggggggpppwwwttgg.....",
-    ".....gggggggggpppgggggggggg.......ggggggggggggggggpppwtttt......",
-    "....gggggggggggpppgggggggggg......gggggggtggggggggpppttttt......",
+    ".....gggggggggpppgggggggggg.......gggggggwggggggggpppwtttt......",
+    "....gggggggggggpppgggggggggg......gggggggwggggggggpppttttt......",
     "....ggggggggggggpppggggggggpppppp..gggtttttttggggggpppttt.......",
     "...gggggggggggggpppgggggppppppppppp.ggttttttttggggpppptt........",
     "...ggggggggggggggpppppppppppp.pppppppgttttttttgggpppgggtt.......",
@@ -111,10 +111,10 @@
           "when": {
             "flag": "meadow.seal"
           },
-          "text": "West: Meadow · East: Amber Ridge · The short path slips beneath the oldest trees."
+          "text": "West: Meadow \u00b7 East: Amber Ridge \u00b7 Follow the main orchard trail."
         },
         {
-          "text": "West: Meadow · East: a sealed trail · Look between the old apple rows for a shortcut."
+          "text": "West: Meadow \u00b7 East: a sealed trail \u00b7 Rest with Mara near the entrance."
         }
       ]
     },
@@ -141,6 +141,99 @@
       "mapLabel": "Fallen wall",
       "text": "Part of the old orchard wall. The ruins keep going east, but the trail is safe.",
       "discoveryText": "Fallen wall: another row of orchard ruins continues east along the safe trail."
+    },
+    {
+      "id": "damp-hollow",
+      "kind": "sign",
+      "sprite": "tree-oak-hollow",
+      "at": [42, 36],
+      "w": 65,
+      "label": "Inspect the damp hollow",
+      "secret": true,
+      "mapLabel": "Damp hollow",
+      "text": "Water collects among the roots. Tracks turn in and out of the low opening.",
+      "discoveryText": "Damp hollow: Water collects among the roots. Tracks turn in and out of the low opening."
+    },
+    {
+      "id": "bypass-stones",
+      "kind": "sign",
+      "sprite": "boulder-mossy",
+      "at": [49, 41],
+      "w": 42,
+      "label": "Inspect the channel stones",
+      "secret": true,
+      "mapLabel": "Channel stones",
+      "text": "A low channel runs beside the lower orchard row.",
+      "discoveryText": "Channel stones: A low channel runs beside the lower orchard row.",
+      "labels": [
+        {
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/den-family-seen"
+              },
+              {
+                "not": {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/outcome-water-first"
+                    },
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "text": "Open the water bypass first"
+        },
+        {
+          "text": "Inspect the channel stones"
+        }
+      ]
+    },
+    {
+      "id": "upper-hollow",
+      "kind": "sign",
+      "sprite": "tree-oak-hollow",
+      "at": [44, 34],
+      "w": 59,
+      "label": "Inspect the upper hollow",
+      "secret": true,
+      "mapLabel": "Upper hollow",
+      "text": "The roots here sit above the wet ground.",
+      "discoveryText": "Upper hollow: The roots here sit above the wet ground.",
+      "labels": [
+        {
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/den-family-seen"
+              },
+              {
+                "not": {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/outcome-water-first"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "text": "Guide the family to dry roots first"
+        },
+        {
+          "text": "Inspect the upper hollow"
+        }
+      ]
     }
   ],
   "exits": [
@@ -343,8 +436,6 @@
         [33.9, 26.1],
         [34.4, 34.0],
         [37.8, 29.9],
-        [42.3, 33.7],
-        [42.1, 37.9],
         [46.3, 9.9],
         [46.2, 13.7],
         [45.7, 22.1],
@@ -438,6 +529,12 @@
         [56.5, 50.2],
         [9.5, 50.5]
       ]
+    },
+    {
+      "sprite": "wood-plank-stack",
+      "kind": "scenery",
+      "w": 32,
+      "at": [[55.4, 28.1]]
     },
     {
       "sprite": "tree-oak",
@@ -629,6 +726,16 @@
       "id": "ridge-gate",
       "rect": [54, 10, 62, 18],
       "label": "Ridge gate"
+    },
+    {
+      "id": "investigation-east",
+      "rect": [38, 25, 59, 43],
+      "label": "Quiet lower row"
+    },
+    {
+      "id": "investigation-press",
+      "rect": [27, 38, 44, 46],
+      "label": "Quiet press approach"
     }
   ],
   "triggers": [
@@ -648,11 +755,14 @@
             {
               "type": "dialogue",
               "speaker": "orchard-ranger",
-              "text": "The lower row is dry again. The feeder board is scraped, but the old channel was failing before that. Find where the water went."
+              "text": "Fresh hoof-scrapes have everyone blaming a wild Bramblebuck. The lower row is dry, but water collects below the old feeder. Will you look for what changed?"
             }
-          ]
+          ],
+          "note": "Mara asked where the lower row\u2019s water went."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-sluice-clue",
@@ -670,11 +780,14 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "The split timber is dark and soft. This break has lasted through more than one rain. Brighter scrapes cut through the old mud toward the lower row."
+              "text": "The stacked repair boards beside the channel are weathered; one matches the old split timber. Dark rot lies beneath bright, fresh scrapes. Someone tried to repair this break before the animal passed. Wet marks lead down the lower row."
             }
-          ]
+          ],
+          "note": "Weathered repair boards and old rot predate the fresh animal scrapes."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-press-clue",
@@ -692,11 +805,14 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "The press marks stop before last harvest. The flow had already dropped before the newest Bramblebuck visit."
+              "text": "A waterline on the press has dried beneath dust from last harvest. The supply dropped before the fresh hoofprints. Those prints turn back toward the damp lower row, not the dry orchard."
             }
-          ]
+          ],
+          "note": "The press\u2019s dried waterline predates the fresh hoofprints."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-den-reveal",
@@ -730,9 +846,12 @@
               "speaker": "narrator",
               "text": "Wet tracks return to a damp hollow. The adult Bramblebuck watches you, then turns back toward the young. The den is where the water is reaching them."
             }
-          ]
+          ],
+          "note": "Wet tracks return to a low hollow occupied by a Bramblebuck family."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-water-bypass",
@@ -772,7 +891,8 @@
               "type": "reward",
               "coins": 10
             }
-          ]
+          ],
+          "note": "Opened the bypass first; water returned to the lower row."
         },
         {
           "id": "water-first-state",
@@ -797,7 +917,9 @@
             }
           ]
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "orchard-dry-hollow",
@@ -806,7 +928,7 @@
       "on": "interact",
       "events": [
         {
-          "id": "outcome-family-first",
+          "id": "orchard-family",
           "repeatable": true,
           "when": {
             "all": [
@@ -821,6 +943,9 @@
                     },
                     {
                       "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
                     }
                   ]
                 }
@@ -850,10 +975,11 @@
                 }
               }
             }
-          ]
+          ],
+          "note": "Moved the family to higher roots first; Mara will finish the slower repair."
         },
         {
-          "id": "family-first-state",
+          "id": "outcome-family-first",
           "repeatable": false,
           "when": {
             "all": [
@@ -862,7 +988,7 @@
               },
               {
                 "not": {
-                  "event": "orchard-ruins/family-first-state"
+                  "event": "orchard-ruins/outcome-family-first"
                 }
               }
             ]
@@ -873,9 +999,12 @@
               "speaker": "narrator",
               "text": "The young reach the dry hollow and the adult follows them. The lower row stays dry for this visit while Mara prepares the slower repair."
             }
-          ]
+          ],
+          "note": "The family is safe in the dry hollow; the lower row remains dry until Mara repairs it."
         }
-      ]
+      ],
+      "beforeLandmark": true,
+      "once": false
     },
     {
       "id": "hidden-cut-through",
@@ -900,6 +1029,71 @@
           "type": "environment",
           "text": "Another quiet row slips between the trees, down to the old ruins."
         }
+      ]
+    }
+  ],
+  "hints": [
+    {
+      "id": "old-water",
+      "when": {
+        "event": "orchard-ruins/mara-water-loss"
+      },
+      "resolved": {
+        "any": [
+          {
+            "event": "orchard-ruins/sluice-old-mark"
+          },
+          {
+            "event": "orchard-ruins/press-repair-record"
+          }
+        ]
+      },
+      "disclosure": "observation",
+      "levels": [
+        "Compare an old trace with a fresh one. A scrape alone cannot tell you when the water stopped.",
+        "Follow the southern orchard path to the old machinery, or inspect the repair boards beside the eastern broken wall. Compare weathering with fresh marks."
+      ]
+    },
+    {
+      "id": "returning-tracks",
+      "when": {
+        "any": [
+          {
+            "event": "orchard-ruins/sluice-old-mark"
+          },
+          {
+            "event": "orchard-ruins/press-repair-record"
+          }
+        ]
+      },
+      "resolved": {
+        "event": "orchard-ruins/den-family-seen"
+      },
+      "disclosure": "lead",
+      "levels": [
+        "Follow where the wet marks return, rather than assuming every track points away.",
+        "Look between the lower orchard row and the channel. Follow the visible damp ground to the low opening among the roots. You can get there on foot."
+      ]
+    },
+    {
+      "id": "two-priorities",
+      "when": {
+        "event": "orchard-ruins/den-family-seen"
+      },
+      "resolved": {
+        "any": [
+          {
+            "event": "orchard-ruins/outcome-water-first"
+          },
+          {
+            "event": "orchard-ruins/outcome-family-first"
+          }
+        ]
+      },
+      "disclosure": "lead",
+      "levels": [
+        "Look for a higher resting place and a way to redirect the water. Choose which needs attention first.",
+        "Inspect the higher roots beside the low opening, or the stones along the nearby channel. Neither requires a particular companion."
       ]
     }
   ]

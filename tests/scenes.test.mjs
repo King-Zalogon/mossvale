@@ -104,7 +104,7 @@ test('the orchard offers both starter-independent outcomes and preserves the fam
   const orchard = rawMapList.find(map => map.id === 'orchard-ruins');
   const water = orchard.triggers.find(trigger => trigger.id === 'orchard-water-bypass');
   const family = orchard.triggers.find(trigger => trigger.id === 'orchard-dry-hollow');
-  const familyChallenge = family.events.find(event => event.id === 'outcome-family-first');
+  const familyChallenge = family.events.find(event => event.id === 'orchard-family');
   assert.equal(water.events.find(event => event.id === 'outcome-water-first').repeatable, false);
   assert.equal(familyChallenge.repeatable, true, 'losing or leaving keeps the rescue interaction available');
   assert.equal(familyChallenge.actions.at(-1).type, 'challenge');
@@ -126,7 +126,7 @@ test('the orchard offers both starter-independent outcomes and preserves the fam
   assert.equal(challenge.objective.id, 'orchard-family');
   save.events.push('orchard-ruins/orchard-family');
   const restored = codec.normalize(JSON.parse(codec.serialize(save)), false);
-  const resolution = family.events.find(event => event.id === 'family-first-state');
+  const resolution = family.events.find(event => event.id === 'outcome-family-first');
   assert.equal(sceneConditionHolds(resolution, restored, {speciesCount: 18, regions: []}), true, 're-entry resolves the saved rescue outcome');
   assert.equal(sceneConditionHolds(familyChallenge, restored, {speciesCount: 18, regions: []}), false, 'the completed objective cannot restart');
 });

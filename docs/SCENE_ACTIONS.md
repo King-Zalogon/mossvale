@@ -39,3 +39,9 @@ Reduced-motion mode moves actors directly between the same validated route point
 ## Verification expectations
 
 `tests/scenes.test.mjs` covers actor/reference validation, bounded routes, walkable destinations and explicit blocked/arrived results. Browser choreography proofs should also check that controls cannot move the player during a sequence and that pause/menu/travel/hidden-tab release ownership. Use the standard scene speech UI for desktop and narrow/landscape viewport checks.
+
+## Evidence and discovered notes
+
+Events may include optional `note` (1–320 characters). The field journal displays this text only after the canonical `<map-id>/<event-id>` is saved; it never lists unseen entries. Avoid putting an undiscovered secret into an earlier event's note. Packs without notes keep their existing journal. Explicit `beforeLandmark: true` interaction triggers give eligible scene events precedence over generic nearby landmark text; consumed/ineligible events fall back to normal inspection. This lets an authored clue live on a real prop without its generic sign interaction masking the scene.
+
+Map validation checks scene prerequisite event references and reachable positive dependencies across maps. Companion-route references use their canonical `route-<id>` event. Negative outcome guards do not create a dependency cycle. This is a bounded scene graph check, not a new quest engine or proof that an external flag, actor or physical route is attainable.

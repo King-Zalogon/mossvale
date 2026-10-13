@@ -4,7 +4,7 @@
   "sourceHashes": {
     "content/scene-scripts/examples/quality-yard.json": "b0c86955afcfe8d4b4f18faafc0eba49066a1607f6f1cf4354177e3ca384d94b",
     "content/scene-scripts/schema.json": "962b13581bc54da66a3ad2ac6dfc2db2b21beab9711c2ea3d6247088344409c2",
-    "dist/src/controller.js": "59755c4ad81000c5dc4d2ea216e539e63e0e3a86a083f897142d7984446935f8",
+    "dist/src/controller.js": "353d6b848dcb5744c21a94c4f5cfc91ad53a07e6fe232c2f27580205d288fae9",
     "dist/src/main.js": "6b45846d748f78bfdb36347ffade9ed92fd1a98f7f62862b2ba72d22b398ec2c",
     "dist/src/render/sprites.js": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c",
     "dist/assets/people/person-red-cap-motion.png": "e0dff61fbb1244c92918feef94eb516e8f4090369a53dd95e90f9c5d6355f8e7",
@@ -23,7 +23,7 @@
   "screenshots": [
     {
       "path": "docs/scene-quality/244/desktop-dialogue-1.png",
-      "sha256": "67f7571629f74f2ec6a7a86be544223149912cebc756d4012512fad872badd1f",
+      "sha256": "f3f51d8811ec1c8919b69394d011be028b04870f9cb3d79a1b46249a3c06fa11",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -58,16 +58,16 @@
             "bottom": 485.49342105263156
           },
           "companion": {
-            "left": 455.21572265624997,
-            "right": 504.78427734375,
+            "left": 457.0515950520833,
+            "right": 506.62014973958327,
             "top": 455.20723684210526,
             "bottom": 504.7664473684211
           },
           "landmark": {
             "left": 601.167578125,
             "right": 657.1616861979167,
-            "top": 467.1381578947369,
-            "bottom": 519.4506578947369
+            "top": 466.2203947368421,
+            "bottom": 518.5328947368421
           },
           "objective": {
             "left": 961.609375,
@@ -78,8 +78,8 @@
           "speaker": {
             "left": 529.5685546875,
             "right": 579.137109375,
-            "top": 366.18421052631584,
-            "bottom": 445.1118421052631
+            "top": 365.26644736842104,
+            "bottom": 444.19407894736844
           },
           "text": {
             "left": 286,
@@ -107,7 +107,7 @@
     },
     {
       "path": "docs/scene-quality/244/desktop-dialogue-2.png",
-      "sha256": "af7da4bc9e1d1eb822a77cd5703d8d99641290b5fd88d9cd072bb20b6a96f0ec",
+      "sha256": "1d8f330ec5b1f66449f90dec8a4b6639af8d088f74e2d88f58a579f13c75c98e",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -142,16 +142,16 @@
             "bottom": 485.49342105263156
           },
           "companion": {
-            "left": 455.21572265624997,
-            "right": 504.78427734375,
+            "left": 457.0515950520833,
+            "right": 506.62014973958327,
             "top": 455.20723684210526,
             "bottom": 504.7664473684211
           },
           "landmark": {
             "left": 601.167578125,
             "right": 657.1616861979167,
-            "top": 467.1381578947369,
-            "bottom": 519.4506578947369
+            "top": 466.2203947368421,
+            "bottom": 518.5328947368421
           },
           "objective": {
             "left": 961.609375,
@@ -191,7 +191,7 @@
     },
     {
       "path": "docs/scene-quality/244/desktop-offered-supplies.png",
-      "sha256": "48a8da138e69c4aa2a06bdabe78519d67f7c3d9f944fb6394ba285f71c12bb56",
+      "sha256": "ccae89a89cec8cb8d3a8fa8dc55b105247282120e49e0070e22fc962395631bb",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -221,16 +221,16 @@
             "bottom": 485.49342105263156
           },
           "companion": {
-            "left": 418.49827473958334,
-            "right": 468.06682942708335,
-            "top": 436.8519736842105,
-            "bottom": 486.4111842105263
+            "left": 415.7444661458333,
+            "right": 465.3130208333333,
+            "top": 435.01644736842104,
+            "bottom": 484.5756578947368
           },
           "landmark": {
-            "left": 499.27666015625,
-            "right": 555.2707682291667,
-            "top": 452.45394736842104,
-            "bottom": 504.7664473684211
+            "left": 495.60491536458335,
+            "right": 551.5990234375,
+            "top": 451.5361842105263,
+            "bottom": 503.8486842105263
           },
           "objective": {
             "left": 961.609375,
@@ -245,7 +245,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-dialogue-1.png",
-      "sha256": "e97aa09ae367add0c990015ed41428e885a6efd94802789deb55d6cef6d29fa1",
+      "sha256": "0ce43f625d180c2ee834e720ec718df41e96c30279dafb5453974b07548b89db",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -280,16 +280,16 @@
             "bottom": 396.1883889496718
           },
           "companion": {
-            "left": 179.389453125,
-            "right": 205.40703125,
-            "top": 380.57337253829326,
-            "bottom": 406.5983998905908
+            "left": 178.2744140625,
+            "right": 204.2919921875,
+            "top": 380.2015864332604,
+            "bottom": 406.226613785558
           },
           "landmark": {
             "left": 257.8138671875,
             "right": 287.5482421875,
-            "top": 386.52195021881835,
-            "bottom": 414.0341219912473
+            "top": 386.8937363238512,
+            "bottom": 414.4059080962801
           },
           "objective": {
             "left": 235.59375,
@@ -300,8 +300,8 @@
           "speaker": {
             "left": 220.27421875,
             "right": 246.29179687500002,
-            "top": 332.9847510940919,
-            "bottom": 374.62479485776805
+            "top": 333.3565371991247,
+            "bottom": 374.99658096280086
           },
           "text": {
             "left": 44.59375,
@@ -329,7 +329,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-dialogue-2.png",
-      "sha256": "979887077654a2e526930accb3a4661e09f5749a11e2d2e0feed2ebc7302d763",
+      "sha256": "d975a42c881a971492a8f78b52b85c0604d2845c277b401c87365a21e8f84212",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -364,16 +364,16 @@
             "bottom": 396.1883889496718
           },
           "companion": {
-            "left": 179.389453125,
-            "right": 205.40703125,
-            "top": 380.57337253829326,
-            "bottom": 406.5983998905908
+            "left": 178.2744140625,
+            "right": 204.2919921875,
+            "top": 380.2015864332604,
+            "bottom": 406.226613785558
           },
           "landmark": {
             "left": 257.8138671875,
             "right": 287.5482421875,
-            "top": 386.52195021881835,
-            "bottom": 414.0341219912473
+            "top": 386.8937363238512,
+            "bottom": 414.4059080962801
           },
           "objective": {
             "left": 235.59375,
@@ -413,7 +413,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-offered-supplies.png",
-      "sha256": "44c29413f7eb0890db16455d8a980055e9a55f8de2ae8d631d30ff51362fc193",
+      "sha256": "82b81219f50b8f8f606c9aa11a6ac2fa6d8de3b751ddcea4dc9b030b4e622bf3",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -443,16 +443,16 @@
             "bottom": 396.1883889496718
           },
           "companion": {
-            "left": 161.548828125,
-            "right": 187.56640625,
-            "top": 370.1633615973742,
-            "bottom": 396.1883889496718
+            "left": 161.9205078125,
+            "right": 187.9380859375,
+            "top": 370.9069338074398,
+            "bottom": 396.9319611597374
           },
           "landmark": {
-            "left": 203.9203125,
-            "right": 233.6546875,
-            "top": 377.59908369803065,
-            "bottom": 405.1112554704595
+            "left": 203.176953125,
+            "right": 232.91132812499998,
+            "top": 379.8298003282276,
+            "bottom": 407.34197210065645
           },
           "objective": {
             "left": 235.59375,
