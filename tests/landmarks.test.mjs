@@ -214,7 +214,7 @@ test('all secret finds have short, named notices compiled unchanged and shown on
       assert.equal(isKnown(entry, object), true);
       assert.deepEqual(discover(entry, [object], object.x, object.y), []);
     }
-  assert.equal(count, 11);
+  assert.equal(count, 14); // Eleven prior secrets plus three physical orchard investigation sites.
   assert.equal(discoveryNotice({kind: 'chest', mapLabel: 'Old cache'}), 'Found Old cache.');
   assert.equal(discoveryNotice({kind: 'sign'}), 'Found Signpost.');
 });

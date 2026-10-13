@@ -1,5 +1,7 @@
 /* Modal menus: map, journal, party, ranger, shrine, help, result and save-recovery notices.
    Each menu reads state, renders HTML and wires buttons to controller `actions`. No game rules live here. */
+import {nextHint, hintState} from '../domain/hints.js';
+import {sceneHasRun} from '../domain/scenes.js';
 import {species} from '../data/species.js';
 import {biomes} from '../data/biomes.js';
 import {moves} from '../data/moves.js';
@@ -101,8 +103,27 @@ export function createMenus(app) {
     if (game.battle) return;
     const s = save();
     const ids = species.map((_, i) => i).filter(i => filter === 'all' || s.caught.includes(i));
+    const notes = Object.values(app.mapsById).flatMap(map =>
+      (map.triggers ?? []).flatMap(t => (t.events ?? []).filter(e => e.note && sceneHasRun(s, map.id, e.id)).map(e => `<li>${esc(e.note)}</li>`)),
+    );
+    const context = {...app.objCtx, species};
+    const lead = nextHint(game.world.map, s, context);
+    const heard = Object.values(app.mapsById).flatMap(map =>
+      (map.hints ?? []).flatMap(hint => {
+        const state = hintState(hint, map.id, s, context);
+        if (!state.heard) return [];
+        return [
+          `<li>${esc(hint.levels[Math.min(state.heard - 1, hint.levels.length - 1)])} <small>${state.resolved ? 'Resolved' : state.relevant && map.id === game.world.map.id ? 'Relevant here' : 'Heard earlier'}</small></li>`,
+        ];
+      }),
+    );
+    const help =
+      lead || heard.length
+        ? `<section aria-label="Optional investigation help"><h3>Asked-for leads</h3>${lead ? `<button id="ask-investigation-hint">${lead.repeat ? 'Repeat this lead' : 'Ask for a lead'}</button><p>${lead.repeat ? 'You have heard the clearest available lead for this step.' : 'Help is optional. Ask again for a clearer lead for this step.'}</p>` : ''}${heard.length ? `<ul>${heard.join('')}</ul>` : ''}</section>`
+        : '';
+    const discoveries = notes.length ? `<section aria-label="Investigation notes"><h3>Discoveries</h3><ul>${notes.join('')}</ul></section>` : '';
     open(
-      `${header('FIELD NOTES FROM THE ISLES', 'Your field journal')}<p>${s.caught.length} of ${species.length} species befriended · ${s.seen.length} discovered · ${species.length - s.seen.length} yet to discover</p><div class="tab-buttons"><button id="all-species" class="${filter === 'all' ? 'selected' : ''}">All species</button><button id="caught-species" class="${filter === 'caught' ? 'selected' : ''}">Befriended</button></div><div class="journal-grid">${ids
+      `${header('FIELD NOTES FROM THE ISLES', 'Your field journal')}${discoveries}${help}<p>${s.caught.length} of ${species.length} species befriended · ${s.seen.length} discovered · ${species.length - s.seen.length} yet to discover</p><div class="tab-buttons"><button id="all-species" class="${filter === 'all' ? 'selected' : ''}">All species</button><button id="caught-species" class="${filter === 'caught' ? 'selected' : ''}">Befriended</button></div><div class="journal-grid">${ids
         .map(i => {
           const sp = species[i];
           const seen = s.seen.includes(i);
@@ -124,6 +145,7 @@ export function createMenus(app) {
     ids.forEach(i => {
       if (s.seen.includes(i)) drawCreature($('#spec-' + i), i, 85);
     });
+    if ($('#ask-investigation-hint')) $('#ask-investigation-hint').onclick = actions.askHint;
     $('#all-species').onclick = () => journal('all');
     $('#caught-species').onclick = () => journal('caught');
     wireSelect();

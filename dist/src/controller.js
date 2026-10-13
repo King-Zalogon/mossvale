@@ -1,6 +1,7 @@
 import {elementalBeats} from './ui/elemental-beats.js';
 /* Game flow: connects domain rules, menus and services. Owns timers (battle pacing) and screen transitions.
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
+import {nextHint} from './domain/hints.js';
 import {species} from './data/species.js';
 import {moves} from './data/moves.js';
 import {regions} from './data/regions.js';
@@ -372,7 +373,8 @@ export function createController(app) {
 
   function nearest() {
     const object = nearestInteractive(game.world, game.player);
-    return object && companionRouteVisible(save(), game.world.map.id, object) ? object : null;
+    if (!object || !companionRouteVisible(save(), game.world.map.id, object)) return null;
+    return object.labels ? {...object, label: pickLine(object.labels, save(), objCtx) || object.label} : object;
   }
 
   /** Marks what the player can see as explored and notes landmarks they have come across (domain/discovery.js). */
@@ -428,6 +430,24 @@ export function createController(app) {
     for (const o of discover(entry, discoverable, game.player.x, game.player.y)) if (o.secret) toast(discoveryNotice(o));
   }
 
+  function askHint() {
+    if (game.battle || (ui.modalMode && ui.modalMode !== 'journal')) return;
+    const hint = nextHint(game.world.map, save(), {...objCtx, species});
+    if (!hint) return;
+    const before = structuredClone(save());
+    if (!markSceneRun(save(), game.world.map.id, `hint-${hint.id}-${hint.level}`)) {
+      toast('This adventure has reached its saved event limit.');
+      return;
+    }
+    if (!persist()) {
+      game.save = before;
+      toast('That lead could not be saved. Try again when saving is available.');
+      return;
+    }
+    close();
+    speech.show([{speaker: 'narrator', name: 'Field notes', text: hint.text}]);
+  }
+
   let lastInteract = -Infinity;
   const INTERACT_COOLDOWN_MS = 250;
   const sealOf = flag => regions.find(r => r.id === flag.split('.')[0]).seal.toLowerCase();
@@ -440,6 +460,16 @@ export function createController(app) {
     if (game.battle || ui.modalMode || ui.paused) return;
     if (ui.now - lastInteract < INTERACT_COOLDOWN_MS && ui.now >= lastInteract) return; // double taps do nothing
     lastInteract = ui.now;
+    // An eligible authored interaction at a prop takes precedence over its generic landmark text.
+    const sceneTrigger = triggersAt(game.world, game.player, 'interact').find(
+      t =>
+        t.beforeLandmark &&
+        (t.events ?? []).some(event => (event.repeatable || !sceneHasRun(save(), game.world.map.id, event.id)) && sceneConditionHolds(event, save(), objCtx)),
+    );
+    if (sceneTrigger) {
+      runTrigger(sceneTrigger);
+      return;
+    }
     const o = nearest();
     if (!o) {
       const t = triggersAt(game.world, game.player, 'interact')[0];
@@ -1221,6 +1251,7 @@ export function createController(app) {
 
   Object.assign(actions, {
     close,
+    askHint,
     cancelSceneMotion,
     travel,
     selectCompanion,
