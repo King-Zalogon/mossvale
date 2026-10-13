@@ -83,6 +83,8 @@ test('matched policy report covers progression, overleveling, every registered m
   const matchups = report.groups[2];
   assert.equal(matchups.pairCount, species.length ** 2);
   assert.equal(matchups.policies['attack-only'].trials, species.length ** 2);
+  assert.ok(report.groups[0].policies['relay-aware']);
+  assert.ok(report.groups[0].policies['relay-aware'].actionUse.setup);
   assert.equal(report.groups.filter(group => group.scenario.kind === 'guardian').length, 8);
   for (const group of report.groups) {
     for (const policy of Object.values(group.policies)) {
@@ -99,9 +101,21 @@ test('matched policy report covers progression, overleveling, every registered m
 test('all scripted policies select only legal actions and produce reproducible trials', () => {
   const scenario = {enemy: 7, enemyLevel: 8};
   const profile = {active: 0, party: [0, 1, 2], levels: {0: 7, 1: 6, 2: 5}};
-  for (const policy of ['attack-only', 'strongest-legal-move', 'intent-responsive']) {
+  for (const policy of ['attack-only', 'strongest-legal-move', 'intent-responsive', 'relay-aware']) {
     assert.deepEqual(runCombatTrial({scenario, profile, seed: 25, policy}), runCombatTrial({scenario, profile, seed: 25, policy}));
   }
+});
+
+test('relay-aware policy uses setup only for a better teammate and then consumes it once', () => {
+  const scenario = {enemy: 2, enemyLevel: 8}; // Water: Leaf is strong, Fire is weak.
+  const profile = {active: 1, party: [1, 0], levels: {0: 8, 1: 8}};
+  const trial = runCombatTrial({scenario, profile, seed: 11, policy: 'relay-aware'});
+  assert.ok((trial.chosenActions.setup ?? 0) >= 1, 'the policy should demonstrate the setup window');
+  assert.ok((trial.chosenActions.switch ?? 0) >= 1, 'the policy should switch during the relay window');
+  assert.ok((trial.chosenActions.element ?? 0) >= 1, 'the policy should consume the relay with an elemental strike');
+  const direct = runCombatTrial({scenario, profile, seed: 11, policy: 'strongest-legal-move'});
+  assert.equal(direct.chosenActions.setup ?? 0, 0, 'the direct policy should not prepare a relay');
+  assert.ok(trial.damageReceived < direct.damageReceived, 'the setup path should trade actions for a measurable defensive gain');
 });
 
 test('strongest legal move estimates matchup damage and preserves Quick strike on a tie', () => {

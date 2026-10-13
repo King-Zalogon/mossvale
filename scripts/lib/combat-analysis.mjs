@@ -2,6 +2,7 @@ import {readFileSync} from 'node:fs';
 import {create} from '../../dist/src/save.js';
 import {seededRng} from '../../dist/src/domain/rng.js';
 import {combatChoices, createBattle, guardianForecast, guardianLevel, playerStrike, resolveTurn} from '../../dist/src/domain/battle.js';
+import {RELAY_FOCUS_COST} from '../../dist/src/config.js';
 import {companion, effectiveness, healTeam, maxHP} from '../../dist/src/domain/rules.js';
 import {species} from '../../dist/src/data/species.js';
 import {regions} from '../../dist/src/data/regions.js';
@@ -39,6 +40,23 @@ const policySet = {
     const switchResponse = forecast?.responses?.find(response => response.available && response.action === 'switch');
     const switchTarget = switchResponse?.targetIds?.[0];
     if (Number.isInteger(switchTarget)) return {kind: 'switch', id: switchTarget};
+    return strongestLegalMove(save, battle);
+  },
+  'relay-aware': (save, battle, forecast, choices) => {
+    const active = companion(save);
+    const available = kind => choices.find(choice => choice.kind === kind)?.available === true;
+    if (active.hp < maxHP(save, save.active) * 0.35 && save.potions > 0 && available('potion')) return {kind: 'potion'};
+    if (battle.relayReady && battle.focus >= 1 && available('element')) return {kind: 'element'};
+    if (battle.condition) {
+      const targets = save.party.filter(id => id !== save.active && companion(save, id).hp > 0);
+      const target = targets.map(id => ({id, multiplier: effectiveness(id, battle.id)})).sort((a, b) => b.multiplier - a.multiplier)[0];
+      if (target && available('switch')) return {kind: 'switch', id: target.id};
+    }
+    if (available('setup') && battle.focus >= RELAY_FOCUS_COST && battle.hp > battle.max * 0.25) {
+      const current = effectiveness(save.active, battle.id);
+      const betterTarget = save.party.filter(id => id !== save.active && companion(save, id).hp > 0).some(id => effectiveness(id, battle.id) > current);
+      if (betterTarget) return {kind: 'setup'};
+    }
     return strongestLegalMove(save, battle);
   },
 };
@@ -280,6 +298,8 @@ export function runCombatComparison({seeds = 50} = {}) {
         'Estimate Quick strike and elemental damage across 32 evenly spaced random rolls; choose the higher-damage legal move, preferring Quick strike on ties.',
       'intent-responsive':
         'Also heal below 35% HP, Guard forecast heavy attacks, use a Focus interrupt against a forecast charge, break an already-active brace, and switch only into a configured resistant counterplay target.',
+      'relay-aware':
+        'Prepare a relay only when a healthy teammate has a stronger matchup, switch during its bounded window, and consume it on one elemental strike; otherwise fall back to the strongest legal move.',
     },
     metrics: [
       'outcomes',
@@ -289,6 +309,7 @@ export function runCombatComparison({seeds = 50} = {}) {
       'healing and potions',
       'switches',
       'available response windows and responses used',
+      'relay setup, switch and amplified-strike actions',
       'coins',
       'XP',
       'failed guardian seal objectives',
