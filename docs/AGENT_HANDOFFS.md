@@ -234,3 +234,6 @@ Claimed `codex/260-orchard-discovery-completion` from latest `origin/main` `1c1c
 ## #261 — optional spoiler-safe leads
 
 Claim `codex/261-spoiler-safe-rumours`, from latest main `f7df1b0` refreshed with integration and #260 dependency. Optional pack-authored map hints, canonical heard event levels, derived relevance/resolution, active healthy companion capability checks and accessible journal help. Merge only after #260 and full local validation.
+## #378 — Coglet anatomical correction
+
+Claimed `codex/378-coglet-anatomy` from main `1c1c984`, updated with integration `4009c58`. Owner reports missed front-eye/gear-plane/leg/flank inconsistency. Fixed body-coordinate brief precedes regeneration; preserve rejected draft history, review enlarged and game-scale poses, update provenance/catalogue and validate before integration merge. IDs/stats/game rules unchanged.

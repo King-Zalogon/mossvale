@@ -9,3 +9,7 @@ Deliver transparent portrait; eight anatomically rotated isometric views (N, NE,
 Optional importable resource only. Spark is a provisional primary type for the powered machine theme, using existing spark-jolt. Machine Starter is descriptive: no new Machine element, starter selection, immunity/gear mechanic, speed stat, AI or evolution is implied. Current roster/maps/save IDs stay unchanged. Future authors review type/stats/balance before importing.
 
 Retain exact prompts, generated initial sources and selected revisions, exact export settings and internal visual/technical evidence. Owner taste stays pending until explicit review.
+
+## Owner correction #378
+
+This original generation brief did not constrain the gear plane or leg/flank attachment roots sufficiently. Follow `correction-378/BRIEF.md` for current anatomy. Previous generated sources and review history remain retained as rejected baseline evidence.
