@@ -132,6 +132,16 @@ const failed = (page, text) =>
   console.log('ok map data failures');
 }
 {
+  // Plain-HTTP LAN origins lack Web Crypto. Explain the secure-context remedy without bypassing hashes.
+  const {page, ctx} = await start({init: "Object.defineProperty(window, 'crypto', {configurable: true, value: {}});"});
+  await failed(page, 'cannot verify the adventure pack safely');
+  assert.match(await page.textContent('#load-detail'), /localhost or HTTPS/);
+  assert.match(await page.textContent('#load-detail'), /verification stays required/);
+  assert.equal(await page.locator('#load-retry').isVisible(), true);
+  await ctx.close();
+  console.log('ok secure-context integrity guidance');
+}
+{
   // Web fonts failing to load (offline, blocked) never breaks the game.
   const ctx2 = await browser.newContext();
   await ctx2.route(/fonts\.(googleapis|gstatic)\.com/, route => route.abort());

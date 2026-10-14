@@ -2,6 +2,13 @@
 import {validatePackMetadata, packFileEntries} from '../domain/pack.js';
 import {ENGINE_VERSION, SAVE_SCHEMA_VERSION} from '../compatibility.js';
 
+export class PackIntegrityUnavailableError extends Error {
+  constructor() {
+    super('The browser does not expose Web Crypto for adventure pack verification.');
+    this.name = 'PackIntegrityUnavailableError';
+  }
+}
+
 export async function fetchAdventure(base = 'maps/') {
   const bytesFor = async (id, path) => {
     let response;
@@ -24,8 +31,7 @@ export async function fetchAdventure(base = 'maps/') {
   const errors = validatePackMetadata(index, {required: true, engineVersion: ENGINE_VERSION, saveSchema: SAVE_SCHEMA_VERSION});
   if (errors.length)
     throw new Error(`Pack compatibility check failed: ${errors.join(' · ')}. Update the game or restore a complete compatible build, then retry.`);
-  if (!globalThis.crypto?.subtle)
-    throw new Error('This browser cannot verify the adventure pack integrity hashes. Open Mossvale in a current browser, then retry.');
+  if (!globalThis.crypto?.subtle) throw new PackIntegrityUnavailableError();
   const entries = packFileEntries(index);
   const verified = await Promise.all(
     entries.map(async entry => {

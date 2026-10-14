@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/main.js", "dist/src/services/maps.js", "docs/PACKS.md"],
+      "entries": ["pack:mossvale"],
+      "disposition": "no-semantic-impact",
+      "reason": "Startup now explains missing secure-context crypto; pack hashes remain mandatory and accepted pack data is unchanged.",
+      "evidence": ["tests/pack-integrity.test.mjs", "tests/loader.browser.mjs", "docs/PACKS.md"]
+    }
+  ]
+}

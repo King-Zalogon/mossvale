@@ -64,6 +64,26 @@ test('the browser loader verifies the exact response bytes before returning the 
   }
 });
 
+test('the browser loader identifies a context without Web Crypto and never skips pack verification', async () => {
+  const originalFetch = globalThis.fetch;
+  const originalCrypto = Object.getOwnPropertyDescriptor(globalThis, 'crypto');
+  globalThis.fetch = async url => {
+    const path = String(url).slice('mock/'.length);
+    return new Response(read(path), {status: 200});
+  };
+  Object.defineProperty(globalThis, 'crypto', {configurable: true, value: undefined});
+  try {
+    await assert.rejects(fetchAdventure('mock/'), error => {
+      assert.equal(error.name, 'PackIntegrityUnavailableError');
+      return /does not expose Web Crypto/.test(error.message);
+    });
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (originalCrypto) Object.defineProperty(globalThis, 'crypto', originalCrypto);
+    else delete globalThis.crypto;
+  }
+});
+
 test('a missing pack file reports its canonical identity and supports a fresh retry', async () => {
   const originalFetch = globalThis.fetch;
   let missing = true;

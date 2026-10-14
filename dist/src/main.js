@@ -21,7 +21,7 @@ import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
 import {exportBackup, exportFileName, importSave, parseBackup, readBackupFile, readCheckpoint, restoreCheckpoint} from './services/backup.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
-import {fetchAdventure, fetchCatalog} from './services/maps.js';
+import {fetchAdventure, fetchCatalog, PackIntegrityUnavailableError} from './services/maps.js';
 import {
   chooseAdventure,
   DEFAULT_CATALOG,
@@ -432,6 +432,13 @@ async function boot() {
       game.player.x = boundedSave.x;
       game.player.y = boundedSave.y;
     } catch (e) {
+      if (e instanceof PackIntegrityUnavailableError) {
+        showLoadError(
+          'This address cannot verify the adventure pack safely.',
+          'Pack verification needs Web Crypto, which browsers provide on localhost or HTTPS. On this computer, open Mossvale at localhost. To play from another device, serve it over HTTPS. Pack verification stays required.',
+        );
+        return;
+      }
       showLoadError('Could not load the map data. Check your connection, then try again.', String(e.message || e));
       return;
     }
