@@ -1,6 +1,6 @@
 # Mossvale
 
-Map authoring preview: open `dist/map-editor.html` locally. The browser editor keeps its edits local and exports the validated map JSON used by the runtime and CLI.
+To preview the map editor, start the local server with `npm start` and open <http://127.0.0.1:8080/map-editor.html>. The editor keeps changes in the browser until you export; it does not rewrite repository files. `npm run build:game` writes a separate `build/` folder and is not needed for local previews.
 
 An original browser-playable creature-catching game with a 2D isometric world, pixel art, and eight-direction movement.
 
@@ -14,7 +14,7 @@ Install dependencies once with `npm ci`, then run the local game server:
 npm start
 ```
 
-For artwork and map review, choose **Testing URLs** from the title screen or in-game menu. It opens a described list of all five review pages in a new tab; see [local review pages](docs/TESTING_URLS.md).
+For artwork and map review, choose **Testing URLs** from the title screen or in-game menu, or open <http://127.0.0.1:8080/testing.html> directly. It lists every review page and opens each in a new tab; see [local review pages](docs/TESTING_URLS.md).
 
 Open the URL printed in the terminal. The title and Escape menus show the current `Build #<short-commit>`; a `+` marks uncommitted changes. This Node server reads the checkout's Git metadata, so it identifies local code as well as hosted builds. A plain static server can still serve `dist/`, but without `version.json` it reports `development build`.
 
