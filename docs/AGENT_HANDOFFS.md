@@ -253,3 +253,7 @@ Claimed `codex/391-secure-context-pack-errors` from latest `origin/main` and fas
 ## #393 — patch Ajv ReDoS advisory
 
 Claimed `codex/393-ajv-redos-fix` from the current `origin/integration`. Updated the exact Ajv pin from 8.17.1 to 8.20.0 so the authoring validator and production MCP SDK resolve the patched compatible 8.x version. `npm audit --omit=dev --audit-level=moderate` reports zero vulnerabilities. Full `npm run verify` and `npm run build` pass; no `$data` option is used by Mossvale.
+
+## #395 — refresh compatible patch dependencies
+
+Claimed `codex/395-patch-dependency-refresh` from `origin/integration` after #394. Refresh MCP SDK 1.32.0 → 1.32.1, Supabase JS 2.117.2 → 2.117.3, and Prettier 3.9.9 → 3.9.10; no runtime code or lockfile-wide upgrade beyond these patches. `npm audit --audit-level=moderate` is clean. `npm run check`, the complete browser suite, and production build pass locally. One earlier full browser run had a timing-sensitive chest ground-anchor assertion fail; the isolated chest test passed, and the subsequent full browser rerun passed including that assertion. Integration-only PR because hosted Actions/Vercel checks are unavailable per owner direction.
