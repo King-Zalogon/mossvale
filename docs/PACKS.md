@@ -153,3 +153,6 @@ Build it with `node scripts/build.mjs --pack tests/fixtures/packs/lantern-crossi
 The second-pack proof is complete. The live battle path now applies each pack's configured healing effect, rolls pack-owned drops after wild wins and captures, and records each reward through the existing once-only inventory claim keys. Selling remains available through the existing bag and stash UI; gathering and future loot sources can be added as separate tables without changing the save schema.
 
 Shrine landmarks can opt into a species-specific `guardian.combatSprite` through a shared named manifest ID. Packs without the optional field keep normal combat art. See [guardian forms](GUARDIAN_COMBAT_FORMS.md) for validation, unique encounter matching, fallback, save compatibility and the complete example.
+# Pack integrity and local serving
+
+Built adventure packs are SHA-256 verified before their data is used. Verification is mandatory: if the browser cannot expose Web Crypto, Mossvale stops with a specific startup message. This can happen when another device opens a development server at a plain-HTTP LAN address such as `http://192.168.x.x:8080`; that origin is not a secure context. On the server computer, use `http://localhost:<port>`. For another device, use a trusted HTTPS origin. Do not disable the check or mix files from different builds.
