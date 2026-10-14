@@ -1,0 +1,18 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/guardian-combat-preview.js", "art/characters/visual-reviews.json"],
+      "entries": [
+        "mechanic:guardian-combat-form",
+        "visual:creature-mushmallow-thorn-mantle-combat",
+        "visual:creature-pebblit-crystal-ridge-combat",
+        "visual:creature-frostowl-ice-mantle-combat",
+        "visual:creature-siltkip-tide-sail-combat"
+      ],
+      "disposition": "no-semantic-impact",
+      "reason": "The guardian preview now treats authored map names as text; its unchanged visual evidence hashes were refreshed after the source edit, and existing form, frame and playback presentation remains intact.",
+      "evidence": ["tests/guardian-art.browser.mjs", "docs/ELEMENTAL_ATTACKS.md"]
+    }
+  ]
+}
