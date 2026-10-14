@@ -5522,10 +5522,49 @@
       }
     },
     {
+      "id": "mechanic:adventure-readiness-report",
+      "kind": "mechanic",
+      "name": "Adventure readiness report",
+      "summary": "Report whether a pack can be built and played, which file and path block it, and what only a person can judge.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "It runs the existing validators and the game compiler; it adds no new rules beyond advisory route signals and the repeatable scene reward check.",
+        "A 'buildable' result is mechanical only: story meaning, visual composition and enjoyment are always listed as not evaluated, and the browser playthrough is not run.",
+        "A one-way entrance is only a warning because the manifest has no field to declare it intentional.",
+        "It never writes into the pack or saves; `--out` must point outside the pack folder."
+      ],
+      "examples": [
+        {
+          "intent": "Check a candidate pack before handing it to a reviewer.",
+          "usage": "Run `npm run adventure:report -- <pack-folder>` (add `--format json` for tools, `--strict` to fail on warnings).",
+          "expected": "A deterministic Markdown or JSON report with per-check results, errors with file, JSON path and next step, warnings, and the human-review list; exit 0 buildable, 1 blocked, 2 usage, 3 warnings under --strict."
+        }
+      ],
+      "references": ["scripts/adventure-report.mjs", "scripts/lib/adventure-readiness.mjs", "docs/PACKS.md"],
+      "evidence": [
+        {
+          "path": "tests/adventure-readiness.test.mjs",
+          "assertion": "A valid pack passes; broken copies (unknown asset, unreachable chest, wrong save schema, missing and malformed files, stale hash, unreachable map, repeatable reward, one-way entrance) fail or warn at the right file and path; output is byte-identical and the pack is never modified; exit codes are stable."
+        }
+      ],
+      "details": {
+        "trigger": "Authoring CLI invocation.",
+        "inputs": "A pack folder containing index.json and the files it selects.",
+        "sequence": "Check files and hashes, manifest, compatibility and registries; compile the adventure with the shared compiler; add advisory route signals and the repeatable-reward check; render sorted JSON or Markdown.",
+        "results": "A report whose status is blocked or buildable, with a separate list of review only a person can do.",
+        "cancellation": "Not applicable; the command is read-only.",
+        "errors": "An unreadable folder or bad option exits 2 without a report; missing or malformed pack files are reported with their path and later dependent checks are skipped.",
+        "persistence": "Nothing is saved or written to the pack; output goes to stdout or an explicit --out file outside the pack."
+      }
+    },
+    {
       "id": "mechanic:battle-impact-feedback",
       "kind": "mechanic",
       "name": "Battle impact feedback",
-      "summary": "Show every resolved blow as a floating number, an eased HP bar with a trailing ghost, a held hit flash and a short scene shake, and play orb throws and victories as readable beats.",
+      "summary": "Show every resolved blow as a floating number, an eased HP bar with a trailing ghost, a held hit flash and a short scene shake, and play orb throws and victories as readable beats, and show your own team changing: recall, send-in, faint and level-up.",
       "status": "available",
       "scope": "core",
       "configuration": [],
@@ -5537,7 +5576,9 @@
         "Capture beats are derived from the already-resolved throw: a success wobbles three times, a miss wobbles once more the closer it was (1 to 3), and calm motion collapses to a single wobble; the wobble count never changes the outcome.",
         "Victory shows the foe fading, your friend hopping and the XP and coins the rules already granted; it adds about one second before the result screen, and a throw adds about two seconds (shorter in calm motion).",
         "The pre-throw befriended status remains visible during throw/wobble; success is revealed when the orb settles and failure when it opens. Battle actions remain locked until playback ends, including calm motion. The HUD friend count, coin/XP rewards, quest progress and controller notices also wait for the orb result. Durable capture and objective events still commit before playback. Ally level/HP and move information read the pre-throw presentation snapshot until resolution, including a capture that levels up the companion.",
-        "Automatic calm motion follows the system media query directly; the CSS override class is reserved for the explicit player setting, so returning to normal system motion cannot leave creature animations stuck."
+        "Automatic calm motion follows the system media query directly; the CSS override class is reserved for the explicit player setting, so returning to normal system motion cannot leave creature animations stuck.",
+        "Team transitions are presentation of already-resolved events: a switch plays recall then send-in, a fainted friend fades before the next steps in (or before the defeat screen), and a level-up gets its own beat; none of them changes who is active, HP, XP or outcomes.",
+        "The name line keeps the pre-round level until the level-up beat; calm motion keeps the messages, numbers and order but drops fades, sparks and glows, and each beat is shorter."
       ],
       "examples": [
         {
@@ -5549,15 +5590,20 @@
           "intent": "Throw a capture orb at a weakened creature.",
           "usage": "Press Capture orb (5) or click it; no configuration is needed.",
           "expected": "The orb flies in and holds the creature, wobbles, then either settles with a star burst and floating rewards before the result screen, or opens and the creature pops back out."
+        },
+        {
+          "intent": "Switch companions, or lose one in battle.",
+          "usage": "Choose Switch friend (8), or let a friend fall.",
+          "expected": "The outgoing friend shrinks away or fades, the next one pops in with sparks, and the log says who came back or stepped in."
         }
       ],
       "references": [
         "dist/src/controller.js",
         "dist/src/data/sounds.js",
+        "dist/src/main.js",
         "dist/src/ui/battle-fx.js",
         "dist/src/ui/battle-view.js",
-        "dist/style.css",
-        "dist/src/main.js"
+        "dist/style.css"
       ],
       "evidence": [
         {
@@ -5575,12 +5621,16 @@
         {
           "path": "tests/creatures.browser.mjs",
           "assertion": "Automatic system reduction disables animation and returns to idle breathing without becoming a sticky manual override."
+        },
+        {
+          "path": "tests/team-transitions.browser.mjs",
+          "assertion": "A switch plays recall then send-in; a fainted friend fades before the replacement steps in or before the defeat result; a level-up beat follows the victory and the name line changes only then; calm motion has no sparks."
         }
       ],
       "details": {
-        "trigger": "A resolved strike, enemy attack, riposte, potion, charge recovery, orb throw or win event.",
+        "trigger": "A resolved strike, enemy attack, riposte, potion, charge recovery, orb throw or win event. Also a switch, faint, defeat or level-up.",
         "inputs": "The turn event (damage, effectiveness, action kind, healed amount) and the per-frame HP snapshot.",
-        "sequence": "Each frame draws the bars from the previous frame's width, forces a reflow and sets the new width so the transition runs; numbers rise for 0.9 s; the scene shakes at level 1 or 2. Orb throws expand into throw, wobble and settle-or-open beats; a win adds a victory beat where the foe fades out.",
+        "sequence": "Each frame draws the bars from the previous frame's width, forces a reflow and sets the new width so the transition runs; numbers rise for 0.9 s; the scene shakes at level 1 or 2. Orb throws expand into throw, wobble and settle-or-open beats; a win adds a victory beat where the foe fades out. Switches expand into recall and send-in beats, a fainted friend into a fade beat (then a send-in or the result), and a level change into a glow beat.",
         "results": "Damage, healing and effectiveness read without parsing the battle log; numbers are hidden from assistive technology because the log already announces them.",
         "cancellation": "A new frame replaces the markup; leaving the battle or skipping playback drops pending effects.",
         "errors": "With no previous width (first frame or a switched companion) the bar is drawn at its final value without easing.",
@@ -10233,6 +10283,58 @@
       }
     },
     {
+      "id": "sound:faint",
+      "kind": "mechanic",
+      "name": "faint",
+      "summary": "Synthesized faint sound cue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "faint",
+            "notes": [
+              {
+                "f": 320,
+                "d": 0.35,
+                "to": 110,
+                "type": "sawtooth",
+                "g": 0.03
+              }
+            ]
+          },
+          "limits": "Configure through dist/src/data/sounds.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Synthesized faint sound cue.",
+          "usage": "Reference faint in the existing format at dist/src/data/sounds.js.",
+          "expected": "Synthesized faint sound cue."
+        }
+      ],
+      "references": ["dist/src/data/sounds.js"],
+      "evidence": [
+        {
+          "path": "tests/audio.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Synthesized faint cue; generated through the existing WebAudio palette.",
+        "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Sound preferences are separate from adventure saves."
+      }
+    },
+    {
       "id": "sound:guard",
       "kind": "mechanic",
       "name": "guard",
@@ -10496,6 +10598,70 @@
       }
     },
     {
+      "id": "sound:levelup",
+      "kind": "mechanic",
+      "name": "levelup",
+      "summary": "Synthesized levelup sound cue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "levelup",
+            "notes": [
+              {
+                "f": 660,
+                "d": 0.12
+              },
+              {
+                "f": 880,
+                "d": 0.12,
+                "t": 0.12
+              },
+              {
+                "f": 1110,
+                "d": 0.12,
+                "t": 0.24
+              },
+              {
+                "f": 1320,
+                "d": 0.4,
+                "t": 0.36
+              }
+            ]
+          },
+          "limits": "Configure through dist/src/data/sounds.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Synthesized levelup sound cue.",
+          "usage": "Reference levelup in the existing format at dist/src/data/sounds.js.",
+          "expected": "Synthesized levelup sound cue."
+        }
+      ],
+      "references": ["dist/src/data/sounds.js"],
+      "evidence": [
+        {
+          "path": "tests/audio.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Synthesized levelup cue; generated through the existing WebAudio palette.",
+        "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Sound preferences are separate from adventure saves."
+      }
+    },
+    {
       "id": "sound:ready",
       "kind": "mechanic",
       "name": "ready",
@@ -10539,6 +10705,56 @@
         "inputs": "Use the configuration in the linked canonical definition.",
         "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
         "results": "Synthesized ready cue; generated through the existing WebAudio palette.",
+        "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Sound preferences are separate from adventure saves."
+      }
+    },
+    {
+      "id": "sound:recall",
+      "kind": "mechanic",
+      "name": "recall",
+      "summary": "Synthesized recall sound cue.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "recall",
+            "notes": [
+              {
+                "f": 620,
+                "d": 0.16,
+                "to": 280
+              }
+            ]
+          },
+          "limits": "Configure through dist/src/data/sounds.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "Synthesized recall sound cue.",
+          "usage": "Reference recall in the existing format at dist/src/data/sounds.js.",
+          "expected": "Synthesized recall sound cue."
+        }
+      ],
+      "references": ["dist/src/data/sounds.js"],
+      "evidence": [
+        {
+          "path": "tests/audio.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Selected through the owning gameplay or authoring system.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "Synthesized recall cue; generated through the existing WebAudio palette.",
         "cancellation": "Existing sound preferences, pause/visibility and service lifecycle.",
         "errors": "Owning validators reject unsupported configuration.",
         "persistence": "Sound preferences are separate from adventure saves."

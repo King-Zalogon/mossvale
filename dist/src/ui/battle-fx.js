@@ -64,3 +64,18 @@ export function captureBeats({chance, caught, calm = false}) {
 export function orbMarkup(state) {
   return `<img class="orb-ball orb-${state}" src="assets/items/item-capture-orb.png" alt="" aria-hidden="true">`;
 }
+
+/** Level-up celebration for your active friend, or null when nothing changed. Derived from levels before and after the turn. */
+export function levelUpFx(from, to) {
+  if (!(Number.isInteger(from) && Number.isInteger(to) && to > from)) return null;
+  return {pops: [{side: 'ally', text: `Lv. ${to}!`, tone: 'level'}], shake: 0, burst: 'ally-stars'};
+}
+
+/** The animation name and settled class a creature on your side shows during team transitions. */
+export const TEAM_TRANSITIONS = {
+  'ally-faint': 'ally-out',
+  'ally-gone': 'ally-gone',
+  recall: 'recall',
+  'send-in': 'send-in',
+  'level-up': 'level-up',
+};

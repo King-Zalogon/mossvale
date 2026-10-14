@@ -1,0 +1,25 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "scripts/adventure-report.mjs",
+        "scripts/lib/adventure-readiness.mjs",
+        "tests/adventure-readiness.test.mjs",
+        "package.json",
+        "docs/PACKS.md",
+        "docs/AUTHORING_TOOLS.md",
+        "content/scene-scripts/README.md",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/282-adventure-readiness.json"
+      ],
+      "entries": ["mechanic:adventure-readiness-report"],
+      "disposition": "updated",
+      "reason": "Adds the authoring-only adventure readiness report fiche. The command is read-only and composes the existing pack, registry, compiler and map-design validators; it changes no game runtime, save, map or pack data, and `npm run validate`, `npm run pack` and `npm run build` keep their meaning.",
+      "evidence": ["tests/adventure-readiness.test.mjs"]
+    }
+  ]
+}

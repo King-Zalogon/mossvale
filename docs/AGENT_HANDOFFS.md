@@ -237,3 +237,23 @@ Claim `codex/261-spoiler-safe-rumours`, from latest main `f7df1b0` refreshed wit
 ## #378 — Coglet anatomical correction
 
 Claimed `codex/378-coglet-anatomy` from main `1c1c984`, updated with integration `4009c58`. Owner reports missed front-eye/gear-plane/leg/flank inconsistency. Fixed body-coordinate brief precedes regeneration; preserve rejected draft history, review enlarged and game-scale poses, update provenance/catalogue and validate before integration merge. IDs/stats/game rules unchanged.
+
+## #282 — adventure readiness report
+
+Claude claim: `claude/282-adventure-readiness`, from `origin/main` `b0c506f` (equal to `integration` after the owner-requested promotion); issue comment records the claim. Scope: read-only `npm run adventure:report -- <pack>` (JSON/Markdown, stable exit codes) in `scripts/adventure-report.mjs` and `scripts/lib/adventure-readiness.mjs`; reuses pack, registry, compiler (`buildAdventure`) and `map-design-report` (#274) validators, adds only the repeatable-scene-reward check and advisory route signals; documents it in PACKS.md, AUTHORING_TOOLS.md and the scene-builder prompt. No runtime, pack, save or map changes. #186 (dependency) was closed with PR #223 evidence. Local checks only (CI unavailable).
+
+## #389 — team transitions in battle
+
+Claude claim: `claude/389-team-transitions`, from `origin/integration` `6df99b5` (includes the elemental beats and orb/victory beats). Scope: presentation only in `ui/battle-fx.js` (`levelUpFx`, `TEAM_TRANSITIONS`), `battle-view.js` (ally classes and ally sparks), `framesFor` in the controller (recall/send-in on a switch, faint fade, level-up beat, settled "gone" frame on a lost battle), battle CSS and three tiny sounds. No change to `domain/battle.js`, who becomes active, HP, XP or saves. Local checks only (CI unavailable).
+
+## #391 — actionable secure-context pack errors
+
+Claimed `codex/391-secure-context-pack-errors` from latest `origin/main` and fast-forwarded through `origin/integration` `06b8769`. Keep pack SHA-256 verification mandatory; distinguish a browser context without Web Crypto from fetch, schema and hash failures; give localhost/HTTPS recovery steps and cover it in deterministic pack-integrity and startup-browser regressions. PR targets `integration`; verify and build locally because hosted Actions/Vercel checks are unavailable per owner direction.
+
+## #393 — patch Ajv ReDoS advisory
+
+Claimed `codex/393-ajv-redos-fix` from the current `origin/integration`. Updated the exact Ajv pin from 8.17.1 to 8.20.0 so the authoring validator and production MCP SDK resolve the patched compatible 8.x version. `npm audit --omit=dev --audit-level=moderate` reports zero vulnerabilities. Full `npm run verify` and `npm run build` pass; no `$data` option is used by Mossvale.
+
+## #395 — refresh compatible patch dependencies
+
+Claimed `codex/395-patch-dependency-refresh` from `origin/integration` after #394. Refresh MCP SDK 1.32.0 → 1.32.1, Supabase JS 2.117.2 → 2.117.3, and Prettier 3.9.9 → 3.9.10; no runtime code or lockfile-wide upgrade beyond these patches. `npm audit --audit-level=moderate` is clean. `npm run check`, the complete browser suite, and production build pass locally. One earlier full browser run had a timing-sensitive chest ground-anchor assertion fail; the isolated chest test passed, and the subsequent full browser rerun passed including that assertion. Integration-only PR because hosted Actions/Vercel checks are unavailable per owner direction.

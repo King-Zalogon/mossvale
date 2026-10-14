@@ -82,7 +82,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/audio.js` | services | `createAudio` |
 | `services/backup.js` | services | `BACKUP_FORMAT`, `BACKUP_KIND`, `MAX_BACKUP_BYTES`, `exportBackup`, `exportFileName`, `importSave`, `parseBackup`, `readBackupFile`, `readCheckpoint`, `restoreCheckpoint` |
 | `services/loader.js` | services | `TIMEOUT_MS`, `loadAssets`, `loadImage` |
-| `services/maps.js` | services | `fetchAdventure`, `fetchCatalog` |
+| `services/maps.js` | services | `PackIntegrityUnavailableError`, `fetchAdventure`, `fetchCatalog` |
 | `services/persistence.js` | services | `createPersistence` |
 | `services/profile.js` | services | `hasProgress`, `readArchive`, `restoreArchive`, `startOver`, `summarize` |
 | `services/settings.js` | services | `DEFAULTS`, `MOTION`, `SETTINGS_KEY`, `TEXT_SIZES`, `VOLUME_STEPS`, `ZOOM_MAX`, `ZOOM_MIN`, `loadSettings`, `normalizeSettings`, `saveSettings` |
@@ -90,7 +90,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/version.js` | services | `describeBuild`, `fetchBuild` |
 | `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
-| `ui/battle-fx.js` | ui | `burstMarkup`, `captureBeats`, `fxForEvent`, `hpPercent`, `orbMarkup`, `popMarkup`, `rewardPops` |
+| `ui/battle-fx.js` | ui | `TEAM_TRANSITIONS`, `burstMarkup`, `captureBeats`, `fxForEvent`, `hpPercent`, `levelUpFx`, `orbMarkup`, `popMarkup`, `rewardPops` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
 | `ui/elemental-beats.js` | ui | `elementalBeats` |
