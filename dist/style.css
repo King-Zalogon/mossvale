@@ -3114,3 +3114,112 @@ body.reduce-motion .battle-scene .bar b.trail {
 .fighter canvas.ally-gone {
   opacity: 0;
 }
+
+/* Regional atlas (#276) */
+.atlas {
+  display: grid;
+  gap: 12px;
+}
+.atlas-note {
+  margin: 0;
+  color: #b6cda0;
+  font-size: 13px;
+}
+.atlas-graph {
+  width: 100%;
+  max-height: 340px;
+  background: #153126;
+  border: 1px solid #3f6a52;
+  border-radius: 10px;
+}
+.atlas-edge {
+  stroke: #9fc58a;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.atlas-edge.locked {
+  stroke: #8a8f73;
+  stroke-dasharray: 6 6;
+}
+.atlas-edge.found-route {
+  stroke: #7fd0e8;
+}
+#atlas-arrow path {
+  fill: #9fc58a;
+}
+.atlas-node {
+  cursor: pointer;
+  outline: none;
+}
+.atlas-node circle {
+  fill: #2c5a43;
+  stroke: #bfe0a2;
+  stroke-width: 3;
+}
+.atlas-node.visited circle {
+  fill: #3d7a58;
+}
+.atlas-node.current circle {
+  stroke: #ffe27a;
+  stroke-width: 4;
+}
+.atlas-node circle.here {
+  fill: #ffe27a;
+  stroke: none;
+}
+.atlas-node.known circle {
+  fill: #1b3a2d;
+  stroke-dasharray: 5 4;
+}
+.atlas-node.locked circle {
+  stroke: #9a9a86;
+}
+.atlas-node .lock {
+  fill: none;
+  stroke: #d9d9c4;
+  stroke-width: 2;
+}
+.atlas-node text {
+  fill: #e8f2dc;
+  font-size: 12px;
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: #153126;
+  stroke-width: 3px;
+}
+.atlas-node:focus-visible circle,
+.atlas-node.selected circle {
+  stroke: #fff;
+  stroke-width: 5;
+}
+.atlas-detail {
+  background: #1b3a2d;
+  border: 1px solid #3f6a52;
+  border-radius: 10px;
+  padding: 12px 14px;
+  min-height: 90px;
+}
+.atlas-detail h3 {
+  margin: 0 0 4px;
+}
+.atlas-detail ul,
+.atlas-list {
+  margin: 6px 0;
+  padding-left: 18px;
+}
+.atlas-state {
+  margin: 0 0 6px;
+  color: #ffe27a;
+}
+.atlas-routes summary {
+  cursor: pointer;
+  color: #b6cda0;
+}
+@media (max-width: 640px) {
+  .atlas-graph {
+    max-height: 420px;
+  }
+  .atlas-node text {
+    font-size: 13px;
+  }
+}

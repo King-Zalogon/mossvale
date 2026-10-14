@@ -6414,6 +6414,49 @@
       }
     },
     {
+      "id": "mechanic:regional-atlas",
+      "kind": "mechanic",
+      "name": "Regional route atlas",
+      "summary": "A spoiler-safe route graph of the adventure on the map screen: visited, known and locked places and the trails between them.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "Derived entirely from validated exits and the save's existing discovery records; a pack needs no extra data, but a place with no exit chain to a shown place is parked on its own row.",
+        "Places and concealed routes appear only after a visit, a noticed trail sign or a discovered route; hidden places are never named or counted.",
+        "Selecting a place only shows facts. Travel is offered only for visited places in an open region and uses the existing travel action; it never makes a merely known place reachable or changes progression.",
+        "Layout is a coarse grid from the side each exit leaves its map; it is not a scaled geographic map, and trails that need a different side to avoid overlap may be nudged."
+      ],
+      "examples": [
+        {
+          "intent": "See how the places you have found connect.",
+          "usage": "Press M, then choose Atlas.",
+          "expected": "Your current place, visited places and noticed destinations appear as a graph; locked trails are dashed and name the seal that opens them; a text route list repeats it."
+        }
+      ],
+      "references": ["dist/src/domain/atlas.js", "dist/src/ui/atlas.js", "dist/src/ui/menus.js", "docs/ATLAS.md"],
+      "evidence": [
+        {
+          "path": "tests/atlas.test.mjs",
+          "assertion": "Fresh, partial and completed saves disclose exactly the right places; a completed atlas has one edge per connected exit pair; concealed routes stay hidden until discovered; layout is deterministic and non-overlapping."
+        },
+        {
+          "path": "tests/atlas.browser.mjs",
+          "assertion": "Through real play a noticed sign adds a known place without travel, the disclosure survives reload, visited places offer travel, arrow keys and Enter work, a concealed route appears only once discovered, the phone layout fits, and the Island cards still offer travel."
+        }
+      ],
+      "details": {
+        "trigger": "Opening the map screen and choosing Atlas.",
+        "inputs": "Compiled maps (exits), visitedMaps, noticed trail signs (explored.seen), discovered route events, seal flags and region unlock state.",
+        "sequence": "Compute disclosure, lay out places from exit directions, draw an SVG graph, a detail panel and a text route list; selection follows focus and clicks.",
+        "results": "A readable, keyboard-operable route picture that never exposes a secret route, map label, creature or landmark before its discovery rule.",
+        "cancellation": "Closing the map discards the view; nothing is stored.",
+        "errors": "A save that lists unknown maps or no visited map shows just the current place.",
+        "persistence": "Read-only; it adds nothing to the save."
+      }
+    },
+    {
       "id": "mechanic:responsive-playfield",
       "kind": "mechanic",
       "name": "Responsive playfield and readable name tags",

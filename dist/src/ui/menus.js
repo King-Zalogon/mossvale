@@ -19,6 +19,7 @@ import {hasProgress, summarize} from '../services/profile.js';
 import {ZOOM_MAX, ZOOM_MIN} from '../services/settings.js';
 import {createAccountMenus} from './account.js';
 import {createAreaMap} from './areamap.js';
+import {createAtlas} from './atlas.js';
 import {$, header, openModal, toast} from './dom.js';
 
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'})[c]);
@@ -37,21 +38,31 @@ export function createMenus(app) {
   };
 
   const areaMap = createAreaMap(app);
+  const atlas = createAtlas(app);
   app.areaMap = areaMap;
 
   /** The map screen: the islands (regions) or the explored part of the current area, with pan and zoom. */
   function worldMap(view = ui.mapView ?? 'islands') {
     if (game.battle) return;
     ui.mapView = view;
-    const tabs = `<div class="tab-buttons" role="group" aria-label="Map view"><button id="map-islands" class="${view === 'islands' ? 'selected' : ''}" aria-pressed="${view === 'islands'}">Islands</button><button id="map-area" class="${view === 'area' ? 'selected' : ''}" aria-pressed="${view === 'area'}">This area</button></div>`;
+    const tabs = `<div class="tab-buttons" role="group" aria-label="Map view"><button id="map-islands" class="${view === 'islands' ? 'selected' : ''}" aria-pressed="${view === 'islands'}">Islands</button><button id="map-atlas" class="${view === 'atlas' ? 'selected' : ''}" aria-pressed="${view === 'atlas'}">Atlas</button><button id="map-area" class="${view === 'area' ? 'selected' : ''}" aria-pressed="${view === 'area'}">This area</button></div>`;
     if (view === 'area') {
       areaMap.reset();
       open(`${header('EXPLORED SO FAR', game.world.map.name)}${tabs}${areaMap.html()}`, 'map', 'Area map');
       wireClose();
       $('#map-islands').onclick = () => worldMap('islands');
+      $('#map-atlas').onclick = () => worldMap('atlas');
       areaMap.mount();
       // openModal restores focus on the next frame; take it after that so the map's keys work at once
       requestAnimationFrame(() => requestAnimationFrame(() => $('#area-canvas')?.focus({preventScroll: true})));
+      return;
+    }
+    if (view === 'atlas') {
+      open(`${header('THE VERDANT ISLES', 'Route atlas')}${tabs}${atlas.html()}`, 'map', 'Route atlas');
+      wireClose();
+      $('#map-islands').onclick = () => worldMap('islands');
+      $('#map-area').onclick = () => worldMap('area');
+      atlas.mount();
       return;
     }
     const s = save();
@@ -82,6 +93,7 @@ export function createMenus(app) {
     for (const b of document.querySelectorAll('[data-map-travel]')) b.onclick = () => actions.travel(b.dataset.mapTravel);
     wireClose();
     $('#map-area').onclick = () => worldMap('area');
+    $('#map-atlas').onclick = () => worldMap('atlas');
   }
 
   /** Regions whose encounter zones can produce species `i`. */
