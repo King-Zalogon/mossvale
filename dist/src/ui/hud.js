@@ -5,6 +5,20 @@ import {companion, level, maxHP, xpProgress} from '../domain/rules.js';
 import {drawCreature} from '../render/sprites.js';
 import {$} from './dom.js';
 
+export function renderObjectiveLines(container, lines) {
+  const document = container.ownerDocument;
+  container.replaceChildren(
+    ...lines.map(([done, text]) => {
+      const line = document.createElement('div');
+      line.className = 'quest-line';
+      const marker = document.createElement('span');
+      marker.textContent = done ? '✓' : '○';
+      line.append(marker, document.createTextNode(text));
+      return line;
+    }),
+  );
+}
+
 export function renderRegion(region, map = null) {
   const r = regions[region];
   const mapName = map?.name ?? r.name;
@@ -41,7 +55,7 @@ export function renderHud(save, q = null) {
   $('#quest-title').textContent = q.title;
   $('#quest-copy').textContent = q.copy;
   $('#quest-step').textContent = q.step;
-  $('#quest-lines').innerHTML = q.lines.map(([done, text]) => `<div class="quest-line"><span>${done ? '✓' : '○'}</span>${text}</div>`).join('');
+  renderObjectiveLines($('#quest-lines'), q.lines);
   $('#objective-pin').textContent = q.pin;
   drawCreature($('#buddy'), save.active, 106);
 }
