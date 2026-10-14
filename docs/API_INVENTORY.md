@@ -49,6 +49,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
 | `domain/events.js` | domain | `GAME_EVENT_SCHEMA`, `GAME_EVENT_VERSION`, `createEventLog` |
 | `domain/exploration.js` | domain | `DIRECTIONS`, `FACING`, `FOLLOWER_FRAME_DISTANCE`, `RUN_SPEED`, `WALK_FRAME_DISTANCE`, `WALK_SPEED`, `directionPose`, `facing`, `followerFrame`, `followerPoint`, `movePlayer`, `movementFacing`, `playerFrame`, `playerSpritePose`, `pushTrail` |
+| `domain/hints.js` | domain | `hintKey`, `hintState`, `nextHint`, `validateHints` |
 | `domain/inventory.js` | domain | `buyInventory`, `claimInventory`, `commitInventory`, `createInventory`, `deposit`, `gatherInventory`, `inventoryToSupplies`, `moveInventory`, `rollDrop`, `sellInventory`, `suppliesToInventory`, `syncInventorySupplies`, `useInventory`, `validateInventoryRules`, `withdraw` |
 | `domain/mapdata.js` | domain | `LANDMARK_KINDS`, `MAP_FORMAT`, `MAX_CELLS`, `MAX_SIZE`, `TERRAIN`, `compileMap`, `validateMaps`, `walkableAt`, `zoneMatches` |
 | `domain/objective-events.js` | domain | `applyObjectiveEvent`, `createObjectiveState`, `objectiveStageEventId`, `recordObjectiveEvent`, `restoreObjectiveState`, `validateObjectiveEvents`, `validateObjectiveState` |
@@ -60,7 +61,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/rng.js` | domain | `seededRng` |
 | `domain/rules.js` | domain | `addToParty`, `addXP`, `awardXP`, `clampHealth`, `companion`, `effectiveness`, `elementPower`, `flagDone`, `healTeam`, `healthyParty`, `inParty`, `level`, `maxHP`, `moveName`, `moveUpgraded`, `normalizeParty`, `removeFromParty`, `reserve`, `setActive`, `setFlag`, `unlocked`, `xpProgress` |
 | `domain/scene-path.js` | domain | `findScenePath` |
-| `domain/scenes.js` | domain | `MAX_SCENE_ACTIONS`, `MAX_SCENE_EVENTS`, `SCENE_ACTIONS`, `applySceneActions`, `markSceneRun`, `sceneConditionHolds`, `sceneEventKey`, `sceneHasRun`, `validateSceneEvent` |
+| `domain/scenes.js` | domain | `MAX_SCENE_ACTIONS`, `MAX_SCENE_EVENTS`, `SCENE_ACTIONS`, `applySceneActions`, `markSceneRun`, `sceneConditionHolds`, `sceneEventKey`, `sceneHasRun`, `validateSceneEvent`, `validateSceneGraph` |
 | `domain/story.js` | domain | `HINT_EVENTS`, `MAX_HINTS`, `STORY_FORMAT`, `endingDue`, `markSeen`, `pendingHint`, `validateStory` |
 | `domain/terrain-family.js` | domain | `bakeTerrainFamily`, `chooseTerrainVariant`, `resolveTerrainFamilyCell`, `serializeTerrainFamilyBake`, `terrainSeed`, `terrainVariant`, `validateTerrainFamilyFixture` |
 | `domain/world.js` | domain | `INTERACTIVE_KINDS`, `buildWorld`, `isLand`, `isQuiet`, `isWalkable`, `nearestInteractive`, `nearestWalkable`, `objectsInBounds`, `rnd`, `spawnOf`, `terrainAt`, `tilesInBounds`, `triggersAt`, `zoneAt` |
@@ -89,7 +90,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/version.js` | services | `describeBuild`, `fetchBuild` |
 | `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
-| `ui/battle-fx.js` | ui | `burstMarkup`, `captureBeats`, `fxForEvent`, `hpPercent`, `orbMarkup`, `popMarkup`, `rewardPops` |
+| `ui/battle-fx.js` | ui | `TEAM_TRANSITIONS`, `burstMarkup`, `captureBeats`, `fxForEvent`, `hpPercent`, `levelUpFx`, `orbMarkup`, `popMarkup`, `rewardPops` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
 | `ui/elemental-beats.js` | ui | `elementalBeats` |

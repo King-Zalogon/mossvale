@@ -3042,3 +3042,75 @@ body.reduce-motion .battle-scene .bar b.trail {
 .enemy-element {
   --attack-direction: -1;
 }
+
+/* Team transitions: a fainted friend fades and sinks, a recalled one shrinks away, the next one is sent in, and a level-up glows. */
+.fighter canvas.ally-out {
+  animation: ally-out 0.9s ease-in forwards;
+}
+.fighter canvas.recall {
+  animation: recall 0.45s ease-in forwards;
+}
+.fighter canvas.send-in {
+  animation: pop-out 0.55s ease-out both;
+}
+.fighter canvas.level-up {
+  animation: level-glow 1.1s ease-out both;
+}
+.dmg-pop.tone-level {
+  color: #fff3a6;
+  font-size: 26px;
+}
+@keyframes ally-out {
+  0% {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0);
+  }
+  35% {
+    filter: grayscale(0.8) brightness(1.2);
+  }
+  100% {
+    opacity: 0;
+    filter: grayscale(1) brightness(0.8);
+    transform: translateY(18px) scale(0.92);
+  }
+}
+@keyframes recall {
+  0% {
+    opacity: 1;
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  60% {
+    opacity: 0.8;
+    filter: brightness(2.4) saturate(0.4);
+    transform: scale(0.55);
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(3);
+    transform: scale(0.1);
+  }
+}
+@keyframes level-glow {
+  0% {
+    transform: scale(1);
+    filter: none;
+  }
+  25% {
+    transform: scale(1.12) translateY(-6px);
+    filter: brightness(1.7) drop-shadow(0 0 10px #ffe27a);
+  }
+  55% {
+    transform: scale(1.04);
+    filter: brightness(1.3) drop-shadow(0 0 6px #ffe27a);
+  }
+  100% {
+    transform: scale(1);
+    filter: none;
+  }
+}
+
+.fighter canvas.ally-gone {
+  opacity: 0;
+}

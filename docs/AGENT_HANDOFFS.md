@@ -226,3 +226,22 @@ Resume existing `codex/258-narrative-continuity` claim and merged PR #302, refre
 ## #375 — all prepared creatures in Testing URLs
 
 Claimed `codex/375-creature-testing-urls` from main `1c1c984`, updated with integration `ae1739d`. Expose Parrocket, Blastoucan, Rumblet, Coglet and Wispurr in shared follower/combat previews and direct resource links. Preview-only registration; preserve adventure roster/save IDs. Validate source and /game packaging, local full verify/build and integration merge.
+
+## #260 — orchard clue completion
+
+Claimed `codex/260-orchard-discovery-completion` from latest `origin/main` `1c1c984`, refreshed with `origin/integration` `e835443`. Preserve PR #299 graph and stable event IDs. Fix prop interaction masking, add unchanged Ravenmore repair boards and physical hollow/channel affordances, validate evidence prerequisites and complete actual keyboard/touch persistence review. #261 follows separately.
+
+## #261 — optional spoiler-safe leads
+
+Claim `codex/261-spoiler-safe-rumours`, from latest main `f7df1b0` refreshed with integration and #260 dependency. Optional pack-authored map hints, canonical heard event levels, derived relevance/resolution, active healthy companion capability checks and accessible journal help. Merge only after #260 and full local validation.
+## #378 — Coglet anatomical correction
+
+Claimed `codex/378-coglet-anatomy` from main `1c1c984`, updated with integration `4009c58`. Owner reports missed front-eye/gear-plane/leg/flank inconsistency. Fixed body-coordinate brief precedes regeneration; preserve rejected draft history, review enlarged and game-scale poses, update provenance/catalogue and validate before integration merge. IDs/stats/game rules unchanged.
+
+## #282 — adventure readiness report
+
+Claude claim: `claude/282-adventure-readiness`, from `origin/main` `b0c506f` (equal to `integration` after the owner-requested promotion); issue comment records the claim. Scope: read-only `npm run adventure:report -- <pack>` (JSON/Markdown, stable exit codes) in `scripts/adventure-report.mjs` and `scripts/lib/adventure-readiness.mjs`; reuses pack, registry, compiler (`buildAdventure`) and `map-design-report` (#274) validators, adds only the repeatable-scene-reward check and advisory route signals; documents it in PACKS.md, AUTHORING_TOOLS.md and the scene-builder prompt. No runtime, pack, save or map changes. #186 (dependency) was closed with PR #223 evidence. Local checks only (CI unavailable).
+
+## #389 — team transitions in battle
+
+Claude claim: `claude/389-team-transitions`, from `origin/integration` `6df99b5` (includes the elemental beats and orb/victory beats). Scope: presentation only in `ui/battle-fx.js` (`levelUpFx`, `TEAM_TRANSITIONS`), `battle-view.js` (ally classes and ally sparks), `framesFor` in the controller (recall/send-in on a switch, faint fade, level-up beat, settled "gone" frame on a lost battle), battle CSS and three tiny sounds. No change to `domain/battle.js`, who becomes active, HP, XP or saves. Local checks only (CI unavailable).

@@ -68,6 +68,7 @@ try {
     await page.waitForSelector('#loading', {state: 'hidden'});
     if (await page.locator('#m-primary').isVisible()) await page.click('#m-primary');
     if (await page.locator('#story-ok').isVisible()) await page.click('#story-ok');
+    if (viewport.name === 'phone') await page.locator('#game').tap(); // Select touch before tapping a moving dialogue control.
     const walkTo = async target => {
       let held = [];
       let arrived = false;

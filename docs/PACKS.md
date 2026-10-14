@@ -83,6 +83,32 @@ npm run pack -- refresh-manifest ./content/bright-hollow
 
 `create-pack` refuses to replace an existing scaffold unless `--force` is supplied for the same pack ID. It creates a small playable map and starter species/region/rule tables. `add-map` clones the first map, adds a returnable exit, and updates the region table. Review the generated map and tune registries before building a game. Invalid IDs and missing references are reported with pack file/field context on Windows and Linux.
 
+## Adventure readiness report (#282)
+
+One local command answers "can this adventure be built and played, and what exactly blocks it?":
+
+```sh
+npm run adventure:report -- ./content/bright-hollow                 # Markdown for people
+npm run adventure:report -- ./content/bright-hollow --format json   # stable JSON for tools
+npm run adventure:report -- ./content/bright-hollow --out /tmp/report.md --strict
+```
+
+It is read-only (it never writes into the pack, saves, the network or a clock), works offline and gives the same bytes for the same input, so a report can be pasted into an AI builder handoff unchanged. It runs, in order, the same validators the game and `validate-pack` use: file presence, JSON and integrity hashes; manifest fields; engine/save compatibility; registries; and the game compiler (maps, exits, assets, route reachability, objectives, story, inventory, scene actors and targets, rewards and milestone order). On top of those it adds two things the compiler does not decide:
+
+- **Advisory route signals** from the map design report (#274), such as an entrance with no ungated return. A one-way entrance is a warning, because the manifest has no field to declare it intentional yet.
+- **Scene rewards that could repeat**: a `repeatable: true` scene event with a `reward` action and no `when: {"not": {"flag": …}}` guard that its own `flag` action satisfies is an error. Chest and shrine rewards are already paid once through their saved flag.
+
+Each issue names the pack file and JSON path, why it matters and the next step. A check whose prerequisite failed is `skipped` and never green. Warnings never block; **Needs a human** lists what no script can decide (story meaning, visual composition, enjoyment) as "not evaluated", and **Not evaluated by this command** lists what was not run (browser playthrough, catalogue fiches, old-save compatibility).
+
+| Exit code | Meaning |
+| --- | --- |
+| 0 | Buildable by the mechanical checks (warnings may be listed) |
+| 1 | Blocked: at least one error |
+| 2 | Usage error or unreadable folder, including `--out` pointing inside the pack |
+| 3 | Buildable but warnings exist, only with `--strict` |
+
+The JSON keys are `format, tool, pack, status, checks, errors, warnings, manualReview, notEvaluated`; errors and warnings are sorted by file, path and code. `npm run validate`, `npm run pack`, `npm run build` and the browser regressions keep their existing meaning; the report calls the shared validators rather than reimplementing them. Tests: `tests/adventure-readiness.test.mjs` copies a valid pack and breaks it in memory (unknown asset, unreachable chest, wrong save schema, missing and malformed files, stale hash, unreachable map, repeatable reward, one-way entrance).
+
 ## Choosing an adventure (#67)
 
 A build offers its adventures through `adventures.json` next to `index.html`:

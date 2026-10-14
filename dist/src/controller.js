@@ -1,6 +1,7 @@
 import {elementalBeats} from './ui/elemental-beats.js';
 /* Game flow: connects domain rules, menus and services. Owns timers (battle pacing) and screen transitions.
    Everything here may touch the DOM through ui/*; domain/* stays pure. */
+import {nextHint} from './domain/hints.js';
 import {species} from './data/species.js';
 import {moves} from './data/moves.js';
 import {regions} from './data/regions.js';
@@ -37,7 +38,7 @@ import {availableDialogueChoices} from './domain/dialogue-choices.js';
 import {approachedWithinRadius, companionCanUseRoute, companionRouteDiscovered, companionRouteVisible} from './domain/companion-routes.js';
 import {grant as grantReward} from './domain/economy.js';
 import {createSpeech} from './ui/speech.js';
-import {captureBeats, fxForEvent, rewardPops} from './ui/battle-fx.js';
+import {captureBeats, fxForEvent, levelUpFx, rewardPops} from './ui/battle-fx.js';
 import {guardianCombatSprite} from './render/battle-art.js';
 import {chestSprite} from './render/chest-art.js';
 import {buyInventory, commitInventory, deposit, inventoryToSupplies, sellInventory, withdraw} from './domain/inventory.js';
@@ -372,7 +373,8 @@ export function createController(app) {
 
   function nearest() {
     const object = nearestInteractive(game.world, game.player);
-    return object && companionRouteVisible(save(), game.world.map.id, object) ? object : null;
+    if (!object || !companionRouteVisible(save(), game.world.map.id, object)) return null;
+    return object.labels ? {...object, label: pickLine(object.labels, save(), objCtx) || object.label} : object;
   }
 
   /** Marks what the player can see as explored and notes landmarks they have come across (domain/discovery.js). */
@@ -428,6 +430,24 @@ export function createController(app) {
     for (const o of discover(entry, discoverable, game.player.x, game.player.y)) if (o.secret) toast(discoveryNotice(o));
   }
 
+  function askHint() {
+    if (game.battle || (ui.modalMode && ui.modalMode !== 'journal')) return;
+    const hint = nextHint(game.world.map, save(), {...objCtx, species});
+    if (!hint) return;
+    const before = structuredClone(save());
+    if (!markSceneRun(save(), game.world.map.id, `hint-${hint.id}-${hint.level}`)) {
+      toast('This adventure has reached its saved event limit.');
+      return;
+    }
+    if (!persist()) {
+      game.save = before;
+      toast('That lead could not be saved. Try again when saving is available.');
+      return;
+    }
+    close();
+    speech.show([{speaker: 'narrator', name: 'Field notes', text: hint.text}]);
+  }
+
   let lastInteract = -Infinity;
   const INTERACT_COOLDOWN_MS = 250;
   const sealOf = flag => regions.find(r => r.id === flag.split('.')[0]).seal.toLowerCase();
@@ -440,6 +460,16 @@ export function createController(app) {
     if (game.battle || ui.modalMode || ui.paused) return;
     if (ui.now - lastInteract < INTERACT_COOLDOWN_MS && ui.now >= lastInteract) return; // double taps do nothing
     lastInteract = ui.now;
+    // An eligible authored interaction at a prop takes precedence over its generic landmark text.
+    const sceneTrigger = triggersAt(game.world, game.player, 'interact').find(
+      t =>
+        t.beforeLandmark &&
+        (t.events ?? []).some(event => (event.repeatable || !sceneHasRun(save(), game.world.map.id, event.id)) && sceneConditionHolds(event, save(), objCtx)),
+    );
+    if (sceneTrigger) {
+      runTrigger(sceneTrigger);
+      return;
+    }
     const o = nearest();
     if (!o) {
       const t = triggersAt(game.world, game.player, 'interact')[0];
@@ -971,6 +1001,17 @@ export function createController(app) {
     const frames = [];
     let player = '';
     let previous = before.state;
+    // Level of the friend that ends the turn active, before and after, so a level-up gets its own beat after the reward.
+    const finalActive = save().active;
+    const levelUp = levelUpFx(level(before.presentationSave, finalActive), level(save(), finalActive));
+    const levelUpFrame = (after, held = {}) => ({
+      message: `${species[finalActive].name} reached level ${level(save(), finalActive)}!`,
+      animation: 'level-up',
+      after: {...after, active: finalActive},
+      sfx: 'levelup',
+      fx: {...levelUp, ...held},
+      wait: wait(1100),
+    });
     for (const e of turn.events) {
       const start = frames.length;
       const a = species[e.type === 'switch' ? e.id : before.active];
@@ -1015,12 +1056,13 @@ export function createController(app) {
             frames.push({
               message: 'Click! The orb settles. Gotcha!',
               animation: 'capture',
-              after: e.after,
+              after: {...e.after, befriended: before.befriended},
               sfx: 'click',
               fx: {pops: rewardPops(turn.events.find(x => x.type === 'caught') ?? {}), shake: 0, burst: 'stars', orb: 'caught'},
               wait: wait(900),
             });
         }
+        if (caught && levelUp) frames.push(levelUpFrame(e.after, {orb: 'caught'}));
       } else if (e.type === 'break-free') {
         frames.push({
           message: 'The creature broke free of the orb!',
@@ -1039,7 +1081,22 @@ export function createController(app) {
         frames.push({message: player, animation: '', after: e.after, sfx: 'guard', wait: wait(650)});
       } else if (e.type === 'switch') {
         player = `${a.name} joined the encounter.`;
-        frames.push({message: `${a.name} joined the encounter!`, animation: '', after: e.after, sfx: 'join', wait: wait(650)});
+        const outgoing = species[before.active];
+        frames.push({
+          message: `${outgoing.name}, come back!`,
+          animation: 'recall',
+          after: {...e.after, active: before.active, mine: companion(before.presentationSave, before.active).hp, presentationSave: before.presentationSave},
+          sfx: 'recall',
+          wait: wait(450),
+        });
+        frames.push({
+          message: `${a.name} joined the encounter!`,
+          animation: 'send-in',
+          after: e.after,
+          sfx: 'join',
+          fx: {pops: [], shake: 0, burst: 'ally-sparks'},
+          wait: wait(700),
+        });
       } else if (e.type === 'setup') {
         player = `${species[before.active].name} prepared a relay for a teammate.`;
         frames.push({message: player, animation: '', after: e.after, sfx: 'guard', wait: wait(650)});
@@ -1061,6 +1118,7 @@ export function createController(app) {
           fx: {pops: rewardPops(e), shake: 0, burst: null},
           wait: wait(1000),
         });
+        if (levelUp) frames.push(levelUpFrame(e.after));
       } else if (e.type === 'enemy') {
         const foe = species[b.id];
         if (e.element && e.damage > 0)
@@ -1083,17 +1141,25 @@ export function createController(app) {
             sfx: 'hurt',
             wait: wait(e.damage > 0 ? 700 : 500),
           });
+        if (e.after.mine <= 0)
+          frames.push({
+            message: `${species[e.after.active].name} fainted!`,
+            animation: 'ally-faint',
+            after: e.after,
+            sfx: 'faint',
+            wait: wait(900),
+          });
       } else if (e.type === 'faint-switch') {
-        const replacement = {
+        frames.push({
           message: `${species[e.fainted].name} needs a rest. ${species[e.replacement].name} stepped in!`,
-          animation: frames.at(-1)?.fx?.elemental ? '' : 'enemy',
-          fx: frames.at(-1)?.fx?.elemental ? null : frames.at(-1)?.fx,
+          animation: 'send-in',
           after: e.after,
-          sfx: 'hurt',
-          wait: wait(700),
-        };
-        if (frames.at(-1)?.fx?.elemental) frames.push({...replacement, sfx: null, wait: 0});
-        else frames[frames.length - 1] = replacement;
+          sfx: 'join',
+          fx: {pops: [], shake: 0, burst: 'ally-sparks'},
+          wait: wait(800),
+        });
+      } else if (e.type === 'loss') {
+        // the last friend already fainted in the preceding beat; the result screen follows
       }
       const fx = fxForEvent(e);
       if (frames.length > start && !frames[start].fx?.elemental && (fx.pops.length || fx.shake)) frames[start].fx = fx;
@@ -1102,6 +1168,14 @@ export function createController(app) {
     lastMessage = frames.at(-1)?.message ?? '';
     // The last frame's wait is never honoured (playback completes right after it), so end on a settled frame and the blow stays visible.
     if (!turn.ended && frames.length) frames.push({message: lastMessage, animation: '', after: frames.at(-1).after, wait: 0});
+    // Until the level-up beat the name line keeps the level the friend had when the round began.
+    if (levelUp) {
+      const reached = frames.findIndex(frame => frame.animation === 'level-up');
+      for (const frame of frames.slice(0, reached < 0 ? 0 : reached))
+        if (frame.after && !frame.after.presentationSave) frame.after = {...frame.after, presentationSave: before.presentationSave};
+    }
+    // Same reason for a lost battle: end on the faded friend so the faint beat is not cut off by the result screen.
+    if (turn.ended === 'loss' && frames.length) frames.push({message: lastMessage, animation: 'ally-gone', after: frames.at(-1).after, wait: 0});
     if (turn.ended === 'win' || turn.ended === 'caught')
       frames.push({message: lastMessage, animation: turn.ended === 'win' ? 'victory' : 'capture', after: turn.events.at(-1).after, wait: 0});
     return frames;
@@ -1221,6 +1295,7 @@ export function createController(app) {
 
   Object.assign(actions, {
     close,
+    askHint,
     cancelSceneMotion,
     travel,
     selectCompanion,

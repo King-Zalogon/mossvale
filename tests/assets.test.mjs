@@ -280,7 +280,7 @@ test('content refers to art by name: species, directions and the manifest agree'
   assert.throws(() => spriteId('no-such-sprite'), /unknown asset/);
 });
 
-test('editable portrait and prop atlases cover their runtime sprites and export exact manifest crops', () => {
+test('editable atlas crops and individually sourced props exactly match their runtime sprites', () => {
   const sourceRoot = new URL('../art/assets/', import.meta.url);
   const metadata = JSON.parse(readFileSync(new URL('metadata.json', sourceRoot), 'utf8'));
   const sourceArchive = JSON.parse(readFileSync(new URL('../characters/source-archive.json', sourceRoot), 'utf8'));
@@ -326,6 +326,22 @@ test('editable portrait and prop atlases cover their runtime sprites and export 
       const profileId =
         source.name === 'effect-elemental-materials' ? 'prop-elemental-effect-v1' : landmarkSources.has(source.name) ? 'prop-landmark-v1' : 'prop-static-v1';
       assert.deepEqual(source.exportProfile, {id: profileId, settingsSha256: propProfileSha256(profileId)}, source.name);
+    }
+    if (source.sourceFile) {
+      assert.equal(source.kind, 'prop', `${source.name} individual source contract is for props`);
+      assert.equal(source.sheet, null, `${source.name} stays an individual source image`);
+      assert.equal(source.cell, null, `${source.name} has no atlas crop`);
+      const originalBytes = readFileSync(new URL(source.sourceFile, sourceRoot));
+      assert.equal(createHash('sha256').update(originalBytes).digest('hex'), source.sourceSha256, `${source.name} source hash`);
+      const original = decodePng(originalBytes);
+      const runtime = decodePng(readFileSync(new URL(asset.src, new URL('../dist/', import.meta.url))));
+      assert.deepEqual([original.width, original.height], [source.width, source.height], source.name);
+      assert.deepEqual([runtime.width, runtime.height], [original.width, original.height], source.name);
+      assert.deepEqual(runtime.data, original.data, `${source.name} preserves every original RGBA pixel and padding`);
+      assert.equal(source.provenance.editablePixelSource, `art/assets/${source.sourceFile}`, source.name);
+      assert.equal(source.frames, null, source.name);
+      assert.equal(asset.frames, undefined, source.name);
+      continue;
     }
     assert.ok(sheets.has(source.sheet), `${source.name} source sheet exists`);
     assert.ok(source.provenance.editablePixelSource, source.name);
@@ -417,8 +433,13 @@ test('fixed-cell transparent atlases validate each frame and its bottom anchor',
   });
 });
 
-test('the real sprites decode as tightly cropped RGBA', () => {
+test('runtime sprites retain RGBA transparency, ground anchors or exact individual-source padding', () => {
   const dist = new URL('../dist/', import.meta.url);
+  const directSources = new Map(
+    JSON.parse(readFileSync(new URL('../art/assets/metadata.json', import.meta.url)))
+      .assets.filter(source => source.sourceFile)
+      .map(source => [source.name, source]),
+  );
   for (const a of assets) {
     const im = decodePng(readFileSync(new URL(a.src, dist)));
     assert.ok([3, 6].includes(im.color), `${a.name} uses a supported RGBA/indexed PNG`);
@@ -437,6 +458,14 @@ test('the real sprites decode as tightly cropped RGBA', () => {
           assert.ok(a.frames.frameHeight - 1 - maxY <= 6, `${a.name} frame ${row},${column} feet use the common bottom anchor`);
         }
       }
+    } else if (directSources.has(a.name)) {
+      const source = directSources.get(a.name);
+      const bytes = readFileSync(new URL(`../art/assets/${source.sourceFile}`, import.meta.url));
+      assert.equal(createHash('sha256').update(bytes).digest('hex'), source.sourceSha256, `${a.name} original source is pinned`);
+      const original = decodePng(bytes);
+      assert.deepEqual(opaqueBounds(im), opaqueBounds(original), `${a.name} keeps the source image's original padding`);
+      assert.ok(opaqueBounds(im).bottom < im.height, `${a.name} has visible content`);
+      assert.deepEqual(im.data, original.data, `${a.name} padding exception requires exact source pixels`);
     } else assert.ok(opaqueBounds(im).bottom <= 3, `${a.name} stands on the bottom edge`);
   }
 });
