@@ -245,6 +245,11 @@ Claude claim: `claude/282-adventure-readiness`, from `origin/main` `b0c506f` (eq
 ## #389 — team transitions in battle
 
 Claude claim: `claude/389-team-transitions`, from `origin/integration` `6df99b5` (includes the elemental beats and orb/victory beats). Scope: presentation only in `ui/battle-fx.js` (`levelUpFx`, `TEAM_TRANSITIONS`), `battle-view.js` (ally classes and ally sparks), `framesFor` in the controller (recall/send-in on a switch, faint fade, level-up beat, settled "gone" frame on a lost battle), battle CSS and three tiny sounds. No change to `domain/battle.js`, who becomes active, HP, XP or saves. Local checks only (CI unavailable).
+
 ## #391 — actionable secure-context pack errors
 
 Claimed `codex/391-secure-context-pack-errors` from latest `origin/main` and fast-forwarded through `origin/integration` `06b8769`. Keep pack SHA-256 verification mandatory; distinguish a browser context without Web Crypto from fetch, schema and hash failures; give localhost/HTTPS recovery steps and cover it in deterministic pack-integrity and startup-browser regressions. PR targets `integration`; verify and build locally because hosted Actions/Vercel checks are unavailable per owner direction.
+
+## #393 — patch Ajv ReDoS advisory
+
+Claimed `codex/393-ajv-redos-fix` from the current `origin/integration`. Updated the exact Ajv pin from 8.17.1 to 8.20.0 so the authoring validator and production MCP SDK resolve the patched compatible 8.x version. `npm audit --omit=dev --audit-level=moderate` reports zero vulnerabilities. Full `npm run verify` and `npm run build` pass; no `$data` option is used by Mossvale.
