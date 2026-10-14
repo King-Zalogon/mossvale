@@ -5522,6 +5522,45 @@
       }
     },
     {
+      "id": "mechanic:adventure-readiness-report",
+      "kind": "mechanic",
+      "name": "Adventure readiness report",
+      "summary": "Report whether a pack can be built and played, which file and path block it, and what only a person can judge.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "It runs the existing validators and the game compiler; it adds no new rules beyond advisory route signals and the repeatable scene reward check.",
+        "A 'buildable' result is mechanical only: story meaning, visual composition and enjoyment are always listed as not evaluated, and the browser playthrough is not run.",
+        "A one-way entrance is only a warning because the manifest has no field to declare it intentional.",
+        "It never writes into the pack or saves; `--out` must point outside the pack folder."
+      ],
+      "examples": [
+        {
+          "intent": "Check a candidate pack before handing it to a reviewer.",
+          "usage": "Run `npm run adventure:report -- <pack-folder>` (add `--format json` for tools, `--strict` to fail on warnings).",
+          "expected": "A deterministic Markdown or JSON report with per-check results, errors with file, JSON path and next step, warnings, and the human-review list; exit 0 buildable, 1 blocked, 2 usage, 3 warnings under --strict."
+        }
+      ],
+      "references": ["scripts/adventure-report.mjs", "scripts/lib/adventure-readiness.mjs", "docs/PACKS.md"],
+      "evidence": [
+        {
+          "path": "tests/adventure-readiness.test.mjs",
+          "assertion": "A valid pack passes; broken copies (unknown asset, unreachable chest, wrong save schema, missing and malformed files, stale hash, unreachable map, repeatable reward, one-way entrance) fail or warn at the right file and path; output is byte-identical and the pack is never modified; exit codes are stable."
+        }
+      ],
+      "details": {
+        "trigger": "Authoring CLI invocation.",
+        "inputs": "A pack folder containing index.json and the files it selects.",
+        "sequence": "Check files and hashes, manifest, compatibility and registries; compile the adventure with the shared compiler; add advisory route signals and the repeatable-reward check; render sorted JSON or Markdown.",
+        "results": "A report whose status is blocked or buildable, with a separate list of review only a person can do.",
+        "cancellation": "Not applicable; the command is read-only.",
+        "errors": "An unreadable folder or bad option exits 2 without a report; missing or malformed pack files are reported with their path and later dependent checks are skipped.",
+        "persistence": "Nothing is saved or written to the pack; output goes to stdout or an explicit --out file outside the pack."
+      }
+    },
+    {
       "id": "mechanic:battle-impact-feedback",
       "kind": "mechanic",
       "name": "Battle impact feedback",

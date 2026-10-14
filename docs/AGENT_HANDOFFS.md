@@ -237,3 +237,7 @@ Claim `codex/261-spoiler-safe-rumours`, from latest main `f7df1b0` refreshed wit
 ## #378 — Coglet anatomical correction
 
 Claimed `codex/378-coglet-anatomy` from main `1c1c984`, updated with integration `4009c58`. Owner reports missed front-eye/gear-plane/leg/flank inconsistency. Fixed body-coordinate brief precedes regeneration; preserve rejected draft history, review enlarged and game-scale poses, update provenance/catalogue and validate before integration merge. IDs/stats/game rules unchanged.
+
+## #282 — adventure readiness report
+
+Claude claim: `claude/282-adventure-readiness`, from `origin/main` `b0c506f` (equal to `integration` after the owner-requested promotion); issue comment records the claim. Scope: read-only `npm run adventure:report -- <pack>` (JSON/Markdown, stable exit codes) in `scripts/adventure-report.mjs` and `scripts/lib/adventure-readiness.mjs`; reuses pack, registry, compiler (`buildAdventure`) and `map-design-report` (#274) validators, adds only the repeatable-scene-reward check and advisory route signals; documents it in PACKS.md, AUTHORING_TOOLS.md and the scene-builder prompt. No runtime, pack, save or map changes. #186 (dependency) was closed with PR #223 evidence. Local checks only (CI unavailable).
