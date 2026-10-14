@@ -1,0 +1,334 @@
+{
+  "format": 1,
+  "id": "lantern-two",
+  "title": "lantern-two",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "previousScene": {
+    "id": "lantern-one",
+    "summary": "Read the full canonical continuity, not only this recap."
+  },
+  "setting": {
+    "biomeId": "biome:meadow",
+    "mapIntent": "An isolated, reachable welcome yard built with existing meadow assets and manual scene dialogue.",
+    "environment": ["A quiet lantern crossing", "Lantern-lit dusk", "A a marked lantern chest nearby"],
+    "placementConstraints": ["Do not place actors on water or solid building footprints", "Keep the chest reachable from the yard spawn"]
+  },
+  "participants": [
+    {
+      "id": "mira",
+      "identity": "Mira",
+      "resourceId": "visual:person-red-cap-south",
+      "role": "host waiting for the report",
+      "startingSituation": "In the yard.",
+      "binding": {
+        "owner": "npc",
+        "identityId": "mira",
+        "required": true,
+        "roleId": "crossing-host"
+      }
+    },
+    {
+      "id": "player",
+      "identity": "The player",
+      "resourceId": "visual:person-red-cap-motion",
+      "role": "pathfinder who promised a report",
+      "startingSituation": "On the trail.",
+      "binding": {
+        "owner": "player",
+        "identityId": "player",
+        "required": true,
+        "roleId": "pathfinder"
+      }
+    },
+    {
+      "id": "companion",
+      "identity": "The player’s current companion",
+      "resourceId": "visual:creature-fernling",
+      "role": "attentive witness; no fixed species assumed",
+      "startingSituation": "Following the player.",
+      "binding": {
+        "owner": "companion",
+        "identityId": "companion-active",
+        "required": false,
+        "fallbackResourceId": "visual:creature-fernling",
+        "roleId": "crossing-witness"
+      },
+      "traits": [
+        {
+          "id": "player-owned",
+          "required": true,
+          "value": "The player’s active companion, never Mira’s familiar."
+        },
+        {
+          "id": "leaf-appearance",
+          "required": false,
+          "value": "Only if the selected starter really is Fernling."
+        }
+      ]
+    }
+  ],
+  "uses": [
+    {
+      "resourceId": "mechanic:scene-dialogue",
+      "purpose": "Advance the existing manually read dialogue."
+    },
+    {
+      "resourceId": "interactable:scene-event",
+      "purpose": "Use existing scene actions when built; these files are handoff examples, not a new runtime pack."
+    }
+  ],
+  "beats": [
+    {
+      "id": "setup",
+      "type": "dialogue",
+      "speaker": "mira",
+      "text": "What did the waymark tell you?",
+      "intent": "Establish the current obligation.",
+      "advance": "manual"
+    },
+    {
+      "id": "payoff",
+      "type": "dialogue",
+      "speaker": "player",
+      "text": "The wind tugs the loose waymark. The question is answered, but I still owe you the report.",
+      "intent": "Make the stated consequence explicit.",
+      "advance": "manual"
+    }
+  ],
+  "requirements": [],
+  "completion": "The promised state transition is explicit in the dialogue and handoff; a later builder still owns runtime placement and proof.",
+  "continuityIn": {
+    "characters": [
+      {
+        "id": "mira",
+        "identity": "Mira",
+        "location": "In the yard."
+      },
+      {
+        "id": "player",
+        "identity": "The player",
+        "location": "On the trail."
+      },
+      {
+        "id": "companion-active",
+        "identity": "The player’s current companion",
+        "location": "Following the player."
+      }
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [],
+    "decisions": ["Inspect the waymark before guessing."],
+    "pendingThreads": [],
+    "obligations": [
+      {
+        "id": "light-path",
+        "kind": "promise",
+        "statement": "Bring Mira an explanation of the lantern path.",
+        "status": "active",
+        "sourceSceneId": "lantern-one"
+      },
+      {
+        "id": "lantern-route",
+        "kind": "question",
+        "statement": "Which waymark keeps the crossing safe?",
+        "status": "active",
+        "sourceSceneId": "lantern-one"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "mira-player",
+        "from": "mira",
+        "to": "player",
+        "state": "Mira trusts the player to investigate.",
+        "sourceSceneId": "lantern-one"
+      }
+    ],
+    "intentionalUnknowns": [
+      {
+        "id": "unseen-route",
+        "statement": "The cause has not been observed.",
+        "sourceSceneId": "lantern-one"
+      }
+    ],
+    "actorRoles": [
+      {
+        "id": "crossing-host",
+        "identityId": "mira",
+        "owner": "npc",
+        "resourceId": "visual:person-red-cap-south"
+      },
+      {
+        "id": "pathfinder",
+        "identityId": "player",
+        "owner": "player",
+        "resourceId": "visual:person-red-cap-motion"
+      },
+      {
+        "id": "crossing-witness",
+        "identityId": "companion-active",
+        "owner": "companion",
+        "resourceId": "visual:creature-fernling",
+        "traits": [
+          {
+            "id": "player-owned",
+            "required": true,
+            "value": "The player’s active companion, never Mira’s familiar."
+          },
+          {
+            "id": "leaf-appearance",
+            "required": false,
+            "value": "Only if the selected starter really is Fernling."
+          }
+        ]
+      }
+    ],
+    "decisionRecords": [
+      {
+        "id": "inspect-waymark",
+        "choice": "Inspect the waymark before guessing at a cause.",
+        "sourceSceneId": "lantern-one",
+        "status": "active"
+      }
+    ],
+    "dramaticDirection": "Investigate the waymark before reporting back."
+  },
+  "continuityOut": {
+    "characters": [
+      {
+        "id": "mira",
+        "identity": "Mira",
+        "location": "In the yard."
+      },
+      {
+        "id": "player",
+        "identity": "The player",
+        "location": "On the trail."
+      },
+      {
+        "id": "companion-active",
+        "identity": "The player’s current companion",
+        "location": "Following the player."
+      }
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [],
+    "decisions": ["Inspect the waymark before guessing."],
+    "pendingThreads": [],
+    "obligations": [
+      {
+        "id": "light-path",
+        "kind": "promise",
+        "statement": "The cause is known; Mira still needs the report.",
+        "status": "advanced",
+        "sourceSceneId": "lantern-one"
+      },
+      {
+        "id": "lantern-route",
+        "kind": "question",
+        "statement": "Which waymark keeps the crossing safe?",
+        "status": "resolved",
+        "sourceSceneId": "lantern-one",
+        "resolution": "Observed wind tugging the loose waymark."
+      }
+    ],
+    "relationships": [
+      {
+        "id": "mira-player",
+        "from": "mira",
+        "to": "player",
+        "state": "Mira trusts the player to investigate.",
+        "sourceSceneId": "lantern-one"
+      }
+    ],
+    "intentionalUnknowns": [],
+    "actorRoles": [
+      {
+        "id": "crossing-host",
+        "identityId": "mira",
+        "owner": "npc",
+        "resourceId": "visual:person-red-cap-south"
+      },
+      {
+        "id": "pathfinder",
+        "identityId": "player",
+        "owner": "player",
+        "resourceId": "visual:person-red-cap-motion"
+      },
+      {
+        "id": "crossing-witness",
+        "identityId": "companion-active",
+        "owner": "companion",
+        "resourceId": "visual:creature-fernling",
+        "traits": [
+          {
+            "id": "player-owned",
+            "required": true,
+            "value": "The player’s active companion, never Mira’s familiar."
+          },
+          {
+            "id": "leaf-appearance",
+            "required": false,
+            "value": "Only if the selected starter really is Fernling."
+          }
+        ]
+      }
+    ],
+    "decisionRecords": [
+      {
+        "id": "inspect-waymark",
+        "choice": "Inspect the waymark before guessing at a cause.",
+        "sourceSceneId": "lantern-one",
+        "status": "resolved",
+        "resolution": "The waymark was inspected before choosing an explanation."
+      }
+    ],
+    "dramaticDirection": "Deliver the explanation; do not reintroduce the resolved lantern mystery."
+  },
+  "sceneBrief": {
+    "playerPurpose": "Follow and fulfill a promise to explain the lantern path.",
+    "consequence": {
+      "kind": "clue",
+      "description": "The wind tugs the loose waymark. The question is answered, but I still owe you the report.",
+      "beatIds": ["payoff"]
+    },
+    "tone": "Quiet curiosity with an accountable promise.",
+    "setup": "What did the waymark tell you?",
+    "action": "Read the exchange and preserve its explicit narrative result.",
+    "payoff": "The wind tugs the loose waymark. The question is answered, but I still owe you the report.",
+    "requiredResources": ["mechanic:scene-dialogue", "interactable:scene-event"],
+    "continuityState": "Carry the whole input history, including resolved questions and prior decisions."
+  },
+  "continuityChanges": [
+    {
+      "kind": "obligation",
+      "id": "light-path",
+      "action": "advance",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "obligation",
+      "id": "lantern-route",
+      "action": "resolve",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "decision",
+      "id": "inspect-waymark",
+      "action": "resolve",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "unknown",
+      "id": "unseen-route",
+      "action": "resolve",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    }
+  ]
+}
