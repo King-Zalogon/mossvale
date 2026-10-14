@@ -31,6 +31,14 @@ export const SFX = {
   throw: [{f: 760, d: 0.3, to: 520}],
   guard: [{f: 400, d: 0.2, to: 520}],
   broke: [{f: 400, d: 0.3, to: 240}],
+  faint: [{f: 320, d: 0.35, to: 110, type: 'sawtooth', g: 0.03}],
+  recall: [{f: 620, d: 0.16, to: 280}],
+  levelup: [
+    {f: 660, d: 0.12},
+    {f: 880, d: 0.12, t: 0.12},
+    {f: 1110, d: 0.12, t: 0.24},
+    {f: 1320, d: 0.4, t: 0.36},
+  ],
   wobble: [{f: 310, d: 0.09, to: 350, type: 'square', g: 0.03}],
   click: [{f: 1180, d: 0.07, type: 'square', g: 0.035}],
   heal: [

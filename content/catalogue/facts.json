@@ -27,7 +27,7 @@
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
     "art/characters/visual-reviews.json": "f65bf83b37674a59a602d1ce705702081d74e14c47027306587c109a06641d91",
-    "content/catalogue/curated.json": "31f4521a43a1c423f33e5c283c9f34af2d3af3d8aeeedc36682796bc34dace89",
+    "content/catalogue/curated.json": "fa4248860b0e7bb2ad04acd9d2e43a0d4788c621426801340ee9542a1d57542f",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
     "dist/assets/creatures/creature-blastoucan-combat.png": "032832e63a4aad6b32647cf198176cf03fd5c99b6d6983f8f86e74a07789979c",
@@ -204,7 +204,7 @@
     "dist/src/character-preview.js": "00058680f6a8971cc2cb974bf0c7d450b34a7d39ad1c28b5c37285a712973c54",
     "dist/src/compatibility.js": "cb16e68f3c5fefc86c7e6068f1f7a5e832e009647baa07641a4bd1ed06349ca3",
     "dist/src/config.js": "8c60c45a799c27fdddd30c02f08ca85c903900668f8b8a0d143b7445ecb8fff4",
-    "dist/src/controller.js": "fbcd039456d84a1f12cfddc17413ebd47960a3f50bc312676d819a80770a0a29",
+    "dist/src/controller.js": "50ab99057e4b8439c7d3ab7fdab9d8cf4ffa61b7c4f7530a24af39ba14bf854f",
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
@@ -215,7 +215,7 @@
     "dist/src/data/pack.js": "9fd30dbf4b643265515252efacae23a0e18507c5eb1649ad39eabf0ed436ff5c",
     "dist/src/data/regions.js": "dd20e32162860c8112f38d5f7509414f611b3f28e0649fdd72386630ff753c72",
     "dist/src/data/registry.js": "b380fbc26e56195e7713078f63f60fd504f8bf0df8cbb06e1baa754f80ba3f78",
-    "dist/src/data/sounds.js": "80dc28ad8aab34d9efd97fb24aa39443fc668aaaa94d5fb6bf37cfbc6d2224a4",
+    "dist/src/data/sounds.js": "a85fdab876ca87bfe4c7773151df9efd7064735c0b9895c8aa3787794493bde6",
     "dist/src/data/species.js": "410945be3eae3097eadfd44210408df55c67229196cbff7e45b5d6419ad6a49a",
     "dist/src/data/tactics.js": "0ba459b0a97b7d3da40521b444254013c9ad21635b9f21911607d7315e2f07ea",
     "dist/src/domain/adventure.js": "8f7c22da2955d8077c56da8e776518a4a44d847580766a716736db82be00b3d9",
@@ -270,8 +270,8 @@
     "dist/src/services/version.js": "496b96f1383f1318bf887a7e38f380ecc71464ef3a27e565b909ff8e086942fb",
     "dist/src/ui/account.js": "a622d6128268e7a3161447833b3c15fd2ec5c025d215d141f0a4beba02038b9e",
     "dist/src/ui/areamap.js": "436bcdd549413a7f47b16d4b5e50028b1b32cd78c1b9874f5bced459ce050ef4",
-    "dist/src/ui/battle-fx.js": "f261b27947f8541505c819f50fc9e128db2eef19f1202f3c01fdeb815a9ca5eb",
-    "dist/src/ui/battle-view.js": "ad5fd707ac56f410d668e168b5764e7d02136355e50e00f72b5fa243dc4850d7",
+    "dist/src/ui/battle-fx.js": "1a0667c95edc3b371e4cd2141a6896bc476859341991f3c6536ecbf6dcf1daa6",
+    "dist/src/ui/battle-view.js": "273749337021e4975178b71a89d228e2e1f4b7908e528ae1cfd3db3750011da5",
     "dist/src/ui/dom.js": "896b6353b90b7640a1219a0f7a9e2eb791ef81adc0766a557cb2c9919a191090",
     "dist/src/ui/elemental-beats.js": "ed199b40f85601361be00f49ae31363cf75e8f58afa3a8720f98a9ff70abc96c",
     "dist/src/ui/hud.js": "9ac727aeca185bed2e15dbdbc34fa4c51266f5b3bdf78083e53154d8d487a4a1",
@@ -310,7 +310,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "c1407cf66a2de20096202cc0aaf0a9b108b77353a8f5aef042c33723c0350fad",
+  "sourceDigest": "c1a0243e151110e19b7ecc7b3a6610c5cc6031b91407c246ddd2ee7d894f1416",
   "exclusions": [
     {
       "family": "module-exports",
@@ -11631,6 +11631,27 @@
       }
     },
     {
+      "id": "sound:faint",
+      "family": "sound",
+      "runtimeId": "faint",
+      "name": "faint",
+      "description": "Synthesized faint sound cue.",
+      "source": "dist/src/data/sounds.js",
+      "evidence": "tests/audio.test.mjs",
+      "raw": {
+        "name": "faint",
+        "notes": [
+          {
+            "f": 320,
+            "d": 0.35,
+            "to": 110,
+            "type": "sawtooth",
+            "g": 0.03
+          }
+        ]
+      }
+    },
+    {
       "id": "sound:guard",
       "family": "sound",
       "runtimeId": "guard",
@@ -11739,6 +11760,39 @@
       }
     },
     {
+      "id": "sound:levelup",
+      "family": "sound",
+      "runtimeId": "levelup",
+      "name": "levelup",
+      "description": "Synthesized levelup sound cue.",
+      "source": "dist/src/data/sounds.js",
+      "evidence": "tests/audio.test.mjs",
+      "raw": {
+        "name": "levelup",
+        "notes": [
+          {
+            "f": 660,
+            "d": 0.12
+          },
+          {
+            "f": 880,
+            "d": 0.12,
+            "t": 0.12
+          },
+          {
+            "f": 1110,
+            "d": 0.12,
+            "t": 0.24
+          },
+          {
+            "f": 1320,
+            "d": 0.4,
+            "t": 0.36
+          }
+        ]
+      }
+    },
+    {
       "id": "sound:ready",
       "family": "sound",
       "runtimeId": "ready",
@@ -11752,6 +11806,25 @@
           {
             "f": 560,
             "d": 0.16
+          }
+        ]
+      }
+    },
+    {
+      "id": "sound:recall",
+      "family": "sound",
+      "runtimeId": "recall",
+      "name": "recall",
+      "description": "Synthesized recall sound cue.",
+      "source": "dist/src/data/sounds.js",
+      "evidence": "tests/audio.test.mjs",
+      "raw": {
+        "name": "recall",
+        "notes": [
+          {
+            "f": 620,
+            "d": 0.16,
+            "to": 280
           }
         ]
       }

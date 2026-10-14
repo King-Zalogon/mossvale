@@ -1,0 +1,26 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/ui/battle-fx.js",
+        "dist/src/ui/battle-view.js",
+        "dist/src/controller.js",
+        "dist/src/data/sounds.js",
+        "dist/style.css",
+        "tests/battle-fx.test.mjs",
+        "tests/team-transitions.browser.mjs",
+        "package.json",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/389-team-transitions.json"
+      ],
+      "entries": ["mechanic:battle-impact-feedback"],
+      "disposition": "updated",
+      "reason": "Extends the battle impact feedback fiche with team transitions: recall and send-in on a switch, a fainted friend fading before the next steps in or before the defeat screen, and a level-up beat after a win or capture. All beats are derived from the already-resolved turn events and snapshots, so active friend, HP, XP, rewards and saves are unchanged; the name line keeps the pre-round level until the level-up beat.",
+      "evidence": ["tests/battle-fx.test.mjs", "tests/team-transitions.browser.mjs"]
+    }
+  ]
+}

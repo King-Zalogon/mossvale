@@ -241,3 +241,7 @@ Claimed `codex/378-coglet-anatomy` from main `1c1c984`, updated with integration
 ## #282 — adventure readiness report
 
 Claude claim: `claude/282-adventure-readiness`, from `origin/main` `b0c506f` (equal to `integration` after the owner-requested promotion); issue comment records the claim. Scope: read-only `npm run adventure:report -- <pack>` (JSON/Markdown, stable exit codes) in `scripts/adventure-report.mjs` and `scripts/lib/adventure-readiness.mjs`; reuses pack, registry, compiler (`buildAdventure`) and `map-design-report` (#274) validators, adds only the repeatable-scene-reward check and advisory route signals; documents it in PACKS.md, AUTHORING_TOOLS.md and the scene-builder prompt. No runtime, pack, save or map changes. #186 (dependency) was closed with PR #223 evidence. Local checks only (CI unavailable).
+
+## #389 — team transitions in battle
+
+Claude claim: `claude/389-team-transitions`, from `origin/integration` `6df99b5` (includes the elemental beats and orb/victory beats). Scope: presentation only in `ui/battle-fx.js` (`levelUpFx`, `TEAM_TRANSITIONS`), `battle-view.js` (ally classes and ally sparks), `framesFor` in the controller (recall/send-in on a switch, faint fade, level-up beat, settled "gone" frame on a lost battle), battle CSS and three tiny sounds. No change to `domain/battle.js`, who becomes active, HP, XP or saves. Local checks only (CI unavailable).
