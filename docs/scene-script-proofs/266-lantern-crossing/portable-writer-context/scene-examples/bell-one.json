@@ -1,0 +1,279 @@
+{
+  "format": 1,
+  "id": "bell-one",
+  "title": "bell-one",
+  "catalogueSourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
+  "previousScene": null,
+  "setting": {
+    "biomeId": "biome:meadow",
+    "mapIntent": "An isolated, reachable welcome yard built with existing meadow assets and manual scene dialogue.",
+    "environment": ["A quiet cottage yard", "Soft daylight", "A small wooden chest nearby"],
+    "placementConstraints": ["Do not place actors on water or solid building footprints", "Keep the chest reachable from the yard spawn"]
+  },
+  "participants": [
+    {
+      "id": "wren",
+      "identity": "Wren",
+      "resourceId": "visual:person-traveler",
+      "role": "host waiting for the report",
+      "startingSituation": "In the yard.",
+      "binding": {
+        "owner": "npc",
+        "identityId": "wren",
+        "required": true,
+        "roleId": "yard-host"
+      }
+    },
+    {
+      "id": "player",
+      "identity": "The player",
+      "resourceId": "visual:person-red-cap-motion",
+      "role": "investigator who promised a report",
+      "startingSituation": "On the trail.",
+      "binding": {
+        "owner": "player",
+        "identityId": "player",
+        "required": true,
+        "roleId": "investigator"
+      }
+    },
+    {
+      "id": "companion",
+      "identity": "The player’s current companion",
+      "resourceId": "visual:creature-fernling",
+      "role": "attentive witness; no fixed species assumed",
+      "startingSituation": "Following the player.",
+      "binding": {
+        "owner": "companion",
+        "identityId": "companion-active",
+        "required": false,
+        "fallbackResourceId": "visual:creature-fernling",
+        "roleId": "trail-witness"
+      },
+      "traits": [
+        {
+          "id": "player-owned",
+          "required": true,
+          "value": "The player’s active companion, never Wren’s familiar."
+        },
+        {
+          "id": "leaf-appearance",
+          "required": false,
+          "value": "Only if the selected starter really is Fernling."
+        }
+      ]
+    }
+  ],
+  "uses": [
+    {
+      "resourceId": "mechanic:scene-dialogue",
+      "purpose": "Advance the existing manually read dialogue."
+    },
+    {
+      "resourceId": "interactable:scene-event",
+      "purpose": "Use existing scene actions when built; these files are handoff examples, not a new runtime pack."
+    }
+  ],
+  "beats": [
+    {
+      "id": "setup",
+      "type": "dialogue",
+      "speaker": "wren",
+      "text": "Will you find out why the bell rings after dusk? Your companion can keep you company.",
+      "intent": "Establish the current obligation.",
+      "advance": "manual"
+    },
+    {
+      "id": "payoff",
+      "type": "dialogue",
+      "speaker": "player",
+      "text": "I will inspect the rope and bring you a careful report.",
+      "intent": "Make the stated consequence explicit.",
+      "advance": "manual"
+    }
+  ],
+  "requirements": [],
+  "completion": "The promised state transition is explicit in the dialogue and handoff; a later builder still owns runtime placement and proof.",
+  "continuityIn": {
+    "characters": [],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [],
+    "decisions": [],
+    "pendingThreads": [],
+    "obligations": [],
+    "relationships": [],
+    "intentionalUnknowns": [],
+    "actorRoles": [],
+    "decisionRecords": []
+  },
+  "continuityOut": {
+    "characters": [
+      {
+        "id": "wren",
+        "identity": "Wren",
+        "location": "In the yard."
+      },
+      {
+        "id": "player",
+        "identity": "The player",
+        "location": "On the trail."
+      },
+      {
+        "id": "companion-active",
+        "identity": "The player’s current companion",
+        "location": "Following the player."
+      }
+    ],
+    "flags": [],
+    "items": [],
+    "canonicalFacts": [],
+    "decisions": ["Inspect the rope before guessing."],
+    "pendingThreads": [],
+    "obligations": [
+      {
+        "id": "report-bell",
+        "kind": "promise",
+        "statement": "Bring Wren an explanation of the dusk bell.",
+        "status": "active",
+        "sourceSceneId": "bell-one"
+      },
+      {
+        "id": "bell-source",
+        "kind": "question",
+        "statement": "What makes the bell ring after dusk?",
+        "status": "active",
+        "sourceSceneId": "bell-one"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "wren-player",
+        "from": "wren",
+        "to": "player",
+        "state": "Wren trusts the player to investigate.",
+        "sourceSceneId": "bell-one"
+      }
+    ],
+    "intentionalUnknowns": [
+      {
+        "id": "unseen-bell-source",
+        "statement": "The cause has not been observed.",
+        "sourceSceneId": "bell-one"
+      }
+    ],
+    "actorRoles": [
+      {
+        "id": "yard-host",
+        "identityId": "wren",
+        "owner": "npc",
+        "resourceId": "visual:person-traveler"
+      },
+      {
+        "id": "investigator",
+        "identityId": "player",
+        "owner": "player",
+        "resourceId": "visual:person-red-cap-motion"
+      },
+      {
+        "id": "trail-witness",
+        "identityId": "companion-active",
+        "owner": "companion",
+        "resourceId": "visual:creature-fernling",
+        "traits": [
+          {
+            "id": "player-owned",
+            "required": true,
+            "value": "The player’s active companion, never Wren’s familiar."
+          },
+          {
+            "id": "leaf-appearance",
+            "required": false,
+            "value": "Only if the selected starter really is Fernling."
+          }
+        ]
+      }
+    ],
+    "decisionRecords": [
+      {
+        "id": "inspect-rope",
+        "choice": "Inspect the rope before guessing at a cause.",
+        "sourceSceneId": "bell-one",
+        "status": "active"
+      }
+    ],
+    "dramaticDirection": "Investigate the rope before reporting back."
+  },
+  "sceneBrief": {
+    "playerPurpose": "Follow and fulfill a promise to explain the dusk bell.",
+    "consequence": {
+      "kind": "clue",
+      "description": "I will inspect the rope and bring you a careful report.",
+      "beatIds": ["payoff"]
+    },
+    "tone": "Quiet curiosity with an accountable promise.",
+    "setup": "Will you find out why the bell rings after dusk? Your companion can keep you company.",
+    "action": "Read the exchange and preserve its explicit narrative result.",
+    "payoff": "I will inspect the rope and bring you a careful report.",
+    "requiredResources": ["mechanic:scene-dialogue", "interactable:scene-event"],
+    "continuityState": "Carry the whole input history, including resolved questions and prior decisions."
+  },
+  "continuityChanges": [
+    {
+      "kind": "role",
+      "id": "yard-host",
+      "action": "introduce",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "role",
+      "id": "investigator",
+      "action": "introduce",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "role",
+      "id": "trail-witness",
+      "action": "introduce",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "obligation",
+      "id": "report-bell",
+      "action": "introduce",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "obligation",
+      "id": "bell-source",
+      "action": "introduce",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "relationship",
+      "id": "wren-player",
+      "action": "introduce",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "unknown",
+      "id": "unseen-bell-source",
+      "action": "introduce",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    },
+    {
+      "kind": "decision",
+      "id": "inspect-rope",
+      "action": "introduce",
+      "consequence": "The dialogue explicitly establishes this narrative state for the next writer.",
+      "beatIds": ["payoff"]
+    }
+  ]
+}
