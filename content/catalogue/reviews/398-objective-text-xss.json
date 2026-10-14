@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/ui/hud.js"],
+      "entries": ["narrative:mossvale/objectives"],
+      "disposition": "no-semantic-impact",
+      "reason": "Objective HUD lines now render as text nodes, preserving the existing objective display while preventing authored pack text from being interpreted as markup.",
+      "evidence": ["tests/objectives.test.mjs", "docs/OBJECTIVES.md"]
+    }
+  ]
+}
