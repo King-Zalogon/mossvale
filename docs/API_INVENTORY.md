@@ -94,7 +94,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
 | `ui/elemental-beats.js` | ui | `elementalBeats` |
-| `ui/hud.js` | ui | `renderHud`, `renderRegion`, `renderSaveStatus` |
+| `ui/hud.js` | ui | `renderHud`, `renderObjectiveLines`, `renderRegion`, `renderSaveStatus` |
 | `ui/menus.js` | ui | `createMenus` |
 | `ui/speech.js` | ui | `createSpeech` |
 | `ui/terrain-family-preview.js` | ui | `drawTerrainFamilyFixture` |

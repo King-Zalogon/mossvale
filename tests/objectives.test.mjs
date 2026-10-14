@@ -4,6 +4,7 @@ import {buildAdventure} from '../dist/src/domain/adventure.js';
 import {createBattle, resolveWin} from '../dist/src/domain/battle.js';
 import {currentObjective, holds, pickLine, validateObjectives} from '../dist/src/domain/objectives.js';
 import {seededRng} from '../dist/src/domain/rng.js';
+import {renderObjectiveLines} from '../dist/src/ui/hud.js';
 import {codec, content, maps, newSave, objCtx, objectives, rawMaps, rawObjectives} from './helpers.mjs';
 
 const now = save => currentObjective(save, objectives, objCtx);
@@ -46,6 +47,40 @@ test('a simple objective chain is data and follows progress', () => {
     now(save).lines.map(l => l[0]),
     [true, false],
   );
+});
+
+test('objective HUD renders pack-authored text as literal text nodes', () => {
+  const container = {
+    ownerDocument: {
+      createElement: tagName => ({
+        tagName,
+        children: [],
+        append(...children) {
+          this.children.push(...children);
+        },
+      }),
+      createTextNode: textContent => ({nodeType: 3, textContent}),
+    },
+    replaceChildren(...children) {
+      this.children = children;
+    },
+  };
+  const authoredText = '<img src=x onerror=alert(1)> Keep exploring';
+
+  renderObjectiveLines(container, [
+    [false, authoredText],
+    [true, 'Found the trail'],
+  ]);
+
+  assert.equal(container.children.length, 2);
+  assert.deepEqual(
+    container.children.map(line => line.className),
+    ['quest-line', 'quest-line'],
+  );
+  assert.equal(container.children[0].children[0].textContent, '○');
+  assert.deepEqual(container.children[0].children[1], {nodeType: 3, textContent: authoredText});
+  assert.equal(container.children[1].children[0].textContent, '✓');
+  assert.deepEqual(container.children[1].children[1], {nodeType: 3, textContent: 'Found the trail'});
 });
 
 test('the pin points at the target map when you are elsewhere, and lines fill in counts', () => {
