@@ -257,3 +257,7 @@ Claimed `codex/393-ajv-redos-fix` from the current `origin/integration`. Updated
 ## #395 — refresh compatible patch dependencies
 
 Claimed `codex/395-patch-dependency-refresh` from `origin/integration` after #394. Refresh MCP SDK 1.32.0 → 1.32.1, Supabase JS 2.117.2 → 2.117.3, and Prettier 3.9.9 → 3.9.10; no runtime code or lockfile-wide upgrade beyond these patches. `npm audit --audit-level=moderate` is clean. `npm run check`, the complete browser suite, and production build pass locally. One earlier full browser run had a timing-sensitive chest ground-anchor assertion fail; the isolated chest test passed, and the subsequent full browser rerun passed including that assertion. Integration-only PR because hosted Actions/Vercel checks are unavailable per owner direction.
+
+## #276 — regional atlas
+
+Claude claim: `claude/276-regional-atlas`, from `origin/main` `7521349` (equal to `integration`). #265 was claimed by Codex (PR #385), so this unclaimed P1 was taken instead. Scope: new read-only `domain/atlas.js` (disclosure, layout, routes), `ui/atlas.js` and an "Atlas" tab in the map screen; Island cards, area map, travel action, maps and saves untouched. See `docs/ATLAS.md`. Local checks only (CI unavailable).
