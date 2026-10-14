@@ -90,7 +90,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/version.js` | services | `describeBuild`, `fetchBuild` |
 | `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
-| `ui/battle-fx.js` | ui | `burstMarkup`, `captureBeats`, `fxForEvent`, `hpPercent`, `orbMarkup`, `popMarkup`, `rewardPops` |
+| `ui/battle-fx.js` | ui | `TEAM_TRANSITIONS`, `burstMarkup`, `captureBeats`, `fxForEvent`, `hpPercent`, `levelUpFx`, `orbMarkup`, `popMarkup`, `rewardPops` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
 | `ui/elemental-beats.js` | ui | `elementalBeats` |

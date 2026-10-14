@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {burstMarkup, captureBeats, fxForEvent, hpPercent, orbMarkup, popMarkup, rewardPops} from '../dist/src/ui/battle-fx.js';
+import {TEAM_TRANSITIONS, burstMarkup, captureBeats, fxForEvent, hpPercent, levelUpFx, orbMarkup, popMarkup, rewardPops} from '../dist/src/ui/battle-fx.js';
 
 test('hp percent is bounded and never hides a living creature', () => {
   assert.equal(hpPercent(0, 40), 0);
@@ -83,4 +83,16 @@ test('a successful throw wobbles three times and ends closed; a miss wobbles mor
 
 test('orb markup is decorative and names its state for the stylesheet', () => {
   assert.match(orbMarkup('wobble'), /class="orb-ball orb-wobble"[^>]*aria-hidden="true"/);
+});
+
+test('a level-up shows the new level and a sparkle only when the level really rose', () => {
+  assert.deepEqual(levelUpFx(5, 6), {pops: [{side: 'ally', text: 'Lv. 6!', tone: 'level'}], shake: 0, burst: 'ally-stars'});
+  assert.equal(levelUpFx(5, 5), null);
+  assert.equal(levelUpFx(6, 5), null);
+  assert.equal(levelUpFx(undefined, 6), null);
+  assert.equal(levelUpFx(5, Number.NaN), null);
+});
+
+test('team transitions name their stylesheet classes', () => {
+  assert.deepEqual(TEAM_TRANSITIONS, {'ally-faint': 'ally-out', 'ally-gone': 'ally-gone', recall: 'recall', 'send-in': 'send-in', 'level-up': 'level-up'});
 });
