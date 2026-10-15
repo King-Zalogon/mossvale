@@ -3302,7 +3302,17 @@
             "label": "Inspect the cider press",
             "secret": true,
             "mapLabel": "Old cider press",
-            "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling.",
+                        "lines": [
+              {
+                "when": {
+                  "event": "orchard-ruins/press-repair-record"
+                },
+                "text": "The press confirms the order: the water fell first, then the fresh hoofprints. Follow the damp marks northeast along the lower row to the low hollow among the roots, beside the channel."
+              },
+              {
+                "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
+              }
+            ],
             "discoveryText": "Old cider press: apples still linger where the orchard once made cider."
           },
           "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
