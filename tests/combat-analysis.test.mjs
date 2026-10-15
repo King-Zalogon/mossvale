@@ -5,7 +5,7 @@ import {combatChoices, createBattle, resolveTurn} from '../dist/src/domain/battl
 import {seededRng} from '../dist/src/domain/rng.js';
 import {species} from '../dist/src/data/species.js';
 import {newSave} from './helpers.mjs';
-import {formatCombatComparison, runCombatComparison, runCombatTrial, strongestLegalMove} from '../scripts/lib/combat-analysis.mjs';
+import {formatCombatComparison, relayAwareMove, runCombatComparison, runCombatTrial, strongestLegalMove} from '../scripts/lib/combat-analysis.mjs';
 
 test('combat traces are bounded, clone their inputs and reject malformed exports safely', () => {
   const trace = createCombatTrace({capacity: 2});
@@ -116,6 +116,41 @@ test('relay-aware policy uses setup only for a better teammate and then consumes
   const direct = runCombatTrial({scenario, profile, seed: 11, policy: 'strongest-legal-move'});
   assert.equal(direct.chosenActions.setup ?? 0, 0, 'the direct policy should not prepare a relay');
   assert.ok(trial.damageReceived < direct.damageReceived, 'the setup path should trade actions for a measurable defensive gain');
+});
+
+test('relay setup falls back to direct play at low enemy HP, with no Focus, or without a better matchup', () => {
+  const profile = {active: 1, party: [1, 0], levels: {0: 8, 1: 8}};
+  const chooseFirst = (scenario, adjust = () => {}) => {
+    let first;
+    runCombatTrial({
+      scenario,
+      profile,
+      seed: 11,
+      policy: (save, battle, forecast, choices) => {
+        adjust(save, battle);
+        const selected = relayAwareMove(save, battle, choices);
+        first ??= selected;
+        return selected;
+      },
+    });
+    return first;
+  };
+
+  assert.notEqual(
+    chooseFirst({enemy: 2, enemyLevel: 8}, (_save, battle) => (battle.hp = Math.floor(battle.max * 0.2))).kind,
+    'setup',
+    'a nearly defeated enemy should not invite a relay setup turn',
+  );
+  assert.notEqual(
+    chooseFirst({enemy: 2, enemyLevel: 8}, (_save, battle) => (battle.focus = 0)).kind,
+    'setup',
+    'zero Focus should keep setup unavailable and fall back to direct play',
+  );
+  assert.notEqual(
+    chooseFirst({enemy: 0, enemyLevel: 8}, () => {}).kind,
+    'setup',
+    'an already advantaged Fire companion should not set up for a weaker Water teammate against Leaf',
+  );
 });
 
 test('strongest legal move estimates matchup damage and preserves Quick strike on a tie', () => {

@@ -27,6 +27,24 @@ export function strongestLegalMove(save, battle) {
   return expectedDamage('element') > expectedDamage('attack') ? {kind: 'element'} : {kind: 'attack'};
 }
 
+export function relayAwareMove(save, battle, choices) {
+  const active = companion(save);
+  const available = kind => choices.find(choice => choice.kind === kind)?.available === true;
+  if (active.hp < maxHP(save, save.active) * 0.35 && save.potions > 0 && available('potion')) return {kind: 'potion'};
+  if (battle.relayReady && battle.focus >= 1 && available('element')) return {kind: 'element'};
+  if (battle.condition) {
+    const targets = save.party.filter(id => id !== save.active && companion(save, id).hp > 0);
+    const target = targets.map(id => ({id, multiplier: effectiveness(id, battle.id)})).sort((a, b) => b.multiplier - a.multiplier)[0];
+    if (target && available('switch')) return {kind: 'switch', id: target.id};
+  }
+  if (available('setup') && battle.focus >= RELAY_FOCUS_COST && battle.hp > battle.max * 0.25) {
+    const current = effectiveness(save.active, battle.id);
+    const betterTarget = save.party.filter(id => id !== save.active && companion(save, id).hp > 0).some(id => effectiveness(id, battle.id) > current);
+    if (betterTarget) return {kind: 'setup'};
+  }
+  return strongestLegalMove(save, battle);
+}
+
 const policySet = {
   'attack-only': () => ({kind: 'attack'}),
   'strongest-legal-move': strongestLegalMove,
@@ -42,23 +60,7 @@ const policySet = {
     if (Number.isInteger(switchTarget)) return {kind: 'switch', id: switchTarget};
     return strongestLegalMove(save, battle);
   },
-  'relay-aware': (save, battle, forecast, choices) => {
-    const active = companion(save);
-    const available = kind => choices.find(choice => choice.kind === kind)?.available === true;
-    if (active.hp < maxHP(save, save.active) * 0.35 && save.potions > 0 && available('potion')) return {kind: 'potion'};
-    if (battle.relayReady && battle.focus >= 1 && available('element')) return {kind: 'element'};
-    if (battle.condition) {
-      const targets = save.party.filter(id => id !== save.active && companion(save, id).hp > 0);
-      const target = targets.map(id => ({id, multiplier: effectiveness(id, battle.id)})).sort((a, b) => b.multiplier - a.multiplier)[0];
-      if (target && available('switch')) return {kind: 'switch', id: target.id};
-    }
-    if (available('setup') && battle.focus >= RELAY_FOCUS_COST && battle.hp > battle.max * 0.25) {
-      const current = effectiveness(save.active, battle.id);
-      const betterTarget = save.party.filter(id => id !== save.active && companion(save, id).hp > 0).some(id => effectiveness(id, battle.id) > current);
-      if (betterTarget) return {kind: 'setup'};
-    }
-    return strongestLegalMove(save, battle);
-  },
+  'relay-aware': (save, battle, forecast, choices) => relayAwareMove(save, battle, choices),
 };
 
 const mean = values => (values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0);
