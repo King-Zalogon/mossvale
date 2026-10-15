@@ -39,6 +39,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `data/species.js` | data | `replaceSpecies`, `species` |
 | `data/tactics.js` | data | `BRACE_FACTOR`, `DEFAULT_PATTERN`, `GUARDIAN_HP_BONUS`, `HEAVY_FACTOR`, `INTENT_TEXT`, `TACTICS`, `planOf`, `replaceTactics` |
 | `domain/adventure.js` | domain | `buildAdventure` |
+| `domain/atlas.js` | domain | `STATES`, `buildAtlas`, `exitDirection`, `routeBetween` |
 | `domain/battle.js` | domain | `POTION_HEAL`, `battleCheckpoint`, `captureChance`, `combatChoices`, `createBattle`, `encounterDistance`, `enemyAttack`, `enemyDamageRange`, `ensureHealthyCompanion`, `guardianForecast`, `guardianLevel`, `lastEnemyAction`, `nextEnemyAction`, `playerStrike`, `resolveCapture`, `resolveFaint`, `resolveLoss`, `resolveTurn`, `resolveWin`, `rollWild`, `throwOrb`, `usePotion`, `validateEncounterObjective` |
 | `domain/clock.js` | domain | `createTestClock` |
 | `domain/combat-trace.js` | domain | `COMBAT_TRACE_SCHEMA`, `COMBAT_TRACE_VERSION`, `createCombatTrace` |
@@ -90,11 +91,12 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/version.js` | services | `describeBuild`, `fetchBuild` |
 | `ui/account.js` | ui | `createAccountMenus` |
 | `ui/areamap.js` | ui | `createAreaMap` |
+| `ui/atlas.js` | ui | `createAtlas`, `wrapLabel` |
 | `ui/battle-fx.js` | ui | `TEAM_TRANSITIONS`, `burstMarkup`, `captureBeats`, `fxForEvent`, `hpPercent`, `levelUpFx`, `orbMarkup`, `popMarkup`, `rewardPops` |
 | `ui/battle-view.js` | ui | `createBattleView` |
 | `ui/dom.js` | ui | `$`, `downloadText`, `environmentalMessage`, `header`, `hideModal`, `openModal`, `setBackgroundInert`, `toast` |
 | `ui/elemental-beats.js` | ui | `elementalBeats` |
-| `ui/hud.js` | ui | `renderHud`, `renderRegion`, `renderSaveStatus` |
+| `ui/hud.js` | ui | `renderHud`, `renderObjectiveLines`, `renderRegion`, `renderSaveStatus` |
 | `ui/menus.js` | ui | `createMenus` |
 | `ui/speech.js` | ui | `createSpeech` |
 | `ui/terrain-family-preview.js` | ui | `drawTerrainFamilyFixture` |

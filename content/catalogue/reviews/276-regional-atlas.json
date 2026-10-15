@@ -1,0 +1,26 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/domain/atlas.js",
+        "dist/src/ui/atlas.js",
+        "dist/src/ui/menus.js",
+        "dist/style.css",
+        "docs/ATLAS.md",
+        "tests/atlas.test.mjs",
+        "tests/atlas.browser.mjs",
+        "package.json",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/276-regional-atlas.json"
+      ],
+      "entries": ["mechanic:regional-atlas"],
+      "disposition": "updated",
+      "reason": "Adds the spoiler-safe regional route atlas fiche. The view reads the validated exits and the existing discovery records and writes nothing: map data, exits, save format, travel rules and the Island card contract are unchanged.",
+      "evidence": ["tests/atlas.test.mjs", "tests/atlas.browser.mjs"]
+    }
+  ]
+}

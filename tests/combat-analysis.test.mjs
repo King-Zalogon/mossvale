@@ -5,7 +5,7 @@ import {combatChoices, createBattle, resolveTurn} from '../dist/src/domain/battl
 import {seededRng} from '../dist/src/domain/rng.js';
 import {species} from '../dist/src/data/species.js';
 import {newSave} from './helpers.mjs';
-import {formatCombatComparison, runCombatComparison, runCombatTrial, strongestLegalMove} from '../scripts/lib/combat-analysis.mjs';
+import {formatCombatComparison, relayAwareMove, runCombatComparison, runCombatTrial, strongestLegalMove} from '../scripts/lib/combat-analysis.mjs';
 
 test('combat traces are bounded, clone their inputs and reject malformed exports safely', () => {
   const trace = createCombatTrace({capacity: 2});
@@ -83,6 +83,8 @@ test('matched policy report covers progression, overleveling, every registered m
   const matchups = report.groups[2];
   assert.equal(matchups.pairCount, species.length ** 2);
   assert.equal(matchups.policies['attack-only'].trials, species.length ** 2);
+  assert.ok(report.groups[0].policies['relay-aware']);
+  assert.ok(report.groups[0].policies['relay-aware'].actionUse.setup);
   assert.equal(report.groups.filter(group => group.scenario.kind === 'guardian').length, 8);
   for (const group of report.groups) {
     for (const policy of Object.values(group.policies)) {
@@ -99,9 +101,56 @@ test('matched policy report covers progression, overleveling, every registered m
 test('all scripted policies select only legal actions and produce reproducible trials', () => {
   const scenario = {enemy: 7, enemyLevel: 8};
   const profile = {active: 0, party: [0, 1, 2], levels: {0: 7, 1: 6, 2: 5}};
-  for (const policy of ['attack-only', 'strongest-legal-move', 'intent-responsive']) {
+  for (const policy of ['attack-only', 'strongest-legal-move', 'intent-responsive', 'relay-aware']) {
     assert.deepEqual(runCombatTrial({scenario, profile, seed: 25, policy}), runCombatTrial({scenario, profile, seed: 25, policy}));
   }
+});
+
+test('relay-aware policy uses setup only for a better teammate and then consumes it once', () => {
+  const scenario = {enemy: 2, enemyLevel: 8}; // Water: Leaf is strong, Fire is weak.
+  const profile = {active: 1, party: [1, 0], levels: {0: 8, 1: 8}};
+  const trial = runCombatTrial({scenario, profile, seed: 11, policy: 'relay-aware'});
+  assert.ok((trial.chosenActions.setup ?? 0) >= 1, 'the policy should demonstrate the setup window');
+  assert.ok((trial.chosenActions.switch ?? 0) >= 1, 'the policy should switch during the relay window');
+  assert.ok((trial.chosenActions.element ?? 0) >= 1, 'the policy should consume the relay with an elemental strike');
+  const direct = runCombatTrial({scenario, profile, seed: 11, policy: 'strongest-legal-move'});
+  assert.equal(direct.chosenActions.setup ?? 0, 0, 'the direct policy should not prepare a relay');
+  assert.ok(trial.damageReceived < direct.damageReceived, 'the setup path should trade actions for a measurable defensive gain');
+});
+
+test('relay setup falls back to direct play at low enemy HP, with no Focus, or without a better matchup', () => {
+  const profile = {active: 1, party: [1, 0], levels: {0: 8, 1: 8}};
+  const chooseFirst = (scenario, adjust = () => {}) => {
+    let first;
+    runCombatTrial({
+      scenario,
+      profile,
+      seed: 11,
+      policy: (save, battle, forecast, choices) => {
+        adjust(save, battle);
+        const selected = relayAwareMove(save, battle, choices);
+        first ??= selected;
+        return selected;
+      },
+    });
+    return first;
+  };
+
+  assert.notEqual(
+    chooseFirst({enemy: 2, enemyLevel: 8}, (_save, battle) => (battle.hp = Math.floor(battle.max * 0.2))).kind,
+    'setup',
+    'a nearly defeated enemy should not invite a relay setup turn',
+  );
+  assert.notEqual(
+    chooseFirst({enemy: 2, enemyLevel: 8}, (_save, battle) => (battle.focus = 0)).kind,
+    'setup',
+    'zero Focus should keep setup unavailable and fall back to direct play',
+  );
+  assert.notEqual(
+    chooseFirst({enemy: 0, enemyLevel: 8}, () => {}).kind,
+    'setup',
+    'an already advantaged Fire companion should not set up for a weaker Water teammate against Leaf',
+  );
 });
 
 test('strongest legal move estimates matchup damage and preserves Quick strike on a tie', () => {

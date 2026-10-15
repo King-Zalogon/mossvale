@@ -6,12 +6,21 @@ import assert from 'node:assert/strict';
 import {species} from '../dist/src/data/species.js';
 const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png'};
+const poisonedMapName = '<b>x</b>';
+let poisonPreviewMapName = true;
 const server = http
   .createServer((req, res) => {
     const name = new URL(req.url, 'http://localhost').pathname.slice(1) || 'index.html';
     const file = new URL(name, root);
     if (!existsSync(file)) return void res.writeHead(404).end();
-    res.writeHead(200, {'content-type': types[name.split('.').pop()] ?? 'application/octet-stream'}).end(readFileSync(file));
+    let body = readFileSync(file);
+    if (name === 'maps/meadow.json' && poisonPreviewMapName) {
+      poisonPreviewMapName = false;
+      const map = JSON.parse(body);
+      map.name = poisonedMapName;
+      body = JSON.stringify(map);
+    }
+    res.writeHead(200, {'content-type': types[name.split('.').pop()] ?? 'application/octet-stream'}).end(body);
   })
   .listen(0);
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
@@ -28,6 +37,8 @@ try {
   page.on('pageerror', e => errors.push(e.message));
   await page.goto(`${base}/guardian-combat-preview.html`);
   await page.waitForSelector('#species[data-ready="true"]');
+  assert.equal(await page.locator('.creature h2').first().textContent(), `${poisonedMapName} · Mushmallow`);
+  assert.equal(await page.locator('.creature h2 b').count(), 0, 'authored map names cannot create markup in the preview');
   assert.equal(await page.locator('[data-state]').count(), 80);
   assert.equal(await page.locator('[data-pair]').count(), 8);
   assert.ok(
