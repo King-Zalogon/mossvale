@@ -100,6 +100,37 @@ test('story conditions can branch on saved scene events without adding save fiel
   );
 });
 
+test('the orchard offers both starter-independent outcomes and preserves the family objective through reload', () => {
+  const orchard = rawMapList.find(map => map.id === 'orchard-ruins');
+  const water = orchard.triggers.find(trigger => trigger.id === 'orchard-water-bypass');
+  const family = orchard.triggers.find(trigger => trigger.id === 'orchard-dry-hollow');
+  const familyChallenge = family.events.find(event => event.id === 'orchard-family');
+  assert.equal(water.events.find(event => event.id === 'outcome-water-first').repeatable, false);
+  assert.equal(familyChallenge.repeatable, true, 'losing or leaving keeps the rescue interaction available');
+  assert.equal(familyChallenge.actions.at(-1).type, 'challenge');
+  assert.equal(familyChallenge.actions.at(-1).objective.id, 'orchard-family');
+  assert.equal(familyChallenge.actions.at(-1).objective.turns, 2);
+  assert.equal(familyChallenge.actions.at(-1).objective.reward.coins, 10);
+  assert.equal(familyChallenge.when.all[1].not.any[1].event, 'orchard-ruins/orchard-family');
+  assert.equal(water.events.find(event => event.id === 'outcome-water-first').when.all[1].not.any[1].event, 'orchard-ruins/orchard-family');
+  assert.equal(
+    orchard.triggers.every(
+      trigger => trigger.on !== 'interact' || trigger.events.every(event => !event.when?.flag || event.when.flag !== 'orchard-ruins.family'),
+    ),
+    true,
+  );
+
+  const save = newSave();
+  save.events.push('orchard-ruins/den-family-seen');
+  const challenge = applySceneActions(save, familyChallenge, {setFlag() {}}).challenge;
+  assert.equal(challenge.objective.id, 'orchard-family');
+  save.events.push('orchard-ruins/orchard-family');
+  const restored = codec.normalize(JSON.parse(codec.serialize(save)), false);
+  const resolution = family.events.find(event => event.id === 'outcome-family-first');
+  assert.equal(sceneConditionHolds(resolution, restored, {speciesCount: 18, regions: []}), true, 're-entry resolves the saved rescue outcome');
+  assert.equal(sceneConditionHolds(familyChallenge, restored, {speciesCount: 18, regions: []}), false, 'the completed objective cannot restart');
+});
+
 test('dialogue resolves stable reusable speaker ids and rejects unknown ones', () => {
   const withSpeaker = {id: 'welcome', repeatable: false, actions: [{type: 'dialogue', speaker: 'ranger', text: 'The trail is quiet today.'}]};
   assert.deepEqual(

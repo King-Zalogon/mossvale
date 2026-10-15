@@ -927,6 +927,10 @@ export function createController(app) {
       });
     } else if (turn.ended === 'objective') {
       const objective = turn.events.find(event => event.type === 'objective-complete');
+      // Keep a map-scoped continuity marker alongside the battle marker so authored
+      // scenes can resolve an objective after a reload without parsing UI-only IDs.
+      const objectiveEvent = `${s.mapId}/${objective.id}`;
+      if (!s.events.includes(objectiveEvent) && s.events.length < 256) s.events.push(objectiveEvent);
       emit('reward.granted', {
         source: 'encounter-objective',
         species: species[b.id].id,
