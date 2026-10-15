@@ -8,6 +8,12 @@ Owner review: 2026-10-06. Inspected baseline: integration `748c887a8b245e7338609
 
 This is reproducible gameplay-scale evidence for one shipped route, not proof that every #245 bar is complete. The browser fixture seeds a save with a second companion and uses the debug clock to make deterministic route timing; it does not stand in for a fresh-save ten-minute human playtest. The current scene still uses existing terrain, battle art and story content; the captures expose remaining art/layout polish. Owner review remains necessary for subjective feel and visual acceptance.
 
+## #248 orchard slice implementation — 2026-10-13
+
+The orchard now has both authored resolutions after the clue route: opening the bypass pays once and records the water-first state; moving the family first starts a repeatable, non-capture Bramblebuck objective, records progress in the battle checkpoint, and resolves on re-entry after the objective is completed. Both outcomes have a visible in-game consequence message and conditional Ranger Rowan callback in Amber Ridge. The map-scoped objective marker (`orchard-ruins/orchard-family`) is written with the existing save transaction when the objective completes, so reloads do not lose the pending reunion.
+
+Regression coverage checks the two choices, starter-independent authoring, objective/re-entry conditions and save codec round-trip in `tests/scenes.test.mjs`; map integrity is refreshed and `node scripts/validate-maps.mjs` passes. This completes the implementation slice for #248. It does not by itself close #245: the full slice still needs an owner playtest of pacing, clarity and enjoyment at normal controls, including the orchard route and its Rowan callback.
+
 The terrain-family fixture in PR #233 is a technical prototype. The owner's earlier acceptance of a first version does not establish a professional visual standard. That PR is in draft. Large collections of completed checkboxes, source hashes and passing browser tests cannot establish good art, animation, pacing or interface composition.
 
 ## Research applied to this game
