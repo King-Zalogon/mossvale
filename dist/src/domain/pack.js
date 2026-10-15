@@ -1,6 +1,6 @@
 /* Adventure pack manifest (maps/index.json): which maps, creatures and milestones make up one adventure.
    Pure validation; the pack is data on top of the shared systems. Guide: docs/PACKS.md. */
-import {ENGINE_VERSION, SAVE_SCHEMA_VERSION} from '../compatibility.js';
+import {SUPPORT, checkLevel} from '../compatibility.js';
 
 export const PACK_FORMAT = 1;
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -21,8 +21,13 @@ export function packFileEntries(raw) {
   return files;
 }
 
-/** Checks optional authored-pack metadata; shipped/runtime packs make both sections mandatory. */
-export function validatePackMetadata(raw, {required = false, engineVersion = ENGINE_VERSION, saveSchema = SAVE_SCHEMA_VERSION} = {}) {
+/** Checks optional authored-pack metadata; shipped/runtime packs make both sections mandatory.
+    `engineVersion` / `saveSchema` pin a single supported level; `support` replaces the whole support range (tests, future migrations). */
+export function validatePackMetadata(raw, {required = false, engineVersion, saveSchema, support} = {}) {
+  const levels = {
+    engineVersion: engineVersion === undefined ? (support?.engineVersion ?? SUPPORT.engineVersion) : {min: engineVersion, max: engineVersion},
+    saveSchema: saveSchema === undefined ? (support?.saveSchema ?? SUPPORT.saveSchema) : {min: saveSchema, max: saveSchema},
+  };
   const errors = [];
   const at = (where, message) => errors.push(`pack ${where}: ${message}`);
   if (required) {
@@ -37,9 +42,13 @@ export function validatePackMetadata(raw, {required = false, engineVersion = ENG
     const req = raw?.requires;
     if (!req || typeof req !== 'object' || Array.isArray(req)) at('requires', 'engineVersion and saveSchema are required');
     else {
-      if (req.engineVersion !== engineVersion)
-        at('requires.engineVersion', `requires ${JSON.stringify(req.engineVersion)}; this game supports ${engineVersion}`);
-      if (req.saveSchema !== saveSchema) at('requires.saveSchema', `requires ${JSON.stringify(req.saveSchema)}; this game supports ${saveSchema}`);
+      for (const [kind, field] of [
+        ['engineVersion', 'engineVersion'],
+        ['saveSchema', 'saveSchema'],
+      ]) {
+        const result = checkLevel(kind, req[field], levels[kind]);
+        if (result.status !== 'compatible') at(`requires.${field}`, result.message);
+      }
     }
   }
   if (raw?.integrity !== undefined || required) {

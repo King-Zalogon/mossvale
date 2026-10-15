@@ -6374,6 +6374,45 @@
       }
     },
     {
+      "id": "mechanic:pack-save-compatibility",
+      "kind": "mechanic",
+      "name": "Pack and save compatibility contract",
+      "summary": "State which engine, save-schema and pack-format levels a pack may declare, and explain a rejection before any save is touched.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "The support window is one level wide today (engine 1, save schema 5, pack format 1), so a pack must declare exactly those levels; a wider window ships only together with a tested save migration.",
+        "Declared levels are metadata outside the integrity hashes; they are as honest as the tool that stamped them.",
+        "No migration registry exists yet because there has been no real schema change since schema 5.",
+        "It judges the manifest only; whether a pack's content still plays well after an engine update needs the adventure readiness report and a playtest."
+      ],
+      "examples": [
+        {
+          "intent": "Find out why a pack built for another game level is refused.",
+          "usage": "Run `npm run adventure:report -- <pack-folder>` or `npm run pack -- validate-pack <pack-folder>`.",
+          "expected": "The compatibility result names `requires.engineVersion` or `requires.saveSchema` and says whether to update the game or port the pack; the game itself shows the same message at startup before reading any save."
+        }
+      ],
+      "references": ["dist/src/compatibility.js", "dist/src/domain/pack.js", "docs/COMPATIBILITY.md", "docs/PACKS.md"],
+      "evidence": [
+        {
+          "path": "tests/compatibility.test.mjs",
+          "assertion": "The shipped and fixture manifests are compatible; levels above, below and inside a widened window are classified distinctly; missing, string, fractional and non-positive levels are invalid; the loader rejects each case after fetching only index.json; a future save stays untouched and unwritable."
+        }
+      ],
+      "details": {
+        "trigger": "Loading a pack in the game, or running validate-pack, the readiness report or a build.",
+        "inputs": "The pack manifest's format and requires levels and the installed support window.",
+        "sequence": "Fetch index.json, judge each level, stop with a specific message on any problem, then verify file hashes and only then open the save codec.",
+        "results": "compatible, requires-newer-game, pack-too-old or invalid, with the field that caused it.",
+        "cancellation": "Not applicable.",
+        "errors": "A rejected pack shows a retryable startup error naming the field and whether to update the game or port the pack.",
+        "persistence": "Nothing is written; no save, checkpoint, archive or quarantine entry is created or replaced by a rejection."
+      }
+    },
+    {
       "id": "mechanic:playable-scene-quality",
       "kind": "mechanic",
       "name": "Playable scene quality evidence",
@@ -11599,9 +11638,553 @@
             "hp": 50,
             "sprite": "creature-bramblebuck"
           },
-   
-... 25538 bytes omitted ...
-le or pathfinding is implied.",
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-bramblebuck"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A young meadow deer with leaf antlers and a seed-pod chest.",
+          "usage": "Reference mossvale/bramblebuck in the existing format at dist/maps/registries.json.",
+          "expected": "A young meadow deer with leaf antlers and a seed-pod chest."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A young meadow deer with leaf antlers and a seed-pod chest. Portrait reference: creature-bramblebuck.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/brooklet",
+      "kind": "actor",
+      "name": "Brooklet",
+      "summary": "A bright river friend that collects smooth stones and shares them with its team.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "brooklet",
+            "name": "Brooklet",
+            "type": "Water",
+            "stats": {
+              "hp": 46,
+              "attack": 9,
+              "defense": 12
+            },
+            "move": "ripple-rush",
+            "biome": "wetland",
+            "role": "Steady all-rounder",
+            "personality": "Patient and sociable; it remembers where every smooth pebble came from.",
+            "desc": "A bright river friend that collects smooth stones and shares them with its team.",
+            "encounterHint": "Listen for splashes in Reedfen’s reed-ringed pools.",
+            "abilities": ["cross-shallow-water"],
+            "habitats": ["wetland"],
+            "strong": ["Fire", "Stone", "Sand"],
+            "weak": ["Leaf", "Spark", "Bloom"],
+            "color": "#83dbe8",
+            "hp": 46,
+            "sprite": "creature-brooklet"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-brooklet"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A bright river friend that collects smooth stones and shares them with its team.",
+          "usage": "Reference mossvale/brooklet in the existing format at dist/maps/registries.json.",
+          "expected": "A bright river friend that collects smooth stones and shares them with its team."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A bright river friend that collects smooth stones and shares them with its team. Portrait reference: creature-brooklet.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/cindercurl",
+      "kind": "actor",
+      "name": "Cindercurl",
+      "summary": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cindercurl",
+            "name": "Cindercurl",
+            "type": "Fire",
+            "stats": {
+              "hp": 52,
+              "attack": 8,
+              "defense": 17
+            },
+            "move": "kiln-shoulder",
+            "biome": "badlands",
+            "role": "Kiln-plate bulwark",
+            "personality": "Patient and self-possessed; it folds its ember-warm plates around a trusted companion.",
+            "desc": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail.",
+            "encounterHint": "Look for heat shimmer near the reachable eastern ridge grass.",
+            "strong": ["Leaf", "Ice", "Bloom", "Frost"],
+            "weak": ["Water", "Stone", "Mire", "Sand"],
+            "color": "#c96a3b",
+            "hp": 52,
+            "sprite": "creature-cindercurl"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-cindercurl"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail.",
+          "usage": "Reference mossvale/cindercurl in the existing format at dist/maps/registries.json.",
+          "expected": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A sturdy pangolin with layered kiln plates, ember seams and a curled shield-tail. Portrait reference: creature-cindercurl.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/duskwing",
+      "kind": "actor",
+      "name": "Duskwing",
+      "summary": "A soft-winged night friend that follows the last sunbeams between the trees.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "duskwing",
+            "name": "Duskwing",
+            "type": "Air",
+            "stats": {
+              "hp": 38,
+              "attack": 11,
+              "defense": 8
+            },
+            "move": "gust-spiral",
+            "biome": "snowy-forest",
+            "role": "Fast opportunist",
+            "personality": "Quiet until sunset, when it becomes the first to volunteer for a race.",
+            "desc": "A soft-winged night friend that follows the last sunbeams between the trees.",
+            "encounterHint": "Search the high grass in Frostveil Grove, especially at dusk.",
+            "strong": ["Leaf", "Spore", "Mire"],
+            "weak": ["Spark", "Ice", "Frost"],
+            "color": "#c5a2ef",
+            "hp": 38,
+            "sprite": "creature-duskwing"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-duskwing"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A soft-winged night friend that follows the last sunbeams between the trees.",
+          "usage": "Reference mossvale/duskwing in the existing format at dist/maps/registries.json.",
+          "expected": "A soft-winged night friend that follows the last sunbeams between the trees."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A soft-winged night friend that follows the last sunbeams between the trees. Portrait reference: creature-duskwing.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/emberkin",
+      "kind": "actor",
+      "name": "Emberkin",
+      "summary": "A warm-pawed fox whose sparks dance when it gets excited.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "emberkin",
+            "name": "Emberkin",
+            "type": "Fire",
+            "stats": {
+              "hp": 40,
+              "attack": 12,
+              "defense": 8
+            },
+            "move": "ember-spark",
+            "biome": "meadow",
+            "role": "Quick striker",
+            "personality": "Bold and affectionate; it races ahead, then circles back to check on friends.",
+            "desc": "A warm-pawed fox whose sparks dance when it gets excited.",
+            "encounterHint": "Look where the meadow path meets the sunny eastern grass.",
+            "strong": ["Leaf", "Ice", "Bloom", "Frost"],
+            "weak": ["Water", "Stone", "Mire", "Sand"],
+            "color": "#ffb56c",
+            "hp": 40,
+            "sprite": "creature-emberkin"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-emberkin"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A warm-pawed fox whose sparks dance when it gets excited.",
+          "usage": "Reference mossvale/emberkin in the existing format at dist/maps/registries.json.",
+          "expected": "A warm-pawed fox whose sparks dance when it gets excited."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A warm-pawed fox whose sparks dance when it gets excited. Portrait reference: creature-emberkin.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/fernling",
+      "kind": "actor",
+      "name": "Fernling",
+      "summary": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "fernling",
+            "name": "Fernling",
+            "type": "Leaf",
+            "stats": {
+              "hp": 42,
+              "attack": 10,
+              "defense": 10
+            },
+            "move": "leaf-burst",
+            "biome": "meadow",
+            "role": "Balanced trailblazer",
+            "personality": "Curious and brave; it tests every new path before the rest of the team.",
+            "desc": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+            "encounterHint": "Start in the meadow tall grass, close to camp.",
+            "strong": ["Water", "Stone", "Mire"],
+            "weak": ["Fire", "Ice", "Frost"],
+            "color": "#bade7e",
+            "hp": 42,
+            "sprite": "creature-fernling"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-fernling"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A little fox that naps beneath the ferns and wakes at the first rustle.",
+          "usage": "Reference mossvale/fernling in the existing format at dist/maps/registries.json.",
+          "expected": "A little fox that naps beneath the ferns and wakes at the first rustle."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A little fox that naps beneath the ferns and wakes at the first rustle. Portrait reference: creature-fernling.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/frostowl",
+      "kind": "actor",
+      "name": "Frostowl",
+      "summary": "A watchful owl whose bright feathers hold the cool hush of new snow.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "frostowl",
+            "name": "Frostowl",
+            "type": "Ice",
+            "stats": {
+              "hp": 43,
+              "attack": 10,
+              "defense": 11
+            },
+            "move": "frost-feather",
+            "biome": "snowy-forest",
+            "role": "Elemental duelist",
+            "personality": "Thoughtful and observant; it watches a foe closely before making a move.",
+            "desc": "A watchful owl whose bright feathers hold the cool hush of new snow.",
+            "encounterHint": "Look among Frostveil’s snow-laced trees and tall grass.",
+            "strong": ["Leaf", "Air"],
+            "weak": ["Fire", "Stone", "Sand"],
+            "color": "#a9d6f4",
+            "hp": 43,
+            "sprite": "creature-frostowl"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-frostowl"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A watchful owl whose bright feathers hold the cool hush of new snow.",
+          "usage": "Reference mossvale/frostowl in the existing format at dist/maps/registries.json.",
+          "expected": "A watchful owl whose bright feathers hold the cool hush of new snow."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A watchful owl whose bright feathers hold the cool hush of new snow. Portrait reference: creature-frostowl.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/hushram",
+      "kind": "actor",
+      "name": "Hushram",
+      "summary": "A small mountain goat with curled ice-glass horns and a winter-soft coat.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "hushram",
+            "name": "Hushram",
+            "type": "Frost",
+            "stats": {
+              "hp": 50,
+              "attack": 8,
+              "defense": 17
+            },
+            "move": "quiet-squall",
+            "biome": "snowy-forest",
+            "role": "Steady guardian",
+            "personality": "Calm and affectionate; it listens first and steps in when the team needs courage.",
+            "desc": "A small mountain goat with curled ice-glass horns and a winter-soft coat.",
+            "encounterHint": "Look for curled blue horns in the sheltered Frostveil grass.",
+            "strong": ["Air", "Sand"],
+            "weak": ["Fire", "Stone"],
+            "color": "#b9d5e9",
+            "hp": 50,
+            "sprite": "creature-hushram"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-hushram"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A small mountain goat with curled ice-glass horns and a winter-soft coat.",
+          "usage": "Reference mossvale/hushram in the existing format at dist/maps/registries.json.",
+          "expected": "A small mountain goat with curled ice-glass horns and a winter-soft coat."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A small mountain goat with curled ice-glass horns and a winter-soft coat. Portrait reference: creature-hushram.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/lanternix",
+      "kind": "actor",
+      "name": "Lanternix",
+      "summary": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "lanternix",
+            "name": "Lanternix",
+            "type": "Spark",
+            "stats": {
+              "hp": 38,
+              "attack": 9,
+              "defense": 12
+            },
+            "move": "charge-chime",
+            "biome": "badlands",
+            "role": "Relay opener",
+            "personality": "Watchful and sociable; its three light bands answer the glints of companions along the ridge.",
+            "desc": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases.",
+            "encounterHint": "Watch the reachable ridge grass for three gold bands; it can appear at any time.",
+            "strong": ["Water", "Air", "Mire"],
+            "weak": ["Stone", "Sand"],
+            "color": "#dfb657",
+            "hp": 38,
+            "sprite": "creature-lanternix"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-lanternix"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases.",
+          "usage": "Reference mossvale/lanternix in the existing format at dist/maps/registries.json.",
+          "expected": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A tiny teal firefly carrying three golden charge bands beneath blunt wing cases. Portrait reference: creature-lanternix.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/mushmallow",
+      "kind": "actor",
+      "name": "Mushmallow",
+      "summary": "A gentle hedgehog carrying a tiny mushroom garden beneath its cap.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "mushmallow",
+            "name": "Mushmallow",
+            "type": "Spore",
+            "stats": {
+              "hp": 48,
+              "attack": 8,
+              "defense": 15
+            },
+            "move": "spore-cloud",
+            "biome": "wetland",
+            "role": "Patient bulwark",
+            "personality": "Shy but steadfast; it stays beside a tired teammate until they feel safe.",
+            "desc": "A gentle hedgehog carrying a tiny mushroom garden beneath its cap.",
+            "encounterHint": "Check the damp grass around Reedfen’s quiet water.",
+            "strong": ["Water", "Spark"],
+            "weak": ["Fire", "Air", "Bloom"],
+            "color": "#c59ae5",
+            "hp": 48,
+            "sprite": "creature-mushmallow"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-mushmallow"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A gentle hedgehog carrying a tiny mushroom garden beneath its cap.",
+          "usage": "Reference mossvale/mushmallow in the existing format at dist/maps/registries.json.",
+          "expected": "A gentle hedgehog carrying a tiny mushroom garden beneath its cap."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A gentle hedgehog carrying a tiny mushroom garden beneath its cap. Portrait reference: creature-mushmallow.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
         "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
       }
     },

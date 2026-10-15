@@ -269,3 +269,7 @@ Claimed `codex/398-objective-text-xss` from `origin/main` `7521349`, refreshed a
 ## #400 — safe map names in guardian preview
 
 Claimed `codex/400-safe-guardian-map-name` from `origin/main`, refreshed against the merged #398 integration head `b3480e4`. Guardian preview headings now assign the map name through `textContent` rather than interpolating authored JSON text into HTML; browser regression serves a markup-like name and verifies literal rendering with the full guardian frame preview intact. Refreshed all four pinned guardian-preview source hashes after confirming the preview retains its layout/frames. Scoped catalogue impact covers the guardian mechanic and all four affected visual review records. Targeted guardian browser regression, `npm run art:check`, full `npm run check` (470 Node tests), `npm run build`, catalogue impact, and formatting checks passed.
+
+## #283 — pack and save compatibility contract
+
+Claude claim: `claude/283-compat-policy`, from `origin/main` merged with `origin/integration`. #266 (second-adventure proof) is still open, so this slice is the audit, the explicit support-window contract, actionable rejections and tests; no save schema change and therefore no migration registry. Adds `docs/COMPATIBILITY.md`, `tests/compatibility.test.mjs`, a catalogue fiche and impact record. Remaining for the issue after #266: independent fixture packs at several levels once the window widens.
