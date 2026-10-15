@@ -184,11 +184,11 @@
     "dist/maps/brackenwake-commons.json": "d7db2f177ab5c121b7b9b46ec88c76c1678ee9b4865e1533a3c5877b28da6091",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
     "dist/maps/frostveil-pass.json": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a",
-    "dist/maps/index.json": "7eeef8d6556097dcd82f5664a0d593e1ec8733a94abcfdc933df54d75387979c",
+    "dist/maps/index.json": "76ad4933b8a178f985aefbc2b483e732f41e3dcd6636bea2b7c9cc0297bfc4df",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "aa79da5414cb2d5967d9a4b28405489a9bef4bd261791f23d5db4f4d7b60d483",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "010ce9fed76d033e09226d404eeef5872141ab4e56979fae2a2d75300ff1514c",
+    "dist/maps/orchard-ruins.json": "5ccfa132e29d3e3eaa1140b392fc04b9c6159f5bbaf5378afa668f1930eb829d",
     "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
     "dist/maps/registries.json": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc",
     "dist/maps/stilt-isles.json": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c",
@@ -313,7 +313,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "fa6b5421a7c07a2dd123586acbb5c76b846c9f7303940df907982c686ac59f06",
+  "sourceDigest": "e3a14dd0e4e5ecef4513958c4a1ad080905b17aa699b0a13b884c5e12851fa7c",
   "exclusions": [
     {
       "family": "module-exports",
@@ -7917,8 +7917,8 @@
         "triggers": [
           {
             "id": "orchard-mara-brief",
-            "at": [7, 15],
-            "radius": 1.5,
+            "at": [5.2, 14],
+            "radius": 1.95,
             "on": "interact",
             "events": [
               {
@@ -11343,7 +11343,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "010ce9fed76d033e09226d404eeef5872141ab4e56979fae2a2d75300ff1514c"
+            "sha256": "5ccfa132e29d3e3eaa1140b392fc04b9c6159f5bbaf5378afa668f1930eb829d"
           },
           {
             "id": "map:stilt-isles",
