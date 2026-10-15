@@ -183,11 +183,11 @@
     "dist/maps/amber-ridge.json": "6ba5bb9ad93b375fdfa639a9dafebf66c4b3d620bd5d08bd05e349437e7e1e12",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
     "dist/maps/frostveil-pass.json": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a",
-    "dist/maps/index.json": "e5160102c50815891ba5ed2e153f073350cdf4968337e9c3824155f69f43cf96",
+    "dist/maps/index.json": "f97ac67e6da95c1bdeb49439818c3442e37e21b49710c7a5a46c74c4fd113a7c",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "f7aa70ef131bef5c1337e17560bada6f8bdc7308a6e55b912be05f2d1c1a5d52",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "5ccfa132e29d3e3eaa1140b392fc04b9c6159f5bbaf5378afa668f1930eb829d",
+    "dist/maps/orchard-ruins.json": "5fc826a539ed9e55d47866b77ee4bd96c951beade8331c1c8ab6956e668430da",
     "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
     "dist/maps/registries.json": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc",
     "dist/maps/stilt-isles.json": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c",
@@ -312,7 +312,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "bcbb816f051928e5068009f93f8c1f11f11a24054897b5bc788f5ae83a6d19de",
+  "sourceDigest": "ae6b116f4f1705156844f5384e7101a70e51829ec281084133ada09402fbf791",
   "exclusions": [
     {
       "family": "module-exports",
@@ -1981,7 +1981,17 @@
         "label": "Inspect the cider press",
         "secret": true,
         "mapLabel": "Old cider press",
-        "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling.",
+                "lines": [
+          {
+            "when": {
+              "event": "orchard-ruins/press-repair-record"
+            },
+            "text": "The press confirms the order: the water fell first, then the fresh hoofprints. Follow the damp marks northeast along the lower row to the low hollow among the roots, beside the channel."
+          },
+          {
+            "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
+          }
+        ],
         "discoveryText": "Old cider press: apples still linger where the orchard once made cider."
       },
       "activation": "Existing sign interaction.",
