@@ -51,6 +51,27 @@ test('Mara’s opening clue trigger covers the same interaction area as Mara', (
   save.badges = [];
   assert.equal(sceneConditionHolds(event, save, objCtx), false, 'the request remains gated until Meadow’s seal');
 });
+test('the cider press makes the next destination clear and repeats its clue without rerunning the one-time event', () => {
+  const press = map.landmarks.find(landmark => landmark.id === 'cider-press');
+  const clue = events.find(event => event.id === 'press-repair-record');
+  let save = newSave();
+
+  assert.match(pickLine(press.lines, save, objCtx), /last pressing was a good year/);
+  markSceneRun(save, map.id, 'mara-water-loss');
+  assert.equal(sceneConditionHolds(clue, save, objCtx), true);
+  const clueText = clue.actions.find(action => action.type === 'dialogue').text;
+  assert.match(clueText, /low hollow among the roots, beside the channel/i);
+  markSceneRun(save, map.id, clue.id);
+  const reminder = pickLine(press.lines, save, objCtx);
+  assert.match(reminder, /water fell first, then the fresh hoofprints/i);
+  assert.match(reminder, /follow the damp marks northeast along the lower row/i);
+  assert.match(reminder, /low hollow among the roots, beside the channel/i);
+
+  const priorEventCount = save.events.length;
+  assert.equal(clue.repeatable, false, 'reinspection keeps the authored event one-time');
+  markSceneRun(save, map.id, clue.id);
+  assert.equal(save.events.length, priorEventCount);
+});
 test('unknown evidence and positive prerequisite cycles are rejected; viable alternatives break a cycle', () => {
   const make = when => ({
     id: 'test',
