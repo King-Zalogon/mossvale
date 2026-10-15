@@ -1,0 +1,26 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/compatibility.js",
+        "dist/src/domain/pack.js",
+        "tests/compatibility.test.mjs",
+        "package.json",
+        "docs/COMPATIBILITY.md",
+        "docs/PACKS.md",
+        "docs/API_INVENTORY.md",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/283-pack-save-compatibility.json",
+        "docs/AGENT_HANDOFFS.md"
+      ],
+      "entries": ["mechanic:pack-save-compatibility"],
+      "disposition": "updated",
+      "reason": "Adds the authoring-facing compatibility contract fiche. Pack requirement checks now classify newer, older and invalid levels with an action instead of a bare mismatch; accepted levels are unchanged (the window is still exactly engine 1 / save schema 5), saves, storage keys and stable IDs are untouched.",
+      "evidence": ["tests/compatibility.test.mjs", "tests/pack-integrity.test.mjs", "tests/adventure-readiness.test.mjs"]
+    }
+  ]
+}
