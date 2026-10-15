@@ -44,6 +44,7 @@ test('the shipped maps validate', () => {
     'orchard-ruins',
     'stilt-isles',
     'stone-basin',
+    'brackenwake-commons',
   ]);
   assert.deepEqual(
     Object.fromEntries(
@@ -52,6 +53,7 @@ test('the shipped maps validate', () => {
         .map(([id, map]) => [id, map.preview]),
     ),
     {
+      'brackenwake-commons': content.assets.findIndex(asset => asset.name === 'cottage-tiled'),
       'frostveil-pass': content.assets.findIndex(asset => asset.name === 'prop-icefall-ledge'),
       'orchard-ruins': content.assets.findIndex(asset => asset.name === 'prop-cider-press'),
       'stilt-isles': content.assets.findIndex(asset => asset.name === 'prop-heron-blind'),

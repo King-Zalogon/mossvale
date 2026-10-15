@@ -228,3 +228,39 @@ test('map data problems for lines, rewards and tags are reported', () => {
     'tag',
   );
 });
+
+test('companion conditions read the live save and validate against the pack species (#277)', () => {
+  const save = newSave();
+  const ids = objCtx.speciesIds;
+  const [first, second] = [ids[save.active], ids.find(id => id !== ids[save.active])];
+  assert.equal(holds({active: first}, save, objCtx), true);
+  assert.equal(holds({active: second}, save, objCtx), false);
+  assert.equal(holds({party: first}, save, objCtx), true);
+  assert.equal(holds({party: second}, save, objCtx), false);
+  // Changing the party changes the answer on the next read; nothing is cached in the data.
+  const index = ids.indexOf(second);
+  save.caught.push(index);
+  save.party.push(index);
+  assert.equal(holds({party: second}, save, objCtx), true);
+  save.active = index;
+  assert.equal(holds({active: second}, save, objCtx), true);
+  assert.equal(holds({active: first}, save, objCtx), false);
+  // Without the species list the condition is false rather than guessing.
+  assert.equal(holds({active: second}, save, {speciesCount: ids.length, regions: []}), false);
+  assert.equal(holds({active: 3}, save, objCtx), false);
+  const lines = [{when: {active: second}, text: 'one'}, {text: 'two'}];
+  assert.equal(pickLine(lines, save, objCtx), 'one');
+  save.active = ids.indexOf(first);
+  assert.equal(pickLine(lines, save, objCtx), 'two');
+});
+
+test('companion conditions with an unknown or malformed species fail validation', () => {
+  const bad = edit(maps => {
+    maps[0].landmarks.find(l => l.kind === 'ranger').lines = [
+      {when: {active: 'no-such-friend'}, text: 'x'},
+      {when: {party: 'Bad Id'}, text: 'y'},
+    ];
+  });
+  has(bad, 'active names unknown species "no-such-friend"');
+  has(bad, 'party must be a stable species id');
+});

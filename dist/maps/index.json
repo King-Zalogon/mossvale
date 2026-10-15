@@ -3,7 +3,17 @@
   "id": "mossvale",
   "name": "Mossvale",
   "brief": "Four biomes, seventeen friends and a seal at every shrine.",
-  "maps": ["meadow", "amber-ridge", "frostveil-grove", "frostveil-pass", "reedfen-wetlands", "orchard-ruins", "stilt-isles", "stone-basin"],
+  "maps": [
+    "meadow",
+    "amber-ridge",
+    "frostveil-grove",
+    "frostveil-pass",
+    "reedfen-wetlands",
+    "orchard-ruins",
+    "stilt-isles",
+    "stone-basin",
+    "brackenwake-commons"
+  ],
   "species": [
     "fernling",
     "emberkin",
@@ -30,7 +40,7 @@
   "story": "story.json",
   "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 5,
+  "contentVersion": 6,
   "requires": {
     "engineVersion": 1,
     "saveSchema": 5
@@ -44,7 +54,7 @@
     {
       "id": "map:meadow",
       "path": "meadow.json",
-      "sha256": "f7aa70ef131bef5c1337e17560bada6f8bdc7308a6e55b912be05f2d1c1a5d52"
+      "sha256": "aa79da5414cb2d5967d9a4b28405489a9bef4bd261791f23d5db4f4d7b60d483"
     },
     {
       "id": "map:amber-ridge",
@@ -80,6 +90,11 @@
       "id": "map:stone-basin",
       "path": "stone-basin.json",
       "sha256": "9f12aa73b720f3ae4df848aeb98cda365cccafe3ddc1a71ef6a83a393fd1bb1a"
+    },
+    {
+      "id": "map:brackenwake-commons",
+      "path": "brackenwake-commons.json",
+      "sha256": "d7db2f177ab5c121b7b9b46ec88c76c1678ee9b4865e1533a3c5877b28da6091"
     },
     {
       "id": "objectives:main",
