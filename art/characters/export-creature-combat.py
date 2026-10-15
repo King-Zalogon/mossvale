@@ -12,7 +12,11 @@ DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 PROFILE_ID = "creature-combat-v1"
 SPECS = {
     "emberkin": {"source": "art/characters/source/creature-emberkin-combat-generated.png", "target": "dist/assets/creatures/creature-emberkin-combat.png"},
-    "voltkit": {"source": "art/characters/source/creature-voltkit-combat-generated.png", "target": "dist/assets/creatures/creature-voltkit-combat.png"},
+    "voltkit": {
+        "source": "concept_art/voltkit-redesign-candidates/combat-atlas.png",
+        "target": "dist/assets/creatures/creature-voltkit-combat.png",
+        "sourceRowBounds": [0, 293, 589, 878, 1108, 1402],
+    },
     "fernling": {"source": "art/characters/source/creature-fernling-combat-generated.png", "target": "dist/assets/creatures/creature-fernling-combat.png"},
     "duskwing": {"source": "art/characters/source/creature-duskwing-combat-generated.png", "target": "dist/assets/creatures/creature-duskwing-combat.png"},
     "brooklet": {"source": "art/characters/source/creature-brooklet-combat-generated.png", "target": "dist/assets/creatures/creature-brooklet-combat.png"},
@@ -48,7 +52,7 @@ def build(root, profile, spec, name):
     segmented = Image.new("RGBA", (columns * frame_width, rows * frame_height), (0, 0, 0, 0))
     anchored = Image.new("RGBA", segmented.size, (0, 0, 0, 0))
     if profile.get("poseSegmentation") == "seeded-subjects-v1":
-        poses = extract_poses(source, columns, rows, profile["alphaThreshold"], profile.get("seedInsets", {}).get(name, 4), profile.get("sourceRowBounds", {}).get(name), profile.get("sourceColumnBounds", {}).get(name), profile.get("sourceBarriers", {}).get(name, ()))
+        poses = extract_poses(source, columns, rows, profile["alphaThreshold"], profile.get("seedInsets", {}).get(name, 4), spec.get("sourceRowBounds", profile.get("sourceRowBounds", {}).get(name)), profile.get("sourceColumnBounds", {}).get(name), profile.get("sourceBarriers", {}).get(name, ()))
         gutter = profile["transparentGutter"]
         ratio = min(1, (frame_width - 2 * gutter) / max(p.width for p in poses),
                     (frame_height - profile["footInset"] - gutter) / max(p.height for p in poses))
