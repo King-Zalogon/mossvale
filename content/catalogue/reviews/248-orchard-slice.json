@@ -14,6 +14,13 @@
       "disposition": "updated",
       "reason": "The pack hash covers the new map data and objective completion also records a map-scoped event for authored post-battle continuity.",
       "evidence": ["tests/scenes.test.mjs", "docs/QUALITY_REVIEW.md"]
+    },
+    {
+      "paths": ["dist/maps/orchard-ruins.json", "tests/orchard-clues.test.mjs"],
+      "entries": ["map:mossvale/orchard-ruins", "interactable:scene-event"],
+      "disposition": "updated",
+      "reason": "Move Mara’s opening clue trigger into her normal interaction area so the mystery starts when the player speaks to her; keep the Verdant Seal prerequisite and check the interaction coverage in regression tests.",
+      "evidence": ["tests/orchard-clues.test.mjs"]
     }
   ]
 }

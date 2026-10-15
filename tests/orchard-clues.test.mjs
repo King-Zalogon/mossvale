@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {validateSceneGraph, sceneConditionHolds, markSceneRun} from '../dist/src/domain/scenes.js';
 import {pickLine} from '../dist/src/domain/objectives.js';
-import {buildWorld, isWalkable, nearestWalkable} from '../dist/src/domain/world.js';
+import {buildWorld, isWalkable, nearestInteractive, nearestWalkable, triggersAt} from '../dist/src/domain/world.js';
 import {mapsById, rawMaps, newSave, codec, objCtx} from './helpers.mjs';
 const map = rawMaps().find(m => m.id === 'orchard-ruins');
 const events = map.triggers.flatMap(t => t.events ?? []);
@@ -29,6 +29,27 @@ test('both orchard approaches independently reveal the family; reload preserves 
     markSceneRun(save, map.id, clue);
     assert.equal(save.events.length, n);
   }
+});
+
+test('Mara’s opening clue trigger covers the same interaction area as Mara', () => {
+  const mara = map.landmarks.find(landmark => landmark.id === 'orchard-ranger');
+  const trigger = map.triggers.find(item => item.id === 'orchard-mara-brief');
+  const event = trigger.events.find(item => item.id === 'mara-water-loss');
+  const world = buildWorld(mapsById['orchard-ruins']);
+  const save = newSave();
+  save.badges.push(0); // Meadow's Verdant Seal
+
+  assert.deepEqual(trigger.at, mara.at, 'interacting with Mara must reach the authored scene trigger');
+  assert.equal(trigger.radius, 1.95, 'the scene trigger covers the normal landmark interaction radius');
+  assert.equal(trigger.beforeLandmark, true, 'the clue opens before generic ranger dialogue');
+  assert.equal(sceneConditionHolds(event, save, objCtx), true);
+  const player = {x: mara.at[0], y: mara.at[1] + 1};
+  assert.equal(isWalkable(world, player.x, player.y), true, 'the player can stand in the shared interaction area');
+  assert.equal(nearestInteractive(world, player)?.ref, mara.id, 'Mara is the landmark the player is interacting with');
+  assert.ok(triggersAt(world, player, 'interact').some(item => item.id === trigger.id));
+
+  save.badges = [];
+  assert.equal(sceneConditionHolds(event, save, objCtx), false, 'the request remains gated until Meadow’s seal');
 });
 test('unknown evidence and positive prerequisite cycles are rejected; viable alternatives break a cycle', () => {
   const make = when => ({
