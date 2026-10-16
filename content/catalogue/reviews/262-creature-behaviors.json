@@ -6,7 +6,6 @@
         "dist/maps/meadow.json",
         "dist/maps/orchard-ruins.json",
         "dist/maps/reedfen-wetlands.json",
-        "dist/maps/index.json",
         "dist/src/domain/mapdata.js",
         "dist/src/domain/battle.js",
         "dist/src/domain/creature-behavior.js",
@@ -21,6 +20,30 @@
       "disposition": "updated",
       "reason": "Three existing species now have authored, bounded roles in their home zones: Fernling is wary and uses a brace pattern, Bramblebuck is territorial and telegraphs a charge, and Brooklet is curious with a friendlier capture window. Each pool entry carries a validated field observation window with a local radius and explicit recovery path; the cue is visible before the battle, the resolved profile is stored in the existing battle checkpoint, and ordinary capture, defeat and retry rules remain intact.",
       "evidence": ["tests/encounters.test.mjs", "tests/guardians.test.mjs", "docs/MAP_FORMAT.md", "docs/CREATURE_ROLES.md"]
+    }
+    ,{
+      "paths": [
+        "art/assets/source/creatures-atlas.png",
+        "art/assets/subjects.json",
+        "art/characters/SOURCES.md",
+        "art/characters/creature-combat-metadata.json",
+        "art/characters/creature-follower-metadata.json",
+        "art/characters/export-creature-combat.py",
+        "art/characters/export-creature-followers.py",
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png",
+        "art/characters/visual-reviews.json",
+        "dist/assets/creatures/creature-voltkit-combat.png",
+        "dist/assets/creatures/creature-voltkit-follower.png",
+        "dist/assets/creatures/creature-voltkit.png",
+        "dist/maps/registries.json",
+        "dist/maps/index.json",
+        "dist/src/data/assets.js"
+      ],
+      "entries": ["visual:creature-voltkit", "visual:creature-voltkit-combat", "visual:creature-voltkit-follower", "species:mossvale/voltkit"],
+      "disposition": "updated",
+      "reason": "These art and registry files are inherited from origin/main while preparing the integration PR; this issue does not alter them. The supplied Voltkit redesign remains source-backed and its runtime exports, registry references and catalogue hashes are kept together so integration retains a consistent pack.",
+      "evidence": ["art/characters/visual-reviews.json", "tests/pack-integrity.test.mjs"]
     }
   ]
 }
