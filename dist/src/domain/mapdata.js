@@ -186,12 +186,12 @@ function validateOne(m, byId, ctx, errors) {
     if (l.labels !== undefined) {
       if (!Array.isArray(l.labels) || !l.labels.length || l.labels.length > 8) at(where + '.labels', '1–8 conditional prompt lines required');
       else {
-        errors.push(...validateLines(l.labels, `map ${m.id}: ${where}.labels`, {mapIds: new Set(byId.keys())}));
+        errors.push(...validateLines(l.labels, `map ${m.id}: ${where}.labels`, {mapIds: new Set(byId.keys()), speciesIds: ctx.speciesIds}));
         for (const line of l.labels)
           if (typeof line?.text !== 'string' || !line.text.trim() || line.text.length > 80) at(where + '.labels', 'prompt text must be 1–80 characters');
       }
     }
-    if (l.lines !== undefined) errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys())}));
+    if (l.lines !== undefined) errors.push(...validateLines(l.lines, `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys()), speciesIds: ctx.speciesIds}));
     if (l.choices !== undefined)
       errors.push(
         ...validateDialogueChoices(l.choices, {speakerIds: landmarkIds, targetIds: landmarkIds, mapIds: new Set(byId.keys())}).map(

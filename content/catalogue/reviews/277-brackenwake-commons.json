@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/maps/brackenwake-commons.json",
+        "dist/maps/meadow.json",
+        "dist/maps/index.json",
+        "scripts/gen-brackenwake.py",
+        "tests/brackenwake.test.mjs",
+        "tests/brackenwake.browser.mjs",
+        "tests/maps.test.mjs",
+        "package.json",
+        "docs/SETTLEMENTS.md",
+        "docs/MAP_INVENTORY.md",
+        "docs/AGENT_HANDOFFS.md",
+        "content/catalogue/curated.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/277-brackenwake-commons.json",
+        "docs/map-design/277/annotated-map.svg",
+        "docs/map-design/277/desktop-arrival.png",
+        "docs/map-design/277/desktop-conversation.png",
+        "docs/map-design/277/desktop-garden.png",
+        "docs/map-design/277/desktop-ranger.png",
+        "docs/map-design/277/phone-arrival.png",
+        "docs/map-design/277/phone-conversation.png",
+        "docs/map-design/277/phone-garden.png",
+        "docs/map-design/277/phone-ranger.png"
+      ],
+      "entries": ["mechanic:settlement-map"],
+      "disposition": "updated",
+      "reason": "Adds the settlement map pattern fiche and the Brackenwake Commons map. The town is optional content: it adds a map, an ungated Meadow exit and spawn, and no zone, flag, reward, region, seal or save field. Existing map and region IDs and their order are unchanged; contentVersion rises because a map ID was added. Meadow set pieces were regenerated because the new exit and spawn change their keep-clear zones.",
+      "evidence": ["tests/brackenwake.test.mjs", "tests/brackenwake.browser.mjs", "tests/maps.test.mjs"]
+    },
+    {
+      "paths": [
+        "dist/src/domain/objectives.js",
+        "dist/src/domain/mapdata.js",
+        "dist/src/domain/adventure.js",
+        "dist/src/main.js",
+        "tests/helpers.mjs",
+        "tests/objectives.test.mjs",
+        "docs/OBJECTIVES.md",
+        "docs/scene-quality/244/desktop-dialogue-1.png",
+        "docs/scene-quality/244/desktop-dialogue-2.png",
+        "docs/scene-quality/244/desktop-offered-supplies.png",
+        "docs/scene-quality/244/evidence.json",
+        "docs/scene-quality/244/phone-dialogue-1.png",
+        "docs/scene-quality/244/phone-dialogue-2.png",
+        "docs/scene-quality/244/phone-offered-supplies.png",
+        "docs/scene-quality/244/review.json"
+      ],
+      "entries": ["mechanic:companion-dialogue-conditions"],
+      "disposition": "updated",
+      "reason": "Adds the {active} and {party} dialogue conditions as a new capability fiche. They are derived from the save each time, add no save field, and validate against the pack's species where the species list is available. The retained scene-quality evidence was regenerated and re-bound because the startup source's condition context changed; no layout changed.",
+      "evidence": ["tests/objectives.test.mjs", "tests/brackenwake.test.mjs", "tests/scene-quality.test.mjs"]
+    }
+  ]
+}

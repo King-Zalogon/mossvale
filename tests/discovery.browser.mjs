@@ -78,12 +78,12 @@ const areaState = page => page.evaluate(() => window.mossvale.areaMap());
 const places = page => page.locator('.area-place').allTextContents();
 
 try {
-  // --- all eight Island map cards have distinct, loaded previews on desktop and phones ---------------------
+  // --- all nine Island map cards have distinct, loaded previews on desktop and phones ---------------------
   {
     const {page, errors, ctx} = await open();
     await page.click('#worldmap');
     await page.waitForSelector('.region-card');
-    assert.equal(await page.locator('.region-card').count(), 8, 'all four hubs and four secondary maps are shown');
+    assert.equal(await page.locator('.region-card').count(), 9, 'all four hubs and five secondary maps are shown');
     for (const [id, label] of [
       ['region-art-0', 'Mossvale Meadow'],
       ['region-art-1', 'Amber Ridge'],
@@ -93,6 +93,7 @@ try {
       ['map-art-orchard-ruins', 'The Ruined Orchard'],
       ['map-art-stilt-isles', 'Stilt Isles'],
       ['map-art-stone-basin', 'Stone Basin'],
+      ['map-art-brackenwake-commons', 'Brackenwake Commons'],
     ]) {
       const canvas = page.locator(`#${id}`);
       assert.equal(await canvas.getAttribute('aria-label'), `${label} preview`);
@@ -112,15 +113,15 @@ try {
     const phone = await open({viewport: {width: 390, height: 844}});
     await phone.page.click('#worldmap');
     await phone.page.waitForSelector('.region-card');
-    assert.equal(await phone.page.locator('.region-card').count(), 8);
+    assert.equal(await phone.page.locator('.region-card').count(), 9);
     assert.equal(await phone.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'no horizontal page overflow');
-    for (const id of ['#map-art-frostveil-pass', '#map-art-orchard-ruins', '#map-art-stilt-isles', '#map-art-stone-basin']) {
+    for (const id of ['#map-art-frostveil-pass', '#map-art-orchard-ruins', '#map-art-stilt-isles', '#map-art-stone-basin', '#map-art-brackenwake-commons']) {
       const box = await phone.page.locator(id).boundingBox();
       assert.ok(box.width >= 60 && box.height >= 60, `${id} remains visible at phone size`);
     }
     assert.deepEqual(phone.errors, []);
     await phone.ctx.close();
-    console.log('ok eight distinct Island map previews on desktop and phone; travel locks preserved');
+    console.log('ok nine distinct Island map previews on desktop and phone; travel locks preserved');
   }
 
   // --- walking reveals the map, the minimap follows, it survives a reload ---------------------------------

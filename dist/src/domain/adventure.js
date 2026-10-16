@@ -39,7 +39,7 @@ export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawO
       errors.push(`map ${m.id}: no region for biome "${m.biome}" in the pack registry`);
   }
   if (rawObjectives !== undefined) {
-    errors.push(...validateObjectives(rawObjectives, {mapIds: new Set(maps.map(m => m?.id))}));
+    errors.push(...validateObjectives(rawObjectives, {mapIds: new Set(maps.map(m => m?.id)), speciesIds}));
     errors.push(...validateEventObjectives(rawObjectives, maps, speciesIds));
   }
   if (rawStory !== undefined) errors.push(...validateStory(rawStory, {mapIds: new Set(maps.map(m => m?.id))}));

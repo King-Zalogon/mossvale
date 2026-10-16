@@ -20,7 +20,7 @@ An ordered list. The current objective is the first one whose `done` condition i
 
 ## Conditions
 
-One key each: `{flag: "<map>.seal" | "<map>.chest"}`, `{met: true}`, `{caught: N | "all"}`, `{seen: N | "all"}`, `{visited: "<map>"}`, `{all: [...]}`, `{not: cond}`. No condition means always. Anything else fails validation.
+One key each: `{flag: "<map>.seal" | "<map>.chest"}`, `{met: true}`, `{caught: N | "all"}`, `{seen: N | "all"}`, `{visited: "<map>"}`, `{active: "<species-id>"}` (that creature is the current companion), `{party: "<species-id>"}` (it is on the fighting team), `{all: [...]}`, `{any: [...]}`, `{not: cond}`. No condition means always. Anything else fails validation.
 
 ## Milestones and once-only rewards
 

@@ -20,7 +20,7 @@ export const adventure = buildAdventure(rawMaps(), packContent, rawObjectives(),
 export const maps = adventure.maps;
 export const mapsById = adventure.mapsById;
 export const objectives = adventure.objectives;
-export const objCtx = {speciesCount: species.length, regions};
+export const objCtx = {speciesCount: species.length, regions, speciesIds: species.map(item => item.id)};
 export const mapBounds = Object.fromEntries(
   rawMaps().map(map => [
     map.id,
