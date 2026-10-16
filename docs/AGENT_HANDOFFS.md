@@ -4,6 +4,10 @@ GitHub issues and pull requests are authoritative for current status. Use this l
 
 ## Active and recent work
 
+### #278 — Rootglass canopy and hollow
+
+Claimed `codex/278-rootglass-map-pair` from `origin/main`, synchronized with `origin/integration` at `e18d8a9`; generated catalogue index/facts conflicts were resolved by regenerating with `npm run catalogue:write`. Build a traversable two-map optional route pair with a conspicuous glass-barked landmark, complementary habitats, safe return routes, authored secret companion shortcut and desktop/mobile walk evidence. Preserve region/save IDs and existing progression; no platforming or required companion gate. Verification and integration PR pending.
+
 | Date | Issue / scope | Owner lane | Branch | Head / base | Evidence | Blockers / next step |
 | --- | --- | --- | --- | --- | --- | --- |
 | 2026-10-15 | #248 cider press clue clarity and replay | World / narrative content | `codex/248-cider-clue-replay` | Created from current `main` `0788a9d` | The press names the wet route to the low hollow and repeats its earned clue on reinspection without replaying its one-time event; regression covers both states. | PR #413 targets integration. Local map/catalogue validation, game build and focused scene regressions pass; the browser run is blocked here by sandbox `listen EPERM`. Awaiting integration merge and owner retest. |
