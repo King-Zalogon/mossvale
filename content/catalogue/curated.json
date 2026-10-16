@@ -299,6 +299,61 @@
       }
     },
     {
+      "id": "mechanic:companion-dialogue-conditions",
+      "kind": "mechanic",
+      "name": "Companion-aware dialogue conditions",
+      "summary": "Pick NPC lines, dialogue choices, hints and scene conditions by the current companion or the fighting team.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "active",
+          "type": "species-id",
+          "default": null,
+          "limits": "A species ID from the pack; true while that creature is the current companion."
+        },
+        {
+          "name": "party",
+          "type": "species-id",
+          "default": null,
+          "limits": "A species ID from the pack; true while that creature is on the fighting team (at most three)."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Only the active companion and the party are readable; there is no condition for reserve creatures, levels or health.",
+        "Text can name a species only inside a line guarded by its condition; the lines do not follow a creature that was swapped out mid-conversation until the next interaction.",
+        "A species ID that does not exist in the pack fails validation in map lines, labels and objective conditions; other condition sites check only the ID's shape."
+      ],
+      "examples": [
+        {
+          "intent": "Make a potter comment on the Fernling walking next to the player, with a plain fallback.",
+          "usage": "Add `lines: [{\"when\": {\"active\": \"fernling\"}, \"text\": \"…\"}, {\"text\": \"fallback\"}]` to a sign or ranger landmark.",
+          "expected": "The first matching line is spoken; swapping the companion changes the line on the next interaction with no saved state."
+        }
+      ],
+      "references": ["dist/src/domain/objectives.js", "docs/OBJECTIVES.md", "dist/maps/brackenwake-commons.json"],
+      "evidence": [
+        {
+          "path": "tests/objectives.test.mjs",
+          "assertion": "The conditions follow the live save (active companion and party), are false without the species list, pick the right line and fail validation for unknown or malformed species."
+        },
+        {
+          "path": "tests/brackenwake.test.mjs",
+          "assertion": "Brackenwake Commons NPC lines change with the active companion and the party in a compiled pack."
+        }
+      ],
+      "details": {
+        "trigger": "Any place that evaluates an objective-style condition: landmark lines and labels, dialogue choices, hints, scene events.",
+        "inputs": "The save's active companion and party and the pack's species list.",
+        "sequence": "Resolve the save's species index to its stable ID and compare.",
+        "results": "True or false at the moment of the read.",
+        "cancellation": "Not applicable.",
+        "errors": "A malformed or unknown species ID is a validation error naming the field; at runtime an unreadable condition is false.",
+        "persistence": "Nothing is stored; the answer is derived from the save each time."
+      }
+    },
+    {
       "id": "mechanic:companion-route",
       "kind": "mechanic",
       "name": "Companion route gate",
@@ -1215,6 +1270,49 @@
         "cancellation": "UI close/advance uses current dialogue controls; no arbitrary sequence rollback promised.",
         "errors": "Unknown speaker or text outside 1–500 characters fails validation.",
         "persistence": "Dialogue presentation state is not a new persisted cutscene cursor."
+      }
+    },
+    {
+      "id": "mechanic:settlement-map",
+      "kind": "mechanic",
+      "name": "Settlement map pattern",
+      "summary": "An inhabited town map with free rest, supplies, rumours, NPCs and visible creature habitats, and no wild encounters.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [],
+      "dependencies": ["mechanic:companion-dialogue-conditions"],
+      "limits": [
+        "It is an authoring pattern, not a new rule: a settlement is an ordinary map with an empty `zones` list, one ranger landmark and sign landmarks for everyone else.",
+        "A map has one working ranger: the ranger menu (free rest and supplies) always belongs to the first ranger landmark of the map; other characters are signs with a person sprite.",
+        "Creature habitats show static creature portraits with spoken flavour text; they do not move or idle, and interacting never starts a battle.",
+        "NPCs reuse the two shipped person sprites (gardener, traveler); no new art is introduced."
+      ],
+      "examples": [
+        {
+          "intent": "Add a restful town to a pack without wild encounters or a coin gate.",
+          "usage": "Author the map like any other (docs/MAP_FORMAT.md), leave `zones` empty, add one `ranger`, habitat signs with creature sprites, and an ungated exit back to a hub. `scripts/gen-brackenwake.py` is the worked example.",
+          "expected": "Walking the town never rolls an encounter; resting is free; every exit and service is reachable from the arrival spawn."
+        }
+      ],
+      "references": ["dist/maps/brackenwake-commons.json", "scripts/gen-brackenwake.py", "docs/SETTLEMENTS.md", "docs/MAP_FORMAT.md"],
+      "evidence": [
+        {
+          "path": "tests/brackenwake.test.mjs",
+          "assertion": "The compiled town has no encounter zones, a free-rest ranger, an ungated two-way connection to the meadow, services reachable from the arrival, optional habitats and NPCs, and unchanged save map IDs."
+        },
+        {
+          "path": "tests/brackenwake.browser.mjs",
+          "assertion": "Through real play: entry from the meadow, an optional conversation, free rest, a habitat interaction without a battle, the return trip and reload."
+        }
+      ],
+      "details": {
+        "trigger": "Entering the map from its hub exit.",
+        "inputs": "Authored map data: terrain, landmarks, exits and props.",
+        "sequence": "Walk the town loop; interact with services and habitats on demand.",
+        "results": "Rest and supplies through the ranger menu; speech lines from signs.",
+        "cancellation": "Leaving by the exit or closing any dialogue; nothing is required.",
+        "errors": "Unreachable services, exits or spawns fail map validation.",
+        "persistence": "Visits use the existing visited-map and exploration saves; the town adds no flag, reward or save field."
       }
     },
     {

@@ -126,7 +126,7 @@ const app = {
   story: undefined,
   inventoryRules: undefined,
   skipPremise: (debug && !params.has('premise')) || !!editorPreviewId, // tests start in play; add &premise to see the opening card
-  objCtx: {speciesCount: species.length, regions},
+  objCtx: {speciesCount: species.length, regions, speciesIds: species.map(item => item.id)},
   audio: createAudio(),
   settings,
   dashboardUrl: window.MOSSVALE_CONFIG?.dashboardUrl ?? '',
