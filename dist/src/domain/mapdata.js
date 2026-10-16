@@ -2,6 +2,7 @@
    Authoring guide: docs/MAP_FORMAT.md. */
 import {validateHints} from './hints.js';
 import {PLAYER_RADIUS} from '../config.js';
+import {FIELD_BEHAVIORS, fieldBehavior} from './creature-behavior.js';
 import {TACTICS} from '../data/tactics.js';
 import {validateLines} from './objectives.js';
 import {validateSceneEvent, validateSceneGraph} from './scenes.js';
@@ -265,6 +266,19 @@ function validateOne(m, byId, ctx, errors) {
             at(where + '.pool', `weight for "${id}" must be a number above 0 and at most 100`);
           if (entry.behavior !== undefined && !['wary', 'territorial', 'curious'].includes(entry.behavior))
             at(where + '.pool', `behavior for "${id}" must be wary, territorial or curious`);
+          if (entry.field !== undefined) {
+            if (!entry.field || typeof entry.field !== 'object' || Array.isArray(entry.field)) at(where + '.pool', `field for "${id}" must be an object`);
+            else {
+              if (entry.field.duration !== undefined && !(Number.isFinite(entry.field.duration) && entry.field.duration >= 0.5 && entry.field.duration <= 5))
+                at(where + '.pool', `field.duration for "${id}" must be between 0.5 and 5 seconds`);
+              if (entry.field.radius !== undefined && !(Number.isFinite(entry.field.radius) && entry.field.radius >= 1 && entry.field.radius <= 6))
+                at(where + '.pool', `field.radius for "${id}" must be between 1 and 6 tiles`);
+              if (entry.field.recovery !== undefined && !['retreat-and-retry', 'return-to-patch', 'circle-and-retry'].includes(entry.field.recovery))
+                at(where + '.pool', `field.recovery for "${id}" must be retreat-and-retry, return-to-patch or circle-and-retry`);
+              if (entry.field.state !== undefined && !Object.values(FIELD_BEHAVIORS).some(profile => profile.state === entry.field.state))
+                at(where + '.pool', `field.state for "${id}" must be a supported bounded state`);
+            }
+          }
         }
       });
     if (
@@ -429,6 +443,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     rect: z.rect,
     pool: z.pool.map(e => speciesIndex(typeof e === 'string' ? e : e.species)),
     behaviors: z.pool.map(e => (typeof e === 'string' ? 'curious' : (e.behavior ?? 'curious'))),
+    fields: z.pool.map(e => fieldBehavior(typeof e === 'string' ? 'curious' : (e.behavior ?? 'curious'), typeof e === 'string' ? undefined : e.field)),
     weights: z.pool.map(e => (typeof e === 'string' ? 1 : e.weight)),
     level: z.level,
     distance: z.distance ?? [4, 7],

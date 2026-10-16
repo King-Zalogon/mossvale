@@ -6,6 +6,7 @@ import {encounterDistance, rollWild} from '../dist/src/domain/battle.js';
 import {movePlayer} from '../dist/src/domain/exploration.js';
 import {seededRng} from '../dist/src/domain/rng.js';
 import {buildWorld, triggersAt, zoneAt} from '../dist/src/domain/world.js';
+import {fieldBehavior, fieldObservation} from '../dist/src/domain/creature-behavior.js';
 import {species} from '../dist/src/data/species.js';
 import {content, maps, mapsById, newSave, rawMaps, rawObjectives} from './helpers.mjs';
 
@@ -144,6 +145,36 @@ test('authored creature behaviors survive map compilation and shape the encounte
   assert.equal(territorial.tactic, 'rolling-charge');
   const curious = createBattle(save, seededRng(1), {id: bramble.id, level: 6, behavior: 'curious'});
   assert.ok(captureChance(save, curious) > captureChance(save, territorial));
+});
+
+test('three creature roles expose bounded field windows and recover without blocking a retry', () => {
+  const meadowZone = mapsById.meadow.zones.find(zone => zone.id === 'tall-grass');
+  const wetlandZone = mapsById['reedfen-wetlands'].zones.find(zone => zone.id === 'reed-shallows');
+  const fernling = meadowZone.fields[meadowZone.pool.indexOf(species.findIndex(entry => entry.id === 'fernling'))];
+  const bramblebuck = meadowZone.fields[meadowZone.pool.indexOf(species.findIndex(entry => entry.id === 'bramblebuck'))];
+  const brooklet = wetlandZone.fields[wetlandZone.pool.indexOf(species.findIndex(entry => entry.id === 'brooklet'))];
+  assert.deepEqual([fernling.behavior, bramblebuck.behavior, brooklet.behavior], ['wary', 'territorial', 'curious']);
+  assert.deepEqual([fernling.recovery, bramblebuck.recovery, brooklet.recovery], ['retreat-and-retry', 'return-to-patch', 'circle-and-retry']);
+  for (const profile of [fernling, bramblebuck, brooklet]) {
+    assert.ok(profile.duration >= 0.5 && profile.duration <= 5);
+    assert.ok(profile.radius >= 1 && profile.radius <= 6);
+    assert.equal(fieldObservation(profile, profile.duration).nextState, 'recovering');
+    assert.equal(fieldObservation(profile, profile.duration + 10).active, false);
+  }
+  assert.notEqual(fieldBehavior('wary').state, fieldBehavior('territorial').state);
+  assert.notEqual(fieldBehavior('territorial').state, fieldBehavior('curious').state);
+});
+
+test('the resolved field role survives the existing battle checkpoint contract', async () => {
+  const {battleCheckpoint, createBattle} = await import('../dist/src/domain/battle.js');
+  const zone = mapsById.meadow.zones.find(entry => entry.id === 'tall-grass');
+  const save = newSave();
+  const wild = rollWild(save, () => 0.01, zone);
+  const battle = createBattle(save, seededRng(4), wild);
+  const checkpoint = battleCheckpoint(battle);
+  assert.equal(checkpoint.field.behavior, wild.behavior);
+  assert.equal(checkpoint.field.recovery, wild.field.recovery);
+  assert.equal(checkpoint.field.duration, wild.field.duration);
 });
 
 test('encounters are spaced by the zone distance, with a grace period', () => {
