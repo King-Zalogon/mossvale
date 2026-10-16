@@ -127,7 +127,17 @@
       "label": "Inspect the cider press",
       "secret": true,
       "mapLabel": "Old cider press",
-      "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling.",
+            "lines": [
+        {
+          "when": {
+            "event": "orchard-ruins/press-repair-record"
+          },
+          "text": "The press confirms the order: the water fell first, then the fresh hoofprints. Follow the damp marks northeast along the lower row to the low hollow among the roots, beside the channel."
+        },
+        {
+          "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
+        }
+      ],
       "discoveryText": "Old cider press: apples still linger where the orchard once made cider."
     },
     {
@@ -805,7 +815,7 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "A waterline on the press has dried beneath dust from last harvest. The supply dropped before the fresh hoofprints. Those prints turn back toward the damp lower row, not the dry orchard."
+              "text": "A waterline on the press has dried beneath dust from last harvest. The supply dropped before the fresh hoofprints. Follow the damp marks northeast along the lower row to the low hollow among the roots, beside the channel."
             }
           ],
           "note": "The press\u2019s dried waterline predates the fresh hoofprints."

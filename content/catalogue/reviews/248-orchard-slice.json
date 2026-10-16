@@ -21,6 +21,13 @@
       "disposition": "updated",
       "reason": "Move Mara’s opening clue trigger into her normal interaction area so the mystery starts when the player speaks to her; keep the Verdant Seal prerequisite and check the interaction coverage in regression tests.",
       "evidence": ["tests/orchard-clues.test.mjs"]
+    },
+    {
+      "paths": ["dist/maps/orchard-ruins.json", "tests/orchard-clues.test.mjs", "tests/orchard-clues.browser.mjs", "docs/design/ORCHARD_MYSTERY.md"],
+      "entries": ["map:mossvale/orchard-ruins", "interactable:scene-event"],
+      "disposition": "updated",
+      "reason": "Make the press clue actionable by naming the reachable damp hollow and allow repeat inspection to recall the clue without repeating its one-time event.",
+      "evidence": ["tests/orchard-clues.test.mjs", "tests/orchard-clues.browser.mjs", "docs/design/ORCHARD_MYSTERY.md"]
     }
   ]
 }
