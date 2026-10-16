@@ -2002,6 +2002,18 @@
             "lines": [
               {
                 "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "text": "Mara's lower row is flowing again. The orchard family stayed in its dry upper nook, and the eastern trail is still the way forward."
+              },
+              {
+                "when": {
+                  "event": "orchard-ruins/outcome-family-first"
+                },
+                "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
+              },
+              {
+                "when": {
                   "flag": "amber-ridge.seal"
                 },
                 "text": "The ridge shrine hums again. Frostveil Grove lies far to the east."
@@ -3225,6 +3237,9 @@
                             "event": "orchard-ruins/outcome-water-first"
                           },
                           {
+                            "event": "orchard-ruins/orchard-family"
+                          },
+                          {
                             "event": "orchard-ruins/outcome-family-first"
                           }
                         ]
@@ -3287,7 +3302,17 @@
             "label": "Inspect the cider press",
             "secret": true,
             "mapLabel": "Old cider press",
-            "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling.",
+            "lines": [
+              {
+                "when": {
+                  "event": "orchard-ruins/press-repair-record"
+                },
+                "text": "The press confirms the order: the water fell first, then the fresh hoofprints. Follow the damp marks northeast along the lower row to the low hollow among the roots, beside the channel."
+              },
+              {
+                "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
+              }
+            ],
             "discoveryText": "Old cider press: apples still linger where the orchard once made cider."
           },
           "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
@@ -6356,6 +6381,45 @@
         "cancellation": "Must define interruption behavior before implementation.",
         "errors": "Report as a missing capability in the scene gap report.",
         "persistence": "Must define compatible saved-state behavior before implementation."
+      }
+    },
+    {
+      "id": "mechanic:pack-save-compatibility",
+      "kind": "mechanic",
+      "name": "Pack and save compatibility contract",
+      "summary": "State which engine, save-schema and pack-format levels a pack may declare, and explain a rejection before any save is touched.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "The support window is one level wide today (engine 1, save schema 5, pack format 1), so a pack must declare exactly those levels; a wider window ships only together with a tested save migration.",
+        "Declared levels are metadata outside the integrity hashes; they are as honest as the tool that stamped them.",
+        "No migration registry exists yet because there has been no real schema change since schema 5.",
+        "It judges the manifest only; whether a pack's content still plays well after an engine update needs the adventure readiness report and a playtest."
+      ],
+      "examples": [
+        {
+          "intent": "Find out why a pack built for another game level is refused.",
+          "usage": "Run `npm run adventure:report -- <pack-folder>` or `npm run pack -- validate-pack <pack-folder>`.",
+          "expected": "The compatibility result names `requires.engineVersion` or `requires.saveSchema` and says whether to update the game or port the pack; the game itself shows the same message at startup before reading any save."
+        }
+      ],
+      "references": ["dist/src/compatibility.js", "dist/src/domain/pack.js", "docs/COMPATIBILITY.md", "docs/PACKS.md"],
+      "evidence": [
+        {
+          "path": "tests/compatibility.test.mjs",
+          "assertion": "The shipped and fixture manifests are compatible; levels above, below and inside a widened window are classified distinctly; missing, string, fractional and non-positive levels are invalid; the loader rejects each case after fetching only index.json; a future save stays untouched and unwritable."
+        }
+      ],
+      "details": {
+        "trigger": "Loading a pack in the game, or running validate-pack, the readiness report or a build.",
+        "inputs": "The pack manifest's format and requires levels and the installed support window.",
+        "sequence": "Fetch index.json, judge each level, stop with a specific message on any problem, then verify file hashes and only then open the save codec.",
+        "results": "compatible, requires-newer-game, pack-too-old or invalid, with the field that caused it.",
+        "cancellation": "Not applicable.",
+        "errors": "A rejected pack shows a retryable startup error naming the field and whether to update the game or port the pack.",
+        "persistence": "Nothing is written; no save, checkpoint, archive or quarantine entry is created or replaced by a rejection."
       }
     },
     {

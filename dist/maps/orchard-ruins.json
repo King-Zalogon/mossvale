@@ -127,7 +127,17 @@
       "label": "Inspect the cider press",
       "secret": true,
       "mapLabel": "Old cider press",
-      "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling.",
+            "lines": [
+        {
+          "when": {
+            "event": "orchard-ruins/press-repair-record"
+          },
+          "text": "The press confirms the order: the water fell first, then the fresh hoofprints. Follow the damp marks northeast along the lower row to the low hollow among the roots, beside the channel."
+        },
+        {
+          "text": "The old cider press. The last pressing was a good year: the apples here never stopped falling."
+        }
+      ],
       "discoveryText": "Old cider press: apples still linger where the orchard once made cider."
     },
     {
@@ -177,6 +187,9 @@
                   "any": [
                     {
                       "event": "orchard-ruins/outcome-water-first"
+                    },
+                    {
+                      "event": "orchard-ruins/orchard-family"
                     },
                     {
                       "event": "orchard-ruins/outcome-family-first"
@@ -738,8 +751,8 @@
   "triggers": [
     {
       "id": "orchard-mara-brief",
-      "at": [7, 15],
-      "radius": 1.5,
+      "at": [5.2, 14],
+      "radius": 1.95,
       "on": "interact",
       "events": [
         {
@@ -802,7 +815,7 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "A waterline on the press has dried beneath dust from last harvest. The supply dropped before the fresh hoofprints. Those prints turn back toward the damp lower row, not the dry orchard."
+              "text": "A waterline on the press has dried beneath dust from last harvest. The supply dropped before the fresh hoofprints. Follow the damp marks northeast along the lower row to the low hollow among the roots, beside the channel."
             }
           ],
           "note": "The press\u2019s dried waterline predates the fresh hoofprints."
@@ -866,7 +879,14 @@
               },
               {
                 "not": {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    },
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    }
+                  ]
                 }
               }
             ]
@@ -883,6 +903,29 @@
             }
           ],
           "note": "Opened the bypass first; water returned to the lower row."
+        },
+        {
+          "id": "water-first-state",
+          "repeatable": false,
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/outcome-water-first"
+              },
+              {
+                "not": {
+                  "event": "orchard-ruins/water-first-state"
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "narrator",
+              "text": "The lower row is visibly running again. The family has settled above the waterline; Mara's repair holds for this visit."
+            }
+          ]
         }
       ],
       "beforeLandmark": true,
@@ -895,8 +938,8 @@
       "on": "interact",
       "events": [
         {
-          "id": "outcome-family-first",
-          "repeatable": false,
+          "id": "orchard-family",
+          "repeatable": true,
           "when": {
             "all": [
               {
@@ -904,7 +947,17 @@
               },
               {
                 "not": {
-                  "event": "orchard-ruins/outcome-water-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/outcome-water-first"
+                    },
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 }
               }
             ]
@@ -913,14 +966,51 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "You guide the young to the dry hollow first. The adult follows, leaving Mara the slower channel repair."
+              "text": "The young are almost through the dry hollow. Hold the adult's attention until they reach shelter; this is a rescue, not a capture."
             },
             {
-              "type": "reward",
-              "coins": 10
+              "type": "challenge",
+              "species": "bramblebuck",
+              "level": 7,
+              "objective": {
+                "id": "orchard-family",
+                "kind": "survive",
+                "turns": 2,
+                "title": "Hold the adult's attention",
+                "description": "Survive two turns while the young reach the dry hollow. The adult will retreat safely when the family is clear.",
+                "reward": {
+                  "coins": 10,
+                  "potions": 0,
+                  "xp": 12
+                }
+              }
             }
           ],
           "note": "Moved the family to higher roots first; Mara will finish the slower repair."
+        },
+        {
+          "id": "outcome-family-first",
+          "repeatable": false,
+          "when": {
+            "all": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "not": {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "dialogue",
+              "speaker": "narrator",
+              "text": "The young reach the dry hollow and the adult follows them. The lower row stays dry for this visit while Mara prepares the slower repair."
+            }
+          ],
+          "note": "The family is safe in the dry hollow; the lower row remains dry until Mara repairs it."
         }
       ],
       "beforeLandmark": true,

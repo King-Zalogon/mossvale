@@ -139,6 +139,18 @@ try {
     const clue = touch ? 'press-repair-record' : 'sluice-old-mark';
     await walk(touch ? [30, 44] : [56, 27]);
     await interact(clue);
+    if (touch) {
+      await walk([34, 47]); // Leave the one-time trigger before inspecting the press again.
+      await walk([30, 44]);
+      await page.locator('#touch-e').tap();
+      await page.waitForSelector('#speech-bubble');
+      assert.match(
+        await page.locator('#speech-bubble').innerText(),
+        /water fell first.*follow the damp marks northeast.*low hollow among the roots/is,
+        'the inspected press repeats its clue and gives a concrete next destination',
+      );
+      await finish();
+    }
     const capture = async label => {
       if (process.env.ORCHARD_REVIEW) {
         mkdirSync('docs/scene-quality/260', {recursive: true});

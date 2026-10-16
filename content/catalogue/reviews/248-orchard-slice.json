@@ -1,0 +1,33 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/maps/orchard-ruins.json", "dist/maps/amber-ridge.json"],
+      "entries": ["map:mossvale/orchard-ruins", "interactable:scene-event", "mechanic:narrative-continuity", "mechanic:staged-objectives"],
+      "disposition": "updated",
+      "reason": "The orchard now authors two persistent resolutions, a bounded family rescue objective, visible consequence dialogue and a Rowan callback after reload.",
+      "evidence": ["docs/design/ORCHARD_MYSTERY.md", "docs/QUALITY_REVIEW.md", "tests/scenes.test.mjs"]
+    },
+    {
+      "paths": ["dist/maps/index.json", "dist/src/controller.js"],
+      "entries": ["interactable:scene-event", "mechanic:narrative-continuity", "mechanic:staged-objectives"],
+      "disposition": "updated",
+      "reason": "The pack hash covers the new map data and objective completion also records a map-scoped event for authored post-battle continuity.",
+      "evidence": ["tests/scenes.test.mjs", "docs/QUALITY_REVIEW.md"]
+    },
+    {
+      "paths": ["dist/maps/orchard-ruins.json", "tests/orchard-clues.test.mjs"],
+      "entries": ["map:mossvale/orchard-ruins", "interactable:scene-event"],
+      "disposition": "updated",
+      "reason": "Move Mara’s opening clue trigger into her normal interaction area so the mystery starts when the player speaks to her; keep the Verdant Seal prerequisite and check the interaction coverage in regression tests.",
+      "evidence": ["tests/orchard-clues.test.mjs"]
+    },
+    {
+      "paths": ["dist/maps/orchard-ruins.json", "tests/orchard-clues.test.mjs", "tests/orchard-clues.browser.mjs", "docs/design/ORCHARD_MYSTERY.md"],
+      "entries": ["map:mossvale/orchard-ruins", "interactable:scene-event"],
+      "disposition": "updated",
+      "reason": "Make the press clue actionable by naming the reachable damp hollow and allow repeat inspection to recall the clue without repeating its one-time event.",
+      "evidence": ["tests/orchard-clues.test.mjs", "tests/orchard-clues.browser.mjs", "docs/design/ORCHARD_MYSTERY.md"]
+    }
+  ]
+}
