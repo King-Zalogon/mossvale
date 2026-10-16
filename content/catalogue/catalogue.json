@@ -3302,7 +3302,7 @@
             "label": "Inspect the cider press",
             "secret": true,
             "mapLabel": "Old cider press",
-                        "lines": [
+            "lines": [
               {
                 "when": {
                   "event": "orchard-ruins/press-repair-record"
@@ -6381,6 +6381,45 @@
         "cancellation": "Must define interruption behavior before implementation.",
         "errors": "Report as a missing capability in the scene gap report.",
         "persistence": "Must define compatible saved-state behavior before implementation."
+      }
+    },
+    {
+      "id": "mechanic:pack-save-compatibility",
+      "kind": "mechanic",
+      "name": "Pack and save compatibility contract",
+      "summary": "State which engine, save-schema and pack-format levels a pack may declare, and explain a rejection before any save is touched.",
+      "status": "available",
+      "scope": "authoring-only",
+      "configuration": [],
+      "dependencies": [],
+      "limits": [
+        "The support window is one level wide today (engine 1, save schema 5, pack format 1), so a pack must declare exactly those levels; a wider window ships only together with a tested save migration.",
+        "Declared levels are metadata outside the integrity hashes; they are as honest as the tool that stamped them.",
+        "No migration registry exists yet because there has been no real schema change since schema 5.",
+        "It judges the manifest only; whether a pack's content still plays well after an engine update needs the adventure readiness report and a playtest."
+      ],
+      "examples": [
+        {
+          "intent": "Find out why a pack built for another game level is refused.",
+          "usage": "Run `npm run adventure:report -- <pack-folder>` or `npm run pack -- validate-pack <pack-folder>`.",
+          "expected": "The compatibility result names `requires.engineVersion` or `requires.saveSchema` and says whether to update the game or port the pack; the game itself shows the same message at startup before reading any save."
+        }
+      ],
+      "references": ["dist/src/compatibility.js", "dist/src/domain/pack.js", "docs/COMPATIBILITY.md", "docs/PACKS.md"],
+      "evidence": [
+        {
+          "path": "tests/compatibility.test.mjs",
+          "assertion": "The shipped and fixture manifests are compatible; levels above, below and inside a widened window are classified distinctly; missing, string, fractional and non-positive levels are invalid; the loader rejects each case after fetching only index.json; a future save stays untouched and unwritable."
+        }
+      ],
+      "details": {
+        "trigger": "Loading a pack in the game, or running validate-pack, the readiness report or a build.",
+        "inputs": "The pack manifest's format and requires levels and the installed support window.",
+        "sequence": "Fetch index.json, judge each level, stop with a specific message on any problem, then verify file hashes and only then open the save codec.",
+        "results": "compatible, requires-newer-game, pack-too-old or invalid, with the field that caused it.",
+        "cancellation": "Not applicable.",
+        "errors": "A rejected pack shows a retryable startup error naming the field and whether to update the game or port the pack.",
+        "persistence": "Nothing is written; no save, checkpoint, archive or quarantine entry is created or replaced by a rejection."
       }
     },
     {
@@ -12569,7 +12608,7 @@
       "id": "species:mossvale/voltkit",
       "kind": "actor",
       "name": "Voltkit",
-      "summary": "A lightning-fast rabbit that stores the ridge’s dry-air crackle in its tail.",
+      "summary": "A quick fox-like spark scout whose forked tail gathers bright static from the sandstone air.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -12589,7 +12628,7 @@
             "biome": "badlands",
             "role": "Glass-cannon sprinter",
             "personality": "Restless and playful; it can never resist chasing a flicker of light.",
-            "desc": "A lightning-fast rabbit that stores the ridge’s dry-air crackle in its tail.",
+            "desc": "A quick fox-like spark scout whose forked tail gathers bright static from the sandstone air.",
             "encounterHint": "Follow the bright sandstone trail into Amber Ridge grass.",
             "strong": ["Water", "Air", "Mire"],
             "weak": ["Stone", "Sand"],
@@ -12604,9 +12643,9 @@
       "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
       "examples": [
         {
-          "intent": "A lightning-fast rabbit that stores the ridge’s dry-air crackle in its tail.",
+          "intent": "A quick fox-like spark scout whose forked tail gathers bright static from the sandstone air.",
           "usage": "Reference mossvale/voltkit in the existing format at dist/maps/registries.json.",
-          "expected": "A lightning-fast rabbit that stores the ridge’s dry-air crackle in its tail."
+          "expected": "A quick fox-like spark scout whose forked tail gathers bright static from the sandstone air."
         }
       ],
       "references": ["dist/maps/registries.json"],
@@ -12617,7 +12656,7 @@
         }
       ],
       "details": {
-        "appearance": "A lightning-fast rabbit that stores the ridge’s dry-air crackle in its tail. Portrait reference: creature-voltkit.",
+        "appearance": "A quick fox-like spark scout whose forked tail gathers bright static from the sandstone air. Portrait reference: creature-voltkit.",
         "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
         "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
         "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
@@ -19981,7 +20020,7 @@
       "id": "visual:creature-voltkit",
       "kind": "visual",
       "name": "creature-voltkit",
-      "summary": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+      "summary": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
       "status": "available",
       "scope": "core",
       "configuration": [
@@ -20007,9 +20046,9 @@
       ],
       "examples": [
         {
-          "intent": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+          "intent": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
           "usage": "Reference creature-voltkit in the existing format at dist/src/data/assets.js.",
-          "expected": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal."
+          "expected": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals."
         }
       ],
       "references": ["dist/src/data/assets.js"],
@@ -20020,7 +20059,7 @@
         }
       ],
       "details": {
-        "appearance": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+        "appearance": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
         "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "366 by 395 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
@@ -20030,7 +20069,7 @@
       "previews": [
         {
           "path": "dist/assets/creatures/creature-voltkit.png",
-          "description": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal."
+          "description": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals."
         }
       ]
     },
@@ -20038,7 +20077,7 @@
       "id": "visual:creature-voltkit-combat",
       "kind": "visual",
       "name": "creature-voltkit-combat",
-      "summary": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+      "summary": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
       "status": "available",
       "scope": "core",
       "configuration": [
@@ -20076,9 +20115,9 @@
       ],
       "examples": [
         {
-          "intent": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+          "intent": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
           "usage": "Reference creature-voltkit-combat in the existing format at dist/src/data/assets.js.",
-          "expected": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal."
+          "expected": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals."
         }
       ],
       "references": ["dist/src/data/assets.js"],
@@ -20089,7 +20128,7 @@
         }
       ],
       "details": {
-        "appearance": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+        "appearance": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
         "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
@@ -20099,7 +20138,7 @@
       "previews": [
         {
           "path": "dist/assets/creatures/creature-voltkit-combat.png",
-          "description": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal."
+          "description": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals."
         }
       ]
     },
@@ -20107,7 +20146,7 @@
       "id": "visual:creature-voltkit-follower",
       "kind": "visual",
       "name": "creature-voltkit-follower",
-      "summary": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+      "summary": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
       "status": "available",
       "scope": "core",
       "configuration": [
@@ -20127,7 +20166,7 @@
               "rows": 8,
               "frameWidth": 200,
               "frameHeight": 200,
-              "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
               "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }
@@ -20142,9 +20181,9 @@
       ],
       "examples": [
         {
-          "intent": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+          "intent": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
           "usage": "Reference creature-voltkit-follower in the existing format at dist/src/data/assets.js.",
-          "expected": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal."
+          "expected": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals."
         }
       ],
       "references": ["dist/src/data/assets.js"],
@@ -20155,7 +20194,7 @@
         }
       ],
       "details": {
-        "appearance": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+        "appearance": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
         "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
         "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
         "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
@@ -20165,7 +20204,7 @@
       "previews": [
         {
           "path": "dist/assets/creatures/creature-voltkit-follower.png",
-          "description": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal."
+          "description": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals."
         }
       ]
     },

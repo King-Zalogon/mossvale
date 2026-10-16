@@ -115,7 +115,8 @@ test('all ten hidden landmark objects match their discovery and keep authored id
     assert.equal(landmark.label, expected.label, `${expected.id} names the object action`);
     assert.equal(landmark.mapLabel, expected.mapLabel, `${expected.id} keeps its stable map label`);
     assert.deepEqual(landmark.at, expected.at, `${expected.id} keeps its coordinates`);
-    assert.equal(landmark.text, expected.text, `${expected.id} keeps its clue text`);
+    const defaultText = landmark.text ?? landmark.lines?.find(line => !line.when)?.text;
+    assert.equal(defaultText, expected.text, `${expected.id} keeps its default clue text`);
   }
 });
 
