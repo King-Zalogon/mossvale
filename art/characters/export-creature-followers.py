@@ -42,9 +42,11 @@ SPECS = {
         "rowOrder": ["north", "northeast", "east", "west", "south", "northwest", "southeast", "southwest"],
     },
     "voltkit": {
-        "source": "art/characters/source/creature-voltkit-follower-generated.png",
+        "source": "concept_art/voltkit-redesign-candidates/follower-atlas.png",
         "target": "dist/assets/creatures/creature-voltkit-follower.png",
-        "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
+        "sourceRows": [0, 1, 2, 1, 3, 4, 7, 6],
+        "mirrorRows": [3],
+        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
     },
     "mushmallow": {
         "source": "art/characters/source/creature-mushmallow-follower-generated.png",
@@ -166,8 +168,8 @@ def build(source_path, frame_size, content_size, foot_y, alpha_threshold, minimu
     columns, rows = 5, 8
     xs, ys = bounds(source.width, columns), generated_row_bounds(source, spec.get("rowAlphaThreshold", alpha_threshold), rows)
     source_rows = spec.get("sourceRows", list(range(rows)))
-    if len(source_rows) != rows or sorted(source_rows) != list(range(rows)):
-        raise ValueError(f"{source_path}: sourceRows must map each source row exactly once")
+    if len(source_rows) != rows or any(not isinstance(source_row, int) or not 0 <= source_row < rows for source_row in source_rows):
+        raise ValueError(f"{source_path}: sourceRows must select a valid source row for every runtime direction")
     mirror_rows = set(spec.get("mirrorRows", []))
     sheet = Image.new("RGBA", (columns * frame_size, rows * frame_size), (0, 0, 0, 0))
     footprints = []

@@ -3,12 +3,12 @@
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
     "art/assets/metadata.json": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b",
-    "art/assets/subjects.json": "11249527855a79e4b7f4cf31d23dbc2c739b0a4729df6d24f30117b5627daffb",
+    "art/assets/subjects.json": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9",
     "art/assets/third-party/registry.json": "bf7c23567dc256101820975f56deb9b2fa56b1a73c6a695ed5eed6c2b403791b",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-    "art/characters/creature-combat-metadata.json": "b230e955640dfa308ea25f6b337dfa814f2d8ac71732cec13dfed15f5aa53dee",
-    "art/characters/creature-follower-metadata.json": "18da1223d211b9ca13128e15ba19a6496d7c8d7e09486bce07f22242bbf90e20",
+    "art/characters/creature-combat-metadata.json": "3e00f364867c3b2b1a437482ef22c9fbf10b6ed4c35fd38615dd900bb0ed702c",
+    "art/characters/creature-follower-metadata.json": "fd18dd7d81bcc0ee5eadfafee30b01f08526b9c4decdb25cfd437466f151eddb",
     "art/characters/export-profiles.json": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05",
     "art/characters/guardian-generation.json": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61",
     "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
@@ -26,7 +26,7 @@
     "art/characters/source/rumblet/generation.json": "8b0c4314672f71764c2a1913e4e556eceb4615c38b47af193ff49bb55d72e3d6",
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
-    "art/characters/visual-reviews.json": "233e200c84d99859051b527ab555b01971d3c6a3beef8b8c1665c2d4a309f0b2",
+    "art/characters/visual-reviews.json": "dbc8c64156a25bd17d944acab9d0f52df1075c783c7477e88caa4757ce883576",
     "content/catalogue/curated.json": "679801cd1657cf73c647c681b1a2b58c4b66fa7e7bf8f2d060fc8156b466a946",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
@@ -97,9 +97,9 @@
     "dist/assets/creatures/creature-sunskitter-combat.png": "d569837fdb1d38891618325feda32a2aff8a171778d1874d09cfb5a39e1d6e0a",
     "dist/assets/creatures/creature-sunskitter-follower.png": "39e8938acd0f663cb0b6c4862f99b78200347f2ce0238bdd0dad36eca34b6fa7",
     "dist/assets/creatures/creature-sunskitter.png": "7624554e2e1da7c543c2b8c8874ea9bbc4656847f4300c0e27a3d6aea1711148",
-    "dist/assets/creatures/creature-voltkit-combat.png": "b99db86c5380bf4be12e07768e1ead76b868c11c8f983f7fed22f29ba01eb006",
-    "dist/assets/creatures/creature-voltkit-follower.png": "ce9ca12721e87fe13b6d8b527f589f1acb18328f9ed2de99f619b37a037711d6",
-    "dist/assets/creatures/creature-voltkit.png": "04d97b8c53aa99d027d072abef780ecb20be01799b292333a1f547683c11eddc",
+    "dist/assets/creatures/creature-voltkit-combat.png": "6edda07fa63a6d3c9bb005db25aacc1de8b90350f8e8d8366f461c49ce349830",
+    "dist/assets/creatures/creature-voltkit-follower.png": "3a379ded2e1f9a58dfac407de7d5f04940e69ed475772c666c1c566792e72855",
+    "dist/assets/creatures/creature-voltkit.png": "ad30737b085e315aafd0aa99c35a327b7e6991c576900b5b1fdf263a9fb51161",
     "dist/assets/creatures/creature-wispurr-combat.png": "c1165d9c812e74a27ba66a27936775de59a9608fe1a6e426c322f1f6aa99c47b",
     "dist/assets/creatures/creature-wispurr-follower.png": "f99c5982aa77ffa146cd41f22c1ab2b50c8de9bb2ef668f1ca357f1956de7b0a",
     "dist/assets/creatures/creature-wispurr.png": "8b8adada01c1799cce1c06f24679849a411dc8a417aac04525333695045a4a85",
@@ -184,13 +184,13 @@
     "dist/maps/brackenwake-commons.json": "d7db2f177ab5c121b7b9b46ec88c76c1678ee9b4865e1533a3c5877b28da6091",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
     "dist/maps/frostveil-pass.json": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a",
-    "dist/maps/index.json": "219057205dd1f821b91bd91a4f6c54776e9ef6075258fae41cc698f467c8d53a",
+    "dist/maps/index.json": "8be58efcd2a9d938f4dd9ff7d01e72f888971de4030887bd7eff5f6af11c9329",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
-    "dist/maps/meadow.json": "aa79da5414cb2d5967d9a4b28405489a9bef4bd261791f23d5db4f4d7b60d483",
+    "dist/maps/meadow.json": "27ce7a906e48ba41e354554686f656cb0da3140ffb3a36e3c0552cabceed6f88",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "0887d7d05bb0777ad3988d373e2506d89795bfe96ee92573949dc2ddce035602",
-    "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
-    "dist/maps/registries.json": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc",
+    "dist/maps/orchard-ruins.json": "b87334a0d0a5df9a9615165ec49b09cf345cffde890ca616713926c60502a03d",
+    "dist/maps/reedfen-wetlands.json": "c690c22ae2b3c2472f40965a17ef8193cb9b6231cb5f3f23bd2044c0f12c0c06",
+    "dist/maps/registries.json": "a9bbe9d97ecd693502676e01b09bdf5fe95edf472480932a4d8940936fe5a189",
     "dist/maps/stilt-isles.json": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c",
     "dist/maps/stone-basin.json": "9f12aa73b720f3ae4df848aeb98cda365cccafe3ddc1a71ef6a83a393fd1bb1a",
     "dist/maps/story.json": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927",
@@ -205,11 +205,11 @@
     "dist/src/character-preview.js": "00058680f6a8971cc2cb974bf0c7d450b34a7d39ad1c28b5c37285a712973c54",
     "dist/src/compatibility.js": "9a2e84dc19b972487886f3eb108ceeee284eedf590849c27385ad061c30c4907",
     "dist/src/config.js": "8c60c45a799c27fdddd30c02f08ca85c903900668f8b8a0d143b7445ecb8fff4",
-    "dist/src/controller.js": "653ba85ba02e8b88b0d3974e532fb0c705ca751433e71713ebc4653b18aa7115",
+    "dist/src/controller.js": "a541831c79ba52374234e4eb3b0a47eddd5b2fec8cc78ac1a1d5edb36af506c8",
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
-    "dist/src/data/assets.js": "b4430315068e74bc472e1ee767f6d32922bc6cd62a3b8ea0513dd4bc42a1d243",
+    "dist/src/data/assets.js": "0fa23d5e07a51af647f2e2996c6e080f5aa762887bfdfcf5f562f420c3ae0489",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "d76691961865a95bc015f483e26c84ee55da9b66bc46d6478fc3a55b419ae3bc",
@@ -221,11 +221,12 @@
     "dist/src/data/tactics.js": "0ba459b0a97b7d3da40521b444254013c9ad21635b9f21911607d7315e2f07ea",
     "dist/src/domain/adventure.js": "98006ce485d9b4affee896abc287ffdbf456569a683ba31b1d4f04ca66895e05",
     "dist/src/domain/atlas.js": "798ea44c3fe3a28cb6b80266759910255edb1c5733843a707328e1f7ae94946f",
-    "dist/src/domain/battle.js": "dcb6b281716f5a2276fba100c8c292804a41cb711fbf99c04b3f2126ad18d29e",
+    "dist/src/domain/battle.js": "8a077b45b6f63c9b9696267c2fa4d561c6c6e6388efc8918dadee998d93027d0",
     "dist/src/domain/clock.js": "91e9a8d65543697ed7862ee28c450b04bd1cf56d534308acc3bedbebff7108d5",
     "dist/src/domain/combat-trace.js": "4c564af90c00892f81cb14da767ff14496106d53555843a567685a4595bfe32a",
     "dist/src/domain/companion-routes.js": "52d696611bb306ebe8b1a793f83a60dc4aab2c7c701141629d40e05816ef2bbc",
     "dist/src/domain/composition.js": "399d0e98563987f525505699880893fa92b61de353fe2b68e7f4dd9684a7a2ef",
+    "dist/src/domain/creature-behavior.js": "8d0594276b0bd1c756a95c580b21dfe671f3a0a86578de98ae9e29ad04021498",
     "dist/src/domain/dialogue-choices.js": "b7f71fced5776da813ca03f6ece00c86ca3c5dcb83d9aadeeb453b9c7fd5f85f",
     "dist/src/domain/discovery.js": "7ed7529f48e871772326f6fa4f6fdc0200a31e7528cde01e8c649023efa20055",
     "dist/src/domain/economy.js": "a95324abb3eb067fb2d665e93389f14f15f12dcd7979244022e132d60c4ad0cd",
@@ -233,7 +234,7 @@
     "dist/src/domain/exploration.js": "9fe89b19490390bb129ed0a887ae30c8f0dadfbe787d3149843b501069af71e3",
     "dist/src/domain/hints.js": "871e9ed9e0d7b164fab021e33e0cac3c2c95039cc4b8a37e57e05491acce6ff3",
     "dist/src/domain/inventory.js": "198e9b236379a419e9b316205dd458d83fa8fc5e9c799d73818efb14daeefbc8",
-    "dist/src/domain/mapdata.js": "0750bcccfa652c757deac44117b6c9bfb27d8bace55e35f0b028f955faaa7bf0",
+    "dist/src/domain/mapdata.js": "606346fe22432bfd71f582ea4954bf3be6ebe08a74075ea2750d44d369240d27",
     "dist/src/domain/objective-events.js": "7ea11e81899424623e230c55ddc90c42c77c9df88532b91832cf39d23991128e",
     "dist/src/domain/objectives.js": "018c57546e01df3aa7eacbde7b58f182f8f109fe2ebf93b14f3552852ebd21fe",
     "dist/src/domain/pack.js": "339441c5867c7dc709e098292c9f70622cb3ac6051cccf507a71550466721193",
@@ -258,7 +259,7 @@
     "dist/src/render/sprites.js": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
     "dist/src/render/world.js": "fead8f02e562231b64eb857a373fe5038d87780bde1475e17611f5d0303cdb01",
-    "dist/src/save.js": "946a4de156f2a858e7bf016dd7c11e98c6abc2e2b9c58c4a53ec7be1ee23b092",
+    "dist/src/save.js": "0b89a2ac695a25b57f1cd1aced3381f5ae6b8420c9fef7e339967ccf1d60a0ab",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
     "dist/src/services/audio.js": "84659f7c324bd09a6df2c0a287b8b62a1e97e7eade2c3d48e0f707631e49c717",
@@ -313,7 +314,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "6d007bdb542716786c4c783d218eec13b32337438cad47df35a99e2987144537",
+  "sourceDigest": "4814151212805d06407adddb086b77ed88503502292384968b470a21cabae0d7",
   "exclusions": [
     {
       "family": "module-exports",
@@ -7095,12 +7096,22 @@
             "pool": [
               {
                 "species": "fernling",
-                "behavior": "wary"
+                "behavior": "wary",
+                "field": {
+                  "duration": 2.5,
+                  "radius": 3,
+                  "recovery": "retreat-and-retry"
+                }
               },
               "emberkin",
               {
                 "species": "bramblebuck",
-                "behavior": "territorial"
+                "behavior": "territorial",
+                "field": {
+                  "duration": 3,
+                  "radius": 2,
+                  "recovery": "return-to-patch"
+                }
               },
               "duskwing"
             ],
@@ -7869,7 +7880,12 @@
               "emberkin",
               {
                 "species": "bramblebuck",
-                "behavior": "territorial"
+                "behavior": "territorial",
+                "field": {
+                  "duration": 3,
+                  "radius": 2,
+                  "recovery": "return-to-patch"
+                }
               },
               "duskwing"
             ],
@@ -7892,7 +7908,12 @@
               {
                 "species": "fernling",
                 "weight": 2,
-                "behavior": "wary"
+                "behavior": "wary",
+                "field": {
+                  "duration": 2.5,
+                  "radius": 3,
+                  "recovery": "retreat-and-retry"
+                }
               },
               {
                 "species": "duskwing",
@@ -8934,7 +8955,12 @@
               {
                 "species": "brooklet",
                 "weight": 5,
-                "behavior": "curious"
+                "behavior": "curious",
+                "field": {
+                  "duration": 1.5,
+                  "radius": 4,
+                  "recovery": "circle-and-retry"
+                }
               },
               {
                 "species": "mushmallow",
@@ -8960,7 +8986,12 @@
               {
                 "species": "brooklet",
                 "weight": 3,
-                "behavior": "curious"
+                "behavior": "curious",
+                "field": {
+                  "duration": 1.5,
+                  "radius": 4,
+                  "recovery": "circle-and-retry"
+                }
               },
               {
                 "species": "mushmallow",
@@ -11333,12 +11364,12 @@
           {
             "id": "registry:main",
             "path": "registries.json",
-            "sha256": "cb0b9512d29aa1c46a219685e8f8895254af70bca83e8523bbdd6847be0241dc"
+            "sha256": "a9bbe9d97ecd693502676e01b09bdf5fe95edf472480932a4d8940936fe5a189"
           },
           {
             "id": "map:meadow",
             "path": "meadow.json",
-            "sha256": "aa79da5414cb2d5967d9a4b28405489a9bef4bd261791f23d5db4f4d7b60d483"
+            "sha256": "27ce7a906e48ba41e354554686f656cb0da3140ffb3a36e3c0552cabceed6f88"
           },
           {
             "id": "map:amber-ridge",
@@ -11358,12 +11389,12 @@
           {
             "id": "map:reedfen-wetlands",
             "path": "reedfen-wetlands.json",
-            "sha256": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f"
+            "sha256": "c690c22ae2b3c2472f40965a17ef8193cb9b6231cb5f3f23bd2044c0f12c0c06"
           },
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "0887d7d05bb0777ad3988d373e2506d89795bfe96ee92573949dc2ddce035602"
+            "sha256": "b87334a0d0a5df9a9615165ec49b09cf345cffde890ca616713926c60502a03d"
           },
           {
             "id": "map:stilt-isles",
@@ -14165,7 +14196,7 @@
       "family": "species",
       "runtimeId": "mossvale/voltkit",
       "name": "Voltkit",
-      "description": "A lightning-fast rabbit that stores the ridge’s dry-air crackle in its tail.",
+      "description": "A quick fox-like spark scout whose forked tail gathers bright static from the sandstone air.",
       "source": "dist/maps/registries.json",
       "evidence": "tests/registries.test.mjs",
       "raw": {
@@ -14181,7 +14212,7 @@
         "biome": "badlands",
         "role": "Glass-cannon sprinter",
         "personality": "Restless and playful; it can never resist chasing a flicker of light.",
-        "desc": "A lightning-fast rabbit that stores the ridge’s dry-air crackle in its tail.",
+        "desc": "A quick fox-like spark scout whose forked tail gathers bright static from the sandstone air.",
         "encounterHint": "Follow the bright sandstone trail into Amber Ridge grass.",
         "strong": ["Water", "Air", "Mire"],
         "weak": ["Stone", "Sand"],
@@ -18969,7 +19000,7 @@
       "family": "visual",
       "runtimeId": "creature-voltkit",
       "name": "creature-voltkit",
-      "description": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+      "description": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
       "source": "dist/src/data/assets.js",
       "evidence": "tests/assets.test.mjs",
       "raw": {
@@ -18988,9 +19019,14 @@
       "preview": "dist/assets/creatures/creature-voltkit.png",
       "animationMetadata": null,
       "identity": {
-        "silhouette": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
-        "palette": ["golden yellow", "warm cream", "dark brown", "electric blue"],
-        "distinguishingFeatures": ["asymmetrical long ears", "blue cheek mark", "crystal-tipped lightning tail", "dark paws"]
+        "silhouette": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
+        "palette": ["warm orange", "deep brown", "warm cream", "electric gold"],
+        "distinguishingFeatures": [
+          "large pointed ears with dark outer fur",
+          "zigzag gold flank marking",
+          "forked raised tail with two glowing crystal tips",
+          "bright gold paws"
+        ]
       },
       "review": [],
       "characterMetadata": null,
@@ -19006,7 +19042,7 @@
       "family": "visual",
       "runtimeId": "creature-voltkit-combat",
       "name": "creature-voltkit-combat",
-      "description": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+      "description": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
       "source": "dist/src/data/assets.js",
       "evidence": "tests/assets.test.mjs",
       "raw": {
@@ -19044,15 +19080,20 @@
         "anchor": "bottom-center"
       },
       "identity": {
-        "silhouette": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
-        "palette": ["golden yellow", "warm cream", "dark brown", "electric blue"],
-        "distinguishingFeatures": ["asymmetrical long ears", "blue cheek mark", "crystal-tipped lightning tail", "dark paws"]
+        "silhouette": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
+        "palette": ["warm orange", "deep brown", "warm cream", "electric gold"],
+        "distinguishingFeatures": [
+          "large pointed ears with dark outer fur",
+          "zigzag gold flank marking",
+          "forked raised tail with two glowing crystal tips",
+          "bright gold paws"
+        ]
       },
       "review": [
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px battle width, Voltkit keeps its gold/cream body, long ears, blue cheek mark and crystal tail across all five states. At 37 px, the eight-direction follower remains recognizable with aligned feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "Owner-provided redesign is now the canonical Voltkit look: orange fox-like scout, cream chest, dark legs, lightning flank mark and forked gold-crystal tail. Contact sheets were inspected at gameplay scale; combat states remain distinct. The supplied follower atlas lacks a distinct southeast pose, so its northeast source row is mirrored for that direction. Owner review requested this redesign; gameplay acceptance remains pending.",
           "ownerTaste": "pending"
         }
       ],
@@ -19069,7 +19110,7 @@
       "family": "visual",
       "runtimeId": "creature-voltkit-follower",
       "name": "creature-voltkit-follower",
-      "description": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
+      "description": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
       "source": "dist/src/data/assets.js",
       "evidence": "tests/assets.test.mjs",
       "raw": {
@@ -19085,7 +19126,7 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
@@ -19105,9 +19146,14 @@
         "feetY": 196
       },
       "identity": {
-        "silhouette": "Small golden electric fox with tall asymmetrical ears, a cream chest ruff, short legs and a zigzag tail tipped with blue crystal.",
-        "palette": ["golden yellow", "warm cream", "dark brown", "electric blue"],
-        "distinguishingFeatures": ["asymmetrical long ears", "blue cheek mark", "crystal-tipped lightning tail", "dark paws"]
+        "silhouette": "Small, agile orange fox-like electric scout with a cream chest, dark lower legs, lightning marks along its flank and a raised forked tail tipped with glowing gold crystals.",
+        "palette": ["warm orange", "deep brown", "warm cream", "electric gold"],
+        "distinguishingFeatures": [
+          "large pointed ears with dark outer fur",
+          "zigzag gold flank marking",
+          "forked raised tail with two glowing crystal tips",
+          "bright gold paws"
+        ]
       },
       "review": [],
       "characterMetadata": null,

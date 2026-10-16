@@ -3,6 +3,7 @@
    In memory the game keeps species/region *indexes*; on disk it stores stable string IDs. */
 import {CAPS} from './data/economy.js';
 import {TACTICS} from './data/tactics.js';
+import {fieldBehavior} from './domain/creature-behavior.js';
 import {decodeEntry, encodeEntry} from './domain/discovery.js';
 import {inventoryToSupplies, suppliesToInventory, validateInventoryRules} from './domain/inventory.js';
 import {FOCUS_MAX, FOCUS_START, MAX_XP, OBJECTIVE_MAX_TURNS, OBJECTIVE_REWARD_CAP, PARTY_SIZE, XP_PER_LEVEL} from './config.js';
@@ -393,6 +394,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
       focus: intIn(b.focus, 0, FOCUS_MAX) ? b.focus : FOCUS_START,
       tactic,
       behavior,
+      field: b.boss === true ? null : !b.field ? fieldBehavior(behavior) : fieldBehavior(behavior, b.field),
       power: b.boss === true && typeof b.power === 'number' && b.power >= 0.5 && b.power <= 3 ? b.power : 1,
       counterplay: Array.isArray(b.counterplay) ? [...new Set(b.counterplay.filter(id => knownResponses.has(id)))] : [],
       condition:

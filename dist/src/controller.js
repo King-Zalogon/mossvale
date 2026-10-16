@@ -19,6 +19,7 @@ import {
   resolveTurn,
   rollWild,
 } from './domain/battle.js';
+import {fieldObservation} from './domain/creature-behavior.js';
 import {transition} from './domain/phase.js';
 import {createTimeline} from './services/timeline.js';
 import {buildWorld, isWalkable, nearestInteractive, triggersAt, zoneAt} from './domain/world.js';
@@ -773,13 +774,13 @@ export function createController(app) {
     });
     refresh();
     sfx(spec.boss ? 'guardian' : 'encounter');
+    const field = game.battle.field;
+    const observation = field ? fieldObservation(field) : null;
     const behaviorText = spec.boss
       ? ''
-      : spec.behavior === 'wary'
-        ? ' It keeps its distance and watches for an opening.'
-        : spec.behavior === 'territorial'
-          ? ' It guards its ground and is preparing a heavy charge.'
-          : ' It approaches with bright, curious eyes.';
+      : observation
+        ? ` ${observation.cue} The opening lasts ${observation.duration}s within ${observation.radius} tiles; if you disengage, it will ${observation.recovery.replaceAll('-', ' ')}.`
+        : '';
     renderBattle(
       `${spec.boss ? 'The shrine guardian' : 'A wild ' + species[game.battle.id].name} appeared!${behaviorText} ${spec.boss && TACTICS[spec.tactic] ? TACTICS[spec.tactic].intro : 'Choose your next move.'}${spec.boss ? '' : tip('first-battle')}${healthyParty(save()).length > 1 ? tip('can-switch') : ''}`,
     );

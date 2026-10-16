@@ -45,6 +45,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `domain/combat-trace.js` | domain | `COMBAT_TRACE_SCHEMA`, `COMBAT_TRACE_VERSION`, `createCombatTrace` |
 | `domain/companion-routes.js` | domain | `approachedWithinRadius`, `availableCompanionRoutes`, `companionCanUseRoute`, `companionRouteDiscovered`, `companionRouteEventId`, `companionRouteVisible`, `validateCompanionRoutes` |
 | `domain/composition.js` | domain | `compileComposition`, `createCompositionArtBrief`, `validateBodyPlan` |
+| `domain/creature-behavior.js` | domain | `FIELD_BEHAVIORS`, `fieldBehavior`, `fieldObservation` |
 | `domain/dialogue-choices.js` | domain | `availableDialogueChoices`, `selectDialogueChoice`, `validateDialogueChoices` |
 | `domain/discovery.js` | domain | `CELL`, `MAX_SEEN`, `SECRET_RANGE`, `VISION`, `cellGrid`, `compass`, `decodeEntry`, `discover`, `discoveryNotice`, `encodeEntry`, `entryFor`, `exploredShare`, `isKnown`, `isRevealed`, `landmarkLabel`, `reveal`, `toHex` |
 | `domain/economy.js` | domain | `buy`, `canBuy`, `claimChest`, `grant`, `restAtCamp` |
