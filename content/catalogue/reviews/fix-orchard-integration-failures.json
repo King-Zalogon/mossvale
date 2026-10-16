@@ -1,0 +1,21 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/maps/orchard-ruins.json",
+        "dist/maps/index.json",
+        "tests/landmarks.test.mjs",
+        "tests/orchard-clues.browser.mjs",
+        "docs/AGENT_HANDOFFS.md",
+        "content/catalogue/facts.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/reviews/fix-orchard-integration-failures.json"
+      ],
+      "entries": ["mechanic:staged-objectives"],
+      "disposition": "no-semantic-impact",
+      "reason": "Whitespace-only Prettier formatting of orchard-ruins.json (the parsed data is identical) and the pack manifest hash/refresh that follows from the changed bytes. No map, flag, event, reward or save behavior changes; the generated catalogue only records the new source hash.",
+      "evidence": ["tests/maps.test.mjs", "tests/pack-integrity.test.mjs"]
+    }
+  ]
+}

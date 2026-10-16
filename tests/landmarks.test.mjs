@@ -115,7 +115,9 @@ test('all ten hidden landmark objects match their discovery and keep authored id
     assert.equal(landmark.label, expected.label, `${expected.id} names the object action`);
     assert.equal(landmark.mapLabel, expected.mapLabel, `${expected.id} keeps its stable map label`);
     assert.deepEqual(landmark.at, expected.at, `${expected.id} keeps its coordinates`);
-    assert.equal(landmark.text, expected.text, `${expected.id} keeps its clue text`);
+    // A clue may carry conditional lines; the unconditional fallback line is its base clue text.
+    const baseText = landmark.text ?? landmark.lines?.findLast(line => !line.when)?.text;
+    assert.equal(baseText, expected.text, `${expected.id} keeps its clue text`);
   }
 });
 
