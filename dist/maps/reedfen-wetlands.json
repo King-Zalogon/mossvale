@@ -624,7 +624,8 @@
         {
           "species": "brooklet",
           "weight": 5,
-          "behavior": "curious"
+          "behavior": "curious",
+          "field": {"duration": 1.5, "radius": 4, "recovery": "circle-and-retry"}
         },
         {
           "species": "mushmallow",
@@ -650,7 +651,8 @@
         {
           "species": "brooklet",
           "weight": 3,
-          "behavior": "curious"
+          "behavior": "curious",
+          "field": {"duration": 1.5, "radius": 4, "recovery": "circle-and-retry"}
         },
         {
           "species": "mushmallow",

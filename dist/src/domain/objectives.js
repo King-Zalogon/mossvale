@@ -1,12 +1,14 @@
 /* Goals and short NPC lines as data (dist/maps/objectives.json). Deliberately tiny: a chain of objectives, each
    finished by one condition, plus optional lines picked by condition. No branching, no scripting.
-   Conditions: {flag}, {event}, {met}, {caught: N | "all"}, {seen: N | "all"}, {visited: mapId}, {all: [...]}, {any: [...]}, {not: cond}. */
+   Conditions: {flag}, {event}, {met}, {caught: N | "all"}, {seen: N | "all"}, {visited: mapId}, {active: speciesId}, {party: speciesId},
+   {all: [...]}, {any: [...]}, {not: cond}. */
 import {flagDone} from './rules.js';
 
 export const OBJECTIVES_FORMAT = 1;
 const FLAG = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/;
 
-/** Does `save` satisfy the condition? `ctx` = {speciesCount, regions}. Unknown conditions are false. */
+/** Does `save` satisfy the condition? `ctx` = {speciesCount, regions, speciesIds?}. Unknown conditions are false;
+    `active` / `party` need `ctx.speciesIds` (species IDs in save-index order) and are false without it. */
 export function holds(cond, save, ctx) {
   if (!cond || typeof cond !== 'object') return true; // no condition means "always"
   if ('flag' in cond) return flagDone(save, cond.flag);
@@ -18,6 +20,8 @@ export function holds(cond, save, ctx) {
     const region = ctx.regions.findIndex(r => r.id === cond.visited);
     return save.visitedMaps?.includes(cond.visited) === true || (region >= 0 && save.visited.includes(region));
   }
+  if ('active' in cond) return typeof cond.active === 'string' && ctx.speciesIds?.[save.active] === cond.active;
+  if ('party' in cond) return typeof cond.party === 'string' && (save.party ?? []).some(index => ctx.speciesIds?.[index] === cond.party);
   if ('all' in cond) return cond.all.every(c => holds(c, save, ctx));
   if ('any' in cond) return cond.any.some(c => holds(c, save, ctx));
   if ('not' in cond) return !holds(cond.not, save, ctx);
@@ -48,7 +52,7 @@ export function pickLine(lines, save, ctx) {
 }
 
 /** Structural checks on the objectives file. Returns readable errors. */
-export function validateObjectives(data, {mapIds}) {
+export function validateObjectives(data, {mapIds, speciesIds}) {
   const errors = [];
   const at = (where, msg) => errors.push(`objectives: ${where}: ${msg}`);
   if (!data || data.format !== OBJECTIVES_FORMAT || !Array.isArray(data.objectives) || !data.objectives.length)
@@ -76,6 +80,9 @@ export function validateObjectives(data, {mapIds}) {
       if (!(c[k] === 'all' || (Number.isInteger(c[k]) && c[k] >= 0))) at(where, `${k} must be a count or "all"`);
     } else if (k === 'visited') {
       if (!mapIds.has(c.visited)) at(where, `visited names unknown map "${c.visited}"`);
+    } else if (k === 'active' || k === 'party') {
+      if (typeof c[k] !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(c[k])) at(where, `${k} must be a stable species id`);
+      else if (speciesIds && !speciesIds.has(c[k])) at(where, `${k} names unknown species "${c[k]}"`);
     } else if (k === 'all' || k === 'any') {
       if (!Array.isArray(c[k]) || !c[k].length) at(where, `${k} must be a non-empty list`);
       else c[k].forEach((x, i) => checkCond(`${where}.${k}[${i}]`, x));
@@ -100,14 +107,14 @@ export function validateObjectives(data, {mapIds}) {
 }
 
 /** Validates the `when` conditions of NPC/sign lines found in maps. */
-export function validateLines(lines, where, {mapIds}) {
+export function validateLines(lines, where, {mapIds, speciesIds}) {
   const errors = [];
   (lines ?? []).forEach((l, i) => {
     if (typeof l?.text !== 'string') errors.push(`${where}.lines[${i}].text: required text`);
     errors.push(
       ...validateObjectives(
         {format: OBJECTIVES_FORMAT, objectives: [{id: 'x', step: '', title: '', copy: '', pin: '', lines: [{text: l?.text ?? '', done: l?.when}]}]},
-        {mapIds},
+        {mapIds, speciesIds},
       ).map(e => `${where}.lines[${i}].when: ${e.split(': ').slice(2).join(': ')}`),
     );
   });

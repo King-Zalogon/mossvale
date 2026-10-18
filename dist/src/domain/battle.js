@@ -20,6 +20,7 @@ import {
 import {REWARDS} from '../data/economy.js';
 import {BRACE_FACTOR, GUARDIAN_HP_BONUS, HEAVY_FACTOR, planOf, TACTICS} from '../data/tactics.js';
 import {grant} from './economy.js';
+import {fieldBehavior} from './creature-behavior.js';
 import {claimInventory, inventoryToSupplies, rollDrop, syncInventorySupplies, useInventory} from './inventory.js';
 import {awardXP, companion, effectiveness, elementPower, healTeam, level, maxHP, moveName} from './rules.js';
 
@@ -100,7 +101,8 @@ export function rollWild(save, rng, zone) {
   const id = weightedPick(zone, candidates, rng);
   const level = zone.level[0] + Math.floor(rng() * (zone.level[1] - zone.level[0] + 1));
   const poolIndex = zone.pool.indexOf(id);
-  return {id, level, behavior: zone.behaviors?.[poolIndex] ?? 'curious'};
+  const behavior = zone.behaviors?.[poolIndex] ?? 'curious';
+  return {id, level, behavior, field: fieldBehavior(behavior, zone.fields?.[poolIndex])};
 }
 
 /** How far to walk in `zone` before the next encounter. */
@@ -110,7 +112,7 @@ export function encounterDistance(zone, rng) {
 }
 
 /** Starts an encounter with `{id, level, boss}`. Marks the creature seen. */
-export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1, behavior = 'curious', objective}) {
+export function createBattle(save, rng, {id, level: enemyLevel, boss = false, tactic, power = 1, behavior = 'curious', field, objective}) {
   const hp = species[id].stats.hp + (enemyLevel - BASE_LEVEL) * 4 + (boss ? GUARDIAN_HP_BONUS : 0);
   save.met = true;
   if (!save.seen.includes(id)) save.seen.push(id);
@@ -126,6 +128,7 @@ export function createBattle(save, rng, {id, level: enemyLevel, boss = false, ta
     focus: FOCUS_START,
     tactic: boss ? tactic : behavior === 'territorial' ? 'rolling-charge' : behavior === 'wary' ? 'spore-guard' : undefined,
     behavior,
+    field: boss ? null : fieldBehavior(behavior, field),
     power: boss ? power : 1,
     counterplay: [],
     condition: null,
@@ -503,6 +506,7 @@ export const battleCheckpoint = battle =>
         focus: battle.focus,
         tactic: battle.tactic,
         behavior: battle.behavior,
+        field: battle.field ? {...battle.field} : null,
         power: battle.power,
         counterplay: battle.counterplay ?? [],
         condition: battle.condition ? {...battle.condition} : null,
