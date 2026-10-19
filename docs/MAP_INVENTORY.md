@@ -14,6 +14,8 @@ Issue [#27](https://github.com/King-Zalogon/mossvale/issues/27). A snapshot of t
 | `orchard-ruins` | meadow | 64×56 | 2168 | `meadow`, `amber-ridge` | 2 | 3 | bramblebuck, duskwing, emberkin, fernling |
 | `stilt-isles` | wetland | 72×44 | 985 | `reedfen-wetlands`, `reedfen-wetlands` | 1 | 4 | brooklet, mushmallow, siltkip |
 | `stone-basin` | badlands | 60×50 | 1744 | `amber-ridge`, `amber-ridge` | 2 | 4 | pebblit, sunskitter, voltkit |
+| `rootglass-canopy` | snowy-forest | 60×48 | 1769 | `frostveil-pass`, `rootglass-hollow` (plus Brooklet seep) | 1 | 1 | duskwing, frostowl |
+| `rootglass-hollow` | snowy-forest | 60×48 | 1711 | `rootglass-canopy` | 0 | 2 | pebblit, hushram |
 | `brackenwake-commons` | meadow | 56×44 | 1691 | `meadow` | 0 | 0 | none (settlement) |
 
 ## Route graph
@@ -31,7 +33,7 @@ Issue [#27](https://github.com/King-Zalogon/mossvale/issues/27). A snapshot of t
 | --- | --- | --- |
 | Meadow | A large open trail with a stream, tree belts and a hidden grove corridor, plus a large orchard island with apple rows, ruins and two hidden rows | Hidden grove and cut-through triggers |
 | Badlands | Cliff bands with a narrow cut and a long open trail; a ring path around a chasm | Choose a route; quarry and lookout secrets |
-| Snowy forest | Grove and a pass | Blueglass Pass side route |
+| Snowy forest | Grove and a pass, plus the exposed Rootglass canopy and three short spring chambers below it | Follow a clear ridge loop, hear the glassbark water cue, then choose the ordinary descent or Brooklet’s optional seep |
 | Wetland | River with boardwalk crossings; seven stilt isles | Boardwalk crossings and island hopping |
 
 ## Sprite reuse (name → maps)
@@ -41,7 +43,8 @@ Issue [#27](https://github.com/King-Zalogon/mossvale/issues/27). A snapshot of t
 | `boulder-mossy` | `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `orchard-ruins`, `stone-basin` |
 | `bush-flowering` | `meadow`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles` |
 | `cattail-clump` | `reedfen-wetlands`, `stilt-isles` |
-| `chest-wooden` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `stilt-isles`, `stone-basin` |
+| `chest-pine-frost` | `frostveil-grove`, `frostveil-pass`, `rootglass-canopy`, `rootglass-hollow` |
+| `chest-wooden` | `meadow`, `amber-ridge`, `reedfen-wetlands`, `stilt-isles`, `stone-basin` |
 | `cottage-tiled` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `stilt-isles`, `stone-basin` |
 | `grass-tuft` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles`, `stone-basin` |
 | `person-gardener` | `meadow`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles` |
@@ -51,4 +54,4 @@ Issue [#27](https://github.com/King-Zalogon/mossvale/issues/27). A snapshot of t
 | `signpost-wood` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles`, `stone-basin` |
 | `tree-oak` | `meadow`, `orchard-ruins` |
 | `tree-pine` | `meadow`, `orchard-ruins` |
-| `tree-pine-snow` | `frostveil-grove`, `frostveil-pass` |
+| `tree-pine-snow` | `frostveil-grove`, `frostveil-pass`, `rootglass-canopy` |

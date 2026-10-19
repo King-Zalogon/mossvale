@@ -345,11 +345,14 @@ test('editable atlas crops and individually sourced props exactly match their ru
     }
     assert.ok(sheets.has(source.sheet), `${source.name} source sheet exists`);
     assert.ok(source.provenance.editablePixelSource, source.name);
-    for (const ref of source.provenance.originalGeneratedReferences) {
+    const sourceReferences = source.provenance.originalGeneratedReferences ?? source.provenance.originalAuthoredReferences ?? [];
+    assert.ok(Array.isArray(sourceReferences), `${source.name} source references are explicit`);
+    for (const ref of sourceReferences) {
       let generated;
       try {
         generated = readFileSync(new URL(`../../${ref}`, sourceRoot));
       } catch {
+        assert.ok(source.provenance.originalGeneratedReferences, `${source.name} authored sources must be stored directly`);
         const archived = sourceArchive.sources[ref];
         assert.ok(archived, `${ref} is retained directly or in the generated-source archive`);
         generated = Buffer.concat(archived.parts.map(part => readFileSync(new URL(`../../${part}`, sourceRoot))));

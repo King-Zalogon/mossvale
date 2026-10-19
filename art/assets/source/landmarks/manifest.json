@@ -2,11 +2,11 @@
   "version": 1,
   "generation": {
     "tool": "Codex built-in image_gen",
-    "provider": "unavailable",
-    "modelVersion": "unavailable",
+    "provider": "OpenAI",
+    "modelVersion": "image_gen",
     "seed": "unavailable",
     "generatedOn": "2026-10-05",
-    "notes": "Generated transparent RGBA pixel-art sources; the tool did not expose provider, model version, or seed. Original outputs are retained byte-for-byte."
+    "notes": "Initial sources include generated transparent RGBA pixel-art outputs. Provider, model version and seed were not exposed for the initial batch. The Rootglass Sentinel was regenerated as a transparent pixel-art source; all source files are retained."
   },
   "exportProfile": "prop-landmark-v1",
   "assets": [
@@ -53,10 +53,30 @@
       "promptSummary": "Broad, low natural rock ledge on the basin rim with a flat viewing shelf."
     },
     {
+      "name": "prop-rootglass-hollow",
+      "source": "art/assets/source/landmarks/rootglass-hollow.png",
+      "sourceSha256": "94d4b5fbf1ef84c0a374f7e5d6db646698bffc3bc8127f7e869f79486ef596f8",
+      "promptSummary": "Original hand-authored pixel-art root arch around a dim reflective spring; vector source is the matching rootglass-hollow.svg.",
+      "sourceSvg": "art/assets/source/landmarks/rootglass-hollow.svg",
+      "creationMethod": "hand-authored-vector"
+    },
+    {
+      "name": "prop-rootglass-sentinel",
+      "source": "art/assets/source/landmarks/rootglass-sentinel.png",
+      "sourceSha256": "93e9795d39616be70db8b9849d02f861428195a9d1e988593c92f143d868590b",
+      "promptSummary": "Generated transparent pixel-art ancient canopy sentinel grown around turquoise crystals; detailed bark, layered foliage, rooted silhouette."
+    },
+    {
       "name": "prop-sunstone-lookout",
       "source": "art/assets/source/landmarks/sunstone-lookout.png",
       "sourceSha256": "ec9aeef76604decfc7cf4b75bffcc2b9379779c001a2910b1bde077fdfc61008",
       "promptSummary": "Warm red-amber cliffside shelf shaped for small creatures to bask; not a tall spire or marker."
+    },
+    {
+      "name": "prop-well-ruined",
+      "source": "art/assets/source/landmarks/well-ruined.png",
+      "sourceSha256": "ce2d85c58a959b4a742d04e3998287cea1e857edf5b9ba1ae7797010728693e4",
+      "promptSummary": "Low circular dry stone well with moss, empty opening, and a subtle nonverbal carving; no plaque."
     },
     {
       "name": "tree-oak-hollow",
@@ -67,12 +87,6 @@
         "path": "dist/assets/props/tree-oak.png",
         "sha256": "1b8f8ceff2f31568c7d374e6b21d0015add6e68a89db38160bc5da281520cd14"
       }
-    },
-    {
-      "name": "prop-well-ruined",
-      "source": "art/assets/source/landmarks/well-ruined.png",
-      "sourceSha256": "ce2d85c58a959b4a742d04e3998287cea1e857edf5b9ba1ae7797010728693e4",
-      "promptSummary": "Low circular dry stone well with moss, empty opening, and a subtle nonverbal carving; no plaque."
     }
   ]
 }

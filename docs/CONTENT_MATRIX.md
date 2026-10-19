@@ -53,4 +53,4 @@ After feedback on that pair, repeat the route/challenge pattern with different g
 
 ## Status boundary
 
-The playable adventure has four biomes and eight maps. The large wetland, badlands and snowy-forest pairs ship with safe returns, optional discoveries, local recovery and encounter pacing; the meadow pair remains the smaller opening route. Creature availability uses the twelve stable roster IDs in `dist/maps/registries.json`.
+The playable adventure has four biomes and eleven maps: eight connected route maps, Brackenwake Commons, and the Rootglass Canopy/Hollow side-route pair. The wetland, badlands and snowy-forest maps have safe returns, optional discoveries and encounter pacing; the meadow pair remains the smaller opening route. Creature availability uses the eighteen stable roster IDs in `dist/maps/registries.json`.

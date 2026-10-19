@@ -55,7 +55,7 @@ On touch screens, use the directional pad, Run button, and interaction prompt.
 
 ## Adventure
 
-Explore four biomes across eight maps: Mossvale Meadow, Amber Ridge, Frostveil Grove, and Reedfen Wetlands. Befriend twelve species. Up to three companions form your team and the rest wait in the reserve. Battles include elemental strengths, a Focus resource for the elemental move, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
+Explore four biomes across eleven maps, including the Brackenwake settlement and optional Rootglass canopy-and-cavern route. Befriend eighteen species. Up to three companions form your team and the rest wait in the reserve. Battles include elemental strengths, a Focus resource for the elemental move, capture chances, potions, guarding, and companion switching. Creatures gain experience and levels.
 
 A title screen offers Continue (or Start adventure), Settings, New game and, after a restart, Restore previous adventure. New game keeps your old adventure as a backup; sound, volume, ambient music, motion and zoom preferences persist.
 
@@ -110,6 +110,6 @@ CI (`.github/workflows/ci.yml`) runs `verify` on every push and pull request. It
 
 ## Development roadmap
 
-The first-adventure content target is present: four biomes, eight maps, twelve species, and a short ending after the four shrine seals. Remaining work is the linked integration checks and your play feedback; later packs and presentation extras are optional. See the [personal-ready checklist](docs/READY.md) and [roadmap](https://github.com/King-Zalogon/mossvale/issues/1).
+The first-adventure content target is present: four biomes, eleven maps, eighteen species, and a short ending after the four shrine seals. Remaining work is the linked integration checks and your play feedback; later packs and presentation extras are optional. See the [personal-ready checklist](docs/READY.md) and [roadmap](https://github.com/King-Zalogon/mossvale/issues/1).
 
 See [the detailed plan](docs/FULL_GAME_ROADMAP.md) and [machine-readable backlog](docs/ROADMAP_BACKLOG.json). The superseded larger plan is retained in [the archive](docs/archive/2026-09-30/FULL_GAME_ROADMAP.md).

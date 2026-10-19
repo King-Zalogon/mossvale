@@ -1,0 +1,377 @@
+{
+  "format": 1,
+  "id": "rootglass-hollow",
+  "biome": "snowy-forest",
+  "name": "Rootglass Hollow",
+  "preview": "prop-rootglass-hollow",
+  "size": {
+    "w": 60,
+    "h": 48
+  },
+  "legend": {
+    ".": "void",
+    "g": "ground",
+    "p": "path",
+    "w": "water",
+    "t": "tallgrass"
+  },
+  "terrain": [
+    "............................................................",
+    "............................................................",
+    "............................................................",
+    "......................wwwwwwwwwwwwwwww......................",
+    "...................wwwwwggggggggggggwwwww...................",
+    "................wwwwggggggggggggggppggggwwww................",
+    "..............wwwggggggggggggggppttppggggggwww..............",
+    "............wwwgggggggggggggggppttttgggggggggwww............",
+    "..........wwwggggggggggggggggpppttttgggggggggggwww..........",
+    ".........wwggggggggggggggggggpppgttggggggggggggggww.........",
+    "........wwgggggggggggggggggggpppggggggggggggggggggww........",
+    "......wwwgggggggggggggggggggppppgggggggggggggggggggwww......",
+    ".....wwwggggggggggggggggggggpppgggggggggggggggggggggwww.....",
+    ".....wwgggggggggggggggggggggppppgggggggggggggggggggggww.....",
+    "....wwgggggggggggggggggggppppppppppppgggggggggggggggggww....",
+    "...wwggggggggggwwwwwwgpppppppppppppppppppggggggggggggggww...",
+    "...wggggggggggwwwwwwwpppppppggggppppppppppggggggggggggggw...",
+    "..wwgggggggggwwwwwwwppppppggggggggggwppppppgggggggggggggww..",
+    "..wggggggggggwwwwwwppppgggggggggggggwwwwppppgggggggggggggw..",
+    ".wwgggggggggggwwwwppppgggggggggggggwwwwwwpppppgggggggggggww.",
+    ".wwggggggggggggwwwpppggggggggggggggwwwwwwwwppppggggggggggww.",
+    ".wgggggggggggggggppppggggggggggggggwwwwwwwwgppppggggggggggw.",
+    ".wggggggggggggggppppgggggggggggggggwwwwwwwwggppppgggggggggw.",
+    "wwggggggggggggggpppgggggggggggggggggwwwwwwgggppppgggggggggww",
+    "wwgggggggggggggggpppggggggggggggggggwwwwwwggppppggggggggggww",
+    "wwgggggggggggggggppppggggggggggggggggwwwwgggpppgggggggggggww",
+    "wwggggggggggggggggppppgggggggggggggggggggggpppggggggggggggww",
+    ".wgggggggggggggggggppppgggggggggggggggggggppppggggggggggggw.",
+    ".wggggggggggggggggggpppggggwwwwwwggggggggppppgggggggggggggw.",
+    ".wwggggggggggggggggggppppwwwwwwwwwwgggggppppgggggggggggggww.",
+    ".wwgggggggggggggggggggppppwwwwwwwwwwgggppppgggggggpggggggww.",
+    "..wggggggggggggggggggggppppwwwwwwwwwgpppppgggggggpppgggggw..",
+    "..wwggggggggggggggggggggppppwwwwwwwgpppppgggggggpppgggggww..",
+    "...wgggggggggggggggggggggppppwwwpppppppgggggggttppggggggw...",
+    "...wwgggggggggggggggggggggppppppppppppgggggggttttggggggww...",
+    "....wwgggggggggggggggggggggppppppppppgggggpppttttgggggww....",
+    ".....wwgggggggggggggggggggggppppppppgggpppppppttgggggww.....",
+    ".....wwwggggggggggggggggggggpppppppppppppppppgggggggwww.....",
+    "......wwwgggggggggggggggggggpppggpppppppppgggggggggwww......",
+    "........wwggggggggggggggggggpppgggggpppgggggggggggww........",
+    ".........wwgggggggggggggggggpppggggggggggggggggggww.........",
+    "..........wwwgggggggggggggggpppggggggggggggggggwww..........",
+    "............wwwgggggggggggggpppggggggggggggggwww............",
+    "..............wwwggggggggggggpgggggggggggggwww..............",
+    "................wwwwggggggggggggggggggggwwww................",
+    "...................wwwwwggggggggggggwwwww...................",
+    "......................wwwwwwwwwwwwwwww......................",
+    "............................................................"
+  ],
+  "spawns": {
+    "camp": [
+      29,
+      42
+    ],
+    "canopy-entry": [
+      29,
+      42
+    ],
+    "spring-seep": [
+      49,
+      32
+    ],
+    "canopy-return": [
+      30,
+      7
+    ]
+  },
+  "landmarks": [
+    {
+      "id": "root-arch",
+      "kind": "sign",
+      "sprite": "prop-rootglass-hollow",
+      "at": [
+        30,
+        12.3
+      ],
+      "w": 155,
+      "label": "Inspect the living roots",
+      "mapLabel": "Rootglass spring",
+      "discoveryText": "A spring shines under the living roots; the stream runs back beneath the ridge.",
+      "lines": [
+        {
+          "text": "The glassbark's roots hold the cavern roof in a wide arch. Water returns to the ridge through a seam too narrow to follow without help."
+        }
+      ]
+    },
+    {
+      "id": "echo-pool",
+      "kind": "sign",
+      "sprite": "prop-well-ruined",
+      "at": [
+        17,
+        22
+      ],
+      "w": 57,
+      "label": "Listen at the echo pool",
+      "mapLabel": "Echo pool",
+      "lines": [
+        {
+          "text": "Drops ring against the pool and answer from somewhere above. These chambers are short, but every stream leads back to the great roots."
+        }
+      ]
+    },
+    {
+      "id": "canopy-ascent-clue",
+      "kind": "sign",
+      "sprite": "prop-rootglass-sentinel",
+      "at": [
+        29,
+        39.5
+      ],
+      "w": 58,
+      "label": "Read the root-carved marks",
+      "mapLabel": "Canopy stair",
+      "text": "The roots grow outward toward the upper ridge. Climb the worn stair to return to the canopy."
+    },
+    {
+      "id": "spring-seam-clue",
+      "kind": "sign",
+      "sprite": "prop-icefall-ledge",
+      "at": [
+        47,
+        31.5
+      ],
+      "w": 52,
+      "label": "Follow the spring marks",
+      "mapLabel": "Spring seam",
+      "text": "A narrow stream runs west beneath the roots. It leads back toward the bright canopy."
+    },
+    {
+      "id": "root-chest",
+      "kind": "chest",
+      "sprite": "chest-pine-frost",
+      "at": [
+        48,
+        36
+      ],
+      "w": 45,
+      "solid": 0.45,
+      "label": "Open the root cache",
+      "flag": "rootglass-hollow.chest",
+      "reward": {
+        "coins": 10,
+        "potions": 1,
+        "orbs": 1
+      }
+    }
+  ],
+  "exits": [
+    {
+      "id": "canopy-return",
+      "sprite": "prop-rootglass-hollow",
+      "at": [
+        29,
+        43
+      ],
+      "w": 94,
+      "label": "Climb to Rootglass Canopy",
+      "to": {
+        "map": "rootglass-canopy",
+        "spawn": "hollow-return"
+      }
+    },
+    {
+      "id": "seep-return",
+      "sprite": "prop-icefall-ledge",
+      "at": [
+        48,
+        32
+      ],
+      "w": 68,
+      "label": "Return through the water seam",
+      "to": {
+        "map": "rootglass-canopy",
+        "spawn": "hollow-return"
+      }
+    },
+    {
+      "id": "upper-root-return",
+      "sprite": "prop-icefall-ledge",
+      "at": [
+        35,
+        6
+      ],
+      "w": 65,
+      "label": "Return by the upper root stair",
+      "to": {
+        "map": "rootglass-canopy",
+        "spawn": "hollow-return"
+      }
+    }
+  ],
+  "props": [
+    {
+      "sprite": "tree-oak-hollow",
+      "kind": "scenery",
+      "w": 77,
+      "solid": 0.55,
+      "at": [
+        [
+          12,
+          18
+        ],
+        [
+          49,
+          17
+        ],
+        [
+          20,
+          35
+        ],
+        [
+          42,
+          9
+        ]
+      ]
+    },
+    {
+      "sprite": "prop-hanging-lantern",
+      "kind": "scenery",
+      "w": 48,
+      "solid": 0.3,
+      "at": [
+        [
+          13,
+          14
+        ],
+        [
+          44,
+          13
+        ],
+        [
+          24,
+          34
+        ],
+        [
+          46,
+          30
+        ]
+      ]
+    },
+    {
+      "sprite": "rock-field-large",
+      "kind": "scenery",
+      "w": 62,
+      "solid": 0.55,
+      "at": [
+        [
+          10,
+          25
+        ],
+        [
+          25,
+          12
+        ],
+        [
+          44,
+          26
+        ],
+        [
+          37,
+          38
+        ]
+      ]
+    },
+    {
+      "sprite": "rock-field-small",
+      "kind": "scenery",
+      "w": 29,
+      "at": [
+        [
+          15,
+          29
+        ],
+        [
+          24,
+          8
+        ],
+        [
+          42,
+          31
+        ],
+        [
+          34,
+          37
+        ],
+        [
+          51,
+          26
+        ]
+      ]
+    },
+    {
+      "sprite": "grass-tuft",
+      "kind": "grass",
+      "w": 22,
+      "at": [
+        [
+          32,
+          9
+        ],
+        [
+          35,
+          10
+        ],
+        [
+          46,
+          35
+        ],
+        [
+          48,
+          36
+        ]
+      ]
+    }
+  ],
+  "zones": [
+    {
+      "id": "rootglass-deep",
+      "terrain": [
+        "t"
+      ],
+      "pool": [
+        "pebblit",
+        "hushram"
+      ],
+      "level": [
+        8,
+        10
+      ],
+      "distance": [
+        10,
+        20
+      ]
+    }
+  ],
+  "quiet": [
+    {
+      "id": "spring-approach",
+      "rect": [
+        25,
+        8,
+        38,
+        17
+      ],
+      "label": "Root spring"
+    },
+    {
+      "id": "lower-root-walk",
+      "rect": [
+        26,
+        37,
+        34,
+        43
+      ],
+      "label": "Lower roots"
+    }
+  ]
+}
