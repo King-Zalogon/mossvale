@@ -180,6 +180,40 @@
       "mapLabel": "Heron blind",
       "text": "A hide for watching herons. Someone scratched in the plank: the shrine guardian loves a strong current.",
       "discoveryText": "Heron blind: a scratched plank holds a clue about the shrine guardian and strong currents."
+    },
+    {
+      "id": "cache-south-boardwalk",
+      "kind": "chest",
+      "sprite": "chest-reed-rope",
+      "at": [21, 51],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "reedfen-wetlands.chest:cache-south-boardwalk",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "South boardwalk cache",
+      "discoveryText": "South boardwalk cache: A dry shelf beside the southern boardwalk keeps a few supplies above the reeds."
+    },
+    {
+      "id": "cache-western-bank",
+      "kind": "chest",
+      "sprite": "chest-reed-rope",
+      "at": [26, 40],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "reedfen-wetlands.chest:cache-western-bank",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "Western bank cache",
+      "discoveryText": "Western bank cache: On the western reedbank, a narrow detour leads to a small chest."
     }
   ],
   "exits": [
@@ -625,7 +659,11 @@
           "species": "brooklet",
           "weight": 5,
           "behavior": "curious",
-          "field": {"duration": 1.5, "radius": 4, "recovery": "circle-and-retry"}
+          "field": {
+            "duration": 1.5,
+            "radius": 4,
+            "recovery": "circle-and-retry"
+          }
         },
         {
           "species": "mushmallow",
@@ -652,7 +690,11 @@
           "species": "brooklet",
           "weight": 3,
           "behavior": "curious",
-          "field": {"duration": 1.5, "radius": 4, "recovery": "circle-and-retry"}
+          "field": {
+            "duration": 1.5,
+            "radius": 4,
+            "recovery": "circle-and-retry"
+          }
         },
         {
           "species": "mushmallow",

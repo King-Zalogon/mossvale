@@ -62,6 +62,49 @@ test('the shipped maps validate', () => {
   );
 });
 
+test('every shipped map has two distinct optional trail caches without replacing its legacy chest', () => {
+  const raw = rawMaps();
+  const expected = new Set([
+    'meadow',
+    'amber-ridge',
+    'frostveil-grove',
+    'frostveil-pass',
+    'reedfen-wetlands',
+    'orchard-ruins',
+    'stilt-isles',
+    'stone-basin',
+    'brackenwake-commons',
+  ]);
+  assert.deepEqual(new Set(raw.map(map => map.id)), expected);
+  for (const map of raw) {
+    const caches = map.landmarks.filter(landmark => landmark.kind === 'chest' && landmark.flag.includes(':'));
+    assert.equal(caches.length, 2, `${map.id} has two new optional finds`);
+    assert.equal(new Set(caches.map(cache => cache.flag)).size, 2, `${map.id} cache flags are independent`);
+    for (const cache of caches) {
+      assert.equal(cache.flag.split('.')[0], map.id);
+      assert.equal(cache.flag.split(':')[0], `${map.id}.chest`);
+      assert.equal(cache.secret, true, `${cache.id} is discovered in the world before appearing on the area map`);
+      assert.ok(cache.mapLabel && cache.discoveryText, `${cache.id} has specific discovery text`);
+      assert.deepEqual(cache.reward, {coins: 6, potions: 0, orbs: 1});
+    }
+  }
+});
+
+test('custom cache flags are accepted only for maps and stable cache IDs', () => {
+  assert.deepEqual(
+    edit(raw => (meadow(raw).landmarks.find(landmark => landmark.id === 'cache-riverbend').flag = 'meadow.chest:riverbend-cache')),
+    [],
+  );
+  has(
+    edit(raw => (meadow(raw).landmarks.find(landmark => landmark.id === 'cache-riverbend').flag = 'meadow.chest:Bad-ID')),
+    'must look like',
+  );
+  has(
+    edit(raw => (meadow(raw).landmarks.find(landmark => landmark.id === 'cache-riverbend').flag = 'missing-map.chest:riverbend-cache')),
+    'references unknown map',
+  );
+});
+
 test('optional map-card previews must reference a registered sprite', () => {
   const errors = edit(raw => {
     raw.find(map => map.id === 'stone-basin').preview = 'missing-map-preview';

@@ -6,6 +6,7 @@ and grows east and south. Reuses the grid helpers of gen-wetland-maps.py. The ma
 """
 import importlib.util, json, math, random
 from pathlib import Path
+from optional_chests import add_optional_chests
 
 spec = importlib.util.spec_from_file_location('wet', Path(__file__).with_name('gen-wetland-maps.py'))
 wet = importlib.util.module_from_spec(spec)
@@ -111,6 +112,7 @@ def orchard():
             {'id': 'hidden-lower-row', 'at': [41, 31], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'toast', 'text': 'Another quiet row slips between the trees, down to the old ruins.'}]},
         ],
     }
+    add_optional_chests(data)
     return data, g
 
 

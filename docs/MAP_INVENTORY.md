@@ -4,17 +4,19 @@ Issue [#27](https://github.com/King-Zalogon/mossvale/issues/27). A snapshot of t
 
 ## Maps
 
-| Map | Biome | Size | Walkable tiles | Exits to | Secrets | Quiet corridors | Encounter species |
-| --- | --- | --- | ---: | --- | ---: | ---: | --- |
-| `meadow` | meadow | 72×64 | 3301 | `orchard-ruins`, `brackenwake-commons` | 2 | 4 | bramblebuck, duskwing, emberkin, fernling |
-| `amber-ridge` | badlands | 64×56 | 2035 | `orchard-ruins`, `frostveil-grove`, `stone-basin` | 1 | 5 | pebblit, sunskitter, voltkit |
-| `frostveil-grove` | snowy-forest | 64×48 | 1735 | `amber-ridge`, `reedfen-wetlands`, `frostveil-pass` | 1 | 3 | duskwing, frostowl, hushram, pebblit |
-| `frostveil-pass` | snowy-forest | 64×48 | 1515 | `frostveil-grove` | 1 | 3 | duskwing, frostowl, hushram |
-| `reedfen-wetlands` | wetland | 64×56 | 2204 | `frostveil-grove`, `stilt-isles` | 1 | 4 | brooklet, mushmallow, siltkip |
-| `orchard-ruins` | meadow | 64×56 | 2168 | `meadow`, `amber-ridge` | 2 | 3 | bramblebuck, duskwing, emberkin, fernling |
-| `stilt-isles` | wetland | 72×44 | 985 | `reedfen-wetlands`, `reedfen-wetlands` | 1 | 4 | brooklet, mushmallow, siltkip |
-| `stone-basin` | badlands | 60×50 | 1744 | `amber-ridge`, `amber-ridge` | 2 | 4 | pebblit, sunskitter, voltkit |
-| `brackenwake-commons` | meadow | 56×44 | 1691 | `meadow` | 0 | 0 | none (settlement) |
+| Map | Biome | Size | Walkable tiles | Exits to | Secrets | Chests | Quiet corridors | Encounter species |
+| --- | --- | --- | ---: | --- | ---: | ---: | ---: | --- |
+| `meadow` | meadow | 72×64 | 2976 | `orchard-ruins`, `brackenwake-commons` | 4 | 3 | 4 | bramblebuck, duskwing, emberkin, fernling |
+| `amber-ridge` | badlands | 64×56 | 1804 | `orchard-ruins`, `frostveil-grove`, `stone-basin` | 3 | 3 | 5 | pebblit, sunskitter, voltkit |
+| `frostveil-grove` | snowy-forest | 64×48 | 1589 | `amber-ridge`, `reedfen-wetlands`, `frostveil-pass` | 3 | 3 | 3 | duskwing, frostowl, hushram, pebblit |
+| `frostveil-pass` | snowy-forest | 64×48 | 1423 | `frostveil-grove` | 3 | 3 | 3 | duskwing, frostowl, hushram |
+| `reedfen-wetlands` | wetland | 64×56 | 2122 | `frostveil-grove`, `stilt-isles` | 3 | 3 | 4 | brooklet, mushmallow, siltkip |
+| `orchard-ruins` | meadow | 64×56 | 2003 | `meadow`, `amber-ridge` | 7 | 2 | 3 | bramblebuck, duskwing, emberkin, fernling |
+| `stilt-isles` | wetland | 72×44 | 924 | `reedfen-wetlands`, `reedfen-wetlands` | 3 | 3 | 4 | brooklet, mushmallow, siltkip |
+| `stone-basin` | badlands | 60×50 | 1507 | `amber-ridge`, `amber-ridge` | 4 | 3 | 4 | pebblit, sunskitter, voltkit |
+| `brackenwake-commons` | meadow | 56×44 | 1635 | `meadow` | 2 | 2 | 0 | none (settlement) |
+
+Every shipped map has two new optional caches. They sit off reachable trails, remain hidden from the area map until found, and each grants 6 coins and 1 capture orb. The original region chest keeps its legacy save flag; every added cache has its own stable flag so opening one never opens the others.
 
 ## Route graph
 
@@ -41,7 +43,10 @@ Issue [#27](https://github.com/King-Zalogon/mossvale/issues/27). A snapshot of t
 | `boulder-mossy` | `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `orchard-ruins`, `stone-basin` |
 | `bush-flowering` | `meadow`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles` |
 | `cattail-clump` | `reedfen-wetlands`, `stilt-isles` |
-| `chest-wooden` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `stilt-isles`, `stone-basin` |
+| `chest-wooden` | `meadow`, `orchard-ruins`, `brackenwake-commons` |
+| `chest-reed-rope` | `reedfen-wetlands`, `stilt-isles` |
+| `chest-sandstone-iron` | `amber-ridge`, `stone-basin` |
+| `chest-pine-frost` | `frostveil-grove`, `frostveil-pass` |
 | `cottage-tiled` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `stilt-isles`, `stone-basin` |
 | `grass-tuft` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles`, `stone-basin` |
 | `person-gardener` | `meadow`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles` |
