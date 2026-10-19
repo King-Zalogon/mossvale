@@ -3,17 +3,17 @@
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
     "art/assets/metadata.json": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b",
-    "art/assets/subjects.json": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9",
+    "art/assets/subjects.json": "d093421a964c2ee6b3d8e0a4f3ced3c4777a83675bb0a2f5a59bfec38c0d3ff4",
     "art/assets/third-party/registry.json": "bf7c23567dc256101820975f56deb9b2fa56b1a73c6a695ed5eed6c2b403791b",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-    "art/characters/creature-combat-metadata.json": "3e00f364867c3b2b1a437482ef22c9fbf10b6ed4c35fd38615dd900bb0ed702c",
-    "art/characters/creature-follower-metadata.json": "fd18dd7d81bcc0ee5eadfafee30b01f08526b9c4decdb25cfd437466f151eddb",
+    "art/characters/creature-combat-metadata.json": "f3512e3eb46b0a8f06a64b5957d5f34f9daff57f821b36d99bbf016cc927de76",
+    "art/characters/creature-follower-metadata.json": "a782cbeb7c18570b2e93c08b380c56e3891e443f61be8572450ebf46f864d362",
     "art/characters/export-profiles.json": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05",
     "art/characters/guardian-generation.json": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61",
     "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
     "art/characters/reviews/frame-spacing-347.json": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17",
-    "art/characters/source-archive.json": "dd086b6798543cd899a778c5be9cb4b34b7c2167c5cb0d16217fe12c63811e49",
+    "art/characters/source-archive.json": "a1782b84bdea7cb71ec8b7f2d7467c1d55dfce2495b9b5036a570459e65d4aaa",
     "art/characters/source/blastoucan/export.json": "84e45fc1ca2edd83ad1044640062a8e38cccdf4e477287568452408fe0de0b27",
     "art/characters/source/blastoucan/generation.json": "d0771206c9230033a553025f1d54776c62ec35c453ca20f12812b3464b29c23b",
     "art/characters/source/coglet/correction-378/generation.json": "d8e53015afa594e559e012a061a8f517a2901bd5a79a042527820bacf95dda7e",
@@ -209,7 +209,7 @@
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
-    "dist/src/data/assets.js": "0fa23d5e07a51af647f2e2996c6e080f5aa762887bfdfcf5f562f420c3ae0489",
+    "dist/src/data/assets.js": "b4430315068e74bc472e1ee767f6d32922bc6cd62a3b8ea0513dd4bc42a1d243",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "d76691961865a95bc015f483e26c84ee55da9b66bc46d6478fc3a55b419ae3bc",
@@ -314,7 +314,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "2ffdfb3b56097ca2097d0c70372adad2b46920093f955e56dd4412abd1feba67",
+  "sourceDigest": "5fba8483e3cdaa7578d05d56a3ce2ff4189133a1aef16593aa2dbe0f74b44ff4",
   "exclusions": [
     {
       "family": "module-exports",
@@ -20007,7 +20007,7 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }

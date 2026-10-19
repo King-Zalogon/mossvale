@@ -13,7 +13,7 @@ PROFILE_ID = "creature-combat-v1"
 SPECS = {
     "emberkin": {"source": "art/characters/source/creature-emberkin-combat-generated.png", "target": "dist/assets/creatures/creature-emberkin-combat.png"},
     "voltkit": {
-        "source": "concept_art/voltkit-redesign-candidates/combat-atlas.png",
+        "source": "art/characters/source/creature-voltkit-combat-generated.png",
         "target": "dist/assets/creatures/creature-voltkit-combat.png",
         "sourceRowBounds": [0, 293, 589, 878, 1108, 1402],
     },

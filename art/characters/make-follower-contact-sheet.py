@@ -12,7 +12,7 @@ ROW_ORDER = {
     "duskwing": DIRECTIONS,
     "brooklet": ["north", "northwest", "west", "southwest", "south", "southeast", "east", "northeast"],
     "hushram": DIRECTIONS,
-    "voltkit": DIRECTIONS,
+    "voltkit": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
     "mushmallow": DIRECTIONS,
     "frostowl": DIRECTIONS,
     "pebblit": DIRECTIONS,

@@ -42,11 +42,11 @@ SPECS = {
         "rowOrder": ["north", "northeast", "east", "west", "south", "northwest", "southeast", "southwest"],
     },
     "voltkit": {
-        "source": "concept_art/voltkit-redesign-candidates/follower-atlas.png",
+        "source": "art/characters/source/creature-voltkit-follower-generated.png",
         "target": "dist/assets/creatures/creature-voltkit-follower.png",
         "sourceRows": [0, 1, 2, 1, 3, 4, 7, 6],
         "mirrorRows": [3],
-        "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+        "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
     },
     "mushmallow": {
         "source": "art/characters/source/creature-mushmallow-follower-generated.png",
