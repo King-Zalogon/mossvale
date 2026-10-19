@@ -266,6 +266,20 @@ def build():
             ],
         ),
     ]
+    # Optional one-time finds use stable per-cache map flags (not the legacy
+    # one-chest-per-map save field), so both caches remain independently claimable.
+    landmarks += [
+        landmark('cache-north-garden', 'chest', 'chest-wooden', (4, 13), 44,
+                 label='Open the trail cache', flag='brackenwake-commons.chest:cache-north-garden',
+                 reward={'coins': 6, 'potions': 0, 'orbs': 1}, secret=True,
+                 mapLabel='North garden cache',
+                 discoveryText='North garden cache: Tucked beside the north garden path, a small chest holds a few supplies.'),
+        landmark('cache-south-lane', 'chest', 'chest-wooden', (15, 31), 44,
+                 label='Open the trail cache', flag='brackenwake-commons.chest:cache-south-lane',
+                 reward={'coins': 6, 'potions': 0, 'orbs': 1}, secret=True,
+                 mapLabel='South lane cache',
+                 discoveryText='South lane cache: A quiet nook beside the south lane hides a few useful supplies.'),
+    ]
     spawns = {'camp': [28.0, 4.8]}
     exits = [
         {

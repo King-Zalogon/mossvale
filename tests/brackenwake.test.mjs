@@ -98,7 +98,7 @@ test('the town has a loop of paths and a second way round the pond', () => {
 });
 
 test('the bridge, lookout and garden are optional stops with no reward or flag', () => {
-  for (const item of town.landmarks) {
+  for (const item of town.landmarks.filter(item => ['survey-plaque', 'lookout', 'tobin'].includes(item.id))) {
     assert.equal(item.flag, undefined, item.id);
     assert.equal(item.reward, undefined, item.id);
     assert.ok(item.kind !== 'shrine' && item.kind !== 'chest', item.id);

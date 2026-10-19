@@ -5,6 +5,7 @@ Reuses the grid helpers of gen-wetland-maps.py. The map is plain data once writt
 """
 import importlib.util, json, math, random
 from pathlib import Path
+from optional_chests import add_optional_chests
 
 spec = importlib.util.spec_from_file_location('wet', Path(__file__).with_name('gen-wetland-maps.py'))
 wet = importlib.util.module_from_spec(spec)
@@ -130,6 +131,7 @@ def meadow():
             {'id': 'quiet-grove', 'at': [28, 56.5], 'radius': 3, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'A narrow track slips under the oldest trees. It is quiet here, and it rejoins the south trail.'}]},
         ],
     }
+    add_optional_chests(data)
     return data, g
 
 

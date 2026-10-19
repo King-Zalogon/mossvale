@@ -2,17 +2,17 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/metadata.json": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8",
-    "art/assets/subjects.json": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f",
+    "art/assets/metadata.json": "54f41fbb7e1ca6b46aae95014fc59325095207afbb972ea5f8fd4fbd07abac2f",
+    "art/assets/subjects.json": "37866c586e1b505f74291a7b7221355bca5d4d0e090fee674a3157fa9525fc6f",
     "art/assets/third-party/registry.json": "bf7c23567dc256101820975f56deb9b2fa56b1a73c6a695ed5eed6c2b403791b",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
-    "art/characters/creature-combat-metadata.json": "3e00f364867c3b2b1a437482ef22c9fbf10b6ed4c35fd38615dd900bb0ed702c",
-    "art/characters/creature-follower-metadata.json": "fd18dd7d81bcc0ee5eadfafee30b01f08526b9c4decdb25cfd437466f151eddb",
-    "art/characters/export-profiles.json": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05",
+    "art/characters/creature-combat-metadata.json": "5586dd01f61ec3f1943e4cb4a26a37d45e3c4bddb0f467c2c6b1459ad53ecfd4",
+    "art/characters/creature-follower-metadata.json": "8239ab288e78e59bfed5c19b450e3ba4708fd817a37724bb08d64ed172e922c5",
+    "art/characters/export-profiles.json": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3",
     "art/characters/guardian-generation.json": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61",
     "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
-    "art/characters/reviews/frame-spacing-347.json": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179",
+    "art/characters/reviews/frame-spacing-347.json": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada",
     "art/characters/source-archive.json": "dd086b6798543cd899a778c5be9cb4b34b7c2167c5cb0d16217fe12c63811e49",
     "art/characters/source/blastoucan/export.json": "84e45fc1ca2edd83ad1044640062a8e38cccdf4e477287568452408fe0de0b27",
     "art/characters/source/blastoucan/generation.json": "d0771206c9230033a553025f1d54776c62ec35c453ca20f12812b3464b29c23b",
@@ -20,13 +20,14 @@
     "art/characters/source/coglet/correction-378/review-history.json": "fca8b920ed9ba6b56ddb5e8aed024f63e0395ae38670d4a20637716a6669e299",
     "art/characters/source/coglet/export.json": "00438ea0a36f05364bd9aeeb1a6d3e846f93e7b2ebb5d660b8c5b799bfcd0857",
     "art/characters/source/coglet/generation.json": "d622b5efbef04f9122f66a918532a39d9a374fad9cc4bca708596288eeda26a6",
+    "art/characters/source/creature-myceloop-generation.json": "af748e567249921e625140cfc53d762f01d06ceb8ee422b20028c2963e106c65",
     "art/characters/source/parrocket/export.json": "7d423aedce99c9f159f3e096eff02a3f7fb4316d9c863a04b9fb2fa6d0c25a84",
     "art/characters/source/parrocket/generation.json": "6387ab7d92104dd9534ceebb04a5327d3aaf3cb8e00a5c19cd230dd9996e5da0",
     "art/characters/source/rumblet/export.json": "092a82479290f113337c957995b4c1d0a0cf87d89a6593711b3b3264025f3d32",
     "art/characters/source/rumblet/generation.json": "8b0c4314672f71764c2a1913e4e556eceb4615c38b47af193ff49bb55d72e3d6",
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
-    "art/characters/visual-reviews.json": "265666176911c2ee101b2bae8aef8421a5a0cd287f5f3a1418a1c2b56e648701",
+    "art/characters/visual-reviews.json": "a71d52445c50a608a9d749f204c95fb0b395e6d8612481407fe7da641f82acf7",
     "content/catalogue/curated.json": "679801cd1657cf73c647c681b1a2b58c4b66fa7e7bf8f2d060fc8156b466a946",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
@@ -68,6 +69,9 @@
     "dist/assets/creatures/creature-mushmallow-follower.png": "dbba4c4e2cd59345ab48c76432284f0d325d0537bda1e13d306b7c856a52520b",
     "dist/assets/creatures/creature-mushmallow-thorn-mantle-combat.png": "bd88e5f7685dc7e25767d12776f3990c8882d03bd6931868e73fd085f8fb296f",
     "dist/assets/creatures/creature-mushmallow.png": "3a140fbb9adeccfc96ae972cc6e8a7d871e3d6c080d8ecc663e362823fce5c0b",
+    "dist/assets/creatures/creature-myceloop-combat.png": "7bd0a122c4bb368ed18214ee85f3c0b4c7c2b8be07a8b454581c237fd5c94035",
+    "dist/assets/creatures/creature-myceloop-follower.png": "0d7e0009174ae056ba3d3a537c0b2e65d5a63a5af81767fe4b14bd154a7fe467",
+    "dist/assets/creatures/creature-myceloop.png": "2258a8a3b5deee60b031aa39f76f4a401a76ec86dff14489993cd98361a67d41",
     "dist/assets/creatures/creature-parrocket-combat.png": "cfee8841a3014230658e5c874aef23a6008f3c4035510083a2440cc6109426b7",
     "dist/assets/creatures/creature-parrocket-follower.png": "65b41f555029f7a75375bce36c8b32778b96af067feb0a8588f29950696136dd",
     "dist/assets/creatures/creature-parrocket.png": "15e73c9978fff551b47b52cc3727af0c36f2ce8b5ca99d8c9e00c98a97a5bf4b",
@@ -182,21 +186,21 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "6ba5bb9ad93b375fdfa639a9dafebf66c4b3d620bd5d08bd05e349437e7e1e12",
-    "dist/maps/brackenwake-commons.json": "d7db2f177ab5c121b7b9b46ec88c76c1678ee9b4865e1533a3c5877b28da6091",
-    "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
-    "dist/maps/frostveil-pass.json": "4c425146e1037e3ef14d986ac7ab7134ee66f57c6fa844423f7c95152ae65757",
-    "dist/maps/index.json": "84616ddec79eeb8bd6b5cb3f8f8374c4eb41c1cb8cf6fa1accc28be3eb04c2ff",
+    "dist/maps/amber-ridge.json": "3760aeb019a867dcc06c489a2159c99080d896eb37cffe56e530f559f8b9e909",
+    "dist/maps/brackenwake-commons.json": "92cf67c62bf4c0fa3c8676bb5533d488bb837679fbb458cacaf61ec7b996b365",
+    "dist/maps/frostveil-grove.json": "9c19bcab6e8923b290a403409a7ac54472d9b2b070f93efa6b5a6fffb6eefe3d",
+    "dist/maps/frostveil-pass.json": "2ebb26442c15515b32996ababeeadd2e0b75e946e1ce0165db8c90fb579e1595",
+    "dist/maps/index.json": "ad0405b80feee18e9f411e8bd95a326e510ddc382141aa8ec4174164773a1150",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
-    "dist/maps/meadow.json": "27ce7a906e48ba41e354554686f656cb0da3140ffb3a36e3c0552cabceed6f88",
+    "dist/maps/meadow.json": "6ec0c6f5e54f6a45ebf61c01d2b958a9e29ab8f8f6c5cfde5590ccaec56fae37",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "b87334a0d0a5df9a9615165ec49b09cf345cffde890ca616713926c60502a03d",
-    "dist/maps/reedfen-wetlands.json": "c690c22ae2b3c2472f40965a17ef8193cb9b6231cb5f3f23bd2044c0f12c0c06",
-    "dist/maps/registries.json": "a9bbe9d97ecd693502676e01b09bdf5fe95edf472480932a4d8940936fe5a189",
-    "dist/maps/rootglass-canopy.json": "357633ba89fa2e188c8c4dd65298f848a03e82638b2b022a289513a64173525c",
-    "dist/maps/rootglass-hollow.json": "f51cf8d7e493790da6a9d2ea6d9234f7e8daeed3067acc3e75907d0a02a2a2f7",
-    "dist/maps/stilt-isles.json": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c",
-    "dist/maps/stone-basin.json": "9f12aa73b720f3ae4df848aeb98cda365cccafe3ddc1a71ef6a83a393fd1bb1a",
+    "dist/maps/orchard-ruins.json": "9c65bb87d1992486df3fb735d69e30817f29011b34c36b639999ff4bc222fa80",
+    "dist/maps/reedfen-wetlands.json": "d46c99fbdc8c63b468802e996fff5680d3f0d3eed846f7cf1f97d26258a2a28f",
+    "dist/maps/registries.json": "2a49c97c49808bd42a65e3ee338219298886e6d048b248731c58c13bb571407a",
+    "dist/maps/rootglass-canopy.json": "ee281f2be56287a5eadd2f1f0321f196c1660c0eb7270c717584f9dda9c8aac1",
+    "dist/maps/rootglass-hollow.json": "efaf2e47ff85a147be7cd0250b3f4984ea888541f20ad7658b135da6fb72463d",
+    "dist/maps/stilt-isles.json": "e75ace64837b77e2dbccecc5271ff4ea35f0b59fb1c193ac550f295fd3ac7ac2",
+    "dist/maps/stone-basin.json": "5c99175ea5861f5f846b12156aae2645e2582b6c88f947de2808d9c862943b54",
     "dist/maps/story.json": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927",
     "dist/maps/terrain-family-fixture.baked.json": "891d797e204f40410231c5a7cb946109c552f12f2d343065ae425fc92fdb51c6",
     "dist/maps/terrain-family-fixture.json": "ef38776760546b9c933eb6bfb27e3ac10e84994c2b1fa4d41d7a3f7935f1214e",
@@ -213,10 +217,10 @@
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
-    "dist/src/data/assets.js": "bdcd36d26d10c45aa2d3544e54d88b4be6a6928093e30f24f6c2af4e04b63fb7",
+    "dist/src/data/assets.js": "275b1d7459e42040b97b12d144f79dd8b1a4a65db2749b3a544f88ba9860f650",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
-    "dist/src/data/moves.js": "d76691961865a95bc015f483e26c84ee55da9b66bc46d6478fc3a55b419ae3bc",
+    "dist/src/data/moves.js": "87f4c989c092375f74132ed4fc3e6484eb44e9f1117157163599079e1126e881",
     "dist/src/data/pack.js": "9fd30dbf4b643265515252efacae23a0e18507c5eb1649ad39eabf0ed436ff5c",
     "dist/src/data/regions.js": "dd20e32162860c8112f38d5f7509414f611b3f28e0649fdd72386630ff753c72",
     "dist/src/data/registry.js": "b380fbc26e56195e7713078f63f60fd504f8bf0df8cbb06e1baa754f80ba3f78",
@@ -238,17 +242,17 @@
     "dist/src/domain/exploration.js": "9fe89b19490390bb129ed0a887ae30c8f0dadfbe787d3149843b501069af71e3",
     "dist/src/domain/hints.js": "871e9ed9e0d7b164fab021e33e0cac3c2c95039cc4b8a37e57e05491acce6ff3",
     "dist/src/domain/inventory.js": "198e9b236379a419e9b316205dd458d83fa8fc5e9c799d73818efb14daeefbc8",
-    "dist/src/domain/mapdata.js": "606346fe22432bfd71f582ea4954bf3be6ebe08a74075ea2750d44d369240d27",
+    "dist/src/domain/mapdata.js": "7e3c7ee8dc4ea2fa391601bd2c00c822772877567031fc29ca9c95faef9049c6",
     "dist/src/domain/objective-events.js": "7ea11e81899424623e230c55ddc90c42c77c9df88532b91832cf39d23991128e",
-    "dist/src/domain/objectives.js": "018c57546e01df3aa7eacbde7b58f182f8f109fe2ebf93b14f3552852ebd21fe",
+    "dist/src/domain/objectives.js": "eeb4731a9f19dd87ee88914b9da795729ef46500327f352063af2658d811d06b",
     "dist/src/domain/pack.js": "339441c5867c7dc709e098292c9f70622cb3ac6051cccf507a71550466721193",
     "dist/src/domain/phase.js": "6fd79be41cfbe4563a4d88310b34de76d111f42a4332c943e895e88f25b0ad24",
     "dist/src/domain/prefabs.js": "ec6197536df38efc412166f36e628f90695c403e828e36093612977ed6cb5c02",
     "dist/src/domain/registries.js": "963c983531a3e3959c977f29a35038edcdfa1a36cad8660bd1114bbd437a2889",
     "dist/src/domain/rng.js": "853506e8d4bd195882b044a2302f884573d253f4978f075b2a194b82212f0430",
-    "dist/src/domain/rules.js": "0b66c835e8f3462830ce1aa6a202c32e51216942d1762fea978b075f7aacbc4b",
+    "dist/src/domain/rules.js": "8e83034765a2530eb46ce2ebe8d9437dc191fb25f348c0c022b7d51a732e1989",
     "dist/src/domain/scene-path.js": "f8016abf188ce2dccebceadfffc2279671b923b566a2a744defb66578931361c",
-    "dist/src/domain/scenes.js": "dd032ddbb4bc2737d1a7f3d2e53a5bfaf973a486c83e34c9c74d36c941ae1d00",
+    "dist/src/domain/scenes.js": "8f898d626396a432740fd9c0681a91af9755eca1bfb58a2ee4d4b7badb268b34",
     "dist/src/domain/story.js": "76aca33499825ab396db075379a05ff5343bfeec2d82ec6eb715b6026372c381",
     "dist/src/domain/terrain-family.js": "e9828ed285b9ffd558a9f168fa71f5477ffd6ee75a1359a874bfcfcd7101476e",
     "dist/src/domain/world.js": "33283839346a885c8004cb5c5682d29e0d0f6758d36a5698b0eb85b3d3eca383",
@@ -263,7 +267,7 @@
     "dist/src/render/sprites.js": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
     "dist/src/render/world.js": "fead8f02e562231b64eb857a373fe5038d87780bde1475e17611f5d0303cdb01",
-    "dist/src/save.js": "0b89a2ac695a25b57f1cd1aced3381f5ae6b8420c9fef7e339967ccf1d60a0ab",
+    "dist/src/save.js": "a10b2b3c2c2ba54510b4ee2c3a3a5441d14a24bbab60dd7ce49e0afea9c74d7e",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
     "dist/src/services/audio.js": "84659f7c324bd09a6df2c0a287b8b62a1e97e7eade2c3d48e0f707631e49c717",
@@ -318,7 +322,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "9e9c558240436b607d82a269552fcd7ea07c8d63f7e781502b809ccd067ce1ab",
+  "sourceDigest": "dde93ba2481d7bce41ed022f3b9269f6d29eeb606c4705315a7e33ae2366d641",
   "exclusions": [
     {
       "family": "module-exports",
@@ -1113,6 +1117,70 @@
       "dependencies": ["visual:signpost-wood"]
     },
     {
+      "id": "landmark:mossvale/amber-ridge/cache-quarry-hollow",
+      "family": "landmark",
+      "runtimeId": "mossvale/amber-ridge/cache-quarry-hollow",
+      "name": "mossvale/amber ridge/cache quarry hollow",
+      "description": "Open the trail cache (chest) on Amber Ridge.",
+      "source": "dist/maps/amber-ridge.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-quarry-hollow",
+        "kind": "chest",
+        "sprite": "chest-sandstone-iron",
+        "at": [32, 25],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "amber-ridge.chest:cache-quarry-hollow",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "Quarry hollow cache",
+        "discoveryText": "Quarry hollow cache: A sunbaked hollow off the quarry trail hides a small travel cache."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-sandstone-iron"]
+    },
+    {
+      "id": "landmark:mossvale/amber-ridge/cache-south-ridge",
+      "family": "landmark",
+      "runtimeId": "mossvale/amber-ridge/cache-south-ridge",
+      "name": "mossvale/amber ridge/cache south ridge",
+      "description": "Open the trail cache (chest) on Amber Ridge.",
+      "source": "dist/maps/amber-ridge.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-south-ridge",
+        "kind": "chest",
+        "sprite": "chest-sandstone-iron",
+        "at": [13, 46],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "amber-ridge.chest:cache-south-ridge",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "South ridge cache",
+        "discoveryText": "South ridge cache: At the quiet southwest ridge footpath, a chest holds a little extra gear."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-sandstone-iron"]
+    },
+    {
       "id": "landmark:mossvale/amber-ridge/chest",
       "family": "landmark",
       "runtimeId": "mossvale/amber-ridge/chest",
@@ -1329,6 +1397,70 @@
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
       "dependencies": ["visual:signpost-wood"]
+    },
+    {
+      "id": "landmark:mossvale/brackenwake-commons/cache-north-garden",
+      "family": "landmark",
+      "runtimeId": "mossvale/brackenwake-commons/cache-north-garden",
+      "name": "mossvale/brackenwake commons/cache north garden",
+      "description": "Open the trail cache (chest) on Brackenwake Commons.",
+      "source": "dist/maps/brackenwake-commons.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-north-garden",
+        "kind": "chest",
+        "sprite": "chest-wooden",
+        "at": [4, 13],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "brackenwake-commons.chest:cache-north-garden",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "North garden cache",
+        "discoveryText": "North garden cache: Tucked beside the north garden path, a small chest holds a few supplies."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-wooden"]
+    },
+    {
+      "id": "landmark:mossvale/brackenwake-commons/cache-south-lane",
+      "family": "landmark",
+      "runtimeId": "mossvale/brackenwake-commons/cache-south-lane",
+      "name": "mossvale/brackenwake commons/cache south lane",
+      "description": "Open the trail cache (chest) on Brackenwake Commons.",
+      "source": "dist/maps/brackenwake-commons.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-south-lane",
+        "kind": "chest",
+        "sprite": "chest-wooden",
+        "at": [15, 31],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "brackenwake-commons.chest:cache-south-lane",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "South lane cache",
+        "discoveryText": "South lane cache: A quiet nook beside the south lane hides a few useful supplies."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-wooden"]
     },
     {
       "id": "landmark:mossvale/brackenwake-commons/commons-press",
@@ -1887,6 +2019,70 @@
       "dependencies": ["visual:person-traveler"]
     },
     {
+      "id": "landmark:mossvale/frostveil-grove/cache-lower-pines",
+      "family": "landmark",
+      "runtimeId": "mossvale/frostveil-grove/cache-lower-pines",
+      "name": "mossvale/frostveil grove/cache lower pines",
+      "description": "Open the trail cache (chest) on Frostveil Grove.",
+      "source": "dist/maps/frostveil-grove.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-lower-pines",
+        "kind": "chest",
+        "sprite": "chest-pine-frost",
+        "at": [30, 39],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "frostveil-grove.chest:cache-lower-pines",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "Lower pine cache",
+        "discoveryText": "Lower pine cache: Where the lower pines thin beside the path, a small cache waits in the snow."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-pine-frost"]
+    },
+    {
+      "id": "landmark:mossvale/frostveil-grove/cache-north-pines",
+      "family": "landmark",
+      "runtimeId": "mossvale/frostveil-grove/cache-north-pines",
+      "name": "mossvale/frostveil grove/cache north pines",
+      "description": "Open the trail cache (chest) on Frostveil Grove.",
+      "source": "dist/maps/frostveil-grove.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-north-pines",
+        "kind": "chest",
+        "sprite": "chest-pine-frost",
+        "at": [38, 5],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "frostveil-grove.chest:cache-north-pines",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "North pine cache",
+        "discoveryText": "North pine cache: A north-side pine glade shelters a few supplies away from the main trail."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-pine-frost"]
+    },
+    {
       "id": "landmark:mossvale/frostveil-grove/chest",
       "family": "landmark",
       "runtimeId": "mossvale/frostveil-grove/chest",
@@ -2149,6 +2345,70 @@
       "dependencies": ["visual:chest-pine-frost"]
     },
     {
+      "id": "landmark:mossvale/frostveil-pass/cache-east-overlook",
+      "family": "landmark",
+      "runtimeId": "mossvale/frostveil-pass/cache-east-overlook",
+      "name": "mossvale/frostveil pass/cache east overlook",
+      "description": "Open the trail cache (chest) on Blueglass Pass.",
+      "source": "dist/maps/frostveil-pass.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-east-overlook",
+        "kind": "chest",
+        "sprite": "chest-pine-frost",
+        "at": [45, 9],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "frostveil-pass.chest:cache-east-overlook",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "East overlook cache",
+        "discoveryText": "East overlook cache: An eastern overlook above the pass holds a small cold-weather cache."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-pine-frost"]
+    },
+    {
+      "id": "landmark:mossvale/frostveil-pass/cache-south-snowbank",
+      "family": "landmark",
+      "runtimeId": "mossvale/frostveil-pass/cache-south-snowbank",
+      "name": "mossvale/frostveil pass/cache south snowbank",
+      "description": "Open the trail cache (chest) on Blueglass Pass.",
+      "source": "dist/maps/frostveil-pass.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-south-snowbank",
+        "kind": "chest",
+        "sprite": "chest-pine-frost",
+        "at": [30, 43],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "frostveil-pass.chest:cache-south-snowbank",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "South snowbank cache",
+        "discoveryText": "South snowbank cache: Look off the southern pass trail where the snowbank meets the pines."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-pine-frost"]
+    },
+    {
       "id": "landmark:mossvale/frostveil-pass/glass-root-track",
       "family": "landmark",
       "runtimeId": "mossvale/frostveil-pass/glass-root-track",
@@ -2253,6 +2513,70 @@
       "repetition": "Not applicable: scenery.",
       "persistence": "No new rest state.",
       "dependencies": ["visual:cottage-tiled"]
+    },
+    {
+      "id": "landmark:mossvale/meadow/cache-north-meadow",
+      "family": "landmark",
+      "runtimeId": "mossvale/meadow/cache-north-meadow",
+      "name": "mossvale/meadow/cache north meadow",
+      "description": "Open the trail cache (chest) on Sunlit Trail.",
+      "source": "dist/maps/meadow.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-north-meadow",
+        "kind": "chest",
+        "sprite": "chest-wooden",
+        "at": [45, 2],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "meadow.chest:cache-north-meadow",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "North meadow cache",
+        "discoveryText": "North meadow cache: Beyond the north meadow trail, a tucked-away cache holds a few supplies."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-wooden"]
+    },
+    {
+      "id": "landmark:mossvale/meadow/cache-riverbend",
+      "family": "landmark",
+      "runtimeId": "mossvale/meadow/cache-riverbend",
+      "name": "mossvale/meadow/cache riverbend",
+      "description": "Open the trail cache (chest) on Sunlit Trail.",
+      "source": "dist/maps/meadow.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-riverbend",
+        "kind": "chest",
+        "sprite": "chest-wooden",
+        "at": [13, 47],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "meadow.chest:cache-riverbend",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "Streamside cache",
+        "discoveryText": "Streamside cache: By the southern stream bend, a small chest holds useful road supplies."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-wooden"]
     },
     {
       "id": "landmark:mossvale/meadow/chest",
@@ -2552,6 +2876,70 @@
       "dependencies": ["visual:boulder-mossy"]
     },
     {
+      "id": "landmark:mossvale/orchard-ruins/cache-north-wall",
+      "family": "landmark",
+      "runtimeId": "mossvale/orchard-ruins/cache-north-wall",
+      "name": "mossvale/orchard ruins/cache north wall",
+      "description": "Open the trail cache (chest) on The Ruined Orchard.",
+      "source": "dist/maps/orchard-ruins.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-north-wall",
+        "kind": "chest",
+        "sprite": "chest-wooden",
+        "at": [32, 9],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "orchard-ruins.chest:cache-north-wall",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "North wall cache",
+        "discoveryText": "North wall cache: A chest rests near the north orchard wall, just off the worn trail."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-wooden"]
+    },
+    {
+      "id": "landmark:mossvale/orchard-ruins/cache-western-rows",
+      "family": "landmark",
+      "runtimeId": "mossvale/orchard-ruins/cache-western-rows",
+      "name": "mossvale/orchard ruins/cache western rows",
+      "description": "Open the trail cache (chest) on The Ruined Orchard.",
+      "source": "dist/maps/orchard-ruins.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-western-rows",
+        "kind": "chest",
+        "sprite": "chest-wooden",
+        "at": [8, 38],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "orchard-ruins.chest:cache-western-rows",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "Western rows cache",
+        "discoveryText": "Western rows cache: Between the western apple rows, a small chest rewards a short detour."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-wooden"]
+    },
+    {
       "id": "landmark:mossvale/orchard-ruins/cider-press",
       "family": "landmark",
       "runtimeId": "mossvale/orchard-ruins/cider-press",
@@ -2765,6 +3153,70 @@
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
       "dependencies": ["visual:tree-oak-hollow"]
+    },
+    {
+      "id": "landmark:mossvale/reedfen-wetlands/cache-south-boardwalk",
+      "family": "landmark",
+      "runtimeId": "mossvale/reedfen-wetlands/cache-south-boardwalk",
+      "name": "mossvale/reedfen wetlands/cache south boardwalk",
+      "description": "Open the trail cache (chest) on Reedfen Wetlands.",
+      "source": "dist/maps/reedfen-wetlands.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-south-boardwalk",
+        "kind": "chest",
+        "sprite": "chest-reed-rope",
+        "at": [21, 51],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "reedfen-wetlands.chest:cache-south-boardwalk",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "South boardwalk cache",
+        "discoveryText": "South boardwalk cache: A dry shelf beside the southern boardwalk keeps a few supplies above the reeds."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-reed-rope"]
+    },
+    {
+      "id": "landmark:mossvale/reedfen-wetlands/cache-western-bank",
+      "family": "landmark",
+      "runtimeId": "mossvale/reedfen-wetlands/cache-western-bank",
+      "name": "mossvale/reedfen wetlands/cache western bank",
+      "description": "Open the trail cache (chest) on Reedfen Wetlands.",
+      "source": "dist/maps/reedfen-wetlands.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-western-bank",
+        "kind": "chest",
+        "sprite": "chest-reed-rope",
+        "at": [26, 40],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "reedfen-wetlands.chest:cache-western-bank",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "Western bank cache",
+        "discoveryText": "Western bank cache: On the western reedbank, a narrow detour leads to a small chest."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-reed-rope"]
     },
     {
       "id": "landmark:mossvale/reedfen-wetlands/chest",
@@ -3284,6 +3736,70 @@
       "dependencies": ["visual:prop-icefall-ledge"]
     },
     {
+      "id": "landmark:mossvale/stilt-isles/cache-lower-reeds",
+      "family": "landmark",
+      "runtimeId": "mossvale/stilt-isles/cache-lower-reeds",
+      "name": "mossvale/stilt isles/cache lower reeds",
+      "description": "Open the trail cache (chest) on Stilt Isles.",
+      "source": "dist/maps/stilt-isles.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-lower-reeds",
+        "kind": "chest",
+        "sprite": "chest-reed-rope",
+        "at": [21, 36],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "stilt-isles.chest:cache-lower-reeds",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "Lower reeds cache",
+        "discoveryText": "Lower reeds cache: A low reed shelf off the southern boardwalk hides a small chest."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-reed-rope"]
+    },
+    {
+      "id": "landmark:mossvale/stilt-isles/cache-north-islet",
+      "family": "landmark",
+      "runtimeId": "mossvale/stilt-isles/cache-north-islet",
+      "name": "mossvale/stilt isles/cache north islet",
+      "description": "Open the trail cache (chest) on Stilt Isles.",
+      "source": "dist/maps/stilt-isles.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-north-islet",
+        "kind": "chest",
+        "sprite": "chest-reed-rope",
+        "at": [23, 6],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "stilt-isles.chest:cache-north-islet",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "North islet cache",
+        "discoveryText": "North islet cache: A northern islet beyond the boardwalk holds a modest supply cache."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-reed-rope"]
+    },
+    {
       "id": "landmark:mossvale/stilt-isles/lantern-note",
       "family": "landmark",
       "runtimeId": "mossvale/stilt-isles/lantern-note",
@@ -3529,6 +4045,70 @@
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
       "dependencies": ["visual:signpost-wood"]
+    },
+    {
+      "id": "landmark:mossvale/stone-basin/cache-fern-shelf",
+      "family": "landmark",
+      "runtimeId": "mossvale/stone-basin/cache-fern-shelf",
+      "name": "mossvale/stone basin/cache fern shelf",
+      "description": "Open the trail cache (chest) on Stone Basin.",
+      "source": "dist/maps/stone-basin.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-fern-shelf",
+        "kind": "chest",
+        "sprite": "chest-sandstone-iron",
+        "at": [23, 20],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "stone-basin.chest:cache-fern-shelf",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "Fern shelf cache",
+        "discoveryText": "Fern shelf cache: A fern-covered shelf above the basin trail holds a small cache."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-sandstone-iron"]
+    },
+    {
+      "id": "landmark:mossvale/stone-basin/cache-west-quarry",
+      "family": "landmark",
+      "runtimeId": "mossvale/stone-basin/cache-west-quarry",
+      "name": "mossvale/stone basin/cache west quarry",
+      "description": "Open the trail cache (chest) on Stone Basin.",
+      "source": "dist/maps/stone-basin.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "cache-west-quarry",
+        "kind": "chest",
+        "sprite": "chest-sandstone-iron",
+        "at": [16, 10],
+        "w": 44,
+        "label": "Open the trail cache",
+        "flag": "stone-basin.chest:cache-west-quarry",
+        "reward": {
+          "coins": 6,
+          "potions": 0,
+          "orbs": 1
+        },
+        "secret": true,
+        "mapLabel": "West quarry cache",
+        "discoveryText": "West quarry cache: A short western quarry detour leads to supplies tucked beside the rocks."
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-sandstone-iron"]
     },
     {
       "id": "landmark:mossvale/stone-basin/quarry-keeper",
@@ -4335,6 +4915,40 @@
             "mapLabel": "Sunstone lookout",
             "text": "A lookout carved into the cliff. Voltkit love the bright trail; Pebblit prefer to bask where the grass is warm.",
             "discoveryText": "Sunstone lookout: a warm shelf where Voltkit and Pebblit bask along the ridge."
+          },
+          {
+            "id": "cache-quarry-hollow",
+            "kind": "chest",
+            "sprite": "chest-sandstone-iron",
+            "at": [32, 25],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "amber-ridge.chest:cache-quarry-hollow",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Quarry hollow cache",
+            "discoveryText": "Quarry hollow cache: A sunbaked hollow off the quarry trail hides a small travel cache."
+          },
+          {
+            "id": "cache-south-ridge",
+            "kind": "chest",
+            "sprite": "chest-sandstone-iron",
+            "at": [13, 46],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "amber-ridge.chest:cache-south-ridge",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "South ridge cache",
+            "discoveryText": "South ridge cache: At the quiet southwest ridge footpath, a chest holds a little extra gear."
           }
         ],
         "exits": [
@@ -4613,12 +5227,11 @@
             "w": 71,
             "solid": 0.36,
             "at": [
-              [33, 33],
-              [31.1, 34.8],
-              [28.6, 34],
-              [28, 31.5],
-              [29.9, 29.7],
-              [32.4, 30.5]
+              [38.9, 35.3],
+              [34.5, 36.3],
+              [33.9, 33.7],
+              [35.8, 32],
+              [38.3, 32.7]
             ],
             "piece": "standing-stones-1"
           },
@@ -4626,7 +5239,7 @@
             "sprite": "bush-flowering",
             "kind": "flower",
             "w": 32,
-            "at": [[30.5, 32.3]],
+            "at": [[36.4, 34.5]],
             "piece": "standing-stones-1"
           },
           {
@@ -4634,7 +5247,7 @@
             "kind": "scenery",
             "w": 49,
             "solid": 0.42,
-            "at": [[30.5, 33.3]],
+            "at": [[36.4, 35.5]],
             "piece": "standing-stones-1"
           },
           {
@@ -4694,9 +5307,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [11.2, 42.5],
-              [12.7, 43],
-              [11.8, 41.1]
+              [36.8, 12.6],
+              [38.3, 13.1],
+              [37.4, 11.2]
             ],
             "piece": "cairn-4"
           },
@@ -4705,8 +5318,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [10.1, 43.3],
-              [13.1, 41.9]
+              [35.7, 13.4],
+              [38.7, 12]
             ],
             "piece": "cairn-4"
           },
@@ -4716,9 +5329,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [27.3, 22.1],
-              [28.8, 22.6],
-              [27.9, 20.7]
+              [14.7, 35.3],
+              [16.2, 35.8],
+              [15.3, 33.9]
             ],
             "piece": "cairn-5"
           },
@@ -4727,8 +5340,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [26.2, 22.9],
-              [29.2, 21.5]
+              [13.6, 36.1],
+              [16.6, 34.7]
             ],
             "piece": "cairn-5"
           }
@@ -5240,6 +5853,40 @@
                 "text": "A Bramblebuck is chewing straw beside the drinking trough, quite content."
               }
             ]
+          },
+          {
+            "id": "cache-north-garden",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [4, 13],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "brackenwake-commons.chest:cache-north-garden",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North garden cache",
+            "discoveryText": "North garden cache: Tucked beside the north garden path, a small chest holds a few supplies."
+          },
+          {
+            "id": "cache-south-lane",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [15, 31],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "brackenwake-commons.chest:cache-south-lane",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "South lane cache",
+            "discoveryText": "South lane cache: A quiet nook beside the south lane hides a few useful supplies."
           }
         ],
         "exits": [
@@ -5500,8 +6147,8 @@
               [50.3, 11],
               [35.2, 3.9],
               [46.9, 9.1],
-              [8.4, 15.6],
-              [45.5, 28.7]
+              [45.5, 28.7],
+              [34.6, 9]
             ],
             "piece": "town-trees"
           },
@@ -5515,12 +6162,12 @@
               [10.3, 17.8],
               [23.9, 9.2],
               [16.1, 38.4],
-              [6, 13],
               [3.6, 29.3],
               [42.4, 39.8],
               [5.1, 27],
               [12.4, 15.8],
               [5.4, 30.7],
+              [7.4, 13.5],
               [16.9, 22.6]
             ],
             "piece": "town-bushes"
@@ -5751,6 +6398,40 @@
             "mapLabel": "Icefall ledge",
             "text": "The lake path bends back to the pass. Frostowl keep watch above; Hushram shelter under the lower pines.",
             "discoveryText": "Icefall ledge: Frostowl watch above while Hushram shelter under the lower pines."
+          },
+          {
+            "id": "cache-lower-pines",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [30, 39],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "frostveil-grove.chest:cache-lower-pines",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Lower pine cache",
+            "discoveryText": "Lower pine cache: Where the lower pines thin beside the path, a small cache waits in the snow."
+          },
+          {
+            "id": "cache-north-pines",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [38, 5],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "frostveil-grove.chest:cache-north-pines",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North pine cache",
+            "discoveryText": "North pine cache: A north-side pine glade shelters a few supplies away from the main trail."
           }
         ],
         "exits": [
@@ -6109,9 +6790,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [28.9, 32],
-              [30.4, 32.5],
-              [29.5, 30.6]
+              [26.7, 29.6],
+              [28.2, 30.1],
+              [27.3, 28.2]
             ],
             "piece": "cairn-4"
           },
@@ -6120,8 +6801,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [27.8, 32.8],
-              [30.8, 31.4]
+              [25.6, 30.4],
+              [28.6, 29]
             ],
             "piece": "cairn-4"
           }
@@ -6301,6 +6982,40 @@
               "orbs": 3
             },
             "discoveryText": "Blueglass cache: a tucked-away chest waits among the pines. Open it to collect supplies."
+          },
+          {
+            "id": "cache-east-overlook",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [45, 9],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "frostveil-pass.chest:cache-east-overlook",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "East overlook cache",
+            "discoveryText": "East overlook cache: An eastern overlook above the pass holds a small cold-weather cache."
+          },
+          {
+            "id": "cache-south-snowbank",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [30, 43],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "frostveil-pass.chest:cache-south-snowbank",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "South snowbank cache",
+            "discoveryText": "South snowbank cache: Look off the southern pass trail where the snowbank meets the pines."
           },
           {
             "id": "glass-root-track",
@@ -6776,6 +7491,40 @@
             "mapLabel": "Whispering hollow",
             "text": "A hollow among the old trees. If you hear a rustle, wait: someone is watching.",
             "discoveryText": "Whispering hollow: a rustle from the old trees rewards a moment of stillness."
+          },
+          {
+            "id": "cache-riverbend",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [13, 47],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "meadow.chest:cache-riverbend",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Streamside cache",
+            "discoveryText": "Streamside cache: By the southern stream bend, a small chest holds useful road supplies."
+          },
+          {
+            "id": "cache-north-meadow",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [45, 2],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "meadow.chest:cache-north-meadow",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North meadow cache",
+            "discoveryText": "North meadow cache: Beyond the north meadow trail, a tucked-away cache holds a few supplies."
           }
         ],
         "exits": [
@@ -7363,12 +8112,12 @@
             "w": 79,
             "solid": 0.52,
             "at": [
-              [13.3, 56.1],
-              [11, 54.3],
-              [11, 51.3],
-              [13.3, 49.5],
-              [16.2, 50.2],
-              [17.5, 52.8]
+              [46.2, 36.2],
+              [43.9, 34.3],
+              [43.9, 31.4],
+              [46.2, 29.6],
+              [49.1, 30.2],
+              [50.4, 32.9]
             ],
             "piece": "oak-grove-2"
           },
@@ -7377,9 +8126,9 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [13.3, 53.1],
-              [14.8, 52.2],
-              [14.5, 53.7]
+              [46.2, 33.2],
+              [47.7, 32.3],
+              [47.4, 33.8]
             ],
             "piece": "oak-grove-2"
           },
@@ -7389,12 +8138,12 @@
             "w": 79,
             "solid": 0.52,
             "at": [
-              [46.2, 36.2],
-              [43.9, 34.3],
-              [43.9, 31.4],
-              [46.2, 29.6],
-              [49.1, 30.2],
-              [50.4, 32.9]
+              [59.2, 54.7],
+              [56.9, 52.8],
+              [56.9, 49.9],
+              [59.3, 48],
+              [62.1, 48.7],
+              [63.4, 51.4]
             ],
             "piece": "pine-grove-3"
           },
@@ -7402,7 +8151,7 @@
             "sprite": "bush-flowering",
             "kind": "flower",
             "w": 32,
-            "at": [[47.2, 33.1]],
+            "at": [[60.2, 51.5]],
             "piece": "pine-grove-3"
           },
           {
@@ -7411,9 +8160,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [60.4, 36.6],
-              [61.9, 37.1],
-              [61, 35.2]
+              [6.8, 41.8],
+              [8.3, 42.3],
+              [7.4, 40.4]
             ],
             "piece": "cairn-4"
           },
@@ -7422,8 +8171,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [59.3, 37.4],
-              [62.3, 36]
+              [5.7, 42.6],
+              [8.7, 41.2]
             ],
             "piece": "cairn-4"
           },
@@ -7433,9 +8182,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [60, 51.3],
-              [61.5, 51.8],
-              [60.6, 49.9]
+              [4.8, 49.8],
+              [6.3, 50.3],
+              [5.4, 48.4]
             ],
             "piece": "cairn-5"
           },
@@ -7444,8 +8193,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [58.9, 52.1],
-              [61.9, 50.7]
+              [3.7, 50.6],
+              [6.7, 49.2]
             ],
             "piece": "cairn-5"
           }
@@ -7802,6 +8551,40 @@
                 "text": "Inspect the upper hollow"
               }
             ]
+          },
+          {
+            "id": "cache-north-wall",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [32, 9],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "orchard-ruins.chest:cache-north-wall",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North wall cache",
+            "discoveryText": "North wall cache: A chest rests near the north orchard wall, just off the worn trail."
+          },
+          {
+            "id": "cache-western-rows",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [8, 38],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "orchard-ruins.chest:cache-western-rows",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Western rows cache",
+            "discoveryText": "Western rows cache: Between the western apple rows, a small chest rewards a short detour."
           }
         ],
         "exits": [
@@ -8110,39 +8893,13 @@
             "w": 79,
             "solid": 0.52,
             "at": [
-              [7.4, 43],
-              [5.1, 41.1],
-              [5.1, 38.2],
-              [7.4, 36.4],
-              [10.3, 37],
-              [11.6, 39.7]
-            ],
-            "piece": "oak-grove-1"
-          },
-          {
-            "sprite": "bush-flowering",
-            "kind": "flower",
-            "w": 32,
-            "at": [
-              [7.4, 40],
-              [8.9, 39.1],
-              [8.6, 40.6]
-            ],
-            "piece": "oak-grove-1"
-          },
-          {
-            "sprite": "tree-oak",
-            "kind": "scenery",
-            "w": 79,
-            "solid": 0.52,
-            "at": [
               [11.1, 50.3],
               [11.1, 47.3],
               [13.4, 45.5],
               [16.3, 46.1],
               [17.6, 48.8]
             ],
-            "piece": "oak-grove-2"
+            "piece": "oak-grove-1"
           },
           {
             "sprite": "bush-flowering",
@@ -8153,6 +8910,31 @@
               [14.9, 48.2],
               [14.6, 49.7]
             ],
+            "piece": "oak-grove-1"
+          },
+          {
+            "sprite": "tree-oak",
+            "kind": "scenery",
+            "w": 79,
+            "solid": 0.52,
+            "at": [
+              [47.1, 10.5],
+              [44.8, 8.7],
+              [44.8, 5.7],
+              [49.9, 4.6],
+              [51.2, 7.2]
+            ],
+            "piece": "oak-grove-2"
+          },
+          {
+            "sprite": "bush-flowering",
+            "kind": "flower",
+            "w": 32,
+            "at": [
+              [47, 7.5],
+              [48.5, 6.6],
+              [48.2, 8.1]
+            ],
             "piece": "oak-grove-2"
           },
           {
@@ -8161,9 +8943,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [32.6, 20.9],
-              [34.1, 21.4],
-              [33.2, 19.5]
+              [37.3, 21.4],
+              [38.8, 21.9],
+              [37.9, 20]
             ],
             "piece": "cairn-3"
           },
@@ -8172,8 +8954,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [31.5, 21.7],
-              [34.5, 20.3]
+              [36.2, 22.2],
+              [39.2, 20.8]
             ],
             "piece": "cairn-3"
           },
@@ -8183,9 +8965,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [55.6, 49.2],
-              [57.1, 49.7],
-              [56.2, 47.8]
+              [19.5, 34.6],
+              [21, 35.1],
+              [20.1, 33.2]
             ],
             "piece": "cairn-4"
           },
@@ -8194,8 +8976,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [54.5, 50],
-              [57.5, 48.6]
+              [18.4, 35.4],
+              [21.4, 34]
             ],
             "piece": "cairn-4"
           },
@@ -8205,9 +8987,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [16.8, 5.7],
-              [18.3, 6.2],
-              [17.4, 4.3]
+              [42.2, 49.5],
+              [43.7, 50],
+              [42.8, 48.1]
             ],
             "piece": "cairn-5"
           },
@@ -8216,8 +8998,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [15.7, 6.5],
-              [18.7, 5.1]
+              [41.1, 50.3],
+              [44.1, 48.9]
             ],
             "piece": "cairn-5"
           }
@@ -8872,6 +9654,40 @@
             "mapLabel": "Heron blind",
             "text": "A hide for watching herons. Someone scratched in the plank: the shrine guardian loves a strong current.",
             "discoveryText": "Heron blind: a scratched plank holds a clue about the shrine guardian and strong currents."
+          },
+          {
+            "id": "cache-south-boardwalk",
+            "kind": "chest",
+            "sprite": "chest-reed-rope",
+            "at": [21, 51],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "reedfen-wetlands.chest:cache-south-boardwalk",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "South boardwalk cache",
+            "discoveryText": "South boardwalk cache: A dry shelf beside the southern boardwalk keeps a few supplies above the reeds."
+          },
+          {
+            "id": "cache-western-bank",
+            "kind": "chest",
+            "sprite": "chest-reed-rope",
+            "at": [26, 40],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "reedfen-wetlands.chest:cache-western-bank",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Western bank cache",
+            "discoveryText": "Western bank cache: On the western reedbank, a narrow detour leads to a small chest."
           }
         ],
         "exits": [
@@ -9328,6 +10144,16 @@
                 "weight": 4
               },
               {
+                "species": "myceloop",
+                "weight": 2,
+                "behavior": "curious",
+                "field": {
+                  "duration": 1.8,
+                  "radius": 4,
+                  "recovery": "circle-and-retry"
+                }
+              },
+              {
                 "species": "rillume",
                 "weight": 2
               },
@@ -9357,6 +10183,16 @@
               {
                 "species": "mushmallow",
                 "weight": 3
+              },
+              {
+                "species": "myceloop",
+                "weight": 2,
+                "behavior": "curious",
+                "field": {
+                  "duration": 1.8,
+                  "radius": 4,
+                  "recovery": "circle-and-retry"
+                }
               }
             ],
             "level": [12, 14],
@@ -9386,6 +10222,19 @@
           }
         ],
         "triggers": [
+          {
+            "id": "myceloop-spore-trail",
+            "at": [26, 32],
+            "radius": 2,
+            "on": "enter",
+            "once": true,
+            "do": [
+              {
+                "type": "environment",
+                "text": "A dotted amber slime trail loops around the dry bank. Damp grass nearby rustles; Myceloop may be close."
+              }
+            ]
+          },
           {
             "id": "reed-whistle",
             "at": [16, 44.5],
@@ -10120,6 +10969,40 @@
             "mapLabel": "Lantern islet",
             "text": "A hanging lantern for night crossings. Keep to the planks and the water keeps its distance.",
             "discoveryText": "Lantern islet: a hanging light marks the planks used for night crossings."
+          },
+          {
+            "id": "cache-north-islet",
+            "kind": "chest",
+            "sprite": "chest-reed-rope",
+            "at": [23, 6],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "stilt-isles.chest:cache-north-islet",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North islet cache",
+            "discoveryText": "North islet cache: A northern islet beyond the boardwalk holds a modest supply cache."
+          },
+          {
+            "id": "cache-lower-reeds",
+            "kind": "chest",
+            "sprite": "chest-reed-rope",
+            "at": [21, 36],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "stilt-isles.chest:cache-lower-reeds",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Lower reeds cache",
+            "discoveryText": "Lower reeds cache: A low reed shelf off the southern boardwalk hides a small chest."
           }
         ],
         "exits": [
@@ -10340,32 +11223,6 @@
             "w": 43,
             "solid": 0.28,
             "at": [
-              [23.7, 7],
-              [23.9, 7.7],
-              [24.6, 7],
-              [24.8, 7.7],
-              [25.5, 7],
-              [25.7, 7.7],
-              [26.4, 7],
-              [26.6, 7.7],
-              [27.3, 7],
-              [27.5, 7.7]
-            ],
-            "piece": "reed-bank-1"
-          },
-          {
-            "sprite": "bush-flowering",
-            "kind": "flower",
-            "w": 32,
-            "at": [[25.5, 9.1]],
-            "piece": "reed-bank-1"
-          },
-          {
-            "sprite": "cattail-clump",
-            "kind": "scenery",
-            "w": 43,
-            "solid": 0.28,
-            "at": [
               [50.6, 29.6],
               [50.9, 30.3],
               [51.5, 29.6],
@@ -10377,33 +11234,14 @@
               [54.2, 29.6],
               [54.5, 30.3]
             ],
-            "piece": "reed-bank-2"
+            "piece": "reed-bank-1"
           },
           {
             "sprite": "bush-flowering",
             "kind": "flower",
             "w": 32,
             "at": [[52.4, 31.7]],
-            "piece": "reed-bank-2"
-          },
-          {
-            "sprite": "cattail-clump",
-            "kind": "scenery",
-            "w": 43,
-            "solid": 0.28,
-            "at": [
-              [23.2, 36.1],
-              [23.5, 36.8],
-              [24.1, 36.1],
-              [24.4, 36.8],
-              [25, 36.1],
-              [25.3, 36.8],
-              [25.9, 36.1],
-              [26.2, 36.8],
-              [26.8, 36.1],
-              [27.1, 36.8]
-            ],
-            "piece": "reed-bank-3"
+            "piece": "reed-bank-1"
           },
           {
             "sprite": "cattail-clump",
@@ -10421,6 +11259,55 @@
               [56.6, 37.1],
               [57.3, 36.4]
             ],
+            "piece": "reed-bank-2"
+          },
+          {
+            "sprite": "cattail-clump",
+            "kind": "scenery",
+            "w": 43,
+            "solid": 0.28,
+            "at": [
+              [27, 9.8],
+              [27.2, 10.5],
+              [27.9, 9.8],
+              [28.1, 10.5],
+              [28.8, 9.8],
+              [29, 10.5],
+              [29.7, 9.8],
+              [29.9, 10.5]
+            ],
+            "piece": "reed-bank-3"
+          },
+          {
+            "sprite": "bush-flowering",
+            "kind": "flower",
+            "w": 32,
+            "at": [[28.8, 11.9]],
+            "piece": "reed-bank-3"
+          },
+          {
+            "sprite": "cattail-clump",
+            "kind": "scenery",
+            "w": 43,
+            "solid": 0.28,
+            "at": [
+              [9.6, 16.3],
+              [9.9, 17],
+              [10.5, 16.3],
+              [10.8, 17],
+              [11.4, 16.3],
+              [11.7, 17],
+              [12.3, 16.3],
+              [12.6, 17],
+              [13.5, 17]
+            ],
+            "piece": "reed-bank-4"
+          },
+          {
+            "sprite": "bush-flowering",
+            "kind": "flower",
+            "w": 32,
+            "at": [[11.4, 18.4]],
             "piece": "reed-bank-4"
           }
         ],
@@ -10660,6 +11547,40 @@
             "mapLabel": "Rim vista",
             "text": "From the rim you can see the whole basin and the long road up to the shrine.",
             "discoveryText": "Rim vista: the basin and the long road to the shrine open up below."
+          },
+          {
+            "id": "cache-fern-shelf",
+            "kind": "chest",
+            "sprite": "chest-sandstone-iron",
+            "at": [23, 20],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "stone-basin.chest:cache-fern-shelf",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Fern shelf cache",
+            "discoveryText": "Fern shelf cache: A fern-covered shelf above the basin trail holds a small cache."
+          },
+          {
+            "id": "cache-west-quarry",
+            "kind": "chest",
+            "sprite": "chest-sandstone-iron",
+            "at": [16, 10],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "stone-basin.chest:cache-west-quarry",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "West quarry cache",
+            "discoveryText": "West quarry cache: A short western quarry detour leads to supplies tucked beside the rocks."
           }
         ],
         "exits": [
@@ -10926,12 +11847,11 @@
             "w": 71,
             "solid": 0.36,
             "at": [
-              [24, 9.5],
-              [22.1, 11.3],
-              [19.6, 10.5],
-              [19, 8],
-              [20.9, 6.2],
-              [23.4, 7]
+              [9.2, 33.8],
+              [7.3, 35.6],
+              [4.2, 32.3],
+              [6.1, 30.5],
+              [8.6, 31.3]
             ],
             "piece": "standing-stones-1"
           },
@@ -10939,7 +11859,7 @@
             "sprite": "bush-flowering",
             "kind": "flower",
             "w": 32,
-            "at": [[21.5, 8.7]],
+            "at": [[6.7, 33]],
             "piece": "standing-stones-1"
           },
           {
@@ -10947,7 +11867,7 @@
             "kind": "scenery",
             "w": 49,
             "solid": 0.42,
-            "at": [[21.5, 9.7]],
+            "at": [[6.7, 34]],
             "piece": "standing-stones-1"
           },
           {
@@ -10956,11 +11876,12 @@
             "w": 71,
             "solid": 0.36,
             "at": [
-              [9.2, 33.8],
-              [7.3, 35.6],
-              [4.2, 32.3],
-              [6.1, 30.5],
-              [8.6, 31.3]
+              [48.5, 34.9],
+              [46.6, 36.7],
+              [44.1, 35.9],
+              [43.6, 33.4],
+              [45.5, 31.6],
+              [47.9, 32.4]
             ],
             "piece": "standing-stones-2"
           },
@@ -10968,7 +11889,7 @@
             "sprite": "bush-flowering",
             "kind": "flower",
             "w": 32,
-            "at": [[6.7, 33]],
+            "at": [[46, 34.2]],
             "piece": "standing-stones-2"
           },
           {
@@ -10976,30 +11897,8 @@
             "kind": "scenery",
             "w": 49,
             "solid": 0.42,
-            "at": [[6.7, 34]],
+            "at": [[46, 35.2]],
             "piece": "standing-stones-2"
-          },
-          {
-            "sprite": "boulder-mossy",
-            "kind": "scenery",
-            "w": 49,
-            "solid": 0.42,
-            "at": [
-              [46, 34.2],
-              [47.5, 34.7],
-              [46.6, 32.8]
-            ],
-            "piece": "cairn-3"
-          },
-          {
-            "sprite": "bush-flowering",
-            "kind": "flower",
-            "w": 32,
-            "at": [
-              [44.9, 35],
-              [47.9, 33.6]
-            ],
-            "piece": "cairn-3"
           },
           {
             "sprite": "boulder-mossy",
@@ -11011,7 +11910,7 @@
               [42.7, 41.2],
               [41.8, 39.3]
             ],
-            "piece": "cairn-4"
+            "piece": "cairn-3"
           },
           {
             "sprite": "bush-flowering",
@@ -11021,6 +11920,25 @@
               [40.1, 41.5],
               [43.1, 40.1]
             ],
+            "piece": "cairn-3"
+          },
+          {
+            "sprite": "boulder-mossy",
+            "kind": "scenery",
+            "w": 49,
+            "solid": 0.42,
+            "at": [
+              [15.1, 21.1],
+              [16.6, 21.6],
+              [15.7, 19.7]
+            ],
+            "piece": "cairn-4"
+          },
+          {
+            "sprite": "bush-flowering",
+            "kind": "flower",
+            "w": 32,
+            "at": [[14, 21.9]],
             "piece": "cairn-4"
           }
         ],
@@ -11470,6 +12388,21 @@
         "description": "A dependable burst of sharp leaves."
       },
       "power": "1"
+    },
+    {
+      "id": "move:mycelial-pulse",
+      "family": "move",
+      "runtimeId": "mycelial-pulse",
+      "name": "Mycelial pulse",
+      "description": "A low-burst Spore pulse that gives its sturdy user room to set up.",
+      "source": "dist/src/data/moves.js",
+      "evidence": "tests/battle-actions.test.mjs",
+      "raw": {
+        "name": "Mycelial pulse",
+        "power": 0.88,
+        "description": "A low-burst Spore pulse that gives its sturdy user room to set up."
+      },
+      "power": "0.88"
     },
     {
       "id": "move:orchid-pounce",
@@ -12231,27 +13164,97 @@
       "family": "pack",
       "runtimeId": "mossvale",
       "name": "Mossvale",
-      "description": "Four biomes, eighteen friends and a seal at every shrine.",
+      "description": "Four biomes, nineteen friends and a seal at every shrine.",
       "source": "dist/maps/index.json",
       "evidence": "tests/packs.test.mjs",
       "raw": {
+        "story": "story.json",
+        "requires": {
+          "engineVersion": 1,
+          "saveSchema": 5
+        },
+        "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
         "format": 1,
-        "id": "mossvale",
-        "name": "Mossvale",
-        "brief": "Four biomes, eighteen friends and a seal at every shrine.",
-        "maps": [
-          "meadow",
-          "amber-ridge",
-          "frostveil-grove",
-          "frostveil-pass",
-          "reedfen-wetlands",
-          "orchard-ruins",
-          "stilt-isles",
-          "stone-basin",
-          "brackenwake-commons",
-          "rootglass-canopy",
-          "rootglass-hollow"
+        "objectives": "objectives.json",
+        "contentVersion": 9,
+        "integrity": [
+          {
+            "id": "registry:main",
+            "path": "registries.json",
+            "sha256": "2a49c97c49808bd42a65e3ee338219298886e6d048b248731c58c13bb571407a"
+          },
+          {
+            "id": "map:meadow",
+            "path": "meadow.json",
+            "sha256": "6ec0c6f5e54f6a45ebf61c01d2b958a9e29ab8f8f6c5cfde5590ccaec56fae37"
+          },
+          {
+            "id": "map:amber-ridge",
+            "path": "amber-ridge.json",
+            "sha256": "3760aeb019a867dcc06c489a2159c99080d896eb37cffe56e530f559f8b9e909"
+          },
+          {
+            "id": "map:frostveil-grove",
+            "path": "frostveil-grove.json",
+            "sha256": "9c19bcab6e8923b290a403409a7ac54472d9b2b070f93efa6b5a6fffb6eefe3d"
+          },
+          {
+            "id": "map:frostveil-pass",
+            "path": "frostveil-pass.json",
+            "sha256": "2ebb26442c15515b32996ababeeadd2e0b75e946e1ce0165db8c90fb579e1595"
+          },
+          {
+            "id": "map:reedfen-wetlands",
+            "path": "reedfen-wetlands.json",
+            "sha256": "d46c99fbdc8c63b468802e996fff5680d3f0d3eed846f7cf1f97d26258a2a28f"
+          },
+          {
+            "id": "map:orchard-ruins",
+            "path": "orchard-ruins.json",
+            "sha256": "9c65bb87d1992486df3fb735d69e30817f29011b34c36b639999ff4bc222fa80"
+          },
+          {
+            "id": "map:stilt-isles",
+            "path": "stilt-isles.json",
+            "sha256": "e75ace64837b77e2dbccecc5271ff4ea35f0b59fb1c193ac550f295fd3ac7ac2"
+          },
+          {
+            "id": "map:stone-basin",
+            "path": "stone-basin.json",
+            "sha256": "5c99175ea5861f5f846b12156aae2645e2582b6c88f947de2808d9c862943b54"
+          },
+          {
+            "id": "map:brackenwake-commons",
+            "path": "brackenwake-commons.json",
+            "sha256": "92cf67c62bf4c0fa3c8676bb5533d488bb837679fbb458cacaf61ec7b996b365"
+          },
+          {
+            "id": "map:rootglass-canopy",
+            "path": "rootglass-canopy.json",
+            "sha256": "ee281f2be56287a5eadd2f1f0321f196c1660c0eb7270c717584f9dda9c8aac1"
+          },
+          {
+            "id": "map:rootglass-hollow",
+            "path": "rootglass-hollow.json",
+            "sha256": "efaf2e47ff85a147be7cd0250b3f4984ea888541f20ad7658b135da6fb72463d"
+          },
+          {
+            "id": "objectives:main",
+            "path": "objectives.json",
+            "sha256": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed"
+          },
+          {
+            "id": "story:main",
+            "path": "story.json",
+            "sha256": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927"
+          },
+          {
+            "id": "inventory:main",
+            "path": "inventory.json",
+            "sha256": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728"
+          }
         ],
+        "id": "mossvale",
         "species": [
           "fernling",
           "emberkin",
@@ -12270,96 +13273,27 @@
           "cindercurl",
           "sunsifter",
           "rillume",
-          "lanternix"
+          "lanternix",
+          "myceloop"
         ],
-        "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
-        "ending": "story",
-        "objectives": "objectives.json",
-        "story": "story.json",
-        "inventory": "inventory.json",
         "registries": "registries.json",
-        "contentVersion": 7,
-        "requires": {
-          "engineVersion": 1,
-          "saveSchema": 5
-        },
-        "integrity": [
-          {
-            "id": "registry:main",
-            "path": "registries.json",
-            "sha256": "a9bbe9d97ecd693502676e01b09bdf5fe95edf472480932a4d8940936fe5a189"
-          },
-          {
-            "id": "map:meadow",
-            "path": "meadow.json",
-            "sha256": "27ce7a906e48ba41e354554686f656cb0da3140ffb3a36e3c0552cabceed6f88"
-          },
-          {
-            "id": "map:amber-ridge",
-            "path": "amber-ridge.json",
-            "sha256": "6ba5bb9ad93b375fdfa639a9dafebf66c4b3d620bd5d08bd05e349437e7e1e12"
-          },
-          {
-            "id": "map:frostveil-grove",
-            "path": "frostveil-grove.json",
-            "sha256": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318"
-          },
-          {
-            "id": "map:frostveil-pass",
-            "path": "frostveil-pass.json",
-            "sha256": "4c425146e1037e3ef14d986ac7ab7134ee66f57c6fa844423f7c95152ae65757"
-          },
-          {
-            "id": "map:reedfen-wetlands",
-            "path": "reedfen-wetlands.json",
-            "sha256": "c690c22ae2b3c2472f40965a17ef8193cb9b6231cb5f3f23bd2044c0f12c0c06"
-          },
-          {
-            "id": "map:orchard-ruins",
-            "path": "orchard-ruins.json",
-            "sha256": "b87334a0d0a5df9a9615165ec49b09cf345cffde890ca616713926c60502a03d"
-          },
-          {
-            "id": "map:stilt-isles",
-            "path": "stilt-isles.json",
-            "sha256": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c"
-          },
-          {
-            "id": "map:stone-basin",
-            "path": "stone-basin.json",
-            "sha256": "9f12aa73b720f3ae4df848aeb98cda365cccafe3ddc1a71ef6a83a393fd1bb1a"
-          },
-          {
-            "id": "map:brackenwake-commons",
-            "path": "brackenwake-commons.json",
-            "sha256": "d7db2f177ab5c121b7b9b46ec88c76c1678ee9b4865e1533a3c5877b28da6091"
-          },
-          {
-            "id": "map:rootglass-canopy",
-            "path": "rootglass-canopy.json",
-            "sha256": "357633ba89fa2e188c8c4dd65298f848a03e82638b2b022a289513a64173525c"
-          },
-          {
-            "id": "map:rootglass-hollow",
-            "path": "rootglass-hollow.json",
-            "sha256": "f51cf8d7e493790da6a9d2ea6d9234f7e8daeed3067acc3e75907d0a02a2a2f7"
-          },
-          {
-            "id": "objectives:main",
-            "path": "objectives.json",
-            "sha256": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed"
-          },
-          {
-            "id": "story:main",
-            "path": "story.json",
-            "sha256": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927"
-          },
-          {
-            "id": "inventory:main",
-            "path": "inventory.json",
-            "sha256": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728"
-          }
-        ]
+        "name": "Mossvale",
+        "ending": "story",
+        "maps": [
+          "meadow",
+          "amber-ridge",
+          "frostveil-grove",
+          "frostveil-pass",
+          "reedfen-wetlands",
+          "orchard-ruins",
+          "stilt-isles",
+          "stone-basin",
+          "brackenwake-commons",
+          "rootglass-canopy",
+          "rootglass-hollow"
+        ],
+        "brief": "Four biomes, nineteen friends and a seal at every shrine.",
+        "inventory": "inventory.json"
       }
     },
     {
@@ -14901,6 +15835,38 @@
       "dependencies": ["visual:creature-mushmallow"]
     },
     {
+      "id": "species:mossvale/myceloop",
+      "family": "species",
+      "runtimeId": "mossvale/myceloop",
+      "name": "Myceloop",
+      "description": "A cohesive three-lobed slime mold traced with lavender veins and tiny amber spore vents.",
+      "source": "dist/maps/registries.json",
+      "evidence": "tests/registries.test.mjs",
+      "raw": {
+        "id": "myceloop",
+        "name": "Myceloop",
+        "type": "Spore",
+        "stats": {
+          "hp": 50,
+          "attack": 7,
+          "defense": 14
+        },
+        "move": "mycelial-pulse",
+        "biome": "wetland",
+        "role": "Patient control bulwark",
+        "personality": "Quiet and watchful; it follows damp paths and settles into a loop when the air is still.",
+        "desc": "A cohesive three-lobed slime mold traced with lavender veins and tiny amber spore vents.",
+        "encounterHint": "Follow the amber-dotted damp trail beside the safe Reedfen bank grass.",
+        "strong": ["Water", "Spark"],
+        "weak": ["Fire", "Air", "Bloom"],
+        "color": "#ad79d2",
+        "hp": 50,
+        "sprite": "creature-myceloop"
+      },
+      "sprite": "creature-myceloop",
+      "dependencies": ["visual:creature-myceloop"]
+    },
+    {
       "id": "species:mossvale/pebblit",
       "family": "species",
       "runtimeId": "mossvale/pebblit",
@@ -16403,14 +17369,7 @@
           "Striped flame-feather tail stabilizer"
         ]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "Reviewed actual canvas widths 115/37. Hollow blue/yellow/red cylindrical cannon bore, blue/cream upright toucan, crest, wing bands and striped feather tail remain distinct from Parrocket. North/back versus south/front and west/profile versus northwest/rear-left are readable; original generated drafts were spacing-revised before export, including complete edge beaks and removal of stray combat symbols. Generated adaptations are retained; inline owner originals are not claimed as archived binary inputs.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-blastoucan-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -16471,10 +17430,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Reviewed actual canvas widths 115/37. Hollow blue/yellow/red cylindrical cannon bore, blue/cream upright toucan, crest, wing bands and striped feather tail remain distinct from Parrocket. North/back versus south/front and west/profile versus northwest/rear-left are readable; original generated drafts were spacing-revised before export, including complete edge beaks and removal of stray combat symbols. Generated adaptations are retained; inline owner originals are not claimed as archived binary inputs.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -16515,10 +17474,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -16723,14 +17682,7 @@
         "palette": ["river blue", "deep navy", "cream", "cyan"],
         "distinguishingFeatures": ["large bright eyes", "pale muzzle and chest", "curling blue tail", "water bubbles"]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null,
       "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
       "allowedUseSummary": "Asset creature-brooklet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -16786,10 +17738,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -16886,10 +17838,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -17046,14 +17998,7 @@
           "Brass-centered dark rear flank housing above rear leg"
         ]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "Correction #378 replaces rejected anatomy. Inspected portrait and all40 follower/20 battle cells enlarged and at37/115px. Front/rear gear shows rim, profiles show broad side disc, diagonals oblique face; gear plane stays longitudinal. Front-only paired lenses, hidden rear lenses, identical four-corner leg construction and rear flank housing remain identifiable. Rejected first follower angle layout, replaced five northwest cells to remove rear eye; rejected disappearing faint gear and regenerated intact low resting faint row. Detailed angle/state observations and limitations in ANATOMY-378.md. Owner taste pending; earlier internal review missed owner-reported defects and is retained separately.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-coglet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -17114,10 +18059,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Correction #378 replaces rejected anatomy. Inspected portrait and all40 follower/20 battle cells enlarged and at37/115px. Front/rear gear shows rim, profiles show broad side disc, diagonals oblique face; gear plane stays longitudinal. Front-only paired lenses, hidden rear lenses, identical four-corner leg construction and rear flank housing remain identifiable. Rejected first follower angle layout, replaced five northwest cells to remove rear eye; rejected disappearing faint gear and regenerated intact low resting faint row. Detailed angle/state observations and limitations in ANATOMY-378.md. Owner taste pending; earlier internal review missed owner-reported defects and is retained separately.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -17212,14 +18157,7 @@
         "palette": ["lavender", "deep violet", "cream", "magenta"],
         "distinguishingFeatures": ["large eye-spotted wings", "pale chest ruff", "magenta eyes", "short dark legs"]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null,
       "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
       "allowedUseSummary": "Asset creature-duskwing-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -17275,10 +18213,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -17375,10 +18313,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -17532,10 +18470,10 @@
       },
       "review": [
         {
-          "decision": "accept",
+          "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending",
           "reviewer": "implementation visual QA",
-          "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -17689,10 +18627,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA at 37 px",
           "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA at 37 px",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -17813,10 +18751,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -17913,10 +18851,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -18067,10 +19005,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Lantern abdomen, teal wing-case shoulders and insect limbs remain distinct from Voltkit at gameplay scale; rear/front eyes and corrected SW facing read clearly. Combat states and follower wingflutter preserve the identity and stable anchor. Owner taste and enjoyment remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -18221,10 +19159,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA at 37 px",
           "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA at 37 px",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -18345,15 +19283,171 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
       "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
       "allowedUseSummary": "Asset creature-mushmallow-thorn-mantle-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:creature-myceloop",
+      "family": "visual",
+      "runtimeId": "creature-myceloop",
+      "name": "creature-myceloop",
+      "description": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-myceloop",
+        "kind": "creature",
+        "src": "assets/creatures/creature-myceloop.png",
+        "w": 264,
+        "h": 144,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "264 by 144 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "references": [],
+      "preview": "dist/assets/creatures/creature-myceloop.png",
+      "animationMetadata": null,
+      "identity": {
+        "silhouette": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+        "palette": ["deep violet", "lavender", "amber", "dark plum"],
+        "distinguishingFeatures": ["three connected lobes", "central dark dimple", "branching lavender vein pattern", "small amber edge vents"]
+      },
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-myceloop is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:creature-myceloop-combat",
+      "family": "visual",
+      "runtimeId": "creature-myceloop-combat",
+      "name": "creature-myceloop-combat",
+      "description": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-myceloop-combat",
+        "kind": "creature",
+        "src": "assets/creatures/creature-myceloop-combat.png",
+        "w": 1152,
+        "h": 1440,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 4,
+          "rows": 5,
+          "frameWidth": 288,
+          "frameHeight": 288,
+          "columnOrder": [0, 1, 2, 3],
+          "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+          "defaultFrame": {
+            "column": 0,
+            "row": 0
+          }
+        }
+      },
+      "dimensions": "1152 by 1440 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "idle, attack, hit, faint, capture",
+      "references": [],
+      "preview": "dist/assets/creatures/creature-myceloop-combat.png",
+      "animationMetadata": {
+        "sourceSize": [1122, 1402],
+        "output": "dist/assets/creatures/creature-myceloop-combat.png",
+        "columns": 4,
+        "rows": 5,
+        "frame": [288, 288],
+        "anchor": "bottom-center",
+        "poseNotes": "Low-burst spore attack. Shared pose extraction applies one common scale and four-pixel runtime margin."
+      },
+      "identity": {
+        "silhouette": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+        "palette": ["deep violet", "lavender", "amber", "dark plum"],
+        "distinguishingFeatures": ["three connected lobes", "central dark dimple", "branching lavender vein pattern", "small amber edge vents"]
+      },
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At the 115 px battle width the violet three-lobed body, central dimple, branching lavender veins and amber spore vents remain legible and distinct from Mushmallow; idle, attack, hit, faint and capture states remain cohesive. At 37 px the low connected radial silhouette is readable and does not resemble the taller hedgehog. Direction changes are intentionally subtle for a radial organism, while its eight-row atlas retains stable anchors and five animation columns. Owner taste and real playtest remain pending; this is not owner approval.",
+          "ownerTaste": "pending"
+        }
+      ],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-myceloop-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:creature-myceloop-follower",
+      "family": "visual",
+      "runtimeId": "creature-myceloop-follower",
+      "name": "creature-myceloop-follower",
+      "description": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "creature-myceloop-follower",
+        "kind": "creature",
+        "src": "assets/creatures/creature-myceloop-follower.png",
+        "w": 1000,
+        "h": 1600,
+        "anchor": "bottom-center",
+        "required": false,
+        "frames": {
+          "columns": 5,
+          "rows": 8,
+          "frameWidth": 200,
+          "frameHeight": 200,
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+        }
+      },
+      "dimensions": "1000 by 1600 source pixels",
+      "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+      "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+      "references": [],
+      "preview": "dist/assets/creatures/creature-myceloop-follower.png",
+      "animationMetadata": {
+        "sourceSize": [992, 1586],
+        "output": "dist/assets/creatures/creature-myceloop-follower.png",
+        "frame": [200, 200],
+        "columns": 5,
+        "rows": 8,
+        "anchor": "bottom-center",
+        "feetY": 196,
+        "poseNotes": "Slow squeeze-flow. The radial body has no face; facing is expressed through lobe perspective and the leading dimple edge."
+      },
+      "identity": {
+        "silhouette": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+        "palette": ["deep violet", "lavender", "amber", "dark plum"],
+        "distinguishingFeatures": ["three connected lobes", "central dark dimple", "branching lavender vein pattern", "small amber edge vents"]
+      },
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset creature-myceloop-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
       "externalSource": null,
       "licenseReference": null,
       "sourcePage": "See the local artwork provenance record.",
@@ -18453,14 +19547,7 @@
           "Charcoal bird feet"
         ]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "Owner-reference blue/white parrot, conical rocket beak, tri-color crest, wing bands and attached striped flame-feather tail remain coherent across 20 battle and 40 directional poses. Reviewed at renderer widths 115/37 without CSS scaling; west is a side view and northwest is a rear-left view. Combat draft required an archived spacing revision before export. No adjoining-frame fragments. This is resource usability review, not a new encounter playtest.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-parrocket-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -18522,10 +19609,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Owner-reference blue/white parrot, conical rocket beak, tri-color crest, wing bands and attached striped flame-feather tail remain coherent across 20 battle and 40 directional poses. Reviewed at renderer widths 115/37 without CSS scaling; west is a side view and northwest is a rear-left view. Combat draft required an archived spacing revision before export. No adjoining-frame fragments. This is resource usability review, not a new encounter playtest.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -18566,10 +19653,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -18692,10 +19779,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -18846,10 +19933,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -19000,10 +20087,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "approved"
+          "ownerTaste": "approved",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -19160,14 +20247,7 @@
           "Short tail"
         ]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Low brown quadruped, cream toes/muzzle and large attached gray/orange frontal plate remain recognizable through charge, hit, rest and cooperative poses. North shows the rear; south the symmetric plate/eyes; west profile and northwest rear-left differ. All anatomy is isolated with clear output gutters; source spacing and outline revisions are retained. Generated adaptations are not original owner-reference binary inputs.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-rumblet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -19228,10 +20308,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Reviewed final shared-renderer canvases at 115/37 px. Low brown quadruped, cream toes/muzzle and large attached gray/orange frontal plate remain recognizable through charge, hit, rest and cooperative poses. North shows the rear; south the symmetric plate/eyes; west profile and northwest rear-left differ. All anatomy is isolated with clear output gutters; source spacing and outline revisions are retained. Generated adaptations are not original owner-reference binary inputs.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -19328,10 +20408,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -19426,10 +20506,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -19606,10 +20686,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -19706,10 +20786,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "approved"
+          "ownerTaste": "approved",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -19804,10 +20884,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -20024,10 +21104,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Owner-provided redesign is now the canonical Voltkit look: orange fox-like scout, cream chest, dark legs, lightning flank mark and forked gold-crystal tail. Contact sheets were inspected at gameplay scale; combat states remain distinct. The supplied follower atlas lacks a distinct southeast pose, so its northeast source row is mirrored for that direction. Owner review requested this redesign; gameplay acceptance remains pending.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -20059,7 +21139,7 @@
           "rows": 8,
           "frameWidth": 200,
           "frameHeight": 200,
-          "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
           "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
           "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
         }
@@ -20189,14 +21269,7 @@
           "Legless flame-shaped floating body"
         ]
       },
-      "review": [
-        {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
-          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Pale oval mask, expressive indigo eyes, violet flame body and attached cyan wisps remain readable. North has no mask; south shows both eyes; profiles differ from rear diagonals. Hover phases change attached tail shape and torso tilt; every front-diagonal mask keeps its correct side, including separately generated southwest index28 replacement. Combat anticipation/lunge/recovery, hit reactions, lowered closed-eye final faint and calm capture preserve identity. Wrong-grid and wrong-facing drafts retained as generation history, not selected exports. Original owner-inline input binaries are unavailable locally; internal QA does not imply owner taste approval.",
-          "ownerTaste": "pending"
-        }
-      ],
+      "review": [],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-wispurr-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -20257,10 +21330,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "Reviewed final shared-renderer canvases at 115/37 px. Pale oval mask, expressive indigo eyes, violet flame body and attached cyan wisps remain readable. North has no mask; south shows both eyes; profiles differ from rear diagonals. Hover phases change attached tail shape and torso tilt; every front-diagonal mask keeps its correct side, including separately generated southwest index28 replacement. Combat anticipation/lunge/recovery, hit reactions, lowered closed-eye final faint and calm capture preserve identity. Wrong-grid and wrong-facing drafts retained as generation history, not selected exports. Original owner-inline input binaries are unavailable locally; internal QA does not imply owner taste approval.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": null,
@@ -20967,10 +22040,10 @@
       },
       "review": [
         {
-          "decision": "accept",
-          "reviewer": "implementation visual QA",
           "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
-          "ownerTaste": "pending"
+          "ownerTaste": "pending",
+          "reviewer": "implementation visual QA",
+          "decision": "accept"
         }
       ],
       "characterMetadata": {

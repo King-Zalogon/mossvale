@@ -25,17 +25,18 @@ export const companion = (save, id = save.active) => save.team[id];
 export function flagDone(save, flag) {
   const [regionId, kind] = flag.split('.');
   const i = regions.findIndex(r => r.id === regionId);
-  if (i < 0) return save.mapFlags?.includes(flag) === true;
-  return kind === 'seal' ? save.badges.includes(i) : save.chests.includes(i);
+  if (i >= 0 && kind === 'seal') return save.badges.includes(i);
+  if (i >= 0 && kind === 'chest') return save.chests.includes(i);
+  return save.mapFlags?.includes(flag) === true;
 }
 
 /** Marks a milestone flag done (the inverse of flagDone). Idempotent. */
 export function setFlag(save, flag) {
   const [regionId, kind] = flag.split('.');
   const i = regions.findIndex(r => r.id === regionId);
-  const list = kind === 'seal' ? save.badges : save.chests;
-  if (i >= 0 && !list.includes(i)) list.push(i);
-  else if (i < 0 && /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/.test(flag)) {
+  if (i >= 0 && kind === 'seal' && !save.badges.includes(i)) save.badges.push(i);
+  else if (i >= 0 && kind === 'chest' && !save.chests.includes(i)) save.chests.push(i);
+  else if (/^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest(?::[a-z0-9]+(?:-[a-z0-9]+)*)?)$/.test(flag)) {
     save.mapFlags ??= [];
     if (!save.mapFlags.includes(flag)) save.mapFlags.push(flag);
   }

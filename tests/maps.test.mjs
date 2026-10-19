@@ -66,6 +66,50 @@ test('the shipped maps validate', () => {
   );
 });
 
+test('the nine maps in the #336 batch have two distinct optional caches without replacing their legacy chests', () => {
+  const raw = rawMaps();
+  const expected = new Set([
+    'meadow',
+    'amber-ridge',
+    'frostveil-grove',
+    'frostveil-pass',
+    'reedfen-wetlands',
+    'orchard-ruins',
+    'stilt-isles',
+    'stone-basin',
+    'brackenwake-commons',
+  ]);
+  const cachedMaps = raw.filter(map => map.landmarks.some(landmark => landmark.kind === 'chest' && landmark.flag.includes(':')));
+  assert.deepEqual(new Set(cachedMaps.map(map => map.id)), expected);
+  for (const map of raw.filter(map => expected.has(map.id))) {
+    const caches = map.landmarks.filter(landmark => landmark.kind === 'chest' && landmark.flag.includes(':'));
+    assert.equal(caches.length, 2, `${map.id} has two new optional finds`);
+    assert.equal(new Set(caches.map(cache => cache.flag)).size, 2, `${map.id} cache flags are independent`);
+    for (const cache of caches) {
+      assert.equal(cache.flag.split('.')[0], map.id);
+      assert.equal(cache.flag.split(':')[0], `${map.id}.chest`);
+      assert.equal(cache.secret, true, `${cache.id} is discovered in the world before appearing on the area map`);
+      assert.ok(cache.mapLabel && cache.discoveryText, `${cache.id} has specific discovery text`);
+      assert.deepEqual(cache.reward, {coins: 6, potions: 0, orbs: 1});
+    }
+  }
+});
+
+test('custom cache flags are accepted only for maps and stable cache IDs', () => {
+  assert.deepEqual(
+    edit(raw => (meadow(raw).landmarks.find(landmark => landmark.id === 'cache-riverbend').flag = 'meadow.chest:riverbend-cache')),
+    [],
+  );
+  has(
+    edit(raw => (meadow(raw).landmarks.find(landmark => landmark.id === 'cache-riverbend').flag = 'meadow.chest:Bad-ID')),
+    'must look like',
+  );
+  has(
+    edit(raw => (meadow(raw).landmarks.find(landmark => landmark.id === 'cache-riverbend').flag = 'missing-map.chest:riverbend-cache')),
+    'references unknown map',
+  );
+});
+
 test('optional map-card previews must reference a registered sprite', () => {
   const errors = edit(raw => {
     raw.find(map => map.id === 'stone-basin').preview = 'missing-map-preview';
@@ -169,7 +213,7 @@ test('Rootglass is an optional two-map route with distinct ecology, stable retur
   assert.ok(hollow.landmarks.some(landmark => landmark.sprite === 'prop-rootglass-hollow'));
   assert.deepEqual(canopy.zones[0].pool, ['duskwing', 'frostowl']);
   assert.deepEqual(hollow.zones[0].pool, ['pebblit', 'hushram']);
-  assert.equal(rawPack().contentVersion, 7);
+  assert.equal(rawPack().contentVersion, 9);
   assert.ok(mapsById[canopy.id] && mapsById[hollow.id]);
 });
 
@@ -433,9 +477,9 @@ test('the wetland pair is two large connected maps with a safe loop of exits (#5
   assert.equal(to(stilt, 'north-landing').spawn, 'shrine-landing');
   assert.ok(reed.spawns['stilt-return'] && reed.spawns['shrine-landing']);
   assert.equal(reed.exits.find(e => e.id === 'west').to.map, 'frostveil-grove');
-  // three wetland creatures, one seal, a supply point on both maps, discoveries, quiet corridors
+  // four wetland creatures, one seal, a supply point on both maps, discoveries, quiet corridors
   const species = new Set(raw.flatMap(m => (m === reed || m === stilt ? m.zones : [])).flatMap(z => z.pool.map(p => p.species ?? p)));
-  assert.deepEqual([...species].sort(), ['brooklet', 'mushmallow', 'rillume', 'siltkip']);
+  assert.deepEqual([...species].sort(), ['brooklet', 'mushmallow', 'myceloop', 'rillume', 'siltkip']);
   assert.equal([reed, stilt].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);
   for (const m of [reed, stilt]) {
     assert.ok(

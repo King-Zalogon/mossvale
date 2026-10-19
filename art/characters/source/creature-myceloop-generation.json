@@ -1,0 +1,49 @@
+{
+  "species": "myceloop",
+  "revision": 2,
+  "identity": "Three-lobed plasmodial slime mold; one cohesive amber-violet body, central dimple, branching lavender veins and tiny amber spore vents. No face, mushroom cap or detached body particles.",
+  "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+  "followerFrames": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+  "followerFrameSize": [200, 200],
+  "followerGrid": [5, 8],
+  "followerAnchor": "bottom-center",
+  "followerFeetY": 196,
+  "followerCadenceWorldUnits": 0.56,
+  "combatFrames": ["idle", "attack", "hit", "faint", "capture"],
+  "combatFrameSize": [288, 288],
+  "combatGrid": [4, 5],
+  "combatAnchor": "bottom-center",
+  "portraitExportProfile": "creature-portrait-compact-v1",
+  "combatExportProfile": "creature-combat-v1",
+  "followerExportProfile": "creature-follower-v1",
+  "tool": "Codex image_gen built-in",
+  "modelVersion": "unavailable; tool does not expose model version",
+  "seed": "unavailable; tool does not expose seed",
+  "references": ["creature-mushmallow", "art/characters/source/creature-myceloop-concept-v2.png"],
+  "promptSummary": "Generate a distinct slime-mold body plan from the written #292 brief, then preserve its three connected lobes, central dark dimple, lavender vein pattern and amber vents across portrait, 20 combat cells and 40 directional follower cells.",
+  "prompts": {
+    "combat": "A VERTICAL portrait 4:5 aspect ratio transparent sprite atlas, exactly 4 columns by 5 rows of SQUARE cells (overall image must be taller than wide, ratio 4:5). Use the referenced three-lobed violet plasmodial slime mold identity. 20 distinct animation poses, rows: idle, attack, hit, faint, capture; four sequential frames each. Clear transparent gutters. Each square cell contains its pose entirely within central 60%, with at least 20% fully transparent on top, bottom, left and right. Same size and exact bottom-center anchor in every cell. No artwork crosses any cell boundary. Pixel art with crisp clusters, limited colors. No text, grid lines, floor, or shadows. Small action effects only inside the cell: a few orange spores, faint slumps, capture curled in a compact blue loop. Use true transparent alpha, no checkerboard."
+  },
+  "sources": {
+    "art/characters/source/creature-myceloop-concept-v2.png": {
+      "sha256": "dec726218f4f8e82fae7f4b51bce918d4b551e7573906e5d2cce6c98e3ce9f40",
+      "bytes": 1667541,
+      "size": [1536, 1024]
+    },
+    "art/characters/source/creature-myceloop-portrait-generated.png": {
+      "sha256": "08045e38041fd77d0df56f0f98667903edbd0c91257eb2198fd4cae4e5ef5191",
+      "bytes": 1482507,
+      "size": [1536, 1024]
+    },
+    "art/characters/source/creature-myceloop-follower-generated.png": {
+      "sha256": "b7c79dc343e687383724f559061ecc994e155ef10c00068b9c7ec3805f5b758a",
+      "bytes": 1419101,
+      "size": [992, 1586]
+    },
+    "art/characters/source/creature-myceloop-combat-generated.png": {
+      "sha256": "51c5a9d7e57f9a6ecfb8a754c1bf44e8348b48a13e16041d6d275e2df94aaec4",
+      "bytes": 1542148,
+      "size": [1122, 1402]
+    }
+  }
+}
