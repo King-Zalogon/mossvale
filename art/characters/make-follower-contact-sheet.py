@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[2]
 DIRECTIONS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
-SPECIES = ["emberkin", "fernling", "duskwing", "brooklet", "hushram", "voltkit", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume", "lanternix"]
+SPECIES = ["emberkin", "fernling", "duskwing", "brooklet", "hushram", "voltkit", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume", "lanternix", "myceloop"]
 ROW_ORDER = {
     "emberkin": ["south", "southwest", "east", "northeast", "north", "northwest", "west", "southeast"],
     "fernling": DIRECTIONS,
@@ -25,6 +25,7 @@ ROW_ORDER = {
     "sunsifter": DIRECTIONS,
     "rillume": DIRECTIONS,
     "lanternix": DIRECTIONS,
+    "myceloop": DIRECTIONS,
 }
 FRAMES = ["idle", "walk-1", "walk-2", "walk-3", "walk-4"]
 CELL, SIZE, GAP, LABEL = 200, 37, 8, 90
