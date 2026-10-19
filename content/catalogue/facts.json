@@ -26,7 +26,7 @@
     "art/characters/source/rumblet/generation.json": "8b0c4314672f71764c2a1913e4e556eceb4615c38b47af193ff49bb55d72e3d6",
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
-    "art/characters/visual-reviews.json": "799af553f93c1557f8a1e13262da3bc3c9e8964aa6772831663a5e16d8c12282",
+    "art/characters/visual-reviews.json": "265666176911c2ee101b2bae8aef8421a5a0cd287f5f3a1418a1c2b56e648701",
     "content/catalogue/curated.json": "679801cd1657cf73c647c681b1a2b58c4b66fa7e7bf8f2d060fc8156b466a946",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
@@ -186,12 +186,12 @@
     "dist/maps/brackenwake-commons.json": "d7db2f177ab5c121b7b9b46ec88c76c1678ee9b4865e1533a3c5877b28da6091",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
     "dist/maps/frostveil-pass.json": "4c425146e1037e3ef14d986ac7ab7134ee66f57c6fa844423f7c95152ae65757",
-    "dist/maps/index.json": "06df036dcae95f270d15a40897ff9c5ec94ffbf9d6b5de5dec72368298e7f198",
+    "dist/maps/index.json": "84616ddec79eeb8bd6b5cb3f8f8374c4eb41c1cb8cf6fa1accc28be3eb04c2ff",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
-    "dist/maps/meadow.json": "aa79da5414cb2d5967d9a4b28405489a9bef4bd261791f23d5db4f4d7b60d483",
+    "dist/maps/meadow.json": "27ce7a906e48ba41e354554686f656cb0da3140ffb3a36e3c0552cabceed6f88",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "5fc826a539ed9e55d47866b77ee4bd96c951beade8331c1c8ab6956e668430da",
-    "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
+    "dist/maps/orchard-ruins.json": "b87334a0d0a5df9a9615165ec49b09cf345cffde890ca616713926c60502a03d",
+    "dist/maps/reedfen-wetlands.json": "c690c22ae2b3c2472f40965a17ef8193cb9b6231cb5f3f23bd2044c0f12c0c06",
     "dist/maps/registries.json": "a9bbe9d97ecd693502676e01b09bdf5fe95edf472480932a4d8940936fe5a189",
     "dist/maps/rootglass-canopy.json": "357633ba89fa2e188c8c4dd65298f848a03e82638b2b022a289513a64173525c",
     "dist/maps/rootglass-hollow.json": "f51cf8d7e493790da6a9d2ea6d9234f7e8daeed3067acc3e75907d0a02a2a2f7",
@@ -209,7 +209,7 @@
     "dist/src/character-preview.js": "00058680f6a8971cc2cb974bf0c7d450b34a7d39ad1c28b5c37285a712973c54",
     "dist/src/compatibility.js": "9a2e84dc19b972487886f3eb108ceeee284eedf590849c27385ad061c30c4907",
     "dist/src/config.js": "8c60c45a799c27fdddd30c02f08ca85c903900668f8b8a0d143b7445ecb8fff4",
-    "dist/src/controller.js": "653ba85ba02e8b88b0d3974e532fb0c705ca751433e71713ebc4653b18aa7115",
+    "dist/src/controller.js": "a541831c79ba52374234e4eb3b0a47eddd5b2fec8cc78ac1a1d5edb36af506c8",
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
@@ -225,11 +225,12 @@
     "dist/src/data/tactics.js": "0ba459b0a97b7d3da40521b444254013c9ad21635b9f21911607d7315e2f07ea",
     "dist/src/domain/adventure.js": "98006ce485d9b4affee896abc287ffdbf456569a683ba31b1d4f04ca66895e05",
     "dist/src/domain/atlas.js": "798ea44c3fe3a28cb6b80266759910255edb1c5733843a707328e1f7ae94946f",
-    "dist/src/domain/battle.js": "dcb6b281716f5a2276fba100c8c292804a41cb711fbf99c04b3f2126ad18d29e",
+    "dist/src/domain/battle.js": "8a077b45b6f63c9b9696267c2fa4d561c6c6e6388efc8918dadee998d93027d0",
     "dist/src/domain/clock.js": "91e9a8d65543697ed7862ee28c450b04bd1cf56d534308acc3bedbebff7108d5",
     "dist/src/domain/combat-trace.js": "4c564af90c00892f81cb14da767ff14496106d53555843a567685a4595bfe32a",
     "dist/src/domain/companion-routes.js": "52d696611bb306ebe8b1a793f83a60dc4aab2c7c701141629d40e05816ef2bbc",
     "dist/src/domain/composition.js": "399d0e98563987f525505699880893fa92b61de353fe2b68e7f4dd9684a7a2ef",
+    "dist/src/domain/creature-behavior.js": "8d0594276b0bd1c756a95c580b21dfe671f3a0a86578de98ae9e29ad04021498",
     "dist/src/domain/dialogue-choices.js": "b7f71fced5776da813ca03f6ece00c86ca3c5dcb83d9aadeeb453b9c7fd5f85f",
     "dist/src/domain/discovery.js": "7ed7529f48e871772326f6fa4f6fdc0200a31e7528cde01e8c649023efa20055",
     "dist/src/domain/economy.js": "a95324abb3eb067fb2d665e93389f14f15f12dcd7979244022e132d60c4ad0cd",
@@ -237,7 +238,7 @@
     "dist/src/domain/exploration.js": "9fe89b19490390bb129ed0a887ae30c8f0dadfbe787d3149843b501069af71e3",
     "dist/src/domain/hints.js": "871e9ed9e0d7b164fab021e33e0cac3c2c95039cc4b8a37e57e05491acce6ff3",
     "dist/src/domain/inventory.js": "198e9b236379a419e9b316205dd458d83fa8fc5e9c799d73818efb14daeefbc8",
-    "dist/src/domain/mapdata.js": "0750bcccfa652c757deac44117b6c9bfb27d8bace55e35f0b028f955faaa7bf0",
+    "dist/src/domain/mapdata.js": "606346fe22432bfd71f582ea4954bf3be6ebe08a74075ea2750d44d369240d27",
     "dist/src/domain/objective-events.js": "7ea11e81899424623e230c55ddc90c42c77c9df88532b91832cf39d23991128e",
     "dist/src/domain/objectives.js": "018c57546e01df3aa7eacbde7b58f182f8f109fe2ebf93b14f3552852ebd21fe",
     "dist/src/domain/pack.js": "339441c5867c7dc709e098292c9f70622cb3ac6051cccf507a71550466721193",
@@ -262,7 +263,7 @@
     "dist/src/render/sprites.js": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
     "dist/src/render/world.js": "fead8f02e562231b64eb857a373fe5038d87780bde1475e17611f5d0303cdb01",
-    "dist/src/save.js": "946a4de156f2a858e7bf016dd7c11e98c6abc2e2b9c58c4a53ec7be1ee23b092",
+    "dist/src/save.js": "0b89a2ac695a25b57f1cd1aced3381f5ae6b8420c9fef7e339967ccf1d60a0ab",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
     "dist/src/services/audio.js": "84659f7c324bd09a6df2c0a287b8b62a1e97e7eade2c3d48e0f707631e49c717",
@@ -317,7 +318,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "2e3e7ebfebec3a9e7215f9301c25519d6950ff68e6e7f66fb2ccf9aaac14ceef",
+  "sourceDigest": "9e9c558240436b607d82a269552fcd7ea07c8d63f7e781502b809ccd067ce1ab",
   "exclusions": [
     {
       "family": "module-exports",
@@ -7456,12 +7457,22 @@
             "pool": [
               {
                 "species": "fernling",
-                "behavior": "wary"
+                "behavior": "wary",
+                "field": {
+                  "duration": 2.5,
+                  "radius": 3,
+                  "recovery": "retreat-and-retry"
+                }
               },
               "emberkin",
               {
                 "species": "bramblebuck",
-                "behavior": "territorial"
+                "behavior": "territorial",
+                "field": {
+                  "duration": 3,
+                  "radius": 2,
+                  "recovery": "return-to-patch"
+                }
               },
               "duskwing"
             ],
@@ -8230,7 +8241,12 @@
               "emberkin",
               {
                 "species": "bramblebuck",
-                "behavior": "territorial"
+                "behavior": "territorial",
+                "field": {
+                  "duration": 3,
+                  "radius": 2,
+                  "recovery": "return-to-patch"
+                }
               },
               "duskwing"
             ],
@@ -8253,7 +8269,12 @@
               {
                 "species": "fernling",
                 "weight": 2,
-                "behavior": "wary"
+                "behavior": "wary",
+                "field": {
+                  "duration": 2.5,
+                  "radius": 3,
+                  "recovery": "retreat-and-retry"
+                }
               },
               {
                 "species": "duskwing",
@@ -9295,7 +9316,12 @@
               {
                 "species": "brooklet",
                 "weight": 5,
-                "behavior": "curious"
+                "behavior": "curious",
+                "field": {
+                  "duration": 1.5,
+                  "radius": 4,
+                  "recovery": "circle-and-retry"
+                }
               },
               {
                 "species": "mushmallow",
@@ -9321,7 +9347,12 @@
               {
                 "species": "brooklet",
                 "weight": 3,
-                "behavior": "curious"
+                "behavior": "curious",
+                "field": {
+                  "duration": 1.5,
+                  "radius": 4,
+                  "recovery": "circle-and-retry"
+                }
               },
               {
                 "species": "mushmallow",
@@ -12261,7 +12292,7 @@
           {
             "id": "map:meadow",
             "path": "meadow.json",
-            "sha256": "aa79da5414cb2d5967d9a4b28405489a9bef4bd261791f23d5db4f4d7b60d483"
+            "sha256": "27ce7a906e48ba41e354554686f656cb0da3140ffb3a36e3c0552cabceed6f88"
           },
           {
             "id": "map:amber-ridge",
@@ -12281,12 +12312,12 @@
           {
             "id": "map:reedfen-wetlands",
             "path": "reedfen-wetlands.json",
-            "sha256": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f"
+            "sha256": "c690c22ae2b3c2472f40965a17ef8193cb9b6231cb5f3f23bd2044c0f12c0c06"
           },
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "5fc826a539ed9e55d47866b77ee4bd96c951beade8331c1c8ab6956e668430da"
+            "sha256": "b87334a0d0a5df9a9615165ec49b09cf345cffde890ca616713926c60502a03d"
           },
           {
             "id": "map:stilt-isles",

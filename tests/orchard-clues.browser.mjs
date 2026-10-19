@@ -140,7 +140,7 @@ try {
     await walk(touch ? [30, 44] : [56, 27]);
     await interact(clue);
     if (touch) {
-      await walk([34, 47]); // Leave the one-time trigger before inspecting the press again.
+      await walk([33, 47]); // Leave the one-time trigger before inspecting the press again.
       await walk([30, 44]);
       await page.locator('#touch-e').tap();
       await page.waitForSelector('#speech-bubble');
@@ -172,18 +172,37 @@ try {
       touch ? /Guide the family/ : /Open the water bypass/,
       'choice intent is explicit before pressing Interact',
     );
-    await interact(touch ? 'outcome-family-first' : 'outcome-water-first');
-    assert.equal((await state()).save.coins, coins + 10);
+    let expected = coins + 10;
+    if (touch) {
+      // Family-first is a repeatable, non-capture rescue: survive two turns, then the objective pays once when the battle ends.
+      await page.locator('#touch-e').tap();
+      await page.waitForFunction(() => window.mossvale.getState().battle?.objective?.id === 'orchard-family');
+      const complete = page.locator('.battle-actions button', {hasText: 'Complete objective'});
+      const guard = page.locator('.battle-actions button', {hasText: 'Guard'});
+      for (let turn = 0; turn < 12 && (await page.evaluate(() => !!window.mossvale.getState().battle)); turn++) {
+        await page.waitForFunction(() => !window.mossvale.getState().battle?.busy);
+        // Guarding keeps the adult busy without ending the fight; the explicit Complete objective button commits the reward.
+        await ((await complete.isEnabled()) ? complete : guard).tap();
+        await page.waitForTimeout(900);
+      }
+      await page.waitForSelector('#result-continue');
+      await page.locator('#result-continue').tap();
+      await page.waitForFunction(() => !window.mossvale.getState().battle && !window.mossvale.getState().modalMode);
+      expected = (await state()).save.coins;
+      assert.ok(expected >= coins + 10, 'finishing the rescue pays its reward');
+    } else await interact('outcome-water-first');
+    assert.equal((await state()).save.coins, expected);
     await page.reload();
     await page.waitForSelector('#loading', {state: 'hidden'});
-    assert.equal((await state()).save.coins, coins + 10);
+    assert.equal((await state()).save.coins, expected);
     if (touch) await page.locator('#game').tap();
     await walk(touch ? [47, 34] : [52, 41]); // Leave the resolved interaction radius before returning.
     await walk(touch ? [44, 34] : [49, 41]);
     if (touch) await page.locator('#touch-e').tap();
     else await page.keyboard.press('e');
     await finish();
-    assert.equal((await state()).save.coins, coins + 10, 're-entering the resolved interaction after reload cannot duplicate its reward');
+    assert.equal((await state()).save.coins, expected, 're-entering the resolved interaction after reload cannot duplicate its reward');
+    if (touch) assert.ok((await state()).save.events.includes('orchard-ruins/outcome-family-first'), 're-entry records the saved family-first resolution');
     assert.equal(new Set((await state()).save.events).size, (await state()).save.events.length);
     assert.deepEqual(errors, []);
     report.push({

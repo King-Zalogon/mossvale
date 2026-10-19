@@ -901,12 +901,14 @@
       "pool": [
         {
           "species": "fernling",
-          "behavior": "wary"
+          "behavior": "wary",
+          "field": {"duration": 2.5, "radius": 3, "recovery": "retreat-and-retry"}
         },
         "emberkin",
         {
           "species": "bramblebuck",
-          "behavior": "territorial"
+          "behavior": "territorial",
+          "field": {"duration": 3, "radius": 2, "recovery": "return-to-patch"}
         },
         "duskwing"
       ],
