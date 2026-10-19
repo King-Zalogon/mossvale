@@ -117,7 +117,15 @@ try {
     await phone.page.waitForSelector('.region-card');
     assert.equal(await phone.page.locator('.region-card').count(), 11);
     assert.equal(await phone.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'no horizontal page overflow');
-    for (const id of ['#map-art-frostveil-pass', '#map-art-orchard-ruins', '#map-art-stilt-isles', '#map-art-stone-basin', '#map-art-brackenwake-commons', '#map-art-rootglass-canopy', '#map-art-rootglass-hollow']) {
+    for (const id of [
+      '#map-art-frostveil-pass',
+      '#map-art-orchard-ruins',
+      '#map-art-stilt-isles',
+      '#map-art-stone-basin',
+      '#map-art-brackenwake-commons',
+      '#map-art-rootglass-canopy',
+      '#map-art-rootglass-hollow',
+    ]) {
       const box = await phone.page.locator(id).boundingBox();
       assert.ok(box.width >= 60 && box.height >= 60, `${id} remains visible at phone size`);
     }

@@ -66,8 +66,9 @@ test('the shipped maps validate', () => {
   );
 });
 
-test('the nine maps in the #336 batch have two distinct optional caches without replacing their legacy chests', () => {
-  const raw = rawMaps();
+test('every map that existed when the caches were added has two distinct optional trail caches without replacing its legacy chest', () => {
+  // The Rootglass pair was authored after the caches (#336) with its own chests and carries none of them.
+  const raw = rawMaps().filter(map => !map.id.startsWith('rootglass-'));
   const expected = new Set([
     'meadow',
     'amber-ridge',
@@ -79,9 +80,8 @@ test('the nine maps in the #336 batch have two distinct optional caches without 
     'stone-basin',
     'brackenwake-commons',
   ]);
-  const cachedMaps = raw.filter(map => map.landmarks.some(landmark => landmark.kind === 'chest' && landmark.flag.includes(':')));
-  assert.deepEqual(new Set(cachedMaps.map(map => map.id)), expected);
-  for (const map of raw.filter(map => expected.has(map.id))) {
+  assert.deepEqual(new Set(raw.map(map => map.id)), expected);
+  for (const map of raw) {
     const caches = map.landmarks.filter(landmark => landmark.kind === 'chest' && landmark.flag.includes(':'));
     assert.equal(caches.length, 2, `${map.id} has two new optional finds`);
     assert.equal(new Set(caches.map(cache => cache.flag)).size, 2, `${map.id} cache flags are independent`);
@@ -477,7 +477,7 @@ test('the wetland pair is two large connected maps with a safe loop of exits (#5
   assert.equal(to(stilt, 'north-landing').spawn, 'shrine-landing');
   assert.ok(reed.spawns['stilt-return'] && reed.spawns['shrine-landing']);
   assert.equal(reed.exits.find(e => e.id === 'west').to.map, 'frostveil-grove');
-  // four wetland creatures, one seal, a supply point on both maps, discoveries, quiet corridors
+  // six wetland creatures, one seal, a supply point on both maps, discoveries, quiet corridors
   const species = new Set(raw.flatMap(m => (m === reed || m === stilt ? m.zones : [])).flatMap(z => z.pool.map(p => p.species ?? p)));
   assert.deepEqual([...species].sort(), ['brooklet', 'mushmallow', 'myceloop', 'reedstilt', 'rillume', 'siltkip']);
   assert.equal([reed, stilt].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);

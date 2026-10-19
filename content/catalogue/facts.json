@@ -28,7 +28,7 @@
     "art/characters/source/rumblet/generation.json": "8b0c4314672f71764c2a1913e4e556eceb4615c38b47af193ff49bb55d72e3d6",
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
-    "art/characters/visual-reviews.json": "21b23937a4a5181fcbc92e4d7e4c07e3bc679c81726a90b25ba4461d9e4ec733",
+    "art/characters/visual-reviews.json": "5e47f3486f95cde160d10284e282a33c944ea00894759380cfabc930760904db",
     "content/catalogue/curated.json": "679801cd1657cf73c647c681b1a2b58c4b66fa7e7bf8f2d060fc8156b466a946",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
@@ -194,7 +194,7 @@
     "dist/maps/brackenwake-commons.json": "92cf67c62bf4c0fa3c8676bb5533d488bb837679fbb458cacaf61ec7b996b365",
     "dist/maps/frostveil-grove.json": "9c19bcab6e8923b290a403409a7ac54472d9b2b070f93efa6b5a6fffb6eefe3d",
     "dist/maps/frostveil-pass.json": "2ebb26442c15515b32996ababeeadd2e0b75e946e1ce0165db8c90fb579e1595",
-    "dist/maps/index.json": "cd4821e7aa4eb8bae7821cf75eecf577f9c1136e77e5264bff10f784075b93b0",
+    "dist/maps/index.json": "009bcdca4013a1c30545c8a923e7e20214b2fc375c53311dcb6ca3c5f2c56055",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "6ec0c6f5e54f6a45ebf61c01d2b958a9e29ab8f8f6c5cfde5590ccaec56fae37",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
@@ -326,7 +326,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "ce626c303a7d977f392658e0977a63cd6c209df825eef18eb34823cee1ed1f39",
+  "sourceDigest": "3f7665a36d5dbc06428af4c3bb96e663e6f64ef9e86d4890d5c3415c361f417f",
   "exclusions": [
     {
       "family": "module-exports",
@@ -13192,15 +13192,56 @@
       "source": "dist/maps/index.json",
       "evidence": "tests/packs.test.mjs",
       "raw": {
+        "format": 1,
+        "id": "mossvale",
+        "name": "Mossvale",
+        "brief": "Four biomes, nineteen friends and a seal at every shrine.",
+        "maps": [
+          "meadow",
+          "amber-ridge",
+          "frostveil-grove",
+          "frostveil-pass",
+          "reedfen-wetlands",
+          "orchard-ruins",
+          "stilt-isles",
+          "stone-basin",
+          "brackenwake-commons",
+          "rootglass-canopy",
+          "rootglass-hollow"
+        ],
+        "species": [
+          "fernling",
+          "emberkin",
+          "brooklet",
+          "duskwing",
+          "voltkit",
+          "mushmallow",
+          "frostowl",
+          "pebblit",
+          "bramblebuck",
+          "siltkip",
+          "sunskitter",
+          "hushram",
+          "sedgegnaw",
+          "petalunge",
+          "cindercurl",
+          "sunsifter",
+          "rillume",
+          "lanternix",
+          "myceloop",
+          "reedstilt"
+        ],
+        "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
+        "ending": "story",
+        "objectives": "objectives.json",
         "story": "story.json",
+        "inventory": "inventory.json",
+        "registries": "registries.json",
+        "contentVersion": 10,
         "requires": {
           "engineVersion": 1,
           "saveSchema": 5
         },
-        "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
-        "format": 1,
-        "objectives": "objectives.json",
-        "contentVersion": 10,
         "integrity": [
           {
             "id": "registry:main",
@@ -13277,48 +13318,7 @@
             "path": "inventory.json",
             "sha256": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728"
           }
-        ],
-        "id": "mossvale",
-        "species": [
-          "fernling",
-          "emberkin",
-          "brooklet",
-          "duskwing",
-          "voltkit",
-          "mushmallow",
-          "frostowl",
-          "pebblit",
-          "bramblebuck",
-          "siltkip",
-          "sunskitter",
-          "hushram",
-          "sedgegnaw",
-          "petalunge",
-          "cindercurl",
-          "sunsifter",
-          "rillume",
-          "lanternix",
-          "myceloop",
-          "reedstilt"
-        ],
-        "registries": "registries.json",
-        "name": "Mossvale",
-        "ending": "story",
-        "maps": [
-          "meadow",
-          "amber-ridge",
-          "frostveil-grove",
-          "frostveil-pass",
-          "reedfen-wetlands",
-          "orchard-ruins",
-          "stilt-isles",
-          "stone-basin",
-          "brackenwake-commons",
-          "rootglass-canopy",
-          "rootglass-hollow"
-        ],
-        "brief": "Four biomes, nineteen friends and a seal at every shrine.",
-        "inventory": "inventory.json"
+        ]
       }
     },
     {
@@ -17426,7 +17426,14 @@
           "Striped flame-feather tail stabilizer"
         ]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Reviewed actual canvas widths 115/37. Hollow blue/yellow/red cylindrical cannon bore, blue/cream upright toucan, crest, wing bands and striped feather tail remain distinct from Parrocket. North/back versus south/front and west/profile versus northwest/rear-left are readable; original generated drafts were spacing-revised before export, including complete edge beaks and removal of stray combat symbols. Generated adaptations are retained; inline owner originals are not claimed as archived binary inputs.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-blastoucan-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -17487,10 +17494,10 @@
       },
       "review": [
         {
-          "reason": "Reviewed actual canvas widths 115/37. Hollow blue/yellow/red cylindrical cannon bore, blue/cream upright toucan, crest, wing bands and striped feather tail remain distinct from Parrocket. North/back versus south/front and west/profile versus northwest/rear-left are readable; original generated drafts were spacing-revised before export, including complete edge beaks and removal of stray combat symbols. Generated adaptations are retained; inline owner originals are not claimed as archived binary inputs.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Reviewed actual canvas widths 115/37. Hollow blue/yellow/red cylindrical cannon bore, blue/cream upright toucan, crest, wing bands and striped feather tail remain distinct from Parrocket. North/back versus south/front and west/profile versus northwest/rear-left are readable; original generated drafts were spacing-revised before export, including complete edge beaks and removal of stray combat symbols. Generated adaptations are retained; inline owner originals are not claimed as archived binary inputs.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -17531,10 +17538,10 @@
       },
       "review": [
         {
-          "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -17739,7 +17746,14 @@
         "palette": ["river blue", "deep navy", "cream", "cyan"],
         "distinguishingFeatures": ["large bright eyes", "pale muzzle and chest", "curling blue tail", "water bubbles"]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null,
       "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
       "allowedUseSummary": "Asset creature-brooklet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -17795,10 +17809,10 @@
       },
       "review": [
         {
-          "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -17895,10 +17909,10 @@
       },
       "review": [
         {
-          "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -18055,7 +18069,14 @@
           "Brass-centered dark rear flank housing above rear leg"
         ]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Correction #378 replaces rejected anatomy. Inspected portrait and all40 follower/20 battle cells enlarged and at37/115px. Front/rear gear shows rim, profiles show broad side disc, diagonals oblique face; gear plane stays longitudinal. Front-only paired lenses, hidden rear lenses, identical four-corner leg construction and rear flank housing remain identifiable. Rejected first follower angle layout, replaced five northwest cells to remove rear eye; rejected disappearing faint gear and regenerated intact low resting faint row. Detailed angle/state observations and limitations in ANATOMY-378.md. Owner taste pending; earlier internal review missed owner-reported defects and is retained separately.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-coglet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -18116,10 +18137,10 @@
       },
       "review": [
         {
-          "reason": "Correction #378 replaces rejected anatomy. Inspected portrait and all40 follower/20 battle cells enlarged and at37/115px. Front/rear gear shows rim, profiles show broad side disc, diagonals oblique face; gear plane stays longitudinal. Front-only paired lenses, hidden rear lenses, identical four-corner leg construction and rear flank housing remain identifiable. Rejected first follower angle layout, replaced five northwest cells to remove rear eye; rejected disappearing faint gear and regenerated intact low resting faint row. Detailed angle/state observations and limitations in ANATOMY-378.md. Owner taste pending; earlier internal review missed owner-reported defects and is retained separately.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Correction #378 replaces rejected anatomy. Inspected portrait and all40 follower/20 battle cells enlarged and at37/115px. Front/rear gear shows rim, profiles show broad side disc, diagonals oblique face; gear plane stays longitudinal. Front-only paired lenses, hidden rear lenses, identical four-corner leg construction and rear flank housing remain identifiable. Rejected first follower angle layout, replaced five northwest cells to remove rear eye; rejected disappearing faint gear and regenerated intact low resting faint row. Detailed angle/state observations and limitations in ANATOMY-378.md. Owner taste pending; earlier internal review missed owner-reported defects and is retained separately.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -18214,7 +18235,14 @@
         "palette": ["lavender", "deep violet", "cream", "magenta"],
         "distinguishingFeatures": ["large eye-spotted wings", "pale chest ruff", "magenta eyes", "short dark legs"]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null,
       "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
       "allowedUseSummary": "Asset creature-duskwing-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -18270,10 +18298,10 @@
       },
       "review": [
         {
-          "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -18370,10 +18398,10 @@
       },
       "review": [
         {
-          "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -18527,10 +18555,10 @@
       },
       "review": [
         {
-          "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -18684,10 +18712,10 @@
       },
       "review": [
         {
-          "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA at 37 px",
-          "decision": "accept"
+          "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -18808,10 +18836,10 @@
       },
       "review": [
         {
-          "reason": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Snowy owl with broad bladed ice-feather mantle, long ice crown tufts, stern cyan eyes, white face disc, navy chest chevron and dark talons. First idle silhouette rejected as too close to the ordinary owl; redesign retained. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -18908,10 +18936,10 @@
       },
       "review": [
         {
-          "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -19062,10 +19090,10 @@
       },
       "review": [
         {
-          "reason": "Lantern abdomen, teal wing-case shoulders and insect limbs remain distinct from Voltkit at gameplay scale; rear/front eyes and corrected SW facing read clearly. Combat states and follower wingflutter preserve the identity and stable anchor. Owner taste and enjoyment remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Lantern abdomen, teal wing-case shoulders and insect limbs remain distinct from Voltkit at gameplay scale; rear/front eyes and corrected SW facing read clearly. Combat states and follower wingflutter preserve the identity and stable anchor. Owner taste and enjoyment remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -19216,10 +19244,10 @@
       },
       "review": [
         {
-          "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA at 37 px",
-          "decision": "accept"
+          "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -19340,10 +19368,10 @@
       },
       "review": [
         {
-          "reason": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Cream-faced hedgehog with swept violet thorn mantle, root-like armored flanks, small lilac spotted mushroom garden, stern purple eyes and stout dark paws. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -19604,7 +19632,14 @@
           "Charcoal bird feet"
         ]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Owner-reference blue/white parrot, conical rocket beak, tri-color crest, wing bands and attached striped flame-feather tail remain coherent across 20 battle and 40 directional poses. Reviewed at renderer widths 115/37 without CSS scaling; west is a side view and northwest is a rear-left view. Combat draft required an archived spacing revision before export. No adjoining-frame fragments. This is resource usability review, not a new encounter playtest.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-parrocket-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -19666,10 +19701,10 @@
       },
       "review": [
         {
-          "reason": "Owner-reference blue/white parrot, conical rocket beak, tri-color crest, wing bands and attached striped flame-feather tail remain coherent across 20 battle and 40 directional poses. Reviewed at renderer widths 115/37 without CSS scaling; west is a side view and northwest is a rear-left view. Combat draft required an archived spacing revision before export. No adjoining-frame fragments. This is resource usability review, not a new encounter playtest.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Owner-reference blue/white parrot, conical rocket beak, tri-color crest, wing bands and attached striped flame-feather tail remain coherent across 20 battle and 40 directional poses. Reviewed at renderer widths 115/37 without CSS scaling; west is a side view and northwest is a rear-left view. Combat draft required an archived spacing revision before export. No adjoining-frame fragments. This is resource usability review, not a new encounter playtest.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -19710,10 +19745,10 @@
       },
       "review": [
         {
-          "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -19836,10 +19871,10 @@
       },
       "review": [
         {
-          "reason": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Ochre tortoise with tall jagged amber crystal shell ridge, golden fissures, thick clawed legs and stern mineral brow. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -19990,10 +20025,10 @@
       },
       "review": [
         {
-          "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -20318,10 +20353,10 @@
       },
       "review": [
         {
-          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "approved",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "approved"
         }
       ],
       "characterMetadata": null,
@@ -20478,7 +20513,14 @@
           "Short tail"
         ]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Low brown quadruped, cream toes/muzzle and large attached gray/orange frontal plate remain recognizable through charge, hit, rest and cooperative poses. North shows the rear; south the symmetric plate/eyes; west profile and northwest rear-left differ. All anatomy is isolated with clear output gutters; source spacing and outline revisions are retained. Generated adaptations are not original owner-reference binary inputs.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-rumblet-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -20539,10 +20581,10 @@
       },
       "review": [
         {
-          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Low brown quadruped, cream toes/muzzle and large attached gray/orange frontal plate remain recognizable through charge, hit, rest and cooperative poses. North shows the rear; south the symmetric plate/eyes; west profile and northwest rear-left differ. All anatomy is isolated with clear output gutters; source spacing and outline revisions are retained. Generated adaptations are not original owner-reference binary inputs.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Low brown quadruped, cream toes/muzzle and large attached gray/orange frontal plate remain recognizable through charge, hit, rest and cooperative poses. North shows the rear; south the symmetric plate/eyes; west profile and northwest rear-left differ. All anatomy is isolated with clear output gutters; source spacing and outline revisions are retained. Generated adaptations are not original owner-reference binary inputs.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -20639,10 +20681,10 @@
       },
       "review": [
         {
-          "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -20737,10 +20779,10 @@
       },
       "review": [
         {
-          "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -20917,10 +20959,10 @@
       },
       "review": [
         {
-          "reason": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Turquoise spotted mudskipper with cream belly, broad gold-edged gill fans, armored swept dorsal sail, raised stern eyes, four fin-like limbs and gold/turquoise ribbon tail. Side-by-side actual-scale review shows a distinct species-specific outline, stable palette/anatomy and complete attacks, recoil, faint and capture poses. Initial crossing-cell layouts were rejected; Frostowl was redesigned after its first silhouette was too close to the base owl. Technical/internal review is separate from owner taste.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -21017,10 +21059,10 @@
       },
       "review": [
         {
-          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "approved",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "approved"
         }
       ],
       "characterMetadata": null,
@@ -21115,10 +21157,10 @@
       },
       "review": [
         {
-          "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -21335,10 +21377,10 @@
       },
       "review": [
         {
-          "reason": "Owner-provided redesign is now the canonical Voltkit look: orange fox-like scout, cream chest, dark legs, lightning flank mark and forked gold-crystal tail. Contact sheets were inspected at gameplay scale; combat states remain distinct. The supplied follower atlas lacks a distinct southeast pose, so its northeast source row is mirrored for that direction. Owner review requested this redesign; gameplay acceptance remains pending.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Owner-provided redesign is now the canonical Voltkit look: orange fox-like scout, cream chest, dark legs, lightning flank mark and forked gold-crystal tail. Contact sheets were inspected at gameplay scale; combat states remain distinct. The supplied follower atlas lacks a distinct southeast pose, so its northeast source row is mirrored for that direction. Owner review requested this redesign; gameplay acceptance remains pending.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -21500,7 +21542,14 @@
           "Legless flame-shaped floating body"
         ]
       },
-      "review": [],
+      "review": [
+        {
+          "decision": "accept",
+          "reviewer": "implementation visual QA",
+          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Pale oval mask, expressive indigo eyes, violet flame body and attached cyan wisps remain readable. North has no mask; south shows both eyes; profiles differ from rear diagonals. Hover phases change attached tail shape and torso tilt; every front-diagonal mask keeps its correct side, including separately generated southwest index28 replacement. Combat anticipation/lunge/recovery, hit reactions, lowered closed-eye final faint and calm capture preserve identity. Wrong-grid and wrong-facing drafts retained as generation history, not selected exports. Original owner-inline input binaries are unavailable locally; internal QA does not imply owner taste approval.",
+          "ownerTaste": "pending"
+        }
+      ],
       "characterMetadata": null,
       "sourceLicenseSummary": "Owner-supplied creature references with generated runtime adaptations; original-reference license was not supplied.",
       "allowedUseSummary": "Asset creature-wispurr-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
@@ -21561,10 +21610,10 @@
       },
       "review": [
         {
-          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Pale oval mask, expressive indigo eyes, violet flame body and attached cyan wisps remain readable. North has no mask; south shows both eyes; profiles differ from rear diagonals. Hover phases change attached tail shape and torso tilt; every front-diagonal mask keeps its correct side, including separately generated southwest index28 replacement. Combat anticipation/lunge/recovery, hit reactions, lowered closed-eye final faint and calm capture preserve identity. Wrong-grid and wrong-facing drafts retained as generation history, not selected exports. Original owner-inline input binaries are unavailable locally; internal QA does not imply owner taste approval.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "Reviewed final shared-renderer canvases at 115/37 px. Pale oval mask, expressive indigo eyes, violet flame body and attached cyan wisps remain readable. North has no mask; south shows both eyes; profiles differ from rear diagonals. Hover phases change attached tail shape and torso tilt; every front-diagonal mask keeps its correct side, including separately generated southwest index28 replacement. Combat anticipation/lunge/recovery, hit reactions, lowered closed-eye final faint and calm capture preserve identity. Wrong-grid and wrong-facing drafts retained as generation history, not selected exports. Original owner-inline input binaries are unavailable locally; internal QA does not imply owner taste approval.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": null,
@@ -22271,10 +22320,10 @@
       },
       "review": [
         {
-          "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
-          "ownerTaste": "pending",
+          "decision": "accept",
           "reviewer": "implementation visual QA",
-          "decision": "accept"
+          "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
+          "ownerTaste": "pending"
         }
       ],
       "characterMetadata": {

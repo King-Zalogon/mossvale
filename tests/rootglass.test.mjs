@@ -13,7 +13,7 @@ test('Rootglass generated map pair stays current, connected, safe, and art-descr
   const canopy = maps.get('rootglass-canopy');
   const hollow = maps.get('rootglass-hollow');
   assert.ok(pass && canopy && hollow);
-  assert.equal(rawPack().contentVersion, 7);
+  assert.equal(rawPack().contentVersion, 10);
   assert.equal(pass.exits.find(exit => exit.to.map === canopy.id).requires, undefined);
   assert.ok(canopy.exits.find(exit => exit.id === 'hollow-stair'));
   assert.ok(hollow.exits.some(exit => exit.to.map === canopy.id));
