@@ -65,7 +65,7 @@ try {
         await preview.waitForFunction(ids => ids.every(id => document.querySelectorAll(`canvas[data-species="${id}"]`).length === 20), PREPARED_CREATURE_IDS);
       await preview.close();
     }
-    assert.equal(await page.evaluate(async () => (await import('./src/data/species.js')).species.length), 19, 'review tabs do not extend the adventure roster');
+    assert.equal(await page.evaluate(async () => (await import('./src/data/species.js')).species.length), 20, 'review tabs do not extend the adventure roster');
     await index.close();
     await page.close();
     const game = await browser.newPage({viewport: {width: 390, height: 844}, hasTouch: true, isMobile: true});

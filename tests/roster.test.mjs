@@ -16,8 +16,8 @@ import {codec, newSave, objCtx, rawMaps, rawObjectives} from './helpers.mjs';
 const idOf = id => species.findIndex(s => s.id === id);
 const story = JSON.parse(readFileSync(new URL('../dist/maps/story.json', import.meta.url), 'utf8'));
 
-test('the nineteen stable species stay findable in their four home biomes', () => {
-  assert.equal(species.length, 19);
+test('the twenty stable species stay findable in their four home biomes', () => {
+  assert.equal(species.length, 20);
   assert.equal(new Set(species.map(s => s.id)).size, species.length);
   assert.deepEqual(
     species.slice(0, 12).map(s => s.id),
@@ -25,10 +25,10 @@ test('the nineteen stable species stay findable in their four home biomes', () =
   );
   assert.deepEqual(
     species.slice(12).map(s => s.id),
-    ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix', 'myceloop'],
+    ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix', 'myceloop', 'reedstilt'],
   );
   assert.equal(biomes.length, 4);
-  const residentCounts = {meadow: 5, wetland: 5, badlands: 6, 'snowy-forest': 3};
+  const residentCounts = {meadow: 5, wetland: 6, badlands: 6, 'snowy-forest': 3};
   for (const biome of biomes) {
     assert.equal(species.filter(s => s.biome === biome.id).length, residentCounts[biome.id], biome.id);
     assert.ok(
@@ -100,7 +100,7 @@ test('different stats and move definitions create distinct battle choices', () =
 });
 
 test('the new creatures keep stable IDs in discovery, party and save round trips', () => {
-  for (const speciesId of ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix', 'myceloop']) {
+  for (const speciesId of ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix', 'myceloop', 'reedstilt']) {
     const save = newSave();
     const newId = idOf(speciesId);
     save.caught.push(newId);

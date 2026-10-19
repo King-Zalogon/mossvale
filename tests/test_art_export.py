@@ -13,7 +13,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPORTER = ROOT / "art/characters/export-creature-combat.py"
-SPECIES = ["emberkin", "voltkit", "fernling", "duskwing", "brooklet", "hushram", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume", "lanternix", "myceloop"]
+SPECIES = ["emberkin", "voltkit", "fernling", "duskwing", "brooklet", "hushram", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume", "lanternix", "myceloop", "reedstilt"]
 
 
 def png_chunk(name, payload):
@@ -73,7 +73,6 @@ class CombatExportTests(unittest.TestCase):
     def write_sources(self, count=None):
         paths = self.sources if count is None else self.sources[:count]
         for path in paths:
-            path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(source_png())
         if count is None or count > SPECIES.index("voltkit"):
             self.archived_source.parent.mkdir(parents=True, exist_ok=True)

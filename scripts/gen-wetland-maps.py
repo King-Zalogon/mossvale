@@ -178,11 +178,12 @@ def reedfen():
         ],
         'props': props,
         'zones': [
-            {'id': 'reed-shallows', 'terrain': ['t'], 'rect': [0, 0, 31, 55], 'pool': [{'species': 'brooklet', 'weight': 5}, {'species': 'mushmallow', 'weight': 4}, 'siltkip'], 'level': [11, 12], 'distance': [5, 9]},
-            {'id': 'reed-deeps', 'terrain': ['t'], 'pool': [{'species': 'siltkip', 'weight': 4}, {'species': 'brooklet', 'weight': 3}, {'species': 'mushmallow', 'weight': 3}], 'level': [12, 14], 'distance': [4, 8]},
+            {'id': 'reed-shallows', 'terrain': ['t'], 'rect': [0, 0, 31, 55], 'pool': [{'species': 'brooklet', 'weight': 5, 'behavior': 'curious', 'field': {'duration': 1.5, 'radius': 4, 'recovery': 'circle-and-retry'}}, {'species': 'mushmallow', 'weight': 4}, {'species': 'myceloop', 'weight': 2, 'behavior': 'curious', 'field': {'duration': 1.8, 'radius': 4, 'recovery': 'circle-and-retry'}}, {'species': 'rillume', 'weight': 2}, {'species': 'reedstilt', 'weight': 2, 'behavior': 'curious'}, 'siltkip'], 'level': [11, 12], 'distance': [5, 9]},
+            {'id': 'reed-deeps', 'terrain': ['t'], 'pool': [{'species': 'siltkip', 'weight': 4}, {'species': 'brooklet', 'weight': 3, 'behavior': 'curious', 'field': {'duration': 1.5, 'radius': 4, 'recovery': 'circle-and-retry'}}, {'species': 'mushmallow', 'weight': 3}, {'species': 'myceloop', 'weight': 2, 'behavior': 'curious', 'field': {'duration': 1.8, 'radius': 4, 'recovery': 'circle-and-retry'}}], 'level': [12, 14], 'distance': [4, 8]},
         ],
         'quiet': quiet,
         'triggers': [
+            {'id': 'myceloop-spore-trail', 'at': [26, 32], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'A dotted amber slime trail loops around the dry bank. Damp grass nearby rustles; Myceloop may be close.'}]},
             {'id': 'reed-whistle', 'at': [16, 44.5], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'A reed whistle trills somewhere in the bed. The hush here is safe.'}]},
         ],
     }

@@ -213,7 +213,7 @@ test('Rootglass is an optional two-map route with distinct ecology, stable retur
   assert.ok(hollow.landmarks.some(landmark => landmark.sprite === 'prop-rootglass-hollow'));
   assert.deepEqual(canopy.zones[0].pool, ['duskwing', 'frostowl']);
   assert.deepEqual(hollow.zones[0].pool, ['pebblit', 'hushram']);
-  assert.equal(rawPack().contentVersion, 9);
+  assert.equal(rawPack().contentVersion, 10);
   assert.ok(mapsById[canopy.id] && mapsById[hollow.id]);
 });
 
@@ -477,9 +477,9 @@ test('the wetland pair is two large connected maps with a safe loop of exits (#5
   assert.equal(to(stilt, 'north-landing').spawn, 'shrine-landing');
   assert.ok(reed.spawns['stilt-return'] && reed.spawns['shrine-landing']);
   assert.equal(reed.exits.find(e => e.id === 'west').to.map, 'frostveil-grove');
-  // four wetland creatures, one seal, a supply point on both maps, discoveries, quiet corridors
+  // six wetland creatures, one seal, a supply point on both maps, discoveries, quiet corridors
   const species = new Set(raw.flatMap(m => (m === reed || m === stilt ? m.zones : [])).flatMap(z => z.pool.map(p => p.species ?? p)));
-  assert.deepEqual([...species].sort(), ['brooklet', 'mushmallow', 'myceloop', 'rillume', 'siltkip']);
+  assert.deepEqual([...species].sort(), ['brooklet', 'mushmallow', 'myceloop', 'reedstilt', 'rillume', 'siltkip']);
   assert.equal([reed, stilt].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);
   for (const m of [reed, stilt]) {
     assert.ok(

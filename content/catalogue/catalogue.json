@@ -10137,6 +10137,51 @@
       }
     },
     {
+      "id": "move:reed-scoop",
+      "kind": "mechanic",
+      "name": "Reed scoop",
+      "summary": "A sure, balanced strike with the broad bill.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "Reed scoop",
+            "power": 0.98,
+            "description": "A sure, balanced strike with the broad bill."
+          },
+          "limits": "Configure through dist/src/data/moves.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "A sure, balanced strike with the broad bill.",
+          "usage": "Reference reed-scoop in the existing format at dist/src/data/moves.js.",
+          "expected": "A sure, balanced strike with the broad bill."
+        }
+      ],
+      "references": ["dist/src/data/moves.js"],
+      "evidence": [
+        {
+          "path": "tests/battle-actions.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Elemental battle action for a species naming this move.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "A sure, balanced strike with the broad bill. Shared multiplier: 0.98.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
+      }
+    },
+    {
       "id": "move:ripple-rush",
       "kind": "mechanic",
       "name": "Ripple rush",
@@ -15177,6 +15222,64 @@
       ],
       "details": {
         "appearance": "A slender orchid mantis with a narrow head and paired petal forelimbs. Portrait reference: creature-petalunge.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/reedstilt",
+      "kind": "actor",
+      "name": "Reedstilt",
+      "summary": "A tall marsh bird with jointed ochre legs, a broad pale throat and a fan of reed-like crest plumes.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "reedstilt",
+            "name": "Reedstilt",
+            "type": "Mire",
+            "stats": {
+              "hp": 48,
+              "attack": 9,
+              "defense": 13
+            },
+            "move": "reed-scoop",
+            "biome": "wetland",
+            "role": "Steady wader scout",
+            "personality": "Patient and observant; it lifts each long leg carefully, then listens for ripples beneath the reeds.",
+            "desc": "A tall marsh bird with jointed ochre legs, a broad pale throat and a fan of reed-like crest plumes.",
+            "encounterHint": "Look for high-knee steps in the safe grass along Reedfen’s dry boardwalk bank.",
+            "strong": ["Fire", "Sand"],
+            "weak": ["Leaf", "Bloom", "Spark"],
+            "color": "#a8aa68",
+            "hp": 48,
+            "sprite": "creature-reedstilt"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-reedstilt"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A tall marsh bird with jointed ochre legs, a broad pale throat and a fan of reed-like crest plumes.",
+          "usage": "Reference mossvale/reedstilt in the existing format at dist/maps/registries.json.",
+          "expected": "A tall marsh bird with jointed ochre legs, a broad pale throat and a fan of reed-like crest plumes."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A tall marsh bird with jointed ochre legs, a broad pale throat and a fan of reed-like crest plumes. Portrait reference: creature-reedstilt.",
         "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
         "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
         "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
@@ -21855,6 +21958,198 @@
         {
           "path": "dist/assets/creatures/creature-petalunge-follower.png",
           "description": "Slender orchid mantis with a tapered head and paired petal forelimbs."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-reedstilt",
+      "kind": "visual",
+      "name": "creature-reedstilt",
+      "summary": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-reedstilt",
+            "kind": "creature",
+            "src": "assets/creatures/creature-reedstilt.png",
+            "w": 159,
+            "h": 264,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest.",
+          "usage": "Reference creature-reedstilt in the existing format at dist/src/data/assets.js.",
+          "expected": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "159 by 264 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-reedstilt is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-reedstilt.png",
+          "description": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-reedstilt-combat",
+      "kind": "visual",
+      "name": "creature-reedstilt-combat",
+      "summary": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-reedstilt-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-reedstilt-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "columnOrder": [0, 1, 2, 3],
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              }
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest.",
+          "usage": "Reference creature-reedstilt-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-reedstilt-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-reedstilt-combat.png",
+          "description": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-reedstilt-follower",
+      "kind": "visual",
+      "name": "creature-reedstilt-follower",
+      "summary": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-reedstilt-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-reedstilt-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest.",
+          "usage": "Reference creature-reedstilt-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-reedstilt-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-reedstilt-follower.png",
+          "description": "Tall upright marsh heron with long jointed legs, a broad reflective throat, flat scoop bill and three-part reed-fan crest."
         }
       ]
     },
