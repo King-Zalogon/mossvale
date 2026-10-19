@@ -15,7 +15,7 @@ test('Rumblet is importable pack data without altering active maps or persisted 
   assert.equal(definition.id, 'rumblet');
   assert.equal(definition.type, 'Stone');
   assert.deepEqual(validateRegistries({...registry, species: [...registry.species, definition]}, {assetNames: new Set(assets.map(a => a.name))}), []);
-  assert.equal(species.length, 18);
+  assert.equal(species.length, 19);
   assert.ok(!species.some(entry => entry.id === definition.id));
   assert.equal(definition.sprite, 'creature-rumblet');
 });

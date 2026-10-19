@@ -2,7 +2,7 @@
   "format": 1,
   "id": "mossvale",
   "name": "Mossvale",
-  "brief": "Four biomes, seventeen friends and a seal at every shrine.",
+  "brief": "Four biomes, nineteen friends and a seal at every shrine.",
   "maps": [
     "meadow",
     "amber-ridge",
@@ -32,7 +32,8 @@
     "cindercurl",
     "sunsifter",
     "rillume",
-    "lanternix"
+    "lanternix",
+    "myceloop"
   ],
   "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
   "ending": "story",
@@ -40,7 +41,7 @@
   "story": "story.json",
   "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 7,
+  "contentVersion": 8,
   "requires": {
     "engineVersion": 1,
     "saveSchema": 5
@@ -49,7 +50,7 @@
     {
       "id": "registry:main",
       "path": "registries.json",
-      "sha256": "a9bbe9d97ecd693502676e01b09bdf5fe95edf472480932a4d8940936fe5a189"
+      "sha256": "2a49c97c49808bd42a65e3ee338219298886e6d048b248731c58c13bb571407a"
     },
     {
       "id": "map:meadow",
@@ -74,7 +75,7 @@
     {
       "id": "map:reedfen-wetlands",
       "path": "reedfen-wetlands.json",
-      "sha256": "dcaa3b200378782463fb7d2390ba1f1de8db0c3c0e5478e2696093b1fbb1f287"
+      "sha256": "d46c99fbdc8c63b468802e996fff5680d3f0d3eed846f7cf1f97d26258a2a28f"
     },
     {
       "id": "map:orchard-ruins",

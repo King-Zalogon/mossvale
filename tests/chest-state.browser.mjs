@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import http from 'node:http';
 import {existsSync, readFileSync, mkdirSync} from 'node:fs';
 import {chromium} from 'playwright';
+import {regions} from '../dist/src/data/regions.js';
 
 const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png'};
@@ -99,11 +100,22 @@ try {
     await page.reload();
     await page.waitForSelector('#loading', {state: 'hidden'});
     await page.waitForFunction(name => window.chestDraws.some(d => d.src === name + '-open-empty.png'), before.sprite);
-    assert.equal(
-      await page.evaluate(name => window.chestDraws.some(d => d.src === name + '.png'), before.sprite),
-      false,
-      'reload never redraws a closed claimed chest',
+    await page.waitForTimeout(1000);
+    const regionIndex = regions.findIndex(region => region.id === before.flag.split('.')[0]);
+    const reloadedChest = await page.evaluate(
+      ({name, flag, regionIndex}) => {
+        const state = window.mossvale.getState();
+        return {
+          claimed: state.save.chests.includes(regionIndex) || state.save.mapFlags?.includes(flag) === true,
+          targetStillExists: state.world.map.objects.some(object => object.kind === 'chest' && object.flag === flag),
+          openSpriteVisible: window.chestDraws.some(draw => draw.src === name + '-open-empty.png'),
+        };
+      },
+      {name: before.sprite, flag: before.flag, regionIndex},
     );
+    assert.equal(reloadedChest.claimed, true, 'the selected chest claim survives reload');
+    assert.equal(reloadedChest.targetStillExists, true, 'the claimed chest remains in authored map data');
+    assert.equal(reloadedChest.openSpriteVisible, true, 'the loaded map draws its open/empty chest art');
     await page.evaluate(() => window.mossvale.interact());
     await page.waitForFunction(() => document.querySelector('#toast')?.textContent.includes('chest is empty'));
     assert.deepEqual(

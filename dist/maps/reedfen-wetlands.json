@@ -670,6 +670,16 @@
           "weight": 4
         },
         {
+          "species": "myceloop",
+          "weight": 2,
+          "behavior": "curious",
+          "field": {
+            "duration": 1.8,
+            "radius": 4,
+            "recovery": "circle-and-retry"
+          }
+        },
+        {
           "species": "rillume",
           "weight": 2
         },
@@ -699,6 +709,16 @@
         {
           "species": "mushmallow",
           "weight": 3
+        },
+        {
+          "species": "myceloop",
+          "weight": 2,
+          "behavior": "curious",
+          "field": {
+            "duration": 1.8,
+            "radius": 4,
+            "recovery": "circle-and-retry"
+          }
         }
       ],
       "level": [12, 14],
@@ -728,6 +748,19 @@
     }
   ],
   "triggers": [
+    {
+      "id": "myceloop-spore-trail",
+      "at": [26, 32],
+      "radius": 2,
+      "on": "enter",
+      "once": true,
+      "do": [
+        {
+          "type": "environment",
+          "text": "A dotted amber slime trail loops around the dry bank. Damp grass nearby rustles; Myceloop may be close."
+        }
+      ]
+    },
     {
       "id": "reed-whistle",
       "at": [16, 44.5],
