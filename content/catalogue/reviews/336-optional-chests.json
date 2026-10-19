@@ -7,6 +7,7 @@
         "content/catalogue/INDEX.md",
         "content/catalogue/catalogue.json",
         "content/catalogue/facts.json",
+        "content/catalogue/reviews/336-optional-chests.json",
         "dist/maps/amber-ridge.json",
         "dist/maps/brackenwake-commons.json",
         "dist/maps/frostveil-grove.json",
@@ -27,10 +28,17 @@
         "docs/MAP_INVENTORY.md",
         "docs/SAVE_FORMAT.md",
         "package.json",
+        "scripts/gen-badlands-maps.py",
+        "scripts/gen-brackenwake.py",
+        "scripts/gen-meadow-map.py",
+        "scripts/gen-orchard-map.py",
+        "scripts/gen-wetland-maps.py",
+        "scripts/optional-chest-data.json",
+        "scripts/optional_chests.py",
+        "tests/brackenwake.test.mjs",
         "tests/economy.test.mjs",
         "tests/maps.test.mjs",
-        "tests/optional-chests.browser.mjs",
-        "content/catalogue/reviews/336-optional-chests.json"
+        "tests/optional-chests.browser.mjs"
       ],
       "entries": [
         "landmark:mossvale/meadow/cache-riverbend",
