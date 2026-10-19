@@ -395,6 +395,40 @@
           "text": "A Bramblebuck is chewing straw beside the drinking trough, quite content."
         }
       ]
+    },
+    {
+      "id": "cache-north-garden",
+      "kind": "chest",
+      "sprite": "chest-wooden",
+      "at": [4, 13],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "brackenwake-commons.chest:cache-north-garden",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "North garden cache",
+      "discoveryText": "North garden cache: Tucked beside the north garden path, a small chest holds a few supplies."
+    },
+    {
+      "id": "cache-south-lane",
+      "kind": "chest",
+      "sprite": "chest-wooden",
+      "at": [15, 31],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "brackenwake-commons.chest:cache-south-lane",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "South lane cache",
+      "discoveryText": "South lane cache: A quiet nook beside the south lane hides a few useful supplies."
     }
   ],
   "exits": [
@@ -655,8 +689,8 @@
         [50.3, 11.0],
         [35.2, 3.9],
         [46.9, 9.1],
-        [8.4, 15.6],
-        [45.5, 28.7]
+        [45.5, 28.7],
+        [34.6, 9.0]
       ],
       "piece": "town-trees"
     },
@@ -670,12 +704,12 @@
         [10.3, 17.8],
         [23.9, 9.2],
         [16.1, 38.4],
-        [6.0, 13.0],
         [3.6, 29.3],
         [42.4, 39.8],
         [5.1, 27.0],
         [12.4, 15.8],
         [5.4, 30.7],
+        [7.4, 13.5],
         [16.9, 22.6]
       ],
       "piece": "town-bushes"

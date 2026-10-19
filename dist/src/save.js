@@ -271,7 +271,8 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
     s.mapFlags = [
       ...new Set(
         (Array.isArray(raw.mapFlags) ? raw.mapFlags : []).filter(
-          flag => typeof flag === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/.test(flag) && mapIds.has(flag.split('.')[0]),
+          flag =>
+            typeof flag === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest(?::[a-z0-9]+(?:-[a-z0-9]+)*)?)$/.test(flag) && mapIds.has(flag.split('.')[0]),
         ),
       ),
     ].slice(0, 256);

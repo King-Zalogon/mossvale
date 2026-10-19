@@ -7,7 +7,7 @@ export const SCENE_ACTIONS = ['dialogue', 'reward', 'flag', 'challenge', 'move',
 export const MAX_SCENE_EVENTS = 256;
 export const MAX_SCENE_ACTIONS = 24;
 const EVENT_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*\/[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const FLAG = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/;
+const FLAG = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest(?::[a-z0-9]+(?:-[a-z0-9]+)*)?)$/;
 
 export function sceneEventKey(mapId, id) {
   return `${mapId}/${id}`;
