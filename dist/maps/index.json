@@ -7,12 +7,12 @@
   "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
   "format": 1,
   "objectives": "objectives.json",
-  "contentVersion": 9,
+  "contentVersion": 10,
   "integrity": [
     {
       "id": "registry:main",
       "path": "registries.json",
-      "sha256": "2a49c97c49808bd42a65e3ee338219298886e6d048b248731c58c13bb571407a"
+      "sha256": "b7d17a7fd9a62314ac6db90cf48554b541e47e6a3a772be609a708055ba68dde"
     },
     {
       "id": "map:meadow",
@@ -37,7 +37,7 @@
     {
       "id": "map:reedfen-wetlands",
       "path": "reedfen-wetlands.json",
-      "sha256": "d46c99fbdc8c63b468802e996fff5680d3f0d3eed846f7cf1f97d26258a2a28f"
+      "sha256": "5dd1fe36686381e0cbbfae041839655598753240690f3734820d7eb920b463ae"
     },
     {
       "id": "map:orchard-ruins",
@@ -105,7 +105,8 @@
     "sunsifter",
     "rillume",
     "lanternix",
-    "myceloop"
+    "myceloop",
+    "reedstilt"
   ],
   "registries": "registries.json",
   "name": "Mossvale",

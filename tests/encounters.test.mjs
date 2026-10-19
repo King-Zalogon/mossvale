@@ -49,8 +49,8 @@ test('each region hub has different encounters', () => {
   ); // later regions are higher level
 });
 
-test('all nineteen species have a readable hint and a reachable source in their home biome', () => {
-  assert.equal(species.length, 19);
+test('all twenty species have a readable hint and a reachable source in their home biome', () => {
+  assert.equal(species.length, 20);
   const playableMaps = Object.values(mapsById);
   for (const creature of species) {
     assert.ok(creature.encounterHint?.trim(), `${creature.id} needs a field hint`);
@@ -263,4 +263,15 @@ test('a scripted encounter is an optional trigger action, validated and compiled
   has(errors, 'unknown species "dragon"');
   has(errors, 'level');
   has(errors, 'action type must be');
+});
+
+test('Reedstilt is a low-weight repeatable encounter in reachable Reedfen bank grass', () => {
+  const zone = mapsById['reedfen-wetlands'].zones.find(entry => entry.id === 'reed-shallows');
+  const id = species.findIndex(entry => entry.id === 'reedstilt');
+  const index = zone.pool.indexOf(id);
+  assert.ok(zone.terrain.includes('tallgrass'));
+  assert.ok(index >= 0);
+  assert.equal(zone.weights[index], 2);
+  assert.ok(!mapsById['reedfen-wetlands'].abilities?.includes('reedstilt'));
+  assert.match(species[id].encounterHint, /dry boardwalk bank/i);
 });

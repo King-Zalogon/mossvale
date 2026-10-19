@@ -397,6 +397,23 @@
       "color": "#ad79d2",
       "hp": 50,
       "sprite": "creature-myceloop"
+    },
+    {
+      "id": "reedstilt",
+      "name": "Reedstilt",
+      "type": "Mire",
+      "stats": {"hp": 48, "attack": 9, "defense": 13},
+      "move": "reed-scoop",
+      "biome": "wetland",
+      "role": "Steady wader scout",
+      "personality": "Patient and observant; it lifts each long leg carefully, then listens for ripples beneath the reeds.",
+      "desc": "A tall marsh bird with jointed ochre legs, a broad pale throat and a fan of reed-like crest plumes.",
+      "encounterHint": "Look for high-knee steps in the safe grass along Reedfen’s dry boardwalk bank.",
+      "strong": ["Fire", "Sand"],
+      "weak": ["Leaf", "Bloom", "Spark"],
+      "color": "#a8aa68",
+      "hp": 48,
+      "sprite": "creature-reedstilt"
     }
   ],
   "regions": [
