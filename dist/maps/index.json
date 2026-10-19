@@ -2,7 +2,7 @@
   "format": 1,
   "id": "mossvale",
   "name": "Mossvale",
-  "brief": "Four biomes, seventeen friends and a seal at every shrine.",
+  "brief": "Four biomes, eighteen friends and a seal at every shrine.",
   "maps": [
     "meadow",
     "amber-ridge",
@@ -12,7 +12,9 @@
     "orchard-ruins",
     "stilt-isles",
     "stone-basin",
-    "brackenwake-commons"
+    "brackenwake-commons",
+    "rootglass-canopy",
+    "rootglass-hollow"
   ],
   "species": [
     "fernling",
@@ -40,7 +42,7 @@
   "story": "story.json",
   "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 7,
+  "contentVersion": 8,
   "requires": {
     "engineVersion": 1,
     "saveSchema": 5
@@ -69,7 +71,7 @@
     {
       "id": "map:frostveil-pass",
       "path": "frostveil-pass.json",
-      "sha256": "423eab1932f8590ac26926406a3eb630ac232b612353c15369181877dc6d25af"
+      "sha256": "2ebb26442c15515b32996ababeeadd2e0b75e946e1ce0165db8c90fb579e1595"
     },
     {
       "id": "map:reedfen-wetlands",
@@ -95,6 +97,16 @@
       "id": "map:brackenwake-commons",
       "path": "brackenwake-commons.json",
       "sha256": "92cf67c62bf4c0fa3c8676bb5533d488bb837679fbb458cacaf61ec7b996b365"
+    },
+    {
+      "id": "map:rootglass-canopy",
+      "path": "rootglass-canopy.json",
+      "sha256": "ee281f2be56287a5eadd2f1f0321f196c1660c0eb7270c717584f9dda9c8aac1"
+    },
+    {
+      "id": "map:rootglass-hollow",
+      "path": "rootglass-hollow.json",
+      "sha256": "efaf2e47ff85a147be7cd0250b3f4984ea888541f20ad7658b135da6fb72463d"
     },
     {
       "id": "objectives:main",

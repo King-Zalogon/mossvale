@@ -62,7 +62,8 @@ class LandmarkExportTests(unittest.TestCase):
         before = [(path.read_bytes(), path.stat().st_mtime_ns) for path in tracked]
         result = subprocess.run([sys.executable, str(EXPORTER), "--check"], cwd=ROOT, capture_output=True, text=True, check=False)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn("verified 10 landmark sources", result.stdout)
+        count = len(LANDMARK_EXPORT.load(ROOT)[2])
+        self.assertIn(f"verified {count} landmark sources", result.stdout)
         self.assertEqual([(path.read_bytes(), path.stat().st_mtime_ns) for path in tracked], before)
 
 

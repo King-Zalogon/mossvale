@@ -29,7 +29,7 @@ The workflow runs on Ubuntu and Windows for pushes and pull requests. Treat a ch
 
 ## Content present in the current pack
 
-- Four biomes, eight maps, twelve species, four shrine milestones, and a one-time ending are declared in `dist/maps/index.json`, `dist/maps/registries.json`, and `dist/maps/story.json`.
+- Four biomes, eleven maps, eighteen species, four shrine milestones, and a one-time ending are declared in `dist/maps/index.json`, `dist/maps/registries.json`, and `dist/maps/story.json`.
 - `npm run validate`, pack/story tests, and the normal browser playthrough cover data links and progression. This confirms the shipped content and tested path; it does not establish that the adventure is fun for you.
 - The ending follows all four seals, marks the save complete once, and leaves the world open for collecting and exploration. Credits and a separate final-destination map are optional follow-up work, not required to reach the ending.
 

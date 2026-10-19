@@ -40,7 +40,8 @@ try {
   await page.goto(`http://localhost:${server.address().port}/?debug&seed=336`);
   await page.waitForSelector('#loading', {state: 'hidden'});
 
-  for (const map of maps) {
+  // The Rootglass pair was authored after the caches and has its own chests instead.
+  for (const map of maps.filter(item => !item.id.startsWith('rootglass-'))) {
     const caches = map.landmarks.filter(landmark => landmark.kind === 'chest' && landmark.flag.includes(':'));
     assert.equal(caches.length, 2, `${map.id} has two new caches`);
     await page.evaluate(id => {
