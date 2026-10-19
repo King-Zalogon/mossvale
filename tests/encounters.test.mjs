@@ -49,8 +49,8 @@ test('each region hub has different encounters', () => {
   ); // later regions are higher level
 });
 
-test('all eighteen species have a readable hint and a reachable source in their home biome', () => {
-  assert.equal(species.length, 18);
+test('all nineteen species have a readable hint and a reachable source in their home biome', () => {
+  assert.equal(species.length, 19);
   const playableMaps = Object.values(mapsById);
   for (const creature of species) {
     assert.ok(creature.encounterHint?.trim(), `${creature.id} needs a field hint`);
@@ -94,6 +94,24 @@ test('Lanternix remains a curious optional ridge-grass encounter before and afte
     assert.equal(encounter.behavior, 'curious');
     assert.ok(encounter.level >= zone.level[0] && encounter.level <= zone.level[1]);
   }
+});
+
+test('Myceloop is a repeatable optional Reedfen discovery with a bounded retry clue', () => {
+  const reedfen = mapsById['reedfen-wetlands'];
+  const myceloop = species.findIndex(entry => entry.id === 'myceloop');
+  const shallow = reedfen.zones.find(zone => zone.id === 'reed-shallows');
+  const index = shallow.pool.indexOf(myceloop);
+  assert.ok(index >= 0);
+  assert.ok(shallow.terrain.includes('tallgrass'));
+  assert.equal(shallow.weights[index], 2);
+  assert.equal(shallow.behaviors[index], 'curious');
+  assert.equal(shallow.fields[index].recovery, 'circle-and-retry');
+  assert.ok(!reedfen.abilities?.includes('myceloop'));
+
+  const authored = rawMaps().find(map => map.id === 'reedfen-wetlands');
+  const clue = authored.triggers.find(trigger => trigger.id === 'myceloop-spore-trail');
+  assert.ok(clue && clue.once && clue.do[0].text.includes('Myceloop may be close'));
+  assert.ok(clue.at[0] > 24, 'the clue is outside the quiet camp corridor');
 });
 
 test('weights bias the pick, and unseen creatures are favoured', () => {
