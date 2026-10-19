@@ -99,8 +99,16 @@ try {
     await page.reload();
     await page.waitForSelector('#loading', {state: 'hidden'});
     await page.waitForFunction(name => window.chestDraws.some(d => d.src === name + '-open-empty.png'), before.sprite);
+    // Unclaimed optional caches share the closed sprite, so only a closed draw at the claimed chest's own spot counts.
     assert.equal(
-      await page.evaluate(name => window.chestDraws.some(d => d.src === name + '.png'), before.sprite),
+      await page.evaluate(name => {
+        const foot = d => {
+          const [x, y, w, h] = d.args.slice(-4);
+          return [x + w / 2, y + h];
+        };
+        const [ox, oy] = foot(window.chestDraws.findLast(d => d.src === name + '-open-empty.png'));
+        return window.chestDraws.some(d => d.src === name + '.png' && Math.abs(foot(d)[0] - ox) <= 2 && Math.abs(foot(d)[1] - oy) <= 2);
+      }, before.sprite),
       false,
       'reload never redraws a closed claimed chest',
     );
