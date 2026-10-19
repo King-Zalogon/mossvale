@@ -13,7 +13,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPORTER = ROOT / "art/characters/export-creature-combat.py"
-SPECIES = ["emberkin", "voltkit", "fernling", "duskwing", "brooklet", "hushram", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume", "lanternix"]
+SPECIES = ["emberkin", "voltkit", "fernling", "duskwing", "brooklet", "hushram", "mushmallow", "frostowl", "pebblit", "bramblebuck", "siltkip", "sunskitter", "sedgegnaw", "petalunge", "cindercurl", "sunsifter", "rillume", "lanternix", "myceloop"]
 
 
 def png_chunk(name, payload):
@@ -64,6 +64,7 @@ class CombatExportTests(unittest.TestCase):
         self.source_dir.mkdir(parents=True)
         self.target_dir = self.root / "dist/assets/creatures"
         self.sources = [self.source_dir / f"creature-{species}-combat-generated.png" for species in SPECIES]
+        self.archived_source = self.root / "concept_art/voltkit-redesign-candidates/combat-atlas.png"
         self.targets = [self.target_dir / f"creature-{species}-combat.png" for species in SPECIES]
 
     def tearDown(self):
@@ -73,6 +74,9 @@ class CombatExportTests(unittest.TestCase):
         paths = self.sources if count is None else self.sources[:count]
         for path in paths:
             path.write_bytes(source_png())
+        if count is None or count > SPECIES.index("voltkit"):
+            self.archived_source.parent.mkdir(parents=True, exist_ok=True)
+            self.archived_source.write_bytes(source_png())
 
     def run_export(self, *args):
         return subprocess.run(

@@ -380,6 +380,23 @@
       "color": "#dfb657",
       "hp": 38,
       "sprite": "creature-lanternix"
+    },
+    {
+      "id": "myceloop",
+      "name": "Myceloop",
+      "type": "Spore",
+      "stats": {"hp": 50, "attack": 7, "defense": 14},
+      "move": "mycelial-pulse",
+      "biome": "wetland",
+      "role": "Patient control bulwark",
+      "personality": "Quiet and watchful; it follows damp paths and settles into a loop when the air is still.",
+      "desc": "A cohesive three-lobed slime mold traced with lavender veins and tiny amber spore vents.",
+      "encounterHint": "Follow the amber-dotted damp trail beside the safe Reedfen bank grass.",
+      "strong": ["Water", "Spark"],
+      "weak": ["Fire", "Air", "Bloom"],
+      "color": "#ad79d2",
+      "hp": 50,
+      "sprite": "creature-myceloop"
     }
   ],
   "regions": [

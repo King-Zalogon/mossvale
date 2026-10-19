@@ -9299,6 +9299,51 @@
       }
     },
     {
+      "id": "move:mycelial-pulse",
+      "kind": "mechanic",
+      "name": "Mycelial pulse",
+      "summary": "A low-burst Spore pulse that gives its sturdy user room to set up.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "Mycelial pulse",
+            "power": 0.88,
+            "description": "A low-burst Spore pulse that gives its sturdy user room to set up."
+          },
+          "limits": "Configure through dist/src/data/moves.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": ["Use the existing validated format; no new runtime behavior is implied."],
+      "examples": [
+        {
+          "intent": "A low-burst Spore pulse that gives its sturdy user room to set up.",
+          "usage": "Reference mycelial-pulse in the existing format at dist/src/data/moves.js.",
+          "expected": "A low-burst Spore pulse that gives its sturdy user room to set up."
+        }
+      ],
+      "references": ["dist/src/data/moves.js"],
+      "evidence": [
+        {
+          "path": "tests/battle-actions.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "trigger": "Elemental battle action for a species naming this move.",
+        "inputs": "Use the configuration in the linked canonical definition.",
+        "sequence": "Existing shared implementation; descriptive text does not add extra actions.",
+        "results": "A low-burst Spore pulse that gives its sturdy user room to set up. Shared multiplier: 0.88.",
+        "cancellation": "Use the existing owning flow; no independent rollback sequence is promised.",
+        "errors": "Owning validators reject unsupported configuration.",
+        "persistence": "Existing battle checkpoints; move flavor does not persist a separate effect."
+      }
+    },
+    {
       "id": "move:orchid-pounce",
       "kind": "mechanic",
       "name": "Orchid pounce",
@@ -10113,7 +10158,7 @@
       "id": "pack:mossvale",
       "kind": "mechanic",
       "name": "Mossvale",
-      "summary": "Four biomes, seventeen friends and a seal at every shrine.",
+      "summary": "Four biomes, nineteen friends and a seal at every shrine.",
       "status": "available",
       "scope": "optional-pack",
       "configuration": [
@@ -10128,9 +10173,9 @@
       "limits": ["Use the existing validated format; no new runtime behavior is implied."],
       "examples": [
         {
-          "intent": "Four biomes, seventeen friends and a seal at every shrine.",
+          "intent": "Four biomes, nineteen friends and a seal at every shrine.",
           "usage": "Reference mossvale in the existing format at dist/maps/index.json.",
-          "expected": "Four biomes, seventeen friends and a seal at every shrine."
+          "expected": "Four biomes, nineteen friends and a seal at every shrine."
         }
       ],
       "references": ["dist/maps/index.json"],
@@ -14255,6 +14300,64 @@
       ],
       "details": {
         "appearance": "A gentle hedgehog carrying a tiny mushroom garden beneath its cap. Portrait reference: creature-mushmallow.",
+        "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
+        "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
+        "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
+      }
+    },
+    {
+      "id": "species:mossvale/myceloop",
+      "kind": "actor",
+      "name": "Myceloop",
+      "summary": "A cohesive three-lobed slime mold traced with lavender veins and tiny amber spore vents.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "myceloop",
+            "name": "Myceloop",
+            "type": "Spore",
+            "stats": {
+              "hp": 50,
+              "attack": 7,
+              "defense": 14
+            },
+            "move": "mycelial-pulse",
+            "biome": "wetland",
+            "role": "Patient control bulwark",
+            "personality": "Quiet and watchful; it follows damp paths and settles into a loop when the air is still.",
+            "desc": "A cohesive three-lobed slime mold traced with lavender veins and tiny amber spore vents.",
+            "encounterHint": "Follow the amber-dotted damp trail beside the safe Reedfen bank grass.",
+            "strong": ["Water", "Spark"],
+            "weak": ["Fire", "Air", "Bloom"],
+            "color": "#ad79d2",
+            "hp": 50,
+            "sprite": "creature-myceloop"
+          },
+          "limits": "Configure through dist/maps/registries.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:creature-myceloop"],
+      "limits": ["The named move uses shared battle rules; descriptive move flavor does not add unique status effects."],
+      "examples": [
+        {
+          "intent": "A cohesive three-lobed slime mold traced with lavender veins and tiny amber spore vents.",
+          "usage": "Reference mossvale/myceloop in the existing format at dist/maps/registries.json.",
+          "expected": "A cohesive three-lobed slime mold traced with lavender veins and tiny amber spore vents."
+        }
+      ],
+      "references": ["dist/maps/registries.json"],
+      "evidence": [
+        {
+          "path": "tests/registries.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "A cohesive three-lobed slime mold traced with lavender veins and tiny amber spore vents. Portrait reference: creature-myceloop.",
         "behavior": "Existing encounter, capture, level growth and companion rules; personality/role text is descriptive, not autonomous behavior.",
         "locomotion": "Shared trail-following companion movement; no general autonomous NPC schedule or pathfinding is implied.",
         "interactions": "Configure this species in a selected pack registry, encounter pools and guardians."
@@ -20219,6 +20322,198 @@
       ]
     },
     {
+      "id": "visual:creature-myceloop",
+      "kind": "visual",
+      "name": "creature-myceloop",
+      "summary": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-myceloop",
+            "kind": "creature",
+            "src": "assets/creatures/creature-myceloop.png",
+            "w": 264,
+            "h": 144,
+            "anchor": "bottom-center",
+            "required": true
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+          "usage": "Reference creature-myceloop in the existing format at dist/src/data/assets.js.",
+          "expected": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "264 by 144 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset creature-myceloop is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-myceloop.png",
+          "description": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-myceloop-combat",
+      "kind": "visual",
+      "name": "creature-myceloop-combat",
+      "summary": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-myceloop-combat",
+            "kind": "creature",
+            "src": "assets/creatures/creature-myceloop-combat.png",
+            "w": 1152,
+            "h": 1440,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 4,
+              "rows": 5,
+              "frameWidth": 288,
+              "frameHeight": 288,
+              "columnOrder": [0, 1, 2, 3],
+              "rowOrder": ["idle", "attack", "hit", "faint", "capture"],
+              "defaultFrame": {
+                "column": 0,
+                "row": 0
+              }
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+          "usage": "Reference creature-myceloop-combat in the existing format at dist/src/data/assets.js.",
+          "expected": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1152 by 1440 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "idle, attack, hit, faint, capture",
+        "compatibleUses": "Asset creature-myceloop-combat is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-myceloop-combat.png",
+          "description": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents."
+        }
+      ]
+    },
+    {
+      "id": "visual:creature-myceloop-follower",
+      "kind": "visual",
+      "name": "creature-myceloop-follower",
+      "summary": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "creature-myceloop-follower",
+            "kind": "creature",
+            "src": "assets/creatures/creature-myceloop-follower.png",
+            "w": 1000,
+            "h": 1600,
+            "anchor": "bottom-center",
+            "required": false,
+            "frames": {
+              "columns": 5,
+              "rows": 8,
+              "frameWidth": 200,
+              "frameHeight": 200,
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+              "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
+            }
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+          "usage": "Reference creature-myceloop-follower in the existing format at dist/src/data/assets.js.",
+          "expected": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents."
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents.",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "1000 by 1600 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "north, northeast, east, southeast, south, southwest, west, northwest",
+        "animations": "idle, walk-1, walk-2, walk-3, walk-4",
+        "compatibleUses": "Asset creature-myceloop-follower is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/creatures/creature-myceloop-follower.png",
+          "description": "Single cohesive low three-lobed plasmodium with an expressive central dimple, branching veins and small bright spore vents."
+        }
+      ]
+    },
+    {
       "id": "visual:creature-parrocket",
       "kind": "visual",
       "name": "creature-parrocket",
@@ -22228,7 +22523,7 @@
               "rows": 8,
               "frameWidth": 200,
               "frameHeight": 200,
-              "rowOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+              "rowOrder": ["north", "northeast", "east", "southeast", "south", "northwest", "southwest", "west"],
               "columnOrder": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
               "cadence": "advance each walk frame per 0.56 world units traveled by the follower"
             }

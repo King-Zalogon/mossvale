@@ -16,8 +16,8 @@ import {codec, newSave, objCtx, rawMaps, rawObjectives} from './helpers.mjs';
 const idOf = id => species.findIndex(s => s.id === id);
 const story = JSON.parse(readFileSync(new URL('../dist/maps/story.json', import.meta.url), 'utf8'));
 
-test('the eighteen stable species stay findable in their four home biomes', () => {
-  assert.equal(species.length, 18);
+test('the nineteen stable species stay findable in their four home biomes', () => {
+  assert.equal(species.length, 19);
   assert.equal(new Set(species.map(s => s.id)).size, species.length);
   assert.deepEqual(
     species.slice(0, 12).map(s => s.id),
@@ -25,10 +25,10 @@ test('the eighteen stable species stay findable in their four home biomes', () =
   );
   assert.deepEqual(
     species.slice(12).map(s => s.id),
-    ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix'],
+    ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix', 'myceloop'],
   );
   assert.equal(biomes.length, 4);
-  const residentCounts = {meadow: 5, wetland: 4, badlands: 6, 'snowy-forest': 3};
+  const residentCounts = {meadow: 5, wetland: 5, badlands: 6, 'snowy-forest': 3};
   for (const biome of biomes) {
     assert.equal(species.filter(s => s.biome === biome.id).length, residentCounts[biome.id], biome.id);
     assert.ok(
@@ -70,6 +70,10 @@ test('each species has a distinct battle role, move, and habitat clue', () => {
   assert.ok(species.find(s => s.id === 'rillume').stats.defense < species.find(s => s.id === 'brooklet').stats.defense);
   assert.ok(species.find(s => s.id === 'lanternix').stats.attack < species.find(s => s.id === 'voltkit').stats.attack);
   assert.ok(species.find(s => s.id === 'lanternix').stats.defense > species.find(s => s.id === 'voltkit').stats.defense);
+  const myceloop = species.find(s => s.id === 'myceloop');
+  const mushmallow = species.find(s => s.id === 'mushmallow');
+  assert.ok(myceloop.stats.hp > mushmallow.stats.hp && myceloop.stats.defense < mushmallow.stats.defense);
+  assert.ok(moves[myceloop.move].power < moves[mushmallow.move].power, 'Myceloop trades output for a durable control role');
 });
 
 test('different stats and move definitions create distinct battle choices', () => {
@@ -96,7 +100,7 @@ test('different stats and move definitions create distinct battle choices', () =
 });
 
 test('the new creatures keep stable IDs in discovery, party and save round trips', () => {
-  for (const speciesId of ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix']) {
+  for (const speciesId of ['sedgegnaw', 'petalunge', 'cindercurl', 'sunsifter', 'rillume', 'lanternix', 'myceloop']) {
     const save = newSave();
     const newId = idOf(speciesId);
     save.caught.push(newId);

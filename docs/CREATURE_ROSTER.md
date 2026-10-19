@@ -1,6 +1,6 @@
 # Creature roster (#24)
 
-The roster now has 18 stable species IDs. The original twelve IDs and their order stay unchanged so existing saves still resolve; Sedgegnaw, Petalunge, Cindercurl, Sunsifter, Rillume and Lanternix are appended. Every species is findable in a home-biome encounter zone. The current distribution is Meadow 5, Wetland 4, Rocky Badlands 6 and Snowy Forest 3 while the wider creature portfolio continues. The field journal reveals personality, battle role, base stats, elemental move, and a habitat clue after discovery.
+The roster has 19 stable species IDs. The original twelve IDs and their order stay unchanged so existing saves still resolve; Sedgegnaw, Petalunge, Cindercurl, Sunsifter, Rillume, Lanternix and Myceloop are appended. Every species is findable in a home-biome encounter zone. The current distribution is Meadow 5, Wetland 5, Rocky Badlands 6 and Snowy Forest 3 while the wider creature portfolio continues. The field journal reveals personality, battle role, base stats, elemental move, and a habitat clue after discovery.
 
 | Biome | Species | Role | Base HP / ATK / DEF | Elemental move | Field clue |
 | --- | --- | --- | ---: | --- | --- |
@@ -13,6 +13,7 @@ The roster now has 18 stable species IDs. The original twelve IDs and their orde
 | Wetland | Mushmallow | Patient bulwark | 48 / 8 / 15 | Spore cloud | Check the damp grass around Reedfen's quiet water. |
 | Wetland | Siltkip | Matchup scout | 44 / 10 / 12 | Silt surge | Watch the shallow pools; its tail often appears first. |
 | Wetland | Rillume | Resonant striker | 42 / 13 / 9 | Bell pulse | Look in Reedfen's safe bank grass for a blue core beneath a clear bell. |
+| Wetland | Myceloop | Patient control bulwark | 50 / 7 / 14 | Mycelial pulse | Follow the amber-dotted damp trail beside the safe Reedfen bank grass. |
 | Rocky badlands | Voltkit | Glass-cannon sprinter | 39 / 13 / 6 | Static leap | Follow the bright sandstone trail into Amber Ridge grass. |
 | Rocky badlands | Pebblit | Stalwart wall | 52 / 8 / 16 | Stone tumble | Amber Ridge's warm grass is its favourite place to bask. |
 | Rocky badlands | Sunskitter | High-risk attacker | 36 / 14 / 6 | Glass dash | Search the rocky grass where the sun reaches Amber Ridge first. |
@@ -48,3 +49,9 @@ It can open the shared **Prepare relay → switch → elemental move** sequence.
 Original transparent portrait, combat and directional follower sources are retained under `art/characters/source/`. Combat cells are 288×288; followers are 200×200 in N/NE/E/SE/S/SW/W/NW order with idle and four wingflutter poses, a fixed y=196 hover-ground anchor and existing 0.56 world-unit cadence. Reduced motion holds the idle facing. The same browser previews and catalogue list the new IDs. Owner visual and enjoyment feedback remains pending in #267/#289.
 
 The `tests/lanternix.browser.mjs` regression uses real controls to capture Lanternix into a full-team reserve, activate it, reload, prepare the relay, reload its source identity, switch to a healthy teammate and consume the next elemental strike. Follower preview species are discovered from the canonical registry, including Lanternix; no separate loader list is needed.
+
+## Myceloop (#292)
+
+Myceloop is a single connected, three-lobed plasmodial slime mold with a central dimple, lavender vein pattern and amber vents. Its export is broader and lower than Mushmallow; the missing mushroom cap, face and hedgehog spines are intentional silhouette differences. It trades one point of attack and defense for two points of HP relative to Mushmallow, and its Mycelial pulse has lower power than Spore cloud. This keeps it defensive without making it a strictly better copy. No species-specific status/controller code is attached; the generic one-use battle condition remains a later #263 balance option.
+
+In Reedfen, an optional amber trail clue leads toward reachable bank grass. Myceloop appears at low weight in both existing shallow and deeper pools, uses the bounded curious/circle-and-retry behavior, and can be encountered again after a retreat. It needs no water-crossing ability. The three transparent source images and generation provenance are retained in `art/characters/source/`; normalized 4×5 combat and 5×8 follower exports are in the existing roster preview routes. Combat states use 288 px cells; follower states use 200 px cells, N/NE/E/SE/S/SW/W/NW rows, idle plus four slow squeeze-flow poses, a bottom-center anchor at y=196 and 0.56 world-unit cadence. Owner visual/enjoyment approval is still pending.
