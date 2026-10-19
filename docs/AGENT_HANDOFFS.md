@@ -288,3 +288,6 @@ Claude branch `claude/fix-orchard-integration-failures`, from `origin/integratio
 ## #292 — Myceloop
 
 Continue the existing claim on `codex/292-myceloop` (initial base `origin/main` `413f458`, updated with `origin/integration` `1027f08`). Add the cohesive three-lobed Spore slime-mold species, source-backed transparent portrait/combat/follower art, optional Reedfen clue/encounter, and capture/party/save/reload coverage. Keep the issue open for owner visual/enjoyment feedback; do not implement the proposed Conductive pair until #263's generic contract is approved. Local `npm run verify` passes on this head; run `npm run build`, catalogue-impact gate, and final PR checks before integration. Actions/Vercel are unavailable; no production deployment or main promotion.
+
+## Voltkit refresh follow-up (PR #412)
+Claimed `codex/voltkit-refresh-followup` from `origin/integration` `1027f08`; refreshed against the newer integration head during conflict resolution. The follow-up archives exact supplied Voltkit redesign bytes, aligns the reviewed follower row contract across exporter/metadata/runtime, and rebinds retained scene-quality evidence. The source sheet has duplicated side/rear poses; no new art was fabricated. Hosted CI is unavailable; the PR targets `integration` only.
