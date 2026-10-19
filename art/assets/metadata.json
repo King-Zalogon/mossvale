@@ -35,17 +35,17 @@
       "mode": "RGBA"
     },
     "source/creature-additions-atlas.png": {
-      "width": 1558,
+      "width": 1838,
       "height": 264,
       "mode": "RGBA"
     },
     "source/creature-combat-new-atlas.png": {
-      "width": 6992,
+      "width": 8160,
       "height": 1440,
       "mode": "RGBA"
     },
     "source/creature-follower-new-atlas.png": {
-      "width": 6080,
+      "width": 7096,
       "height": 1600,
       "mode": "RGBA"
     },
@@ -1585,6 +1585,114 @@
         "originalGeneratedReferences": [
           "art/characters/source/creature-lanternix-follower-generated.png"
         ]
+      }
+    },
+    {
+      "name": "creature-myceloop",
+      "src": "assets/creatures/creature-myceloop.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 264,
+      "height": 144,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 1574,
+        "y": 120,
+        "width": 264,
+        "height": 144
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-myceloop-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-myceloop-combat",
+      "src": "assets/creatures/creature-myceloop-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 7008,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-combat-new-atlas.png normalized animation atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-myceloop-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-myceloop-follower",
+      "src": "assets/creatures/creature-myceloop-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 6096,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-follower-new-atlas.png normalized animation atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-myceloop-follower-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
       }
     },
     {

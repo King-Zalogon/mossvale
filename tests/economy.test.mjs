@@ -122,3 +122,31 @@ test('side-map chests persist independently and cannot pay again after reload', 
   assert.equal(save.mapFlags.length, 3);
   assert.ok(claimChest(save, chest), 'side caches do not consume the meadow chest');
 });
+
+test('multiple optional caches on the same map remain independent through save export, reload and repeat interaction', () => {
+  const meadowCaches = mapsById.meadow.objects.filter(object => object.kind === 'chest' && object.flag.includes(':'));
+  assert.equal(meadowCaches.length, 2);
+  let save = newSave();
+  const first = meadowCaches[0];
+  const second = meadowCaches[1];
+  assert.deepEqual(claimChest(save, first), first.reward);
+  assert.ok(save.mapFlags.includes(first.flag));
+  assert.equal(save.mapFlags.includes(second.flag), false);
+
+  save = codec.normalize(JSON.parse(codec.serialize(save)), false);
+  assert.equal(claimChest(save, first), null, 'the opened cache stays empty after reload');
+  assert.deepEqual(claimChest(save, second), second.reward, 'the other cache can still be claimed');
+
+  save = codec.normalize(JSON.parse(codec.serialize(save)), false);
+  assert.equal(claimChest(save, first), null);
+  assert.equal(claimChest(save, second), null);
+  assert.deepEqual(new Set(save.mapFlags), new Set([first.flag, second.flag]));
+  assert.deepEqual(save.chests, [], 'extra Meadow caches do not consume the legacy regional chest slot');
+  assert.deepEqual(
+    claimChest(
+      save,
+      mapsById.meadow.objects.find(object => object.kind === 'chest' && object.flag === 'meadow.chest'),
+    ).coins > 0,
+    true,
+  );
+});

@@ -133,7 +133,7 @@
       "at": [11, 13.2],
       "w": 38,
       "label": "Read the trail sign",
-      "text": "North: crystal shrine · East: Reedfen Wetlands, once the seal shines · South: Blueglass Pass · Gold: treasure"
+      "text": "North: crystal shrine \u00b7 East: Reedfen Wetlands, once the seal shines \u00b7 South: Blueglass Pass \u00b7 Gold: treasure"
     },
     {
       "id": "chest",
@@ -179,6 +179,40 @@
       "mapLabel": "Icefall ledge",
       "text": "The lake path bends back to the pass. Frostowl keep watch above; Hushram shelter under the lower pines.",
       "discoveryText": "Icefall ledge: Frostowl watch above while Hushram shelter under the lower pines."
+    },
+    {
+      "id": "cache-lower-pines",
+      "kind": "chest",
+      "sprite": "chest-pine-frost",
+      "at": [30, 39],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "frostveil-grove.chest:cache-lower-pines",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "Lower pine cache",
+      "discoveryText": "Lower pine cache: Where the lower pines thin beside the path, a small cache waits in the snow."
+    },
+    {
+      "id": "cache-north-pines",
+      "kind": "chest",
+      "sprite": "chest-pine-frost",
+      "at": [38, 5],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "frostveil-grove.chest:cache-north-pines",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "North pine cache",
+      "discoveryText": "North pine cache: A north-side pine glade shelters a few supplies away from the main trail."
     }
   ],
   "exits": [
@@ -474,7 +508,7 @@
         [40.6, 20.7],
         [42.9, 18.8],
         [45.8, 19.5],
-        [47, 22.1]
+        [47.0, 22.1]
       ],
       "piece": "snow-grove-1"
     },
@@ -492,10 +526,10 @@
       "w": 79,
       "solid": 0.52,
       "at": [
-        [57, 32.1],
+        [57.0, 32.1],
         [54.7, 30.3],
         [54.7, 27.3],
-        [57, 25.5],
+        [57.0, 25.5],
         [59.9, 26.1],
         [61.1, 28.8]
       ],
@@ -506,7 +540,7 @@
       "kind": "scenery",
       "w": 49,
       "solid": 0.42,
-      "at": [[58, 29]],
+      "at": [[58.0, 29.0]],
       "piece": "snow-grove-2"
     },
     {
@@ -517,7 +551,7 @@
       "at": [
         [29.8, 8.4],
         [31.3, 8.9],
-        [30.4, 7]
+        [30.4, 7.0]
       ],
       "piece": "cairn-3"
     },
@@ -537,9 +571,9 @@
       "w": 49,
       "solid": 0.42,
       "at": [
-        [28.9, 32],
-        [30.4, 32.5],
-        [29.5, 30.6]
+        [26.7, 29.6],
+        [28.2, 30.1],
+        [27.3, 28.2]
       ],
       "piece": "cairn-4"
     },
@@ -548,8 +582,8 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [27.8, 32.8],
-        [30.8, 31.4]
+        [25.6, 30.4],
+        [28.6, 29.0]
       ],
       "piece": "cairn-4"
     }

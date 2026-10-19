@@ -215,7 +215,7 @@ test('all secret finds have short, named notices compiled unchanged and shown on
       assert.equal(isKnown(entry, object), true);
       assert.deepEqual(discover(entry, [object], object.x, object.y), []);
     }
-  assert.equal(count, 15); // Prior secrets, three orchard investigations and the Rootglass seep clue.
+  assert.equal(count, 33); // Prior secrets, three orchard investigations, the Rootglass seep clue and two optional caches on each of the nine earlier maps.
   assert.equal(discoveryNotice({kind: 'chest', mapLabel: 'Old cache'}), 'Found Old cache.');
   assert.equal(discoveryNotice({kind: 'sign'}), 'Found Signpost.');
 });

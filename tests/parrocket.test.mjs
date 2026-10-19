@@ -15,7 +15,7 @@ test('Parrocket is importable pack data without altering active maps or persiste
   assert.equal(definition.id, 'parrocket');
   assert.equal(definition.type, 'Fire');
   assert.deepEqual(validateRegistries({...registry, species: [...registry.species, definition]}, {assetNames: new Set(assets.map(a => a.name))}), []);
-  assert.equal(species.length, 18);
+  assert.equal(species.length, 19);
   assert.ok(!species.some(entry => entry.id === definition.id));
   assert.equal(definition.sprite, 'creature-parrocket');
 });

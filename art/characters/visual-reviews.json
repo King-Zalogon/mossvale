@@ -1,11 +1,7 @@
 {
   "schemaVersion": 1,
   "technicalAndVisualGatesAreSeparate": true,
-  "decisions": [
-    "accept",
-    "rework",
-    "quarantine"
-  ],
+  "decisions": ["accept", "rework", "quarantine"],
   "method": "Technical checks decode and validate pixels/frames/anchors. Visual decisions are recorded by a human with a reason; neither gate infers the other.",
   "evidence": {
     "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png",
@@ -16,12 +12,12 @@
     "beforeAfter": "Each species card shows its canonical portrait beside the generated combat states.",
     "contactSheetDigest": {
       "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-      "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+      "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
     },
     "followerContactSheet": "art/characters/reviews/creature-follower-contact-sheet.png",
     "followerContactSheetDigest": {
       "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-      "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+      "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
     }
   },
   "subjects": [
@@ -38,10 +34,7 @@
         "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/player-facing-324.png",
-        "dist/character-preview.html"
-      ],
+      "evidence": ["art/characters/reviews/player-facing-324.png", "dist/character-preview.html"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/people-atlas.png",
@@ -57,7 +50,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "551c341f84656eaab4c281f667982f622f260ed64d83639cfa7d5cd79cc316c4"
+          "sha256": "0727610cc41bf63c706f0697cdb33863cb8ffc7a0f5d93ea182c085beec5516a"
         },
         {
           "path": "art/characters/reviews/player-facing-324.png",
@@ -89,7 +82,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
+          "sha256": "37866c586e1b505f74291a7b7221355bca5d4d0e090fee674a3157fa9525fc6f"
         }
       ]
     },
@@ -106,10 +99,7 @@
         "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -117,11 +107,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-combat.png",
@@ -141,19 +131,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -174,10 +164,7 @@
         "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -185,11 +172,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
@@ -209,19 +196,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -241,10 +228,7 @@
         "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -252,11 +236,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-emberkin-combat.png",
@@ -276,19 +260,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -310,9 +294,7 @@
         "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -320,7 +302,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-combat.png",
@@ -340,19 +322,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -374,10 +356,7 @@
         "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -385,11 +364,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
@@ -409,19 +388,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -442,10 +421,7 @@
         "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -453,11 +429,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-hushram-combat.png",
@@ -477,19 +453,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -510,10 +486,7 @@
         "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-follower-contact-sheet.png",
-        "dist/creature-follower-preview.html"
-      ],
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -521,7 +494,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
@@ -545,19 +518,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -579,10 +552,7 @@
         "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-follower-contact-sheet.png",
-        "dist/creature-follower-preview.html"
-      ],
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -590,7 +560,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
@@ -614,19 +584,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -656,11 +626,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-voltkit-combat.png",
@@ -676,11 +646,11 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "35b839879557e0fe86b283e72eab107af8286a35d45d6bdecc07b87c2844d65e"
+          "sha256": "36268d14cd4962c9888b25210a2e9336c799dcb3fbc5bd0048d842996e8c2182"
         },
         {
           "path": "concept_art/voltkit-redesign-candidates/portrait.png",
@@ -709,10 +679,7 @@
         "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -720,11 +687,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-mushmallow-combat.png",
@@ -744,19 +711,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -777,10 +744,7 @@
         "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -788,11 +752,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-frostowl-combat.png",
@@ -812,19 +776,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -845,10 +809,7 @@
         "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -856,11 +817,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-pebblit-combat.png",
@@ -880,19 +841,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -913,10 +874,7 @@
         "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -924,11 +882,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-bramblebuck-combat.png",
@@ -948,19 +906,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -981,10 +939,7 @@
         "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -992,11 +947,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-siltkip-combat.png",
@@ -1016,19 +971,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1049,10 +1004,7 @@
         "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": [
-        "art/characters/reviews/creature-combat-contact-sheet.png",
-        "art/characters/reviews/creature-follower-contact-sheet.png"
-      ],
+      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -1060,11 +1012,11 @@
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "dist/assets/creatures/creature-sunskitter-combat.png",
@@ -1084,19 +1036,19 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1126,47 +1078,47 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
+          "sha256": "54f41fbb7e1ca6b46aae95014fc59325095207afbb972ea5f8fd4fbd07abac2f"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879"
+          "sha256": "e775d2fbb4302dd64154f194b882452b8a1b0a032d61f34ca578f1b7794c309c"
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
+          "sha256": "37866c586e1b505f74291a7b7221355bca5d4d0e090fee674a3157fa9525fc6f"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "3e00f364867c3b2b1a437482ef22c9fbf10b6ed4c35fd38615dd900bb0ed702c"
+          "sha256": "5586dd01f61ec3f1943e4cb4a26a37d45e3c4bddb0f467c2c6b1459ad53ecfd4"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "fd18dd7d81bcc0ee5eadfafee30b01f08526b9c4decdb25cfd437466f151eddb"
+          "sha256": "8239ab288e78e59bfed5c19b450e3ba4708fd817a37724bb08d64ed172e922c5"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "35b839879557e0fe86b283e72eab107af8286a35d45d6bdecc07b87c2844d65e"
+          "sha256": "36268d14cd4962c9888b25210a2e9336c799dcb3fbc5bd0048d842996e8c2182"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
-          "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd"
+          "sha256": "5d125f586e4021d8340139c83f0f016b7d33f262fa0fe4537a21151d77870482"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "art/characters/source/creature-sedgegnaw-combat-generated.png",
@@ -1182,7 +1134,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "551c341f84656eaab4c281f667982f622f260ed64d83639cfa7d5cd79cc316c4"
+          "sha256": "0727610cc41bf63c706f0697cdb33863cb8ffc7a0f5d93ea182c085beec5516a"
         },
         {
           "path": "dist/assets/creatures/creature-sedgegnaw-combat.png",
@@ -1210,11 +1162,11 @@
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1244,47 +1196,47 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
+          "sha256": "54f41fbb7e1ca6b46aae95014fc59325095207afbb972ea5f8fd4fbd07abac2f"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879"
+          "sha256": "e775d2fbb4302dd64154f194b882452b8a1b0a032d61f34ca578f1b7794c309c"
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
+          "sha256": "37866c586e1b505f74291a7b7221355bca5d4d0e090fee674a3157fa9525fc6f"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "3e00f364867c3b2b1a437482ef22c9fbf10b6ed4c35fd38615dd900bb0ed702c"
+          "sha256": "5586dd01f61ec3f1943e4cb4a26a37d45e3c4bddb0f467c2c6b1459ad53ecfd4"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "fd18dd7d81bcc0ee5eadfafee30b01f08526b9c4decdb25cfd437466f151eddb"
+          "sha256": "8239ab288e78e59bfed5c19b450e3ba4708fd817a37724bb08d64ed172e922c5"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "35b839879557e0fe86b283e72eab107af8286a35d45d6bdecc07b87c2844d65e"
+          "sha256": "36268d14cd4962c9888b25210a2e9336c799dcb3fbc5bd0048d842996e8c2182"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
-          "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd"
+          "sha256": "5d125f586e4021d8340139c83f0f016b7d33f262fa0fe4537a21151d77870482"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "art/characters/source/creature-petalunge-combat-generated.png",
@@ -1300,7 +1252,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "551c341f84656eaab4c281f667982f622f260ed64d83639cfa7d5cd79cc316c4"
+          "sha256": "0727610cc41bf63c706f0697cdb33863cb8ffc7a0f5d93ea182c085beec5516a"
         },
         {
           "path": "dist/assets/creatures/creature-petalunge-combat.png",
@@ -1328,11 +1280,11 @@
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1362,47 +1314,47 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
+          "sha256": "54f41fbb7e1ca6b46aae95014fc59325095207afbb972ea5f8fd4fbd07abac2f"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879"
+          "sha256": "e775d2fbb4302dd64154f194b882452b8a1b0a032d61f34ca578f1b7794c309c"
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
+          "sha256": "37866c586e1b505f74291a7b7221355bca5d4d0e090fee674a3157fa9525fc6f"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "3e00f364867c3b2b1a437482ef22c9fbf10b6ed4c35fd38615dd900bb0ed702c"
+          "sha256": "5586dd01f61ec3f1943e4cb4a26a37d45e3c4bddb0f467c2c6b1459ad53ecfd4"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "fd18dd7d81bcc0ee5eadfafee30b01f08526b9c4decdb25cfd437466f151eddb"
+          "sha256": "8239ab288e78e59bfed5c19b450e3ba4708fd817a37724bb08d64ed172e922c5"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "35b839879557e0fe86b283e72eab107af8286a35d45d6bdecc07b87c2844d65e"
+          "sha256": "36268d14cd4962c9888b25210a2e9336c799dcb3fbc5bd0048d842996e8c2182"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
-          "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd"
+          "sha256": "5d125f586e4021d8340139c83f0f016b7d33f262fa0fe4537a21151d77870482"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "art/characters/source/creature-cindercurl-combat-generated.png",
@@ -1418,7 +1370,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "551c341f84656eaab4c281f667982f622f260ed64d83639cfa7d5cd79cc316c4"
+          "sha256": "0727610cc41bf63c706f0697cdb33863cb8ffc7a0f5d93ea182c085beec5516a"
         },
         {
           "path": "dist/assets/creatures/creature-cindercurl-combat.png",
@@ -1446,11 +1398,11 @@
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1483,59 +1435,59 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
+          "sha256": "54f41fbb7e1ca6b46aae95014fc59325095207afbb972ea5f8fd4fbd07abac2f"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879"
+          "sha256": "e775d2fbb4302dd64154f194b882452b8a1b0a032d61f34ca578f1b7794c309c"
         },
         {
           "path": "art/assets/source/creature-combat-new-atlas.png",
-          "sha256": "2e896d6b4f68752319e4cae31d063576de731522cc603af5acd3f74db9c29453"
+          "sha256": "853281c9a86367352c9cd6d1bca41ac5b03201a0fa0236a91f8c75be1c4d9e46"
         },
         {
           "path": "art/assets/source/creature-follower-new-atlas.png",
-          "sha256": "e358d58565e720e1da494fcd7e255c0d0f157f00b12f22070297e33707ad3119"
+          "sha256": "9a7fdcdd895e5836f6a392139ae4a13f0a634fb3e9452d58c3ee374f0cbe85c4"
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
+          "sha256": "37866c586e1b505f74291a7b7221355bca5d4d0e090fee674a3157fa9525fc6f"
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "551c341f84656eaab4c281f667982f622f260ed64d83639cfa7d5cd79cc316c4"
+          "sha256": "0727610cc41bf63c706f0697cdb33863cb8ffc7a0f5d93ea182c085beec5516a"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "3e00f364867c3b2b1a437482ef22c9fbf10b6ed4c35fd38615dd900bb0ed702c"
+          "sha256": "5586dd01f61ec3f1943e4cb4a26a37d45e3c4bddb0f467c2c6b1459ad53ecfd4"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "fd18dd7d81bcc0ee5eadfafee30b01f08526b9c4decdb25cfd437466f151eddb"
+          "sha256": "8239ab288e78e59bfed5c19b450e3ba4708fd817a37724bb08d64ed172e922c5"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "35b839879557e0fe86b283e72eab107af8286a35d45d6bdecc07b87c2844d65e"
+          "sha256": "36268d14cd4962c9888b25210a2e9336c799dcb3fbc5bd0048d842996e8c2182"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
-          "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd"
+          "sha256": "5d125f586e4021d8340139c83f0f016b7d33f262fa0fe4537a21151d77870482"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "art/characters/source/creature-sunsifter-combat-generated.png",
@@ -1587,11 +1539,11 @@
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1624,59 +1576,59 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
+          "sha256": "54f41fbb7e1ca6b46aae95014fc59325095207afbb972ea5f8fd4fbd07abac2f"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879"
+          "sha256": "e775d2fbb4302dd64154f194b882452b8a1b0a032d61f34ca578f1b7794c309c"
         },
         {
           "path": "art/assets/source/creature-combat-new-atlas.png",
-          "sha256": "2e896d6b4f68752319e4cae31d063576de731522cc603af5acd3f74db9c29453"
+          "sha256": "853281c9a86367352c9cd6d1bca41ac5b03201a0fa0236a91f8c75be1c4d9e46"
         },
         {
           "path": "art/assets/source/creature-follower-new-atlas.png",
-          "sha256": "e358d58565e720e1da494fcd7e255c0d0f157f00b12f22070297e33707ad3119"
+          "sha256": "9a7fdcdd895e5836f6a392139ae4a13f0a634fb3e9452d58c3ee374f0cbe85c4"
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
+          "sha256": "37866c586e1b505f74291a7b7221355bca5d4d0e090fee674a3157fa9525fc6f"
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "551c341f84656eaab4c281f667982f622f260ed64d83639cfa7d5cd79cc316c4"
+          "sha256": "0727610cc41bf63c706f0697cdb33863cb8ffc7a0f5d93ea182c085beec5516a"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "3e00f364867c3b2b1a437482ef22c9fbf10b6ed4c35fd38615dd900bb0ed702c"
+          "sha256": "5586dd01f61ec3f1943e4cb4a26a37d45e3c4bddb0f467c2c6b1459ad53ecfd4"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "fd18dd7d81bcc0ee5eadfafee30b01f08526b9c4decdb25cfd437466f151eddb"
+          "sha256": "8239ab288e78e59bfed5c19b450e3ba4708fd817a37724bb08d64ed172e922c5"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "35b839879557e0fe86b283e72eab107af8286a35d45d6bdecc07b87c2844d65e"
+          "sha256": "36268d14cd4962c9888b25210a2e9336c799dcb3fbc5bd0048d842996e8c2182"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
-          "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd"
+          "sha256": "5d125f586e4021d8340139c83f0f016b7d33f262fa0fe4537a21151d77870482"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "art/characters/source/creature-rillume-combat-generated.png",
@@ -1728,11 +1680,11 @@
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1790,7 +1742,7 @@
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/export-guardian-combat.py",
@@ -1860,7 +1812,7 @@
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/export-guardian-combat.py",
@@ -1930,7 +1882,7 @@
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/export-guardian-combat.py",
@@ -2000,7 +1952,7 @@
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/export-guardian-combat.py",
@@ -2046,59 +1998,59 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
+          "sha256": "54f41fbb7e1ca6b46aae95014fc59325095207afbb972ea5f8fd4fbd07abac2f"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
-          "sha256": "c2c43e454f82ef4b2926bb04e00c6f861503415a57dc839442c446545305e879"
+          "sha256": "e775d2fbb4302dd64154f194b882452b8a1b0a032d61f34ca578f1b7794c309c"
         },
         {
           "path": "art/assets/source/creature-combat-new-atlas.png",
-          "sha256": "2e896d6b4f68752319e4cae31d063576de731522cc603af5acd3f74db9c29453"
+          "sha256": "853281c9a86367352c9cd6d1bca41ac5b03201a0fa0236a91f8c75be1c4d9e46"
         },
         {
           "path": "art/assets/source/creature-follower-new-atlas.png",
-          "sha256": "e358d58565e720e1da494fcd7e255c0d0f157f00b12f22070297e33707ad3119"
+          "sha256": "9a7fdcdd895e5836f6a392139ae4a13f0a634fb3e9452d58c3ee374f0cbe85c4"
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
+          "sha256": "37866c586e1b505f74291a7b7221355bca5d4d0e090fee674a3157fa9525fc6f"
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "551c341f84656eaab4c281f667982f622f260ed64d83639cfa7d5cd79cc316c4"
+          "sha256": "0727610cc41bf63c706f0697cdb33863cb8ffc7a0f5d93ea182c085beec5516a"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "3e00f364867c3b2b1a437482ef22c9fbf10b6ed4c35fd38615dd900bb0ed702c"
+          "sha256": "5586dd01f61ec3f1943e4cb4a26a37d45e3c4bddb0f467c2c6b1459ad53ecfd4"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "fd18dd7d81bcc0ee5eadfafee30b01f08526b9c4decdb25cfd437466f151eddb"
+          "sha256": "8239ab288e78e59bfed5c19b450e3ba4708fd817a37724bb08d64ed172e922c5"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "32d3490a20f6a9c320d6a79cf3be7e0b06b991dbd37a0fef9a2deee165eed9a6"
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "35b839879557e0fe86b283e72eab107af8286a35d45d6bdecc07b87c2844d65e"
+          "sha256": "36268d14cd4962c9888b25210a2e9336c799dcb3fbc5bd0048d842996e8c2182"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
-          "sha256": "235e994a9500d381aee4e09c77934ad96434f7558611ebb81cb8026f13a38edd"
+          "sha256": "5d125f586e4021d8340139c83f0f016b7d33f262fa0fe4537a21151d77870482"
         },
         {
           "path": "art/characters/export-profiles.json",
-          "sha256": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05"
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
         },
         {
           "path": "art/characters/reviews/creature-combat-contact-sheet.png",
-          "sha256": "7757cf050ea93788a4997ee8a050d777e83539854463577465e69e10ee710d1d"
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "84ed5b5f19be1f40678d3ff75dd86425866caf48e774735fd5f61325d5157168"
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
         },
         {
           "path": "art/characters/source/creature-lanternix-combat-generated.png",
@@ -2158,11 +2110,11 @@
         },
         {
           "path": "art/characters/make-combat-contact-sheet.py",
-          "sha256": "98f22a580e6331f0cc520cd32a3aaeec3361cf39570e4af99755295d66503ca7"
+          "sha256": "c7fa8c3413213cf564bebc309226f2eaa68146e7a34495ffc9adb472f3e1ccb4"
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
+          "sha256": "aee9ebe0cf3774ea5573c5f82641edb94df852267905d5c3ffc57d2524c8eada"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -2743,6 +2695,158 @@
           "sha256": "423a5cb162ba3da6260ae253a44a644d53dbaa34da1e45244684f9d9494afbdb"
         }
       ]
+    },
+    {
+      "visualId": "creature-myceloop",
+      "asset": "creature-myceloop-combat",
+      "technical": {
+        "status": "pass",
+        "source": "Portrait/combat/follower exporters --check; art asset pack and export checks; roster/encounter unit coverage; tests/myceloop.browser.mjs runs the actual Reedfen battle and capture into reserve, activation and save reload. PNG alpha, 4×5/5×8 cell boundaries, shared foot anchor and exported gameplay scales were visually inspected."
+      },
+      "visual": {
+        "decision": "accept",
+        "reviewer": "implementation visual QA",
+        "reason": "At the 115 px battle width the violet three-lobed body, central dimple, branching lavender veins and amber spore vents remain legible and distinct from Mushmallow; idle, attack, hit, faint and capture states remain cohesive. At 37 px the low connected radial silhouette is readable and does not resemble the taller hedgehog. Direction changes are intentionally subtle for a radial organism, while its eight-row atlas retains stable anchors and five animation columns. Owner taste and real playtest remain pending; this is not owner approval.",
+        "ownerTaste": "pending"
+      },
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png",
+        "art/characters/reviews/292/myceloop-battle.png",
+        "art/characters/reviews/292/myceloop-reedfen.png",
+        "dist/creature-combat-preview.html",
+        "dist/creature-follower-preview.html",
+        "art/characters/source/creature-myceloop-generation.json",
+        "art/characters/source/creature-myceloop-concept-v2.png",
+        "art/characters/source/creature-myceloop-portrait-generated.png",
+        "art/characters/source/creature-myceloop-combat-generated.png",
+        "art/characters/source/creature-myceloop-follower-generated.png",
+        "art/characters/creature-combat-metadata.json",
+        "art/characters/creature-follower-metadata.json",
+        "art/characters/export-profiles.json",
+        "art/characters/export-creature-portraits.py",
+        "art/characters/export-creature-combat.py",
+        "art/characters/export-creature-followers.py",
+        "art/assets/metadata.json",
+        "art/assets/source/creature-additions-atlas.png",
+        "art/assets/source/creature-combat-new-atlas.png",
+        "art/assets/source/creature-follower-new-atlas.png",
+        "art/assets/subjects.json",
+        "dist/assets/creatures/creature-myceloop.png",
+        "dist/assets/creatures/creature-myceloop-combat.png",
+        "dist/assets/creatures/creature-myceloop-follower.png",
+        "dist/src/render/sprites.js"
+      ],
+      "reviewedFiles": [
+        {
+          "path": "art/assets/metadata.json",
+          "sha256": "54f41fbb7e1ca6b46aae95014fc59325095207afbb972ea5f8fd4fbd07abac2f"
+        },
+        {
+          "path": "art/assets/source/creature-additions-atlas.png",
+          "sha256": "e775d2fbb4302dd64154f194b882452b8a1b0a032d61f34ca578f1b7794c309c"
+        },
+        {
+          "path": "art/assets/source/creature-combat-new-atlas.png",
+          "sha256": "853281c9a86367352c9cd6d1bca41ac5b03201a0fa0236a91f8c75be1c4d9e46"
+        },
+        {
+          "path": "art/assets/source/creature-follower-new-atlas.png",
+          "sha256": "9a7fdcdd895e5836f6a392139ae4a13f0a634fb3e9452d58c3ee374f0cbe85c4"
+        },
+        {
+          "path": "art/assets/subjects.json",
+          "sha256": "37866c586e1b505f74291a7b7221355bca5d4d0e090fee674a3157fa9525fc6f"
+        },
+        {
+          "path": "art/characters/creature-combat-metadata.json",
+          "sha256": "5586dd01f61ec3f1943e4cb4a26a37d45e3c4bddb0f467c2c6b1459ad53ecfd4"
+        },
+        {
+          "path": "art/characters/creature-follower-metadata.json",
+          "sha256": "8239ab288e78e59bfed5c19b450e3ba4708fd817a37724bb08d64ed172e922c5"
+        },
+        {
+          "path": "art/characters/export-creature-combat.py",
+          "sha256": "98d74949a0c779103eddb6876c280250d34c65f981cb46d18f732f9eaa34cced"
+        },
+        {
+          "path": "art/characters/export-creature-followers.py",
+          "sha256": "36268d14cd4962c9888b25210a2e9336c799dcb3fbc5bd0048d842996e8c2182"
+        },
+        {
+          "path": "art/characters/export-creature-portraits.py",
+          "sha256": "5d125f586e4021d8340139c83f0f016b7d33f262fa0fe4537a21151d77870482"
+        },
+        {
+          "path": "art/characters/export-profiles.json",
+          "sha256": "745422ab7ddbeba87022dea84dd04f4067f050525fa2620c6e625755c4d178a3"
+        },
+        {
+          "path": "art/characters/reviews/292/myceloop-battle.png",
+          "sha256": "e2b6910e08415044362a3ce210bdedb35935412559e159e085bfe7a978f5d379"
+        },
+        {
+          "path": "art/characters/reviews/292/myceloop-reedfen.png",
+          "sha256": "934b467bf29eca60762bd2f6cc63bed3e337043148cabf35d42533b51bec7d1f"
+        },
+        {
+          "path": "art/characters/reviews/creature-combat-contact-sheet.png",
+          "sha256": "966ab6ceae32311437b7dd8875271be1da9aadbfdc13c56739159e6eda09edff"
+        },
+        {
+          "path": "art/characters/reviews/creature-follower-contact-sheet.png",
+          "sha256": "f9d70d92ab7c7b376deb55ad1b9126d49e5854155814c54d9a5084f4e0933520"
+        },
+        {
+          "path": "art/characters/source/creature-myceloop-combat-generated.png",
+          "sha256": "51c5a9d7e57f9a6ecfb8a754c1bf44e8348b48a13e16041d6d275e2df94aaec4"
+        },
+        {
+          "path": "art/characters/source/creature-myceloop-concept-v2.png",
+          "sha256": "dec726218f4f8e82fae7f4b51bce918d4b551e7573906e5d2cce6c98e3ce9f40"
+        },
+        {
+          "path": "art/characters/source/creature-myceloop-follower-generated.png",
+          "sha256": "b7c79dc343e687383724f559061ecc994e155ef10c00068b9c7ec3805f5b758a"
+        },
+        {
+          "path": "art/characters/source/creature-myceloop-generation.json",
+          "sha256": "af748e567249921e625140cfc53d762f01d06ceb8ee422b20028c2963e106c65"
+        },
+        {
+          "path": "art/characters/source/creature-myceloop-portrait-generated.png",
+          "sha256": "08045e38041fd77d0df56f0f98667903edbd0c91257eb2198fd4cae4e5ef5191"
+        },
+        {
+          "path": "dist/assets/creatures/creature-mushmallow.png",
+          "sha256": "3a140fbb9adeccfc96ae972cc6e8a7d871e3d6c080d8ecc663e362823fce5c0b"
+        },
+        {
+          "path": "dist/assets/creatures/creature-myceloop-combat.png",
+          "sha256": "7bd0a122c4bb368ed18214ee85f3c0b4c7c2b8be07a8b454581c237fd5c94035"
+        },
+        {
+          "path": "dist/assets/creatures/creature-myceloop-follower.png",
+          "sha256": "0d7e0009174ae056ba3d3a537c0b2e65d5a63a5af81767fe4b14bd154a7fe467"
+        },
+        {
+          "path": "dist/assets/creatures/creature-myceloop.png",
+          "sha256": "2258a8a3b5deee60b031aa39f76f4a401a76ec86dff14489993cd98361a67d41"
+        },
+        {
+          "path": "dist/creature-combat-preview.html",
+          "sha256": "24383a6c8ff796031419a7957c330fddcb29e5f42e1b3b574b9117e1b3b41139"
+        },
+        {
+          "path": "dist/creature-follower-preview.html",
+          "sha256": "6297988f4551976bc227ee1be1e9f29459afa330329085a88681368768fa868f"
+        },
+        {
+          "path": "dist/src/render/sprites.js",
+          "sha256": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c"
+        }
+      ]
     }
   ],
   "fixtures": [
@@ -2806,7 +2910,8 @@
         "creature-cindercurl",
         "creature-sunsifter",
         "creature-rillume",
-        "creature-lanternix"
+        "creature-lanternix",
+        "creature-myceloop"
       ],
       "creaturePortraitWidth": 115,
       "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png"
@@ -2832,7 +2937,8 @@
         "creature-cindercurl",
         "creature-sunsifter",
         "creature-rillume",
-        "creature-lanternix"
+        "creature-lanternix",
+        "creature-myceloop"
       ],
       "followerWidth": 37,
       "contactSheet": "art/characters/reviews/creature-follower-contact-sheet.png"
@@ -2843,7 +2949,7 @@
       "issue": "#90",
       "profileId": "creature-follower-v1",
       "status": "pending-owner-review",
-      "reason": "Dedicated eight-direction idle and four-frame follower sheets cover all 18 species; owner visual taste and gameplay acceptance remain separate."
+      "reason": "Dedicated eight-direction idle and four-frame follower sheets cover all 19 species; owner visual taste and gameplay acceptance remain separate."
     }
   ]
 }

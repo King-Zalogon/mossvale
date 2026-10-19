@@ -40,7 +40,7 @@ export function walkableAt(map, x, y, objectsByCell, maxSolid = 0) {
   return true;
 }
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const FLAG = /^([a-z0-9]+(?:-[a-z0-9]+)*)\.(seal|chest)$/;
+const FLAG = /^([a-z0-9]+(?:-[a-z0-9]+)*)\.(seal|chest(?::[a-z0-9]+(?:-[a-z0-9]+)*)?)$/;
 const isPoint = p => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite);
 const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 
@@ -110,10 +110,11 @@ function validateOne(m, byId, ctx, errors) {
   const sprite = (where, name) => {
     if (!ctx.spriteNames.has(name)) at(where, `unknown sprite "${name}" (not in asset manifest)`);
   };
-  const flag = (where, f) => {
+  const flag = (where, f, allowPerChest = false) => {
     const hit = typeof f === 'string' && FLAG.exec(f);
     if (!hit) at(where, `flag "${f}" must look like <map-id>.seal or <map-id>.chest`);
     else if (!byId.has(hit[1])) at(where, `flag "${f}" references unknown map "${hit[1]}"`);
+    else if (hit[2].includes(':') && !allowPerChest) at(where, 'only chest landmarks may use a stable per-chest flag');
   };
   const species = (where, id) => {
     if (!ctx.speciesIds.has(id)) at(where, `unknown species "${id}"`);
@@ -138,7 +139,7 @@ function validateOne(m, byId, ctx, errors) {
     if (!(l.w > 0)) at(where + '.w', 'sprite width must be positive');
     if (l.solid !== undefined && !(Number.isFinite(l.solid) && l.solid > 0 && l.solid <= 16))
       at(where + '.solid', 'collision radius must be greater than 0 and at most 16 tiles');
-    if (l.flag !== undefined) flag(where + '.flag', l.flag);
+    if (l.flag !== undefined) flag(where + '.flag', l.flag, l.kind === 'chest');
     if (l.kind === 'shrine') {
       if (!isObj(l.guardian)) at(where + '.guardian', 'shrines need { species, level }');
       else {

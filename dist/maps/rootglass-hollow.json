@@ -66,32 +66,17 @@
     "............................................................"
   ],
   "spawns": {
-    "camp": [
-      29,
-      42
-    ],
-    "canopy-entry": [
-      29,
-      42
-    ],
-    "spring-seep": [
-      49,
-      32
-    ],
-    "canopy-return": [
-      30,
-      7
-    ]
+    "camp": [29, 42],
+    "canopy-entry": [29, 42],
+    "spring-seep": [49, 32],
+    "canopy-return": [30, 7]
   },
   "landmarks": [
     {
       "id": "root-arch",
       "kind": "sign",
       "sprite": "prop-rootglass-hollow",
-      "at": [
-        30,
-        12.3
-      ],
+      "at": [30, 12.3],
       "w": 155,
       "label": "Inspect the living roots",
       "mapLabel": "Rootglass spring",
@@ -106,10 +91,7 @@
       "id": "echo-pool",
       "kind": "sign",
       "sprite": "prop-well-ruined",
-      "at": [
-        17,
-        22
-      ],
+      "at": [17, 22],
       "w": 57,
       "label": "Listen at the echo pool",
       "mapLabel": "Echo pool",
@@ -123,10 +105,7 @@
       "id": "canopy-ascent-clue",
       "kind": "sign",
       "sprite": "prop-rootglass-sentinel",
-      "at": [
-        29,
-        39.5
-      ],
+      "at": [29, 39.5],
       "w": 58,
       "label": "Read the root-carved marks",
       "mapLabel": "Canopy stair",
@@ -136,10 +115,7 @@
       "id": "spring-seam-clue",
       "kind": "sign",
       "sprite": "prop-icefall-ledge",
-      "at": [
-        47,
-        31.5
-      ],
+      "at": [47, 31.5],
       "w": 52,
       "label": "Follow the spring marks",
       "mapLabel": "Spring seam",
@@ -149,10 +125,7 @@
       "id": "root-chest",
       "kind": "chest",
       "sprite": "chest-pine-frost",
-      "at": [
-        48,
-        36
-      ],
+      "at": [48, 36],
       "w": 45,
       "solid": 0.45,
       "label": "Open the root cache",
@@ -168,10 +141,7 @@
     {
       "id": "canopy-return",
       "sprite": "prop-rootglass-hollow",
-      "at": [
-        29,
-        43
-      ],
+      "at": [29, 43],
       "w": 94,
       "label": "Climb to Rootglass Canopy",
       "to": {
@@ -182,10 +152,7 @@
     {
       "id": "seep-return",
       "sprite": "prop-icefall-ledge",
-      "at": [
-        48,
-        32
-      ],
+      "at": [48, 32],
       "w": 68,
       "label": "Return through the water seam",
       "to": {
@@ -196,10 +163,7 @@
     {
       "id": "upper-root-return",
       "sprite": "prop-icefall-ledge",
-      "at": [
-        35,
-        6
-      ],
+      "at": [35, 6],
       "w": 65,
       "label": "Return by the upper root stair",
       "to": {
@@ -215,22 +179,10 @@
       "w": 77,
       "solid": 0.55,
       "at": [
-        [
-          12,
-          18
-        ],
-        [
-          49,
-          17
-        ],
-        [
-          20,
-          35
-        ],
-        [
-          42,
-          9
-        ]
+        [12, 18],
+        [49, 17],
+        [20, 35],
+        [42, 9]
       ]
     },
     {
@@ -239,22 +191,10 @@
       "w": 48,
       "solid": 0.3,
       "at": [
-        [
-          13,
-          14
-        ],
-        [
-          44,
-          13
-        ],
-        [
-          24,
-          34
-        ],
-        [
-          46,
-          30
-        ]
+        [13, 14],
+        [44, 13],
+        [24, 34],
+        [46, 30]
       ]
     },
     {
@@ -263,22 +203,10 @@
       "w": 62,
       "solid": 0.55,
       "at": [
-        [
-          10,
-          25
-        ],
-        [
-          25,
-          12
-        ],
-        [
-          44,
-          26
-        ],
-        [
-          37,
-          38
-        ]
+        [10, 25],
+        [25, 12],
+        [44, 26],
+        [37, 38]
       ]
     },
     {
@@ -286,26 +214,11 @@
       "kind": "scenery",
       "w": 29,
       "at": [
-        [
-          15,
-          29
-        ],
-        [
-          24,
-          8
-        ],
-        [
-          42,
-          31
-        ],
-        [
-          34,
-          37
-        ],
-        [
-          51,
-          26
-        ]
+        [15, 29],
+        [24, 8],
+        [42, 31],
+        [34, 37],
+        [51, 26]
       ]
     },
     {
@@ -313,64 +226,31 @@
       "kind": "grass",
       "w": 22,
       "at": [
-        [
-          32,
-          9
-        ],
-        [
-          35,
-          10
-        ],
-        [
-          46,
-          35
-        ],
-        [
-          48,
-          36
-        ]
+        [32, 9],
+        [35, 10],
+        [46, 35],
+        [48, 36]
       ]
     }
   ],
   "zones": [
     {
       "id": "rootglass-deep",
-      "terrain": [
-        "t"
-      ],
-      "pool": [
-        "pebblit",
-        "hushram"
-      ],
-      "level": [
-        8,
-        10
-      ],
-      "distance": [
-        10,
-        20
-      ]
+      "terrain": ["t"],
+      "pool": ["pebblit", "hushram"],
+      "level": [8, 10],
+      "distance": [10, 20]
     }
   ],
   "quiet": [
     {
       "id": "spring-approach",
-      "rect": [
-        25,
-        8,
-        38,
-        17
-      ],
+      "rect": [25, 8, 38, 17],
       "label": "Root spring"
     },
     {
       "id": "lower-root-walk",
-      "rect": [
-        26,
-        37,
-        34,
-        43
-      ],
+      "rect": [26, 37, 34, 43],
       "label": "Lower roots"
     }
   ]

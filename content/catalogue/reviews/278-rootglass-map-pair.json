@@ -40,12 +40,7 @@
         "tests/test_art_export.py",
         "tests/test_landmark_export.py"
       ],
-      "entries": [
-        "map:mossvale/rootglass-canopy",
-        "map:mossvale/rootglass-hollow",
-        "visual:prop-rootglass-hollow",
-        "visual:prop-rootglass-sentinel"
-      ],
+      "entries": ["map:mossvale/rootglass-canopy", "map:mossvale/rootglass-hollow", "visual:prop-rootglass-hollow", "visual:prop-rootglass-sentinel"],
       "disposition": "updated",
       "reason": "Adds two connected optional snowy-forest maps, an ungated Frostveil Pass entrance, a saved Brooklet-only shortcut, map-specific encounters, safe return spawns and two distinctive landmark props (one generated pixel-art sentinel and one hand-authored vector root arch). Stable region and existing map IDs are preserved; the pack content version rises for the two new map IDs. The map builder regenerates both data files deterministically, and source PNGs plus the retained hollow SVG are registered with atlas exports. Associated asset-review hashes and the frame-spacing audit were refreshed because the shared metadata index changed. The isolated Voltkit combat-export fixture now uses its current redesign-atlas path.",
       "evidence": [

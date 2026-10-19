@@ -5,7 +5,7 @@
 import {flagDone} from './rules.js';
 
 export const OBJECTIVES_FORMAT = 1;
-const FLAG = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest)$/;
+const FLAG = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(seal|chest(?::[a-z0-9]+(?:-[a-z0-9]+)*)?)$/;
 
 /** Does `save` satisfy the condition? `ctx` = {speciesCount, regions, speciesIds?}. Unknown conditions are false;
     `active` / `party` need `ctx.speciesIds` (species IDs in save-index order) and are false without it. */
@@ -64,7 +64,8 @@ export function validateObjectives(data, {mapIds, speciesIds}) {
     if (keys.length !== 1) return at(where, `condition needs exactly one key, got ${JSON.stringify(keys)}`);
     const [k] = keys;
     if (k === 'flag') {
-      if (!FLAG.test(c.flag) || !mapIds.has(c.flag.split('.')[0])) at(where, `flag "${c.flag}" must be <map-id>.seal or <map-id>.chest of an existing map`);
+      if (!FLAG.test(c.flag) || !mapIds.has(c.flag.split('.')[0]))
+        at(where, `flag "${c.flag}" must be <map-id>.seal, <map-id>.chest, or a stable per-chest flag on an existing map`);
     } else if (k === 'event') {
       const parts = typeof c.event === 'string' ? c.event.split('/') : [];
       if (

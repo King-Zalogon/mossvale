@@ -5,6 +5,7 @@ Reuses the grid helpers of gen-wetland-maps.py. The maps are plain data once wri
 """
 import importlib.util, json, math, random
 from pathlib import Path
+from optional_chests import add_optional_chests
 
 spec = importlib.util.spec_from_file_location('wet', Path(__file__).with_name('gen-wetland-maps.py'))
 wet = importlib.util.module_from_spec(spec)
@@ -98,6 +99,7 @@ def ridge():
             {'id': 'echo-hollow', 'at': [24, 46], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'Your footsteps echo from a hollow in the rock. Nothing stirs here.'}]},
         ],
     }
+    add_optional_chests(data)
     return data, g
 
 
@@ -159,6 +161,7 @@ def basin():
             {'id': 'chasm-edge', 'at': [30, 15], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'The chasm falls away below the rail. The path keeps you safe.'}]},
         ],
     }
+    add_optional_chests(data)
     return data, g
 
 
