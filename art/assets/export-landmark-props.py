@@ -103,8 +103,8 @@ def load(root: Path) -> tuple[dict, dict, list[tuple[dict, Path, Image.Image]]]:
             if sha256(inside(root, reference["path"])) != reference.get("sha256"):
                 raise ValueError(f"canonical art reference hash mismatch: {reference['path']}")
         assets.append((entry, source, prepare(source)))
-    if len(assets) != 10:
-        raise ValueError(f"expected exactly ten landmark sources, found {len(assets)}")
+    if not assets:
+        raise ValueError("expected at least one landmark source")
     return manifest, record, assets
 
 
@@ -115,15 +115,28 @@ def write(root: Path, manifest: dict, record: dict, assets: list[tuple[dict, Pat
     atlas_name = "source/props-atlas.png"
     dimensions = metadata["sheets"][atlas_name]
     existing = {item["name"] for item in metadata["assets"]}
-    output_paths = [inside(root, f"dist/assets/props/{entry['name']}.png") for entry, _source, _image in assets]
-    collisions = existing.intersection(entry["name"] for entry, _source, _image in assets)
-    if collisions or any(path.exists() for path in output_paths):
-        raise FileExistsError(f"refusing to overwrite existing landmark assets: {sorted(collisions)}")
+    new_assets = []
+    collisions = []
+    for item in assets:
+        entry, _source, _image = item
+        output = inside(root, f"dist/assets/props/{entry['name']}.png")
+        if entry["name"] in existing:
+            if not output.is_file():
+                collisions.append(f"{entry['name']} is registered but its runtime image is missing")
+            continue
+        if output.exists():
+            collisions.append(f"{entry['name']} has an unregistered runtime image")
+            continue
+        new_assets.append(item)
+    if collisions:
+        raise FileExistsError(f"refusing to overwrite inconsistent landmark assets: {sorted(collisions)}")
+    if not new_assets:
+        raise FileExistsError("all landmark sources are already registered")
 
     sheet_width, sheet_height = dimensions["width"], dimensions["height"]
     cells = []
     x, y, row_height = 0, sheet_height + GUTTER, 0
-    for entry, source, sprite in sorted(assets, key=lambda item: item[0]["name"]):
+    for entry, source, sprite in sorted(new_assets, key=lambda item: item[0]["name"]):
         if sprite.width > sheet_width:
             raise ValueError(f"{entry['name']} is wider than the prop atlas")
         if x and x + sprite.width > sheet_width:
@@ -140,6 +153,25 @@ def write(root: Path, manifest: dict, record: dict, assets: list[tuple[dict, Pat
         expanded.paste(original, (0, 0))
     for entry, source, sprite, cell in cells:
         expanded.paste(sprite, cell)
+        provenance = {
+            "editablePixelSource": "art/assets/source atlas cell",
+            "sourceSha256": entry["sourceSha256"],
+            "promptSummary": entry["promptSummary"],
+        }
+        if entry.get("creationMethod") == "hand-authored-vector":
+            provenance.update(
+                {
+                    "originalAuthoredReferences": [entry["sourceSvg"], entry["source"]],
+                    "originalGenerationSourceAvailable": False,
+                }
+            )
+        else:
+            provenance.update(
+                {
+                    "originalGeneratedReferences": [entry["source"]],
+                    "originalGenerationSourceAvailable": True,
+                }
+            )
         metadata["assets"].append(
             {
                 "name": entry["name"],
@@ -152,13 +184,7 @@ def write(root: Path, manifest: dict, record: dict, assets: list[tuple[dict, Pat
                 "sheet": atlas_name,
                 "cell": {"x": cell[0], "y": cell[1]},
                 "frames": None,
-                "provenance": {
-                    "editablePixelSource": "art/assets/source atlas cell",
-                    "originalGeneratedReferences": [entry["source"]],
-                    "originalGenerationSourceAvailable": True,
-                    "sourceSha256": entry["sourceSha256"],
-                    "promptSummary": entry["promptSummary"],
-                },
+                "provenance": provenance,
                 "exportProfile": record,
             }
         )
@@ -167,7 +193,8 @@ def write(root: Path, manifest: dict, record: dict, assets: list[tuple[dict, Pat
 
     staged: list[tuple[Path, Path]] = []
     try:
-        for (entry, _source, sprite), target in zip(assets, output_paths):
+        for entry, _source, sprite in new_assets:
+            target = inside(root, f"dist/assets/props/{entry['name']}.png")
             stage_png(sprite, target, staged)
         stage_png(expanded, atlas_path, staged)
         metadata_bytes = (json.dumps(metadata, indent=2, ensure_ascii=False) + "\n").encode()
@@ -198,7 +225,11 @@ def check(root: Path, record: dict, assets: list[tuple[dict, Path, Image.Image]]
                 raise ValueError(f"{entry['name']} is absent from art/assets/metadata.json")
             if item.get("exportProfile") != record:
                 raise ValueError(f"{entry['name']} has missing or stale prop-landmark-v1 provenance")
-            if item.get("provenance", {}).get("originalGeneratedReferences") != [entry["source"]]:
+            provenance = item.get("provenance", {})
+            if entry.get("creationMethod") == "hand-authored-vector":
+                if provenance.get("originalAuthoredReferences") != [entry.get("sourceSvg"), entry["source"]]:
+                    raise ValueError(f"{entry['name']} authored vector source references are missing")
+            elif provenance.get("originalGeneratedReferences") != [entry["source"]]:
                 raise ValueError(f"{entry['name']} generated source reference is missing")
             output_path = inside(root, f"dist/assets/props/{entry['name']}.png")
             with Image.open(output_path) as output:

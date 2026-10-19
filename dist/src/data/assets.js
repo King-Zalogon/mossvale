@@ -512,6 +512,8 @@ export const assets = [
   {name: 'prop-orchard-wall-broken', kind: 'prop', src: 'assets/props/prop-orchard-wall-broken.png', w: 256, h: 104, anchor: 'bottom-center', required: true},
   {name: 'prop-quarry-alcove', kind: 'prop', src: 'assets/props/prop-quarry-alcove.png', w: 256, h: 203, anchor: 'bottom-center', required: true},
   {name: 'prop-rim-overlook', kind: 'prop', src: 'assets/props/prop-rim-overlook.png', w: 256, h: 138, anchor: 'bottom-center', required: true},
+  {name: 'prop-rootglass-hollow', kind: 'prop', src: 'assets/props/prop-rootglass-hollow.png', w: 234, h: 143, anchor: 'bottom-center', required: true},
+  {name: 'prop-rootglass-sentinel', kind: 'prop', src: 'assets/props/prop-rootglass-sentinel.png', w: 256, h: 234, anchor: 'bottom-center', required: true},
   {name: 'prop-sunstone-lookout', kind: 'prop', src: 'assets/props/prop-sunstone-lookout.png', w: 252, h: 256, anchor: 'bottom-center', required: true},
   {name: 'tree-oak-hollow', kind: 'prop', src: 'assets/props/tree-oak-hollow.png', w: 231, h: 256, anchor: 'bottom-center', required: true},
   {name: 'prop-well-ruined', kind: 'prop', src: 'assets/props/prop-well-ruined.png', w: 256, h: 212, anchor: 'bottom-center', required: true},

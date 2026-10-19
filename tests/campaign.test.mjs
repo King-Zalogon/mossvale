@@ -47,7 +47,7 @@ function activeLevel(save) {
   return Math.max(...save.party.map(id => level(save, id)));
 }
 
-test('all eight map files connect from the opening map and every roster member has a home encounter', () => {
+test('all shipped map files connect from the opening map and every roster member has a home encounter', () => {
   assert.deepEqual(adventure.errors, []);
   const reached = new Set(['meadow']);
   const queue = ['meadow'];

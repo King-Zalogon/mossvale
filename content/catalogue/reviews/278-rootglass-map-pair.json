@@ -1,0 +1,62 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "README.md",
+        "art/assets/export-landmark-props.py",
+        "art/assets/metadata.json",
+        "art/assets/source/landmarks/manifest.json",
+        "art/assets/source/landmarks/rootglass-hollow.png",
+        "art/assets/source/landmarks/rootglass-hollow.svg",
+        "art/assets/source/landmarks/rootglass-sentinel.png",
+        "art/assets/source/landmarks/rootglass-sentinel.svg",
+        "art/assets/source/props-atlas.png",
+        "art/assets/subjects.json",
+        "art/characters/reviews/frame-spacing-347.json",
+        "art/characters/visual-reviews.json",
+        "content/catalogue/INDEX.md",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/curated.json",
+        "content/catalogue/facts.json",
+        "content/catalogue/reviews/278-rootglass-map-pair.json",
+        "dist/assets/props/prop-rootglass-hollow.png",
+        "dist/assets/props/prop-rootglass-sentinel.png",
+        "dist/maps/frostveil-pass.json",
+        "dist/maps/index.json",
+        "dist/maps/rootglass-canopy.json",
+        "dist/maps/rootglass-hollow.json",
+        "dist/src/data/assets.js",
+        "docs/AGENT_HANDOFFS.md",
+        "docs/ASSETS.md",
+        "docs/CONTENT_MATRIX.md",
+        "docs/MAP_FORMAT.md",
+        "docs/MAP_INVENTORY.md",
+        "docs/READY.md",
+        "docs/REGRESSION.md",
+        "package.json",
+        "scripts/gen-rootglass.py",
+        "tests/maps.test.mjs",
+        "tests/rootglass.browser.mjs",
+        "tests/rootglass.test.mjs",
+        "tests/test_art_export.py",
+        "tests/test_landmark_export.py"
+      ],
+      "entries": [
+        "map:mossvale/rootglass-canopy",
+        "map:mossvale/rootglass-hollow",
+        "visual:prop-rootglass-hollow",
+        "visual:prop-rootglass-sentinel"
+      ],
+      "disposition": "updated",
+      "reason": "Adds two connected optional snowy-forest maps, an ungated Frostveil Pass entrance, a saved Brooklet-only shortcut, map-specific encounters, safe return spawns and two original authored props. Stable region and existing map IDs are preserved; the pack content version rises for the two new map IDs. The map builder regenerates both data files deterministically, and the new props retain editable SVG/PNG sources plus atlas exports. The added pixel props preserve explicit SVG/PNG provenance; associated asset-review file hashes and the frame-spacing audit were refreshed because the shared metadata index changed. The isolated Voltkit combat-export fixture now uses its current redesign-atlas path.",
+      "evidence": [
+        "tests/maps.test.mjs",
+        "tests/rootglass.test.mjs",
+        "tests/rootglass.browser.mjs",
+        "tests/integration.test.mjs",
+        "tests/test_landmark_export.py"
+      ]
+    }
+  ]
+}

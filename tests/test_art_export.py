@@ -63,7 +63,12 @@ class CombatExportTests(unittest.TestCase):
         self.source_dir = self.root / "art/characters/source"
         self.source_dir.mkdir(parents=True)
         self.target_dir = self.root / "dist/assets/creatures"
-        self.sources = [self.source_dir / f"creature-{species}-combat-generated.png" for species in SPECIES]
+        self.sources = [
+            self.root / "concept_art/voltkit-redesign-candidates/combat-atlas.png"
+            if species == "voltkit"
+            else self.source_dir / f"creature-{species}-combat-generated.png"
+            for species in SPECIES
+        ]
         self.targets = [self.target_dir / f"creature-{species}-combat.png" for species in SPECIES]
 
     def tearDown(self):
@@ -72,6 +77,7 @@ class CombatExportTests(unittest.TestCase):
     def write_sources(self, count=None):
         paths = self.sources if count is None else self.sources[:count]
         for path in paths:
+            path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(source_png())
 
     def run_export(self, *args):

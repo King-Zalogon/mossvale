@@ -1,7 +1,11 @@
 {
   "schemaVersion": 1,
   "technicalAndVisualGatesAreSeparate": true,
-  "decisions": ["accept", "rework", "quarantine"],
+  "decisions": [
+    "accept",
+    "rework",
+    "quarantine"
+  ],
   "method": "Technical checks decode and validate pixels/frames/anchors. Visual decisions are recorded by a human with a reason; neither gate infers the other.",
   "evidence": {
     "contactSheet": "art/characters/reviews/creature-combat-contact-sheet.png",
@@ -34,7 +38,10 @@
         "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/player-facing-324.png", "dist/character-preview.html"],
+      "evidence": [
+        "art/characters/reviews/player-facing-324.png",
+        "dist/character-preview.html"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/people-atlas.png",
@@ -82,7 +89,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9"
+          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
         }
       ]
     },
@@ -99,7 +106,10 @@
         "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -143,7 +153,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -164,7 +174,10 @@
         "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -208,7 +221,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -228,7 +241,10 @@
         "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -272,7 +288,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -294,7 +310,9 @@
         "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -334,7 +352,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -356,7 +374,10 @@
         "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -400,7 +421,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -421,7 +442,10 @@
         "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -465,7 +489,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -486,7 +510,10 @@
         "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
+      "evidence": [
+        "art/characters/reviews/creature-follower-contact-sheet.png",
+        "dist/creature-follower-preview.html"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -530,7 +557,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -552,7 +579,10 @@
         "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
+      "evidence": [
+        "art/characters/reviews/creature-follower-contact-sheet.png",
+        "dist/creature-follower-preview.html"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -596,7 +626,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -682,7 +712,10 @@
         "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -726,7 +759,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -747,7 +780,10 @@
         "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -791,7 +827,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -812,7 +848,10 @@
         "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -856,7 +895,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -877,7 +916,10 @@
         "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -921,7 +963,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -942,7 +984,10 @@
         "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -986,7 +1031,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1007,7 +1052,10 @@
         "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
         "ownerTaste": "pending"
       },
-      "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
+      "evidence": [
+        "art/characters/reviews/creature-combat-contact-sheet.png",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ],
       "reviewedFiles": [
         {
           "path": "art/assets/source/creatures-atlas.png",
@@ -1051,7 +1099,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1081,7 +1129,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
+          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1089,7 +1137,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9"
+          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -1169,7 +1217,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1199,7 +1247,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
+          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1207,7 +1255,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9"
+          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -1287,7 +1335,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1317,7 +1365,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
+          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1325,7 +1373,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9"
+          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
@@ -1405,7 +1453,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1438,7 +1486,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
+          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1454,7 +1502,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9"
+          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -1546,7 +1594,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -1579,7 +1627,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
+          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -1595,7 +1643,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9"
+          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -1687,7 +1735,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",
@@ -2001,7 +2049,7 @@
       "reviewedFiles": [
         {
           "path": "art/assets/metadata.json",
-          "sha256": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b"
+          "sha256": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8"
         },
         {
           "path": "art/assets/source/creature-additions-atlas.png",
@@ -2017,7 +2065,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9"
+          "sha256": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f"
         },
         {
           "path": "art/characters/SOURCES.md",
@@ -2117,7 +2165,7 @@
         },
         {
           "path": "art/characters/reviews/frame-spacing-347.json",
-          "sha256": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17"
+          "sha256": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179"
         },
         {
           "path": "tests/test_sprite_cells.py",

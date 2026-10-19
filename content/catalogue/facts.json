@@ -2,8 +2,8 @@
   "format": 1,
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
-    "art/assets/metadata.json": "2c46223c872fb5a05415e35669145878ce320fe0702a65e85ec116558c408e5b",
-    "art/assets/subjects.json": "35b7eca8d8a7f22c5e5091bfd2730464feb21e5dacc6879dc110287e2cb261c9",
+    "art/assets/metadata.json": "09d2f99878ed954d1c95b926fd1a3d7a02623807239db0be5bc2c62ae33eb0f8",
+    "art/assets/subjects.json": "39cc443b8f7fad10a00ff4b78c4445b9628c688df7e76fd12d0992e352ddda3f",
     "art/assets/third-party/registry.json": "bf7c23567dc256101820975f56deb9b2fa56b1a73c6a695ed5eed6c2b403791b",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
@@ -12,7 +12,7 @@
     "art/characters/export-profiles.json": "5dc9498d13bac3f9273fa068614e3a35160c1813f0a16fd7f48896bf0c41ab05",
     "art/characters/guardian-generation.json": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61",
     "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
-    "art/characters/reviews/frame-spacing-347.json": "3d577626d5eccb34cf938c1c8617fbf73df778cfe007028996de35117716da17",
+    "art/characters/reviews/frame-spacing-347.json": "9c443ef0f7a12a46a0c63ef5eba348a4e06ee3d707438876e8d9cf173c2e5179",
     "art/characters/source-archive.json": "dd086b6798543cd899a778c5be9cb4b34b7c2167c5cb0d16217fe12c63811e49",
     "art/characters/source/blastoucan/export.json": "84e45fc1ca2edd83ad1044640062a8e38cccdf4e477287568452408fe0de0b27",
     "art/characters/source/blastoucan/generation.json": "d0771206c9230033a553025f1d54776c62ec35c453ca20f12812b3464b29c23b",
@@ -26,7 +26,7 @@
     "art/characters/source/rumblet/generation.json": "8b0c4314672f71764c2a1913e4e556eceb4615c38b47af193ff49bb55d72e3d6",
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
-    "art/characters/visual-reviews.json": "1c220c9a46e81df5fa691dac7a0d2990b2ee94ddd40dae8ff59b729604a6e905",
+    "art/characters/visual-reviews.json": "799af553f93c1557f8a1e13262da3bc3c9e8964aa6772831663a5e16d8c12282",
     "content/catalogue/curated.json": "679801cd1657cf73c647c681b1a2b58c4b66fa7e7bf8f2d060fc8156b466a946",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
@@ -152,6 +152,8 @@
     "dist/assets/props/prop-orchard-wall-broken.png": "7d73efcd50f364a338309073207fe9b175cd80c5147abef30a941fb3777ec156",
     "dist/assets/props/prop-quarry-alcove.png": "74616515de2406d313a3f7dafbeaec1a3d168f0e5685e2b304b440807e14756a",
     "dist/assets/props/prop-rim-overlook.png": "553830b3ac09fad4f245720ba12bbb3fc8569f427148e05c157b5c5489da01ec",
+    "dist/assets/props/prop-rootglass-hollow.png": "2d0d5f7af52edf4cd1f1328628050836e49d2d6e8b6162e095e6cdd3707f3471",
+    "dist/assets/props/prop-rootglass-sentinel.png": "fd304fe3868d36fa2c5f753bc3f4f3e7657722c14fc3de0ff1df557e09e05bea",
     "dist/assets/props/prop-sunstone-lookout.png": "1ba42961d26ee4c169a0cd24e953603e8ae2f5c43be39f1e42e5063ed470b637",
     "dist/assets/props/prop-well-ruined.png": "27948f93243773fd59b53da1a0bdefb417685d63d2594327dde7577d8cb44d1d",
     "dist/assets/props/rock-field-large.png": "48ad760a103af348a778a08e50ff4ffab673f4dff1a001738dd0bab0fe8aeada",
@@ -183,14 +185,16 @@
     "dist/maps/amber-ridge.json": "6ba5bb9ad93b375fdfa639a9dafebf66c4b3d620bd5d08bd05e349437e7e1e12",
     "dist/maps/brackenwake-commons.json": "d7db2f177ab5c121b7b9b46ec88c76c1678ee9b4865e1533a3c5877b28da6091",
     "dist/maps/frostveil-grove.json": "c524f0eb0d1a8e97a986f7ae7ef347cb5d4e26afd81874fbc705411aa3f79318",
-    "dist/maps/frostveil-pass.json": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a",
-    "dist/maps/index.json": "3f69a2941be8eb9204cadced1ec6fbca32e2826d48a8f98a6c7d3cc21f14d969",
+    "dist/maps/frostveil-pass.json": "4c425146e1037e3ef14d986ac7ab7134ee66f57c6fa844423f7c95152ae65757",
+    "dist/maps/index.json": "06df036dcae95f270d15a40897ff9c5ec94ffbf9d6b5de5dec72368298e7f198",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "aa79da5414cb2d5967d9a4b28405489a9bef4bd261791f23d5db4f4d7b60d483",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
     "dist/maps/orchard-ruins.json": "5fc826a539ed9e55d47866b77ee4bd96c951beade8331c1c8ab6956e668430da",
     "dist/maps/reedfen-wetlands.json": "71cb15f8136f1d8e86b32299a5a0b7b0282e184a74a5c153b76534adabd8319f",
     "dist/maps/registries.json": "a9bbe9d97ecd693502676e01b09bdf5fe95edf472480932a4d8940936fe5a189",
+    "dist/maps/rootglass-canopy.json": "357633ba89fa2e188c8c4dd65298f848a03e82638b2b022a289513a64173525c",
+    "dist/maps/rootglass-hollow.json": "f51cf8d7e493790da6a9d2ea6d9234f7e8daeed3067acc3e75907d0a02a2a2f7",
     "dist/maps/stilt-isles.json": "bb7bc8a911d68366e20ffd898710f8162e10e0c291dfdcba449e1acfd251605c",
     "dist/maps/stone-basin.json": "9f12aa73b720f3ae4df848aeb98cda365cccafe3ddc1a71ef6a83a393fd1bb1a",
     "dist/maps/story.json": "3d7948241d9ab9648fe9cbdb09422c6916374cd4e3519dfa3f51f770a2786927",
@@ -209,7 +213,7 @@
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
-    "dist/src/data/assets.js": "0fa23d5e07a51af647f2e2996c6e080f5aa762887bfdfcf5f562f420c3ae0489",
+    "dist/src/data/assets.js": "bdcd36d26d10c45aa2d3544e54d88b4be6a6928093e30f24f6c2af4e04b63fb7",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "d76691961865a95bc015f483e26c84ee55da9b66bc46d6478fc3a55b419ae3bc",
@@ -313,7 +317,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "2b42277baf6d630703542c9283671e1cf0da7a0671f4de54b84655515fea5688",
+  "sourceDigest": "2e3e7ebfebec3a9e7215f9301c25519d6950ff68e6e7f66fb2ccf9aaac14ceef",
   "exclusions": [
     {
       "family": "module-exports",
@@ -2144,6 +2148,31 @@
       "dependencies": ["visual:chest-pine-frost"]
     },
     {
+      "id": "landmark:mossvale/frostveil-pass/glass-root-track",
+      "family": "landmark",
+      "runtimeId": "mossvale/frostveil-pass/glass-root-track",
+      "name": "mossvale/frostveil pass/glass root track",
+      "description": "Inspect the blueglass roots (sign) on Blueglass Pass.",
+      "source": "dist/maps/frostveil-pass.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "glass-root-track",
+        "kind": "sign",
+        "sprite": "prop-icefall-ledge",
+        "at": [52, 16],
+        "w": 54,
+        "label": "Inspect the blueglass roots",
+        "mapLabel": "Glass-root tracks",
+        "text": "A pale root glints through the snow and bends east toward a wind-shaped ridge."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:prop-icefall-ledge"]
+    },
+    {
       "id": "landmark:mossvale/frostveil-pass/north-sign",
       "family": "landmark",
       "runtimeId": "mossvale/frostveil-pass/north-sign",
@@ -2942,6 +2971,316 @@
       "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
       "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
       "dependencies": ["visual:signpost-wood"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-canopy/canopy-cache",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-canopy/canopy-cache",
+      "name": "mossvale/rootglass canopy/canopy cache",
+      "description": "Open the ridge cache (chest) on Rootglass Canopy.",
+      "source": "dist/maps/rootglass-canopy.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "canopy-cache",
+        "kind": "chest",
+        "sprite": "chest-pine-frost",
+        "at": [17.5, 17.2],
+        "w": 45,
+        "solid": 0.45,
+        "label": "Open the ridge cache",
+        "flag": "rootglass-canopy.chest",
+        "reward": {
+          "coins": 8,
+          "potions": 1,
+          "orbs": 1
+        }
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-pine-frost"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-canopy/glassbark-sentinel",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-canopy/glassbark-sentinel",
+      "name": "mossvale/rootglass canopy/glassbark sentinel",
+      "description": "Inspect the glass-barked tree (sign) on Rootglass Canopy.",
+      "source": "dist/maps/rootglass-canopy.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "glassbark-sentinel",
+        "kind": "sign",
+        "sprite": "prop-rootglass-sentinel",
+        "at": [12, 29],
+        "w": 132,
+        "label": "Inspect the glass-barked tree",
+        "mapLabel": "Glassbark Sentinel",
+        "discoveryText": "The Glassbark Sentinel rises above the ridge; its roots carry a cold, steady murmur.",
+        "lines": [
+          {
+            "text": "The pale glass bark catches the wind. At the roots, cold air rises with the sound of moving water. The old path bends south; the spring seems to run deeper."
+          }
+        ]
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:prop-rootglass-sentinel"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-canopy/pass-return-clue",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-canopy/pass-return-clue",
+      "name": "mossvale/rootglass canopy/pass return clue",
+      "description": "Read the weathered trail marks (sign) on Rootglass Canopy.",
+      "source": "dist/maps/rootglass-canopy.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "pass-return-clue",
+        "kind": "sign",
+        "sprite": "tree-fir-slim",
+        "at": [12, 34],
+        "w": 48,
+        "label": "Read the weathered trail marks",
+        "mapLabel": "Pass trail",
+        "text": "The pines thin to the west, where the old pass loops back toward the grove."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:tree-fir-slim"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-canopy/root-seep-clue",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-canopy/root-seep-clue",
+      "name": "mossvale/rootglass canopy/root seep clue",
+      "description": "Listen at the seep (sign) on Rootglass Canopy.",
+      "source": "dist/maps/rootglass-canopy.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "root-seep-clue",
+        "kind": "sign",
+        "sprite": "prop-icefall-ledge",
+        "at": [47.2, 30.4],
+        "w": 76,
+        "secret": true,
+        "routeHint": "rootglass-seep",
+        "label": "Listen at the seep",
+        "mapLabel": "Root seep",
+        "discoveryText": "Root seep: water threads beneath the ridge, where Brooklet may find a way through.",
+        "lines": [
+          {
+            "text": "Water threads between the roots and under the rock. A Brooklet might follow the current through the narrow seam."
+          }
+        ]
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:prop-icefall-ledge"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-canopy/root-stair-clue",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-canopy/root-stair-clue",
+      "name": "mossvale/rootglass canopy/root stair clue",
+      "description": "Listen beneath the roots (sign) on Rootglass Canopy.",
+      "source": "dist/maps/rootglass-canopy.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "root-stair-clue",
+        "kind": "sign",
+        "sprite": "prop-rootglass-hollow",
+        "at": [30, 38.5],
+        "w": 68,
+        "label": "Listen beneath the roots",
+        "mapLabel": "Root stair",
+        "text": "A low, steady rush rises from beneath the glassbark. A worn stair descends into the spring chambers."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:prop-rootglass-hollow"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-canopy/wind-shelf",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-canopy/wind-shelf",
+      "name": "mossvale/rootglass canopy/wind shelf",
+      "description": "Look across the canopy (sign) on Rootglass Canopy.",
+      "source": "dist/maps/rootglass-canopy.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "wind-shelf",
+        "kind": "sign",
+        "sprite": "prop-rim-overlook",
+        "at": [45, 12.7],
+        "w": 94,
+        "label": "Look across the canopy",
+        "mapLabel": "Wind shelf",
+        "lines": [
+          {
+            "text": "From this shelf the glass tree is the tallest thing for miles. Below it, snowmelt vanishes into the roots."
+          }
+        ]
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:prop-rim-overlook"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-hollow/canopy-ascent-clue",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-hollow/canopy-ascent-clue",
+      "name": "mossvale/rootglass hollow/canopy ascent clue",
+      "description": "Read the root-carved marks (sign) on Rootglass Hollow.",
+      "source": "dist/maps/rootglass-hollow.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "canopy-ascent-clue",
+        "kind": "sign",
+        "sprite": "prop-rootglass-sentinel",
+        "at": [29, 39.5],
+        "w": 58,
+        "label": "Read the root-carved marks",
+        "mapLabel": "Canopy stair",
+        "text": "The roots grow outward toward the upper ridge. Climb the worn stair to return to the canopy."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:prop-rootglass-sentinel"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-hollow/echo-pool",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-hollow/echo-pool",
+      "name": "mossvale/rootglass hollow/echo pool",
+      "description": "Listen at the echo pool (sign) on Rootglass Hollow.",
+      "source": "dist/maps/rootglass-hollow.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "echo-pool",
+        "kind": "sign",
+        "sprite": "prop-well-ruined",
+        "at": [17, 22],
+        "w": 57,
+        "label": "Listen at the echo pool",
+        "mapLabel": "Echo pool",
+        "lines": [
+          {
+            "text": "Drops ring against the pool and answer from somewhere above. These chambers are short, but every stream leads back to the great roots."
+          }
+        ]
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:prop-well-ruined"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-hollow/root-arch",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-hollow/root-arch",
+      "name": "mossvale/rootglass hollow/root arch",
+      "description": "Inspect the living roots (sign) on Rootglass Hollow.",
+      "source": "dist/maps/rootglass-hollow.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "root-arch",
+        "kind": "sign",
+        "sprite": "prop-rootglass-hollow",
+        "at": [30, 12.3],
+        "w": 155,
+        "label": "Inspect the living roots",
+        "mapLabel": "Rootglass spring",
+        "discoveryText": "A spring shines under the living roots; the stream runs back beneath the ridge.",
+        "lines": [
+          {
+            "text": "The glassbark's roots hold the cavern roof in a wide arch. Water returns to the ridge through a seam too narrow to follow without help."
+          }
+        ]
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:prop-rootglass-hollow"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-hollow/root-chest",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-hollow/root-chest",
+      "name": "mossvale/rootglass hollow/root chest",
+      "description": "Open the root cache (chest) on Rootglass Hollow.",
+      "source": "dist/maps/rootglass-hollow.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "root-chest",
+        "kind": "chest",
+        "sprite": "chest-pine-frost",
+        "at": [48, 36],
+        "w": 45,
+        "solid": 0.45,
+        "label": "Open the root cache",
+        "flag": "rootglass-hollow.chest",
+        "reward": {
+          "coins": 10,
+          "potions": 1,
+          "orbs": 1
+        }
+      },
+      "activation": "Existing chest interaction.",
+      "actions": "Claim authored supply/coin reward once.",
+      "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+      "repetition": "Claimed chest does not grant again.",
+      "persistence": "Stable chest flag in existing saves.",
+      "dependencies": ["visual:chest-pine-frost"]
+    },
+    {
+      "id": "landmark:mossvale/rootglass-hollow/spring-seam-clue",
+      "family": "landmark",
+      "runtimeId": "mossvale/rootglass-hollow/spring-seam-clue",
+      "name": "mossvale/rootglass hollow/spring seam clue",
+      "description": "Follow the spring marks (sign) on Rootglass Hollow.",
+      "source": "dist/maps/rootglass-hollow.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "id": "spring-seam-clue",
+        "kind": "sign",
+        "sprite": "prop-icefall-ledge",
+        "at": [47, 31.5],
+        "w": 52,
+        "label": "Follow the spring marks",
+        "mapLabel": "Spring seam",
+        "text": "A narrow stream runs west beneath the roots. It leads back toward the bright canopy."
+      },
+      "activation": "Existing sign interaction.",
+      "actions": "Authored text/conditional dialogue; optional validated route gate.",
+      "rewards": "No automatic reward solely from a sign image.",
+      "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
+      "persistence": "Dialogue UI is transient; route/scene flags persist when configured.",
+      "dependencies": ["visual:prop-icefall-ledge"]
     },
     {
       "id": "landmark:mossvale/stilt-isles/lantern-note",
@@ -5905,7 +6244,8 @@
           "................................................................"
         ],
         "spawns": {
-          "camp": [5, 24]
+          "camp": [5, 24],
+          "rootglass-return": [55, 16]
         },
         "landmarks": [
           {
@@ -5960,6 +6300,16 @@
               "orbs": 3
             },
             "discoveryText": "Blueglass cache: a tucked-away chest waits among the pines. Open it to collect supplies."
+          },
+          {
+            "id": "glass-root-track",
+            "kind": "sign",
+            "sprite": "prop-icefall-ledge",
+            "at": [52, 16],
+            "w": 54,
+            "label": "Inspect the blueglass roots",
+            "mapLabel": "Glass-root tracks",
+            "text": "A pale root glints through the snow and bends east toward a wind-shaped ridge."
           }
         ],
         "exits": [
@@ -5971,6 +6321,17 @@
             "label": "Return to Frostveil Grove",
             "to": {
               "map": "frostveil-grove",
+              "spawn": "pass-return"
+            }
+          },
+          {
+            "id": "rootglass-trail",
+            "sprite": "prop-rootglass-sentinel",
+            "at": [57, 16],
+            "w": 82,
+            "label": "Follow the glassbark trail",
+            "to": {
+              "map": "rootglass-canopy",
               "spawn": "pass-return"
             }
           }
@@ -6088,12 +6449,12 @@
             "w": 79,
             "solid": 0.52,
             "at": [
-              [50.5, 28],
-              [48.2, 26.2],
-              [48.2, 23.2],
-              [50.5, 21.4],
-              [53.4, 22.1],
-              [54.7, 24.7]
+              [20.2, 25],
+              [17.9, 23.1],
+              [17.9, 20.2],
+              [20.2, 18.3],
+              [23.1, 19],
+              [24.3, 21.7]
             ],
             "piece": "snow-grove-1"
           },
@@ -6102,7 +6463,7 @@
             "kind": "scenery",
             "w": 49,
             "solid": 0.42,
-            "at": [[51.6, 24.9]],
+            "at": [[21.2, 21.9]],
             "piece": "snow-grove-1"
           },
           {
@@ -6111,9 +6472,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [7.3, 15.9],
-              [8.8, 16.4],
-              [7.9, 14.5]
+              [50.3, 26.7],
+              [51.8, 27.2],
+              [50.9, 25.3]
             ],
             "piece": "cairn-2"
           },
@@ -6122,8 +6483,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [6.2, 16.7],
-              [9.2, 15.3]
+              [49.2, 27.5],
+              [52.2, 26.1]
             ],
             "piece": "cairn-2"
           },
@@ -6133,9 +6494,9 @@
             "w": 49,
             "solid": 0.42,
             "at": [
-              [59.3, 31.2],
-              [60.8, 31.7],
-              [59.9, 29.8]
+              [25.5, 34.1],
+              [27, 34.6],
+              [26.1, 32.7]
             ],
             "piece": "cairn-3"
           },
@@ -6144,8 +6505,8 @@
             "kind": "flower",
             "w": 32,
             "at": [
-              [58.2, 32],
-              [61.2, 30.6]
+              [24.4, 34.9],
+              [27.4, 33.5]
             ],
             "piece": "cairn-3"
           }
@@ -6179,8 +6540,8 @@
         ]
       },
       "biome": "snowy-forest",
-      "connections": "[{\"id\":\"grove-return\",\"to\":{\"map\":\"frostveil-grove\",\"spawn\":\"pass-return\"}}]",
-      "spawns": "{\"camp\":[5,24]}",
+      "connections": "[{\"id\":\"grove-return\",\"to\":{\"map\":\"frostveil-grove\",\"spawn\":\"pass-return\"}},{\"id\":\"rootglass-trail\",\"to\":{\"map\":\"rootglass-canopy\",\"spawn\":\"pass-return\"}}]",
+      "spawns": "{\"camp\":[5,24],\"rootglass-return\":[55,16]}",
       "cardPreview": "prop-icefall-ledge",
       "dependencies": ["visual:prop-icefall-ledge"]
     },
@@ -9016,6 +9377,566 @@
       "dependencies": []
     },
     {
+      "id": "map:mossvale/rootglass-canopy",
+      "family": "map",
+      "runtimeId": "mossvale/rootglass-canopy",
+      "name": "Rootglass Canopy",
+      "description": "Rootglass Canopy: 60 by 48 authored map.",
+      "source": "dist/maps/rootglass-canopy.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "format": 1,
+        "id": "rootglass-canopy",
+        "biome": "snowy-forest",
+        "name": "Rootglass Canopy",
+        "preview": "prop-rootglass-sentinel",
+        "size": {
+          "w": 60,
+          "h": 48
+        },
+        "legend": {
+          ".": "void",
+          "g": "ground",
+          "p": "path",
+          "w": "water",
+          "t": "tallgrass"
+        },
+        "terrain": [
+          "............................................................",
+          "............................................................",
+          "......................wwwwwwwwwwwwwwww......................",
+          "...................wwwwwggggggggggggwwwww...................",
+          "................wwwwgggwwwggggggggggggggwwww................",
+          "..............wwwggggggwwwgggggggggggggggggwww..............",
+          "............wwwgggggggggwwwggggggggggggggggggwww............",
+          "..........wwwgggggggggggwwwggggggggggggggggggggwww..........",
+          ".........wwggggggggggggggwwwgggggggggggggggggggggww.........",
+          "........wwgggggggggggggggwwwggggggggggggggggggggggww........",
+          "......wwwggggggggggggggggwwwgggggggggggggggggggggggwww......",
+          ".....wwwggggggggggggggggggwwwgggggggggppppggggggggggwww.....",
+          ".....wwgggggggggggggggggggwwwggggggppppppppppggggggggww.....",
+          "....wwgggggggggggppppppppgwwwgggpppppppppppppppppgggggww....",
+          "...wwgggggggggppppppppppppppppppppppppgggppppppppppppppww...",
+          "...wgggggggppppppppppppppppppppppppggggggggggpppppppppppw...",
+          "..wwggggggpppppppgggggggppppppppggggggggggggggggpppppppppw..",
+          "..wggggggppppppgggggggggggggwwwggggggggggggggggpppppppppgw..",
+          ".wwgggggggppggggggggggggggggwwwggggggggggggggppppppppppggww.",
+          ".wwggggggggggggggggggggggggggwwwggggggggggppppppppppppgggww.",
+          ".wggggggggggggggggggggggggggppppppgggggpppppppppppppggggggw.",
+          ".wgggggggggggggggggggggggpppppppppppppppppppppppppggggggggw.",
+          "wwgggggggggggggggggpppppppppppppppppppppppppppppggggggggggww",
+          "wwgggggggggggttggggppppppppppppppppppppppppppgttggggggggggww",
+          "wwggggggggggttttgggggpppppppppppppppppppppgggttttgggggggggww",
+          "wwggggggggggttttggggppppppppgggppppppppggggggttttgggggpgggww",
+          ".wgggggggggggttggggppppppggggggwpppgggggggggggttgggggpppggw.",
+          ".wgggggggggggggggggpppppggggggggwpppggggggggggggggggpppgggw.",
+          ".wwgggggggggggggggpppppgggggggggwppppggggggggggggggpppgggww.",
+          ".wwggggggggggggggppppppggggggggggwpttgggggggggggggpppggggww.",
+          "..wgggggggggggppppppppgggggggggggwttttgggggggggggpppgggggw..",
+          "..wwggggggggpppppppppggggggggggggwttttgggggggggpwwwwggggww..",
+          "...wggggggppppppppppggggggggggggggwttggggggggppppppwggggw...",
+          "...wwggggppppppppppgggggggggggggggwwwggggggppppppppppggww...",
+          "....wwggpppppppppgggggggggggggggggwwwgggppppppppppppppww....",
+          ".....wwpppppppppppgggggggggggggggggwwppppppppgggwwwppww.....",
+          ".....wppppppggpppppgggggggggggggggpppppppppgggggwwwwwww.....",
+          "......pppppgggggpppppppppggggggppppppppppggggggggggwww......",
+          "........ppgggggggpppppppppppppppppppppwgggggggggggww........",
+          ".........wwgggggggpppppppppppppppppgwwwggggggggggww.........",
+          "..........wwwgggggggggggpppppppggggggwwwgggggggwww..........",
+          "............wwwggggggggggggggggggggggwwwgggggwww............",
+          "..............wwwggggggggggggggggggggwwwgggwww..............",
+          "................wwwwggggggggggggggggggggwwww................",
+          "...................wwwwwggggggggggggwwwww...................",
+          "......................wwwwwwwwwwwwwwww......................",
+          "............................................................",
+          "............................................................"
+        ],
+        "spawns": {
+          "camp": [12, 34],
+          "pass-return": [12, 34],
+          "hollow-return": [49, 32]
+        },
+        "landmarks": [
+          {
+            "id": "glassbark-sentinel",
+            "kind": "sign",
+            "sprite": "prop-rootglass-sentinel",
+            "at": [12, 29],
+            "w": 132,
+            "label": "Inspect the glass-barked tree",
+            "mapLabel": "Glassbark Sentinel",
+            "discoveryText": "The Glassbark Sentinel rises above the ridge; its roots carry a cold, steady murmur.",
+            "lines": [
+              {
+                "text": "The pale glass bark catches the wind. At the roots, cold air rises with the sound of moving water. The old path bends south; the spring seems to run deeper."
+              }
+            ]
+          },
+          {
+            "id": "wind-shelf",
+            "kind": "sign",
+            "sprite": "prop-rim-overlook",
+            "at": [45, 12.7],
+            "w": 94,
+            "label": "Look across the canopy",
+            "mapLabel": "Wind shelf",
+            "lines": [
+              {
+                "text": "From this shelf the glass tree is the tallest thing for miles. Below it, snowmelt vanishes into the roots."
+              }
+            ]
+          },
+          {
+            "id": "pass-return-clue",
+            "kind": "sign",
+            "sprite": "tree-fir-slim",
+            "at": [12, 34],
+            "w": 48,
+            "label": "Read the weathered trail marks",
+            "mapLabel": "Pass trail",
+            "text": "The pines thin to the west, where the old pass loops back toward the grove."
+          },
+          {
+            "id": "root-stair-clue",
+            "kind": "sign",
+            "sprite": "prop-rootglass-hollow",
+            "at": [30, 38.5],
+            "w": 68,
+            "label": "Listen beneath the roots",
+            "mapLabel": "Root stair",
+            "text": "A low, steady rush rises from beneath the glassbark. A worn stair descends into the spring chambers."
+          },
+          {
+            "id": "root-seep-clue",
+            "kind": "sign",
+            "sprite": "prop-icefall-ledge",
+            "at": [47.2, 30.4],
+            "w": 76,
+            "secret": true,
+            "routeHint": "rootglass-seep",
+            "label": "Listen at the seep",
+            "mapLabel": "Root seep",
+            "discoveryText": "Root seep: water threads beneath the ridge, where Brooklet may find a way through.",
+            "lines": [
+              {
+                "text": "Water threads between the roots and under the rock. A Brooklet might follow the current through the narrow seam."
+              }
+            ]
+          },
+          {
+            "id": "canopy-cache",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [17.5, 17.2],
+            "w": 45,
+            "solid": 0.45,
+            "label": "Open the ridge cache",
+            "flag": "rootglass-canopy.chest",
+            "reward": {
+              "coins": 8,
+              "potions": 1,
+              "orbs": 1
+            }
+          }
+        ],
+        "exits": [
+          {
+            "id": "frostveil-return",
+            "sprite": "signpost-wood",
+            "at": [8, 38],
+            "w": 38,
+            "label": "Return to Frostveil Pass",
+            "to": {
+              "map": "frostveil-pass",
+              "spawn": "rootglass-return"
+            }
+          },
+          {
+            "id": "hollow-stair",
+            "sprite": "prop-rootglass-hollow",
+            "at": [29, 41],
+            "w": 100,
+            "label": "Descend to Rootglass Hollow",
+            "to": {
+              "map": "rootglass-hollow",
+              "spawn": "canopy-entry"
+            }
+          },
+          {
+            "id": "brooklet-seep",
+            "sprite": "prop-icefall-ledge",
+            "at": [50, 33],
+            "w": 75,
+            "label": "Follow the water under the roots",
+            "to": {
+              "map": "rootglass-hollow",
+              "spawn": "spring-seep"
+            },
+            "route": {
+              "id": "rootglass-seep",
+              "requires": {
+                "ability": "cross-shallow-water"
+              },
+              "hint": "The current is too tight to cross here. Brooklet could feel a way through.",
+              "unlockedText": "Brooklet finds a narrow water path beneath the glass roots. A shortcut to the spring is open.",
+              "reward": {
+                "orbs": 1
+              }
+            }
+          }
+        ],
+        "props": [
+          {
+            "sprite": "tree-pine-snow",
+            "kind": "scenery",
+            "w": 82,
+            "solid": 0.55,
+            "at": [
+              [9, 11],
+              [15, 9],
+              [40, 8],
+              [53, 23],
+              [11, 29],
+              [39, 41],
+              [21, 5]
+            ]
+          },
+          {
+            "sprite": "tree-fir-slim",
+            "kind": "scenery",
+            "w": 57,
+            "solid": 0.35,
+            "at": [
+              [5, 20],
+              [18, 6],
+              [43, 6],
+              [55, 30],
+              [20, 43],
+              [39, 29]
+            ]
+          },
+          {
+            "sprite": "boulder-mossy",
+            "kind": "scenery",
+            "w": 45,
+            "solid": 0.35,
+            "at": [
+              [6, 28],
+              [21, 18],
+              [42, 19],
+              [31, 35],
+              [54, 21]
+            ]
+          },
+          {
+            "sprite": "grass-tuft",
+            "kind": "grass",
+            "w": 24,
+            "at": [
+              [12, 23],
+              [16, 28],
+              [34, 10],
+              [41, 25],
+              [34, 34],
+              [52, 12]
+            ]
+          }
+        ],
+        "zones": [
+          {
+            "id": "canopy-ferns",
+            "terrain": ["t"],
+            "pool": ["duskwing", "frostowl"],
+            "level": [7, 9],
+            "distance": [12, 24]
+          }
+        ],
+        "quiet": [
+          {
+            "id": "glassbark-approach",
+            "rect": [25, 18, 35, 25],
+            "label": "Glassbark clearing"
+          }
+        ]
+      },
+      "biome": "snowy-forest",
+      "connections": "[{\"id\":\"frostveil-return\",\"to\":{\"map\":\"frostveil-pass\",\"spawn\":\"rootglass-return\"}},{\"id\":\"hollow-stair\",\"to\":{\"map\":\"rootglass-hollow\",\"spawn\":\"canopy-entry\"}},{\"id\":\"brooklet-seep\",\"to\":{\"map\":\"rootglass-hollow\",\"spawn\":\"spring-seep\"}}]",
+      "spawns": "{\"camp\":[12,34],\"pass-return\":[12,34],\"hollow-return\":[49,32]}",
+      "cardPreview": "prop-rootglass-sentinel",
+      "dependencies": ["visual:prop-rootglass-sentinel"]
+    },
+    {
+      "id": "map:mossvale/rootglass-hollow",
+      "family": "map",
+      "runtimeId": "mossvale/rootglass-hollow",
+      "name": "Rootglass Hollow",
+      "description": "Rootglass Hollow: 60 by 48 authored map.",
+      "source": "dist/maps/rootglass-hollow.json",
+      "evidence": "tests/maps.test.mjs",
+      "raw": {
+        "format": 1,
+        "id": "rootglass-hollow",
+        "biome": "snowy-forest",
+        "name": "Rootglass Hollow",
+        "preview": "prop-rootglass-hollow",
+        "size": {
+          "w": 60,
+          "h": 48
+        },
+        "legend": {
+          ".": "void",
+          "g": "ground",
+          "p": "path",
+          "w": "water",
+          "t": "tallgrass"
+        },
+        "terrain": [
+          "............................................................",
+          "............................................................",
+          "............................................................",
+          "......................wwwwwwwwwwwwwwww......................",
+          "...................wwwwwggggggggggggwwwww...................",
+          "................wwwwggggggggggggggppggggwwww................",
+          "..............wwwggggggggggggggppttppggggggwww..............",
+          "............wwwgggggggggggggggppttttgggggggggwww............",
+          "..........wwwggggggggggggggggpppttttgggggggggggwww..........",
+          ".........wwggggggggggggggggggpppgttggggggggggggggww.........",
+          "........wwgggggggggggggggggggpppggggggggggggggggggww........",
+          "......wwwgggggggggggggggggggppppgggggggggggggggggggwww......",
+          ".....wwwggggggggggggggggggggpppgggggggggggggggggggggwww.....",
+          ".....wwgggggggggggggggggggggppppgggggggggggggggggggggww.....",
+          "....wwgggggggggggggggggggppppppppppppgggggggggggggggggww....",
+          "...wwggggggggggwwwwwwgpppppppppppppppppppggggggggggggggww...",
+          "...wggggggggggwwwwwwwpppppppggggppppppppppggggggggggggggw...",
+          "..wwgggggggggwwwwwwwppppppggggggggggwppppppgggggggggggggww..",
+          "..wggggggggggwwwwwwppppgggggggggggggwwwwppppgggggggggggggw..",
+          ".wwgggggggggggwwwwppppgggggggggggggwwwwwwpppppgggggggggggww.",
+          ".wwggggggggggggwwwpppggggggggggggggwwwwwwwwppppggggggggggww.",
+          ".wgggggggggggggggppppggggggggggggggwwwwwwwwgppppggggggggggw.",
+          ".wggggggggggggggppppgggggggggggggggwwwwwwwwggppppgggggggggw.",
+          "wwggggggggggggggpppgggggggggggggggggwwwwwwgggppppgggggggggww",
+          "wwgggggggggggggggpppggggggggggggggggwwwwwwggppppggggggggggww",
+          "wwgggggggggggggggppppggggggggggggggggwwwwgggpppgggggggggggww",
+          "wwggggggggggggggggppppgggggggggggggggggggggpppggggggggggggww",
+          ".wgggggggggggggggggppppgggggggggggggggggggppppggggggggggggw.",
+          ".wggggggggggggggggggpppggggwwwwwwggggggggppppgggggggggggggw.",
+          ".wwggggggggggggggggggppppwwwwwwwwwwgggggppppgggggggggggggww.",
+          ".wwgggggggggggggggggggppppwwwwwwwwwwgggppppgggggggpggggggww.",
+          "..wggggggggggggggggggggppppwwwwwwwwwgpppppgggggggpppgggggw..",
+          "..wwggggggggggggggggggggppppwwwwwwwgpppppgggggggpppgggggww..",
+          "...wgggggggggggggggggggggppppwwwpppppppgggggggttppggggggw...",
+          "...wwgggggggggggggggggggggppppppppppppgggggggttttggggggww...",
+          "....wwgggggggggggggggggggggppppppppppgggggpppttttgggggww....",
+          ".....wwgggggggggggggggggggggppppppppgggpppppppttgggggww.....",
+          ".....wwwggggggggggggggggggggpppppppppppppppppgggggggwww.....",
+          "......wwwgggggggggggggggggggpppggpppppppppgggggggggwww......",
+          "........wwggggggggggggggggggpppgggggpppgggggggggggww........",
+          ".........wwgggggggggggggggggpppggggggggggggggggggww.........",
+          "..........wwwgggggggggggggggpppggggggggggggggggwww..........",
+          "............wwwgggggggggggggpppggggggggggggggwww............",
+          "..............wwwggggggggggggpgggggggggggggwww..............",
+          "................wwwwggggggggggggggggggggwwww................",
+          "...................wwwwwggggggggggggwwwww...................",
+          "......................wwwwwwwwwwwwwwww......................",
+          "............................................................"
+        ],
+        "spawns": {
+          "camp": [29, 42],
+          "canopy-entry": [29, 42],
+          "spring-seep": [49, 32],
+          "canopy-return": [30, 7]
+        },
+        "landmarks": [
+          {
+            "id": "root-arch",
+            "kind": "sign",
+            "sprite": "prop-rootglass-hollow",
+            "at": [30, 12.3],
+            "w": 155,
+            "label": "Inspect the living roots",
+            "mapLabel": "Rootglass spring",
+            "discoveryText": "A spring shines under the living roots; the stream runs back beneath the ridge.",
+            "lines": [
+              {
+                "text": "The glassbark's roots hold the cavern roof in a wide arch. Water returns to the ridge through a seam too narrow to follow without help."
+              }
+            ]
+          },
+          {
+            "id": "echo-pool",
+            "kind": "sign",
+            "sprite": "prop-well-ruined",
+            "at": [17, 22],
+            "w": 57,
+            "label": "Listen at the echo pool",
+            "mapLabel": "Echo pool",
+            "lines": [
+              {
+                "text": "Drops ring against the pool and answer from somewhere above. These chambers are short, but every stream leads back to the great roots."
+              }
+            ]
+          },
+          {
+            "id": "canopy-ascent-clue",
+            "kind": "sign",
+            "sprite": "prop-rootglass-sentinel",
+            "at": [29, 39.5],
+            "w": 58,
+            "label": "Read the root-carved marks",
+            "mapLabel": "Canopy stair",
+            "text": "The roots grow outward toward the upper ridge. Climb the worn stair to return to the canopy."
+          },
+          {
+            "id": "spring-seam-clue",
+            "kind": "sign",
+            "sprite": "prop-icefall-ledge",
+            "at": [47, 31.5],
+            "w": 52,
+            "label": "Follow the spring marks",
+            "mapLabel": "Spring seam",
+            "text": "A narrow stream runs west beneath the roots. It leads back toward the bright canopy."
+          },
+          {
+            "id": "root-chest",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [48, 36],
+            "w": 45,
+            "solid": 0.45,
+            "label": "Open the root cache",
+            "flag": "rootglass-hollow.chest",
+            "reward": {
+              "coins": 10,
+              "potions": 1,
+              "orbs": 1
+            }
+          }
+        ],
+        "exits": [
+          {
+            "id": "canopy-return",
+            "sprite": "prop-rootglass-hollow",
+            "at": [29, 43],
+            "w": 94,
+            "label": "Climb to Rootglass Canopy",
+            "to": {
+              "map": "rootglass-canopy",
+              "spawn": "hollow-return"
+            }
+          },
+          {
+            "id": "seep-return",
+            "sprite": "prop-icefall-ledge",
+            "at": [48, 32],
+            "w": 68,
+            "label": "Return through the water seam",
+            "to": {
+              "map": "rootglass-canopy",
+              "spawn": "hollow-return"
+            }
+          },
+          {
+            "id": "upper-root-return",
+            "sprite": "prop-icefall-ledge",
+            "at": [35, 6],
+            "w": 65,
+            "label": "Return by the upper root stair",
+            "to": {
+              "map": "rootglass-canopy",
+              "spawn": "hollow-return"
+            }
+          }
+        ],
+        "props": [
+          {
+            "sprite": "tree-oak-hollow",
+            "kind": "scenery",
+            "w": 77,
+            "solid": 0.55,
+            "at": [
+              [12, 18],
+              [49, 17],
+              [20, 35],
+              [42, 9]
+            ]
+          },
+          {
+            "sprite": "prop-hanging-lantern",
+            "kind": "scenery",
+            "w": 48,
+            "solid": 0.3,
+            "at": [
+              [13, 14],
+              [44, 13],
+              [24, 34],
+              [46, 30]
+            ]
+          },
+          {
+            "sprite": "rock-field-large",
+            "kind": "scenery",
+            "w": 62,
+            "solid": 0.55,
+            "at": [
+              [10, 25],
+              [25, 12],
+              [44, 26],
+              [37, 38]
+            ]
+          },
+          {
+            "sprite": "rock-field-small",
+            "kind": "scenery",
+            "w": 29,
+            "at": [
+              [15, 29],
+              [24, 8],
+              [42, 31],
+              [34, 37],
+              [51, 26]
+            ]
+          },
+          {
+            "sprite": "grass-tuft",
+            "kind": "grass",
+            "w": 22,
+            "at": [
+              [32, 9],
+              [35, 10],
+              [46, 35],
+              [48, 36]
+            ]
+          }
+        ],
+        "zones": [
+          {
+            "id": "rootglass-deep",
+            "terrain": ["t"],
+            "pool": ["pebblit", "hushram"],
+            "level": [8, 10],
+            "distance": [10, 20]
+          }
+        ],
+        "quiet": [
+          {
+            "id": "spring-approach",
+            "rect": [25, 8, 38, 17],
+            "label": "Root spring"
+          },
+          {
+            "id": "lower-root-walk",
+            "rect": [26, 37, 34, 43],
+            "label": "Lower roots"
+          }
+        ]
+      },
+      "biome": "snowy-forest",
+      "connections": "[{\"id\":\"canopy-return\",\"to\":{\"map\":\"rootglass-canopy\",\"spawn\":\"hollow-return\"}},{\"id\":\"seep-return\",\"to\":{\"map\":\"rootglass-canopy\",\"spawn\":\"hollow-return\"}},{\"id\":\"upper-root-return\",\"to\":{\"map\":\"rootglass-canopy\",\"spawn\":\"hollow-return\"}}]",
+      "spawns": "{\"camp\":[29,42],\"canopy-entry\":[29,42],\"spring-seep\":[49,32],\"canopy-return\":[30,7]}",
+      "cardPreview": "prop-rootglass-hollow",
+      "dependencies": ["visual:prop-rootglass-hollow"]
+    },
+    {
       "id": "map:mossvale/stilt-isles",
       "family": "map",
       "runtimeId": "mossvale/stilt-isles",
@@ -11279,14 +12200,14 @@
       "family": "pack",
       "runtimeId": "mossvale",
       "name": "Mossvale",
-      "description": "Four biomes, seventeen friends and a seal at every shrine.",
+      "description": "Four biomes, eighteen friends and a seal at every shrine.",
       "source": "dist/maps/index.json",
       "evidence": "tests/packs.test.mjs",
       "raw": {
         "format": 1,
         "id": "mossvale",
         "name": "Mossvale",
-        "brief": "Four biomes, seventeen friends and a seal at every shrine.",
+        "brief": "Four biomes, eighteen friends and a seal at every shrine.",
         "maps": [
           "meadow",
           "amber-ridge",
@@ -11296,7 +12217,9 @@
           "orchard-ruins",
           "stilt-isles",
           "stone-basin",
-          "brackenwake-commons"
+          "brackenwake-commons",
+          "rootglass-canopy",
+          "rootglass-hollow"
         ],
         "species": [
           "fernling",
@@ -11324,7 +12247,7 @@
         "story": "story.json",
         "inventory": "inventory.json",
         "registries": "registries.json",
-        "contentVersion": 6,
+        "contentVersion": 7,
         "requires": {
           "engineVersion": 1,
           "saveSchema": 5
@@ -11353,7 +12276,7 @@
           {
             "id": "map:frostveil-pass",
             "path": "frostveil-pass.json",
-            "sha256": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a"
+            "sha256": "4c425146e1037e3ef14d986ac7ab7134ee66f57c6fa844423f7c95152ae65757"
           },
           {
             "id": "map:reedfen-wetlands",
@@ -11379,6 +12302,16 @@
             "id": "map:brackenwake-commons",
             "path": "brackenwake-commons.json",
             "sha256": "d7db2f177ab5c121b7b9b46ec88c76c1678ee9b4865e1533a3c5877b28da6091"
+          },
+          {
+            "id": "map:rootglass-canopy",
+            "path": "rootglass-canopy.json",
+            "sha256": "357633ba89fa2e188c8c4dd65298f848a03e82638b2b022a289513a64173525c"
+          },
+          {
+            "id": "map:rootglass-hollow",
+            "path": "rootglass-hollow.json",
+            "sha256": "f51cf8d7e493790da6a9d2ea6d9234f7e8daeed3067acc3e75907d0a02a2a2f7"
           },
           {
             "id": "objectives:main",
@@ -21427,6 +22360,72 @@
       "characterMetadata": null,
       "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
       "allowedUseSummary": "Asset prop-rim-overlook is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:prop-rootglass-hollow",
+      "family": "visual",
+      "runtimeId": "prop-rootglass-hollow",
+      "name": "prop-rootglass-hollow",
+      "description": "prop rootglass hollow",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-rootglass-hollow",
+        "kind": "prop",
+        "src": "assets/props/prop-rootglass-hollow.png",
+        "w": 234,
+        "h": 143,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "234 by 143 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "references": [],
+      "preview": "dist/assets/props/prop-rootglass-hollow.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-rootglass-hollow is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:prop-rootglass-sentinel",
+      "family": "visual",
+      "runtimeId": "prop-rootglass-sentinel",
+      "name": "prop-rootglass-sentinel",
+      "description": "prop rootglass sentinel",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "prop-rootglass-sentinel",
+        "kind": "prop",
+        "src": "assets/props/prop-rootglass-sentinel.png",
+        "w": 256,
+        "h": 234,
+        "anchor": "bottom-center",
+        "required": true
+      },
+      "dimensions": "256 by 234 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "references": [],
+      "preview": "dist/assets/props/prop-rootglass-sentinel.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": null,
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset prop-rootglass-sentinel is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
       "externalSource": null,
       "licenseReference": null,
       "sourcePage": "See the local artwork provenance record.",

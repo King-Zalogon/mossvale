@@ -2,7 +2,7 @@
   "format": 1,
   "id": "mossvale",
   "name": "Mossvale",
-  "brief": "Four biomes, seventeen friends and a seal at every shrine.",
+  "brief": "Four biomes, eighteen friends and a seal at every shrine.",
   "maps": [
     "meadow",
     "amber-ridge",
@@ -12,7 +12,9 @@
     "orchard-ruins",
     "stilt-isles",
     "stone-basin",
-    "brackenwake-commons"
+    "brackenwake-commons",
+    "rootglass-canopy",
+    "rootglass-hollow"
   ],
   "species": [
     "fernling",
@@ -34,13 +36,18 @@
     "rillume",
     "lanternix"
   ],
-  "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
+  "milestones": [
+    "meadow.seal",
+    "amber-ridge.seal",
+    "frostveil-grove.seal",
+    "reedfen-wetlands.seal"
+  ],
   "ending": "story",
   "objectives": "objectives.json",
   "story": "story.json",
   "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 6,
+  "contentVersion": 7,
   "requires": {
     "engineVersion": 1,
     "saveSchema": 5
@@ -69,7 +76,7 @@
     {
       "id": "map:frostveil-pass",
       "path": "frostveil-pass.json",
-      "sha256": "165ae6956369ff1d7070bd3d561a69c8b351b0f0048ffb08545d3333f9b83e4a"
+      "sha256": "4c425146e1037e3ef14d986ac7ab7134ee66f57c6fa844423f7c95152ae65757"
     },
     {
       "id": "map:reedfen-wetlands",
@@ -95,6 +102,16 @@
       "id": "map:brackenwake-commons",
       "path": "brackenwake-commons.json",
       "sha256": "d7db2f177ab5c121b7b9b46ec88c76c1678ee9b4865e1533a3c5877b28da6091"
+    },
+    {
+      "id": "map:rootglass-canopy",
+      "path": "rootglass-canopy.json",
+      "sha256": "357633ba89fa2e188c8c4dd65298f848a03e82638b2b022a289513a64173525c"
+    },
+    {
+      "id": "map:rootglass-hollow",
+      "path": "rootglass-hollow.json",
+      "sha256": "f51cf8d7e493790da6a9d2ea6d9234f7e8daeed3067acc3e75907d0a02a2a2f7"
     },
     {
       "id": "objectives:main",
