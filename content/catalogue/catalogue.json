@@ -1777,6 +1777,118 @@
       }
     },
     {
+      "id": "landmark:mossvale/amber-ridge/cache-quarry-hollow",
+      "kind": "interactable",
+      "name": "mossvale/amber ridge/cache quarry hollow",
+      "summary": "Open the trail cache (chest) on Amber Ridge.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-quarry-hollow",
+            "kind": "chest",
+            "sprite": "chest-sandstone-iron",
+            "at": [32, 25],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "amber-ridge.chest:cache-quarry-hollow",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Quarry hollow cache",
+            "discoveryText": "Quarry hollow cache: A sunbaked hollow off the quarry trail hides a small travel cache."
+          },
+          "limits": "Configure through dist/maps/amber-ridge.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-sandstone-iron"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Amber Ridge.",
+          "usage": "Reference mossvale/amber-ridge/cache-quarry-hollow in the existing format at dist/maps/amber-ridge.json.",
+          "expected": "Open the trail cache (chest) on Amber Ridge."
+        }
+      ],
+      "references": ["dist/maps/amber-ridge.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:mossvale/amber-ridge/cache-south-ridge",
+      "kind": "interactable",
+      "name": "mossvale/amber ridge/cache south ridge",
+      "summary": "Open the trail cache (chest) on Amber Ridge.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-south-ridge",
+            "kind": "chest",
+            "sprite": "chest-sandstone-iron",
+            "at": [13, 46],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "amber-ridge.chest:cache-south-ridge",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "South ridge cache",
+            "discoveryText": "South ridge cache: At the quiet southwest ridge footpath, a chest holds a little extra gear."
+          },
+          "limits": "Configure through dist/maps/amber-ridge.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-sandstone-iron"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Amber Ridge.",
+          "usage": "Reference mossvale/amber-ridge/cache-south-ridge in the existing format at dist/maps/amber-ridge.json.",
+          "expected": "Open the trail cache (chest) on Amber Ridge."
+        }
+      ],
+      "references": ["dist/maps/amber-ridge.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
       "id": "landmark:mossvale/amber-ridge/chest",
       "kind": "interactable",
       "name": "mossvale/amber ridge/chest",
@@ -2160,6 +2272,118 @@
         "rewards": "No automatic reward solely from a sign image.",
         "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
         "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
+      "id": "landmark:mossvale/brackenwake-commons/cache-north-garden",
+      "kind": "interactable",
+      "name": "mossvale/brackenwake commons/cache north garden",
+      "summary": "Open the trail cache (chest) on Brackenwake Commons.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-north-garden",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [4, 13],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "brackenwake-commons.chest:cache-north-garden",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North garden cache",
+            "discoveryText": "North garden cache: Tucked beside the north garden path, a small chest holds a few supplies."
+          },
+          "limits": "Configure through dist/maps/brackenwake-commons.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-wooden"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Brackenwake Commons.",
+          "usage": "Reference mossvale/brackenwake-commons/cache-north-garden in the existing format at dist/maps/brackenwake-commons.json.",
+          "expected": "Open the trail cache (chest) on Brackenwake Commons."
+        }
+      ],
+      "references": ["dist/maps/brackenwake-commons.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:mossvale/brackenwake-commons/cache-south-lane",
+      "kind": "interactable",
+      "name": "mossvale/brackenwake commons/cache south lane",
+      "summary": "Open the trail cache (chest) on Brackenwake Commons.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-south-lane",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [15, 31],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "brackenwake-commons.chest:cache-south-lane",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "South lane cache",
+            "discoveryText": "South lane cache: A quiet nook beside the south lane hides a few useful supplies."
+          },
+          "limits": "Configure through dist/maps/brackenwake-commons.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-wooden"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Brackenwake Commons.",
+          "usage": "Reference mossvale/brackenwake-commons/cache-south-lane in the existing format at dist/maps/brackenwake-commons.json.",
+          "expected": "Open the trail cache (chest) on Brackenwake Commons."
+        }
+      ],
+      "references": ["dist/maps/brackenwake-commons.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
       }
     },
     {
@@ -3079,6 +3303,118 @@
       }
     },
     {
+      "id": "landmark:mossvale/frostveil-grove/cache-lower-pines",
+      "kind": "interactable",
+      "name": "mossvale/frostveil grove/cache lower pines",
+      "summary": "Open the trail cache (chest) on Frostveil Grove.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-lower-pines",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [30, 39],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "frostveil-grove.chest:cache-lower-pines",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Lower pine cache",
+            "discoveryText": "Lower pine cache: Where the lower pines thin beside the path, a small cache waits in the snow."
+          },
+          "limits": "Configure through dist/maps/frostveil-grove.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-pine-frost"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Frostveil Grove.",
+          "usage": "Reference mossvale/frostveil-grove/cache-lower-pines in the existing format at dist/maps/frostveil-grove.json.",
+          "expected": "Open the trail cache (chest) on Frostveil Grove."
+        }
+      ],
+      "references": ["dist/maps/frostveil-grove.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:mossvale/frostveil-grove/cache-north-pines",
+      "kind": "interactable",
+      "name": "mossvale/frostveil grove/cache north pines",
+      "summary": "Open the trail cache (chest) on Frostveil Grove.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-north-pines",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [38, 5],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "frostveil-grove.chest:cache-north-pines",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North pine cache",
+            "discoveryText": "North pine cache: A north-side pine glade shelters a few supplies away from the main trail."
+          },
+          "limits": "Configure through dist/maps/frostveil-grove.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-pine-frost"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Frostveil Grove.",
+          "usage": "Reference mossvale/frostveil-grove/cache-north-pines in the existing format at dist/maps/frostveil-grove.json.",
+          "expected": "Open the trail cache (chest) on Frostveil Grove."
+        }
+      ],
+      "references": ["dist/maps/frostveil-grove.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
       "id": "landmark:mossvale/frostveil-grove/chest",
       "kind": "interactable",
       "name": "mossvale/frostveil grove/chest",
@@ -3557,6 +3893,118 @@
       }
     },
     {
+      "id": "landmark:mossvale/frostveil-pass/cache-east-overlook",
+      "kind": "interactable",
+      "name": "mossvale/frostveil pass/cache east overlook",
+      "summary": "Open the trail cache (chest) on Blueglass Pass.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-east-overlook",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [45, 9],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "frostveil-pass.chest:cache-east-overlook",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "East overlook cache",
+            "discoveryText": "East overlook cache: An eastern overlook above the pass holds a small cold-weather cache."
+          },
+          "limits": "Configure through dist/maps/frostveil-pass.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-pine-frost"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Blueglass Pass.",
+          "usage": "Reference mossvale/frostveil-pass/cache-east-overlook in the existing format at dist/maps/frostveil-pass.json.",
+          "expected": "Open the trail cache (chest) on Blueglass Pass."
+        }
+      ],
+      "references": ["dist/maps/frostveil-pass.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:mossvale/frostveil-pass/cache-south-snowbank",
+      "kind": "interactable",
+      "name": "mossvale/frostveil pass/cache south snowbank",
+      "summary": "Open the trail cache (chest) on Blueglass Pass.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-south-snowbank",
+            "kind": "chest",
+            "sprite": "chest-pine-frost",
+            "at": [30, 43],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "frostveil-pass.chest:cache-south-snowbank",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "South snowbank cache",
+            "discoveryText": "South snowbank cache: Look off the southern pass trail where the snowbank meets the pines."
+          },
+          "limits": "Configure through dist/maps/frostveil-pass.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-pine-frost"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Blueglass Pass.",
+          "usage": "Reference mossvale/frostveil-pass/cache-south-snowbank in the existing format at dist/maps/frostveil-pass.json.",
+          "expected": "Open the trail cache (chest) on Blueglass Pass."
+        }
+      ],
+      "references": ["dist/maps/frostveil-pass.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
       "id": "landmark:mossvale/frostveil-pass/north-sign",
       "kind": "interactable",
       "name": "mossvale/frostveil pass/north sign",
@@ -3707,6 +4155,118 @@
         "rewards": "No reward from decorative placement.",
         "repetition": "Not applicable: scenery.",
         "persistence": "No new rest state."
+      }
+    },
+    {
+      "id": "landmark:mossvale/meadow/cache-north-meadow",
+      "kind": "interactable",
+      "name": "mossvale/meadow/cache north meadow",
+      "summary": "Open the trail cache (chest) on Sunlit Trail.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-north-meadow",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [45, 2],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "meadow.chest:cache-north-meadow",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North meadow cache",
+            "discoveryText": "North meadow cache: Beyond the north meadow trail, a tucked-away cache holds a few supplies."
+          },
+          "limits": "Configure through dist/maps/meadow.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-wooden"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Sunlit Trail.",
+          "usage": "Reference mossvale/meadow/cache-north-meadow in the existing format at dist/maps/meadow.json.",
+          "expected": "Open the trail cache (chest) on Sunlit Trail."
+        }
+      ],
+      "references": ["dist/maps/meadow.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:mossvale/meadow/cache-riverbend",
+      "kind": "interactable",
+      "name": "mossvale/meadow/cache riverbend",
+      "summary": "Open the trail cache (chest) on Sunlit Trail.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-riverbend",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [13, 47],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "meadow.chest:cache-riverbend",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Streamside cache",
+            "discoveryText": "Streamside cache: By the southern stream bend, a small chest holds useful road supplies."
+          },
+          "limits": "Configure through dist/maps/meadow.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-wooden"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Sunlit Trail.",
+          "usage": "Reference mossvale/meadow/cache-riverbend in the existing format at dist/maps/meadow.json.",
+          "expected": "Open the trail cache (chest) on Sunlit Trail."
+        }
+      ],
+      "references": ["dist/maps/meadow.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
       }
     },
     {
@@ -4199,6 +4759,118 @@
       }
     },
     {
+      "id": "landmark:mossvale/orchard-ruins/cache-north-wall",
+      "kind": "interactable",
+      "name": "mossvale/orchard ruins/cache north wall",
+      "summary": "Open the trail cache (chest) on The Ruined Orchard.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-north-wall",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [32, 9],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "orchard-ruins.chest:cache-north-wall",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North wall cache",
+            "discoveryText": "North wall cache: A chest rests near the north orchard wall, just off the worn trail."
+          },
+          "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-wooden"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on The Ruined Orchard.",
+          "usage": "Reference mossvale/orchard-ruins/cache-north-wall in the existing format at dist/maps/orchard-ruins.json.",
+          "expected": "Open the trail cache (chest) on The Ruined Orchard."
+        }
+      ],
+      "references": ["dist/maps/orchard-ruins.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:mossvale/orchard-ruins/cache-western-rows",
+      "kind": "interactable",
+      "name": "mossvale/orchard ruins/cache western rows",
+      "summary": "Open the trail cache (chest) on The Ruined Orchard.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-western-rows",
+            "kind": "chest",
+            "sprite": "chest-wooden",
+            "at": [8, 38],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "orchard-ruins.chest:cache-western-rows",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Western rows cache",
+            "discoveryText": "Western rows cache: Between the western apple rows, a small chest rewards a short detour."
+          },
+          "limits": "Configure through dist/maps/orchard-ruins.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-wooden"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on The Ruined Orchard.",
+          "usage": "Reference mossvale/orchard-ruins/cache-western-rows in the existing format at dist/maps/orchard-ruins.json.",
+          "expected": "Open the trail cache (chest) on The Ruined Orchard."
+        }
+      ],
+      "references": ["dist/maps/orchard-ruins.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
       "id": "landmark:mossvale/orchard-ruins/cider-press",
       "kind": "interactable",
       "name": "mossvale/orchard ruins/cider press",
@@ -4555,6 +5227,118 @@
         "rewards": "No automatic reward solely from a sign image.",
         "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
         "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
+      "id": "landmark:mossvale/reedfen-wetlands/cache-south-boardwalk",
+      "kind": "interactable",
+      "name": "mossvale/reedfen wetlands/cache south boardwalk",
+      "summary": "Open the trail cache (chest) on Reedfen Wetlands.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-south-boardwalk",
+            "kind": "chest",
+            "sprite": "chest-reed-rope",
+            "at": [21, 51],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "reedfen-wetlands.chest:cache-south-boardwalk",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "South boardwalk cache",
+            "discoveryText": "South boardwalk cache: A dry shelf beside the southern boardwalk keeps a few supplies above the reeds."
+          },
+          "limits": "Configure through dist/maps/reedfen-wetlands.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-reed-rope"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Reedfen Wetlands.",
+          "usage": "Reference mossvale/reedfen-wetlands/cache-south-boardwalk in the existing format at dist/maps/reedfen-wetlands.json.",
+          "expected": "Open the trail cache (chest) on Reedfen Wetlands."
+        }
+      ],
+      "references": ["dist/maps/reedfen-wetlands.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:mossvale/reedfen-wetlands/cache-western-bank",
+      "kind": "interactable",
+      "name": "mossvale/reedfen wetlands/cache western bank",
+      "summary": "Open the trail cache (chest) on Reedfen Wetlands.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-western-bank",
+            "kind": "chest",
+            "sprite": "chest-reed-rope",
+            "at": [26, 40],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "reedfen-wetlands.chest:cache-western-bank",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Western bank cache",
+            "discoveryText": "Western bank cache: On the western reedbank, a narrow detour leads to a small chest."
+          },
+          "limits": "Configure through dist/maps/reedfen-wetlands.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-reed-rope"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Reedfen Wetlands.",
+          "usage": "Reference mossvale/reedfen-wetlands/cache-western-bank in the existing format at dist/maps/reedfen-wetlands.json.",
+          "expected": "Open the trail cache (chest) on Reedfen Wetlands."
+        }
+      ],
+      "references": ["dist/maps/reedfen-wetlands.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
       }
     },
     {
@@ -4930,6 +5714,118 @@
         "rewards": "No automatic reward solely from a sign image.",
         "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
         "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
+      "id": "landmark:mossvale/stilt-isles/cache-lower-reeds",
+      "kind": "interactable",
+      "name": "mossvale/stilt isles/cache lower reeds",
+      "summary": "Open the trail cache (chest) on Stilt Isles.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-lower-reeds",
+            "kind": "chest",
+            "sprite": "chest-reed-rope",
+            "at": [21, 36],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "stilt-isles.chest:cache-lower-reeds",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Lower reeds cache",
+            "discoveryText": "Lower reeds cache: A low reed shelf off the southern boardwalk hides a small chest."
+          },
+          "limits": "Configure through dist/maps/stilt-isles.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-reed-rope"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Stilt Isles.",
+          "usage": "Reference mossvale/stilt-isles/cache-lower-reeds in the existing format at dist/maps/stilt-isles.json.",
+          "expected": "Open the trail cache (chest) on Stilt Isles."
+        }
+      ],
+      "references": ["dist/maps/stilt-isles.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:mossvale/stilt-isles/cache-north-islet",
+      "kind": "interactable",
+      "name": "mossvale/stilt isles/cache north islet",
+      "summary": "Open the trail cache (chest) on Stilt Isles.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-north-islet",
+            "kind": "chest",
+            "sprite": "chest-reed-rope",
+            "at": [23, 6],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "stilt-isles.chest:cache-north-islet",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "North islet cache",
+            "discoveryText": "North islet cache: A northern islet beyond the boardwalk holds a modest supply cache."
+          },
+          "limits": "Configure through dist/maps/stilt-isles.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-reed-rope"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Stilt Isles.",
+          "usage": "Reference mossvale/stilt-isles/cache-north-islet in the existing format at dist/maps/stilt-isles.json.",
+          "expected": "Open the trail cache (chest) on Stilt Isles."
+        }
+      ],
+      "references": ["dist/maps/stilt-isles.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
       }
     },
     {
@@ -5393,6 +6289,118 @@
         "rewards": "No automatic reward solely from a sign image.",
         "repetition": "Dialogue repeats; route rewards follow once-only event keys.",
         "persistence": "Dialogue UI is transient; route/scene flags persist when configured."
+      }
+    },
+    {
+      "id": "landmark:mossvale/stone-basin/cache-fern-shelf",
+      "kind": "interactable",
+      "name": "mossvale/stone basin/cache fern shelf",
+      "summary": "Open the trail cache (chest) on Stone Basin.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-fern-shelf",
+            "kind": "chest",
+            "sprite": "chest-sandstone-iron",
+            "at": [23, 20],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "stone-basin.chest:cache-fern-shelf",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "Fern shelf cache",
+            "discoveryText": "Fern shelf cache: A fern-covered shelf above the basin trail holds a small cache."
+          },
+          "limits": "Configure through dist/maps/stone-basin.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-sandstone-iron"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Stone Basin.",
+          "usage": "Reference mossvale/stone-basin/cache-fern-shelf in the existing format at dist/maps/stone-basin.json.",
+          "expected": "Open the trail cache (chest) on Stone Basin."
+        }
+      ],
+      "references": ["dist/maps/stone-basin.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
+      }
+    },
+    {
+      "id": "landmark:mossvale/stone-basin/cache-west-quarry",
+      "kind": "interactable",
+      "name": "mossvale/stone basin/cache west quarry",
+      "summary": "Open the trail cache (chest) on Stone Basin.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "id": "cache-west-quarry",
+            "kind": "chest",
+            "sprite": "chest-sandstone-iron",
+            "at": [16, 10],
+            "w": 44,
+            "label": "Open the trail cache",
+            "flag": "stone-basin.chest:cache-west-quarry",
+            "reward": {
+              "coins": 6,
+              "potions": 0,
+              "orbs": 1
+            },
+            "secret": true,
+            "mapLabel": "West quarry cache",
+            "discoveryText": "West quarry cache: A short western quarry detour leads to supplies tucked beside the rocks."
+          },
+          "limits": "Configure through dist/maps/stone-basin.json; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": ["visual:chest-sandstone-iron"],
+      "limits": ["Map geometry, sprite selection and role are independently configured."],
+      "examples": [
+        {
+          "intent": "Open the trail cache (chest) on Stone Basin.",
+          "usage": "Reference mossvale/stone-basin/cache-west-quarry in the existing format at dist/maps/stone-basin.json.",
+          "expected": "Open the trail cache (chest) on Stone Basin."
+        }
+      ],
+      "references": ["dist/maps/stone-basin.json"],
+      "evidence": [
+        {
+          "path": "tests/maps.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "activation": "Existing chest interaction.",
+        "conditions": "Owning map/landmark conditions and existing controller flow.",
+        "actions": "Claim authored supply/coin reward once.",
+        "rewards": "Existing coins/potions/orbs, not arbitrary item loot.",
+        "repetition": "Claimed chest does not grant again.",
+        "persistence": "Stable chest flag in existing saves."
       }
     },
     {

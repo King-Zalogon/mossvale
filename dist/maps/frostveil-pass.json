@@ -121,6 +121,40 @@
         "orbs": 3
       },
       "discoveryText": "Blueglass cache: a tucked-away chest waits among the pines. Open it to collect supplies."
+    },
+    {
+      "id": "cache-east-overlook",
+      "kind": "chest",
+      "sprite": "chest-pine-frost",
+      "at": [45, 9],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "frostveil-pass.chest:cache-east-overlook",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "East overlook cache",
+      "discoveryText": "East overlook cache: An eastern overlook above the pass holds a small cold-weather cache."
+    },
+    {
+      "id": "cache-south-snowbank",
+      "kind": "chest",
+      "sprite": "chest-pine-frost",
+      "at": [30, 43],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "frostveil-pass.chest:cache-south-snowbank",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "South snowbank cache",
+      "discoveryText": "South snowbank cache: Look off the southern pass trail where the snowbank meets the pines."
     }
   ],
   "exits": [

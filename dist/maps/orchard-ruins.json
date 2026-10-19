@@ -244,6 +244,40 @@
           "text": "Inspect the upper hollow"
         }
       ]
+    },
+    {
+      "id": "cache-north-wall",
+      "kind": "chest",
+      "sprite": "chest-wooden",
+      "at": [32, 9],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "orchard-ruins.chest:cache-north-wall",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "North wall cache",
+      "discoveryText": "North wall cache: A chest rests near the north orchard wall, just off the worn trail."
+    },
+    {
+      "id": "cache-western-rows",
+      "kind": "chest",
+      "sprite": "chest-wooden",
+      "at": [8, 38],
+      "w": 44,
+      "label": "Open the trail cache",
+      "flag": "orchard-ruins.chest:cache-western-rows",
+      "reward": {
+        "coins": 6,
+        "potions": 0,
+        "orbs": 1
+      },
+      "secret": true,
+      "mapLabel": "Western rows cache",
+      "discoveryText": "Western rows cache: Between the western apple rows, a small chest rewards a short detour."
     }
   ],
   "exits": [
@@ -552,39 +586,13 @@
       "w": 79,
       "solid": 0.52,
       "at": [
-        [7.4, 43.0],
-        [5.1, 41.1],
-        [5.1, 38.2],
-        [7.4, 36.4],
-        [10.3, 37.0],
-        [11.6, 39.7]
-      ],
-      "piece": "oak-grove-1"
-    },
-    {
-      "sprite": "bush-flowering",
-      "kind": "flower",
-      "w": 32,
-      "at": [
-        [7.4, 40.0],
-        [8.9, 39.1],
-        [8.6, 40.6]
-      ],
-      "piece": "oak-grove-1"
-    },
-    {
-      "sprite": "tree-oak",
-      "kind": "scenery",
-      "w": 79,
-      "solid": 0.52,
-      "at": [
         [11.1, 50.3],
         [11.1, 47.3],
         [13.4, 45.5],
         [16.3, 46.1],
         [17.6, 48.8]
       ],
-      "piece": "oak-grove-2"
+      "piece": "oak-grove-1"
     },
     {
       "sprite": "bush-flowering",
@@ -595,6 +603,31 @@
         [14.9, 48.2],
         [14.6, 49.7]
       ],
+      "piece": "oak-grove-1"
+    },
+    {
+      "sprite": "tree-oak",
+      "kind": "scenery",
+      "w": 79,
+      "solid": 0.52,
+      "at": [
+        [47.1, 10.5],
+        [44.8, 8.7],
+        [44.8, 5.7],
+        [49.9, 4.6],
+        [51.2, 7.2]
+      ],
+      "piece": "oak-grove-2"
+    },
+    {
+      "sprite": "bush-flowering",
+      "kind": "flower",
+      "w": 32,
+      "at": [
+        [47.0, 7.5],
+        [48.5, 6.6],
+        [48.2, 8.1]
+      ],
       "piece": "oak-grove-2"
     },
     {
@@ -603,9 +636,9 @@
       "w": 49,
       "solid": 0.42,
       "at": [
-        [32.6, 20.9],
-        [34.1, 21.4],
-        [33.2, 19.5]
+        [37.3, 21.4],
+        [38.8, 21.9],
+        [37.9, 20.0]
       ],
       "piece": "cairn-3"
     },
@@ -614,8 +647,8 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [31.5, 21.7],
-        [34.5, 20.3]
+        [36.2, 22.2],
+        [39.2, 20.8]
       ],
       "piece": "cairn-3"
     },
@@ -625,9 +658,9 @@
       "w": 49,
       "solid": 0.42,
       "at": [
-        [55.6, 49.2],
-        [57.1, 49.7],
-        [56.2, 47.8]
+        [19.5, 34.6],
+        [21.0, 35.1],
+        [20.1, 33.2]
       ],
       "piece": "cairn-4"
     },
@@ -636,8 +669,8 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [54.5, 50.0],
-        [57.5, 48.6]
+        [18.4, 35.4],
+        [21.4, 34.0]
       ],
       "piece": "cairn-4"
     },
@@ -647,9 +680,9 @@
       "w": 49,
       "solid": 0.42,
       "at": [
-        [16.8, 5.7],
-        [18.3, 6.2],
-        [17.4, 4.3]
+        [42.2, 49.5],
+        [43.7, 50.0],
+        [42.8, 48.1]
       ],
       "piece": "cairn-5"
     },
@@ -658,8 +691,8 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [15.7, 6.5],
-        [18.7, 5.1]
+        [41.1, 50.3],
+        [44.1, 48.9]
       ],
       "piece": "cairn-5"
     }
@@ -684,7 +717,11 @@
         {
           "species": "bramblebuck",
           "behavior": "territorial",
-          "field": {"duration": 3, "radius": 2, "recovery": "return-to-patch"}
+          "field": {
+            "duration": 3,
+            "radius": 2,
+            "recovery": "return-to-patch"
+          }
         },
         "duskwing"
       ],
@@ -708,7 +745,11 @@
           "species": "fernling",
           "weight": 2,
           "behavior": "wary",
-          "field": {"duration": 2.5, "radius": 3, "recovery": "retreat-and-retry"}
+          "field": {
+            "duration": 2.5,
+            "radius": 3,
+            "recovery": "retreat-and-retry"
+          }
         },
         {
           "species": "duskwing",

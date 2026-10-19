@@ -5,6 +5,7 @@ The maps are plain data once written; re-running this script regenerates them fr
 """
 import json, math, random
 from pathlib import Path
+from optional_chests import add_optional_chests
 
 ROOT = Path(__file__).resolve().parent.parent / 'dist' / 'maps'
 LEGEND = {'.': 'void', 'g': 'ground', 'p': 'path', 'w': 'water', 't': 'tallgrass'}
@@ -185,6 +186,7 @@ def reedfen():
             {'id': 'reed-whistle', 'at': [16, 44.5], 'radius': 2, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'A reed whistle trills somewhere in the bed. The hush here is safe.'}]},
         ],
     }
+    add_optional_chests(data)
     return data, g
 
 
@@ -251,6 +253,7 @@ def stilts():
             {'id': 'high-boardwalk', 'at': [52, 8], 'radius': 2.5, 'on': 'enter', 'once': True, 'do': [{'type': 'environment', 'text': 'The high boardwalk hums underfoot. Reedfen\'s shrine is a short walk beyond.'}]},
         ],
     }
+    add_optional_chests(data)
     return data, g
 
 

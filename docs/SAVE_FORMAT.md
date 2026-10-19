@@ -44,6 +44,8 @@ Adventure pack: `pack` names the adventure the save belongs to ([PACKS.md](PACKS
 
 Schema 5 adds optional pack-owned `inventory: {bag, storage, coins, claimed}`. A pack opts in by selecting and integrity-hashing an `inventory.json` file. Item definitions, buy/sell values, supply mappings and bag/stash capacities stay in that pack. Packs without inventory rules keep their previous save shape. For a pack that opts in, v1-v4 saves map their existing `potions`, `orbs` and `coins` into the configured bag; values are retained, and storage starts empty. The mapped top-level supply fields remain synchronized with the bag so battle, free recovery and existing HUD code continue to work. A save referring to removed pack item IDs is reported as incompatible and left untouched.
 
+The optional `mapFlags` list stores independent side-map progress and additional chest claims without changing schema 5. Legacy regional seals and the original chest continue to use their `badges` / `chests` arrays. Extra caches use stable `<map-id>.chest:<cache-id>` flags; older saves without those flags are valid and treat the caches as unopened. Once written, each flag survives normal save/reload, backup and import for its owning adventure.
+
 The legacy `mossvale-v3` storage key and `mossvale-save-transaction` journal do not change. Older builds see schema 5 as a future save and will not overwrite it.
 
 In memory the game still uses indexes; `save.js` converts at the load/serialize boundary.
