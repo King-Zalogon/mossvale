@@ -4,7 +4,7 @@
 
 Run `npm run verify` before integrating a content change. The suite combines deterministic domain tests with Playwright Chromium browser flows. Browser coverage uses desktop layouts and responsive viewport emulation; it does not certify a physical device or establish the owner's preferred browser.
 
-The campaign regression in `tests/campaign.test.mjs` starts from a fresh save, checks that all eight maps connect and each roster creature has a home encounter, then uses ordinary battle actions to train, win each of the four shrine challenges, round-trip the save after every seal, and reach the ending condition. Existing tests cover the opening UI and the ending screen (`tests/startup.browser.mjs`), the first-chapter keyboard playthrough (`tests/playthrough.browser.mjs`), map travel and reload (`tests/biome-maps.browser.mjs`), interrupted battles, saves, backups and responsive layouts.
+The campaign regression in `tests/campaign.test.mjs` starts from a fresh save, checks that all eleven maps connect and each roster creature has a home encounter, then uses ordinary battle actions to train, win each of the four shrine challenges, round-trip the save after every seal, and reach the ending condition. Existing tests cover the opening UI and the ending screen (`tests/startup.browser.mjs`), the first-chapter keyboard playthrough (`tests/playthrough.browser.mjs`), map travel and reload (`tests/biome-maps.browser.mjs`), interrupted battles, saves, backups and responsive layouts.
 
 ## Findings
 

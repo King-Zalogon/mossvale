@@ -66,7 +66,8 @@
     "................................................................"
   ],
   "spawns": {
-    "camp": [5, 24]
+    "camp": [5, 24],
+    "rootglass-return": [55, 16]
   },
   "landmarks": [
     {
@@ -155,6 +156,16 @@
       "secret": true,
       "mapLabel": "South snowbank cache",
       "discoveryText": "South snowbank cache: Look off the southern pass trail where the snowbank meets the pines."
+    },
+    {
+      "id": "glass-root-track",
+      "kind": "sign",
+      "sprite": "prop-icefall-ledge",
+      "at": [52, 16],
+      "w": 54,
+      "label": "Inspect the blueglass roots",
+      "mapLabel": "Glass-root tracks",
+      "text": "A pale root glints through the snow and bends east toward a wind-shaped ridge."
     }
   ],
   "exits": [
@@ -166,6 +177,17 @@
       "label": "Return to Frostveil Grove",
       "to": {
         "map": "frostveil-grove",
+        "spawn": "pass-return"
+      }
+    },
+    {
+      "id": "rootglass-trail",
+      "sprite": "prop-rootglass-sentinel",
+      "at": [57, 16],
+      "w": 82,
+      "label": "Follow the glassbark trail",
+      "to": {
+        "map": "rootglass-canopy",
         "spawn": "pass-return"
       }
     }
@@ -283,12 +305,12 @@
       "w": 79,
       "solid": 0.52,
       "at": [
-        [50.5, 28.0],
-        [48.2, 26.2],
-        [48.2, 23.2],
-        [50.5, 21.4],
-        [53.4, 22.1],
-        [54.7, 24.7]
+        [20.2, 25.0],
+        [17.9, 23.1],
+        [17.9, 20.2],
+        [20.2, 18.3],
+        [23.1, 19.0],
+        [24.3, 21.7]
       ],
       "piece": "snow-grove-1"
     },
@@ -297,7 +319,7 @@
       "kind": "scenery",
       "w": 49,
       "solid": 0.42,
-      "at": [[51.6, 24.9]],
+      "at": [[21.2, 21.9]],
       "piece": "snow-grove-1"
     },
     {
@@ -306,9 +328,9 @@
       "w": 49,
       "solid": 0.42,
       "at": [
-        [7.3, 15.9],
-        [8.8, 16.4],
-        [7.9, 14.5]
+        [50.3, 26.7],
+        [51.8, 27.2],
+        [50.9, 25.3]
       ],
       "piece": "cairn-2"
     },
@@ -317,8 +339,8 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [6.2, 16.7],
-        [9.2, 15.3]
+        [49.2, 27.5],
+        [52.2, 26.1]
       ],
       "piece": "cairn-2"
     },
@@ -328,9 +350,9 @@
       "w": 49,
       "solid": 0.42,
       "at": [
-        [59.3, 31.2],
-        [60.8, 31.7],
-        [59.9, 29.8]
+        [25.5, 34.1],
+        [27.0, 34.6],
+        [26.1, 32.7]
       ],
       "piece": "cairn-3"
     },
@@ -339,8 +361,8 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [58.2, 32.0],
-        [61.2, 30.6]
+        [24.4, 34.9],
+        [27.4, 33.5]
       ],
       "piece": "cairn-3"
     }

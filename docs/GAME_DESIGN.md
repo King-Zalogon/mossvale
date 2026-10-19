@@ -43,7 +43,7 @@ Private playable updates should be traceable to GitHub main and recoverable. Sou
 
 1. Preserve save/startup reliability, finish durable encounter actions, and establish small data contracts.
 2. Build and play the meadow map pair before final integration of the other biomes.
-3. Produce independent biome/creature batches against stable contracts; integrate all eight maps, four challenges and the light ending.
+3. Produce independent biome/creature batches against stable contracts; integrate all eleven maps, four challenges and the light ending.
 4. Check normal completion, capture routes, save/reload/export recovery, and controls on the owner's devices. Tune pacing and difficulty from feedback.
 
 Passing automated checks supports reliability; the owner enjoying exploration and battles determines success. Richer sound, XP refinements and measured optimization can wait. Public diagnostics, formal rights review, cloud saves, online trading/PvP, postgame expansion, localization and native ports are deferred in the roadmap.

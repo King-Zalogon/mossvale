@@ -73,6 +73,7 @@ class CombatExportTests(unittest.TestCase):
     def write_sources(self, count=None):
         paths = self.sources if count is None else self.sources[:count]
         for path in paths:
+            path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(source_png())
         if count is None or count > SPECIES.index("voltkit"):
             self.archived_source.parent.mkdir(parents=True, exist_ok=True)
