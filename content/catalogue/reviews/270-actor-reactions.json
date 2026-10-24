@@ -1,0 +1,31 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "art/characters/prepare-scene-reactions.py",
+        "art/characters/scene-reaction-metadata.json",
+        "art/characters/SCENE_REACTIONS.md",
+        "art/characters/source/scene-reactions/notice-generated.png",
+        "art/characters/source/scene-reactions/surprise-generated.png",
+        "art/characters/source/scene-reactions/happy-generated.png",
+        "dist/assets/people/person-scene-reaction-notice.png",
+        "dist/assets/people/person-scene-reaction-surprise.png",
+        "dist/assets/people/person-scene-reaction-happy.png",
+        "dist/src/data/assets.js",
+        "dist/src/render/world.js",
+        "docs/SCENE_ACTIONS.md",
+        "tests/assets.test.mjs"
+      ],
+      "entries": [
+        "mechanic:scene-choreography",
+        "visual:person-scene-reaction-notice",
+        "visual:person-scene-reaction-surprise",
+        "visual:person-scene-reaction-happy"
+      ],
+      "disposition": "updated",
+      "reason": "Scene choreography now uses authored optional ranger reaction poses for notice, surprise and happy, with the existing cue fallback and reduced-motion static behavior preserved. The three visual resources are documented as internal-review-pending until owner taste approval.",
+      "evidence": ["tests/assets.test.mjs", "docs/SCENE_ACTIONS.md", "art/characters/scene-reaction-metadata.json"]
+    }
+  ]
+}

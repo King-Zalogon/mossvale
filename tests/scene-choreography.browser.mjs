@@ -53,6 +53,7 @@ function addEvent(page, {id, to, text, coins = 0}) {
               {type: 'move', actor: 'player', to},
               {type: 'face', actor: 'player', target: state.world.objects.find(object => object.kind === 'ranger')?.ref ?? 'player'},
               {type: 'react', actor: 'player', pose: 'notice'},
+              {type: 'react', actor: state.world.objects.find(object => object.kind === 'ranger')?.ref ?? 'player', pose: 'surprise'},
               {type: 'wait', ms: 80},
               {type: 'reward', coins},
               {type: 'dialogue', speaker: 'player', text},
@@ -95,6 +96,11 @@ try {
       return [state.player.x, state.player.y, state.sceneBusy, state.save.coins];
     }),
     [target.x, target.y, false, initialCoins + 2],
+  );
+  assert.equal(
+    await page.evaluate(() => window.mossvale.getState().world.objects.find(object => object.kind === 'ranger')?.sceneReaction),
+    'surprise',
+    'ranger reaction state is staged for the authored pose while the scene presents',
   );
   await page.click('#speech-next');
   await page.waitForSelector('#speech-bubble[hidden]', {state: 'hidden'});

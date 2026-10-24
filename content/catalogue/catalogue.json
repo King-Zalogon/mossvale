@@ -24600,6 +24600,177 @@
       ]
     },
     {
+      "id": "visual:person-scene-reaction-happy",
+      "kind": "visual",
+      "name": "person-scene-reaction-happy",
+      "summary": "person scene reaction happy",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "person-scene-reaction-happy",
+            "kind": "person",
+            "src": "assets/people/person-scene-reaction-happy.png",
+            "w": 160,
+            "h": 256,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "person scene reaction happy",
+          "usage": "Reference person-scene-reaction-happy in the existing format at dist/src/data/assets.js.",
+          "expected": "person scene reaction happy"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "person scene reaction happy",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "160 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset person-scene-reaction-happy is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/people/person-scene-reaction-happy.png",
+          "description": "person scene reaction happy"
+        }
+      ]
+    },
+    {
+      "id": "visual:person-scene-reaction-notice",
+      "kind": "visual",
+      "name": "person-scene-reaction-notice",
+      "summary": "person scene reaction notice",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "person-scene-reaction-notice",
+            "kind": "person",
+            "src": "assets/people/person-scene-reaction-notice.png",
+            "w": 160,
+            "h": 256,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "person scene reaction notice",
+          "usage": "Reference person-scene-reaction-notice in the existing format at dist/src/data/assets.js.",
+          "expected": "person scene reaction notice"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "person scene reaction notice",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "160 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset person-scene-reaction-notice is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/people/person-scene-reaction-notice.png",
+          "description": "person scene reaction notice"
+        }
+      ]
+    },
+    {
+      "id": "visual:person-scene-reaction-surprise",
+      "kind": "visual",
+      "name": "person-scene-reaction-surprise",
+      "summary": "person scene reaction surprise",
+      "status": "available",
+      "scope": "core",
+      "configuration": [
+        {
+          "name": "definition",
+          "type": "canonical authoring record",
+          "default": {
+            "name": "person-scene-reaction-surprise",
+            "kind": "person",
+            "src": "assets/people/person-scene-reaction-surprise.png",
+            "w": 160,
+            "h": 256,
+            "anchor": "bottom-center",
+            "required": false
+          },
+          "limits": "Configure through dist/src/data/assets.js; use its existing validator, not arbitrary new fields."
+        }
+      ],
+      "dependencies": [],
+      "limits": [
+        "Available asset registration is not a fresh human approval of every animation.",
+        "Naming and metadata are insufficient to infer age, gender or semantic facing correctness."
+      ],
+      "examples": [
+        {
+          "intent": "person scene reaction surprise",
+          "usage": "Reference person-scene-reaction-surprise in the existing format at dist/src/data/assets.js.",
+          "expected": "person scene reaction surprise"
+        }
+      ],
+      "references": ["dist/src/data/assets.js"],
+      "evidence": [
+        {
+          "path": "tests/assets.test.mjs",
+          "assertion": "Existing owning-contract regression; does not establish fresh semantic art approval."
+        }
+      ],
+      "details": {
+        "appearance": "person scene reaction surprise",
+        "style": "Original Mossvale artwork; see the asset source record. Source page: See the local artwork provenance record. License: See the local artwork provenance record.",
+        "scale": "160 by 256 source pixels; displayed size belongs to the owning renderer or placed object.",
+        "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+        "animations": "No animation states declared for this static image.",
+        "compatibleUses": "Asset person-scene-reaction-surprise is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames."
+      },
+      "previews": [
+        {
+          "path": "dist/assets/people/person-scene-reaction-surprise.png",
+          "description": "person scene reaction surprise"
+        }
+      ]
+    },
+    {
       "id": "visual:person-traveler",
       "kind": "visual",
       "name": "person-traveler",
