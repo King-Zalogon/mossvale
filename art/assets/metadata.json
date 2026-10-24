@@ -35,17 +35,17 @@
       "mode": "RGBA"
     },
     "source/creature-additions-atlas.png": {
-      "width": 1838,
+      "width": 2013,
       "height": 264,
       "mode": "RGBA"
     },
     "source/creature-combat-new-atlas.png": {
-      "width": 8160,
+      "width": 9328,
       "height": 1440,
       "mode": "RGBA"
     },
     "source/creature-follower-new-atlas.png": {
-      "width": 7096,
+      "width": 8112,
       "height": 1600,
       "mode": "RGBA"
     },
@@ -4440,6 +4440,114 @@
       "description": "Non-interactive settlement scenery beside a home or workshop.",
       "sourceFile": "third-party/ravenmore-resource-icons-01/wood-plank-stack.png",
       "sourceSha256": "49bdb6cf2a635e4e055691ad5a73b2ba8855a94332d3515cc8584dc986daeaed"
+    },
+    {
+      "name": "creature-reedstilt",
+      "src": "assets/creatures/creature-reedstilt.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 159,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 1854,
+        "y": 0,
+        "width": 159,
+        "height": 264
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-reedstilt-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-reedstilt-combat",
+      "src": "assets/creatures/creature-reedstilt-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 8176,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-combat-new-atlas.png normalized animation atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-reedstilt-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-reedstilt-follower",
+      "src": "assets/creatures/creature-reedstilt-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 7112,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-follower-new-atlas.png normalized animation atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-reedstilt-follower-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
     }
   ]
 }

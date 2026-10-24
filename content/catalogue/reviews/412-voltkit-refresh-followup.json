@@ -1,0 +1,44 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "art/assets/subjects.json",
+        "art/characters/source-archive.json",
+        "art/characters/source/creature-voltkit-combat-generated.png.parts/part-001.bin",
+        "art/characters/source/creature-voltkit-combat-generated.png.parts/part-002.bin",
+        "art/characters/source/creature-voltkit-combat-generated.png.parts/part-003.bin",
+        "art/characters/source/creature-voltkit-combat-generated.png.parts/part-004.bin",
+        "art/characters/source/creature-voltkit-combat-generated.png.parts/part-005.bin",
+        "art/characters/source/creature-voltkit-follower-generated.png.parts/part-001.bin",
+        "art/characters/source/creature-voltkit-follower-generated.png.parts/part-002.bin",
+        "art/characters/source/creature-voltkit-follower-generated.png.parts/part-003.bin",
+        "art/characters/source/creature-voltkit-follower-generated.png.parts/part-004.bin",
+        "art/characters/export-creature-combat.py",
+        "art/characters/export-creature-followers.py",
+        "art/characters/creature-combat-metadata.json",
+        "art/characters/creature-follower-metadata.json",
+        "art/characters/make-follower-contact-sheet.py",
+        "art/characters/reviews/creature-follower-contact-sheet.png",
+        "art/characters/SOURCES.md",
+        "docs/scene-quality/244/desktop-dialogue-1.png",
+        "docs/scene-quality/244/desktop-dialogue-2.png",
+        "docs/scene-quality/244/desktop-offered-supplies.png",
+        "docs/scene-quality/244/phone-dialogue-1.png",
+        "docs/scene-quality/244/phone-dialogue-2.png",
+        "docs/scene-quality/244/phone-offered-supplies.png",
+        "docs/scene-quality/244/evidence.json",
+        "docs/scene-quality/244/review.json"
+      ],
+      "entries": ["visual:creature-voltkit", "visual:creature-voltkit-combat", "visual:creature-voltkit-follower"],
+      "disposition": "updated",
+      "reason": "Make the supplied Voltkit redesign reproducible from a clean checkout by archiving the exact combat and follower source bytes, align the reviewed follower row labels across exporter metadata and runtime, and refresh the contact sheet. The follower source contains duplicated side and rear poses; the retained labels document the independently reviewed row contract without inventing new artwork or changing gameplay IDs. Because the runtime asset manifest changed, the retained scene-quality captures were rerun, inspected at desktop and phone sizes, and rebound with an explicit note that scene layout and behavior were unchanged.",
+      "evidence": [
+        "tests/test_art_export.py",
+        "tests/test_source_archive.py",
+        "tests/follower-runtime.browser.mjs",
+        "art/characters/reviews/creature-follower-contact-sheet.png"
+      ]
+    }
+  ]
+}

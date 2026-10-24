@@ -13,7 +13,7 @@ PROFILE_ID = "creature-combat-v1"
 SPECS = {
     "emberkin": {"source": "art/characters/source/creature-emberkin-combat-generated.png", "target": "dist/assets/creatures/creature-emberkin-combat.png"},
     "voltkit": {
-        "source": "concept_art/voltkit-redesign-candidates/combat-atlas.png",
+        "source": "art/characters/source/creature-voltkit-combat-generated.png",
         "target": "dist/assets/creatures/creature-voltkit-combat.png",
         "sourceRowBounds": [0, 293, 589, 878, 1108, 1402],
     },
@@ -34,6 +34,7 @@ SPECS = {
     "rillume": {"source": "art/characters/source/creature-rillume-combat-generated.png", "target": "dist/assets/creatures/creature-rillume-combat.png"},
     "lanternix": {"source": "art/characters/source/creature-lanternix-combat-generated.png", "target": "dist/assets/creatures/creature-lanternix-combat.png"},
     "myceloop": {"source": "art/characters/source/creature-myceloop-combat-generated.png", "target": "dist/assets/creatures/creature-myceloop-combat.png"},
+    "reedstilt": {"source": "art/characters/source/creature-reedstilt-combat-generated.png", "target": "dist/assets/creatures/creature-reedstilt-combat.png"},
 
 }
 

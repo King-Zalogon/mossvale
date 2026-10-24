@@ -1,0 +1,51 @@
+{
+  "species": "reedstilt",
+  "revision": 1,
+  "identity": "Upright marsh heron with long thick jointed legs, a broad cream reflective throat, flat scoop bill, three-part reed fan crest, olive-teal feather mantle and amber eye.",
+  "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+  "followerFrames": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+  "followerFrameSize": [200, 200],
+  "followerGrid": [5, 8],
+  "followerAnchor": "bottom-center",
+  "followerFeetY": 196,
+  "followerCadenceWorldUnits": 0.56,
+  "combatFrames": ["idle", "attack", "hit", "faint", "capture"],
+  "combatFrameSize": [288, 288],
+  "combatGrid": [4, 5],
+  "combatAnchor": "bottom-center",
+  "portraitExportProfile": "creature-portrait-compact-v1",
+  "combatExportProfile": "creature-combat-v1",
+  "followerExportProfile": "creature-follower-v1",
+  "tool": "Codex image_gen built-in",
+  "modelVersion": "unavailable; tool does not expose model version",
+  "seed": "unavailable; tool does not expose seed",
+  "references": ["creature-siltkip"],
+  "promptSummary": "Create an upright, high-legged marsh heron that contrasts with low mudskipper Siltkip. Preserve the same character identity across its transparent portrait, five combat states and eight directional follower rows.",
+  "prompts": {
+    "combat": "Transparent 4-column by 5-row battle atlas, stable bottom-center anchor; idle, bill-scoop high-knee attack, recoil, faint and capture states.",
+    "follower": "Transparent 5-column by 8-row directional atlas, N NE E SE S SW W NW; idle and four alternating high-knee wading steps, stable feet.",
+    "portrait": "Single full-body three-quarter marsh heron, reed fan crest, scoop bill, broad reflective throat and long jointed ochre legs."
+  },
+  "sources": {
+    "art/characters/source/creature-reedstilt-concept-v1.png": {
+      "sha256": "8ceb5432db6208441bdcad3124b649d6b0caeadb9053b6972cce8831e52f5a37",
+      "bytes": 712828,
+      "size": [1182, 1330]
+    },
+    "art/characters/source/creature-reedstilt-portrait-generated.png": {
+      "sha256": "8ceb5432db6208441bdcad3124b649d6b0caeadb9053b6972cce8831e52f5a37",
+      "bytes": 712828,
+      "size": [1182, 1330]
+    },
+    "art/characters/source/creature-reedstilt-combat-generated.png": {
+      "sha256": "91cc0d3ea6225e32456c78a6bc9c479fc90154068789f0c8a61195bf8e93dcb9",
+      "bytes": 2071147,
+      "size": [1122, 1402]
+    },
+    "art/characters/source/creature-reedstilt-follower-generated.png": {
+      "sha256": "502e427c87518027a7b5228f377402ac7ad430429bca476465cfd4926f6ac25c",
+      "bytes": 2550540,
+      "size": [992, 1586]
+    }
+  }
+}

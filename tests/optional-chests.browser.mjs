@@ -40,9 +40,13 @@ try {
   await page.goto(`http://localhost:${server.address().port}/?debug&seed=336`);
   await page.waitForSelector('#loading', {state: 'hidden'});
 
-  // The Rootglass pair was authored after the caches and has its own chests instead.
-  for (const map of maps.filter(item => !item.id.startsWith('rootglass-'))) {
-    const caches = map.landmarks.filter(landmark => landmark.kind === 'chest' && landmark.flag.includes(':'));
+  const cacheMaps = maps
+    .map(map => ({...map, optionalCaches: map.landmarks.filter(landmark => landmark.kind === 'chest' && landmark.flag.includes(':'))}))
+    .filter(map => map.optionalCaches.length === 2);
+  assert.equal(cacheMaps.length, 9, 'the nine authored optional-cache maps each have a pair');
+
+  for (const map of cacheMaps) {
+    const caches = map.optionalCaches;
     assert.equal(caches.length, 2, `${map.id} has two new caches`);
     await page.evaluate(id => {
       const game = window.mossvale.getState();

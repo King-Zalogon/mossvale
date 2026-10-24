@@ -94,6 +94,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
             "creature-rillume",
             "creature-lanternix",
             "creature-myceloop",
+            "creature-reedstilt",
         ]
         for species in follower_ids:
             reference = f"art/references/{species}.png"
@@ -200,7 +201,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
                 for species in ids
             ],
         }
-        self.assertEqual(REVIEW_MODULE.validate_directional_coverage(data, set(ids)), 19)
+        self.assertEqual(REVIEW_MODULE.validate_directional_coverage(data, set(ids)), 20)
         data["coverage"][0]["followerWidth"] = 115
         with self.assertRaisesRegex(SystemExit, "37 px"):
             REVIEW_MODULE.validate_directional_coverage(data, set(ids))
@@ -211,7 +212,7 @@ class VisualReviewEvidenceTests(unittest.TestCase):
         self.assertEqual(data[:8], b"\x89PNG\r\n\x1a\n")
         width, height = struct.unpack(">II", data[16:24])
         self.assertEqual(width, 1412)
-        self.assertEqual(height, 2174, "19 species at four columns require five full card rows")
+        self.assertEqual(height, 2174, "20 species at four columns require five full card rows")
 
     def test_current_evidence_passes_then_stale_art_requires_a_new_visual_review(self):
         current = self.run_reviewer()
