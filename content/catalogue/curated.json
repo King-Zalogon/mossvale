@@ -998,6 +998,7 @@
         "The support window is one level wide today (engine 1, save schema 5, pack format 1), so a pack must declare exactly those levels; a wider window ships only together with a tested save migration.",
         "Declared levels are metadata outside the integrity hashes; they are as honest as the tool that stamped them.",
         "No migration registry exists yet because there has been no real schema change since schema 5.",
+        "Oldest-supported and current are the same level today (the window is one level wide), so there is no separate oldest-supported fixture until a real schema change adds one with its migration.",
         "It judges the manifest only; whether a pack's content still plays well after an engine update needs the adventure readiness report and a playtest."
       ],
       "examples": [
@@ -1012,6 +1013,10 @@
         {
           "path": "tests/compatibility.test.mjs",
           "assertion": "The shipped and fixture manifests are compatible; levels above, below and inside a widened window are classified distinctly; missing, string, fractional and non-positive levels are invalid; the loader rejects each case after fetching only index.json; a future save stays untouched and unwritable."
+        },
+        {
+          "path": "tests/pack-compat.browser.mjs",
+          "assertion": "A second adventure served at the current level, as a newer game, a newer save schema only, an older unsupported contract, a malformed level and a missing declaration: each is explained by name, reads no other pack file, offers the other adventure and leaves every save, checkpoint, archive and journal key of both adventures byte-identical; progress of both resumes after switching and reload."
         }
       ],
       "details": {
@@ -1020,7 +1025,7 @@
         "sequence": "Fetch index.json, judge each level, stop with a specific message on any problem, then verify file hashes and only then open the save codec.",
         "results": "compatible, requires-newer-game, pack-too-old or invalid, with the field that caused it.",
         "cancellation": "Not applicable.",
-        "errors": "A rejected pack shows a retryable startup error naming the field and whether to update the game or port the pack.",
+        "errors": "A rejected pack shows a start-screen explanation that says whose version has to change (newer game, older unsupported contract or missing/malformed declaration), the field-level detail, and the other adventure; it is never reported as a network problem.",
         "persistence": "Nothing is written; no save, checkpoint, archive or quarantine entry is created or replaced by a rejection."
       }
     },
