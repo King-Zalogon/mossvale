@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["art/characters/reviews/creature-follower-contact-sheet.png", "art/characters/visual-reviews.json"],
+      "entries": ["mechanic:creature-sheet-export"],
+      "disposition": "no-semantic-impact",
+      "reason": "Refreshes the all-species follower contact sheet and review-file digests after Reedstilt expanded the shared visual roster. The inspected sheet now includes all twenty current follower atlases at in-game scale; each existing export remains byte-consistent with its pinned runtime sprite. This updates QA evidence only: the creature-sheet export capability, frame contract and catalogue description are unchanged, and owner taste remains pending where recorded.",
+      "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "art/characters/visual-reviews.json", "package.json"]
+    }
+  ]
+}

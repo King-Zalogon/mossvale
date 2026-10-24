@@ -26,8 +26,25 @@ await ctx.addInitScript(`localStorage.setItem('mossvale-settings', JSON.stringif
 const page = await ctx.newPage();
 const errors = [];
 page.on('pageerror', e => errors.push(e.message));
+const waitForGameReady = async () => {
+  await page.waitForFunction(
+    () => {
+      const loading = document.querySelector('#loading');
+      return loading?.hidden || loading?.classList.contains('failed');
+    },
+    null,
+    {timeout: 60_000},
+  );
+  const loading = await page.locator('#loading').evaluate(element => ({
+    hidden: element.hidden,
+    title: document.querySelector('#load-title')?.textContent,
+    message: document.querySelector('#load-status')?.textContent,
+    detail: document.querySelector('#load-detail')?.textContent,
+  }));
+  assert.ok(loading.hidden, `game failed to start: ${loading.title}; ${loading.message}; ${loading.detail}`);
+};
 await page.goto(url + '?debug&seed=42');
-await page.waitForSelector('#loading', {state: 'hidden'});
+await waitForGameReady();
 const bootstrapEvents = await page.evaluate(() => window.mossvale.events());
 for (const type of ['objective.changed', 'save.write'])
   assert.ok(
@@ -168,7 +185,7 @@ assert.ok(managed.caughtIds.includes(benched));
 const savedParty = managed.party;
 const savedTeam = managed.team;
 await page.reload();
-await page.waitForSelector('#loading', {state: 'hidden'});
+await waitForGameReady();
 const restored = await state();
 assert.deepEqual(restored.party, savedParty);
 assert.deepEqual(restored.team, savedTeam);
@@ -225,7 +242,7 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
   };
 
   await page.goto(url + `?debug&seed=${seed}&clock=0`);
-  await page.waitForSelector('#loading', {state: 'hidden'});
+  await waitForGameReady();
   await page.waitForFunction(() => window.mossvale.getState().world.map.id === 'meadow');
   let beforeReloadEvents = [];
   for (const action of rangerToShrineScript) {
@@ -285,7 +302,7 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
       const checkpoint = JSON.parse(await page.evaluate(() => localStorage.getItem('mossvale-v3'))).battle;
       assert.equal(checkpoint.turn, 1, 'the current turn is already checkpointed before interruption');
       await page.reload();
-      await page.waitForSelector('#loading', {state: 'hidden'});
+      await waitForGameReady();
       await page.waitForFunction(() => window.mossvale?.getState().world.map);
       await page.waitForTimeout(250);
       const after = await state();
@@ -327,7 +344,7 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
       assert.ok(completed.save.coins > 0, 'the battle reward is persisted');
       await capture('06-meadow-seal-earned');
       await page.reload();
-      await page.waitForSelector('#loading', {state: 'hidden'});
+      await waitForGameReady();
       completed = await state();
       assert.equal(completed.phase, 'explore', 'the victory returns to the explorable map');
       assert.equal(completed.save.badges.length, 1, 'the guardian seal survives save/reload exactly once');

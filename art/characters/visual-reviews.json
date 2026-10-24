@@ -17,7 +17,7 @@
     "followerContactSheet": "art/characters/reviews/creature-follower-contact-sheet.png",
     "followerContactSheetDigest": {
       "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-      "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+      "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
     }
   },
   "subjects": [
@@ -50,7 +50,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "23616223c92b9e9ba1ae885700d238f7346c70f640360d52d6849679401aae18"
+          "sha256": "514154b964d97876ecf5fa97c5ae8f5b1493c1c995a7162792ab987cba150408"
         },
         {
           "path": "art/characters/reviews/player-facing-324.png",
@@ -82,7 +82,7 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "bfdc32fb02c70590c5fed9ab5b872fc6518726b91ea32339e85f785491fea263"
+          "sha256": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf"
         }
       ]
     },
@@ -96,7 +96,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -111,7 +111,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-combat.png",
@@ -131,7 +131,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -161,7 +161,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -176,7 +176,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
@@ -196,7 +196,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -225,7 +225,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -240,7 +240,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-emberkin-combat.png",
@@ -260,7 +260,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -291,7 +291,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At the 37 px gameplay follower width beside the red-cap player, the creature silhouette and all eight facings remain recognizable; the five columns keep a common foot line and no detached row fragments remain. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -302,7 +302,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-fernling-combat.png",
@@ -322,7 +322,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -353,7 +353,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -368,7 +368,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
@@ -388,7 +388,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -418,7 +418,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -433,7 +433,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-hushram-combat.png",
@@ -453,7 +453,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -483,7 +483,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
@@ -494,7 +494,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-duskwing-combat.png",
@@ -518,7 +518,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -549,7 +549,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-follower-contact-sheet.png", "dist/creature-follower-preview.html"],
@@ -560,7 +560,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-brooklet-combat.png",
@@ -584,7 +584,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -615,7 +615,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "Owner-provided redesign is now the canonical Voltkit look: orange fox-like scout, cream chest, dark legs, lightning flank mark and forked gold-crystal tail. Contact sheets were inspected at gameplay scale; combat states remain distinct. The supplied follower atlas lacks a distinct southeast pose, so its northeast source row is mirrored for that direction. Owner review requested this redesign; gameplay acceptance remains pending.",
+        "reason": "Owner-provided redesign is now the canonical Voltkit look: orange fox-like scout, cream chest, dark legs, lightning flank mark and forked gold-crystal tail. Contact sheets were inspected at gameplay scale; combat states remain distinct. The supplied follower atlas lacks a distinct southeast pose, so its northeast source row is mirrored for that direction. Owner review requested this redesign; gameplay acceptance remains pending. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -630,7 +630,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-voltkit-combat.png",
@@ -646,11 +646,11 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "b6607d68f5cbb67bd2ee0c76dfc35b006bc87a43f29c014c8f9778211ef0571e"
+          "sha256": "ae3b305f132455c42f58c950481c9723bb50368f8bed86769ed5b191b9da910c"
         },
         {
           "path": "concept_art/voltkit-redesign-candidates/portrait.png",
@@ -676,7 +676,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA at 37 px",
-        "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -691,7 +691,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-mushmallow-combat.png",
@@ -711,7 +711,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -741,7 +741,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA at 37 px",
-        "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -756,7 +756,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-frostowl-combat.png",
@@ -776,7 +776,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -806,7 +806,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -821,7 +821,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-pebblit-combat.png",
@@ -841,7 +841,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -871,7 +871,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -886,7 +886,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-bramblebuck-combat.png",
@@ -906,7 +906,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -936,7 +936,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -951,7 +951,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-siltkip-combat.png",
@@ -971,7 +971,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -1001,7 +1001,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": ["art/characters/reviews/creature-combat-contact-sheet.png", "art/characters/reviews/creature-follower-contact-sheet.png"],
@@ -1016,7 +1016,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "dist/assets/creatures/creature-sunskitter-combat.png",
@@ -1036,7 +1036,7 @@
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-profiles.json",
@@ -1066,7 +1066,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": [
@@ -1086,23 +1086,23 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "bfdc32fb02c70590c5fed9ab5b872fc6518726b91ea32339e85f785491fea263"
+          "sha256": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "e183ae28b9c4c8e94847ba253821221146fef4405361b753db4ee36eb1360126"
+          "sha256": "c5691ec0f19e38ed29bd27392c110b1924bb7a2a207c4e160b03c4ad2ceafd18"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "9cdac69376cbc795e3a2717a2eb5f606fdf161ca7c4c050d08f3c9f076b58acb"
+          "sha256": "0bd60f5daac8bcc9c86d5b9f00528f369f6018e4572f205d78b78f38dcc77110"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "b6607d68f5cbb67bd2ee0c76dfc35b006bc87a43f29c014c8f9778211ef0571e"
+          "sha256": "ae3b305f132455c42f58c950481c9723bb50368f8bed86769ed5b191b9da910c"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -1118,7 +1118,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "art/characters/source/creature-sedgegnaw-combat-generated.png",
@@ -1134,7 +1134,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "23616223c92b9e9ba1ae885700d238f7346c70f640360d52d6849679401aae18"
+          "sha256": "514154b964d97876ecf5fa97c5ae8f5b1493c1c995a7162792ab987cba150408"
         },
         {
           "path": "dist/assets/creatures/creature-sedgegnaw-combat.png",
@@ -1184,7 +1184,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": [
@@ -1204,23 +1204,23 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "bfdc32fb02c70590c5fed9ab5b872fc6518726b91ea32339e85f785491fea263"
+          "sha256": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "e183ae28b9c4c8e94847ba253821221146fef4405361b753db4ee36eb1360126"
+          "sha256": "c5691ec0f19e38ed29bd27392c110b1924bb7a2a207c4e160b03c4ad2ceafd18"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "9cdac69376cbc795e3a2717a2eb5f606fdf161ca7c4c050d08f3c9f076b58acb"
+          "sha256": "0bd60f5daac8bcc9c86d5b9f00528f369f6018e4572f205d78b78f38dcc77110"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "b6607d68f5cbb67bd2ee0c76dfc35b006bc87a43f29c014c8f9778211ef0571e"
+          "sha256": "ae3b305f132455c42f58c950481c9723bb50368f8bed86769ed5b191b9da910c"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -1236,7 +1236,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "art/characters/source/creature-petalunge-combat-generated.png",
@@ -1252,7 +1252,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "23616223c92b9e9ba1ae885700d238f7346c70f640360d52d6849679401aae18"
+          "sha256": "514154b964d97876ecf5fa97c5ae8f5b1493c1c995a7162792ab987cba150408"
         },
         {
           "path": "dist/assets/creatures/creature-petalunge-combat.png",
@@ -1302,7 +1302,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": [
@@ -1322,23 +1322,23 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "bfdc32fb02c70590c5fed9ab5b872fc6518726b91ea32339e85f785491fea263"
+          "sha256": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "e183ae28b9c4c8e94847ba253821221146fef4405361b753db4ee36eb1360126"
+          "sha256": "c5691ec0f19e38ed29bd27392c110b1924bb7a2a207c4e160b03c4ad2ceafd18"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "9cdac69376cbc795e3a2717a2eb5f606fdf161ca7c4c050d08f3c9f076b58acb"
+          "sha256": "0bd60f5daac8bcc9c86d5b9f00528f369f6018e4572f205d78b78f38dcc77110"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "b6607d68f5cbb67bd2ee0c76dfc35b006bc87a43f29c014c8f9778211ef0571e"
+          "sha256": "ae3b305f132455c42f58c950481c9723bb50368f8bed86769ed5b191b9da910c"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -1354,7 +1354,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "art/characters/source/creature-cindercurl-combat-generated.png",
@@ -1370,7 +1370,7 @@
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "23616223c92b9e9ba1ae885700d238f7346c70f640360d52d6849679401aae18"
+          "sha256": "514154b964d97876ecf5fa97c5ae8f5b1493c1c995a7162792ab987cba150408"
         },
         {
           "path": "dist/assets/creatures/creature-cindercurl-combat.png",
@@ -1420,7 +1420,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "approved"
       },
       "evidence": [
@@ -1451,27 +1451,27 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "bfdc32fb02c70590c5fed9ab5b872fc6518726b91ea32339e85f785491fea263"
+          "sha256": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf"
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "23616223c92b9e9ba1ae885700d238f7346c70f640360d52d6849679401aae18"
+          "sha256": "514154b964d97876ecf5fa97c5ae8f5b1493c1c995a7162792ab987cba150408"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "e183ae28b9c4c8e94847ba253821221146fef4405361b753db4ee36eb1360126"
+          "sha256": "c5691ec0f19e38ed29bd27392c110b1924bb7a2a207c4e160b03c4ad2ceafd18"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "9cdac69376cbc795e3a2717a2eb5f606fdf161ca7c4c050d08f3c9f076b58acb"
+          "sha256": "0bd60f5daac8bcc9c86d5b9f00528f369f6018e4572f205d78b78f38dcc77110"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "b6607d68f5cbb67bd2ee0c76dfc35b006bc87a43f29c014c8f9778211ef0571e"
+          "sha256": "ae3b305f132455c42f58c950481c9723bb50368f8bed86769ed5b191b9da910c"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -1487,7 +1487,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "art/characters/source/creature-sunsifter-combat-generated.png",
@@ -1561,7 +1561,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "approved"
       },
       "evidence": [
@@ -1592,27 +1592,27 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "bfdc32fb02c70590c5fed9ab5b872fc6518726b91ea32339e85f785491fea263"
+          "sha256": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf"
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "23616223c92b9e9ba1ae885700d238f7346c70f640360d52d6849679401aae18"
+          "sha256": "514154b964d97876ecf5fa97c5ae8f5b1493c1c995a7162792ab987cba150408"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "e183ae28b9c4c8e94847ba253821221146fef4405361b753db4ee36eb1360126"
+          "sha256": "c5691ec0f19e38ed29bd27392c110b1924bb7a2a207c4e160b03c4ad2ceafd18"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "9cdac69376cbc795e3a2717a2eb5f606fdf161ca7c4c050d08f3c9f076b58acb"
+          "sha256": "0bd60f5daac8bcc9c86d5b9f00528f369f6018e4572f205d78b78f38dcc77110"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "b6607d68f5cbb67bd2ee0c76dfc35b006bc87a43f29c014c8f9778211ef0571e"
+          "sha256": "ae3b305f132455c42f58c950481c9723bb50368f8bed86769ed5b191b9da910c"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -1628,7 +1628,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "art/characters/source/creature-rillume-combat-generated.png",
@@ -1982,7 +1982,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "Lantern abdomen, teal wing-case shoulders and insect limbs remain distinct from Voltkit at gameplay scale; rear/front eyes and corrected SW facing read clearly. Combat states and follower wingflutter preserve the identity and stable anchor. Owner taste and enjoyment remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+        "reason": "Lantern abdomen, teal wing-case shoulders and insect limbs remain distinct from Voltkit at gameplay scale; rear/front eyes and corrected SW facing read clearly. Combat states and follower wingflutter preserve the identity and stable anchor. Owner taste and enjoyment remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": [
@@ -2014,27 +2014,27 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "bfdc32fb02c70590c5fed9ab5b872fc6518726b91ea32339e85f785491fea263"
+          "sha256": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf"
         },
         {
           "path": "art/characters/SOURCES.md",
-          "sha256": "23616223c92b9e9ba1ae885700d238f7346c70f640360d52d6849679401aae18"
+          "sha256": "514154b964d97876ecf5fa97c5ae8f5b1493c1c995a7162792ab987cba150408"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "e183ae28b9c4c8e94847ba253821221146fef4405361b753db4ee36eb1360126"
+          "sha256": "c5691ec0f19e38ed29bd27392c110b1924bb7a2a207c4e160b03c4ad2ceafd18"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "9cdac69376cbc795e3a2717a2eb5f606fdf161ca7c4c050d08f3c9f076b58acb"
+          "sha256": "0bd60f5daac8bcc9c86d5b9f00528f369f6018e4572f205d78b78f38dcc77110"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "b6607d68f5cbb67bd2ee0c76dfc35b006bc87a43f29c014c8f9778211ef0571e"
+          "sha256": "ae3b305f132455c42f58c950481c9723bb50368f8bed86769ed5b191b9da910c"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -2050,7 +2050,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "art/characters/source/creature-lanternix-combat-generated.png",
@@ -2706,7 +2706,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the 115 px battle width the violet three-lobed body, central dimple, branching lavender veins and amber spore vents remain legible and distinct from Mushmallow; idle, attack, hit, faint and capture states remain cohesive. At 37 px the low connected radial silhouette is readable and does not resemble the taller hedgehog. Direction changes are intentionally subtle for a radial organism, while its eight-row atlas retains stable anchors and five animation columns. Owner taste and real playtest remain pending; this is not owner approval.",
+        "reason": "At the 115 px battle width the violet three-lobed body, central dimple, branching lavender veins and amber spore vents remain legible and distinct from Mushmallow; idle, attack, hit, faint and capture states remain cohesive. At 37 px the low connected radial silhouette is readable and does not resemble the taller hedgehog. Direction changes are intentionally subtle for a radial organism, while its eight-row atlas retains stable anchors and five animation columns. Owner taste and real playtest remain pending; this is not owner approval. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": [
@@ -2756,23 +2756,23 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "bfdc32fb02c70590c5fed9ab5b872fc6518726b91ea32339e85f785491fea263"
+          "sha256": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "e183ae28b9c4c8e94847ba253821221146fef4405361b753db4ee36eb1360126"
+          "sha256": "c5691ec0f19e38ed29bd27392c110b1924bb7a2a207c4e160b03c4ad2ceafd18"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "9cdac69376cbc795e3a2717a2eb5f606fdf161ca7c4c050d08f3c9f076b58acb"
+          "sha256": "0bd60f5daac8bcc9c86d5b9f00528f369f6018e4572f205d78b78f38dcc77110"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "b6607d68f5cbb67bd2ee0c76dfc35b006bc87a43f29c014c8f9778211ef0571e"
+          "sha256": "ae3b305f132455c42f58c950481c9723bb50368f8bed86769ed5b191b9da910c"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -2796,7 +2796,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "art/characters/source/creature-myceloop-combat-generated.png",
@@ -2858,7 +2858,7 @@
       "visual": {
         "decision": "accept",
         "reviewer": "implementation visual QA",
-        "reason": "At the 115 px battle scale the tall heron silhouette, cream throat, scoop bill and reed-fan crest remain distinct from low-bodied Siltkip. All five battle states preserve its identity and common ground anchor. At 37 px the directional follower rows retain readable facing and alternating high-knee steps with stable feet. Owner taste and real playtest remain pending; this is not owner approval.",
+        "reason": "At the 115 px battle scale the tall heron silhouette, cream throat, scoop bill and reed-fan crest remain distinct from low-bodied Siltkip. All five battle states preserve its identity and common ground anchor. At 37 px the directional follower rows retain readable facing and alternating high-knee steps with stable feet. Owner taste and real playtest remain pending; this is not owner approval. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
         "ownerTaste": "pending"
       },
       "evidence": [
@@ -2908,23 +2908,23 @@
         },
         {
           "path": "art/assets/subjects.json",
-          "sha256": "bfdc32fb02c70590c5fed9ab5b872fc6518726b91ea32339e85f785491fea263"
+          "sha256": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf"
         },
         {
           "path": "art/characters/creature-combat-metadata.json",
-          "sha256": "e183ae28b9c4c8e94847ba253821221146fef4405361b753db4ee36eb1360126"
+          "sha256": "c5691ec0f19e38ed29bd27392c110b1924bb7a2a207c4e160b03c4ad2ceafd18"
         },
         {
           "path": "art/characters/creature-follower-metadata.json",
-          "sha256": "9cdac69376cbc795e3a2717a2eb5f606fdf161ca7c4c050d08f3c9f076b58acb"
+          "sha256": "0bd60f5daac8bcc9c86d5b9f00528f369f6018e4572f205d78b78f38dcc77110"
         },
         {
           "path": "art/characters/export-creature-combat.py",
-          "sha256": "9a77866c4804996d7449a6fe1ef70d880ba6d680142127d349e8475b1ba9a79d"
+          "sha256": "1363ae69913643e477edfd93b4a55d3331bec7a2876e5c6ef068870012cb43c2"
         },
         {
           "path": "art/characters/export-creature-followers.py",
-          "sha256": "b6607d68f5cbb67bd2ee0c76dfc35b006bc87a43f29c014c8f9778211ef0571e"
+          "sha256": "ae3b305f132455c42f58c950481c9723bb50368f8bed86769ed5b191b9da910c"
         },
         {
           "path": "art/characters/export-creature-portraits.py",
@@ -2948,7 +2948,7 @@
         },
         {
           "path": "art/characters/reviews/creature-follower-contact-sheet.png",
-          "sha256": "2782ba0645673f468fbb1b5f5e268ef30d80988e41a45ce9168f689f9eab3f07"
+          "sha256": "252340cc048a94a1c9ae098f97a9f5a6813f8253610ccf68689770c095fce2f8"
         },
         {
           "path": "art/characters/source/creature-reedstilt-combat-generated.png",
