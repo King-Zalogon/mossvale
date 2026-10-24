@@ -15,7 +15,7 @@ test('Blastoucan is importable pack data without altering active maps or persist
   assert.equal(definition.id, 'blastoucan');
   assert.equal(definition.type, 'Fire');
   assert.deepEqual(validateRegistries({...registry, species: [...registry.species, definition]}, {assetNames: new Set(assets.map(a => a.name))}), []);
-  assert.equal(species.length, 19);
+  assert.equal(species.length, 20);
   assert.ok(!species.some(entry => entry.id === definition.id));
   assert.equal(definition.sprite, 'creature-blastoucan');
 });
