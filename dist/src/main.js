@@ -21,7 +21,7 @@ import {loadAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
 import {exportBackup, exportFileName, importSave, parseBackup, readBackupFile, readCheckpoint, restoreCheckpoint} from './services/backup.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
-import {fetchAdventure, fetchCatalog, PackIntegrityUnavailableError} from './services/maps.js';
+import {fetchAdventure, fetchCatalog, PackCompatibilityError, PackIntegrityUnavailableError} from './services/maps.js';
 import {
   chooseAdventure,
   DEFAULT_CATALOG,
@@ -432,6 +432,16 @@ async function boot() {
       game.player.x = boundedSave.x;
       game.player.y = boundedSave.y;
     } catch (e) {
+      if (e instanceof PackCompatibilityError) {
+        // No save has been read or written yet, and retrying cannot help: say whose version has to change.
+        const headline = {
+          'requires-newer-game': 'This adventure was made for a newer version of Mossvale. Update the game to play it.',
+          'pack-too-old': 'This adventure was made for an older version of the game and is no longer supported.',
+          invalid: 'This adventure does not say which version of the game it needs.',
+        };
+        showLoadError(headline[e.status] ?? 'This adventure cannot be loaded by this version of the game.', e.message);
+        return;
+      }
       if (e instanceof PackIntegrityUnavailableError) {
         showLoadError(
           'This address cannot verify the adventure pack safely.',
