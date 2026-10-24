@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/main.js", "dist/src/services/loader.js", "tests/portal-launch.test.mjs", "docs/VERCEL_DEPLOYMENT.md"],
+      "entries": ["pack:mossvale"],
+      "disposition": "no-semantic-impact",
+      "reason": "When the authenticated ten-minute game ticket expires in an open tab, the proxy returns portal HTML for protected resource requests. Startup now renews the existing authenticated ticket and retries required resources once; the game gate and pack contents remain unchanged.",
+      "evidence": ["tests/portal-launch.test.mjs", "docs/VERCEL_DEPLOYMENT.md"]
+    }
+  ]
+}
