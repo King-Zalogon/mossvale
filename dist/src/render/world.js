@@ -199,7 +199,10 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         const bob = o.kind === 'companion' && !o.moving && !v.reducedMotion ? Math.sin(now / 950) * 0.45 * zoom : 0;
         const tint = region === 2 && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : region === 1 && o.kind === 'grass' ? 'sepia(.5)' : 'none';
         const options = {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1};
-        if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
+        const reactionId = o.kind === 'ranger' && o.sceneReaction && o.sceneReactionUntil > now ? spriteId(`person-scene-reaction-${o.sceneReaction}`) : -1;
+        if (reactionId >= 0 && sprites[reactionId]?.complete && sprites[reactionId]?.naturalWidth)
+          drawSprite(ctx, reactionId, s.x, s.y + bob, o.w * zoom, options);
+        else if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
         else if (o.kind === 'companion' && assets[o.id]?.frames)
           drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
         else if (o.kind === 'ranger' && assets[o.id]?.frames?.columns === 4) {
@@ -207,7 +210,11 @@ export function createWorldRenderer({canvas, miniCanvas}) {
           drawSpriteFrame(ctx, o.id, cardinalColumn, 0, s.x, s.y + bob, o.w * zoom, options);
         } else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
       }
-      if (o.sceneReaction && o.sceneReactionUntil > now) {
+      if (
+        o.sceneReaction &&
+        o.sceneReactionUntil > now &&
+        !(o.kind === 'ranger' && sprites[spriteId(`person-scene-reaction-${o.sceneReaction}`)]?.naturalWidth)
+      ) {
         const mark = o.sceneReaction === 'happy' ? '♥' : o.sceneReaction === 'surprise' ? '!' : '…';
         ctx.font = `bold ${Math.round(17 * zoom)}px sans-serif`;
         ctx.textAlign = 'center';

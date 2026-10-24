@@ -1,0 +1,34 @@
+{
+  "format": 1,
+  "assetFamily": "scene-reactions",
+  "sourceProfile": "scene-reaction-160x256-v1",
+  "anchor": "bottom-center",
+  "runtimeDimensions": {"width": 160, "height": 256},
+  "exportScript": "art/characters/prepare-scene-reactions.py",
+  "generation": "Built-in image generation tool, 2026-10-24; canonical person-traveler palette and silhouette reference. Provider/model/seed metadata was not returned.",
+  "reviewStatus": "internal-review-pending",
+  "reducedMotion": "hold-one-static-pose-for-the-shorter-reaction-window",
+  "poses": [
+    {
+      "id": "notice",
+      "source": "art/characters/source/scene-reactions/notice-generated.png",
+      "sourceSha256": "ac6ecc5089786a20b0c89b66f4ada77ea372b676345d1d3e8470affb57c586a9",
+      "runtime": "dist/assets/people/person-scene-reaction-notice.png",
+      "description": "Traveler raises one hand to their brow to notice something."
+    },
+    {
+      "id": "surprise",
+      "source": "art/characters/source/scene-reactions/surprise-generated.png",
+      "sourceSha256": "628e87a38666098773a388eef2116d2a224d9a07d3b3d3f04e5cf68569e84008",
+      "runtime": "dist/assets/people/person-scene-reaction-surprise.png",
+      "description": "Traveler raises both hands with an open-mouth surprised expression."
+    },
+    {
+      "id": "happy",
+      "source": "art/characters/source/scene-reactions/happy-generated.png",
+      "sourceSha256": "24e4209678ba5ed6a025d6653afd0a8a2e459b1ea269758b0e78bf4835fe7a43",
+      "runtime": "dist/assets/people/person-scene-reaction-happy.png",
+      "description": "Traveler smiles and raises one fist in celebration."
+    }
+  ]
+}
