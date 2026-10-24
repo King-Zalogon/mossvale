@@ -34,3 +34,22 @@ export async function loadAssets({manifest, sprites, attempt, onProgress, timeou
   );
   return missing;
 }
+
+/**
+ * Retry required resources once after the portal refreshes an expired game
+ * ticket. The entry document is private, so an expired ticket otherwise
+ * redirects image requests to portal HTML and looks like missing artwork.
+ */
+export async function refreshMissingAssets({missing, sprites, manifest, attempt = 0, onRefresh, timeoutMs = TIMEOUT_MS}) {
+  if (!missing.length || typeof onRefresh !== 'function' || !(await onRefresh())) return missing;
+  const unresolved = [];
+  await Promise.all(
+    missing.map(async asset => {
+      const index = manifest.indexOf(asset);
+      const image = await loadImage(asset.src, attempt + 1, timeoutMs);
+      if (image) sprites[index] = image;
+      else if (asset.required) unresolved.push(asset);
+    }),
+  );
+  return unresolved;
+}
