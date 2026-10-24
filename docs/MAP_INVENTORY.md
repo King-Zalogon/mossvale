@@ -10,13 +10,15 @@ Issue [#27](https://github.com/King-Zalogon/mossvale/issues/27). A snapshot of t
 | `amber-ridge` | badlands | 64×56 | 1804 | `orchard-ruins`, `frostveil-grove`, `stone-basin` | 3 | 3 | 5 | pebblit, sunskitter, voltkit |
 | `frostveil-grove` | snowy-forest | 64×48 | 1589 | `amber-ridge`, `reedfen-wetlands`, `frostveil-pass` | 3 | 3 | 3 | duskwing, frostowl, hushram, pebblit |
 | `frostveil-pass` | snowy-forest | 64×48 | 1423 | `frostveil-grove` | 3 | 3 | 3 | duskwing, frostowl, hushram |
-| `reedfen-wetlands` | wetland | 64×56 | 2122 | `frostveil-grove`, `stilt-isles` | 3 | 3 | 4 | brooklet, mushmallow, siltkip |
+| `reedfen-wetlands` | wetland | 64×56 | 2122 | `frostveil-grove`, `stilt-isles` | 3 | 3 | 4 | brooklet, mushmallow, reedstilt, siltkip |
 | `orchard-ruins` | meadow | 64×56 | 2003 | `meadow`, `amber-ridge` | 7 | 2 | 3 | bramblebuck, duskwing, emberkin, fernling |
 | `stilt-isles` | wetland | 72×44 | 924 | `reedfen-wetlands`, `reedfen-wetlands` | 3 | 3 | 4 | brooklet, mushmallow, siltkip |
 | `stone-basin` | badlands | 60×50 | 1507 | `amber-ridge`, `amber-ridge` | 4 | 3 | 4 | pebblit, sunskitter, voltkit |
-| `brackenwake-commons` | meadow | 56×44 | 1635 | `meadow` | 2 | 2 | 0 | none (settlement) |
+| `rootglass-canopy` | snowy-forest | 60×48 | 1750 | `frostveil-pass`, `rootglass-hollow` (plus Brooklet seep) | 1 | 1 | 1 | duskwing, frostowl |
+| `rootglass-hollow` | snowy-forest | 60×48 | 1698 | `rootglass-canopy` | 0 | 1 | 2 | pebblit, hushram |
+| `brackenwake-commons` | meadow | 56×44 | 1636 | `meadow` | 2 | 2 | 0 | none (settlement) |
 
-Every shipped map has two new optional caches. They sit off reachable trails, remain hidden from the area map until found, and each grants 6 coins and 1 capture orb. The original region chest keeps its legacy save flag; every added cache has its own stable flag so opening one never opens the others.
+The #336 batch added two new optional caches to each of the nine maps that existed then. Rootglass Canopy and Hollow arrived later with their authored chests and no extra cache pair. The optional caches sit off reachable trails, remain hidden from the area map until found, and each grants 6 coins and 1 capture orb. The original region chest keeps its legacy save flag; every added cache has its own stable flag so opening one never opens the others. Reedstilt is an optional, repeatable low-weight encounter in Reedfen bank grass (#293).
 
 ## Route graph
 
@@ -33,7 +35,7 @@ Every shipped map has two new optional caches. They sit off reachable trails, re
 | --- | --- | --- |
 | Meadow | A large open trail with a stream, tree belts and a hidden grove corridor, plus a large orchard island with apple rows, ruins and two hidden rows | Hidden grove and cut-through triggers |
 | Badlands | Cliff bands with a narrow cut and a long open trail; a ring path around a chasm | Choose a route; quarry and lookout secrets |
-| Snowy forest | Grove and a pass | Blueglass Pass side route |
+| Snowy forest | Grove and a pass, plus the exposed Rootglass canopy and three short spring chambers below it | Follow a clear ridge loop, hear the glassbark water cue, then choose the ordinary descent or Brooklet’s optional seep |
 | Wetland | River with boardwalk crossings; seven stilt isles | Boardwalk crossings and island hopping |
 
 ## Sprite reuse (name → maps)
@@ -46,7 +48,7 @@ Every shipped map has two new optional caches. They sit off reachable trails, re
 | `chest-wooden` | `meadow`, `orchard-ruins`, `brackenwake-commons` |
 | `chest-reed-rope` | `reedfen-wetlands`, `stilt-isles` |
 | `chest-sandstone-iron` | `amber-ridge`, `stone-basin` |
-| `chest-pine-frost` | `frostveil-grove`, `frostveil-pass` |
+| `chest-pine-frost` | `frostveil-grove`, `frostveil-pass`, `rootglass-canopy`, `rootglass-hollow` |
 | `cottage-tiled` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `stilt-isles`, `stone-basin` |
 | `grass-tuft` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles`, `stone-basin` |
 | `person-gardener` | `meadow`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles` |
@@ -56,4 +58,4 @@ Every shipped map has two new optional caches. They sit off reachable trails, re
 | `signpost-wood` | `meadow`, `amber-ridge`, `frostveil-grove`, `frostveil-pass`, `reedfen-wetlands`, `orchard-ruins`, `stilt-isles`, `stone-basin` |
 | `tree-oak` | `meadow`, `orchard-ruins` |
 | `tree-pine` | `meadow`, `orchard-ruins` |
-| `tree-pine-snow` | `frostveil-grove`, `frostveil-pass` |
+| `tree-pine-snow` | `frostveil-grove`, `frostveil-pass`, `rootglass-canopy` |

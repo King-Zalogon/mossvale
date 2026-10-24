@@ -21,7 +21,7 @@
     },
     "source/props-atlas.png": {
       "width": 2000,
-      "height": 1306,
+      "height": 1576,
       "mode": "RGBA"
     },
     "source/creature-combat-atlas.png": {
@@ -35,17 +35,17 @@
       "mode": "RGBA"
     },
     "source/creature-additions-atlas.png": {
-      "width": 1838,
+      "width": 2013,
       "height": 264,
       "mode": "RGBA"
     },
     "source/creature-combat-new-atlas.png": {
-      "width": 8160,
+      "width": 9328,
       "height": 1440,
       "mode": "RGBA"
     },
     "source/creature-follower-new-atlas.png": {
-      "width": 7096,
+      "width": 8112,
       "height": 1600,
       "mode": "RGBA"
     },
@@ -299,6 +299,168 @@
       }
     },
     {
+      "name": "chest-pine-frost",
+      "src": "assets/props/chest-pine-frost.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 309,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/pine-frost-closed.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/pine-frost-closed.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/pine-frost.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Unclaimed closed pose."
+    },
+    {
+      "name": "chest-pine-frost-open-empty",
+      "src": "assets/props/chest-pine-frost-open-empty.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 348,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/pine-frost-open-empty.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/pine-frost-open-empty.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/pine-frost.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Raised lid and completely empty interior."
+    },
+    {
+      "name": "chest-reed-rope",
+      "src": "assets/props/chest-reed-rope.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 293,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/reed-rope-closed.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/reed-rope-closed.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/reed-rope.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Unclaimed closed pose."
+    },
+    {
+      "name": "chest-reed-rope-open-empty",
+      "src": "assets/props/chest-reed-rope-open-empty.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 331,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/reed-rope-open-empty.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/reed-rope-open-empty.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/reed-rope.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Raised lid and completely empty interior."
+    },
+    {
+      "name": "chest-sandstone-iron",
+      "src": "assets/props/chest-sandstone-iron.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 279,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/sandstone-iron-closed.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/sandstone-iron-closed.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/sandstone-iron.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Unclaimed closed pose."
+    },
+    {
+      "name": "chest-sandstone-iron-open-empty",
+      "src": "assets/props/chest-sandstone-iron-open-empty.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 358,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/biomes/sandstone-iron-open-empty.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/biomes/sandstone-iron-open-empty.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/biomes/sandstone-iron.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Raised lid and completely empty interior."
+    },
+    {
       "name": "chest-wooden",
       "src": "assets/props/chest-wooden.png",
       "folder": "props",
@@ -316,6 +478,32 @@
         "editablePixelSource": "art/assets/source atlas cell",
         "originalGeneratedReferences": [],
         "originalGenerationSourceAvailable": false
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "chest-wooden-open-empty",
+      "src": "assets/props/chest-wooden-open-empty.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 343,
+      "height": 330,
+      "anchor": "bottom-center",
+      "sheet": "source/chests/open-empty.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/chests/open-empty.png",
+        "originalGeneratedReferences": [
+          "art/assets/source/chests/open-empty.generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
       },
       "exportProfile": {
         "id": "prop-static-v1",
@@ -344,6 +532,127 @@
       "exportProfile": {
         "id": "prop-static-v1",
         "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      }
+    },
+    {
+      "name": "creature-blastoucan",
+      "src": "assets/creatures/creature-blastoucan.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 264,
+      "height": 227,
+      "anchor": "bottom-center",
+      "sheet": "source/blastoucan/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "exportProfile": {
+        "id": "blastoucan-portrait-v1",
+        "settingsSha256": "5d1c234ca5df5d319ddeeb218b2eecbfc4238c73782d394ccbc5348e239de822"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/blastoucan/portrait.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/blastoucan/portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-blastoucan-combat",
+      "src": "assets/creatures/creature-blastoucan-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/blastoucan/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "exportProfile": {
+        "id": "blastoucan-combat-v1",
+        "settingsSha256": "c9dbf0274610ebced38ee95c0cd069db789595b89fffcc80fa6be9eb734d7531"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/blastoucan/combat.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/blastoucan/combat-spaced.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-blastoucan-follower",
+      "src": "assets/creatures/creature-blastoucan-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/blastoucan/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      },
+      "exportProfile": {
+        "id": "blastoucan-follower-v1",
+        "settingsSha256": "ebaec7fc8be666b4a27e4861a33dde414f8fe09a4bb75c8d8dea1e7a9bd78121"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/blastoucan/follower.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/blastoucan/follower-spaced.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
       }
     },
     {
@@ -613,6 +922,132 @@
         "originalGeneratedReferences": [
           "art/characters/source/creature-cindercurl-follower-generated.png"
         ]
+      }
+    },
+    {
+      "name": "creature-coglet",
+      "src": "assets/creatures/creature-coglet.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 234,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/coglet/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "exportProfile": {
+        "id": "coglet-portrait-v1",
+        "settingsSha256": "c8c8475cf26a48feb242ba2154aaf73da6229a976ce6cf97e69a3505b73c8e82"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/coglet/portrait.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/coglet/correction-378/portrait-corrected.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Anatomical correction #378: fixed front lenses, sagittal gear plane, four corner leg roots and rear flank housing. Prior sources and rejected review retained."
+      }
+    },
+    {
+      "name": "creature-coglet-combat",
+      "src": "assets/creatures/creature-coglet-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/coglet/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "exportProfile": {
+        "id": "coglet-combat-v1",
+        "settingsSha256": "05a6c8296a8653a43774c4ce76ec8ce062f2ff1fed48e8db876e7aafd884bf79"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/coglet/combat.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/coglet/correction-378/combat-corrected.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Anatomical correction #378: fixed front lenses, sagittal gear plane, four corner leg roots and rear flank housing. Prior sources and rejected review retained."
+      }
+    },
+    {
+      "name": "creature-coglet-follower",
+      "src": "assets/creatures/creature-coglet-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/coglet/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      },
+      "exportProfile": {
+        "id": "coglet-follower-v1",
+        "settingsSha256": "7dc9ea39940292b596cd5973a34464428d1a0364dc82377d81a42de4a4ff609a"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/coglet/follower.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/coglet/correction-378/follower-corrected.png",
+          "art/characters/source/coglet/correction-378/northwest-0.png",
+          "art/characters/source/coglet/correction-378/northwest-1.png",
+          "art/characters/source/coglet/correction-378/northwest-2.png",
+          "art/characters/source/coglet/correction-378/northwest-3.png",
+          "art/characters/source/coglet/correction-378/northwest-4.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Anatomical correction #378: fixed front lenses, sagittal gear plane, four corner leg roots and rear flank housing. Prior sources and rejected review retained."
       }
     },
     {
@@ -1365,6 +1800,127 @@
       }
     },
     {
+      "name": "creature-parrocket",
+      "src": "assets/creatures/creature-parrocket.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 243,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/parrocket/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "exportProfile": {
+        "id": "parrocket-portrait-v1",
+        "settingsSha256": "bd406f2de8dc2c837b182893e081440aabf7cf4a900f4e25a7be2e432f7e9028"
+      },
+      "provenance": {
+        "originalGeneratedReferences": [
+          "art/characters/source/parrocket/portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Owner reference identity; export-parrocket.py reproduces the exact editable/runtime pixels.",
+        "editablePixelSource": "art/assets/source/parrocket/portrait.png"
+      },
+      "frames": null
+    },
+    {
+      "name": "creature-parrocket-combat",
+      "src": "assets/creatures/creature-parrocket-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/parrocket/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "exportProfile": {
+        "id": "parrocket-combat-v1",
+        "settingsSha256": "64f50dc8f9d9e19ccd6b65afed0b37027d2d241f9154edf2ee1a0686dc92b307"
+      },
+      "provenance": {
+        "originalGeneratedReferences": [
+          "art/characters/source/parrocket/combat-spaced.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Owner reference identity; export-parrocket.py reproduces the exact editable/runtime pixels.",
+        "editablePixelSource": "art/assets/source/parrocket/combat.png"
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "creature-parrocket-follower",
+      "src": "assets/creatures/creature-parrocket-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/parrocket/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "exportProfile": {
+        "id": "parrocket-follower-v1",
+        "settingsSha256": "1af3ad8854359c3191fcf78efadf4b0ea259670c6681657a3d9cc2e03ed3d998"
+      },
+      "provenance": {
+        "originalGeneratedReferences": [
+          "art/characters/source/parrocket/follower-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Owner reference identity; export-parrocket.py reproduces the exact editable/runtime pixels.",
+        "editablePixelSource": "art/assets/source/parrocket/follower.png"
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      }
+    },
+    {
       "name": "creature-pebblit",
       "src": "assets/creatures/creature-pebblit.png",
       "folder": "creatures",
@@ -1684,6 +2240,127 @@
         "originalGeneratedReferences": [
           "art/characters/source/creature-rillume-follower-generated.png"
         ]
+      }
+    },
+    {
+      "name": "creature-rumblet",
+      "src": "assets/creatures/creature-rumblet.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 264,
+      "height": 260,
+      "anchor": "bottom-center",
+      "sheet": "source/rumblet/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "exportProfile": {
+        "id": "rumblet-portrait-v1",
+        "settingsSha256": "cb60f7f76afa52740ceb14e4a91219293b3db4b5582c5ca9b42a0180321333cc"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/rumblet/portrait.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/rumblet/portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-rumblet-combat",
+      "src": "assets/creatures/creature-rumblet-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/rumblet/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "exportProfile": {
+        "id": "rumblet-combat-v1",
+        "settingsSha256": "0f11438929be88d0630cb3201f8dc6f7f71e9e73d6928312a55ad479535cfe47"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/rumblet/combat.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/rumblet/combat-clean.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-rumblet-follower",
+      "src": "assets/creatures/creature-rumblet-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/rumblet/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      },
+      "exportProfile": {
+        "id": "rumblet-follower-v1",
+        "settingsSha256": "b0e8896ad1388f2b97a357db158bbc63bbcd7347aa42753a0cc8c03eb0adcae8"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/rumblet/follower.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/rumblet/follower-clean.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
       }
     },
     {
@@ -2089,6 +2766,128 @@
       }
     },
     {
+      "name": "creature-wispurr",
+      "src": "assets/creatures/creature-wispurr.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 189,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/wispurr/portrait.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": null,
+      "exportProfile": {
+        "id": "wispurr-portrait-v1",
+        "settingsSha256": "20a116c9bb620f338bc7a20c4fec4b95c9d080816165d1a673685daddc03f823"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/wispurr/portrait.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/wispurr/portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-wispurr-combat",
+      "src": "assets/creatures/creature-wispurr-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/wispurr/combat.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "frameWidth": 288,
+        "frameHeight": 288,
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ],
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "exportProfile": {
+        "id": "wispurr-combat-v1",
+        "settingsSha256": "e3bbd0db5bbd0251250f12f07d13857ee2cc2017e843f0d9473aaf94305e79c1"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/wispurr/combat.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/wispurr/combat-revised.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
+      "name": "creature-wispurr-follower",
+      "src": "assets/creatures/creature-wispurr-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/wispurr/follower.png",
+      "cell": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "frameWidth": 200,
+        "frameHeight": 200,
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ],
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ]
+      },
+      "exportProfile": {
+        "id": "wispurr-follower-v1",
+        "settingsSha256": "65f571f8cfbad8742db7b61561b6e26eeaafb0f43bce829c081491236ddf633c"
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/wispurr/follower.png",
+        "originalGeneratedReferences": [
+          "art/characters/source/wispurr/follower-revised.png",
+          "art/characters/source/wispurr/southwest-phase-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
+      }
+    },
+    {
       "name": "effect-elemental-materials",
       "src": "assets/props/effect-elemental-materials.png",
       "folder": "props",
@@ -2130,100 +2929,100 @@
         ],
         "effectPivots": [
           [
-            95.0,
-            87.0,
+            95,
+            87,
             95.5,
-            89.0,
+            89,
             81.5,
-            90.0
+            90
           ],
           [
             91.5,
             91.5,
             101.5,
             100.5,
-            86.0,
-            94.0
+            86,
+            94
           ],
           [
-            92.0,
-            85.0,
-            100.0,
+            92,
+            85,
+            100,
             94.5,
             85.5,
-            96.0
+            96
           ],
           [
             103.5,
-            93.0,
+            93,
             101.5,
-            98.0,
-            85.0,
-            94.0
+            98,
+            85,
+            94
           ],
           [
-            98.0,
+            98,
             90.5,
-            94.0,
-            95.0,
+            94,
+            95,
             78.5,
-            89.0
+            89
           ],
           [
             102.5,
             95.5,
-            98.0,
+            98,
             93.5,
             85.5,
-            96.0
+            96
           ],
           [
             99.5,
-            88.0,
+            88,
             101.5,
             98.5,
-            83.0,
+            83,
             97.5
           ],
           [
             100.5,
-            89.0,
-            101.0,
-            96.0,
+            89,
+            101,
+            96,
             87.5,
             96.5
           ],
           [
-            98.0,
+            98,
             89.5,
             97.5,
             95.5,
             83.5,
-            94.0
+            94
           ],
           [
             86.5,
-            87.0,
+            87,
             100.5,
             95.5,
             90.5,
-            95.0
+            95
           ],
           [
-            91.0,
+            91,
             90.5,
-            100.0,
-            97.0,
+            100,
+            97,
             90.5,
-            96.0
+            96
           ],
           [
             90.5,
-            87.0,
-            100.0,
+            87,
+            100,
             94.5,
-            90.0,
-            95.0
+            90,
+            95
           ]
         ],
         "defaultFrame": {
@@ -3108,6 +3907,63 @@
       }
     },
     {
+      "name": "prop-rootglass-hollow",
+      "src": "assets/props/prop-rootglass-hollow.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 234,
+      "height": 143,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 0,
+        "y": 1322
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "originalAuthoredReferences": [
+          "art/assets/source/landmarks/rootglass-hollow.svg",
+          "art/assets/source/landmarks/rootglass-hollow.png"
+        ],
+        "originalGenerationSourceAvailable": false,
+        "sourceSha256": "94d4b5fbf1ef84c0a374f7e5d6db646698bffc3bc8127f7e869f79486ef596f8",
+        "promptSummary": "Original hand-authored pixel-art root arch around a dim reflective spring; vector source is the matching rootglass-hollow.svg."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
+      "name": "prop-rootglass-sentinel",
+      "src": "assets/props/prop-rootglass-sentinel.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 256,
+      "height": 234,
+      "anchor": "bottom-center",
+      "sheet": "source/props-atlas.png",
+      "cell": {
+        "x": 250,
+        "y": 1322
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source atlas cell",
+        "sourceSha256": "93e9795d39616be70db8b9849d02f861428195a9d1e988593c92f143d868590b",
+        "originalGeneratedReferences": [
+          "art/assets/source/landmarks/rootglass-sentinel.png"
+        ],
+        "originalGenerationSourceAvailable": true,
+        "promptSummary": "Generated transparent pixel-art ancient canopy sentinel grown around turquoise crystals; detailed bark, layered foliage, rooted silhouette."
+      },
+      "exportProfile": {
+        "id": "prop-landmark-v1",
+        "settingsSha256": "679474e6c87597b75e3669777acb97d7116672b30c54f926b74fa7f3437397a7"
+      }
+    },
+    {
       "name": "prop-sunstone-lookout",
       "src": "assets/props/prop-sunstone-lookout.png",
       "folder": "props",
@@ -3311,6 +4167,31 @@
       }
     },
     {
+      "name": "straw-bundle",
+      "src": "assets/props/straw-bundle.png",
+      "folder": "props",
+      "kind": "prop",
+      "width": 64,
+      "height": 64,
+      "anchor": "bottom-center",
+      "sheet": null,
+      "cell": null,
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/third-party/ravenmore-resource-icons-01/straw-bundle.png",
+        "originalGeneratedReferences": [],
+        "originalGenerationSourceAvailable": true,
+        "externalSourceId": "ravenmore-survival-crafting-icons-01"
+      },
+      "exportProfile": {
+        "id": "prop-static-v1",
+        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
+      },
+      "description": "Non-interactive settlement scenery beside a home or workshop.",
+      "sourceFile": "third-party/ravenmore-resource-icons-01/straw-bundle.png",
+      "sourceSha256": "3e6d084fa2ea1bbccc03d34dc4196d7f5d080a7f9e7ebc011185a390ce590af2"
+    },
+    {
       "name": "tree-fir-full",
       "src": "assets/props/tree-fir-full.png",
       "folder": "props",
@@ -3511,830 +4392,6 @@
       }
     },
     {
-      "name": "chest-wooden-open-empty",
-      "src": "assets/props/chest-wooden-open-empty.png",
-      "folder": "props",
-      "kind": "prop",
-      "width": 343,
-      "height": 330,
-      "anchor": "bottom-center",
-      "sheet": "source/chests/open-empty.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/source/chests/open-empty.png",
-        "originalGeneratedReferences": [
-          "art/assets/source/chests/open-empty.generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      },
-      "exportProfile": {
-        "id": "prop-static-v1",
-        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      }
-    },
-    {
-      "name": "chest-reed-rope",
-      "src": "assets/props/chest-reed-rope.png",
-      "folder": "props",
-      "kind": "prop",
-      "width": 343,
-      "height": 293,
-      "anchor": "bottom-center",
-      "sheet": "source/chests/biomes/reed-rope-closed.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/source/chests/biomes/reed-rope-closed.png",
-        "originalGeneratedReferences": [
-          "art/assets/source/chests/biomes/reed-rope.generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      },
-      "exportProfile": {
-        "id": "prop-static-v1",
-        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      },
-      "description": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Unclaimed closed pose."
-    },
-    {
-      "name": "chest-reed-rope-open-empty",
-      "src": "assets/props/chest-reed-rope-open-empty.png",
-      "folder": "props",
-      "kind": "prop",
-      "width": 343,
-      "height": 331,
-      "anchor": "bottom-center",
-      "sheet": "source/chests/biomes/reed-rope-open-empty.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/source/chests/biomes/reed-rope-open-empty.png",
-        "originalGeneratedReferences": [
-          "art/assets/source/chests/biomes/reed-rope.generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      },
-      "exportProfile": {
-        "id": "prop-static-v1",
-        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      },
-      "description": "Woven reed reward chest with a dark timber frame, rope corner lashings and a bronze latch; suited to wetland construction. Raised lid and completely empty interior."
-    },
-    {
-      "name": "chest-sandstone-iron",
-      "src": "assets/props/chest-sandstone-iron.png",
-      "folder": "props",
-      "kind": "prop",
-      "width": 343,
-      "height": 279,
-      "anchor": "bottom-center",
-      "sheet": "source/chests/biomes/sandstone-iron-closed.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/source/chests/biomes/sandstone-iron-closed.png",
-        "originalGeneratedReferences": [
-          "art/assets/source/chests/biomes/sandstone-iron.generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      },
-      "exportProfile": {
-        "id": "prop-static-v1",
-        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      },
-      "description": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Unclaimed closed pose."
-    },
-    {
-      "name": "chest-sandstone-iron-open-empty",
-      "src": "assets/props/chest-sandstone-iron-open-empty.png",
-      "folder": "props",
-      "kind": "prop",
-      "width": 343,
-      "height": 358,
-      "anchor": "bottom-center",
-      "sheet": "source/chests/biomes/sandstone-iron-open-empty.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/source/chests/biomes/sandstone-iron-open-empty.png",
-        "originalGeneratedReferences": [
-          "art/assets/source/chests/biomes/sandstone-iron.generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      },
-      "exportProfile": {
-        "id": "prop-static-v1",
-        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      },
-      "description": "Red sandstone reward coffer with dark iron brackets and a beveled stone lid; suited to rocky badlands. Raised lid and completely empty interior."
-    },
-    {
-      "name": "chest-pine-frost",
-      "src": "assets/props/chest-pine-frost.png",
-      "folder": "props",
-      "kind": "prop",
-      "width": 343,
-      "height": 309,
-      "anchor": "bottom-center",
-      "sheet": "source/chests/biomes/pine-frost-closed.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/source/chests/biomes/pine-frost-closed.png",
-        "originalGeneratedReferences": [
-          "art/assets/source/chests/biomes/pine-frost.generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      },
-      "exportProfile": {
-        "id": "prop-static-v1",
-        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      },
-      "description": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Unclaimed closed pose."
-    },
-    {
-      "name": "chest-pine-frost-open-empty",
-      "src": "assets/props/chest-pine-frost-open-empty.png",
-      "folder": "props",
-      "kind": "prop",
-      "width": 343,
-      "height": 348,
-      "anchor": "bottom-center",
-      "sheet": "source/chests/biomes/pine-frost-open-empty.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/source/chests/biomes/pine-frost-open-empty.png",
-        "originalGeneratedReferences": [
-          "art/assets/source/chests/biomes/pine-frost.generated.png"
-        ],
-        "originalGenerationSourceAvailable": true
-      },
-      "exportProfile": {
-        "id": "prop-static-v1",
-        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      },
-      "description": "Pale pine reward chest with blue-grey iron and snow on outer edges; suited to snowy forests. Raised lid and completely empty interior."
-    },
-    {
-      "name": "creature-parrocket",
-      "src": "assets/creatures/creature-parrocket.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 243,
-      "height": 264,
-      "anchor": "bottom-center",
-      "sheet": "source/parrocket/portrait.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "exportProfile": {
-        "id": "parrocket-portrait-v1",
-        "settingsSha256": "bd406f2de8dc2c837b182893e081440aabf7cf4a900f4e25a7be2e432f7e9028"
-      },
-      "provenance": {
-        "originalGeneratedReferences": [
-          "art/characters/source/parrocket/portrait-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Owner reference identity; export-parrocket.py reproduces the exact editable/runtime pixels.",
-        "editablePixelSource": "art/assets/source/parrocket/portrait.png"
-      },
-      "frames": null
-    },
-    {
-      "name": "creature-parrocket-combat",
-      "src": "assets/creatures/creature-parrocket-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/parrocket/combat.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "exportProfile": {
-        "id": "parrocket-combat-v1",
-        "settingsSha256": "64f50dc8f9d9e19ccd6b65afed0b37027d2d241f9154edf2ee1a0686dc92b307"
-      },
-      "provenance": {
-        "originalGeneratedReferences": [
-          "art/characters/source/parrocket/combat-spaced.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Owner reference identity; export-parrocket.py reproduces the exact editable/runtime pixels.",
-        "editablePixelSource": "art/assets/source/parrocket/combat.png"
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "frameWidth": 288,
-        "frameHeight": 288,
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ],
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ]
-      }
-    },
-    {
-      "name": "creature-parrocket-follower",
-      "src": "assets/creatures/creature-parrocket-follower.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1000,
-      "height": 1600,
-      "anchor": "bottom-center",
-      "sheet": "source/parrocket/follower.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "exportProfile": {
-        "id": "parrocket-follower-v1",
-        "settingsSha256": "1af3ad8854359c3191fcf78efadf4b0ea259670c6681657a3d9cc2e03ed3d998"
-      },
-      "provenance": {
-        "originalGeneratedReferences": [
-          "art/characters/source/parrocket/follower-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Owner reference identity; export-parrocket.py reproduces the exact editable/runtime pixels.",
-        "editablePixelSource": "art/assets/source/parrocket/follower.png"
-      },
-      "frames": {
-        "columns": 5,
-        "rows": 8,
-        "frameWidth": 200,
-        "frameHeight": 200,
-        "rowOrder": [
-          "north",
-          "northeast",
-          "east",
-          "southeast",
-          "south",
-          "southwest",
-          "west",
-          "northwest"
-        ],
-        "columnOrder": [
-          "idle",
-          "walk-1",
-          "walk-2",
-          "walk-3",
-          "walk-4"
-        ]
-      }
-    },
-    {
-      "name": "creature-blastoucan",
-      "src": "assets/creatures/creature-blastoucan.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 264,
-      "height": 227,
-      "anchor": "bottom-center",
-      "sheet": "source/blastoucan/portrait.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "exportProfile": {
-        "id": "blastoucan-portrait-v1",
-        "settingsSha256": "5d1c234ca5df5d319ddeeb218b2eecbfc4238c73782d394ccbc5348e239de822"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/blastoucan/portrait.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/blastoucan/portrait-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
-      }
-    },
-    {
-      "name": "creature-blastoucan-combat",
-      "src": "assets/creatures/creature-blastoucan-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/blastoucan/combat.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "frameWidth": 288,
-        "frameHeight": 288,
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ],
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ]
-      },
-      "exportProfile": {
-        "id": "blastoucan-combat-v1",
-        "settingsSha256": "c9dbf0274610ebced38ee95c0cd069db789595b89fffcc80fa6be9eb734d7531"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/blastoucan/combat.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/blastoucan/combat-spaced.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
-      }
-    },
-    {
-      "name": "creature-blastoucan-follower",
-      "src": "assets/creatures/creature-blastoucan-follower.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1000,
-      "height": 1600,
-      "anchor": "bottom-center",
-      "sheet": "source/blastoucan/follower.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": {
-        "columns": 5,
-        "rows": 8,
-        "frameWidth": 200,
-        "frameHeight": 200,
-        "rowOrder": [
-          "north",
-          "northeast",
-          "east",
-          "southeast",
-          "south",
-          "southwest",
-          "west",
-          "northwest"
-        ],
-        "columnOrder": [
-          "idle",
-          "walk-1",
-          "walk-2",
-          "walk-3",
-          "walk-4"
-        ]
-      },
-      "exportProfile": {
-        "id": "blastoucan-follower-v1",
-        "settingsSha256": "ebaec7fc8be666b4a27e4861a33dde414f8fe09a4bb75c8d8dea1e7a9bd78121"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/blastoucan/follower.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/blastoucan/follower-spaced.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
-      }
-    },
-    {
-      "name": "creature-rumblet",
-      "src": "assets/creatures/creature-rumblet.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 264,
-      "height": 260,
-      "anchor": "bottom-center",
-      "sheet": "source/rumblet/portrait.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "exportProfile": {
-        "id": "rumblet-portrait-v1",
-        "settingsSha256": "cb60f7f76afa52740ceb14e4a91219293b3db4b5582c5ca9b42a0180321333cc"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/rumblet/portrait.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/rumblet/portrait-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
-      }
-    },
-    {
-      "name": "creature-rumblet-combat",
-      "src": "assets/creatures/creature-rumblet-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/rumblet/combat.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "frameWidth": 288,
-        "frameHeight": 288,
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ],
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ]
-      },
-      "exportProfile": {
-        "id": "rumblet-combat-v1",
-        "settingsSha256": "0f11438929be88d0630cb3201f8dc6f7f71e9e73d6928312a55ad479535cfe47"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/rumblet/combat.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/rumblet/combat-clean.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
-      }
-    },
-    {
-      "name": "creature-rumblet-follower",
-      "src": "assets/creatures/creature-rumblet-follower.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1000,
-      "height": 1600,
-      "anchor": "bottom-center",
-      "sheet": "source/rumblet/follower.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": {
-        "columns": 5,
-        "rows": 8,
-        "frameWidth": 200,
-        "frameHeight": 200,
-        "rowOrder": [
-          "north",
-          "northeast",
-          "east",
-          "southeast",
-          "south",
-          "southwest",
-          "west",
-          "northwest"
-        ],
-        "columnOrder": [
-          "idle",
-          "walk-1",
-          "walk-2",
-          "walk-3",
-          "walk-4"
-        ]
-      },
-      "exportProfile": {
-        "id": "rumblet-follower-v1",
-        "settingsSha256": "b0e8896ad1388f2b97a357db158bbc63bbcd7347aa42753a0cc8c03eb0adcae8"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/rumblet/follower.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/rumblet/follower-clean.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
-      }
-    },
-    {
-      "name": "creature-coglet",
-      "src": "assets/creatures/creature-coglet.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 234,
-      "height": 264,
-      "anchor": "bottom-center",
-      "sheet": "source/coglet/portrait.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "exportProfile": {
-        "id": "coglet-portrait-v1",
-        "settingsSha256": "c8c8475cf26a48feb242ba2154aaf73da6229a976ce6cf97e69a3505b73c8e82"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/coglet/portrait.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/coglet/correction-378/portrait-corrected.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Anatomical correction #378: fixed front lenses, sagittal gear plane, four corner leg roots and rear flank housing. Prior sources and rejected review retained."
-      }
-    },
-    {
-      "name": "creature-coglet-combat",
-      "src": "assets/creatures/creature-coglet-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/coglet/combat.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "frameWidth": 288,
-        "frameHeight": 288,
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ],
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ]
-      },
-      "exportProfile": {
-        "id": "coglet-combat-v1",
-        "settingsSha256": "05a6c8296a8653a43774c4ce76ec8ce062f2ff1fed48e8db876e7aafd884bf79"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/coglet/combat.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/coglet/correction-378/combat-corrected.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Anatomical correction #378: fixed front lenses, sagittal gear plane, four corner leg roots and rear flank housing. Prior sources and rejected review retained."
-      }
-    },
-    {
-      "name": "creature-coglet-follower",
-      "src": "assets/creatures/creature-coglet-follower.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1000,
-      "height": 1600,
-      "anchor": "bottom-center",
-      "sheet": "source/coglet/follower.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": {
-        "columns": 5,
-        "rows": 8,
-        "frameWidth": 200,
-        "frameHeight": 200,
-        "rowOrder": [
-          "north",
-          "northeast",
-          "east",
-          "southeast",
-          "south",
-          "southwest",
-          "west",
-          "northwest"
-        ],
-        "columnOrder": [
-          "idle",
-          "walk-1",
-          "walk-2",
-          "walk-3",
-          "walk-4"
-        ]
-      },
-      "exportProfile": {
-        "id": "coglet-follower-v1",
-        "settingsSha256": "7dc9ea39940292b596cd5973a34464428d1a0364dc82377d81a42de4a4ff609a"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/coglet/follower.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/coglet/correction-378/follower-corrected.png",
-          "art/characters/source/coglet/correction-378/northwest-0.png",
-          "art/characters/source/coglet/correction-378/northwest-1.png",
-          "art/characters/source/coglet/correction-378/northwest-2.png",
-          "art/characters/source/coglet/correction-378/northwest-3.png",
-          "art/characters/source/coglet/correction-378/northwest-4.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Anatomical correction #378: fixed front lenses, sagittal gear plane, four corner leg roots and rear flank housing. Prior sources and rejected review retained."
-      }
-    },
-    {
-      "name": "creature-wispurr",
-      "src": "assets/creatures/creature-wispurr.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 189,
-      "height": 264,
-      "anchor": "bottom-center",
-      "sheet": "source/wispurr/portrait.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": null,
-      "exportProfile": {
-        "id": "wispurr-portrait-v1",
-        "settingsSha256": "20a116c9bb620f338bc7a20c4fec4b95c9d080816165d1a673685daddc03f823"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/wispurr/portrait.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/wispurr/portrait-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
-      }
-    },
-    {
-      "name": "creature-wispurr-combat",
-      "src": "assets/creatures/creature-wispurr-combat.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1152,
-      "height": 1440,
-      "anchor": "bottom-center",
-      "sheet": "source/wispurr/combat.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": {
-        "columns": 4,
-        "rows": 5,
-        "frameWidth": 288,
-        "frameHeight": 288,
-        "rowOrder": [
-          "idle",
-          "attack",
-          "hit",
-          "faint",
-          "capture"
-        ],
-        "columnOrder": [
-          0,
-          1,
-          2,
-          3
-        ]
-      },
-      "exportProfile": {
-        "id": "wispurr-combat-v1",
-        "settingsSha256": "e3bbd0db5bbd0251250f12f07d13857ee2cc2017e843f0d9473aaf94305e79c1"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/wispurr/combat.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/wispurr/combat-revised.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
-      }
-    },
-    {
-      "name": "creature-wispurr-follower",
-      "src": "assets/creatures/creature-wispurr-follower.png",
-      "folder": "creatures",
-      "kind": "creature",
-      "width": 1000,
-      "height": 1600,
-      "anchor": "bottom-center",
-      "sheet": "source/wispurr/follower.png",
-      "cell": {
-        "x": 0,
-        "y": 0
-      },
-      "frames": {
-        "columns": 5,
-        "rows": 8,
-        "frameWidth": 200,
-        "frameHeight": 200,
-        "rowOrder": [
-          "north",
-          "northeast",
-          "east",
-          "southeast",
-          "south",
-          "southwest",
-          "west",
-          "northwest"
-        ],
-        "columnOrder": [
-          "idle",
-          "walk-1",
-          "walk-2",
-          "walk-3",
-          "walk-4"
-        ]
-      },
-      "exportProfile": {
-        "id": "wispurr-follower-v1",
-        "settingsSha256": "65f571f8cfbad8742db7b61561b6e26eeaafb0f43bce829c081491236ddf633c"
-      },
-      "provenance": {
-        "editablePixelSource": "art/assets/source/wispurr/follower.png",
-        "originalGeneratedReferences": [
-          "art/characters/source/wispurr/follower-revised.png",
-          "art/characters/source/wispurr/southwest-phase-generated.png"
-        ],
-        "originalGenerationSourceAvailable": true,
-        "notes": "Inline owner-reference adaptation; original owner binaries unavailable. Retained generated sources reproduce exact editable/runtime pixels."
-      }
-    },
-    {
-      "name": "straw-bundle",
-      "src": "assets/props/straw-bundle.png",
-      "folder": "props",
-      "kind": "prop",
-      "width": 64,
-      "height": 64,
-      "anchor": "bottom-center",
-      "sheet": null,
-      "cell": null,
-      "frames": null,
-      "provenance": {
-        "editablePixelSource": "art/assets/third-party/ravenmore-resource-icons-01/straw-bundle.png",
-        "originalGeneratedReferences": [],
-        "originalGenerationSourceAvailable": true,
-        "externalSourceId": "ravenmore-survival-crafting-icons-01"
-      },
-      "exportProfile": {
-        "id": "prop-static-v1",
-        "settingsSha256": "2a9a2fce5f760a0cf42fba128e67c6af57826304dac8c83ad71ba1a55860acb2"
-      },
-      "description": "Non-interactive settlement scenery beside a home or workshop.",
-      "sourceFile": "third-party/ravenmore-resource-icons-01/straw-bundle.png",
-      "sourceSha256": "3e6d084fa2ea1bbccc03d34dc4196d7f5d080a7f9e7ebc011185a390ce590af2"
-    },
-    {
       "name": "wood-firewood-bundle",
       "src": "assets/props/wood-firewood-bundle.png",
       "folder": "props",
@@ -4383,6 +4440,114 @@
       "description": "Non-interactive settlement scenery beside a home or workshop.",
       "sourceFile": "third-party/ravenmore-resource-icons-01/wood-plank-stack.png",
       "sourceSha256": "49bdb6cf2a635e4e055691ad5a73b2ba8855a94332d3515cc8584dc986daeaed"
+    },
+    {
+      "name": "creature-reedstilt",
+      "src": "assets/creatures/creature-reedstilt.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 159,
+      "height": 264,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-additions-atlas.png",
+      "cell": {
+        "x": 1854,
+        "y": 0,
+        "width": 159,
+        "height": 264
+      },
+      "frames": null,
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-additions-atlas.png normalized portrait cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-reedstilt-portrait-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      },
+      "exportProfile": {
+        "id": "creature-portrait-compact-v1",
+        "settingsSha256": "4f4115cb93d87aef9f280c89a61a0e0e03658ebbe4817a139a638ad8a8283f18"
+      }
+    },
+    {
+      "name": "creature-reedstilt-combat",
+      "src": "assets/creatures/creature-reedstilt-combat.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1152,
+      "height": 1440,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-combat-new-atlas.png",
+      "cell": {
+        "x": 8176,
+        "y": 0
+      },
+      "frames": {
+        "columns": 4,
+        "rows": 5,
+        "columnOrder": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rowOrder": [
+          "idle",
+          "attack",
+          "hit",
+          "faint",
+          "capture"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-combat-new-atlas.png normalized animation atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-reedstilt-combat-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
+    },
+    {
+      "name": "creature-reedstilt-follower",
+      "src": "assets/creatures/creature-reedstilt-follower.png",
+      "folder": "creatures",
+      "kind": "creature",
+      "width": 1000,
+      "height": 1600,
+      "anchor": "bottom-center",
+      "sheet": "source/creature-follower-new-atlas.png",
+      "cell": {
+        "x": 7112,
+        "y": 0
+      },
+      "frames": {
+        "columns": 5,
+        "rows": 8,
+        "columnOrder": [
+          "idle",
+          "walk-1",
+          "walk-2",
+          "walk-3",
+          "walk-4"
+        ],
+        "rowOrder": [
+          "north",
+          "northeast",
+          "east",
+          "southeast",
+          "south",
+          "southwest",
+          "west",
+          "northwest"
+        ]
+      },
+      "provenance": {
+        "editablePixelSource": "art/assets/source/creature-follower-new-atlas.png normalized animation atlas cell",
+        "originalGeneratedReferences": [
+          "art/characters/source/creature-reedstilt-follower-generated.png"
+        ],
+        "originalGenerationSourceAvailable": true
+      }
     }
   ]
 }

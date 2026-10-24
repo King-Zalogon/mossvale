@@ -13,7 +13,7 @@ import {
   companionRouteVisible,
   validateCompanionRoutes,
 } from '../dist/src/domain/companion-routes.js';
-import {content, mapsById, newSave, rawMaps, rawObjectives} from './helpers.mjs';
+import {content, mapsById, newSave, rawMaps, rawObjectives, rawPack} from './helpers.mjs';
 
 const edit = fn => {
   const raw = rawMaps();
@@ -45,6 +45,8 @@ test('the shipped maps validate', () => {
     'stilt-isles',
     'stone-basin',
     'brackenwake-commons',
+    'rootglass-canopy',
+    'rootglass-hollow',
   ]);
   assert.deepEqual(
     Object.fromEntries(
@@ -58,12 +60,15 @@ test('the shipped maps validate', () => {
       'orchard-ruins': content.assets.findIndex(asset => asset.name === 'prop-cider-press'),
       'stilt-isles': content.assets.findIndex(asset => asset.name === 'prop-heron-blind'),
       'stone-basin': content.assets.findIndex(asset => asset.name === 'prop-quarry-alcove'),
+      'rootglass-canopy': content.assets.findIndex(asset => asset.name === 'prop-rootglass-sentinel'),
+      'rootglass-hollow': content.assets.findIndex(asset => asset.name === 'prop-rootglass-hollow'),
     },
   );
 });
 
-test('every shipped map has two distinct optional trail caches without replacing its legacy chest', () => {
-  const raw = rawMaps();
+test('every map that existed when the caches were added has two distinct optional trail caches without replacing its legacy chest', () => {
+  // The Rootglass pair was authored after the caches (#336) with its own chests and carries none of them.
+  const raw = rawMaps().filter(map => !map.id.startsWith('rootglass-'));
   const expected = new Set([
     'meadow',
     'amber-ridge',
@@ -188,6 +193,28 @@ test('the Reedfen shallow-water cut is concealed until eligible approach and kee
     edit(raw => (raw.find(map => map.id === 'reedfen-wetlands').exits.find(exit => exit.route).route.reward.coins = -1)),
     'must be an integer from 0 to 999',
   );
+});
+
+test('Rootglass is an optional two-map route with distinct ecology, stable returns, and a Brooklet-only shortcut', () => {
+  const pass = rawMaps().find(map => map.id === 'frostveil-pass');
+  const canopy = rawMaps().find(map => map.id === 'rootglass-canopy');
+  const hollow = rawMaps().find(map => map.id === 'rootglass-hollow');
+  const entry = pass.exits.find(exit => exit.to.map === canopy.id);
+  const descent = canopy.exits.find(exit => exit.id === 'hollow-stair');
+  const seep = canopy.exits.find(exit => exit.route?.id === 'rootglass-seep');
+  assert.equal(entry.to.spawn, 'pass-return');
+  assert.equal(entry.requires, undefined, 'every starter can enter the side route');
+  assert.deepEqual(descent.to, {map: hollow.id, spawn: 'canopy-entry'});
+  assert.deepEqual(seep.route.requires, {ability: 'cross-shallow-water'});
+  assert.match(canopy.landmarks.find(landmark => landmark.id === 'root-seep-clue').lines[0].text, /Brooklet/);
+  assert.ok(hollow.exits.some(exit => exit.to.map === canopy.id && exit.to.spawn === 'hollow-return'));
+  assert.ok(canopy.landmarks.some(landmark => landmark.sprite === 'prop-rootglass-sentinel'));
+  assert.equal(canopy.landmarks.find(landmark => landmark.id === 'root-seep-clue').secret, true);
+  assert.ok(hollow.landmarks.some(landmark => landmark.sprite === 'prop-rootglass-hollow'));
+  assert.deepEqual(canopy.zones[0].pool, ['duskwing', 'frostowl']);
+  assert.deepEqual(hollow.zones[0].pool, ['pebblit', 'hushram']);
+  assert.equal(rawPack().contentVersion, 10);
+  assert.ok(mapsById[canopy.id] && mapsById[hollow.id]);
 });
 
 test('companion route visibility uses its saved unlock event and a bounded approach radius', () => {
@@ -450,9 +477,9 @@ test('the wetland pair is two large connected maps with a safe loop of exits (#5
   assert.equal(to(stilt, 'north-landing').spawn, 'shrine-landing');
   assert.ok(reed.spawns['stilt-return'] && reed.spawns['shrine-landing']);
   assert.equal(reed.exits.find(e => e.id === 'west').to.map, 'frostveil-grove');
-  // four wetland creatures, one seal, a supply point on both maps, discoveries, quiet corridors
+  // six wetland creatures, one seal, a supply point on both maps, discoveries, quiet corridors
   const species = new Set(raw.flatMap(m => (m === reed || m === stilt ? m.zones : [])).flatMap(z => z.pool.map(p => p.species ?? p)));
-  assert.deepEqual([...species].sort(), ['brooklet', 'mushmallow', 'myceloop', 'rillume', 'siltkip']);
+  assert.deepEqual([...species].sort(), ['brooklet', 'mushmallow', 'myceloop', 'reedstilt', 'rillume', 'siltkip']);
   assert.equal([reed, stilt].flatMap(m => m.landmarks).filter(l => l.kind === 'shrine').length, 1);
   for (const m of [reed, stilt]) {
     assert.ok(

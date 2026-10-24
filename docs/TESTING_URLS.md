@@ -4,7 +4,7 @@ Open **Testing URLs** from the title screen or in-game menu. It opens `testing.h
 
 | Page | What to review |
 | --- | --- |
-| `creature-follower-preview.html` | The 18 default Mossvale creatures plus Parrocket, Blastoucan, Rumblet, Coglet and Wispurr, eight facings, idle/four-frame travel, own-motion turns, retained facing at rest, reduced motion and foreground occlusion at gameplay scale. |
+| `creature-follower-preview.html` | The 20 default Mossvale creatures plus Parrocket, Blastoucan, Rumblet, Coglet and Wispurr, eight facings, idle/four-frame travel, own-motion turns, retained facing at rest, reduced motion and foreground occlusion at gameplay scale. |
 | `creature-combat-preview.html` | Creature combat idle, attack, hit, faint and capture states with calm-motion playback. |
 | `guardian-combat-preview.html` | Four normal/shrine combat pairs at actual battle scale, all five action states and individual frames, with reduced motion. |
 | `character-preview.html` | Red-cap player walk/idle directions and reusable traveler/gardener appearances. |

@@ -1,6 +1,6 @@
 # Creature roster (#24)
 
-The roster has 19 stable species IDs. The original twelve IDs and their order stay unchanged so existing saves still resolve; Sedgegnaw, Petalunge, Cindercurl, Sunsifter, Rillume, Lanternix and Myceloop are appended. Every species is findable in a home-biome encounter zone. The current distribution is Meadow 5, Wetland 5, Rocky Badlands 6 and Snowy Forest 3 while the wider creature portfolio continues. The field journal reveals personality, battle role, base stats, elemental move, and a habitat clue after discovery.
+The roster has 20 stable species IDs. The original twelve IDs and their order stay unchanged so existing saves still resolve; Sedgegnaw, Petalunge, Cindercurl, Sunsifter, Rillume, Lanternix, Myceloop and Reedstilt are appended. Every species is findable in a home-biome encounter zone. The current distribution is Meadow 5, Wetland 6, Rocky Badlands 6 and Snowy Forest 3 while the wider creature portfolio continues. The field journal reveals personality, battle role, base stats, elemental move, and a habitat clue after discovery.
 
 | Biome | Species | Role | Base HP / ATK / DEF | Elemental move | Field clue |
 | --- | --- | --- | ---: | --- | --- |
@@ -14,6 +14,7 @@ The roster has 19 stable species IDs. The original twelve IDs and their order st
 | Wetland | Siltkip | Matchup scout | 44 / 10 / 12 | Silt surge | Watch the shallow pools; its tail often appears first. |
 | Wetland | Rillume | Resonant striker | 42 / 13 / 9 | Bell pulse | Look in Reedfen's safe bank grass for a blue core beneath a clear bell. |
 | Wetland | Myceloop | Patient control bulwark | 50 / 7 / 14 | Mycelial pulse | Follow the amber-dotted damp trail beside the safe Reedfen bank grass. |
+| Wetland | Reedstilt | Steady wader scout | 48 / 9 / 13 | Reed scoop | Look for high-knee steps in the safe grass along Reedfen’s dry boardwalk bank. |
 | Rocky badlands | Voltkit | Glass-cannon sprinter | 39 / 13 / 6 | Static leap | Follow the bright sandstone trail into Amber Ridge grass. |
 | Rocky badlands | Pebblit | Stalwart wall | 52 / 8 / 16 | Stone tumble | Amber Ridge's warm grass is its favourite place to bask. |
 | Rocky badlands | Sunskitter | High-risk attacker | 36 / 14 / 6 | Glass dash | Search the rocky grass where the sun reaches Amber Ridge first. |
@@ -55,3 +56,8 @@ The `tests/lanternix.browser.mjs` regression uses real controls to capture Lante
 Myceloop is a single connected, three-lobed plasmodial slime mold with a central dimple, lavender vein pattern and amber vents. Its export is broader and lower than Mushmallow; the missing mushroom cap, face and hedgehog spines are intentional silhouette differences. It trades one point of attack and defense for two points of HP relative to Mushmallow, and its Mycelial pulse has lower power than Spore cloud. This keeps it defensive without making it a strictly better copy. No species-specific status/controller code is attached; the generic one-use battle condition remains a later #263 balance option.
 
 In Reedfen, an optional amber trail clue leads toward reachable bank grass. Myceloop appears at low weight in both existing shallow and deeper pools, uses the bounded curious/circle-and-retry behavior, and can be encountered again after a retreat. It needs no water-crossing ability. The three transparent source images and generation provenance are retained in `art/characters/source/`; normalized 4×5 combat and 5×8 follower exports are in the existing roster preview routes. Combat states use 288 px cells; follower states use 200 px cells, N/NE/E/SE/S/SW/W/NW rows, idle plus four slow squeeze-flow poses, a bottom-center anchor at y=196 and 0.56 world-unit cadence. Owner visual/enjoyment approval is still pending.
+
+
+## Reedstilt (#293)
+
+Reedstilt is a tall marsh wader with a broad pale throat, scoop bill, reed-fan crest and long jointed ochre legs. It contrasts with Siltkip’s low mudskipper body plan. Its 48 HP, 9 attack and 13 defense with the baseline-power Reed scoop keep it in the reliable middle of the roster. It shares Mire’s existing strengths and weaknesses: elemental effectiveness remains type-level and is not customized per species. In Reedfen it appears at low weight in the reachable dry-bank grass, without a traversal gate; the generic encounter behavior remains repeatable.

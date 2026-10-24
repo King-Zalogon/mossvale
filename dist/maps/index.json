@@ -12,7 +12,9 @@
     "orchard-ruins",
     "stilt-isles",
     "stone-basin",
-    "brackenwake-commons"
+    "brackenwake-commons",
+    "rootglass-canopy",
+    "rootglass-hollow"
   ],
   "species": [
     "fernling",
@@ -33,7 +35,8 @@
     "sunsifter",
     "rillume",
     "lanternix",
-    "myceloop"
+    "myceloop",
+    "reedstilt"
   ],
   "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
   "ending": "story",
@@ -41,7 +44,7 @@
   "story": "story.json",
   "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 8,
+  "contentVersion": 10,
   "requires": {
     "engineVersion": 1,
     "saveSchema": 5
@@ -50,7 +53,7 @@
     {
       "id": "registry:main",
       "path": "registries.json",
-      "sha256": "2a49c97c49808bd42a65e3ee338219298886e6d048b248731c58c13bb571407a"
+      "sha256": "b7d17a7fd9a62314ac6db90cf48554b541e47e6a3a772be609a708055ba68dde"
     },
     {
       "id": "map:meadow",
@@ -70,12 +73,12 @@
     {
       "id": "map:frostveil-pass",
       "path": "frostveil-pass.json",
-      "sha256": "423eab1932f8590ac26926406a3eb630ac232b612353c15369181877dc6d25af"
+      "sha256": "2ebb26442c15515b32996ababeeadd2e0b75e946e1ce0165db8c90fb579e1595"
     },
     {
       "id": "map:reedfen-wetlands",
       "path": "reedfen-wetlands.json",
-      "sha256": "d46c99fbdc8c63b468802e996fff5680d3f0d3eed846f7cf1f97d26258a2a28f"
+      "sha256": "5dd1fe36686381e0cbbfae041839655598753240690f3734820d7eb920b463ae"
     },
     {
       "id": "map:orchard-ruins",
@@ -96,6 +99,16 @@
       "id": "map:brackenwake-commons",
       "path": "brackenwake-commons.json",
       "sha256": "92cf67c62bf4c0fa3c8676bb5533d488bb837679fbb458cacaf61ec7b996b365"
+    },
+    {
+      "id": "map:rootglass-canopy",
+      "path": "rootglass-canopy.json",
+      "sha256": "ee281f2be56287a5eadd2f1f0321f196c1660c0eb7270c717584f9dda9c8aac1"
+    },
+    {
+      "id": "map:rootglass-hollow",
+      "path": "rootglass-hollow.json",
+      "sha256": "efaf2e47ff85a147be7cd0250b3f4984ea888541f20ad7658b135da6fb72463d"
     },
     {
       "id": "objectives:main",

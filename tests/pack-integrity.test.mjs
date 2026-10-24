@@ -25,6 +25,8 @@ test('the shipped pack declares one canonical SHA-256 for every selected data fi
       'map:stilt-isles',
       'map:stone-basin',
       'map:brackenwake-commons',
+      'map:rootglass-canopy',
+      'map:rootglass-hollow',
       'objectives:main',
       'story:main',
       'inventory:main',

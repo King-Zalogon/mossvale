@@ -1,7 +1,7 @@
 {
   "format": 1,
   "purpose": "Technical frame spacing audit; does not certify anatomy, identity or visual taste.",
-  "totalCells": 1220,
+  "totalCells": 1280,
   "assets": [
     {
       "asset": "creature-emberkin-combat",
@@ -340,6 +340,24 @@
       "asset": "creature-myceloop-follower",
       "path": "dist/assets/creatures/creature-myceloop-follower.png",
       "sha256": "0d7e0009174ae056ba3d3a537c0b2e65d5a63a5af81767fe4b14bd154a7fe467",
+      "frame": [200, 200],
+      "cells": 40,
+      "minimumClearMargin": 4,
+      "ground": 196
+    },
+    {
+      "asset": "creature-reedstilt-combat",
+      "path": "dist/assets/creatures/creature-reedstilt-combat.png",
+      "sha256": "dcd46dad491f6655e601b64ad34ac5f11292ef7480f5484418be84d8fc54cc13",
+      "frame": [288, 288],
+      "cells": 20,
+      "minimumClearMargin": 4,
+      "ground": 284
+    },
+    {
+      "asset": "creature-reedstilt-follower",
+      "path": "dist/assets/creatures/creature-reedstilt-follower.png",
+      "sha256": "ef900416e6dd24bf554d8be3a62460450c3e89a3e424d813d4f0394c265d0cc6",
       "frame": [200, 200],
       "cells": 40,
       "minimumClearMargin": 4,
