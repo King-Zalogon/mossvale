@@ -298,3 +298,6 @@ PR #421 merged into `integration` as `00184501d849bb764899d0f60c3534dc2e63a4cf`.
 ## #293 — Reedstilt
 
 Branch `codex/293-reedstilt` is based on `origin/main` `5f13a43` and refreshed with latest `origin/integration` `e37de8f`. Reedstilt now uses current Mire mechanics, an optional repeatable Reedfen encounter, source-backed transparent portrait/combat/follower artwork and capture/reload coverage. Full local verification passes with `CHROMIUM=/usr/bin/chromium`; Actions/Vercel are unavailable. Open the PR to `integration`, preserve its ownerTaste review as pending, and keep #293 open until owner visual/enjoyment feedback is recorded in #267.
+
+## Voltkit refresh follow-up (PR #412)
+Claimed `codex/voltkit-refresh-followup` from `origin/integration`; refreshed against the current integration head during conflict resolution. The follow-up archives exact supplied Voltkit redesign bytes, aligns the reviewed follower row contract across exporter/metadata/runtime, and rebinds retained scene-quality evidence. The source sheet has duplicated side/rear poses; no new art was fabricated. Hosted CI is unavailable; the PR targets `integration` only.
