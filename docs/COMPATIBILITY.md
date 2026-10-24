@@ -34,7 +34,7 @@ An invalid declaration outranks a newer one, which outranks an older one (updati
 
 ## Order of events at startup
 
-1. Fetch `index.json` only. Check format and requirements. A rejected pack stops here with the specific message: no other pack file, no save, checkpoint or archive has been read or written.
+1. Fetch `index.json` only. Check format and requirements. A rejected pack stops here with a `PackCompatibilityError` (`status`: `requires-newer-game`, `pack-too-old` or `invalid`): no other pack file, no save, checkpoint or archive has been read or written. The start screen says whose version has to change ("made for a newer version of Mossvale. Update the game…", "made for an older version… no longer supported", "does not say which version of the game it needs"), shows the field-level detail, never blames the network, and offers the other adventure.
 2. Verify every selected file's SHA-256, then open the save codec.
 3. The codec classifies the stored save (`classifySaveSchema`): `current` loads, `migrate` is converted in memory and only rewritten by the next normal save, `future` is read-only and untouched, `invalid` is quarantined only when it is unreadable, never because it is newer.
 4. A save for another pack is `foreign`; a save whose pack content version is newer than the installed pack is left untouched with a restore-the-matching-build explanation.
@@ -50,8 +50,12 @@ An invalid declaration outranks a newer one, which outranks an older one (updati
 
 Your exported pack names the contract it was built for in `requires`. Run `npm run pack -- refresh-manifest <folder>` after a game update that you have checked your content against, then `validate-pack`, and `npm run adventure:report -- <folder>` to see the compatibility result next to the other checks. A `pack-too-old` result means content review, not a number change.
 
+## Evidence
+
+`tests/compatibility.test.mjs` covers the verdicts, the typed loader error and the codec's `future` status. `tests/pack-compat.browser.mjs` serves the shipped Hearth fixture pack as a second adventure at the current level, then declared as a newer game, a newer save schema only, an older unsupported contract, a malformed level and a missing declaration: each shows its own explanation, reads no other pack file, offers the other adventure and leaves every save, checkpoint, archive, quarantine and journal key of both adventures byte-identical; the other adventure and, once the pack is accepted again, the rejected one resume with their own progress, also after a reload. The same Hearth bytes are reused for every level because `requires` sits outside the integrity hashes.
+
 ## Not covered yet
 
-- No second independent pack at a different level exists, because the window is one level wide; the fixture packs under `tests/fixtures/packs/` all declare the current level and are checked by the test.
+- "Oldest supported" and "current" are the same level today because the window is one level wide, so there is no separate oldest-supported fixture; the first real schema change must add one together with its migration.
 - The account-level (cloud) revision rules are exercised by the account tests, not by this page.
 - No migration registry exists: there has been no real schema change since schema 5. When one ships, register it here and in `SAVE_FORMAT.md`.

@@ -11,7 +11,7 @@ import {
   classifySaveSchema,
 } from '../dist/src/compatibility.js';
 import {validatePackMetadata} from '../dist/src/domain/pack.js';
-import {fetchAdventure} from '../dist/src/services/maps.js';
+import {PackCompatibilityError, fetchAdventure} from '../dist/src/services/maps.js';
 import {VERSION} from '../dist/src/save.js';
 import {codec} from './helpers.mjs';
 
@@ -130,5 +130,25 @@ test('every checked-in pack manifest is compatible at the current level', () => 
   for (const dir of ['tests/fixtures/packs/hearth', 'tests/fixtures/packs/bakery', 'tests/fixtures/packs/lantern-crossing']) {
     const index = JSON.parse(readFileSync(new URL(`../${dir}/index.json`, import.meta.url), 'utf8'));
     assert.equal(assessPackRequirements(index).status, 'compatible', dir);
+  }
+});
+
+test('the loader raises a typed error carrying the verdict so the game can say whose version has to change (#283)', async () => {
+  const originalFetch = globalThis.fetch;
+  const cases = [
+    [{engineVersion: ENGINE_VERSION + 1, saveSchema: SAVE_SCHEMA_VERSION}, 'requires-newer-game'],
+    [{engineVersion: ENGINE_VERSION, saveSchema: SAVE_SCHEMA_VERSION - 1}, 'pack-too-old'],
+    [{engineVersion: ENGINE_VERSION, saveSchema: '5'}, 'invalid'],
+  ];
+  try {
+    for (const [requires, status] of cases) {
+      globalThis.fetch = async () => new Response(JSON.stringify(withRequires(requires)), {status: 200});
+      await assert.rejects(
+        fetchAdventure('mock/'),
+        error => error instanceof PackCompatibilityError && error.status === status && /Update the game/.test(error.message),
+      );
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
   }
 });

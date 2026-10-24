@@ -1,6 +1,15 @@
 /* Fetches one coherent, verified snapshot of the adventure pack before save loading can begin. */
 import {validatePackMetadata, packFileEntries} from '../domain/pack.js';
-import {ENGINE_VERSION, SAVE_SCHEMA_VERSION} from '../compatibility.js';
+import {ENGINE_VERSION, SAVE_SCHEMA_VERSION, assessPackRequirements} from '../compatibility.js';
+
+/** The pack declares a contract this game cannot load; `status` is `requires-newer-game`, `pack-too-old` or `invalid` (docs/COMPATIBILITY.md). */
+export class PackCompatibilityError extends Error {
+  constructor(status, message) {
+    super(message);
+    this.name = 'PackCompatibilityError';
+    this.status = status;
+  }
+}
 
 export class PackIntegrityUnavailableError extends Error {
   constructor() {
@@ -29,8 +38,12 @@ export async function fetchAdventure(base = 'maps/') {
   };
   const index = parse(await bytesFor('manifest:index', 'index.json'), 'manifest:index');
   const errors = validatePackMetadata(index, {required: true, engineVersion: ENGINE_VERSION, saveSchema: SAVE_SCHEMA_VERSION});
-  if (errors.length)
-    throw new Error(`Pack compatibility check failed: ${errors.join(' · ')}. Update the game or restore a complete compatible build, then retry.`);
+  if (errors.length) {
+    const message = `Pack compatibility check failed: ${errors.join(' · ')}. Update the game or restore a complete compatible build, then retry.`;
+    const {status} = assessPackRequirements(index);
+    if (status !== 'compatible') throw new PackCompatibilityError(status, message);
+    throw new Error(message);
+  }
   if (!globalThis.crypto?.subtle) throw new PackIntegrityUnavailableError();
   const entries = packFileEntries(index);
   const verified = await Promise.all(
