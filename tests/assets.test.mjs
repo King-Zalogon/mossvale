@@ -284,6 +284,25 @@ test('content refers to art by name: species, directions and the manifest agree'
   assert.throws(() => spriteId('no-such-sprite'), /unknown asset/);
 });
 
+test('scene reaction assets retain their optional fallback contract', () => {
+  const metadata = JSON.parse(readFileSync(new URL('../art/characters/scene-reaction-metadata.json', import.meta.url), 'utf8'));
+  assert.equal(metadata.anchor, 'bottom-center');
+  assert.deepEqual(metadata.runtimeDimensions, {width: 160, height: 256});
+  for (const pose of metadata.poses) {
+    const asset = assets[spriteId(`person-scene-reaction-${pose.id}`)];
+    assert.equal(asset.kind, 'person');
+    assert.equal(asset.required, false);
+    assert.equal(asset.anchor, metadata.anchor);
+    assert.deepEqual([asset.w, asset.h], [metadata.runtimeDimensions.width, metadata.runtimeDimensions.height]);
+    const image = decodePng(readFileSync(new URL(`../dist/${asset.src}`, import.meta.url)));
+    assert.deepEqual([image.width, image.height], [asset.w, asset.h]);
+    assert.ok(image.transparent, pose.id);
+    assert.ok(opaqueBounds(image), pose.id);
+    assert.ok(opaqueBounds(image).bottom <= 3, `${pose.id} keeps the bottom-center anchor`);
+    assert.equal(sha256File(join(fileURLToPath(new URL('../', import.meta.url)), pose.source)), pose.sourceSha256, `${pose.id} source provenance`);
+  }
+});
+
 test('editable atlas crops and individually sourced props exactly match their runtime sprites', () => {
   const sourceRoot = new URL('../art/assets/', import.meta.url);
   const metadata = JSON.parse(readFileSync(new URL('metadata.json', sourceRoot), 'utf8'));
@@ -296,6 +315,9 @@ test('editable atlas crops and individually sourced props exactly match their ru
   assert.equal(metadata.pixelPreserving, true);
   assert.equal(metadata.anchor, 'bottom-center');
   const separatelySourced = new Set([
+    'person-scene-reaction-notice',
+    'person-scene-reaction-surprise',
+    'person-scene-reaction-happy',
     'creature-emberkin-combat',
     'creature-voltkit-combat',
     'creature-hushram-follower',

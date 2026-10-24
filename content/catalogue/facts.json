@@ -13,6 +13,7 @@
     "art/characters/guardian-generation.json": "7b456a5aadc98442bd55ec637b2c2466f607e5b1a445bbd5cb551c6a4182de61",
     "art/characters/metadata.json": "1e6b054d88d9311e37e84102675b86375e84ce2458b842d0dbd9e79cec95ec99",
     "art/characters/reviews/frame-spacing-347.json": "2f008531364e138464f1273c1d5f8d71ad79b028c095c605e1784639abe2064b",
+    "art/characters/scene-reaction-metadata.json": "e102d46a0c908045773971940c5afd8933b8dffe2afefde15bc808ab431a2ac1",
     "art/characters/source-archive.json": "a1782b84bdea7cb71ec8b7f2d7467c1d55dfce2495b9b5036a570459e65d4aaa",
     "art/characters/source/blastoucan/export.json": "84e45fc1ca2edd83ad1044640062a8e38cccdf4e477287568452408fe0de0b27",
     "art/characters/source/blastoucan/generation.json": "d0771206c9230033a553025f1d54776c62ec35c453ca20f12812b3464b29c23b",
@@ -123,6 +124,9 @@
     "dist/assets/people/person-red-cap-north.png": "16c613be7720e0c9f231eca4f7e5181b709647afde0ab858a5efeafa4ddec6a8",
     "dist/assets/people/person-red-cap-south.png": "9088f1039cc08e0f0496d08ff942ec3de9b55bfee561c23e8e38b4326faacc51",
     "dist/assets/people/person-red-cap-west.png": "73b972aca231577c7a746b84585b004672c6bbb0271799f24e9832202874fadd",
+    "dist/assets/people/person-scene-reaction-happy.png": "431abaa5c98fbb0127ec1c17f5d4856ec4c3c825aaba3a524215a5f3ea444430",
+    "dist/assets/people/person-scene-reaction-notice.png": "e9952bd7349bccb7be8f741dfec321fe3f66d5364c047ca69b32ca4627f8cda1",
+    "dist/assets/people/person-scene-reaction-surprise.png": "517b031fb0da87884834cad57f5758704b8cab4384ad6b823913e7a2440937d0",
     "dist/assets/people/person-traveler.png": "59fdaadae4d3c503c8458e406b1e879a5f8ade7281bcf55e2964fdf524f189f1",
     "dist/assets/props/boulder-mossy.png": "870564bfd636df7ee2502186169570694d89d47c218c207f8cbc2b73ba7f872d",
     "dist/assets/props/bush-flowering.png": "3d6369d8ce8b5327bed6b036f8a8c5da38793906c1d775b2b6d96b205a5bd1e4",
@@ -221,7 +225,7 @@
     "dist/src/creature-combat-preview.js": "62311c2cc907a126281d98bfe68d49c78fd30699e8186ec419f2045b036a2072",
     "dist/src/creature-follower-preview.js": "04e1a1d12431535d410e13ab1cd179e55c8e837bf7608883cd22b39b5b5b9141",
     "dist/src/creature-preview-resources.js": "c5053ad2634ae4d30fb8e711d229832af38b91d164bf4245816fc82538d77e3d",
-    "dist/src/data/assets.js": "cac1a0def4ed62aae7d9dfa698ae29c8cc7e732ec9bb968a1f216af6d5a7d4f7",
+    "dist/src/data/assets.js": "9041d4f6bdb6fff408a0d61fee7a1c213790c0c12567dac987d17c1cd2c747f5",
     "dist/src/data/biomes.js": "d2cc62f57a13aa4ae4e9eda71d27cc104c58fe4412a6e77d0566634424a88c1b",
     "dist/src/data/economy.js": "69fc483d987d09d503a29cad9331e81f833a3e78efec1a8c6294d85cf6788762",
     "dist/src/data/moves.js": "8ee504c923bb340e7a6adc86b28ecf557b3a2681dfe8b82ee4abfbb3b1f9a264",
@@ -270,7 +274,7 @@
     "dist/src/render/elemental-effects.js": "f67714258372fae89bf2a2b2671ea9986fa2de9c94d5a0cd6bb452b970c65342",
     "dist/src/render/sprites.js": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
-    "dist/src/render/world.js": "fead8f02e562231b64eb857a373fe5038d87780bde1475e17611f5d0303cdb01",
+    "dist/src/render/world.js": "87cd4672dd9cab1ee25f5a7de3e9e819708e3ff0f18f6ee4889063dddc24485b",
     "dist/src/save.js": "a10b2b3c2c2ba54510b4ee2c3a3a5441d14a24bbab60dd7ce49e0afea9c74d7e",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
@@ -326,7 +330,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "4ffe45ffbfe3f78b2ed6e1e580b23084f2abb5ca92bda4fec95d84e84449b5f4",
+  "sourceDigest": "d2620366588a1beb693edc1675f642e3fb23fb1f374a0fcc2a3b1c76825be387",
   "exclusions": [
     {
       "family": "module-exports",
@@ -22920,6 +22924,465 @@
       },
       "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
       "allowedUseSummary": "Asset person-red-cap-west is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:person-scene-reaction-happy",
+      "family": "visual",
+      "runtimeId": "person-scene-reaction-happy",
+      "name": "person-scene-reaction-happy",
+      "description": "person scene reaction happy",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "person-scene-reaction-happy",
+        "kind": "person",
+        "src": "assets/people/person-scene-reaction-happy.png",
+        "w": 160,
+        "h": 256,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "160 by 256 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "references": [],
+      "preview": "dist/assets/people/person-scene-reaction-happy.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": {
+        "version": 1,
+        "anchor": "bottom-center",
+        "exportFrame": {
+          "width": 160,
+          "height": 256,
+          "feetY": 250
+        },
+        "player": {
+          "asset": "person-red-cap-motion",
+          "sourceSheets": [
+            "art/characters/source/person-red-cap-motion-north-northeast.png",
+            "art/characters/source/person-red-cap-motion-east-southeast.png",
+            "art/characters/source/person-red-cap-motion-south-southwest.png",
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
+          ],
+          "sourceGrid": {
+            "columns": 5,
+            "rows": 8
+          },
+          "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
+          "walkCadence": {
+            "unit": "world-distance",
+            "distancePerFrame": 0.56,
+            "running": "reuse walk; faster cadence follows increased travel speed"
+          },
+          "reducedMotion": "hold the idle cell while movement and direction remain readable",
+          "walkRowOverrides": [
+            {
+              "direction": "northeast",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
+              "sourceRow": 1,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "southwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
+              "sourceRow": 1,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            }
+          ],
+          "walkSourceColumnOrder": {
+            "southwest": [1, 2, 4, 3]
+          }
+        },
+        "npcs": [
+          {
+            "asset": "person-traveler",
+            "sourceSheet": "art/characters/source/person-traveler-gardener-turnaround-source.png",
+            "sourceGrid": {
+              "columns": 4,
+              "rows": 2,
+              "sourceRow": 0
+            },
+            "directions": ["north", "east", "south", "west"],
+            "defaultFacing": "south",
+            "cadence": "static pose"
+          },
+          {
+            "asset": "person-gardener",
+            "sourceSheet": "art/characters/source/person-traveler-gardener-turnaround-source.png",
+            "sourceGrid": {
+              "columns": 4,
+              "rows": 2,
+              "sourceRow": 1
+            },
+            "directions": ["north", "east", "south", "west"],
+            "defaultFacing": "south",
+            "cadence": "static pose"
+          }
+        ]
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-scene-reaction-happy is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:person-scene-reaction-notice",
+      "family": "visual",
+      "runtimeId": "person-scene-reaction-notice",
+      "name": "person-scene-reaction-notice",
+      "description": "person scene reaction notice",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "person-scene-reaction-notice",
+        "kind": "person",
+        "src": "assets/people/person-scene-reaction-notice.png",
+        "w": 160,
+        "h": 256,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "160 by 256 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "references": [],
+      "preview": "dist/assets/people/person-scene-reaction-notice.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": {
+        "version": 1,
+        "anchor": "bottom-center",
+        "exportFrame": {
+          "width": 160,
+          "height": 256,
+          "feetY": 250
+        },
+        "player": {
+          "asset": "person-red-cap-motion",
+          "sourceSheets": [
+            "art/characters/source/person-red-cap-motion-north-northeast.png",
+            "art/characters/source/person-red-cap-motion-east-southeast.png",
+            "art/characters/source/person-red-cap-motion-south-southwest.png",
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
+          ],
+          "sourceGrid": {
+            "columns": 5,
+            "rows": 8
+          },
+          "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
+          "walkCadence": {
+            "unit": "world-distance",
+            "distancePerFrame": 0.56,
+            "running": "reuse walk; faster cadence follows increased travel speed"
+          },
+          "reducedMotion": "hold the idle cell while movement and direction remain readable",
+          "walkRowOverrides": [
+            {
+              "direction": "northeast",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
+              "sourceRow": 1,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "southwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
+              "sourceRow": 1,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            }
+          ],
+          "walkSourceColumnOrder": {
+            "southwest": [1, 2, 4, 3]
+          }
+        },
+        "npcs": [
+          {
+            "asset": "person-traveler",
+            "sourceSheet": "art/characters/source/person-traveler-gardener-turnaround-source.png",
+            "sourceGrid": {
+              "columns": 4,
+              "rows": 2,
+              "sourceRow": 0
+            },
+            "directions": ["north", "east", "south", "west"],
+            "defaultFacing": "south",
+            "cadence": "static pose"
+          },
+          {
+            "asset": "person-gardener",
+            "sourceSheet": "art/characters/source/person-traveler-gardener-turnaround-source.png",
+            "sourceGrid": {
+              "columns": 4,
+              "rows": 2,
+              "sourceRow": 1
+            },
+            "directions": ["north", "east", "south", "west"],
+            "defaultFacing": "south",
+            "cadence": "static pose"
+          }
+        ]
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-scene-reaction-notice is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
+      "externalSource": null,
+      "licenseReference": null,
+      "sourcePage": "See the local artwork provenance record.",
+      "licenseLink": "See the local artwork provenance record."
+    },
+    {
+      "id": "visual:person-scene-reaction-surprise",
+      "family": "visual",
+      "runtimeId": "person-scene-reaction-surprise",
+      "name": "person-scene-reaction-surprise",
+      "description": "person scene reaction surprise",
+      "source": "dist/src/data/assets.js",
+      "evidence": "tests/assets.test.mjs",
+      "raw": {
+        "name": "person-scene-reaction-surprise",
+        "kind": "person",
+        "src": "assets/people/person-scene-reaction-surprise.png",
+        "w": 160,
+        "h": 256,
+        "anchor": "bottom-center",
+        "required": false
+      },
+      "dimensions": "160 by 256 source pixels",
+      "directions": "Static pose or owning atlas metadata; do not infer directions from image size.",
+      "animations": "No animation states declared for this static image.",
+      "references": [],
+      "preview": "dist/assets/people/person-scene-reaction-surprise.png",
+      "animationMetadata": null,
+      "identity": null,
+      "review": [],
+      "characterMetadata": {
+        "version": 1,
+        "anchor": "bottom-center",
+        "exportFrame": {
+          "width": 160,
+          "height": 256,
+          "feetY": 250
+        },
+        "player": {
+          "asset": "person-red-cap-motion",
+          "sourceSheets": [
+            "art/characters/source/person-red-cap-motion-north-northeast.png",
+            "art/characters/source/person-red-cap-motion-east-southeast.png",
+            "art/characters/source/person-red-cap-motion-south-southwest.png",
+            "art/characters/source/person-red-cap-motion-west-northwest.png",
+            "art/characters/source/person-red-cap-motion-east-v2.png",
+            "art/characters/source/person-red-cap-motion-northwest-v2.png",
+            "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "art/characters/source/person-red-cap-motion-northeast-v3.png"
+          ],
+          "sourceGrid": {
+            "columns": 5,
+            "rows": 8
+          },
+          "directions": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"],
+          "framesPerDirection": ["idle", "walk-1", "walk-2", "walk-3", "walk-4"],
+          "idlePoseSource": {
+            "sourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png",
+            "dimensions": {
+              "sheet": [1536, 1024],
+              "cell": [384, 512],
+              "runtimeFrame": [160, 256]
+            },
+            "grid": {
+              "columns": 4,
+              "rows": 2
+            },
+            "sourceDirectionOrder": ["south", "southeast", "east", "northeast", "north", "northwest", "west", "southwest"],
+            "stance": "neutral rest with planted, hip-width feet; arms relaxed",
+            "anchor": "bottom-center",
+            "runtimeFootY": 250,
+            "runtimeDirectionOrder": ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+          },
+          "walkCadence": {
+            "unit": "world-distance",
+            "distancePerFrame": 0.56,
+            "running": "reuse walk; faster cadence follows increased travel speed"
+          },
+          "reducedMotion": "hold the idle cell while movement and direction remain readable",
+          "walkRowOverrides": [
+            {
+              "direction": "northeast",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northeast-v3.png",
+              "sourceRow": 1,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "east",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-east-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "southwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-southwest-v2.png",
+              "sourceRow": 1,
+              "columns": [1, 2, 3, 4],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "west",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-west-alternate-stride-v1.png",
+              "sourceGrid": {
+                "columns": 1,
+                "rows": 1
+              },
+              "columns": [3],
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            },
+            {
+              "direction": "northwest",
+              "sourceSheet": "art/characters/source/person-red-cap-motion-northwest-v2.png",
+              "sourceRow": 0,
+              "columns": [1, 2, 3, 4],
+              "derivedFrom": "mirrored northeast source direction",
+              "idleSourceSheet": "art/characters/source/person-red-cap-neutral-idle-v2.png"
+            }
+          ],
+          "walkSourceColumnOrder": {
+            "southwest": [1, 2, 4, 3]
+          }
+        },
+        "npcs": [
+          {
+            "asset": "person-traveler",
+            "sourceSheet": "art/characters/source/person-traveler-gardener-turnaround-source.png",
+            "sourceGrid": {
+              "columns": 4,
+              "rows": 2,
+              "sourceRow": 0
+            },
+            "directions": ["north", "east", "south", "west"],
+            "defaultFacing": "south",
+            "cadence": "static pose"
+          },
+          {
+            "asset": "person-gardener",
+            "sourceSheet": "art/characters/source/person-traveler-gardener-turnaround-source.png",
+            "sourceGrid": {
+              "columns": 4,
+              "rows": 2,
+              "sourceRow": 1
+            },
+            "directions": ["north", "east", "south", "west"],
+            "defaultFacing": "south",
+            "cadence": "static pose"
+          }
+        ]
+      },
+      "sourceLicenseSummary": "Original Mossvale artwork; see the asset source record.",
+      "allowedUseSummary": "Asset person-scene-reaction-surprise is an image reference, not a gameplay action. Refer to visual metadata before using atlas frames.",
       "externalSource": null,
       "licenseReference": null,
       "sourcePage": "See the local artwork provenance record.",

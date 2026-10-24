@@ -16,7 +16,7 @@ Movable actor IDs are `player` and ranger landmark IDs on the current map. Desti
 }
 ```
 
-`face` points one actor at another supported actor. Ranger art has north, east, south and west poses; the player retains all eight directions. `react` supports `notice`, `surprise` and `happy`, rendered as a brief readable cue above the actor. These are the currently supported reactions; there is no custom animation or arbitrary pose scripting. `wait` accepts 0–5000 milliseconds.
+`face` points one actor at another supported actor. Ranger art has north, east, south and west poses; the player retains all eight directions. `react` supports `notice`, `surprise` and `happy`. Rangers use the authored scene-reaction pose for the short reaction window when that optional asset is loaded; otherwise the existing readable cue above the actor remains the fallback. Reduced-motion mode holds one static pose for a shorter window and never adds frame animation. These are the currently supported reactions; there is no custom animation or arbitrary pose scripting. `wait` accepts 0–5000 milliseconds.
 
 ```json
 {"type":"move","actor":"ranger","to":[12,10]}
