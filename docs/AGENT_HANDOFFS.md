@@ -301,3 +301,6 @@ Branch `codex/293-reedstilt` is based on `origin/main` `5f13a43` and refreshed w
 
 ## Voltkit refresh follow-up (PR #412)
 Claimed `codex/voltkit-refresh-followup` from `origin/integration`; refreshed against the current integration head during conflict resolution. The follow-up archives exact supplied Voltkit redesign bytes, aligns the reviewed follower row contract across exporter/metadata/runtime, and rebinds retained scene-quality evidence. The source sheet has duplicated side/rear poses; no new art was fabricated. Hosted CI is unavailable; the PR targets `integration` only.
+
+## Production game asset gate follow-up
+Branch `codex/fix-game-asset-gate` is based on `origin/main` `54e2792`, with `origin/integration` confirmed at `21d1e9d`. Production returned portal HTML for required PNG requests after the ten-minute gate ticket expired in an open tab; the source files were present. The game now renews the existing authenticated ticket on boot and retries failed required resources once, preserving the private gate. No catalogue or asset files changed. Hosted CI is unavailable; local regression/build checks are the evidence.

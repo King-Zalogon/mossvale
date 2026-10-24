@@ -17,7 +17,7 @@ import {PACK_ID} from './data/pack.js';
 import {configureRegistry} from './data/registry.js';
 import {FACING, followerPoint, movePlayer} from './domain/exploration.js';
 import {createAudio} from './services/audio.js';
-import {loadAssets} from './services/loader.js';
+import {loadAssets, refreshMissingAssets} from './services/loader.js';
 import {readArchive, restoreArchive, startOver} from './services/profile.js';
 import {exportBackup, exportFileName, importSave, parseBackup, readBackupFile, readCheckpoint, restoreCheckpoint} from './services/backup.js';
 import {loadSettings, saveSettings, ZOOM_MAX, ZOOM_MIN} from './services/settings.js';
@@ -323,6 +323,18 @@ async function boot() {
   $('#load-retry').hidden = true;
   $('#load-bar').hidden = false;
   $('#load-detail').textContent = '';
+  // Re-issue the short-lived gate ticket when this is the portal-hosted game.
+  // This keeps lazy map/art requests private without exposing static assets.
+  const refreshGate = async () => {
+    if (!location.pathname.startsWith('/game/')) return false;
+    try {
+      const response = await fetch('/api/launch', {method: 'POST', credentials: 'same-origin'});
+      return response.ok;
+    } catch {
+      return false;
+    }
+  };
+  await refreshGate();
   if (!renderer.context || !renderer.miniContext) {
     showLoadError('This browser does not support the canvas features Mossvale needs.', 'Try a current version of Chrome, Edge, Firefox or Safari.');
     return;
@@ -443,7 +455,7 @@ async function boot() {
       return;
     }
   }
-  const missing = await loadAssets({
+  let missing = await loadAssets({
     manifest: assets,
     sprites,
     attempt,
@@ -452,6 +464,14 @@ async function boot() {
       $('#load-bar').value = total ? (done / total) * 100 : 100;
       $('#load-status').textContent = `Loading artwork… ${done} / ${total}`;
     },
+  });
+  missing = await refreshMissingAssets({
+    missing,
+    sprites,
+    manifest: assets,
+    attempt,
+    onRefresh: refreshGate,
+    timeoutMs: debug && Number(params.get('assetTimeout')) > 0 ? Number(params.get('assetTimeout')) : undefined,
   });
   if (missing.length) {
     attempt++;

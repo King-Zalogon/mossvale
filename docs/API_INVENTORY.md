@@ -83,7 +83,7 @@ Before adding a persistence codec, RNG, sprite loader, or map loader, check thes
 | `services/adventures.js` | services | `ADVENTURE_KEY`, `CATALOG_FORMAT`, `DEFAULT_CATALOG`, `chooseAdventure`, `describeProgress`, `parseCatalog`, `peekProgress`, `readSelection`, `relocateLegacyPacks`, `writeSelection` |
 | `services/audio.js` | services | `createAudio` |
 | `services/backup.js` | services | `BACKUP_FORMAT`, `BACKUP_KIND`, `MAX_BACKUP_BYTES`, `exportBackup`, `exportFileName`, `importSave`, `parseBackup`, `readBackupFile`, `readCheckpoint`, `restoreCheckpoint` |
-| `services/loader.js` | services | `TIMEOUT_MS`, `loadAssets`, `loadImage` |
+| `services/loader.js` | services | `TIMEOUT_MS`, `loadAssets`, `loadImage`, `refreshMissingAssets` |
 | `services/maps.js` | services | `PackIntegrityUnavailableError`, `fetchAdventure`, `fetchCatalog` |
 | `services/persistence.js` | services | `createPersistence` |
 | `services/profile.js` | services | `hasProgress`, `readArchive`, `restoreArchive`, `startOver`, `summarize` |

@@ -13,3 +13,5 @@ For the `mossvale` project in the `King-Zalogon` team, **Preview Deployments** i
 `vercel.json` defines an Ignored Build Step: commits whose `VERCEL_GIT_COMMIT_REF` is not `main` exit with code `0` (skip the build/deployment); `main` exits with code `1` (continue the existing Vercel build). Keep the existing framework and build settings unchanged when editing this guard.
 
 The guard is defense in depth for branch/PR builds. It does not replace setting the Vercel Production Branch to `main`, and it does not itself publish or promote a deployment.
+
+The game keeps the signed entry gate at its existing ten-minute lifetime. On boot, and once more if required art fails, the game renews that ticket through the authenticated `/api/launch` route before retrying resources. This preserves the private asset boundary while preventing a long-lived tab from misreporting portal redirects as missing artwork.
