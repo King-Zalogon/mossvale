@@ -30,7 +30,7 @@
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
     "art/characters/visual-reviews.json": "4546d87ff8b93810c3505bc8d80812bda1a5cfcc33ae1236460ca790d017fab0",
-    "content/catalogue/curated.json": "1504ce42970403a227b24da498c067f24e7af697d94b7325329569424ac47ca7",
+    "content/catalogue/curated.json": "45643a554a5daf715542cc690fccb82d5ace20997e92e315bdcc65d790eec2b7",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
     "dist/assets/creatures/creature-blastoucan-combat.png": "032832e63a4aad6b32647cf198176cf03fd5c99b6d6983f8f86e74a07789979c",
@@ -194,15 +194,15 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "3760aeb019a867dcc06c489a2159c99080d896eb37cffe56e530f559f8b9e909",
+    "dist/maps/amber-ridge.json": "958ea724a79045a421317336c69a7928857c2fa1067204037b9cd170458791da",
     "dist/maps/brackenwake-commons.json": "92cf67c62bf4c0fa3c8676bb5533d488bb837679fbb458cacaf61ec7b996b365",
     "dist/maps/frostveil-grove.json": "9c19bcab6e8923b290a403409a7ac54472d9b2b070f93efa6b5a6fffb6eefe3d",
     "dist/maps/frostveil-pass.json": "2ebb26442c15515b32996ababeeadd2e0b75e946e1ce0165db8c90fb579e1595",
-    "dist/maps/index.json": "009bcdca4013a1c30545c8a923e7e20214b2fc375c53311dcb6ca3c5f2c56055",
+    "dist/maps/index.json": "da3fd4a0e056e3b8677d2c9c704e7dade54ecb5d9b9d4279cb0ce678ae3652d1",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "6ec0c6f5e54f6a45ebf61c01d2b958a9e29ab8f8f6c5cfde5590ccaec56fae37",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "9c65bb87d1992486df3fb735d69e30817f29011b34c36b639999ff4bc222fa80",
+    "dist/maps/orchard-ruins.json": "164a6ba40f6a1163571b9ad371a8c79bcdc80f72b4bba7fd9a77811db2efc606",
     "dist/maps/reedfen-wetlands.json": "5dd1fe36686381e0cbbfae041839655598753240690f3734820d7eb920b463ae",
     "dist/maps/registries.json": "b7d17a7fd9a62314ac6db90cf48554b541e47e6a3a772be609a708055ba68dde",
     "dist/maps/rootglass-canopy.json": "ee281f2be56287a5eadd2f1f0321f196c1660c0eb7270c717584f9dda9c8aac1",
@@ -250,7 +250,7 @@
     "dist/src/domain/exploration.js": "9fe89b19490390bb129ed0a887ae30c8f0dadfbe787d3149843b501069af71e3",
     "dist/src/domain/hints.js": "871e9ed9e0d7b164fab021e33e0cac3c2c95039cc4b8a37e57e05491acce6ff3",
     "dist/src/domain/inventory.js": "198e9b236379a419e9b316205dd458d83fa8fc5e9c799d73818efb14daeefbc8",
-    "dist/src/domain/mapdata.js": "7e3c7ee8dc4ea2fa391601bd2c00c822772877567031fc29ca9c95faef9049c6",
+    "dist/src/domain/mapdata.js": "23771e5355cd3841c8a345c9d3ffbd15e5714aa07acdc991803faa1c0b62a7ed",
     "dist/src/domain/objective-events.js": "7ea11e81899424623e230c55ddc90c42c77c9df88532b91832cf39d23991128e",
     "dist/src/domain/objectives.js": "eeb4731a9f19dd87ee88914b9da795729ef46500327f352063af2658d811d06b",
     "dist/src/domain/pack.js": "339441c5867c7dc709e098292c9f70622cb3ac6051cccf507a71550466721193",
@@ -260,7 +260,7 @@
     "dist/src/domain/rng.js": "853506e8d4bd195882b044a2302f884573d253f4978f075b2a194b82212f0430",
     "dist/src/domain/rules.js": "8e83034765a2530eb46ce2ebe8d9437dc191fb25f348c0c022b7d51a732e1989",
     "dist/src/domain/scene-path.js": "f8016abf188ce2dccebceadfffc2279671b923b566a2a744defb66578931361c",
-    "dist/src/domain/scenes.js": "8f898d626396a432740fd9c0681a91af9755eca1bfb58a2ee4d4b7badb268b34",
+    "dist/src/domain/scenes.js": "f90f08a189a9b7d0e157ca81a25fa8aca2b0952c7e0954c02d501c7296b59d17",
     "dist/src/domain/story.js": "76aca33499825ab396db075379a05ff5343bfeec2d82ec6eb715b6026372c381",
     "dist/src/domain/terrain-family.js": "e9828ed285b9ffd558a9f168fa71f5477ffd6ee75a1359a874bfcfcd7101476e",
     "dist/src/domain/world.js": "33283839346a885c8004cb5c5682d29e0d0f6758d36a5698b0eb85b3d3eca383",
@@ -274,7 +274,7 @@
     "dist/src/render/elemental-effects.js": "f67714258372fae89bf2a2b2671ea9986fa2de9c94d5a0cd6bb452b970c65342",
     "dist/src/render/sprites.js": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
-    "dist/src/render/world.js": "87cd4672dd9cab1ee25f5a7de3e9e819708e3ff0f18f6ee4889063dddc24485b",
+    "dist/src/render/world.js": "ab41cba6ba3dbd33d23b6d7110bf9bdff9382c08e25c08abbca09b6f6181d024",
     "dist/src/save.js": "a10b2b3c2c2ba54510b4ee2c3a3a5441d14a24bbab60dd7ce49e0afea9c74d7e",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
@@ -292,7 +292,7 @@
     "dist/src/ui/atlas.js": "d0c88cd934049e231dbe053022767fc7f86bba56037756c1a9cd8399d89ff063",
     "dist/src/ui/battle-fx.js": "1a0667c95edc3b371e4cd2141a6896bc476859341991f3c6536ecbf6dcf1daa6",
     "dist/src/ui/battle-view.js": "273749337021e4975178b71a89d228e2e1f4b7908e528ae1cfd3db3750011da5",
-    "dist/src/ui/dom.js": "896b6353b90b7640a1219a0f7a9e2eb791ef81adc0766a557cb2c9919a191090",
+    "dist/src/ui/dom.js": "bcb46b3690e08fc5436ee588383c3ec7cf9072f573af98d3c226aba112de639d",
     "dist/src/ui/elemental-beats.js": "ed199b40f85601361be00f49ae31363cf75e8f58afa3a8720f98a9ff70abc96c",
     "dist/src/ui/hud.js": "ce9eab30f1040dc427db2cc0b38adff8ded7767bcbb4b82569374dc9e25c8479",
     "dist/src/ui/menus.js": "39ce4361111b7620bc2248b8a1315d2e6af80fdb806a4fe1d9446481103ce20d",
@@ -330,7 +330,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "609588b3ef30ab1649b5f968c462492734fd010b4e676721b904d898309ddf88",
+  "sourceDigest": "394535a7b2542d15667b401c33946748ab82594a32628438651b2607340fdf15",
   "exclusions": [
     {
       "family": "module-exports",
@@ -1321,7 +1321,14 @@
           },
           {
             "when": {
-              "event": "orchard-ruins/outcome-family-first"
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
             },
             "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
           },
@@ -3056,6 +3063,25 @@
         "name": "Orchard Keeper Mara",
         "tag": "MARA",
         "lines": [
+          {
+            "when": {
+              "event": "orchard-ruins/outcome-water-first"
+            },
+            "text": "You cleared the bypass first. I moved the repair boards down to the channel, and the adult is waiting above it. The lower row has water again. Thank you."
+          },
+          {
+            "when": {
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
+            },
+            "text": "You brought the family to dry roots first. The adult is beside the higher hollow now. My boards are still by the broken feeder; I will finish that slower repair. Thank you."
+          },
           {
             "when": {
               "flag": "meadow.seal"
@@ -4852,7 +4878,14 @@
               },
               {
                 "when": {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 },
                 "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
               },
@@ -8405,6 +8438,25 @@
             "lines": [
               {
                 "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "text": "You cleared the bypass first. I moved the repair boards down to the channel, and the adult is waiting above it. The lower row has water again. Thank you."
+              },
+              {
+                "when": {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                },
+                "text": "You brought the family to dry roots first. The adult is beside the higher hollow now. My boards are still by the broken feeder; I will finish that slower repair. Thank you."
+              },
+              {
+                "when": {
                   "flag": "meadow.seal"
                 },
                 "text": "The shrine is awake. The east gate leads to Amber Ridge."
@@ -8893,7 +8945,78 @@
             "sprite": "wood-plank-stack",
             "kind": "scenery",
             "w": 32,
-            "at": [[55.4, 28.1]]
+            "at": [[55.4, 28.1]],
+            "when": {
+              "not": {
+                "event": "orchard-ruins/outcome-water-first"
+              }
+            }
+          },
+          {
+            "sprite": "wood-plank-stack",
+            "kind": "scenery",
+            "w": 32,
+            "at": [[49.8, 40.4]],
+            "when": {
+              "event": "orchard-ruins/outcome-water-first"
+            }
+          },
+          {
+            "sprite": "creature-bramblebuck",
+            "kind": "scenery",
+            "w": 37,
+            "at": [[42.5, 35.2]],
+            "when": {
+              "all": [
+                {
+                  "event": "orchard-ruins/den-family-seen"
+                },
+                {
+                  "not": {
+                    "any": [
+                      {
+                        "event": "orchard-ruins/outcome-water-first"
+                      },
+                      {
+                        "any": [
+                          {
+                            "event": "orchard-ruins/orchard-family"
+                          },
+                          {
+                            "event": "orchard-ruins/outcome-family-first"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "sprite": "creature-bramblebuck",
+            "kind": "scenery",
+            "w": 37,
+            "at": [[46, 35]],
+            "when": {
+              "event": "orchard-ruins/outcome-water-first"
+            }
+          },
+          {
+            "sprite": "creature-bramblebuck",
+            "kind": "scenery",
+            "w": 37,
+            "at": [[44.4, 32.9]],
+            "when": {
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
+            }
           },
           {
             "sprite": "tree-oak",
@@ -9281,7 +9404,7 @@
                   {
                     "type": "dialogue",
                     "speaker": "narrator",
-                    "text": "The lower row is visibly running again. The family has settled above the waterline; Mara's repair holds for this visit."
+                    "text": "The repair boards now sit beside the cleared bypass. The adult waits above the channel; Mara's repair holds."
                   }
                 ]
               }
@@ -9454,7 +9577,14 @@
                   "event": "orchard-ruins/outcome-water-first"
                 },
                 {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 }
               ]
             },
@@ -13260,7 +13390,7 @@
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "3760aeb019a867dcc06c489a2159c99080d896eb37cffe56e530f559f8b9e909"
+            "sha256": "958ea724a79045a421317336c69a7928857c2fa1067204037b9cd170458791da"
           },
           {
             "id": "map:frostveil-grove",
@@ -13280,7 +13410,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "9c65bb87d1992486df3fb735d69e30817f29011b34c36b639999ff4bc222fa80"
+            "sha256": "164a6ba40f6a1163571b9ad371a8c79bcdc80f72b4bba7fd9a77811db2efc606"
           },
           {
             "id": "map:stilt-isles",

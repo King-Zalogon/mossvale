@@ -12,8 +12,8 @@
     "dist/assets/creatures/creature-fernling-follower.png": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7",
     "dist/assets/props/chest-wooden.png": "49ed0d898d48f20978b35b1e7f764d4d0c8075d9732c9f1590bf9dfa77dea5d0",
     "dist/src/ui/speech.js": "a19df962494d804ec047f472633da6a58df99234056e0155504582121e868e21",
-    "dist/src/render/world.js": "87cd4672dd9cab1ee25f5a7de3e9e819708e3ff0f18f6ee4889063dddc24485b",
-    "dist/style.css": "6382f6c277eb8a68d2fc0c0571a511376f94bc7f74c7d21be9492c8e1d7f913d",
+    "dist/src/render/world.js": "ab41cba6ba3dbd33d23b6d7110bf9bdff9382c08e25c08abbca09b6f6181d024",
+    "dist/style.css": "6710567cdbad34b03c05c3aac029b3bb3d422a876183859cfb7d0cf41e1e45a5",
     "tests/fixtures/packs/scene-quality-yard/index.json": "a9a0e27d0a42113b990874981fd894d8a9ec7393438621e680e29186a393ffb6",
     "tests/fixtures/packs/scene-quality-yard/maps/start.json": "9a0f813ea42dc2e75ee2e38584b73684e1dca72cbc0502900b8b6d9a294dec2b",
     "tests/fixtures/packs/scene-quality-yard/objectives.json": "2002ddc5dcff6c6bc9d7bb05e87b553b076621bdeaced2658fd0b2a0c68d6f5b",
@@ -23,7 +23,7 @@
   "screenshots": [
     {
       "path": "docs/scene-quality/244/desktop-dialogue-1.png",
-      "sha256": "a510f13ef95fc83ccbe2cb3302592e3c09f635fd4e55b82af019b33ae1c4267e",
+      "sha256": "c9263bf9a6f5afd18d43360c0afbf124f3ac65be0e4b43b11cc18d8758fe6f99",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -58,16 +58,16 @@
             "bottom": 485.49342105263156
           },
           "companion": {
-            "left": 459.80540364583334,
-            "right": 509.37395833333335,
-            "top": 455.20723684210526,
-            "bottom": 504.7664473684211
+            "left": 454.29778645833335,
+            "right": 503.86634114583336,
+            "top": 454.2894736842105,
+            "bottom": 503.8486842105263
           },
           "landmark": {
             "left": 605.7572591145833,
             "right": 661.7513671875,
-            "top": 467.1381578947369,
-            "bottom": 519.4506578947369
+            "top": 468.05592105263156,
+            "bottom": 520.3684210526317
           },
           "objective": {
             "left": 961.609375,
@@ -76,19 +76,19 @@
             "bottom": 613.78125
           },
           "speaker": {
-            "left": 535.076171875,
-            "right": 584.6447265625001,
-            "top": 366.18421052631584,
-            "bottom": 445.1118421052631
+            "left": 534.1582356770832,
+            "right": 583.7267903645833,
+            "top": 367.1019736842105,
+            "bottom": 446.0296052631579
           },
           "text": {
             "left": 286,
-            "right": 545,
+            "right": 547.75,
             "top": 671.8125,
             "bottom": 692.8125
           },
           "advance": {
-            "left": 613,
+            "left": 613.1875,
             "right": 674,
             "top": 703,
             "bottom": 734
@@ -97,7 +97,7 @@
         "textFragments": [
           {
             "left": 286,
-            "right": 545,
+            "right": 547.75,
             "top": 671.8125,
             "bottom": 692.8125
           }
@@ -107,7 +107,7 @@
     },
     {
       "path": "docs/scene-quality/244/desktop-dialogue-2.png",
-      "sha256": "5548277616a7e3d2e0ae344d86aa8d82678f5140a9a202e4dc75eb1560856f2a",
+      "sha256": "fd184c570a949ba6075e2e7755bf33de03b2cfd9455f719e54480a5a64f19aef",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -142,16 +142,16 @@
             "bottom": 485.49342105263156
           },
           "companion": {
-            "left": 459.80540364583334,
-            "right": 509.37395833333335,
-            "top": 455.20723684210526,
-            "bottom": 504.7664473684211
+            "left": 454.29778645833335,
+            "right": 503.86634114583336,
+            "top": 454.2894736842105,
+            "bottom": 503.8486842105263
           },
           "landmark": {
             "left": 605.7572591145833,
             "right": 661.7513671875,
-            "top": 467.1381578947369,
-            "bottom": 519.4506578947369
+            "top": 468.05592105263156,
+            "bottom": 520.3684210526317
           },
           "objective": {
             "left": 961.609375,
@@ -167,12 +167,12 @@
           },
           "text": {
             "left": 286,
-            "right": 409,
+            "right": 410.625,
             "top": 671.8125,
             "bottom": 692.8125
           },
           "advance": {
-            "left": 609,
+            "left": 609.421875,
             "right": 674,
             "top": 703,
             "bottom": 734
@@ -181,7 +181,7 @@
         "textFragments": [
           {
             "left": 286,
-            "right": 409,
+            "right": 410.625,
             "top": 671.8125,
             "bottom": 692.8125
           }
@@ -191,7 +191,7 @@
     },
     {
       "path": "docs/scene-quality/244/desktop-offered-supplies.png",
-      "sha256": "21302fe76307e1c8c343b7fa4cd44eebaa7dc6ede8c53a23d89c84a485ece9d8",
+      "sha256": "3b0c0b8764b980e8bb4eb7d87c8941a1dad326044fa28ee510b0eb44cc83e339",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -223,14 +223,14 @@
           "companion": {
             "left": 416.66240234375,
             "right": 466.23095703125,
-            "top": 434.0986842105263,
-            "bottom": 483.65789473684214
+            "top": 442.35855263157896,
+            "bottom": 491.91776315789474
           },
           "landmark": {
-            "left": 495.60491536458335,
-            "right": 551.5990234375,
-            "top": 450.61842105263156,
-            "bottom": 502.9309210526316
+            "left": 489.17936197916663,
+            "right": 545.1734700520833,
+            "top": 447.8651315789474,
+            "bottom": 500.1776315789474
           },
           "objective": {
             "left": 961.609375,
@@ -245,7 +245,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-dialogue-1.png",
-      "sha256": "9af7de8704c91f4c5432ed146c3c090d26cf6b5ae58d63e842eca81447bef45c",
+      "sha256": "16a51db4eb27840066e9c1a28a282b93f0fdd7aa9e55caa663a674d1a1709597",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -282,14 +282,14 @@
           "companion": {
             "left": 179.389453125,
             "right": 205.40703125,
-            "top": 380.57337253829326,
-            "bottom": 406.5983998905908
+            "top": 381.3169447483589,
+            "bottom": 407.34197210065645
           },
           "landmark": {
-            "left": 259.3005859375,
-            "right": 289.0349609375,
-            "top": 386.15016411378554,
-            "bottom": 413.66233588621446
+            "left": 256.698828125,
+            "right": 286.433203125,
+            "top": 388.0090946389497,
+            "bottom": 415.5212664113785
           },
           "objective": {
             "left": 235.59375,
@@ -298,19 +298,19 @@
             "bottom": 796.8125
           },
           "speaker": {
-            "left": 221.3892578125,
-            "right": 247.4068359375,
-            "top": 332.2411788840262,
-            "bottom": 373.88122264770243
+            "left": 218.7875,
+            "right": 244.805078125,
+            "top": 334.1001094091904,
+            "bottom": 375.7401531728665
           },
           "text": {
             "left": 44.59375,
-            "right": 303.59375,
+            "right": 306.34375,
             "top": 458.625,
             "bottom": 479.625
           },
           "advance": {
-            "left": 284.40625,
+            "left": 284.59375,
             "right": 345.40625,
             "top": 489.8125,
             "bottom": 533.8125
@@ -319,7 +319,7 @@
         "textFragments": [
           {
             "left": 44.59375,
-            "right": 303.59375,
+            "right": 306.34375,
             "top": 458.625,
             "bottom": 479.625
           }
@@ -329,7 +329,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-dialogue-2.png",
-      "sha256": "099e0e40985afdf3bfa45f87ed91a7a1c80b4dd86116e209fac897c10edf7f9e",
+      "sha256": "661e2b45fa5868096e8d53bebafdc021be2d50bdfb1c277e11dcc2368152fcd5",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -342,7 +342,7 @@
           "left": 0,
           "top": 0,
           "right": 390,
-          "bottom": 1159
+          "bottom": 1131
         },
         "actorViewport": {
           "left": 16.59375,
@@ -366,20 +366,20 @@
           "companion": {
             "left": 179.389453125,
             "right": 205.40703125,
-            "top": 380.57337253829326,
-            "bottom": 406.5983998905908
+            "top": 381.3169447483589,
+            "bottom": 407.34197210065645
           },
           "landmark": {
-            "left": 259.3005859375,
-            "right": 289.0349609375,
-            "top": 386.15016411378554,
-            "bottom": 413.66233588621446
+            "left": 256.698828125,
+            "right": 286.433203125,
+            "top": 388.0090946389497,
+            "bottom": 415.5212664113785
           },
           "objective": {
             "left": 235.59375,
             "right": 358.40625,
-            "top": 702.8125,
-            "bottom": 744.8125
+            "top": 674.8125,
+            "bottom": 716.8125
           },
           "speaker": {
             "left": 182.362890625,
@@ -389,12 +389,12 @@
           },
           "text": {
             "left": 44.59375,
-            "right": 167.59375,
+            "right": 169.21875,
             "top": 278,
             "bottom": 299
           },
           "advance": {
-            "left": 280.40625,
+            "left": 280.828125,
             "right": 345.40625,
             "top": 287.5,
             "bottom": 318.5
@@ -403,7 +403,7 @@
         "textFragments": [
           {
             "left": 44.59375,
-            "right": 167.59375,
+            "right": 169.21875,
             "top": 278,
             "bottom": 299
           }
@@ -413,7 +413,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-offered-supplies.png",
-      "sha256": "52bf3413d430e2ff93e0022c6ccaccc4f0d2023d5713f83576e73453f8dd0e84",
+      "sha256": "742e74193df4e1f07f90b6e8c04de79ffc470c1fb5ebe0c4bf2fdaa447934d02",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -443,16 +443,16 @@
             "bottom": 396.1883889496718
           },
           "companion": {
-            "left": 162.2921875,
-            "right": 188.309765625,
-            "top": 369.7915754923414,
-            "bottom": 395.81660284463896
+            "left": 161.548828125,
+            "right": 187.56640625,
+            "top": 370.1633615973742,
+            "bottom": 396.1883889496718
           },
           "landmark": {
-            "left": 204.2919921875,
-            "right": 234.0263671875,
-            "top": 378.3426559080963,
-            "bottom": 405.85482768052515
+            "left": 203.176953125,
+            "right": 232.91132812499998,
+            "top": 378.7144420131291,
+            "bottom": 406.226613785558
           },
           "objective": {
             "left": 235.59375,

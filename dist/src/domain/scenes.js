@@ -130,6 +130,7 @@ export function validateSceneGraph(maps) {
     if (condition.not) references(condition.not, key);
   };
   for (const [key, event] of events) references(event.when, key);
+  for (const map of maps) for (const [index, prop] of (map.props ?? []).entries()) references(prop.when, `${map.id}/props[${index}]`);
   for (const map of maps)
     for (const hint of map.hints ?? []) {
       for (let level = 0; level < (hint.levels?.length ?? 0); level++)

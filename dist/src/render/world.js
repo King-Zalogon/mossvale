@@ -5,12 +5,15 @@ import {regions} from '../data/regions.js';
 import {TILE_H, TILE_W} from '../config.js';
 import {FACING, directionPose, followerFrame, movementFacing, playerFrame, playerSpritePose} from '../domain/exploration.js';
 import {flagDone, unlocked} from '../domain/rules.js';
+import {holds} from '../domain/objectives.js';
 import {isLand, objectsInBounds, rnd, tilesInBounds} from '../domain/world.js';
 import {isKnown, isRevealed} from '../domain/discovery.js';
 import {companionRouteDiscovered, companionRouteVisible} from '../domain/companion-routes.js';
 import {drawSprite, drawSpriteFrame, sprites} from './sprites.js';
 import {createTerrainPainter, terrainColors} from './terrain.js';
 import {chestSprite} from './chest-art.js';
+
+const conditionContext = {speciesCount: species.length, speciesIds: species.map(item => item.id), regions};
 
 const raw = (x, y) => ({x: ((x - y) * TILE_W) / 2, y: ((x + y) * TILE_H) / 2});
 
@@ -168,7 +171,9 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       column: playerFrame(player.walkDistance, v.moving, v.reducedMotion),
       ...playerSpritePose(player.dir),
     };
-    const visibleObjects = objectsInBounds(world, bounds).filter(object => companionRouteVisible(save, world.map.id, object));
+    const visibleObjects = objectsInBounds(world, bounds).filter(
+      object => companionRouteVisible(save, world.map.id, object) && holds(object.when, save, conditionContext),
+    );
     stats = {visibleTiles: tiles.length, worldTiles: world.tiles.length, visibleObjects: visibleObjects.length, worldObjects: world.objects.length};
     const all = [...visibleObjects, follow, {x: player.x, y: player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player', frame: playerPose}].sort(
       (a, b) => a.x + a.y - b.x - b.y,
@@ -192,6 +197,12 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         ctx.fill();
       }
       const openedChest = o.kind === 'chest' && flagDone(save, o.flag);
+      // These poses belong to the traveler. Other ranger identities retain their own art and the cue fallback.
+      const reactionId =
+        o.kind === 'ranger' && o.id === spriteId('person-traveler') && o.sceneReaction && o.sceneReactionUntil > now
+          ? spriteId(`person-scene-reaction-${o.sceneReaction}`)
+          : -1;
+      const hasReactionSprite = reactionId >= 0 && sprites[reactionId]?.complete && sprites[reactionId]?.naturalWidth > 0;
       if (openedChest) drawSprite(ctx, chestSprite(o, true), s.x, s.y, o.w * zoom);
       else {
         // Walking cells carry the gait. Keep feet anchored to the ground instead of adding a distance-driven
@@ -199,9 +210,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
         const bob = o.kind === 'companion' && !o.moving && !v.reducedMotion ? Math.sin(now / 950) * 0.45 * zoom : 0;
         const tint = region === 2 && o.kind === 'grass' ? 'saturate(.3) brightness(1.35)' : region === 1 && o.kind === 'grass' ? 'sepia(.5)' : 'none';
         const options = {tint, alpha: occludesPlayer(o, s) ? 0.24 : 1};
-        const reactionId = o.kind === 'ranger' && o.sceneReaction && o.sceneReactionUntil > now ? spriteId(`person-scene-reaction-${o.sceneReaction}`) : -1;
-        if (reactionId >= 0 && sprites[reactionId]?.complete && sprites[reactionId]?.naturalWidth)
-          drawSprite(ctx, reactionId, s.x, s.y + bob, o.w * zoom, options);
+        if (hasReactionSprite) drawSprite(ctx, reactionId, s.x, s.y + bob, o.w * zoom, options);
         else if (o.kind === 'player') drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
         else if (o.kind === 'companion' && assets[o.id]?.frames)
           drawSpriteFrame(ctx, o.id, o.frame.column, o.frame.row, s.x, s.y + bob, o.w * zoom, {...options, flip: o.frame.flip});
@@ -210,11 +219,7 @@ export function createWorldRenderer({canvas, miniCanvas}) {
           drawSpriteFrame(ctx, o.id, cardinalColumn, 0, s.x, s.y + bob, o.w * zoom, options);
         } else drawSprite(ctx, o.id, s.x, s.y + bob, o.w * zoom, options);
       }
-      if (
-        o.sceneReaction &&
-        o.sceneReactionUntil > now &&
-        !(o.kind === 'ranger' && sprites[spriteId(`person-scene-reaction-${o.sceneReaction}`)]?.naturalWidth)
-      ) {
+      if (o.sceneReaction && o.sceneReactionUntil > now && !hasReactionSprite) {
         const mark = o.sceneReaction === 'happy' ? '♥' : o.sceneReaction === 'surprise' ? '!' : '…';
         ctx.font = `bold ${Math.round(17 * zoom)}px sans-serif`;
         ctx.textAlign = 'center';

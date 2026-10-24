@@ -1,0 +1,38 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/src/domain/mapdata.js",
+        "dist/src/domain/scenes.js",
+        "dist/src/render/world.js",
+        "dist/maps/orchard-ruins.json",
+        "dist/maps/amber-ridge.json",
+        "dist/maps/index.json",
+        "content/catalogue/curated.json",
+        "docs/MAP_FORMAT.md",
+        "docs/ORCHARD_CONSEQUENCES.md",
+        "docs/ORCHARD_DISCOVERIES.md",
+        "docs/SCENE_ACTIONS.md"
+      ],
+      "entries": ["mechanic:conditional-decoration", "mechanic:scene-choreography", "map:mossvale/orchard-ruins", "map:mossvale/amber-ridge"],
+      "disposition": "updated",
+      "reason": "Add validated nonblocking conditional decoration, preserve traveler-only reaction identity, bind adult/repair materials and Mara/Rowan/hints to committed outcomes including rescue completion before re-entry. Canonical map hashes and matching capability fiches are updated; no new save identity, terrain collision or rewards.",
+      "evidence": ["tests/orchard-clues.test.mjs", "tests/quality-followup.browser.mjs", "docs/ORCHARD_CONSEQUENCES.md"]
+    },
+    {
+      "paths": ["dist/src/ui/dom.js", "dist/style.css", "docs/UI.md"],
+      "entries": ["mechanic:scene-dialogue"],
+      "disposition": "no-semantic-impact",
+      "reason": "Repair existing modal focus/scroll preservation across shorter intermediate battle frames and ignore stale scheduled focus callbacks after a dialog is replaced or dismissed. Does not add a new authorable dialogue action or alter progression. Fullscreen now fills desktop and portrait viewports as the existing landscape layout intended; no authorable layout option is added.",
+      "evidence": ["tests/quality-followup.browser.mjs"]
+    },
+    {
+      "paths": ["art/characters/SCENE_REACTIONS.md"],
+      "entries": ["visual:person-scene-reaction-notice", "visual:person-scene-reaction-surprise", "visual:person-scene-reaction-happy"],
+      "disposition": "no-semantic-impact",
+      "reason": "Clarify that retained traveler draft poses cannot substitute another character; source images and approval state are unchanged.",
+      "evidence": ["tests/quality-followup.browser.mjs", "docs/SCENE_ACTIONS.md"]
+    }
+  ]
+}

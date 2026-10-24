@@ -2120,7 +2120,14 @@
               },
               {
                 "when": {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 },
                 "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
               },
@@ -5103,6 +5110,25 @@
             "name": "Orchard Keeper Mara",
             "tag": "MARA",
             "lines": [
+              {
+                "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "text": "You cleared the bypass first. I moved the repair boards down to the channel, and the adult is waiting above it. The lower row has water again. Thank you."
+              },
+              {
+                "when": {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                },
+                "text": "You brought the family to dry roots first. The adult is beside the higher hollow now. My boards are still by the broken feeder; I will finish that slower repair. Thank you."
+              },
               {
                 "when": {
                   "flag": "meadow.seal"
@@ -8511,6 +8537,54 @@
       }
     },
     {
+      "id": "mechanic:conditional-decoration",
+      "kind": "mechanic",
+      "name": "Saved-state map decoration",
+      "summary": "Show nonblocking scenery when a committed story condition holds, without changing routes or collision.",
+      "status": "available",
+      "scope": "optional-pack",
+      "configuration": [
+        {
+          "name": "props[].when",
+          "type": "objective condition",
+          "default": null,
+          "limits": "Optional existing objective condition; referenced events must exist. Cannot combine with solid."
+        }
+      ],
+      "dependencies": ["interactable:scene-event"],
+      "limits": [
+        "Presentation only: no new collision, terrain, encounter, reward or autonomous creature behavior.",
+        "Existing adult portrait staging does not provide juvenile art or a bespoke family animation."
+      ],
+      "examples": [
+        {
+          "intent": "Show a creature or repair materials at different sites after a choice.",
+          "usage": "Use mutually exclusive props[].when event/all/any/not conditions, as in dist/maps/orchard-ruins.json.",
+          "expected": "The renderer derives the visible group immediately from committed events, including a completed rescue before its follow-up dialogue."
+        }
+      ],
+      "references": ["docs/MAP_FORMAT.md", "docs/ORCHARD_CONSEQUENCES.md", "dist/src/domain/mapdata.js", "dist/src/render/world.js"],
+      "evidence": [
+        {
+          "path": "tests/orchard-clues.test.mjs",
+          "assertion": "Round-trips both outcomes through backup import, checks Mara/Rowan callbacks and rejects unknown evidence and collision changes."
+        },
+        {
+          "path": "tests/quality-followup.browser.mjs",
+          "assertion": "Checks visible adult staging and NPC callbacks after reload."
+        }
+      ],
+      "details": {
+        "trigger": "Map rendering after authored story state changes.",
+        "inputs": "Existing objective condition under a decorative prop group when field.",
+        "sequence": "Compile validated groups, then evaluate their conditions against the current save before sorting visible objects.",
+        "results": "Only matching decorative groups draw. Gameplay geometry is unchanged.",
+        "cancellation": "No pending action: unresolved/cancelled scenes retain the preceding committed presentation.",
+        "errors": "Malformed conditions, unknown event references and conditional solid props fail map validation.",
+        "persistence": "No new save fields. Canonical events/flags drive the same presentation after reload, map re-entry and backup import."
+      }
+    },
+    {
       "id": "mechanic:creature-sheet-export",
       "kind": "mechanic",
       "name": "Complete creature frame extraction",
@@ -9331,7 +9405,8 @@
       "dependencies": ["interactable:scene-event"],
       "limits": [
         "Sequential player and ranger movement only; no parallel groups or custom animation scripts.",
-        "Each destination is limited to 128 steps and 4096 inspected cells; waits are at most 5 seconds."
+        "Each destination is limited to 128 steps and 4096 inspected cells; waits are at most 5 seconds.",
+        "Authored reaction art currently belongs only to person-traveler; other actor identities and missing optional images use the static cue fallback. Owner visual approval remains pending."
       ],
       "examples": [
         {
@@ -9351,13 +9426,17 @@
         {
           "path": "tests/scenes.test.mjs",
           "assertion": "Covers bounded routes, walkable destinations, actor validation and explicit arrival/block results."
+        },
+        {
+          "path": "tests/quality-followup.browser.mjs",
+          "assertion": "Exercises all three traveler poses, missing-art and gardener identity fallback at desktop, portrait and landscape sizes."
         }
       ],
       "details": {
         "trigger": "Validated map scene event.",
         "inputs": "Player and ranger landmark IDs, integer walkable destinations, supported face targets, notice/surprise/happy reactions, and bounded waits.",
         "sequence": "Actions run in authored order; each movement settles before the next action.",
-        "results": "Movement reports arrived, blocked or cancelled. Player directions and four ranger facings use shipped sprite poses.",
+        "results": "Movement reports arrived, blocked or cancelled. Player directions and four ranger facings use shipped sprite poses. Traveler notice/surprise/happy poses are optional; other ranger identities retain their own sprite and a readable cue.",
         "cancellation": "Pause, menu, map travel, battle, hidden tab and page exit release movement ownership and cancel timers.",
         "errors": "Missing actor, invalid destination, blocked route or unsupported action is rejected or reported; no rescue teleport is used.",
         "persistence": "One-time event keys, flags and rewards save before presentation; a failed save restores the prior save state."

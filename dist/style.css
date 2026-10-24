@@ -3223,3 +3223,32 @@ body.reduce-motion .battle-scene .bar b.trail {
     font-size: 13px;
   }
 }
+
+/* Fullscreen must fill tall and desktop viewports too, not only the short landscape media query. */
+.game-frame:fullscreen,
+.game-frame:-webkit-full-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: #102822;
+}
+.game-frame:fullscreen .location,
+.game-frame:-webkit-full-screen .location,
+.game-frame:fullscreen .game-footer,
+.game-frame:-webkit-full-screen .game-footer {
+  flex-shrink: 0;
+}
+.game-frame:fullscreen .viewport,
+.game-frame:-webkit-full-screen .viewport {
+  flex: 1;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  aspect-ratio: auto;
+}

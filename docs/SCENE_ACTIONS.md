@@ -16,7 +16,7 @@ Movable actor IDs are `player` and ranger landmark IDs on the current map. Desti
 }
 ```
 
-`face` points one actor at another supported actor. Ranger art has north, east, south and west poses; the player retains all eight directions. `react` supports `notice`, `surprise` and `happy`. Rangers use the authored scene-reaction pose for the short reaction window when that optional asset is loaded; otherwise the existing readable cue above the actor remains the fallback. Reduced-motion mode holds one static pose for a shorter window and never adds frame animation. These are the currently supported reactions; there is no custom animation or arbitrary pose scripting. `wait` accepts 0–5000 milliseconds.
+`face` points one actor at another supported actor. Ranger art has north, east, south and west poses; the player retains all eight directions. `react` supports `notice`, `surprise` and `happy`. Only rangers using `person-traveler` use the authored scene-reaction pose for the short reaction window when that optional asset is loaded; otherwise the existing readable cue above the actor remains the fallback. Reduced-motion mode holds one static pose for a shorter window and never adds frame animation. These are the currently supported reactions; there is no custom animation or arbitrary pose scripting. `wait` accepts 0–5000 milliseconds.
 
 ```json
 {"type":"move","actor":"ranger","to":[12,10]}
@@ -45,3 +45,5 @@ Reduced-motion mode moves actors directly between the same validated route point
 Events may include optional `note` (1–320 characters). The field journal displays this text only after the canonical `<map-id>/<event-id>` is saved; it never lists unseen entries. Avoid putting an undiscovered secret into an earlier event's note. Packs without notes keep their existing journal. Explicit `beforeLandmark: true` interaction triggers give eligible scene events precedence over generic nearby landmark text; consumed/ineligible events fall back to normal inspection. This lets an authored clue live on a real prop without its generic sign interaction masking the scene.
 
 Map validation checks scene prerequisite event references and reachable positive dependencies across maps. Companion-route references use their canonical `route-<id>` event. Negative outcome guards do not create a dependency cycle. This is a bounded scene graph check, not a new quest engine or proof that an external flag, actor or physical route is attainable.
+
+Other ranger identities (including Mara’s `person-gardener`) keep their original sprite and the readable cue; a reaction must never substitute a different character. The optional traveler poses remain pending owner visual approval.

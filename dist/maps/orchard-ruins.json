@@ -90,6 +90,25 @@
       "lines": [
         {
           "when": {
+            "event": "orchard-ruins/outcome-water-first"
+          },
+          "text": "You cleared the bypass first. I moved the repair boards down to the channel, and the adult is waiting above it. The lower row has water again. Thank you."
+        },
+        {
+          "when": {
+            "any": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "event": "orchard-ruins/outcome-family-first"
+              }
+            ]
+          },
+          "text": "You brought the family to dry roots first. The adult is beside the higher hollow now. My boards are still by the broken feeder; I will finish that slower repair. Thank you."
+        },
+        {
+          "when": {
             "flag": "meadow.seal"
           },
           "text": "The shrine is awake. The east gate leads to Amber Ridge."
@@ -578,7 +597,78 @@
       "sprite": "wood-plank-stack",
       "kind": "scenery",
       "w": 32,
-      "at": [[55.4, 28.1]]
+      "at": [[55.4, 28.1]],
+      "when": {
+        "not": {
+          "event": "orchard-ruins/outcome-water-first"
+        }
+      }
+    },
+    {
+      "sprite": "wood-plank-stack",
+      "kind": "scenery",
+      "w": 32,
+      "at": [[49.8, 40.4]],
+      "when": {
+        "event": "orchard-ruins/outcome-water-first"
+      }
+    },
+    {
+      "sprite": "creature-bramblebuck",
+      "kind": "scenery",
+      "w": 37,
+      "at": [[42.5, 35.2]],
+      "when": {
+        "all": [
+          {
+            "event": "orchard-ruins/den-family-seen"
+          },
+          {
+            "not": {
+              "any": [
+                {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sprite": "creature-bramblebuck",
+      "kind": "scenery",
+      "w": 37,
+      "at": [[46, 35]],
+      "when": {
+        "event": "orchard-ruins/outcome-water-first"
+      }
+    },
+    {
+      "sprite": "creature-bramblebuck",
+      "kind": "scenery",
+      "w": 37,
+      "at": [[44.4, 32.9]],
+      "when": {
+        "any": [
+          {
+            "event": "orchard-ruins/orchard-family"
+          },
+          {
+            "event": "orchard-ruins/outcome-family-first"
+          }
+        ]
+      }
     },
     {
       "sprite": "tree-oak",
@@ -966,7 +1056,7 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "The lower row is visibly running again. The family has settled above the waterline; Mara's repair holds for this visit."
+              "text": "The repair boards now sit beside the cleared bypass. The adult waits above the channel; Mara's repair holds."
             }
           ]
         }
@@ -1139,7 +1229,14 @@
             "event": "orchard-ruins/outcome-water-first"
           },
           {
-            "event": "orchard-ruins/outcome-family-first"
+            "any": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "event": "orchard-ruins/outcome-family-first"
+              }
+            ]
           }
         ]
       },
