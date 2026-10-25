@@ -194,15 +194,15 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "958ea724a79045a421317336c69a7928857c2fa1067204037b9cd170458791da",
+    "dist/maps/amber-ridge.json": "73338eb502f074f29f78894f23c4b62adaf4ae8cbcf8afdc0bffc5cb6c2181e2",
     "dist/maps/brackenwake-commons.json": "92cf67c62bf4c0fa3c8676bb5533d488bb837679fbb458cacaf61ec7b996b365",
     "dist/maps/frostveil-grove.json": "9c19bcab6e8923b290a403409a7ac54472d9b2b070f93efa6b5a6fffb6eefe3d",
     "dist/maps/frostveil-pass.json": "2ebb26442c15515b32996ababeeadd2e0b75e946e1ce0165db8c90fb579e1595",
-    "dist/maps/index.json": "da3fd4a0e056e3b8677d2c9c704e7dade54ecb5d9b9d4279cb0ce678ae3652d1",
+    "dist/maps/index.json": "e79da9fcbd4b24534216a1cccb013ede30fde5443519e50346b043ed9f57d34c",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "6ec0c6f5e54f6a45ebf61c01d2b958a9e29ab8f8f6c5cfde5590ccaec56fae37",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "164a6ba40f6a1163571b9ad371a8c79bcdc80f72b4bba7fd9a77811db2efc606",
+    "dist/maps/orchard-ruins.json": "c4738aa51a53d429a0d2573f4e1c9de890b4833b2b2617e670aa40858dabfb38",
     "dist/maps/reedfen-wetlands.json": "5dd1fe36686381e0cbbfae041839655598753240690f3734820d7eb920b463ae",
     "dist/maps/registries.json": "b7d17a7fd9a62314ac6db90cf48554b541e47e6a3a772be609a708055ba68dde",
     "dist/maps/rootglass-canopy.json": "ee281f2be56287a5eadd2f1f0321f196c1660c0eb7270c717584f9dda9c8aac1",
@@ -330,7 +330,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "e0edb9c13f8f0495aec04c3a45fdd1abf27dd58e4c3cfa99bda37a3d1aa1203a",
+  "sourceDigest": "152c7cf6584b1b54d93f2916481f5516f65c5550de7e7a7cf1cd060f065ba745",
   "exclusions": [
     {
       "family": "module-exports",
@@ -1317,7 +1317,7 @@
             "when": {
               "event": "orchard-ruins/outcome-water-first"
             },
-            "text": "Mara's lower row is flowing again. The orchard family stayed in its dry upper nook, and the eastern trail is still the way forward."
+            "text": "Mara's lower row is flowing again; the family is safe. Follow the eastern trail."
           },
           {
             "when": {
@@ -1330,7 +1330,7 @@
                 }
               ]
             },
-            "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
+            "text": "The young are safe in the dry hollow; the channel still needs repair. Follow the eastern trail."
           },
           {
             "when": {
@@ -2855,6 +2855,25 @@
         "labels": [
           {
             "when": {
+              "event": "orchard-ruins/outcome-water-first"
+            },
+            "text": "Water flows; family safe above"
+          },
+          {
+            "when": {
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
+            },
+            "text": "Family safe; channel repair pending"
+          },
+          {
+            "when": {
               "all": [
                 {
                   "event": "orchard-ruins/den-family-seen"
@@ -3067,7 +3086,7 @@
             "when": {
               "event": "orchard-ruins/outcome-water-first"
             },
-            "text": "You cleared the bypass first. I moved the repair boards down to the channel, and the adult is waiting above it. The lower row has water again. Thank you."
+            "text": "The lower row is flowing again, and the Bramblebuck family is safe above the waterline. Thank you for taking care of both. I'll tell Rowan what you chose."
           },
           {
             "when": {
@@ -3080,7 +3099,7 @@
                 }
               ]
             },
-            "text": "You brought the family to dry roots first. The adult is beside the higher hollow now. My boards are still by the broken feeder; I will finish that slower repair. Thank you."
+            "text": "The young are safe in the dry hollow. I'll finish the slower repair and tell Rowan why you moved them first."
           },
           {
             "when": {
@@ -3154,6 +3173,25 @@
         "text": "The roots here sit above the wet ground.",
         "discoveryText": "Upper hollow: The roots here sit above the wet ground.",
         "labels": [
+          {
+            "when": {
+              "event": "orchard-ruins/outcome-water-first"
+            },
+            "text": "The family is resting above the flowing row"
+          },
+          {
+            "when": {
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
+            },
+            "text": "The family is safe in the dry hollow"
+          },
           {
             "when": {
               "all": [
@@ -4874,7 +4912,7 @@
                 "when": {
                   "event": "orchard-ruins/outcome-water-first"
                 },
-                "text": "Mara's lower row is flowing again. The orchard family stayed in its dry upper nook, and the eastern trail is still the way forward."
+                "text": "Mara's lower row is flowing again; the family is safe. Follow the eastern trail."
               },
               {
                 "when": {
@@ -4887,7 +4925,7 @@
                     }
                   ]
                 },
-                "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
+                "text": "The young are safe in the dry hollow; the channel still needs repair. Follow the eastern trail."
               },
               {
                 "when": {
@@ -8440,7 +8478,7 @@
                 "when": {
                   "event": "orchard-ruins/outcome-water-first"
                 },
-                "text": "You cleared the bypass first. I moved the repair boards down to the channel, and the adult is waiting above it. The lower row has water again. Thank you."
+                "text": "The lower row is flowing again, and the Bramblebuck family is safe above the waterline. Thank you for taking care of both. I'll tell Rowan what you chose."
               },
               {
                 "when": {
@@ -8453,7 +8491,7 @@
                     }
                   ]
                 },
-                "text": "You brought the family to dry roots first. The adult is beside the higher hollow now. My boards are still by the broken feeder; I will finish that slower repair. Thank you."
+                "text": "The young are safe in the dry hollow. I'll finish the slower repair and tell Rowan why you moved them first."
               },
               {
                 "when": {
@@ -8545,6 +8583,25 @@
             "labels": [
               {
                 "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "text": "Water flows; family safe above"
+              },
+              {
+                "when": {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                },
+                "text": "Family safe; channel repair pending"
+              },
+              {
+                "when": {
                   "all": [
                     {
                       "event": "orchard-ruins/den-family-seen"
@@ -8585,6 +8642,25 @@
             "text": "The roots here sit above the wet ground.",
             "discoveryText": "Upper hollow: The roots here sit above the wet ground.",
             "labels": [
+              {
+                "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "text": "The family is resting above the flowing row"
+              },
+              {
+                "when": {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                },
+                "text": "The family is safe in the dry hollow"
+              },
               {
                 "when": {
                   "all": [
@@ -9250,6 +9326,53 @@
                   }
                 ],
                 "note": "Mara asked where the lower row’s water went."
+              },
+              {
+                "id": "mara-remembers-water-first",
+                "repeatable": false,
+                "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "actions": [
+                  {
+                    "type": "react",
+                    "actor": "orchard-ranger",
+                    "pose": "happy"
+                  },
+                  {
+                    "type": "dialogue",
+                    "speaker": "orchard-ranger",
+                    "text": "The water is reaching the lower row again, and the family has a dry place to rest. I'll send Rowan the good news."
+                  }
+                ],
+                "note": "Mara remembers that the player restored the water before moving the family."
+              },
+              {
+                "id": "mara-remembers-family-first",
+                "repeatable": false,
+                "when": {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "react",
+                    "actor": "orchard-ranger",
+                    "pose": "happy"
+                  },
+                  {
+                    "type": "dialogue",
+                    "speaker": "orchard-ranger",
+                    "text": "The young are safe above the waterline. I'll make the slower repair and tell Rowan why you moved them first."
+                  }
+                ],
+                "note": "Mara remembers that the player moved the family before the repair."
               }
             ],
             "beforeLandmark": true,
@@ -13390,7 +13513,7 @@
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "958ea724a79045a421317336c69a7928857c2fa1067204037b9cd170458791da"
+            "sha256": "73338eb502f074f29f78894f23c4b62adaf4ae8cbcf8afdc0bffc5cb6c2181e2"
           },
           {
             "id": "map:frostveil-grove",
@@ -13410,7 +13533,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "164a6ba40f6a1163571b9ad371a8c79bcdc80f72b4bba7fd9a77811db2efc606"
+            "sha256": "c4738aa51a53d429a0d2573f4e1c9de890b4833b2b2617e670aa40858dabfb38"
           },
           {
             "id": "map:stilt-isles",

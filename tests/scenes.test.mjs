@@ -2,14 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {validateMaps} from '../dist/src/domain/mapdata.js';
 import {applySceneActions, markSceneRun, sceneConditionHolds, sceneHasRun, validateSceneEvent} from '../dist/src/domain/scenes.js';
-import {holds, validateObjectives} from '../dist/src/domain/objectives.js';
+import {holds, pickLine, validateObjectives} from '../dist/src/domain/objectives.js';
+import {exportBackup, importSave, parseBackup} from '../dist/src/services/backup.js';
+import {readFileSync} from 'node:fs';
 import {isWalkable, buildWorld} from '../dist/src/domain/world.js';
 import {findScenePath} from '../dist/src/domain/scene-path.js';
 import {setFlag} from '../dist/src/domain/rules.js';
 import {grant as grantReward} from '../dist/src/domain/economy.js';
 import {assets} from '../dist/src/data/assets.js';
 import {species} from '../dist/src/data/species.js';
-import {codec, maps as compiledMaps, newSave, rawMaps} from './helpers.mjs';
+import {codec, maps as compiledMaps, newSave, objCtx, rawMaps} from './helpers.mjs';
 
 const rawMapList = rawMaps();
 const names = new Set(assets.map(asset => asset.name));
@@ -129,6 +131,80 @@ test('the orchard offers both starter-independent outcomes and preserves the fam
   const resolution = family.events.find(event => event.id === 'outcome-family-first');
   assert.equal(sceneConditionHolds(resolution, restored, {speciesCount: 18, regions: []}), true, 're-entry resolves the saved rescue outcome');
   assert.equal(sceneConditionHolds(familyChallenge, restored, {speciesCount: 18, regions: []}), false, 'the completed objective cannot restart');
+});
+
+test('both orchard outcomes survive export/import and update Mara, local landmarks and Rowan', () => {
+  const orchard = rawMapList.find(map => map.id === 'orchard-ruins');
+  const ridge = rawMapList.find(map => map.id === 'amber-ridge');
+  const mara = orchard.landmarks.find(landmark => landmark.id === 'orchard-ranger');
+  const rowan = ridge.landmarks.find(landmark => landmark.id === 'ranger');
+  const channel = orchard.landmarks.find(landmark => landmark.id === 'bypass-stones');
+  const hollow = orchard.landmarks.find(landmark => landmark.id === 'upper-hollow');
+  const reminderEvents = orchard.triggers.find(trigger => trigger.id === 'orchard-mara-brief').events;
+  const continuity = JSON.parse(readFileSync(new URL('../docs/scene-script-proofs/265-orchard-consequences/continuity-handoff.json', import.meta.url)));
+  const expected = [
+    {
+      id: 'water-first',
+      event: 'orchard-ruins/outcome-water-first',
+      other: 'orchard-ruins/outcome-family-first',
+      mara: /lower row is flowing again/i,
+      rowan: /lower row is flowing again/i,
+      channel: /water flows/i,
+      hollow: /above the flowing row/i,
+      reminder: 'mara-remembers-water-first',
+    },
+    {
+      id: 'family-first',
+      event: 'orchard-ruins/outcome-family-first',
+      other: 'orchard-ruins/outcome-water-first',
+      mara: /young are safe in the dry hollow/i,
+      rowan: /young are safe in the dry hollow/i,
+      channel: /channel repair pending/i,
+      hollow: /safe in the dry hollow/i,
+      reminder: 'mara-remembers-family-first',
+    },
+  ];
+  assert.deepEqual(
+    continuity.outcomes.map(outcome => outcome.id),
+    expected.map(outcome => outcome.id),
+  );
+
+  for (const outcome of expected) {
+    const exported = continuity.outcomes.find(record => record.id === outcome.id);
+    const save = newSave();
+    save.events.push(outcome.event);
+    if (outcome.id === 'family-first') save.events.push('orchard-ruins/orchard-family');
+    const backup = exportBackup(codec, save, {short: '265test'}, new Date('2026-10-24T00:00:00Z'));
+    const parsed = parseBackup(backup, codec);
+    assert.equal(parsed.ok, true);
+    const storage = new Map();
+    const adapter = {
+      getItem: key => (storage.has(key) ? storage.get(key) : null),
+      setItem: (key, value) => storage.set(key, String(value)),
+      removeItem: key => storage.delete(key),
+    };
+    assert.equal(importSave({storage: adapter, codec, save: newSave(), incoming: parsed.save}).ok, true);
+    const restored = codec.load(adapter).save;
+
+    assert.ok(restored.events.includes(outcome.event));
+    assert.ok(!restored.events.includes(outcome.other), 'the alternatives remain mutually exclusive');
+    assert.equal(exported.committedByEvent, outcome.event);
+    assert.match(pickLine(mara.lines, restored, objCtx), outcome.mara);
+    assert.match(pickLine(rowan.lines, restored, objCtx), outcome.rowan);
+    assert.equal(exported.nextScene.text, pickLine(rowan.lines, restored, objCtx));
+    assert.deepEqual(exported.committedWhen, exported.nextScene.when);
+    assert.equal(holds(exported.committedWhen, restored, objCtx), true);
+    assert.deepEqual(exported.nextScene.when, rowan.lines.find(line => line.text === exported.nextScene.text).when);
+    assert.match(pickLine(channel.labels, restored, objCtx), outcome.channel);
+    assert.equal(exported.visibleObjectPrompts.channel, pickLine(channel.labels, restored, objCtx));
+    assert.match(pickLine(hollow.labels, restored, objCtx), outcome.hollow);
+    assert.equal(exported.visibleObjectPrompts.hollow, pickLine(hollow.labels, restored, objCtx));
+    const reminder = reminderEvents.find(event => event.id === outcome.reminder);
+    assert.equal(sceneConditionHolds(reminder, restored, objCtx), true);
+    const reaction = applySceneActions(restored, reminder, {setFlag() {}});
+    assert.deepEqual(reaction.choreography, [{type: 'react', actor: 'orchard-ranger', pose: 'happy'}]);
+    assert.equal(reaction.dialogue[0].speaker, 'orchard-ranger');
+  }
 });
 
 test('dialogue resolves stable reusable speaker ids and rejects unknown ones', () => {

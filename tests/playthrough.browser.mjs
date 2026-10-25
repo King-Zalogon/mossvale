@@ -244,7 +244,7 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
 
   await page.goto(url + `?debug&seed=${seed}&clock=0`);
   await waitForGameReady(page);
-  await page.waitForFunction(() => window.mossvale.getState().world.map.id === 'meadow');
+  await page.waitForFunction(() => window.mossvale.getState().world?.map?.id === 'meadow');
   let beforeReloadEvents = [];
   for (const action of rangerToShrineScript) {
     if (action.type === 'walk-to') {
@@ -343,9 +343,18 @@ console.log(`ok party/reserve selection and persistence plus meadow guardian pla
       let completed = await state();
       assert.ok(completed.save.badges.length > 0, 'the player receives the meadow seal after the encounter');
       assert.ok(completed.save.coins > 0, 'the battle reward is persisted');
+      await page.waitForFunction(() => {
+        try {
+          const stored = JSON.parse(localStorage.getItem('mossvale-v3') || 'null');
+          return stored?.badges?.length === 1 && stored?.coins > 0;
+        } catch {
+          return false;
+        }
+      });
       await capture('06-meadow-seal-earned');
       await page.reload();
       await waitForGameReady(page);
+      await page.waitForFunction(() => window.mossvale.getState().save.badges.length === 1);
       completed = await state();
       assert.equal(completed.phase, 'explore', 'the victory returns to the explorable map');
       assert.equal(completed.save.badges.length, 1, 'the guardian seal survives save/reload exactly once');

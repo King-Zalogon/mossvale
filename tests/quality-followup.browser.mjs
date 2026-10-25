@@ -114,10 +114,14 @@ try {
     });
     await page.keyboard.press('e');
     await page.waitForSelector('#speech-bubble:not([hidden])');
-    assert.match(await page.locator('#speech-bubble').innerText(), outcome === 'orchard-family' ? /family to dry roots first/ : /cleared the bypass first/);
+    assert.match(
+      await page.locator('#speech-bubble').innerText(),
+      outcome === 'orchard-family' ? /young are safe/i : /water is reaching the lower row|lower row is flowing again/i,
+    );
     await page.locator('#speech-next').click();
-    await page.waitForSelector('#modal:not([hidden])');
-    await page.keyboard.press('Escape');
+    await page.waitForSelector('#speech-bubble', {state: 'hidden'});
+    assert.equal(await page.evaluate(() => window.mossvale.getState().modalMode), '', 'the remembered scene completes without opening the ranger menu');
+    assert.equal(await page.evaluate(() => window.mossvale.getState().world.objects.find(object => object.ref === 'orchard-ranger').sceneReaction), 'happy');
     await page.evaluate(() => window.mossvale.travel(1));
     await page.evaluate(() => {
       const state = window.mossvale.getState();
@@ -127,7 +131,10 @@ try {
     await page.waitForTimeout(300);
     await page.keyboard.press('e');
     await page.waitForSelector('#speech-bubble:not([hidden])');
-    assert.match(await page.locator('#speech-bubble').innerText(), outcome === 'orchard-family' ? /family made it to the dry hollow/ : /lower row is flowing/);
+    assert.match(
+      await page.locator('#speech-bubble').innerText(),
+      outcome === 'orchard-family' ? /young are safe in the dry hollow/i : /lower row is flowing/i,
+    );
     assert.equal(await page.evaluate(() => window.mossvale.getState().save.coins), coins);
     await context.close();
   }

@@ -70,8 +70,8 @@ try {
   await setCoins(222);
   await boot();
   // Leave the running game first (it saves as the page goes away) so the snapshot is what a rejected load will find.
-  const missingPage = await page.goto(url + 'not-a-page');
-  assert.equal(missingPage.status(), 404, 'the same-origin error document unloads the running game');
+  const leaveGame = await page.goto(url + 'favicon.svg');
+  assert.equal(leaveGame.status(), 200, 'leaving the game commits its last save before inspection');
   const before = await saveKeys();
   assert.equal(JSON.parse(before['mossvale-v3']).coins, 111);
   assert.equal(JSON.parse(before['mossvale-pack-hearth-hamlet-v3']).coins, 222);

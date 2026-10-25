@@ -117,7 +117,8 @@ test('choice labels disclose an action only after finding the family, then retur
   markSceneRun(save, map.id, 'den-family-seen');
   assert.match(pickLine(labels, save, objCtx), /Guide the family/);
   markSceneRun(save, map.id, 'outcome-water-first');
-  assert.doesNotMatch(pickLine(labels, save, objCtx), /family/);
+  assert.doesNotMatch(pickLine(labels, save, objCtx), /Guide the family/);
+  assert.match(pickLine(labels, save, objCtx), /flowing row/);
 });
 
 test('committed orchard outcomes drive distinct decoration and both NPC callbacks after backup import', async () => {
@@ -138,9 +139,17 @@ test('committed orchard outcomes drive distinct decoration and both NPC callback
     const adult = visible.filter(prop => prop.sprite === 'creature-bramblebuck');
     assert.equal(adult.length, 1, 'exactly one adult staging appears, distinct from the player companion');
     assert.deepEqual(adult[0].at, event === 'outcome-water-first' ? [[46, 35]] : [[44.4, 32.9]]);
-    assert.match(pickLine(mara.lines, restored, objCtx), event === 'outcome-water-first' ? /cleared the bypass first/ : /family to dry roots first/);
-    assert.match(pickLine(rowan.lines, restored, objCtx), event === 'outcome-water-first' ? /lower row is flowing/ : /family made it to the dry hollow/);
+    assert.match(pickLine(mara.lines, restored, objCtx), event === 'outcome-water-first' ? /lower row is flowing again/i : /young are safe in the dry hollow/i);
+    assert.match(pickLine(rowan.lines, restored, objCtx), event === 'outcome-water-first' ? /lower row is flowing/i : /young are safe in the dry hollow/i);
     assert.equal(holds(map.hints.find(hint => hint.id === 'two-priorities').resolved, restored, objCtx), true);
+    const {readFileSync} = await import('node:fs');
+    const handoff = JSON.parse(readFileSync(new URL('../docs/scene-script-proofs/265-orchard-consequences/continuity-handoff.json', import.meta.url)));
+    const outcome = handoff.outcomes.find(item => item.id === (event === 'outcome-water-first' ? 'water-first' : 'family-first'));
+    assert.equal(holds(outcome.committedWhen, restored, objCtx), true, 'the handoff recognizes the committed objective before its terminal label');
+    assert.equal(holds(outcome.nextScene.when, restored, objCtx), true);
+    assert.equal(outcome.nextScene.text, pickLine(rowan.lines, restored, objCtx));
+    assert.deepEqual(outcome.staging.adultAt, adult[0].at[0]);
+    assert.deepEqual(outcome.staging.repairBoardsAt, visible.find(prop => prop.sprite === 'wood-plank-stack').at[0]);
     assert.equal(restored.coins, 27, 'deriving presentation and callbacks pays no additional reward');
   }
 });

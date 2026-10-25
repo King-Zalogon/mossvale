@@ -1,0 +1,34 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": [
+        "dist/maps/amber-ridge.json",
+        "dist/maps/orchard-ruins.json",
+        "dist/maps/index.json",
+        "docs/NARRATIVE_CONTINUITY.md",
+        "docs/design/ORCHARD_MYSTERY.md",
+        "docs/scene-script-proofs/265-orchard-consequences/continuity-handoff.json",
+        "docs/scene-quality/265/README.md",
+        "docs/scene-quality/265/routes.json",
+        "docs/scene-quality/265/desktop-rowan-water-first.png",
+        "docs/scene-quality/265/phone-rowan-family-first.png",
+        "tests/orchard-clues.browser.mjs",
+        "tests/orchard-clues.test.mjs",
+        "tests/scenes.test.mjs",
+        "content/catalogue/facts.json",
+        "content/catalogue/catalogue.json",
+        "content/catalogue/INDEX.md"
+      ],
+      "entries": ["map:mossvale/orchard-ruins", "interactable:scene-event", "mechanic:scene-dialogue"],
+      "disposition": "updated",
+      "reason": "Completes the branch-to-continuity handoff for the shipped orchard mystery: stable water-first/family-first save events select distinct Mara responses, local channel/hollow prompts and Rowan's next-map callback. Adds a one-time Mara reaction on return and verifies both branches after backup export/import and real keyboard/touch play. The handoff records that terrain and overworld family sprites remain static; no new runtime capability, save field or asset is claimed.",
+      "evidence": [
+        "tests/scenes.test.mjs",
+        "tests/orchard-clues.browser.mjs",
+        "docs/scene-script-proofs/265-orchard-consequences/continuity-handoff.json",
+        "docs/NARRATIVE_CONTINUITY.md"
+      ]
+    }
+  ]
+}

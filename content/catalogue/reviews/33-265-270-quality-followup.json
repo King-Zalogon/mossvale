@@ -13,11 +13,15 @@
         "docs/MAP_FORMAT.md",
         "docs/ORCHARD_CONSEQUENCES.md",
         "docs/ORCHARD_DISCOVERIES.md",
-        "docs/SCENE_ACTIONS.md"
+        "docs/SCENE_ACTIONS.md",
+        "docs/NARRATIVE_CONTINUITY.md",
+        "docs/design/ORCHARD_MYSTERY.md",
+        "docs/scene-quality/265/README.md",
+        "docs/scene-script-proofs/265-orchard-consequences/continuity-handoff.json"
       ],
       "entries": ["mechanic:conditional-decoration", "mechanic:scene-choreography", "map:mossvale/orchard-ruins", "map:mossvale/amber-ridge"],
       "disposition": "updated",
-      "reason": "Add validated nonblocking conditional decoration, preserve traveler-only reaction identity, bind adult/repair materials and Mara/Rowan/hints to committed outcomes including rescue completion before re-entry. Canonical map hashes and matching capability fiches are updated; no new save identity, terrain collision or rewards. Copy transient player reaction state into its render proxy so the advertised player fallback cue is actually visible.",
+      "reason": "Add validated nonblocking conditional decoration, preserve traveler-only reaction identity, bind adult/repair materials and Mara/Rowan/hints to committed outcomes including rescue completion before re-entry. Canonical map hashes and matching capability fiches are updated; no new save identity, terrain collision or rewards. Copy transient player reaction state into its render proxy so the advertised player fallback cue is actually visible. Integrate #265 continuity commit abe1817: retain its remembered reactions, concise dialogue, local status prompts and writer handoff; extend display and handoff truth to the already committed rescue marker before the terminal label is revisited.",
       "evidence": ["tests/orchard-clues.test.mjs", "tests/quality-followup.browser.mjs", "docs/ORCHARD_CONSEQUENCES.md"]
     },
     {
