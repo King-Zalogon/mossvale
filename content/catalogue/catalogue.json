@@ -2116,13 +2116,13 @@
                 "when": {
                   "event": "orchard-ruins/outcome-water-first"
                 },
-                "text": "Mara's lower row is flowing again. The orchard family stayed in its dry upper nook, and the eastern trail is still the way forward."
+                "text": "Mara's lower row is flowing again; the family is safe. Follow the eastern trail."
               },
               {
                 "when": {
                   "event": "orchard-ruins/outcome-family-first"
                 },
-                "text": "Mara says the family made it to the dry hollow. The lower row is still waiting on its repair, but the eastern trail is open."
+                "text": "The young are safe in the dry hollow; the channel still needs repair. Follow the eastern trail."
               },
               {
                 "when": {
@@ -4751,6 +4751,18 @@
             "labels": [
               {
                 "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "text": "Water flows; family safe above"
+              },
+              {
+                "when": {
+                  "event": "orchard-ruins/outcome-family-first"
+                },
+                "text": "Family safe; channel repair pending"
+              },
+              {
+                "when": {
                   "all": [
                     {
                       "event": "orchard-ruins/den-family-seen"
@@ -5105,6 +5117,18 @@
             "lines": [
               {
                 "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "text": "The lower row is flowing again, and the Bramblebuck family is safe above the waterline. Thank you for taking care of both. I'll tell Rowan what you chose."
+              },
+              {
+                "when": {
+                  "event": "orchard-ruins/outcome-family-first"
+                },
+                "text": "The young are safe in the dry hollow. I'll finish the slower repair and tell Rowan why you moved them first."
+              },
+              {
+                "when": {
                   "flag": "meadow.seal"
                 },
                 "text": "The shrine is awake. The east gate leads to Amber Ridge."
@@ -5223,6 +5247,18 @@
             "text": "The roots here sit above the wet ground.",
             "discoveryText": "Upper hollow: The roots here sit above the wet ground.",
             "labels": [
+              {
+                "when": {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                "text": "The family is resting above the flowing row"
+              },
+              {
+                "when": {
+                  "event": "orchard-ruins/outcome-family-first"
+                },
+                "text": "The family is safe in the dry hollow"
+              },
               {
                 "when": {
                   "all": [

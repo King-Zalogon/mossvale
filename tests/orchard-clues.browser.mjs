@@ -7,7 +7,7 @@ import {gameHandler} from '../scripts/local-integration.mjs';
 import {codec, newSave, mapsById} from './helpers.mjs';
 import {buildWorld, isWalkable} from '../dist/src/domain/world.js';
 import {inputForWorldTarget} from './action-script.mjs';
-const world = buildWorld(mapsById['orchard-ruins']);
+let world = buildWorld(mapsById['orchard-ruins']);
 const server = createServer(gameHandler(fileURLToPath(new URL('../', import.meta.url)))).listen(0);
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
 const report = [];
@@ -50,6 +50,7 @@ function path(start, target) {
 }
 try {
   for (const touch of [false, true]) {
+    world = buildWorld(mapsById['orchard-ruins']);
     const context = await browser.newContext({
       viewport: touch ? {width: 844, height: 390} : {width: 1280, height: 820},
       hasTouch: touch,
@@ -153,8 +154,8 @@ try {
     }
     const capture = async label => {
       if (process.env.ORCHARD_REVIEW) {
-        mkdirSync('docs/scene-quality/260', {recursive: true});
-        await page.screenshot({path: `docs/scene-quality/260/${touch ? 'phone' : 'desktop'}-${label}.png`});
+        mkdirSync('docs/scene-quality/265', {recursive: true});
+        await page.screenshot({path: `docs/scene-quality/265/${touch ? 'phone' : 'desktop'}-${label}.png`});
       }
     };
     await capture('evidence');
@@ -201,9 +202,47 @@ try {
     if (touch) await page.locator('#touch-e').tap();
     else await page.keyboard.press('e');
     await finish();
+    const savedStatePrompt = await page.evaluate(() => window.mossvale.nearest().label);
+    assert.match(
+      savedStatePrompt,
+      touch ? /family is safe in the dry hollow/i : /water flows; family safe above/i,
+      'the revisited map object exposes the persisted outcome after re-entry',
+    );
+    await capture(touch ? 'family-first' : 'water-first');
     assert.equal((await state()).save.coins, expected, 're-entering the resolved interaction after reload cannot duplicate its reward');
     if (touch) assert.ok((await state()).save.events.includes('orchard-ruins/outcome-family-first'), 're-entry records the saved family-first resolution');
     assert.equal(new Set((await state()).save.events).size, (await state()).save.events.length);
+
+    await page.evaluate(() => window.mossvale.travel('orchard-ruins'));
+    await page.waitForFunction(() => window.mossvale.getState().save.mapId === 'orchard-ruins');
+    world = buildWorld(mapsById['orchard-ruins']);
+    if (touch) await page.locator('#game').tap();
+    await walk([5.2, 14]);
+    assert.match(await page.evaluate(() => window.mossvale.nearest().label), /Talk to Orchard Keeper Mara/);
+    if (touch) await page.locator('#touch-e').tap();
+    else await page.keyboard.press('e');
+    await page.waitForSelector('#speech-bubble:not([hidden])');
+    const maraMemory = await page.locator('#speech-bubble').innerText();
+    assert.match(maraMemory, touch ? /young are safe above the waterline/i : /water is reaching the lower row again/i);
+    const maraReaction = await page.evaluate(() => window.mossvale.getState().world.objects.find(object => object.ref === 'orchard-ranger')?.sceneReaction);
+    assert.equal(maraReaction, 'happy', 'Mara reacts when she remembers the saved choice');
+    await capture(touch ? 'mara-family-first' : 'mara-water-first');
+    await finish();
+
+    await page.evaluate(() => window.mossvale.travel('amber-ridge'));
+    await page.waitForFunction(() => window.mossvale.getState().save.mapId === 'amber-ridge');
+    world = buildWorld(mapsById['amber-ridge']);
+    if (touch) await page.locator('#game').tap();
+    await walk([9.5, 25.4]);
+    assert.match(await page.evaluate(() => window.mossvale.nearest().label), /Talk to Ranger Rowan/);
+    if (touch) await page.locator('#touch-e').tap();
+    else await page.keyboard.press('e');
+    await page.waitForSelector('#speech-bubble:not([hidden])');
+    const rowanMemory = await page.locator('#speech-bubble').innerText();
+    assert.match(rowanMemory, touch ? /young are safe in the dry hollow/i : /lower row is flowing again/i);
+    await capture(touch ? 'rowan-family-first' : 'rowan-water-first');
+    await finish();
+
     assert.deepEqual(errors, []);
     report.push({
       input: touch ? 'touch' : 'keyboard',
@@ -215,7 +254,7 @@ try {
     });
     await context.close();
   }
-  if (process.env.ORCHARD_REVIEW) writeFileSync('docs/scene-quality/260/routes.json', JSON.stringify(report, null, 2) + '\n');
+  if (process.env.ORCHARD_REVIEW) writeFileSync('docs/scene-quality/265/routes.json', JSON.stringify(report, null, 2) + '\n');
   console.log('ok orchard independent real keyboard/touch routes, prop interactions, midway reload and once-only outcomes', report);
 } finally {
   await browser.close();

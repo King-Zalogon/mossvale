@@ -90,6 +90,18 @@
       "lines": [
         {
           "when": {
+            "event": "orchard-ruins/outcome-water-first"
+          },
+          "text": "The lower row is flowing again, and the Bramblebuck family is safe above the waterline. Thank you for taking care of both. I'll tell Rowan what you chose."
+        },
+        {
+          "when": {
+            "event": "orchard-ruins/outcome-family-first"
+          },
+          "text": "The young are safe in the dry hollow. I'll finish the slower repair and tell Rowan why you moved them first."
+        },
+        {
+          "when": {
             "flag": "meadow.seal"
           },
           "text": "The shrine is awake. The east gate leads to Amber Ridge."
@@ -178,6 +190,18 @@
       "labels": [
         {
           "when": {
+            "event": "orchard-ruins/outcome-water-first"
+          },
+          "text": "Water flows; family safe above"
+        },
+        {
+          "when": {
+            "event": "orchard-ruins/outcome-family-first"
+          },
+          "text": "Family safe; channel repair pending"
+        },
+        {
+          "when": {
             "all": [
               {
                 "event": "orchard-ruins/den-family-seen"
@@ -218,6 +242,18 @@
       "text": "The roots here sit above the wet ground.",
       "discoveryText": "Upper hollow: The roots here sit above the wet ground.",
       "labels": [
+        {
+          "when": {
+            "event": "orchard-ruins/outcome-water-first"
+          },
+          "text": "The family is resting above the flowing row"
+        },
+        {
+          "when": {
+            "event": "orchard-ruins/outcome-family-first"
+          },
+          "text": "The family is safe in the dry hollow"
+        },
         {
           "when": {
             "all": [
@@ -812,6 +848,38 @@
             }
           ],
           "note": "Mara asked where the lower row\u2019s water went."
+        },
+        {
+          "id": "mara-remembers-water-first",
+          "repeatable": false,
+          "when": {
+            "event": "orchard-ruins/outcome-water-first"
+          },
+          "actions": [
+            {"type": "react", "actor": "orchard-ranger", "pose": "happy"},
+            {
+              "type": "dialogue",
+              "speaker": "orchard-ranger",
+              "text": "The water is reaching the lower row again, and the family has a dry place to rest. I'll send Rowan the good news."
+            }
+          ],
+          "note": "Mara remembers that the player restored the water before moving the family."
+        },
+        {
+          "id": "mara-remembers-family-first",
+          "repeatable": false,
+          "when": {
+            "event": "orchard-ruins/outcome-family-first"
+          },
+          "actions": [
+            {"type": "react", "actor": "orchard-ranger", "pose": "happy"},
+            {
+              "type": "dialogue",
+              "speaker": "orchard-ranger",
+              "text": "The young are safe above the waterline. I'll make the slower repair and tell Rowan why you moved them first."
+            }
+          ],
+          "note": "Mara remembers that the player moved the family before the repair."
         }
       ],
       "beforeLandmark": true,

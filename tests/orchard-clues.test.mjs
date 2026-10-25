@@ -117,5 +117,6 @@ test('choice labels disclose an action only after finding the family, then retur
   markSceneRun(save, map.id, 'den-family-seen');
   assert.match(pickLine(labels, save, objCtx), /Guide the family/);
   markSceneRun(save, map.id, 'outcome-water-first');
-  assert.doesNotMatch(pickLine(labels, save, objCtx), /family/);
+  assert.doesNotMatch(pickLine(labels, save, objCtx), /Guide the family/);
+  assert.match(pickLine(labels, save, objCtx), /flowing row/);
 });

@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "sceneId": "orchard-mystery-outcomes",
+  "title": "The Orchard's Two Resolutions",
+  "sourceMaps": ["orchard-ruins", "amber-ridge"],
+  "persistence": {
+    "store": "The existing save event journal; no new save field or global morality score.",
+    "sharedEvidence": [
+      "orchard-ruins/mara-water-loss",
+      "orchard-ruins/den-family-seen"
+    ],
+    "exclusiveOutcomes": true
+  },
+  "sharedContinuity": {
+    "canonicalFacts": [
+      "A rotten water channel failed before the fresh Bramblebuck hoofprints.",
+      "The adult Bramblebuck is protecting its young; it is a wild orchard family, not a creature owned by the player.",
+      "Both resolutions keep the family safe and the route east open."
+    ],
+    "openObligations": [
+      "Mara must finish the repair if the family is moved first.",
+      "Rowan should acknowledge the player's choice on the next visit to Amber Ridge."
+    ],
+    "partyBinding": "The current player party is unchanged. No starter, owned Bramblebuck, or Brooklet ability is required."
+  },
+  "outcomes": [
+    {
+      "id": "water-first",
+      "decision": "Open the shared bypass before moving the family.",
+      "committedByEvent": "orchard-ruins/outcome-water-first",
+      "immediateFeedback": "The lower row receives water and the family settles above the waterline; Mara pays 10 coins once.",
+      "visibleObjectPrompts": {
+        "channel": "Water flows; family safe above",
+        "hollow": "The family is resting above the flowing row"
+      },
+      "maraRevisitEvent": "orchard-ruins/mara-remembers-water-first",
+      "nextScene": {
+        "mapId": "amber-ridge",
+        "actorId": "ranger",
+        "conditionEvent": "orchard-ruins/outcome-water-first",
+        "text": "Mara's lower row is flowing again; the family is safe. Follow the eastern trail."
+      }
+    },
+    {
+      "id": "family-first",
+      "decision": "Guide the family to the dry hollow before the channel is repaired.",
+      "objectiveEvent": "orchard-ruins/orchard-family",
+      "committedByEvent": "orchard-ruins/outcome-family-first",
+      "immediateFeedback": "The young reach the dry hollow, the adult follows, and Mara pays 10 coins once; the channel repair remains pending.",
+      "visibleObjectPrompts": {
+        "channel": "Family safe; channel repair pending",
+        "hollow": "The family is safe in the dry hollow"
+      },
+      "maraRevisitEvent": "orchard-ruins/mara-remembers-family-first",
+      "nextScene": {
+        "mapId": "amber-ridge",
+        "actorId": "ranger",
+        "conditionEvent": "orchard-ruins/outcome-family-first",
+        "text": "The young are safe in the dry hollow; the channel still needs repair. Follow the eastern trail."
+      }
+    }
+  ],
+  "authoredInterpretation": "The map's stable event keys are the committed facts. The separate objective-completion event makes the rescue retryable; only its completion causes the family-first outcome and callback. The displayed object prompts expose the saved state when the player revisits the channel or hollow. The physical terrain and family sprites do not change, so this handoff does not claim a new visual set piece or moved overworld actors."
+}

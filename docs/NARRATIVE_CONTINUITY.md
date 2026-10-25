@@ -29,6 +29,12 @@ The new `continuityIn` must match the complete previous `continuityOut`; keyed r
 
 The inspectable bell examples introduce a promise/question/choice in scene one, resolve the question and choice in scene two, then fulfill the original promise in scene three. The closed question and choice are still present in scene three. These are narrative intents demonstrating the handoff contract, not claims that another adventure/map was implemented. Portable writer exports include all three JSONs, the current schema, instructions and file hashes.
 
+## Orchard branch continuity (#265)
+
+The playable orchard currently stores its two decisions as stable map-scoped events: `orchard-ruins/outcome-water-first` and `orchard-ruins/outcome-family-first`. The family-first route also stores `orchard-ruins/orchard-family` when the retryable rescue objective completes. These event records survive save normalization and backup import; they are mutually exclusive and do not introduce a morality score or another save field.
+
+The [orchard continuity handoff](scene-script-proofs/265-orchard-consequences/continuity-handoff.json) translates those committed event keys into concise writer facts, records which promise remains open, and gives the corresponding Mara, object-prompt and Rowan callback state. It is validated against shipped map data by `tests/scenes.test.mjs`. Interpretation limit: the current map communicates persistent environmental state through conditional object prompts and dialogue; its terrain and family sprites do not change.
+
 ## Compatibility and migration
 
 Optional additive format-1 fields preserve existing scripts and packs. Legacy handoffs stay valid with warnings; no automatic narrative IDs or invented history are inferred from old string decisions. `--require-continuity` requires explicit obligation/relationship/unknown/role/decision arrays and outgoing dramatic direction. Migrate by preserving existing canonical records, assigning reviewed stable decision/role IDs, documenting real beat consequences, and taking the next incoming block from the prior complete outgoing block. Correct explicit contradictions even in legacy mode. No runtime map/save migration or parallel execution is introduced.
