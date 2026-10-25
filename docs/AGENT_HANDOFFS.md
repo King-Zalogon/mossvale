@@ -311,3 +311,7 @@ Claimed `codex/270-actor-reactions` from latest `origin/main` `a4a69ef`, with `o
 ## #33 / #265 / #270 — integrated quality follow-up
 
 Claimed `codex/33-265-270-quality-followup` from latest `origin/main` `0e8451e` (already includes integration `7486ec9`). Verify and repair remaining battle focus/scroll, committed orchard outcome presentation/callbacks, and reaction identity/fallback/reduced-motion rendering. Preserve existing implementations and stable save IDs. No open PR found. Full local verification/build precede an integration-only PR; hosted CI is disabled by owner instruction. Owner taste and physical-device acceptance remain distinct from automated evidence.
+
+## #33 / #265 / #270 — final validation branch
+
+Continuation on `codex/33-265-270-final-validation`, created from `origin/main` `0e8451e` and fast-forwarded through the reviewed feature head `79c1d53`; local checkpoint `37cdc29` fixes the empty-404 compatibility fixture without weakening its save assertions. GitHub's active all-branch PR rule requires a new branch/PR rather than another direct update of the existing PR head. The new integration PR supersedes #433 and retains all its commits, source, screenshots and owner-review limits. Full local final-head verification and build precede merge; Actions/Vercel remain unavailable per owner instruction. No main promotion or production deployment.
