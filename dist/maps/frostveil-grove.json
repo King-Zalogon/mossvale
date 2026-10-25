@@ -549,9 +549,9 @@
       "w": 49,
       "solid": 0.42,
       "at": [
-        [29.8, 8.4],
-        [31.3, 8.9],
-        [30.4, 7.0]
+        [26.7, 29.6],
+        [28.2, 30.1],
+        [27.3, 28.2]
       ],
       "piece": "cairn-3"
     },
@@ -560,8 +560,8 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [28.7, 9.2],
-        [31.7, 7.8]
+        [25.6, 30.4],
+        [28.6, 29.0]
       ],
       "piece": "cairn-3"
     },
@@ -571,9 +571,9 @@
       "w": 49,
       "solid": 0.42,
       "at": [
-        [26.7, 29.6],
-        [28.2, 30.1],
-        [27.3, 28.2]
+        [36.8, 29.7],
+        [38.3, 30.2],
+        [37.4, 28.3]
       ],
       "piece": "cairn-4"
     },
@@ -582,8 +582,8 @@
       "kind": "flower",
       "w": 32,
       "at": [
-        [25.6, 30.4],
-        [28.6, 29.0]
+        [35.7, 30.5],
+        [38.7, 29.1]
       ],
       "piece": "cairn-4"
     }
@@ -601,12 +601,40 @@
       "id": "outer-grove-grass",
       "terrain": ["t"],
       "rect": [25, 4, 63, 46],
-      "pool": ["duskwing", "frostowl", "hushram"],
+      "pool": [
+        "duskwing",
+        "frostowl",
+        "hushram",
+        {
+          "species": "rimeskip",
+          "weight": 1,
+          "behavior": "wary",
+          "field": {
+            "duration": 2.5,
+            "radius": 3,
+            "recovery": "retreat-and-retry"
+          }
+        }
+      ],
       "level": [10, 12],
       "distance": [5, 9]
     }
   ],
-  "triggers": [],
+  "triggers": [
+    {
+      "id": "rimeskip-fresh-tracks",
+      "at": [35.5, 7.5],
+      "radius": 2,
+      "on": "enter",
+      "once": true,
+      "do": [
+        {
+          "type": "environment",
+          "text": "Fresh, broad tracks stamp a quick two-beat path through the sheltered snowgrass. They circle the pines and vanish into a nearby patch."
+        }
+      ]
+    }
+  ],
   "quiet": [
     {
       "id": "grove-camp-route",

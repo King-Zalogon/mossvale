@@ -35,6 +35,7 @@ SPECS = {
     "lanternix": {"source": "art/characters/source/creature-lanternix-combat-generated.png", "target": "dist/assets/creatures/creature-lanternix-combat.png"},
     "myceloop": {"source": "art/characters/source/creature-myceloop-combat-generated.png", "target": "dist/assets/creatures/creature-myceloop-combat.png"},
     "reedstilt": {"source": "art/characters/source/creature-reedstilt-combat-generated.png", "target": "dist/assets/creatures/creature-reedstilt-combat.png"},
+    "rimeskip": {"source": "art/characters/source/creature-rimeskip-combat-generated.png", "target": "dist/assets/creatures/creature-rimeskip-combat.png"},
 
 }
 

@@ -49,8 +49,8 @@ test('each region hub has different encounters', () => {
   ); // later regions are higher level
 });
 
-test('all twenty species have a readable hint and a reachable source in their home biome', () => {
-  assert.equal(species.length, 20);
+test('all twenty-one species have a readable hint and a reachable source in their home biome', () => {
+  assert.equal(species.length, 21);
   const playableMaps = Object.values(mapsById);
   for (const creature of species) {
     assert.ok(creature.encounterHint?.trim(), `${creature.id} needs a field hint`);
@@ -274,4 +274,18 @@ test('Reedstilt is a low-weight repeatable encounter in reachable Reedfen bank g
   assert.equal(zone.weights[index], 2);
   assert.ok(!mapsById['reedfen-wetlands'].abilities?.includes('reedstilt'));
   assert.match(species[id].encounterHint, /dry boardwalk bank/i);
+});
+
+test('Rimeskip is an optional wary encounter in Frostveil outer grass with retreat-and-retry recovery', () => {
+  const frostveil = rawMaps().find(map => map.id === 'frostveil-grove');
+  const zone = frostveil.zones.find(entry => entry.id === 'outer-grove-grass');
+  const index = zone.pool.findIndex(entry => typeof entry === 'object' && entry.species === 'rimeskip');
+  assert.ok(index >= 0);
+  assert.equal(zone.behaviors?.[index], undefined);
+  const entry = zone.pool[index];
+  assert.equal(entry.weight, 1);
+  assert.equal(entry.behavior, 'wary');
+  assert.equal(entry.field.recovery, 'retreat-and-retry');
+  const clue = frostveil.triggers.find(trigger => trigger.id === 'rimeskip-fresh-tracks');
+  assert.ok(clue && clue.once && clue.do.some(action => action.text.includes('two-beat')));
 });

@@ -44,6 +44,7 @@ SPECS = {
     "lanternix": {"source": "art/characters/source/creature-lanternix-portrait-generated.png", "target": "dist/assets/creatures/creature-lanternix.png"},
     "myceloop": {"source": "art/characters/source/creature-myceloop-portrait-generated.png", "target": "dist/assets/creatures/creature-myceloop.png"},
     "reedstilt": {"source": "art/characters/source/creature-reedstilt-portrait-generated.png", "target": "dist/assets/creatures/creature-reedstilt.png"},
+    "rimeskip": {"source": "art/characters/source/creature-rimeskip-portrait-generated.png", "target": "dist/assets/creatures/creature-rimeskip.png"},
 
 }
 ATLAS = "art/assets/source/creature-additions-atlas.png"
