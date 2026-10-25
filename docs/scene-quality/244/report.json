@@ -14,7 +14,7 @@
       "status": "pass",
       "review": {
         "status": "pass",
-        "rationale": "Inspected both dialogue lines and supplied-chest approach at desktop and 390px phone scale. Wren, player, Fernling and chest remain visible; actual text fragments clear Next/Done; the live objective is readable in the sidebar (scrollable on phone). The final fixture keeps the player beside the chest rather than inside its image. Generic engine presentation is not a claim of bespoke adventure polish. Compatible #258 schema addition was rerun and the regenerated desktop/phone captures were inspected; owner status is unchanged. Repeated controls and captures after the opt-in orchard interaction priority change; teaching fixture behavior is preserved. Claude reran the real-control captures after battle presentation changes (#389) touched the bound controller and stylesheet sources, and inspected the desktop dialogue and phone supplies captures: speaker, player, companion and chest, the text and the Done control are still unobstructed and the layout is unchanged. Owner status is unchanged. Rebound the retained scene evidence after a change isolated to startup pack-integrity diagnostics; no successful-play scene rendering or layout source changed, and the previously inspected captures retain the same pixels. Claude reran the real-control captures again after the regional atlas (#276) added stylesheet rules to a bound source, and inspected the desktop dialogue capture: speaker, player, companion, chest and the Next control are unobstructed and the layout is unchanged. Owner status is unchanged. Claude reran the real-control captures after the companion-aware dialogue conditions (#277) changed the bound startup source (main.js condition context only), and inspected the desktop dialogue and phone supplies captures: speaker, player, companion, chest, the text and the Done control are unobstructed and the layout is unchanged. Owner status is unchanged. Claude reran the real-control captures after the creature field roles change (#262) touched the bound controller source, and inspected the desktop dialogue and phone dialogue captures: speaker, player, companion, chest, the text and the Next/Done control are unobstructed and the layout is unchanged. Owner status is unchanged. Codex reran the real-control captures after the Voltkit asset manifest and provenance refresh; the scene layout remained unobstructed and the evidence was rebound to the regenerated captures. No scene behavior or layout source changed. Claude reran the real-control captures after the pack-compatibility start-screen error handling (#283) changed the bound startup source (main.js error branches only), and inspected the captures: speaker, player, companion, chest, the text and the Next/Done control are unobstructed and the layout is unchanged. Owner status is unchanged. Reran the real-control desktop and 390px phone captures on the current main baseline after the portal startup-gate refresh; the player, speaker, companion, chest, dialogue and advance control remain visible. This records implementation evidence only; owner acceptance remains deferred. Reran and inspected the real-control desktop and 390px phone captures on the current main baseline after #431 added optional authored NPC reactions; speaker, player, companion, chest, dialogue and advance control remain visible. This records implementation evidence only; owner acceptance remains deferred. Reran real-control desktop/phone captures after #265 conditional decoration and #270 traveler-only reaction binding; inspected desktop first dialogue and phone second dialogue. Existing actors, text and advance controls remain visible; the fixture has no conditional decoration or active reaction. Owner acceptance is unchanged."
+        "rationale": "Inspected both dialogue lines and supplied-chest approach at desktop and 390px phone scale. Wren, player, Fernling and chest remain visible; actual text fragments clear Next/Done; the live objective is readable in the sidebar (scrollable on phone). The final fixture keeps the player beside the chest rather than inside its image. Generic engine presentation is not a claim of bespoke adventure polish. Compatible #258 schema addition was rerun and the regenerated desktop/phone captures were inspected; owner status is unchanged. Repeated controls and captures after the opt-in orchard interaction priority change; teaching fixture behavior is preserved. Claude reran the real-control captures after battle presentation changes (#389) touched the bound controller and stylesheet sources, and inspected the desktop dialogue and phone supplies captures: speaker, player, companion and chest, the text and the Done control are still unobstructed and the layout is unchanged. Owner status is unchanged. Rebound the retained scene evidence after a change isolated to startup pack-integrity diagnostics; no successful-play scene rendering or layout source changed, and the previously inspected captures retain the same pixels. Claude reran the real-control captures again after the regional atlas (#276) added stylesheet rules to a bound source, and inspected the desktop dialogue capture: speaker, player, companion, chest and the Next control are unobstructed and the layout is unchanged. Owner status is unchanged. Claude reran the real-control captures after the companion-aware dialogue conditions (#277) changed the bound startup source (main.js condition context only), and inspected the desktop dialogue and phone supplies captures: speaker, player, companion, chest, the text and the Done control are unobstructed and the layout is unchanged. Owner status is unchanged. Claude reran the real-control captures after the creature field roles change (#262) touched the bound controller source, and inspected the desktop dialogue and phone dialogue captures: speaker, player, companion, chest, the text and the Next/Done control are unobstructed and the layout is unchanged. Owner status is unchanged. Codex reran the real-control captures after the Voltkit asset manifest and provenance refresh; the scene layout remained unobstructed and the evidence was rebound to the regenerated captures. No scene behavior or layout source changed. Claude reran the real-control captures after the pack-compatibility start-screen error handling (#283) changed the bound startup source (main.js error branches only), and inspected the captures: speaker, player, companion, chest, the text and the Next/Done control are unobstructed and the layout is unchanged. Owner status is unchanged. Reran the real-control desktop and 390px phone captures on the current main baseline after the portal startup-gate refresh; the player, speaker, companion, chest, dialogue and advance control remain visible. This records implementation evidence only; owner acceptance remains deferred. Reran and inspected the real-control desktop and 390px phone captures on the current main baseline after #431 added optional authored NPC reactions; speaker, player, companion, chest, dialogue and advance control remain visible. This records implementation evidence only; owner acceptance remains deferred. Reran real-control desktop/phone captures after #265 conditional decoration and #270 traveler-only reaction binding; inspected desktop first dialogue and phone second dialogue. Existing actors, text and advance controls remain visible; the fixture has no conditional decoration or active reaction. Owner acceptance is unchanged. Reran desktop/phone real-control captures after the shared bottom-center rounding repair and player-reaction render proxy fix. Inspected desktop first dialogue and phone second dialogue: actors, text and advance controls remain unobstructed; source art and owner acceptance are unchanged. The separate player-fallback capture confirms the transient cue at actual scale."
       }
     },
     "narrativePurpose": {
@@ -29,7 +29,7 @@
   "screenshots": [
     {
       "path": "docs/scene-quality/244/desktop-dialogue-1.png",
-      "sha256": "c9263bf9a6f5afd18d43360c0afbf124f3ac65be0e4b43b11cc18d8758fe6f99",
+      "sha256": "96b7713e0058cbb9e487d2af57ff7ee0a3ddc599a1e8d745b6dcd9d96002aa3f",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -42,7 +42,7 @@
           "left": 0,
           "top": 0,
           "right": 1280,
-          "bottom": 980
+          "bottom": 953
         },
         "actorViewport": {
           "left": 39.390625,
@@ -53,7 +53,7 @@
         "panel": {
           "left": 270,
           "right": 690,
-          "top": 635.8125,
+          "top": 640.8125,
           "bottom": 746
         },
         "required": {
@@ -64,48 +64,48 @@
             "bottom": 485.49342105263156
           },
           "companion": {
-            "left": 454.29778645833335,
-            "right": 503.86634114583336,
+            "left": 452.4619140625,
+            "right": 502.03046875,
             "top": 454.2894736842105,
             "bottom": 503.8486842105263
           },
           "landmark": {
-            "left": 605.7572591145833,
-            "right": 661.7513671875,
-            "top": 468.05592105263156,
-            "bottom": 520.3684210526317
+            "left": 601.167578125,
+            "right": 657.1616861979167,
+            "top": 465.3026315789474,
+            "bottom": 517.6151315789474
           },
           "objective": {
             "left": 961.609375,
             "right": 1221.609375,
-            "top": 588.78125,
-            "bottom": 613.78125
+            "top": 577.78125,
+            "bottom": 599.78125
           },
           "speaker": {
-            "left": 534.1582356770832,
-            "right": 583.7267903645833,
-            "top": 367.1019736842105,
-            "bottom": 446.0296052631579
+            "left": 529.5685546875,
+            "right": 579.137109375,
+            "top": 364.3486842105263,
+            "bottom": 443.2763157894737
           },
           "text": {
             "left": 286,
-            "right": 547.75,
-            "top": 671.8125,
-            "bottom": 692.8125
+            "right": 538.59375,
+            "top": 676.8125,
+            "bottom": 693.8125
           },
           "advance": {
-            "left": 613.1875,
+            "left": 615.3125,
             "right": 674,
-            "top": 703,
+            "top": 706,
             "bottom": 734
           }
         },
         "textFragments": [
           {
             "left": 286,
-            "right": 547.75,
-            "top": 671.8125,
-            "bottom": 692.8125
+            "right": 538.59375,
+            "top": 676.8125,
+            "bottom": 693.8125
           }
         ],
         "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
@@ -113,7 +113,7 @@
     },
     {
       "path": "docs/scene-quality/244/desktop-dialogue-2.png",
-      "sha256": "fd184c570a949ba6075e2e7755bf33de03b2cfd9455f719e54480a5a64f19aef",
+      "sha256": "15f39971a8f7274ddf99b1bf2df23ff8c39088583b8f0ea38ce42dde08de49da",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -126,7 +126,7 @@
           "left": 0,
           "top": 0,
           "right": 1280,
-          "bottom": 980
+          "bottom": 953
         },
         "actorViewport": {
           "left": 39.390625,
@@ -137,7 +137,7 @@
         "panel": {
           "left": 270,
           "right": 690,
-          "top": 635.8125,
+          "top": 640.8125,
           "bottom": 746
         },
         "required": {
@@ -148,22 +148,22 @@
             "bottom": 485.49342105263156
           },
           "companion": {
-            "left": 454.29778645833335,
-            "right": 503.86634114583336,
+            "left": 452.4619140625,
+            "right": 502.03046875,
             "top": 454.2894736842105,
             "bottom": 503.8486842105263
           },
           "landmark": {
-            "left": 605.7572591145833,
-            "right": 661.7513671875,
-            "top": 468.05592105263156,
-            "bottom": 520.3684210526317
+            "left": 601.167578125,
+            "right": 657.1616861979167,
+            "top": 465.3026315789474,
+            "bottom": 517.6151315789474
           },
           "objective": {
             "left": 961.609375,
             "right": 1221.609375,
-            "top": 588.78125,
-            "bottom": 613.78125
+            "top": 577.78125,
+            "bottom": 599.78125
           },
           "speaker": {
             "left": 456.13365885416664,
@@ -173,23 +173,23 @@
           },
           "text": {
             "left": 286,
-            "right": 410.625,
-            "top": 671.8125,
-            "bottom": 692.8125
+            "right": 411.984375,
+            "top": 676.8125,
+            "bottom": 693.8125
           },
           "advance": {
-            "left": 609.421875,
+            "left": 610,
             "right": 674,
-            "top": 703,
+            "top": 706,
             "bottom": 734
           }
         },
         "textFragments": [
           {
             "left": 286,
-            "right": 410.625,
-            "top": 671.8125,
-            "bottom": 692.8125
+            "right": 411.984375,
+            "top": 676.8125,
+            "bottom": 693.8125
           }
         ],
         "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
@@ -197,7 +197,7 @@
     },
     {
       "path": "docs/scene-quality/244/desktop-offered-supplies.png",
-      "sha256": "3b0c0b8764b980e8bb4eb7d87c8941a1dad326044fa28ee510b0eb44cc83e339",
+      "sha256": "4777656de40a265b4b7ce98e2518873cb6469e390d0563c3360482047c338e71",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -210,7 +210,7 @@
           "left": 0,
           "top": 0,
           "right": 1280,
-          "bottom": 980
+          "bottom": 953
         },
         "actorViewport": {
           "left": 39.390625,
@@ -229,20 +229,20 @@
           "companion": {
             "left": 416.66240234375,
             "right": 466.23095703125,
-            "top": 442.35855263157896,
-            "bottom": 491.91776315789474
+            "top": 437.76973684210526,
+            "bottom": 487.32894736842104
           },
           "landmark": {
-            "left": 489.17936197916663,
-            "right": 545.1734700520833,
-            "top": 447.8651315789474,
-            "bottom": 500.1776315789474
+            "left": 499.27666015625,
+            "right": 555.2707682291667,
+            "top": 453.37171052631584,
+            "bottom": 505.6842105263158
           },
           "objective": {
             "left": 961.609375,
             "right": 1221.609375,
-            "top": 588.78125,
-            "bottom": 613.78125
+            "top": 577.78125,
+            "bottom": 599.78125
           }
         },
         "textFragments": [],
@@ -251,7 +251,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-dialogue-1.png",
-      "sha256": "16a51db4eb27840066e9c1a28a282b93f0fdd7aa9e55caa663a674d1a1709597",
+      "sha256": "199626056831a4ab8ddabcc4b6618aff1baad77a09cb707e67c42daae1f9eeb3",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -264,7 +264,7 @@
           "left": 0,
           "top": 0,
           "right": 390,
-          "bottom": 1243
+          "bottom": 1232
         },
         "actorViewport": {
           "left": 16.59375,
@@ -275,48 +275,48 @@
         "panel": {
           "left": 28.59375,
           "right": 361.40625,
-          "top": 422.625,
+          "top": 424.625,
           "bottom": 545.8125
         },
         "required": {
           "player": {
             "left": 182.362890625,
             "right": 207.637109375,
-            "top": 355.6637035010941,
-            "bottom": 396.1883889496718
+            "top": 356.03548960612693,
+            "bottom": 396.5601750547046
           },
           "companion": {
-            "left": 179.389453125,
-            "right": 205.40703125,
-            "top": 381.3169447483589,
-            "bottom": 407.34197210065645
+            "left": 184.2212890625,
+            "right": 210.2388671875,
+            "top": 380.57337253829326,
+            "bottom": 406.5983998905908
           },
           "landmark": {
-            "left": 256.698828125,
-            "right": 286.433203125,
-            "top": 388.0090946389497,
-            "bottom": 415.5212664113785
+            "left": 261.90234375,
+            "right": 291.63671875,
+            "top": 386.52195021881835,
+            "bottom": 414.0341219912473
           },
           "objective": {
             "left": 235.59375,
             "right": 358.40625,
-            "top": 754.8125,
-            "bottom": 796.8125
+            "top": 763.8125,
+            "bottom": 799.8125
           },
           "speaker": {
-            "left": 218.7875,
-            "right": 244.805078125,
-            "top": 334.1001094091904,
-            "bottom": 375.7401531728665
+            "left": 223.99101562500002,
+            "right": 250.00859375,
+            "top": 332.9847510940919,
+            "bottom": 374.62479485776805
           },
           "text": {
             "left": 44.59375,
-            "right": 306.34375,
-            "top": 458.625,
-            "bottom": 479.625
+            "right": 297.1875,
+            "top": 460.625,
+            "bottom": 477.625
           },
           "advance": {
-            "left": 284.59375,
+            "left": 286.71875,
             "right": 345.40625,
             "top": 489.8125,
             "bottom": 533.8125
@@ -325,9 +325,9 @@
         "textFragments": [
           {
             "left": 44.59375,
-            "right": 306.34375,
-            "top": 458.625,
-            "bottom": 479.625
+            "right": 297.1875,
+            "top": 460.625,
+            "bottom": 477.625
           }
         ],
         "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
@@ -335,7 +335,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-dialogue-2.png",
-      "sha256": "661e2b45fa5868096e8d53bebafdc021be2d50bdfb1c277e11dcc2368152fcd5",
+      "sha256": "7315e25118c49149843f36e1b5ba9edc59d96d5bbb63f941d8c2133cec387aa7",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -348,7 +348,7 @@
           "left": 0,
           "top": 0,
           "right": 390,
-          "bottom": 1131
+          "bottom": 1114
         },
         "actorViewport": {
           "left": 16.59375,
@@ -366,52 +366,52 @@
           "player": {
             "left": 182.362890625,
             "right": 207.637109375,
-            "top": 355.6637035010941,
-            "bottom": 396.1883889496718
+            "top": 356.03548960612693,
+            "bottom": 396.5601750547046
           },
           "companion": {
-            "left": 179.389453125,
-            "right": 205.40703125,
-            "top": 381.3169447483589,
-            "bottom": 407.34197210065645
+            "left": 184.2212890625,
+            "right": 210.2388671875,
+            "top": 380.57337253829326,
+            "bottom": 406.5983998905908
           },
           "landmark": {
-            "left": 256.698828125,
-            "right": 286.433203125,
-            "top": 388.0090946389497,
-            "bottom": 415.5212664113785
+            "left": 261.90234375,
+            "right": 291.63671875,
+            "top": 386.52195021881835,
+            "bottom": 414.0341219912473
           },
           "objective": {
             "left": 235.59375,
             "right": 358.40625,
-            "top": 674.8125,
-            "bottom": 716.8125
+            "top": 681.8125,
+            "bottom": 717.8125
           },
           "speaker": {
             "left": 182.362890625,
             "right": 207.637109375,
-            "top": 355.6637035010941,
-            "bottom": 396.1883889496718
+            "top": 356.03548960612693,
+            "bottom": 396.5601750547046
           },
           "text": {
             "left": 44.59375,
-            "right": 169.21875,
+            "right": 170.578125,
             "top": 278,
-            "bottom": 299
+            "bottom": 295
           },
           "advance": {
-            "left": 280.828125,
+            "left": 281.40625,
             "right": 345.40625,
-            "top": 287.5,
+            "top": 290.5,
             "bottom": 318.5
           }
         },
         "textFragments": [
           {
             "left": 44.59375,
-            "right": 169.21875,
+            "right": 170.578125,
             "top": 278,
-            "bottom": 299
+            "bottom": 295
           }
         ],
         "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
@@ -419,7 +419,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-offered-supplies.png",
-      "sha256": "742e74193df4e1f07f90b6e8c04de79ffc470c1fb5ebe0c4bf2fdaa447934d02",
+      "sha256": "e1cb85463ff578d948c09fd8bc6d97ed4ef87201b3cdc33f905a7b7357636c0a",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -432,7 +432,7 @@
           "left": 0,
           "top": 0,
           "right": 390,
-          "bottom": 1159
+          "bottom": 1140
         },
         "actorViewport": {
           "left": 16.59375,
@@ -445,26 +445,26 @@
           "player": {
             "left": 182.362890625,
             "right": 207.637109375,
-            "top": 355.6637035010941,
-            "bottom": 396.1883889496718
+            "top": 356.03548960612693,
+            "bottom": 396.5601750547046
           },
           "companion": {
-            "left": 161.548828125,
-            "right": 187.56640625,
-            "top": 370.1633615973742,
-            "bottom": 396.1883889496718
+            "left": 162.2921875,
+            "right": 188.309765625,
+            "top": 369.7915754923414,
+            "bottom": 395.81660284463896
           },
           "landmark": {
-            "left": 203.176953125,
-            "right": 232.91132812499998,
-            "top": 378.7144420131291,
-            "bottom": 406.226613785558
+            "left": 203.9203125,
+            "right": 233.6546875,
+            "top": 378.3426559080963,
+            "bottom": 405.85482768052515
           },
           "objective": {
             "left": 235.59375,
             "right": 358.40625,
-            "top": 702.8125,
-            "bottom": 744.8125
+            "top": 707.8125,
+            "bottom": 743.8125
           }
         },
         "textFragments": [],

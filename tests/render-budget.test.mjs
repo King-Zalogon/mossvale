@@ -93,3 +93,36 @@ test('a queued animation timestamp before setup stays at frame zero for idle and
     globalThis.requestAnimationFrame = previousRAF;
   }
 });
+
+test('bottom-center sprites keep one rounded ground anchor across fractional sizes and state swaps', async () => {
+  const {assets, spriteId} = await import('../dist/src/data/assets.js');
+  const {drawSprite, sprites} = await import('../dist/src/render/sprites.js');
+  for (const name of ['chest-pine-frost', 'chest-pine-frost-open-empty', 'person-red-cap-motion']) {
+    const id = spriteId(name);
+    const original = sprites[id];
+    sprites[id] = {complete: true, naturalWidth: assets[id].w, naturalHeight: assets[id].h};
+    try {
+      for (const y of [100.1, 100.49, 100.51, 100.9])
+        for (const width of [37 * 1.45, 42 * 1.3, 43 * 1.45])
+          for (const flip of [false, true]) {
+            let originY = 0;
+            let drawn;
+            const context = {
+              save() {},
+              restore() {},
+              scale() {},
+              translate(x, y) {
+                originY = y;
+              },
+              drawImage(...args) {
+                drawn = args;
+              },
+            };
+            drawSprite(context, id, 200.3, y, width, {flip});
+            assert.equal(originY + drawn[6] + drawn[8], Math.round(y), `${name}, ${width}px, y=${y}, flip=${flip}`);
+          }
+    } finally {
+      sprites[id] = original;
+    }
+  }
+});

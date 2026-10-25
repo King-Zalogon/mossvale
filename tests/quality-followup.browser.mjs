@@ -199,6 +199,19 @@ try {
       false,
       'the gardener must never become the traveler',
     );
+    await page.setViewportSize({width: 1280, height: 820});
+    await page.evaluate(() => {
+      const state = window.mossvale.getState();
+      state.world.objects.find(object => object.kind === 'ranger').sceneReaction = null;
+      Object.assign(state.player, {sceneReaction: 'happy', sceneReactionUntil: state.now + 10000});
+    });
+    await page.waitForFunction(() => window.reactionCues.includes('♥'));
+    if (evidence && !missing) await page.screenshot({path: `${evidence}/reaction-player-fallback.png`});
+    await page.evaluate(() => {
+      const state = window.mossvale.getState();
+      state.player.sceneReactionUntil = state.now - 1;
+    });
+    await page.waitForFunction(() => !window.reactionCues.includes('♥'));
     await context.close();
   }
   assert.deepEqual(errors, []);

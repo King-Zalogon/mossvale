@@ -6,13 +6,13 @@
     "content/scene-scripts/schema.json": "962b13581bc54da66a3ad2ac6dfc2db2b21beab9711c2ea3d6247088344409c2",
     "dist/src/controller.js": "a541831c79ba52374234e4eb3b0a47eddd5b2fec8cc78ac1a1d5edb36af506c8",
     "dist/src/main.js": "67cf5af7b8fd7a34a1f0284fa36fb1ef18bb642d8643a5633fae938119b7ca53",
-    "dist/src/render/sprites.js": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c",
+    "dist/src/render/sprites.js": "0f5828f7a16e8425206f4bcba0b5f8b9ccac1c5ca60b75cdb634a00cebbf8c41",
     "dist/assets/people/person-red-cap-motion.png": "e0dff61fbb1244c92918feef94eb516e8f4090369a53dd95e90f9c5d6355f8e7",
     "dist/assets/people/person-traveler.png": "59fdaadae4d3c503c8458e406b1e879a5f8ade7281bcf55e2964fdf524f189f1",
     "dist/assets/creatures/creature-fernling-follower.png": "ff783154558df83b6e6cc3001f09ce5214b48c73691df03df37c61f0770265a7",
     "dist/assets/props/chest-wooden.png": "49ed0d898d48f20978b35b1e7f764d4d0c8075d9732c9f1590bf9dfa77dea5d0",
     "dist/src/ui/speech.js": "a19df962494d804ec047f472633da6a58df99234056e0155504582121e868e21",
-    "dist/src/render/world.js": "ab41cba6ba3dbd33d23b6d7110bf9bdff9382c08e25c08abbca09b6f6181d024",
+    "dist/src/render/world.js": "5842e0682b9ce8ad781d2766be6f43c4676e91f954aa56b1c7ed8b43ddf26133",
     "dist/style.css": "6710567cdbad34b03c05c3aac029b3bb3d422a876183859cfb7d0cf41e1e45a5",
     "tests/fixtures/packs/scene-quality-yard/index.json": "a9a0e27d0a42113b990874981fd894d8a9ec7393438621e680e29186a393ffb6",
     "tests/fixtures/packs/scene-quality-yard/maps/start.json": "9a0f813ea42dc2e75ee2e38584b73684e1dca72cbc0502900b8b6d9a294dec2b",
@@ -23,7 +23,7 @@
   "screenshots": [
     {
       "path": "docs/scene-quality/244/desktop-dialogue-1.png",
-      "sha256": "c9263bf9a6f5afd18d43360c0afbf124f3ac65be0e4b43b11cc18d8758fe6f99",
+      "sha256": "96b7713e0058cbb9e487d2af57ff7ee0a3ddc599a1e8d745b6dcd9d96002aa3f",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -36,7 +36,7 @@
           "left": 0,
           "top": 0,
           "right": 1280,
-          "bottom": 980
+          "bottom": 953
         },
         "actorViewport": {
           "left": 39.390625,
@@ -47,7 +47,7 @@
         "panel": {
           "left": 270,
           "right": 690,
-          "top": 635.8125,
+          "top": 640.8125,
           "bottom": 746
         },
         "required": {
@@ -58,48 +58,48 @@
             "bottom": 485.49342105263156
           },
           "companion": {
-            "left": 454.29778645833335,
-            "right": 503.86634114583336,
+            "left": 452.4619140625,
+            "right": 502.03046875,
             "top": 454.2894736842105,
             "bottom": 503.8486842105263
           },
           "landmark": {
-            "left": 605.7572591145833,
-            "right": 661.7513671875,
-            "top": 468.05592105263156,
-            "bottom": 520.3684210526317
+            "left": 601.167578125,
+            "right": 657.1616861979167,
+            "top": 465.3026315789474,
+            "bottom": 517.6151315789474
           },
           "objective": {
             "left": 961.609375,
             "right": 1221.609375,
-            "top": 588.78125,
-            "bottom": 613.78125
+            "top": 577.78125,
+            "bottom": 599.78125
           },
           "speaker": {
-            "left": 534.1582356770832,
-            "right": 583.7267903645833,
-            "top": 367.1019736842105,
-            "bottom": 446.0296052631579
+            "left": 529.5685546875,
+            "right": 579.137109375,
+            "top": 364.3486842105263,
+            "bottom": 443.2763157894737
           },
           "text": {
             "left": 286,
-            "right": 547.75,
-            "top": 671.8125,
-            "bottom": 692.8125
+            "right": 538.59375,
+            "top": 676.8125,
+            "bottom": 693.8125
           },
           "advance": {
-            "left": 613.1875,
+            "left": 615.3125,
             "right": 674,
-            "top": 703,
+            "top": 706,
             "bottom": 734
           }
         },
         "textFragments": [
           {
             "left": 286,
-            "right": 547.75,
-            "top": 671.8125,
-            "bottom": 692.8125
+            "right": 538.59375,
+            "top": 676.8125,
+            "bottom": 693.8125
           }
         ],
         "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
@@ -107,7 +107,7 @@
     },
     {
       "path": "docs/scene-quality/244/desktop-dialogue-2.png",
-      "sha256": "fd184c570a949ba6075e2e7755bf33de03b2cfd9455f719e54480a5a64f19aef",
+      "sha256": "15f39971a8f7274ddf99b1bf2df23ff8c39088583b8f0ea38ce42dde08de49da",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -120,7 +120,7 @@
           "left": 0,
           "top": 0,
           "right": 1280,
-          "bottom": 980
+          "bottom": 953
         },
         "actorViewport": {
           "left": 39.390625,
@@ -131,7 +131,7 @@
         "panel": {
           "left": 270,
           "right": 690,
-          "top": 635.8125,
+          "top": 640.8125,
           "bottom": 746
         },
         "required": {
@@ -142,22 +142,22 @@
             "bottom": 485.49342105263156
           },
           "companion": {
-            "left": 454.29778645833335,
-            "right": 503.86634114583336,
+            "left": 452.4619140625,
+            "right": 502.03046875,
             "top": 454.2894736842105,
             "bottom": 503.8486842105263
           },
           "landmark": {
-            "left": 605.7572591145833,
-            "right": 661.7513671875,
-            "top": 468.05592105263156,
-            "bottom": 520.3684210526317
+            "left": 601.167578125,
+            "right": 657.1616861979167,
+            "top": 465.3026315789474,
+            "bottom": 517.6151315789474
           },
           "objective": {
             "left": 961.609375,
             "right": 1221.609375,
-            "top": 588.78125,
-            "bottom": 613.78125
+            "top": 577.78125,
+            "bottom": 599.78125
           },
           "speaker": {
             "left": 456.13365885416664,
@@ -167,23 +167,23 @@
           },
           "text": {
             "left": 286,
-            "right": 410.625,
-            "top": 671.8125,
-            "bottom": 692.8125
+            "right": 411.984375,
+            "top": 676.8125,
+            "bottom": 693.8125
           },
           "advance": {
-            "left": 609.421875,
+            "left": 610,
             "right": 674,
-            "top": 703,
+            "top": 706,
             "bottom": 734
           }
         },
         "textFragments": [
           {
             "left": 286,
-            "right": 410.625,
-            "top": 671.8125,
-            "bottom": 692.8125
+            "right": 411.984375,
+            "top": 676.8125,
+            "bottom": 693.8125
           }
         ],
         "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
@@ -191,7 +191,7 @@
     },
     {
       "path": "docs/scene-quality/244/desktop-offered-supplies.png",
-      "sha256": "3b0c0b8764b980e8bb4eb7d87c8941a1dad326044fa28ee510b0eb44cc83e339",
+      "sha256": "4777656de40a265b4b7ce98e2518873cb6469e390d0563c3360482047c338e71",
       "viewport": {
         "name": "desktop",
         "width": 1280,
@@ -204,7 +204,7 @@
           "left": 0,
           "top": 0,
           "right": 1280,
-          "bottom": 980
+          "bottom": 953
         },
         "actorViewport": {
           "left": 39.390625,
@@ -223,20 +223,20 @@
           "companion": {
             "left": 416.66240234375,
             "right": 466.23095703125,
-            "top": 442.35855263157896,
-            "bottom": 491.91776315789474
+            "top": 437.76973684210526,
+            "bottom": 487.32894736842104
           },
           "landmark": {
-            "left": 489.17936197916663,
-            "right": 545.1734700520833,
-            "top": 447.8651315789474,
-            "bottom": 500.1776315789474
+            "left": 499.27666015625,
+            "right": 555.2707682291667,
+            "top": 453.37171052631584,
+            "bottom": 505.6842105263158
           },
           "objective": {
             "left": 961.609375,
             "right": 1221.609375,
-            "top": 588.78125,
-            "bottom": 613.78125
+            "top": 577.78125,
+            "bottom": 599.78125
           }
         },
         "textFragments": [],
@@ -245,7 +245,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-dialogue-1.png",
-      "sha256": "16a51db4eb27840066e9c1a28a282b93f0fdd7aa9e55caa663a674d1a1709597",
+      "sha256": "199626056831a4ab8ddabcc4b6618aff1baad77a09cb707e67c42daae1f9eeb3",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -258,7 +258,7 @@
           "left": 0,
           "top": 0,
           "right": 390,
-          "bottom": 1243
+          "bottom": 1232
         },
         "actorViewport": {
           "left": 16.59375,
@@ -269,48 +269,48 @@
         "panel": {
           "left": 28.59375,
           "right": 361.40625,
-          "top": 422.625,
+          "top": 424.625,
           "bottom": 545.8125
         },
         "required": {
           "player": {
             "left": 182.362890625,
             "right": 207.637109375,
-            "top": 355.6637035010941,
-            "bottom": 396.1883889496718
+            "top": 356.03548960612693,
+            "bottom": 396.5601750547046
           },
           "companion": {
-            "left": 179.389453125,
-            "right": 205.40703125,
-            "top": 381.3169447483589,
-            "bottom": 407.34197210065645
+            "left": 184.2212890625,
+            "right": 210.2388671875,
+            "top": 380.57337253829326,
+            "bottom": 406.5983998905908
           },
           "landmark": {
-            "left": 256.698828125,
-            "right": 286.433203125,
-            "top": 388.0090946389497,
-            "bottom": 415.5212664113785
+            "left": 261.90234375,
+            "right": 291.63671875,
+            "top": 386.52195021881835,
+            "bottom": 414.0341219912473
           },
           "objective": {
             "left": 235.59375,
             "right": 358.40625,
-            "top": 754.8125,
-            "bottom": 796.8125
+            "top": 763.8125,
+            "bottom": 799.8125
           },
           "speaker": {
-            "left": 218.7875,
-            "right": 244.805078125,
-            "top": 334.1001094091904,
-            "bottom": 375.7401531728665
+            "left": 223.99101562500002,
+            "right": 250.00859375,
+            "top": 332.9847510940919,
+            "bottom": 374.62479485776805
           },
           "text": {
             "left": 44.59375,
-            "right": 306.34375,
-            "top": 458.625,
-            "bottom": 479.625
+            "right": 297.1875,
+            "top": 460.625,
+            "bottom": 477.625
           },
           "advance": {
-            "left": 284.59375,
+            "left": 286.71875,
             "right": 345.40625,
             "top": 489.8125,
             "bottom": 533.8125
@@ -319,9 +319,9 @@
         "textFragments": [
           {
             "left": 44.59375,
-            "right": 306.34375,
-            "top": 458.625,
-            "bottom": 479.625
+            "right": 297.1875,
+            "top": 460.625,
+            "bottom": 477.625
           }
         ],
         "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
@@ -329,7 +329,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-dialogue-2.png",
-      "sha256": "661e2b45fa5868096e8d53bebafdc021be2d50bdfb1c277e11dcc2368152fcd5",
+      "sha256": "7315e25118c49149843f36e1b5ba9edc59d96d5bbb63f941d8c2133cec387aa7",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -342,7 +342,7 @@
           "left": 0,
           "top": 0,
           "right": 390,
-          "bottom": 1131
+          "bottom": 1114
         },
         "actorViewport": {
           "left": 16.59375,
@@ -360,52 +360,52 @@
           "player": {
             "left": 182.362890625,
             "right": 207.637109375,
-            "top": 355.6637035010941,
-            "bottom": 396.1883889496718
+            "top": 356.03548960612693,
+            "bottom": 396.5601750547046
           },
           "companion": {
-            "left": 179.389453125,
-            "right": 205.40703125,
-            "top": 381.3169447483589,
-            "bottom": 407.34197210065645
+            "left": 184.2212890625,
+            "right": 210.2388671875,
+            "top": 380.57337253829326,
+            "bottom": 406.5983998905908
           },
           "landmark": {
-            "left": 256.698828125,
-            "right": 286.433203125,
-            "top": 388.0090946389497,
-            "bottom": 415.5212664113785
+            "left": 261.90234375,
+            "right": 291.63671875,
+            "top": 386.52195021881835,
+            "bottom": 414.0341219912473
           },
           "objective": {
             "left": 235.59375,
             "right": 358.40625,
-            "top": 674.8125,
-            "bottom": 716.8125
+            "top": 681.8125,
+            "bottom": 717.8125
           },
           "speaker": {
             "left": 182.362890625,
             "right": 207.637109375,
-            "top": 355.6637035010941,
-            "bottom": 396.1883889496718
+            "top": 356.03548960612693,
+            "bottom": 396.5601750547046
           },
           "text": {
             "left": 44.59375,
-            "right": 169.21875,
+            "right": 170.578125,
             "top": 278,
-            "bottom": 299
+            "bottom": 295
           },
           "advance": {
-            "left": 280.828125,
+            "left": 281.40625,
             "right": 345.40625,
-            "top": 287.5,
+            "top": 290.5,
             "bottom": 318.5
           }
         },
         "textFragments": [
           {
             "left": 44.59375,
-            "right": 169.21875,
+            "right": 170.578125,
             "top": 278,
-            "bottom": 299
+            "bottom": 295
           }
         ],
         "objectiveAccess": "Visible sidebar; scrollable on narrow phones. In-map objective pin is intentionally paused during speech."
@@ -413,7 +413,7 @@
     },
     {
       "path": "docs/scene-quality/244/phone-offered-supplies.png",
-      "sha256": "742e74193df4e1f07f90b6e8c04de79ffc470c1fb5ebe0c4bf2fdaa447934d02",
+      "sha256": "e1cb85463ff578d948c09fd8bc6d97ed4ef87201b3cdc33f905a7b7357636c0a",
       "viewport": {
         "name": "phone",
         "width": 390,
@@ -426,7 +426,7 @@
           "left": 0,
           "top": 0,
           "right": 390,
-          "bottom": 1159
+          "bottom": 1140
         },
         "actorViewport": {
           "left": 16.59375,
@@ -439,26 +439,26 @@
           "player": {
             "left": 182.362890625,
             "right": 207.637109375,
-            "top": 355.6637035010941,
-            "bottom": 396.1883889496718
+            "top": 356.03548960612693,
+            "bottom": 396.5601750547046
           },
           "companion": {
-            "left": 161.548828125,
-            "right": 187.56640625,
-            "top": 370.1633615973742,
-            "bottom": 396.1883889496718
+            "left": 162.2921875,
+            "right": 188.309765625,
+            "top": 369.7915754923414,
+            "bottom": 395.81660284463896
           },
           "landmark": {
-            "left": 203.176953125,
-            "right": 232.91132812499998,
-            "top": 378.7144420131291,
-            "bottom": 406.226613785558
+            "left": 203.9203125,
+            "right": 233.6546875,
+            "top": 378.3426559080963,
+            "bottom": 405.85482768052515
           },
           "objective": {
             "left": 235.59375,
             "right": 358.40625,
-            "top": 702.8125,
-            "bottom": 744.8125
+            "top": 707.8125,
+            "bottom": 743.8125
           }
         },
         "textFragments": [],

@@ -3,7 +3,7 @@
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
     "art/assets/metadata.json": "976d73353b4e920ef6732f828e6f8a5e114397ceaa25a8d2ca3e08a45b2919ec",
-    "art/assets/subjects.json": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf",
+    "art/assets/subjects.json": "ece6be33a87865035dcf59b8f68150003a3246084ba8edc7e243f2252cbd6c1c",
     "art/assets/third-party/registry.json": "bf7c23567dc256101820975f56deb9b2fa56b1a73c6a695ed5eed6c2b403791b",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
@@ -29,8 +29,8 @@
     "art/characters/source/rumblet/generation.json": "8b0c4314672f71764c2a1913e4e556eceb4615c38b47af193ff49bb55d72e3d6",
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
-    "art/characters/visual-reviews.json": "4546d87ff8b93810c3505bc8d80812bda1a5cfcc33ae1236460ca790d017fab0",
-    "content/catalogue/curated.json": "45643a554a5daf715542cc690fccb82d5ace20997e92e315bdcc65d790eec2b7",
+    "art/characters/visual-reviews.json": "9bb68a2563f63036a21a40f52eba22badaf448158c98761647e197d0706f12ef",
+    "content/catalogue/curated.json": "9ff99618c8240528abc3bef606bf0fb0c5120d366c82b9aaeb60cc1c61c83721",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
     "dist/assets/creatures/creature-blastoucan-combat.png": "032832e63a4aad6b32647cf198176cf03fd5c99b6d6983f8f86e74a07789979c",
@@ -272,9 +272,9 @@
     "dist/src/render/battle-art.js": "c51784768c512f13613a83faf3e9f939699846f7e6eac650a5b0d38a047a0855",
     "dist/src/render/chest-art.js": "8e055b1d52f9a8184348006d3bf6153f179d27e1268ef9bf5c0fdab10364061b",
     "dist/src/render/elemental-effects.js": "f67714258372fae89bf2a2b2671ea9986fa2de9c94d5a0cd6bb452b970c65342",
-    "dist/src/render/sprites.js": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c",
+    "dist/src/render/sprites.js": "0f5828f7a16e8425206f4bcba0b5f8b9ccac1c5ca60b75cdb634a00cebbf8c41",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
-    "dist/src/render/world.js": "ab41cba6ba3dbd33d23b6d7110bf9bdff9382c08e25c08abbca09b6f6181d024",
+    "dist/src/render/world.js": "5842e0682b9ce8ad781d2766be6f43c4676e91f954aa56b1c7ed8b43ddf26133",
     "dist/src/save.js": "a10b2b3c2c2ba54510b4ee2c3a3a5441d14a24bbab60dd7ce49e0afea9c74d7e",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
@@ -330,7 +330,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "394535a7b2542d15667b401c33946748ab82594a32628438651b2607340fdf15",
+  "sourceDigest": "e0edb9c13f8f0495aec04c3a45fdd1abf27dd58e4c3cfa99bda37a3d1aa1203a",
   "exclusions": [
     {
       "family": "module-exports",
@@ -18045,7 +18045,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
+          "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -19226,7 +19226,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "Lantern abdomen, teal wing-case shoulders and insect limbs remain distinct from Voltkit at gameplay scale; rear/front eyes and corrected SW facing read clearly. Combat states and follower wingflutter preserve the identity and stable anchor. Owner taste and enjoyment remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
+          "reason": "Lantern abdomen, teal wing-case shoulders and insect limbs remain distinct from Voltkit at gameplay scale; rear/front eyes and corrected SW facing read clearly. Combat states and follower wingflutter preserve the identity and stable anchor. Owner taste and enjoyment remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -19605,7 +19605,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At the 115 px battle width the violet three-lobed body, central dimple, branching lavender veins and amber spore vents remain legible and distinct from Mushmallow; idle, attack, hit, faint and capture states remain cohesive. At 37 px the low connected radial silhouette is readable and does not resemble the taller hedgehog. Direction changes are intentionally subtle for a radial organism, while its eight-row atlas retains stable anchors and five animation columns. Owner taste and real playtest remain pending; this is not owner approval. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
+          "reason": "At the 115 px battle width the violet three-lobed body, central dimple, branching lavender veins and amber spore vents remain legible and distinct from Mushmallow; idle, attack, hit, faint and capture states remain cohesive. At 37 px the low connected radial silhouette is readable and does not resemble the taller hedgehog. Direction changes are intentionally subtle for a radial organism, while its eight-row atlas retains stable anchors and five animation columns. Owner taste and real playtest remain pending; this is not owner approval. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -20161,7 +20161,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
+          "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -20328,7 +20328,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At the 115 px battle scale the tall heron silhouette, cream throat, scoop bill and reed-fan crest remain distinct from low-bodied Siltkip. All five battle states preserve its identity and common ground anchor. At 37 px the directional follower rows retain readable facing and alternating high-knee steps with stable feet. Owner taste and real playtest remain pending; this is not owner approval. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
+          "reason": "At the 115 px battle scale the tall heron silhouette, cream throat, scoop bill and reed-fan crest remain distinct from low-bodied Siltkip. All five battle states preserve its identity and common ground anchor. At 37 px the directional follower rows retain readable facing and alternating high-knee steps with stable feet. Owner taste and real playtest remain pending; this is not owner approval. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -20489,7 +20489,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
+          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "approved"
         }
       ],
@@ -20817,7 +20817,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
+          "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -21195,7 +21195,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
+          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "approved"
         }
       ],
@@ -22456,7 +22456,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
+          "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],

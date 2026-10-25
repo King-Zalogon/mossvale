@@ -47,3 +47,5 @@ Events may include optional `note` (1–320 characters). The field journal displ
 Map validation checks scene prerequisite event references and reachable positive dependencies across maps. Companion-route references use their canonical `route-<id>` event. Negative outcome guards do not create a dependency cycle. This is a bounded scene graph check, not a new quest engine or proof that an external flag, actor or physical route is attainable.
 
 Other ranger identities (including Mara’s `person-gardener`) keep their original sprite and the readable cue; a reaction must never substitute a different character. The optional traveler poses remain pending owner visual approval.
+
+The player’s `react` state is carried into the renderer as a transient cue, including its expiry time. It does not change the player sprite, controls or save schema; an expired cue is not drawn.

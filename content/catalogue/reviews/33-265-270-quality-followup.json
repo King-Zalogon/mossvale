@@ -17,7 +17,7 @@
       ],
       "entries": ["mechanic:conditional-decoration", "mechanic:scene-choreography", "map:mossvale/orchard-ruins", "map:mossvale/amber-ridge"],
       "disposition": "updated",
-      "reason": "Add validated nonblocking conditional decoration, preserve traveler-only reaction identity, bind adult/repair materials and Mara/Rowan/hints to committed outcomes including rescue completion before re-entry. Canonical map hashes and matching capability fiches are updated; no new save identity, terrain collision or rewards.",
+      "reason": "Add validated nonblocking conditional decoration, preserve traveler-only reaction identity, bind adult/repair materials and Mara/Rowan/hints to committed outcomes including rescue completion before re-entry. Canonical map hashes and matching capability fiches are updated; no new save identity, terrain collision or rewards. Copy transient player reaction state into its render proxy so the advertised player fallback cue is actually visible.",
       "evidence": ["tests/orchard-clues.test.mjs", "tests/quality-followup.browser.mjs", "docs/ORCHARD_CONSEQUENCES.md"]
     },
     {
@@ -33,6 +33,35 @@
       "disposition": "no-semantic-impact",
       "reason": "Clarify that retained traveler draft poses cannot substitute another character; source images and approval state are unchanged.",
       "evidence": ["tests/quality-followup.browser.mjs", "docs/SCENE_ACTIONS.md"]
+    },
+    {
+      "paths": ["dist/src/render/sprites.js", "docs/ASSETS.md"],
+      "entries": ["visual:chest-pine-frost", "visual:chest-pine-frost-open-empty", "visual:person-red-cap-motion"],
+      "disposition": "no-semantic-impact",
+      "reason": "Restore the existing bottom-center anchor contract by rounding the ground point once instead of independently rounding height and top. No asset pixels, source crops, display widths, save fields or authorable controls change. The real-map chest test now identifies the authored target relative to the same-frame player ground marker, keeping the original one-pixel tolerance independent of camera easing.",
+      "evidence": ["tests/render-budget.test.mjs", "tests/chest-state.browser.mjs", "docs/scene-quality/244/evidence.json"]
+    },
+    {
+      "paths": ["art/assets/subjects.json", "art/characters/visual-reviews.json"],
+      "entries": [
+        "visual:person-red-cap-motion",
+        "visual:creature-sedgegnaw-combat",
+        "visual:creature-petalunge-combat",
+        "visual:creature-cindercurl-combat",
+        "visual:creature-sunsifter-combat",
+        "visual:creature-rillume-combat",
+        "visual:creature-lanternix-combat",
+        "visual:creature-myceloop-combat",
+        "visual:creature-reedstilt-combat"
+      ],
+      "disposition": "no-semantic-impact",
+      "reason": "Refresh only bindings to the shared sprite renderer and its enclosing provenance manifest after restoring the existing bottom-center anchor promise. No artwork bytes, source crops, frame declarations or owner visual decisions are changed. Actual-scale preview and scene captures plus unit/map anchor regressions provide the treatment evidence.",
+      "evidence": [
+        "tests/render-budget.test.mjs",
+        "tests/chest-state.browser.mjs",
+        "tests/quality-followup.browser.mjs",
+        "docs/scene-quality/244/evidence.json"
+      ]
     }
   ]
 }

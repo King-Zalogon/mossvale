@@ -37,6 +37,7 @@ export function drawSprite(c, id, x, y, w, options = {}) {
   const frameWidth = meta?.frames?.frameWidth || sourceWidth;
   const frameHeight = meta?.frames?.frameHeight || sourceHeight;
   const h = (w * frameHeight) / frameWidth;
+  const pixelHeight = Math.round(h);
   c.save();
   c.imageSmoothingEnabled = false;
   if (options.alpha !== undefined) c.globalAlpha = options.alpha;
@@ -50,9 +51,9 @@ export function drawSprite(c, id, x, y, w, options = {}) {
       sourceWidth,
       sourceHeight,
       Math.round(-w / 2),
-      Math.round(-h),
+      -pixelHeight,
       Math.round(w),
-      Math.round(h),
+      pixelHeight,
     );
   } else
     c.drawImage(
@@ -62,9 +63,9 @@ export function drawSprite(c, id, x, y, w, options = {}) {
       sourceWidth,
       sourceHeight,
       Math.round(x - w / 2),
-      Math.round(y - h),
+      Math.round(y) - pixelHeight,
       Math.round(w),
-      Math.round(h),
+      pixelHeight,
     );
   c.restore();
 }

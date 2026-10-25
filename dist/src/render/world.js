@@ -175,9 +175,17 @@ export function createWorldRenderer({canvas, miniCanvas}) {
       object => companionRouteVisible(save, world.map.id, object) && holds(object.when, save, conditionContext),
     );
     stats = {visibleTiles: tiles.length, worldTiles: world.tiles.length, visibleObjects: visibleObjects.length, worldObjects: world.objects.length};
-    const all = [...visibleObjects, follow, {x: player.x, y: player.y, id: spriteId('person-red-cap-motion'), w: 36, kind: 'player', frame: playerPose}].sort(
-      (a, b) => a.x + a.y - b.x - b.y,
-    );
+    const playerActor = {
+      x: player.x,
+      y: player.y,
+      id: spriteId('person-red-cap-motion'),
+      w: 36,
+      kind: 'player',
+      frame: playerPose,
+      sceneReaction: player.sceneReaction,
+      sceneReactionUntil: player.sceneReactionUntil,
+    };
+    const all = [...visibleObjects, follow, playerActor].sort((a, b) => a.x + a.y - b.x - b.y);
     const labels = [];
     for (const o of all) {
       const s = point(o.x, o.y);

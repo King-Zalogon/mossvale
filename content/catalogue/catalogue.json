@@ -9436,7 +9436,7 @@
         "trigger": "Validated map scene event.",
         "inputs": "Player and ranger landmark IDs, integer walkable destinations, supported face targets, notice/surprise/happy reactions, and bounded waits.",
         "sequence": "Actions run in authored order; each movement settles before the next action.",
-        "results": "Movement reports arrived, blocked or cancelled. Player directions and four ranger facings use shipped sprite poses. Traveler notice/surprise/happy poses are optional; other ranger identities retain their own sprite and a readable cue.",
+        "results": "Movement reports arrived, blocked or cancelled. Player directions and four ranger facings use shipped sprite poses. Traveler notice/surprise/happy poses are optional; other ranger identities retain their own sprite and a readable cue. Player reactions retain a timed cue through the render proxy and disappear after their transient window.",
         "cancellation": "Pause, menu, map travel, battle, hidden tab and page exit release movement ownership and cancel timers.",
         "errors": "Missing actor, invalid destination, blocked route or unsupported action is rejected or reported; no rescue teleport is used.",
         "persistence": "One-time event keys, flags and rewards save before presentation; a failed save restores the prior save state."

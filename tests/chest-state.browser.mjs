@@ -3,6 +3,7 @@ import http from 'node:http';
 import {existsSync, readFileSync, mkdirSync} from 'node:fs';
 import {chromium} from 'playwright';
 import {regions} from '../dist/src/data/regions.js';
+import {TILE_W, TILE_H} from '../dist/src/config.js';
 
 const root = new URL('../dist/', import.meta.url);
 const types = {html: 'text/html', js: 'text/javascript', css: 'text/css', json: 'application/json', png: 'image/png'};
@@ -15,12 +16,44 @@ const server = http
   })
   .listen(0);
 const browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});
+// Compare against the player's unrounded ground ring in the same frame, so camera easing cannot move the oracle.
+async function chestAnchor(page, name, expected) {
+  await page.waitForFunction(name => window.playerGround && window.chestDraws.some(draw => draw.src === name), name);
+  return page.evaluate(
+    ({name, expected}) => {
+      const candidates = window.chestDraws
+        .filter(draw => draw.src === name)
+        .map(draw => {
+          const [x, y, w, h] = draw.args.slice(-4);
+          const foot = [x + w / 2 - window.playerGround[0], y + h - window.playerGround[1]];
+          return {foot, alpha: draw.alpha, distance: Math.hypot(foot[0] - expected[0], foot[1] - expected[1])};
+        });
+      return candidates.sort((a, b) => a.distance - b.distance)[0];
+    },
+    {name, expected},
+  );
+}
+
 try {
   for (const map of ['meadow', 'reedfen-wetlands', 'stilt-isles', 'stone-basin', 'amber-ridge', 'frostveil-grove', 'frostveil-pass']) {
     const context = await browser.newContext({viewport: {width: 1100, height: 900}});
     await context.addInitScript(() => {
       const draw = CanvasRenderingContext2D.prototype.drawImage;
+      const fill = CanvasRenderingContext2D.prototype.fillRect;
+      const ellipse = CanvasRenderingContext2D.prototype.ellipse;
       window.chestDraws = [];
+      CanvasRenderingContext2D.prototype.fillRect = function (x, y, w, h) {
+        if (this.canvas.id === 'game' && x === 0 && y === 0 && w === this.canvas.width && h === this.canvas.height) {
+          window.chestDraws = [];
+          window.playerGround = null;
+        }
+        return fill.call(this, x, y, w, h);
+      };
+      CanvasRenderingContext2D.prototype.ellipse = function (x, y, rx, ry, ...args) {
+        // The player's selection ring is 13:5; shadows and shrine halos have different ratios.
+        if (this.canvas.id === 'game' && Math.abs(rx / ry - 13 / 5) < 0.000001) window.playerGround = [x, y];
+        return ellipse.call(this, x, y, rx, ry, ...args);
+      };
       CanvasRenderingContext2D.prototype.drawImage = function (image, ...args) {
         if (this.canvas.id === 'game' && image?.src?.includes('/chest-')) {
           window.chestDraws.push({src: image.src.split('/').pop(), alpha: this.globalAlpha, args});
@@ -34,45 +67,52 @@ try {
     page.on('pageerror', e => errors.push(e.message));
     await page.goto(`http://localhost:${server.address().port}/?debug&seed=2`);
     await page.waitForSelector('#loading', {state: 'hidden'});
-    const before = await page.evaluate(map => {
-      window.mossvale.getState().save.badges = [0, 1, 2];
-      window.mossvale.travel(map);
-      const s = window.mossvale.getState();
-      const chest = s.world.map.objects.find(o => o.kind === 'chest');
-      for (const [dx, dy] of [
-        [1, 0],
-        [-1, 0],
-        [0, 1],
-        [0, -1],
-      ]) {
-        if (window.mossvale.valid(chest.x + dx, chest.y + dy)) {
-          Object.assign(s.player, {x: chest.x + dx, y: chest.y + dy});
-          break;
+    const before = await page.evaluate(
+      ({map, tileW, tileH}) => {
+        window.mossvale.getState().save.badges = [0, 1, 2];
+        window.mossvale.travel(map);
+        const s = window.mossvale.getState();
+        const chest = s.world.map.objects.find(o => o.kind === 'chest');
+        for (const [dx, dy] of [
+          [1, 0],
+          [-1, 0],
+          [0, 1],
+          [0, -1],
+        ]) {
+          if (window.mossvale.valid(chest.x + dx, chest.y + dy)) {
+            Object.assign(s.player, {x: chest.x + dx, y: chest.y + dy});
+            break;
+          }
         }
-      }
-      window.chestDraws = [];
-      return {
-        coins: s.save.coins,
-        potions: s.save.potions,
-        orbs: s.save.orbs,
-        flag: chest.flag,
-        sprite:
-          s.world.map.biome === 'meadow'
-            ? 'chest-wooden'
-            : s.world.map.biome === 'wetland'
-              ? 'chest-reed-rope'
-              : s.world.map.biome === 'badlands'
-                ? 'chest-sandstone-iron'
-                : 'chest-pine-frost',
-      };
-    }, map);
+        window.chestDraws = [];
+        return {
+          coins: s.save.coins,
+          potions: s.save.potions,
+          orbs: s.save.orbs,
+          flag: chest.flag,
+          expected: [
+            ((chest.x - s.player.x - chest.y + s.player.y) * tileW * s.zoom) / 2,
+            ((chest.x - s.player.x + chest.y - s.player.y) * tileH * s.zoom) / 2,
+          ],
+          sprite:
+            s.world.map.biome === 'meadow'
+              ? 'chest-wooden'
+              : s.world.map.biome === 'wetland'
+                ? 'chest-reed-rope'
+                : s.world.map.biome === 'badlands'
+                  ? 'chest-sandstone-iron'
+                  : 'chest-pine-frost',
+        };
+      },
+      {map, tileW: TILE_W, tileH: TILE_H},
+    );
     await page.waitForFunction(name => window.chestDraws.some(d => d.src === name + '.png'), before.sprite);
-    // Arrival fade and camera easing must settle before comparing ground anchors.
-    await page.waitForTimeout(1000);
-    const closedFoot = await page.evaluate(() => {
-      const [x, y, w, h] = window.chestDraws.at(-1).args.slice(-4);
-      return [x + w / 2, y + h];
-    });
+    const closed = await chestAnchor(page, before.sprite + '.png', before.expected);
+    const closedFoot = closed.foot;
+    assert.ok(
+      closedFoot.every((value, i) => Math.abs(value - before.expected[i]) <= 1),
+      `${map}: the closed chest is grounded at its authored position`,
+    );
     if (process.env.CHEST_REVIEW === '1') {
       mkdirSync('dist/reviews/chests', {recursive: true});
       await page.locator('#game').screenshot({path: `dist/reviews/chests/${map}-closed.png`});
@@ -82,14 +122,16 @@ try {
     await page.click('#result-continue');
     await page.evaluate(() => (window.chestDraws = []));
     await page.waitForFunction(name => window.chestDraws.some(d => d.src === name + '-open-empty.png'), before.sprite);
-    assert.equal(await page.evaluate(() => window.chestDraws.at(-1).alpha), 1, 'looted chest remains opaque');
-    const openFoot = await page.evaluate(() => {
-      const [x, y, w, h] = window.chestDraws.at(-1).args.slice(-4);
-      return [x + w / 2, y + h];
-    });
+    const opened = await chestAnchor(page, before.sprite + '-open-empty.png', before.expected);
+    const openFoot = opened.foot;
+    assert.equal(opened.alpha, 1, 'looted chest remains opaque');
+    assert.ok(
+      openFoot.every((value, i) => Math.abs(value - before.expected[i]) <= 1),
+      `${map}: the open chest is grounded at its authored position`,
+    );
     assert.ok(
       openFoot.every((value, i) => Math.abs(value - closedFoot[i]) <= 1),
-      'opening preserves the rendered ground anchor',
+      `${map}: opening preserves the rendered ground anchor (${closedFoot} -> ${openFoot})`,
     );
     const after = await page.evaluate(() => {
       const s = window.mossvale.getState().save;
