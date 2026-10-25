@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "createdOn": "2026-10-25",
+  "species": "rimeskip",
+  "design": "Ice-type snowshoe hare; large snowshoe feet, powerful long hind legs, short forelegs and asymmetric frost-rimed ears.",
+  "references": ["creature-frostowl", "creature-hushram"],
+  "portraitPrompt": "Single standalone creature portrait for a pixel-art creature collector RPG, transparent background. Rimeskip, an Ice-type snowshoe hare: compact hare silhouette with very long powerful hind legs, oversized broad snowshoe feet with visible toe tufts, short forelegs, long upright ears with one ear subtly split/asymmetrical and rimed with pale blue frost, small cream muzzle, dark brown nose, alert deep teal eyes, cool gray-brown fur with white winter cheeks/belly and restrained icy cyan frost accents. Three-quarter view facing right, whole body visible, paws grounded. Crisp pixel art, dark outline, limited palette, no text or background.",
+  "combatPrompt": "Production battle atlas, 4 columns × 5 rows, transparent 1122×1402 source. Same Rimeskip in every cell. Rows: idle, ice attack, hit reaction, faint, capture; four poses per row. Long hind legs and broad snowshoe feet, short forelegs, asymmetric frosted ears, grey-brown and cream fur, teal eye. Shared ground anchor; effects remain contained.",
+  "followerPrompt": "Production directional follower atlas, 5 columns × 8 rows, transparent 992×1586 source. Rows N, NE, E, SE, S, SW, W, NW; each row idle plus four alternating compact hop/walk frames. Preserve snowshoe hare anatomy and direction-specific facing; stable foot baseline.",
+  "exportNotes": "Combat is normalized into 4×5 288px frames; follower is normalized into 5×8 200px frames. Source archive retains exact generated RGBA inputs; no battle speed-order or freeze mechanic was added."
+}

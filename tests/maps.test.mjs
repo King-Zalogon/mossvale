@@ -213,7 +213,7 @@ test('Rootglass is an optional two-map route with distinct ecology, stable retur
   assert.ok(hollow.landmarks.some(landmark => landmark.sprite === 'prop-rootglass-hollow'));
   assert.deepEqual(canopy.zones[0].pool, ['duskwing', 'frostowl']);
   assert.deepEqual(hollow.zones[0].pool, ['pebblit', 'hushram']);
-  assert.equal(rawPack().contentVersion, 10);
+  assert.equal(rawPack().contentVersion, 11);
   assert.ok(mapsById[canopy.id] && mapsById[hollow.id]);
 });
 
@@ -272,7 +272,10 @@ test('snowy maps form a distinct, traversable pair with a safe return and option
   assert.equal(pass.zones[0].pool.length, 3);
   assert.equal(grove.landmarks.find(l => l.id === 'icefall-note').secret, true);
   assert.equal(grove.landmarks.find(l => l.id === 'icefall-note').mapLabel, 'Icefall ledge');
-  assert.deepEqual(new Set([...grove.zones[1].pool, ...pass.zones[0].pool]), new Set(['duskwing', 'frostowl', 'hushram']));
+  assert.deepEqual(
+    new Set([...grove.zones[1].pool, ...pass.zones[0].pool].map(entry => (typeof entry === 'object' ? entry.species : entry))),
+    new Set(['duskwing', 'frostowl', 'hushram', 'rimeskip']),
+  );
   for (const map of [grove, pass]) {
     assert.ok(
       map.landmarks.some(l => l.kind === 'ranger'),

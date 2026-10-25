@@ -29,6 +29,7 @@ FOLLOWER_IDS = {
     "creature-lanternix",
     "creature-myceloop",
     "creature-reedstilt",
+    "creature-rimeskip",
 }
 COMBAT_IDS = {
     "creature-fernling",
@@ -51,6 +52,7 @@ COMBAT_IDS = {
     "creature-lanternix",
     "creature-myceloop",
     "creature-reedstilt",
+    "creature-rimeskip",
 }
 
 

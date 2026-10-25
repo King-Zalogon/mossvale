@@ -2,7 +2,7 @@
   "format": 1,
   "id": "mossvale",
   "name": "Mossvale",
-  "brief": "Four biomes, nineteen friends and a seal at every shrine.",
+  "brief": "Four biomes, twenty-one friends and a seal at every shrine.",
   "maps": [
     "meadow",
     "amber-ridge",
@@ -36,7 +36,8 @@
     "rillume",
     "lanternix",
     "myceloop",
-    "reedstilt"
+    "reedstilt",
+    "rimeskip"
   ],
   "milestones": ["meadow.seal", "amber-ridge.seal", "frostveil-grove.seal", "reedfen-wetlands.seal"],
   "ending": "story",
@@ -44,7 +45,7 @@
   "story": "story.json",
   "inventory": "inventory.json",
   "registries": "registries.json",
-  "contentVersion": 10,
+  "contentVersion": 11,
   "requires": {
     "engineVersion": 1,
     "saveSchema": 5
@@ -53,7 +54,7 @@
     {
       "id": "registry:main",
       "path": "registries.json",
-      "sha256": "b7d17a7fd9a62314ac6db90cf48554b541e47e6a3a772be609a708055ba68dde"
+      "sha256": "456457395ea38277cc2b038dbe6ab67d3591440b63ab552906f20325f51ccab2"
     },
     {
       "id": "map:meadow",
@@ -68,7 +69,7 @@
     {
       "id": "map:frostveil-grove",
       "path": "frostveil-grove.json",
-      "sha256": "9c19bcab6e8923b290a403409a7ac54472d9b2b070f93efa6b5a6fffb6eefe3d"
+      "sha256": "b6a2e1a009aafea174755d52b32669c5c6f52d4601c48f7760ac6fddcb4e3a4b"
     },
     {
       "id": "map:frostveil-pass",

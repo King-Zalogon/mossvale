@@ -98,6 +98,7 @@ SPECS = {
     "lanternix": {"source": "art/characters/source/creature-lanternix-follower-generated.png", "target": "dist/assets/creatures/creature-lanternix-follower.png"},
     "myceloop": {"source": "art/characters/source/creature-myceloop-follower-generated.png", "target": "dist/assets/creatures/creature-myceloop-follower.png"},
     "reedstilt": {"source": "art/characters/source/creature-reedstilt-follower-generated.png", "target": "dist/assets/creatures/creature-reedstilt-follower.png"},
+    "rimeskip": {"source": "art/characters/source/creature-rimeskip-follower-generated.png", "target": "dist/assets/creatures/creature-rimeskip-follower.png", "sourceRowBounds": [0, 198, 397, 595, 793, 991, 1190, 1388, 1586]},
 
 }
 
@@ -138,7 +139,12 @@ def bounds(length, count):
     return [round(i * length / count) for i in range(count + 1)]
 
 
-def generated_row_bounds(source, alpha_threshold, rows):
+def generated_row_bounds(source, alpha_threshold, rows, authored_bounds=None):
+    if authored_bounds is not None:
+        bounds = authored_bounds
+        if len(bounds) != rows + 1 or bounds[0] != 0 or bounds[-1] != source.height or any(a >= b for a, b in zip(bounds, bounds[1:])):
+            raise ValueError(f"authored sourceRowBounds must contain {rows + 1} increasing boundaries from 0 to {source.height}")
+        return bounds
     alpha = source.getchannel("A")
     pixels = alpha.load()
     projection = [sum(pixels[x, y] > alpha_threshold for x in range(source.width)) for y in range(source.height)]
@@ -168,7 +174,7 @@ def build(source_path, frame_size, content_size, foot_y, alpha_threshold, minimu
     with Image.open(BytesIO(source_data)) as opened:
         source = opened.convert("RGBA")
     columns, rows = 5, 8
-    xs, ys = bounds(source.width, columns), generated_row_bounds(source, spec.get("rowAlphaThreshold", alpha_threshold), rows)
+    xs, ys = bounds(source.width, columns), generated_row_bounds(source, spec.get("rowAlphaThreshold", alpha_threshold), rows, spec.get("sourceRowBounds"))
     source_rows = spec.get("sourceRows", list(range(rows)))
     if len(source_rows) != rows or any(not isinstance(source_row, int) or not 0 <= source_row < rows for source_row in source_rows):
         raise ValueError(f"{source_path}: sourceRows must select a valid source row for every runtime direction")

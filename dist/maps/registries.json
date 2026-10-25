@@ -385,7 +385,11 @@
       "id": "myceloop",
       "name": "Myceloop",
       "type": "Spore",
-      "stats": {"hp": 50, "attack": 7, "defense": 14},
+      "stats": {
+        "hp": 50,
+        "attack": 7,
+        "defense": 14
+      },
       "move": "mycelial-pulse",
       "biome": "wetland",
       "role": "Patient control bulwark",
@@ -402,7 +406,11 @@
       "id": "reedstilt",
       "name": "Reedstilt",
       "type": "Mire",
-      "stats": {"hp": 48, "attack": 9, "defense": 13},
+      "stats": {
+        "hp": 48,
+        "attack": 9,
+        "defense": 13
+      },
       "move": "reed-scoop",
       "biome": "wetland",
       "role": "Steady wader scout",
@@ -414,6 +422,27 @@
       "color": "#a8aa68",
       "hp": 48,
       "sprite": "creature-reedstilt"
+    },
+    {
+      "id": "rimeskip",
+      "name": "Rimeskip",
+      "type": "Ice",
+      "stats": {
+        "hp": 35,
+        "attack": 14,
+        "defense": 7
+      },
+      "move": "snowshoe-dash",
+      "biome": "snowy-forest",
+      "role": "Fast Focus duelist",
+      "personality": "Alert and easily startled; it circles the sheltered snowgrass, then stamps a fresh trail before deciding whether to approach.",
+      "desc": "A snowshoe hare that bounds across fresh powder on enormous frost-rimed feet.",
+      "encounterHint": "Follow the fresh tracks where Frostveil Grove’s sheltered snowgrass meets the pines.",
+      "strong": ["Leaf", "Air"],
+      "weak": ["Fire", "Stone"],
+      "color": "#b9d9ec",
+      "hp": 35,
+      "sprite": "creature-rimeskip"
     }
   ],
   "regions": [
