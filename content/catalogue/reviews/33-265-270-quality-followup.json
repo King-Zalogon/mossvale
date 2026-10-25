@@ -28,8 +28,8 @@
       "paths": ["dist/src/ui/dom.js", "dist/style.css", "docs/UI.md"],
       "entries": ["mechanic:scene-dialogue"],
       "disposition": "no-semantic-impact",
-      "reason": "Repair existing modal focus/scroll preservation across shorter intermediate battle frames and ignore stale scheduled focus callbacks after a dialog is replaced or dismissed. Does not add a new authorable dialogue action or alter progression. Fullscreen now fills desktop and portrait viewports as the existing landscape layout intended; no authorable layout option is added.",
-      "evidence": ["tests/quality-followup.browser.mjs"]
+      "reason": "Repair existing modal focus/scroll preservation across shorter intermediate battle frames and ignore stale scheduled focus callbacks after a dialog is replaced or dismissed. Does not add a new authorable dialogue action or alter progression. Fullscreen now fills desktop and portrait viewports as the existing landscape layout intended; no authorable layout option is added. Reserve a separate speech advance column so constrained panels never place Done over prose; no dialogue content or progression changes.",
+      "evidence": ["tests/quality-followup.browser.mjs", "tests/dialogue-layout.browser.mjs"]
     },
     {
       "paths": ["art/characters/SCENE_REACTIONS.md"],

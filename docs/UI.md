@@ -21,3 +21,5 @@ Issues [#33](https://github.com/King-Zalogon/mossvale/issues/33) and [#34](https
 - Nothing here has been tried on your actual devices yet; that is #35.
 
 Fullscreen fills the available height on desktop, portrait and landscape viewports, including resize/orientation changes. The existing short-landscape footer and touch-control safe area remain in effect. `tests/quality-followup.browser.mjs` covers real Guard turns with keyboard/touch input, deliberate scroll changes, and viewport/fullscreen resizing. Emulation is technical evidence, not physical-device or owner visual acceptance.
+
+The speech advance button has a dedicated column beside the prose. In constrained panels, readers can scroll the complete text while the advance button remains visible in its own column, without covering any text.

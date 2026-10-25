@@ -77,6 +77,8 @@ try {
         controlsAbove,
         hasTail: getComputedStyle(bubble, '::after').display !== 'none' && getComputedStyle(bubble, '::after').content !== 'none',
         touchControlsHidden: ['.touchpad', '#touch-run'].every(selector => getComputedStyle(document.querySelector(selector)).display === 'none'),
+        advanceClearsText:
+          document.querySelector('#speech-next').getBoundingClientRect().left >= document.querySelector('#speech-text').getBoundingClientRect().right,
         nextText: document.querySelector('#speech-next').textContent,
       };
     });
@@ -86,7 +88,27 @@ try {
     assert.ok(result.controlsAbove, `${label}: panel clears touch controls ${JSON.stringify(result)}`);
     assert.equal(result.hasTail, false, `${label}: no decorative arrow competes with the advance button`);
     if (text.length < 80) assert.ok(result.scrollHeight <= result.clientHeight, `${label}: short text has no overflow ${JSON.stringify(result)}`);
+    assert.ok(result.advanceClearsText, `${label}: advance control never overlays prose ${JSON.stringify(result)}`);
     assert.equal(result.nextText, 'Done', `${label}: the single advance action is clear`);
+    if (result.scrollHeight > result.clientHeight) {
+      const end = await page.evaluate(() => {
+        const bubble = document.querySelector('#speech-bubble');
+        bubble.scrollTop = bubble.scrollHeight;
+        const text = document.querySelector('#speech-text').firstChild;
+        const range = document.createRange();
+        range.setStart(text, text.length - 1);
+        range.setEnd(text, text.length);
+        const last = range.getBoundingClientRect();
+        const panel = bubble.getBoundingClientRect();
+        const button = document.querySelector('#speech-next').getBoundingClientRect();
+        const readable = last.top >= panel.top && last.bottom <= panel.bottom && last.right <= button.left;
+        const actionable = button.top >= panel.top && button.bottom <= panel.bottom;
+        bubble.scrollTop = 0;
+        return {readable, actionable};
+      });
+      assert.ok(end.readable, `${label}: scrolling exposes the final prose without covering it`);
+      assert.ok(end.actionable, `${label}: the advance control remains inside the scrolled panel`);
+    }
     return result;
   };
 
