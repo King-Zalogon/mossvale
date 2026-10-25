@@ -29,7 +29,8 @@ const types = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
 const server = http.createServer((request, response) => {
   const name = new URL(request.url, 'http://localhost').pathname.slice(1) || 'index.html';
   requested.push(name);
-  if (!existsSync(join(out, name))) return response.writeHead(404).end();
+  if (!existsSync(join(out, name)))
+    return response.writeHead(404, {'content-type': 'text/html; charset=utf-8'}).end('<!doctype html><title>Not found</title><p>Not found</p>');
   response.writeHead(200, {'content-type': types[extname(name)] ?? 'application/octet-stream'}).end(readFileSync(join(out, name)));
 });
 server.listen(0);
@@ -69,7 +70,8 @@ try {
   await setCoins(222);
   await boot();
   // Leave the running game first (it saves as the page goes away) so the snapshot is what a rejected load will find.
-  await page.goto(url + 'not-a-page');
+  const missingPage = await page.goto(url + 'not-a-page');
+  assert.equal(missingPage.status(), 404, 'the same-origin error document unloads the running game');
   const before = await saveKeys();
   assert.equal(JSON.parse(before['mossvale-v3']).coins, 111);
   assert.equal(JSON.parse(before['mossvale-pack-hearth-hamlet-v3']).coins, 222);
