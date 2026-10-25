@@ -96,7 +96,14 @@
         },
         {
           "when": {
-            "event": "orchard-ruins/outcome-family-first"
+            "any": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "event": "orchard-ruins/outcome-family-first"
+              }
+            ]
           },
           "text": "The young are safe in the dry hollow. I'll finish the slower repair and tell Rowan why you moved them first."
         },
@@ -123,10 +130,10 @@
           "when": {
             "flag": "meadow.seal"
           },
-          "text": "West: Meadow \u00b7 East: Amber Ridge \u00b7 Follow the main orchard trail."
+          "text": "West: Meadow · East: Amber Ridge · Follow the main orchard trail."
         },
         {
-          "text": "West: Meadow \u00b7 East: a sealed trail \u00b7 Rest with Mara near the entrance."
+          "text": "West: Meadow · East: a sealed trail · Rest with Mara near the entrance."
         }
       ]
     },
@@ -196,7 +203,14 @@
         },
         {
           "when": {
-            "event": "orchard-ruins/outcome-family-first"
+            "any": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "event": "orchard-ruins/outcome-family-first"
+              }
+            ]
           },
           "text": "Family safe; channel repair pending"
         },
@@ -250,7 +264,14 @@
         },
         {
           "when": {
-            "event": "orchard-ruins/outcome-family-first"
+            "any": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "event": "orchard-ruins/outcome-family-first"
+              }
+            ]
           },
           "text": "The family is safe in the dry hollow"
         },
@@ -614,7 +635,78 @@
       "sprite": "wood-plank-stack",
       "kind": "scenery",
       "w": 32,
-      "at": [[55.4, 28.1]]
+      "at": [[55.4, 28.1]],
+      "when": {
+        "not": {
+          "event": "orchard-ruins/outcome-water-first"
+        }
+      }
+    },
+    {
+      "sprite": "wood-plank-stack",
+      "kind": "scenery",
+      "w": 32,
+      "at": [[49.8, 40.4]],
+      "when": {
+        "event": "orchard-ruins/outcome-water-first"
+      }
+    },
+    {
+      "sprite": "creature-bramblebuck",
+      "kind": "scenery",
+      "w": 37,
+      "at": [[42.5, 35.2]],
+      "when": {
+        "all": [
+          {
+            "event": "orchard-ruins/den-family-seen"
+          },
+          {
+            "not": {
+              "any": [
+                {
+                  "event": "orchard-ruins/outcome-water-first"
+                },
+                {
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sprite": "creature-bramblebuck",
+      "kind": "scenery",
+      "w": 37,
+      "at": [[46, 35]],
+      "when": {
+        "event": "orchard-ruins/outcome-water-first"
+      }
+    },
+    {
+      "sprite": "creature-bramblebuck",
+      "kind": "scenery",
+      "w": 37,
+      "at": [[44.4, 32.9]],
+      "when": {
+        "any": [
+          {
+            "event": "orchard-ruins/orchard-family"
+          },
+          {
+            "event": "orchard-ruins/outcome-family-first"
+          }
+        ]
+      }
     },
     {
       "sprite": "tree-oak",
@@ -847,7 +939,7 @@
               "text": "Fresh hoof-scrapes have everyone blaming a wild Bramblebuck. The lower row is dry, but water collects below the old feeder. Will you look for what changed?"
             }
           ],
-          "note": "Mara asked where the lower row\u2019s water went."
+          "note": "Mara asked where the lower row’s water went."
         },
         {
           "id": "mara-remembers-water-first",
@@ -856,7 +948,11 @@
             "event": "orchard-ruins/outcome-water-first"
           },
           "actions": [
-            {"type": "react", "actor": "orchard-ranger", "pose": "happy"},
+            {
+              "type": "react",
+              "actor": "orchard-ranger",
+              "pose": "happy"
+            },
             {
               "type": "dialogue",
               "speaker": "orchard-ranger",
@@ -869,10 +965,21 @@
           "id": "mara-remembers-family-first",
           "repeatable": false,
           "when": {
-            "event": "orchard-ruins/outcome-family-first"
+            "any": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "event": "orchard-ruins/outcome-family-first"
+              }
+            ]
           },
           "actions": [
-            {"type": "react", "actor": "orchard-ranger", "pose": "happy"},
+            {
+              "type": "react",
+              "actor": "orchard-ranger",
+              "pose": "happy"
+            },
             {
               "type": "dialogue",
               "speaker": "orchard-ranger",
@@ -929,7 +1036,7 @@
               "text": "A waterline on the press has dried beneath dust from last harvest. The supply dropped before the fresh hoofprints. Follow the damp marks northeast along the lower row to the low hollow among the roots, beside the channel."
             }
           ],
-          "note": "The press\u2019s dried waterline predates the fresh hoofprints."
+          "note": "The press’s dried waterline predates the fresh hoofprints."
         }
       ],
       "beforeLandmark": true,
@@ -1034,7 +1141,7 @@
             {
               "type": "dialogue",
               "speaker": "narrator",
-              "text": "The lower row is visibly running again. The family has settled above the waterline; Mara's repair holds for this visit."
+              "text": "The repair boards now sit beside the cleared bypass. The adult waits above the channel; Mara's repair holds."
             }
           ]
         }
@@ -1207,7 +1314,14 @@
             "event": "orchard-ruins/outcome-water-first"
           },
           {
-            "event": "orchard-ruins/outcome-family-first"
+            "any": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "event": "orchard-ruins/outcome-family-first"
+              }
+            ]
           }
         ]
       },

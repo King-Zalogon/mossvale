@@ -120,3 +120,53 @@ test('choice labels disclose an action only after finding the family, then retur
   assert.doesNotMatch(pickLine(labels, save, objCtx), /Guide the family/);
   assert.match(pickLine(labels, save, objCtx), /flowing row/);
 });
+
+test('committed orchard outcomes drive distinct decoration and both NPC callbacks after backup import', async () => {
+  const {holds} = await import('../dist/src/domain/objectives.js');
+  const {exportBackup, parseBackup} = await import('../dist/src/services/backup.js');
+  const mara = map.landmarks.find(item => item.id === 'orchard-ranger');
+  const rowan = rawMaps()
+    .find(item => item.id === 'amber-ridge')
+    .landmarks.find(item => item.id === 'ranger');
+  for (const event of ['outcome-water-first', 'orchard-family', 'outcome-family-first']) {
+    const save = newSave();
+    save.events = ['orchard-ruins/den-family-seen', `orchard-ruins/${event}`];
+    save.coins = 27;
+    const imported = parseBackup(exportBackup(codec, save, {short: 'test'}), codec);
+    assert.equal(imported.ok, true);
+    const restored = imported.save;
+    const visible = map.props.filter(prop => holds(prop.when, restored, objCtx));
+    const adult = visible.filter(prop => prop.sprite === 'creature-bramblebuck');
+    assert.equal(adult.length, 1, 'exactly one adult staging appears, distinct from the player companion');
+    assert.deepEqual(adult[0].at, event === 'outcome-water-first' ? [[46, 35]] : [[44.4, 32.9]]);
+    assert.match(pickLine(mara.lines, restored, objCtx), event === 'outcome-water-first' ? /lower row is flowing again/i : /young are safe in the dry hollow/i);
+    assert.match(pickLine(rowan.lines, restored, objCtx), event === 'outcome-water-first' ? /lower row is flowing/i : /young are safe in the dry hollow/i);
+    assert.equal(holds(map.hints.find(hint => hint.id === 'two-priorities').resolved, restored, objCtx), true);
+    const {readFileSync} = await import('node:fs');
+    const handoff = JSON.parse(readFileSync(new URL('../docs/scene-script-proofs/265-orchard-consequences/continuity-handoff.json', import.meta.url)));
+    const outcome = handoff.outcomes.find(item => item.id === (event === 'outcome-water-first' ? 'water-first' : 'family-first'));
+    assert.equal(holds(outcome.committedWhen, restored, objCtx), true, 'the handoff recognizes the committed objective before its terminal label');
+    assert.equal(holds(outcome.nextScene.when, restored, objCtx), true);
+    assert.equal(outcome.nextScene.text, pickLine(rowan.lines, restored, objCtx));
+    assert.deepEqual(outcome.staging.adultAt, adult[0].at[0]);
+    assert.deepEqual(outcome.staging.repairBoardsAt, visible.find(prop => prop.sprite === 'wood-plank-stack').at[0]);
+    assert.equal(restored.coins, 27, 'deriving presentation and callbacks pays no additional reward');
+  }
+});
+
+test('conditional decorative props reject malformed, unknown-event and collision-changing authoring', async () => {
+  const {buildAdventure} = await import('../dist/src/domain/adventure.js');
+  const {content} = await import('./helpers.mjs');
+  for (const [changes, expected] of [
+    [{when: {event: 'orchard-ruins/not-a-real-event'}}, /unknown evidence/],
+    [{when: {typo: true}}, /unknown condition/],
+    [{when: {event: 'orchard-ruins/outcome-water-first'}, solid: 1}, /conditional props must be decorative/],
+  ]) {
+    const raw = rawMaps();
+    Object.assign(
+      raw.find(item => item.id === map.id).props.find(prop => prop.sprite === 'wood-plank-stack'),
+      changes,
+    );
+    assert.match(buildAdventure(raw, content).errors.join('\n'), expected);
+  }
+});

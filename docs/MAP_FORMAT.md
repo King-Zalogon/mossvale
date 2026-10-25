@@ -93,3 +93,9 @@ Optional map `hints` configure requested observations and leads with discovered/
 
 
 Landmarks may define optional `labels`: 1–8 `{when, text}` lines for their interaction prompt, with 1–80 characters per text. These reuse objective conditions and choose the first matching line; no match falls back to `label`. They do not change the stable `mapLabel`, marker discovery or interaction effects. Scene-event references must exist. Orchard resolution prompts disclose **Open the water bypass first** / **Guide the family to dry roots first** only after the family is observed and neither outcome is complete; ordinary inspection remains before and afterward.
+
+### Conditional decoration
+
+A decorative `props` group may include `when` using the existing objective conditions (`event`, `flag`, `all`, `any`, `not`, and the other documented conditions). The renderer evaluates it against the current save every frame. Omit it for always-visible scenery. Referenced events must exist, and a conditional group must not have `solid`: hiding scenery cannot alter collision, block a route or strand an old save. Conditions do not grant rewards or add autonomous creature behavior.
+
+For example, use `{ "when": { "event": "orchard-ruins/outcome-water-first" }, "sprite": "wood-plank-stack", "kind": "scenery", "w": 32, "at": [[49.8, 40.4]] }` for repair materials beside the cleared bypass. Pair with a mutually exclusive condition on the old placement. [The orchard pattern](ORCHARD_CONSEQUENCES.md) explains committed-objective callbacks and the visual limits.

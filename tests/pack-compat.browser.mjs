@@ -29,7 +29,8 @@ const types = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
 const server = http.createServer((request, response) => {
   const name = new URL(request.url, 'http://localhost').pathname.slice(1) || 'index.html';
   requested.push(name);
-  if (!existsSync(join(out, name))) return response.writeHead(404).end();
+  if (!existsSync(join(out, name)))
+    return response.writeHead(404, {'content-type': 'text/html; charset=utf-8'}).end('<!doctype html><title>Not found</title><p>Not found</p>');
   response.writeHead(200, {'content-type': types[extname(name)] ?? 'application/octet-stream'}).end(readFileSync(join(out, name)));
 });
 server.listen(0);

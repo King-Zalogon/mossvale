@@ -3,6 +3,7 @@ export const $ = selector => document.querySelector(selector);
 
 let toastTimer;
 let environmentMessageTimer;
+let modalRevision = 0;
 function dismissToast() {
   const node = $('#toast');
   clearTimeout(toastTimer);
@@ -79,9 +80,14 @@ function controlSelector(el) {
  */
 export function openModal(ui, content, mode, label = 'Game menu') {
   const m = $('#modal');
+  const revision = ++modalRevision;
   ui.onModalOpen?.(); // a menu replaces any open speech bubble
   const rerender = !m.hidden && ui.modalMode === mode;
-  const scroll = rerender ? m.scrollTop : 0;
+  const currentScroll = rerender ? m.scrollTop : 0;
+  // Intermediate battle frames can be shorter than the settled turn. Do not turn a temporary
+  // browser clamp into the player's new reading position; an actual scroll away from that edge wins.
+  const clamped = rerender && ui.modalScrollTop > currentScroll && Math.abs(currentScroll - ui.modalScrollLimit) < 2;
+  const scroll = clamped ? ui.modalScrollTop : currentScroll;
   // Remember the control with focus across renders, even while it is briefly disabled (e.g. during a battle round).
   if (!rerender) ui.focusKey = null;
   if (rerender && m.contains(document.activeElement)) ui.focusKey = controlSelector(document.activeElement) ?? ui.focusKey;
@@ -96,8 +102,12 @@ export function openModal(ui, content, mode, label = 'Game menu') {
   m.hidden = false;
   m.setAttribute('aria-label', label);
   m.scrollTop = scroll;
+  ui.modalScrollTop = scroll;
+  ui.modalScrollLimit = Math.max(0, m.scrollHeight - m.clientHeight);
   $('#interact').style.display = 'none';
   requestAnimationFrame(() => {
+    if (revision !== modalRevision || m.hidden || ui.modalMode !== mode) return;
+    m.scrollTop = scroll;
     const target = selector && m.querySelector(selector);
     if (target && !target.disabled) target.focus({preventScroll: true});
     else if (rerender && selector) (m.querySelector('button:not(:disabled)') ?? m).focus({preventScroll: true});
@@ -106,6 +116,7 @@ export function openModal(ui, content, mode, label = 'Game menu') {
 }
 
 export function hideModal(ui, canvas) {
+  modalRevision++;
   $('#modal').hidden = true;
   ui.modalMode = '';
   document.body.classList.remove('modal-open');

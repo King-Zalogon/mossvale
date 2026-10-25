@@ -130,7 +130,14 @@
         },
         {
           "when": {
-            "event": "orchard-ruins/outcome-family-first"
+            "any": [
+              {
+                "event": "orchard-ruins/orchard-family"
+              },
+              {
+                "event": "orchard-ruins/outcome-family-first"
+              }
+            ]
           },
           "text": "The young are safe in the dry hollow; the channel still needs repair. Follow the eastern trail."
         },
@@ -153,7 +160,7 @@
       "w": 38,
       "label": "Read the trail sign",
       "mapLabel": "Trail sign",
-      "text": "North: crystal shrine (narrow cut or the long east trail) \u00b7 South: Stone Basin \u00b7 East: Frostveil Grove, beyond the shrine \u00b7 Gold: treasure"
+      "text": "North: crystal shrine (narrow cut or the long east trail) · South: Stone Basin · East: Frostveil Grove, beyond the shrine · Gold: treasure"
     },
     {
       "id": "east-fork-waymark",

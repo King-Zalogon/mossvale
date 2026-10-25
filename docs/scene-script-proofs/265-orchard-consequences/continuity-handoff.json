@@ -2,7 +2,10 @@
   "format": 1,
   "sceneId": "orchard-mystery-outcomes",
   "title": "The Orchard's Two Resolutions",
-  "sourceMaps": ["orchard-ruins", "amber-ridge"],
+  "sourceMaps": [
+    "orchard-ruins",
+    "amber-ridge"
+  ],
   "persistence": {
     "store": "The existing save event journal; no new save field or global morality score.",
     "sharedEvidence": [
@@ -38,7 +41,25 @@
         "mapId": "amber-ridge",
         "actorId": "ranger",
         "conditionEvent": "orchard-ruins/outcome-water-first",
-        "text": "Mara's lower row is flowing again; the family is safe. Follow the eastern trail."
+        "text": "Mara's lower row is flowing again; the family is safe. Follow the eastern trail.",
+        "when": {
+          "event": "orchard-ruins/outcome-water-first"
+        }
+      },
+      "committedWhen": {
+        "event": "orchard-ruins/outcome-water-first"
+      },
+      "staging": {
+        "adultAt": [
+          46,
+          35
+        ],
+        "repairBoardsAt": [
+          49.8,
+          40.4
+        ],
+        "usesExistingAdultArt": true,
+        "changesCollision": false
       }
     },
     {
@@ -56,9 +77,41 @@
         "mapId": "amber-ridge",
         "actorId": "ranger",
         "conditionEvent": "orchard-ruins/outcome-family-first",
-        "text": "The young are safe in the dry hollow; the channel still needs repair. Follow the eastern trail."
+        "text": "The young are safe in the dry hollow; the channel still needs repair. Follow the eastern trail.",
+        "when": {
+          "any": [
+            {
+              "event": "orchard-ruins/orchard-family"
+            },
+            {
+              "event": "orchard-ruins/outcome-family-first"
+            }
+          ]
+        }
+      },
+      "committedWhen": {
+        "any": [
+          {
+            "event": "orchard-ruins/orchard-family"
+          },
+          {
+            "event": "orchard-ruins/outcome-family-first"
+          }
+        ]
+      },
+      "staging": {
+        "adultAt": [
+          44.4,
+          32.9
+        ],
+        "repairBoardsAt": [
+          55.4,
+          28.1
+        ],
+        "usesExistingAdultArt": true,
+        "changesCollision": false
       }
     }
   ],
-  "authoredInterpretation": "The map's stable event keys are the committed facts. The separate objective-completion event makes the rescue retryable; only its completion causes the family-first outcome and callback. The displayed object prompts expose the saved state when the player revisits the channel or hollow. The physical terrain and family sprites do not change, so this handoff does not claim a new visual set piece or moved overworld actors."
+  "authoredInterpretation": "Existing event keys are canonical facts. committedWhen and nextScene.when are the exact runtime conditions; legacy committedByEvent/conditionEvent keep the stable terminal label. The family rescue objectiveEvent is already a durable family-first commitment before the outcome-label scene is revisited, so prompts, Mara, Rowan and static staging respond immediately to either record. Only reward completion pays; reading/re-entry/import never pays again. Existing adult Bramblebuck and repair boards change nonblocking placements. Terrain geometry, juvenile artwork and family/water animation are not supplied by this handoff."
 }

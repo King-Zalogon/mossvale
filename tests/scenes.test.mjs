@@ -192,6 +192,9 @@ test('both orchard outcomes survive export/import and update Mara, local landmar
     assert.match(pickLine(mara.lines, restored, objCtx), outcome.mara);
     assert.match(pickLine(rowan.lines, restored, objCtx), outcome.rowan);
     assert.equal(exported.nextScene.text, pickLine(rowan.lines, restored, objCtx));
+    assert.deepEqual(exported.committedWhen, exported.nextScene.when);
+    assert.equal(holds(exported.committedWhen, restored, objCtx), true);
+    assert.deepEqual(exported.nextScene.when, rowan.lines.find(line => line.text === exported.nextScene.text).when);
     assert.match(pickLine(channel.labels, restored, objCtx), outcome.channel);
     assert.equal(exported.visibleObjectPrompts.channel, pickLine(channel.labels, restored, objCtx));
     assert.match(pickLine(hollow.labels, restored, objCtx), outcome.hollow);

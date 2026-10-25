@@ -3,7 +3,7 @@
   "sourceRevision": "8083394a5e19d41c88466cfb673d971f02014660",
   "sourceHashes": {
     "art/assets/metadata.json": "976d73353b4e920ef6732f828e6f8a5e114397ceaa25a8d2ca3e08a45b2919ec",
-    "art/assets/subjects.json": "4521370a4cac41c7c19e1e1e74724e52c8a489a4899bd1980a67b43beaddfabf",
+    "art/assets/subjects.json": "ece6be33a87865035dcf59b8f68150003a3246084ba8edc7e243f2252cbd6c1c",
     "art/assets/third-party/registry.json": "bf7c23567dc256101820975f56deb9b2fa56b1a73c6a695ed5eed6c2b403791b",
     "art/characters/composition-prototypes.json": "661052b086f62db500dd693ef1f2530291042ef58614620440c10b3b0f0e13c6",
     "art/characters/creature-animation-metadata.json": "d2d4a7553c333f0b697ab44f8dda8e5ad695fe4a106b84dfa8e0ef6b1271894b",
@@ -29,8 +29,8 @@
     "art/characters/source/rumblet/generation.json": "8b0c4314672f71764c2a1913e4e556eceb4615c38b47af193ff49bb55d72e3d6",
     "art/characters/source/wispurr/export.json": "a73fc9f7a71cc7986c7a27b00144bcbdc398df645c636b91dd4ee053e5a0c26a",
     "art/characters/source/wispurr/generation.json": "a92cf308bc770e4d6cddf53ed0fd39049456137f82df244392e96dd540e658a8",
-    "art/characters/visual-reviews.json": "5e47f3486f95cde160d10284e282a33c944ea00894759380cfabc930760904db",
-    "content/catalogue/curated.json": "1504ce42970403a227b24da498c067f24e7af697d94b7325329569424ac47ca7",
+    "art/characters/visual-reviews.json": "9bb68a2563f63036a21a40f52eba22badaf448158c98761647e197d0706f12ef",
+    "content/catalogue/curated.json": "9ff99618c8240528abc3bef606bf0fb0c5120d366c82b9aaeb60cc1c61c83721",
     "content/catalogue/schema.json": "3d1c03c14190441a49b1a511fce5bc3236aed05eb001d2ceba7e1c5033d5bc88",
     "content/catalogue/templates.json": "9c5cbb1df0f7449075d81bcf25d4fd62d5ecf8f5d305631c15db0c36a0200f4a",
     "dist/assets/creatures/creature-blastoucan-combat.png": "032832e63a4aad6b32647cf198176cf03fd5c99b6d6983f8f86e74a07789979c",
@@ -194,15 +194,15 @@
     "dist/assets/terrain-family/water-shallow-a.svg": "3ff695ed6380aae31ee1a553f28351e70e0202b90645919d6a9a9e0760740ccc",
     "dist/assets/terrain-family/water-shallow-b.svg": "6c65e2cd401670231586d9e7a2e5338dd17cbdf7bf4c5734d0afe7e95aba00d8",
     "dist/map-editor.html": "6cb300e97825cca4e397606f3d83daf03dc96ff0663bb91873e159718e5e02e0",
-    "dist/maps/amber-ridge.json": "646467e2b91a225419eb4d2c3abee9a0a4adf4bb5f4aee6edd41b9f39402deb2",
+    "dist/maps/amber-ridge.json": "73338eb502f074f29f78894f23c4b62adaf4ae8cbcf8afdc0bffc5cb6c2181e2",
     "dist/maps/brackenwake-commons.json": "92cf67c62bf4c0fa3c8676bb5533d488bb837679fbb458cacaf61ec7b996b365",
     "dist/maps/frostveil-grove.json": "9c19bcab6e8923b290a403409a7ac54472d9b2b070f93efa6b5a6fffb6eefe3d",
     "dist/maps/frostveil-pass.json": "2ebb26442c15515b32996ababeeadd2e0b75e946e1ce0165db8c90fb579e1595",
-    "dist/maps/index.json": "95bea6880bf6ff6dbe6e3adc26db181a339f6ae30e79d55407f528b2c711433c",
+    "dist/maps/index.json": "e79da9fcbd4b24534216a1cccb013ede30fde5443519e50346b043ed9f57d34c",
     "dist/maps/inventory.json": "652899cfc315a3012aa55f4ee75471fbbc9333cda30f0e85df4bd4a4aaaed728",
     "dist/maps/meadow.json": "6ec0c6f5e54f6a45ebf61c01d2b958a9e29ab8f8f6c5cfde5590ccaec56fae37",
     "dist/maps/objectives.json": "818794568aae873516e430fadaa98af44f10b05e351d6442fb086bbe531052ed",
-    "dist/maps/orchard-ruins.json": "bd960d9b4fd07d21231cbb82d2076c3e0818368c5af0dd60afa34c55d5e1cfb8",
+    "dist/maps/orchard-ruins.json": "c4738aa51a53d429a0d2573f4e1c9de890b4833b2b2617e670aa40858dabfb38",
     "dist/maps/reedfen-wetlands.json": "5dd1fe36686381e0cbbfae041839655598753240690f3734820d7eb920b463ae",
     "dist/maps/registries.json": "b7d17a7fd9a62314ac6db90cf48554b541e47e6a3a772be609a708055ba68dde",
     "dist/maps/rootglass-canopy.json": "ee281f2be56287a5eadd2f1f0321f196c1660c0eb7270c717584f9dda9c8aac1",
@@ -250,7 +250,7 @@
     "dist/src/domain/exploration.js": "9fe89b19490390bb129ed0a887ae30c8f0dadfbe787d3149843b501069af71e3",
     "dist/src/domain/hints.js": "871e9ed9e0d7b164fab021e33e0cac3c2c95039cc4b8a37e57e05491acce6ff3",
     "dist/src/domain/inventory.js": "198e9b236379a419e9b316205dd458d83fa8fc5e9c799d73818efb14daeefbc8",
-    "dist/src/domain/mapdata.js": "7e3c7ee8dc4ea2fa391601bd2c00c822772877567031fc29ca9c95faef9049c6",
+    "dist/src/domain/mapdata.js": "23771e5355cd3841c8a345c9d3ffbd15e5714aa07acdc991803faa1c0b62a7ed",
     "dist/src/domain/objective-events.js": "7ea11e81899424623e230c55ddc90c42c77c9df88532b91832cf39d23991128e",
     "dist/src/domain/objectives.js": "eeb4731a9f19dd87ee88914b9da795729ef46500327f352063af2658d811d06b",
     "dist/src/domain/pack.js": "339441c5867c7dc709e098292c9f70622cb3ac6051cccf507a71550466721193",
@@ -260,7 +260,7 @@
     "dist/src/domain/rng.js": "853506e8d4bd195882b044a2302f884573d253f4978f075b2a194b82212f0430",
     "dist/src/domain/rules.js": "8e83034765a2530eb46ce2ebe8d9437dc191fb25f348c0c022b7d51a732e1989",
     "dist/src/domain/scene-path.js": "f8016abf188ce2dccebceadfffc2279671b923b566a2a744defb66578931361c",
-    "dist/src/domain/scenes.js": "8f898d626396a432740fd9c0681a91af9755eca1bfb58a2ee4d4b7badb268b34",
+    "dist/src/domain/scenes.js": "f90f08a189a9b7d0e157ca81a25fa8aca2b0952c7e0954c02d501c7296b59d17",
     "dist/src/domain/story.js": "76aca33499825ab396db075379a05ff5343bfeec2d82ec6eb715b6026372c381",
     "dist/src/domain/terrain-family.js": "e9828ed285b9ffd558a9f168fa71f5477ffd6ee75a1359a874bfcfcd7101476e",
     "dist/src/domain/world.js": "33283839346a885c8004cb5c5682d29e0d0f6758d36a5698b0eb85b3d3eca383",
@@ -272,9 +272,9 @@
     "dist/src/render/battle-art.js": "c51784768c512f13613a83faf3e9f939699846f7e6eac650a5b0d38a047a0855",
     "dist/src/render/chest-art.js": "8e055b1d52f9a8184348006d3bf6153f179d27e1268ef9bf5c0fdab10364061b",
     "dist/src/render/elemental-effects.js": "f67714258372fae89bf2a2b2671ea9986fa2de9c94d5a0cd6bb452b970c65342",
-    "dist/src/render/sprites.js": "eb810eef409fd6898ebc640be1837894eca66fd85dc5c618a070b2f36da0355c",
+    "dist/src/render/sprites.js": "0f5828f7a16e8425206f4bcba0b5f8b9ccac1c5ca60b75cdb634a00cebbf8c41",
     "dist/src/render/terrain.js": "a90339302cc49e299cdde53345facf24bfd1bbf1bf95b9090c35bce916fad15a",
-    "dist/src/render/world.js": "87cd4672dd9cab1ee25f5a7de3e9e819708e3ff0f18f6ee4889063dddc24485b",
+    "dist/src/render/world.js": "5842e0682b9ce8ad781d2766be6f43c4676e91f954aa56b1c7ed8b43ddf26133",
     "dist/src/save.js": "a10b2b3c2c2ba54510b4ee2c3a3a5441d14a24bbab60dd7ce49e0afea9c74d7e",
     "dist/src/services/account.js": "dd94b2a20c7125f709b353bbfe3eba6c016e7dfd173904b0648c4ff167c85e1a",
     "dist/src/services/adventures.js": "036196e32bcae0ceb7d40feae60055174498198e5abd15e8657448386b80aeed",
@@ -292,7 +292,7 @@
     "dist/src/ui/atlas.js": "d0c88cd934049e231dbe053022767fc7f86bba56037756c1a9cd8399d89ff063",
     "dist/src/ui/battle-fx.js": "1a0667c95edc3b371e4cd2141a6896bc476859341991f3c6536ecbf6dcf1daa6",
     "dist/src/ui/battle-view.js": "273749337021e4975178b71a89d228e2e1f4b7908e528ae1cfd3db3750011da5",
-    "dist/src/ui/dom.js": "896b6353b90b7640a1219a0f7a9e2eb791ef81adc0766a557cb2c9919a191090",
+    "dist/src/ui/dom.js": "bcb46b3690e08fc5436ee588383c3ec7cf9072f573af98d3c226aba112de639d",
     "dist/src/ui/elemental-beats.js": "ed199b40f85601361be00f49ae31363cf75e8f58afa3a8720f98a9ff70abc96c",
     "dist/src/ui/hud.js": "ce9eab30f1040dc427db2cc0b38adff8ded7767bcbb4b82569374dc9e25c8479",
     "dist/src/ui/menus.js": "39ce4361111b7620bc2248b8a1315d2e6af80fdb806a4fe1d9446481103ce20d",
@@ -330,7 +330,7 @@
     "tests/fixtures/packs/the-fernling-at-dusk/story.json": "a16f9860c4f3d889220f51a97cb5cd15edd46055df082063e57db093d1def4c8",
     "tests/fixtures/prefabs/catalog.json": "f0c93609460ee7118f510753922fc8b3f8a13a2562ca6925928326d703b1e559"
   },
-  "sourceDigest": "17f235b1905c509408587bcb8ea75d62679811c14a18e4934fd29646e48472f5",
+  "sourceDigest": "152c7cf6584b1b54d93f2916481f5516f65c5550de7e7a7cf1cd060f065ba745",
   "exclusions": [
     {
       "family": "module-exports",
@@ -1321,7 +1321,14 @@
           },
           {
             "when": {
-              "event": "orchard-ruins/outcome-family-first"
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
             },
             "text": "The young are safe in the dry hollow; the channel still needs repair. Follow the eastern trail."
           },
@@ -2854,7 +2861,14 @@
           },
           {
             "when": {
-              "event": "orchard-ruins/outcome-family-first"
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
             },
             "text": "Family safe; channel repair pending"
           },
@@ -3076,7 +3090,14 @@
           },
           {
             "when": {
-              "event": "orchard-ruins/outcome-family-first"
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
             },
             "text": "The young are safe in the dry hollow. I'll finish the slower repair and tell Rowan why you moved them first."
           },
@@ -3160,7 +3181,14 @@
           },
           {
             "when": {
-              "event": "orchard-ruins/outcome-family-first"
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
             },
             "text": "The family is safe in the dry hollow"
           },
@@ -4888,7 +4916,14 @@
               },
               {
                 "when": {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 },
                 "text": "The young are safe in the dry hollow; the channel still needs repair. Follow the eastern trail."
               },
@@ -8447,7 +8482,14 @@
               },
               {
                 "when": {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 },
                 "text": "The young are safe in the dry hollow. I'll finish the slower repair and tell Rowan why you moved them first."
               },
@@ -8547,7 +8589,14 @@
               },
               {
                 "when": {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 },
                 "text": "Family safe; channel repair pending"
               },
@@ -8601,7 +8650,14 @@
               },
               {
                 "when": {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 },
                 "text": "The family is safe in the dry hollow"
               },
@@ -8965,7 +9021,78 @@
             "sprite": "wood-plank-stack",
             "kind": "scenery",
             "w": 32,
-            "at": [[55.4, 28.1]]
+            "at": [[55.4, 28.1]],
+            "when": {
+              "not": {
+                "event": "orchard-ruins/outcome-water-first"
+              }
+            }
+          },
+          {
+            "sprite": "wood-plank-stack",
+            "kind": "scenery",
+            "w": 32,
+            "at": [[49.8, 40.4]],
+            "when": {
+              "event": "orchard-ruins/outcome-water-first"
+            }
+          },
+          {
+            "sprite": "creature-bramblebuck",
+            "kind": "scenery",
+            "w": 37,
+            "at": [[42.5, 35.2]],
+            "when": {
+              "all": [
+                {
+                  "event": "orchard-ruins/den-family-seen"
+                },
+                {
+                  "not": {
+                    "any": [
+                      {
+                        "event": "orchard-ruins/outcome-water-first"
+                      },
+                      {
+                        "any": [
+                          {
+                            "event": "orchard-ruins/orchard-family"
+                          },
+                          {
+                            "event": "orchard-ruins/outcome-family-first"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "sprite": "creature-bramblebuck",
+            "kind": "scenery",
+            "w": 37,
+            "at": [[46, 35]],
+            "when": {
+              "event": "orchard-ruins/outcome-water-first"
+            }
+          },
+          {
+            "sprite": "creature-bramblebuck",
+            "kind": "scenery",
+            "w": 37,
+            "at": [[44.4, 32.9]],
+            "when": {
+              "any": [
+                {
+                  "event": "orchard-ruins/orchard-family"
+                },
+                {
+                  "event": "orchard-ruins/outcome-family-first"
+                }
+              ]
+            }
           },
           {
             "sprite": "tree-oak",
@@ -9224,7 +9351,14 @@
                 "id": "mara-remembers-family-first",
                 "repeatable": false,
                 "when": {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 },
                 "actions": [
                   {
@@ -9393,7 +9527,7 @@
                   {
                     "type": "dialogue",
                     "speaker": "narrator",
-                    "text": "The lower row is visibly running again. The family has settled above the waterline; Mara's repair holds for this visit."
+                    "text": "The repair boards now sit beside the cleared bypass. The adult waits above the channel; Mara's repair holds."
                   }
                 ]
               }
@@ -9566,7 +9700,14 @@
                   "event": "orchard-ruins/outcome-water-first"
                 },
                 {
-                  "event": "orchard-ruins/outcome-family-first"
+                  "any": [
+                    {
+                      "event": "orchard-ruins/orchard-family"
+                    },
+                    {
+                      "event": "orchard-ruins/outcome-family-first"
+                    }
+                  ]
                 }
               ]
             },
@@ -13372,7 +13513,7 @@
           {
             "id": "map:amber-ridge",
             "path": "amber-ridge.json",
-            "sha256": "646467e2b91a225419eb4d2c3abee9a0a4adf4bb5f4aee6edd41b9f39402deb2"
+            "sha256": "73338eb502f074f29f78894f23c4b62adaf4ae8cbcf8afdc0bffc5cb6c2181e2"
           },
           {
             "id": "map:frostveil-grove",
@@ -13392,7 +13533,7 @@
           {
             "id": "map:orchard-ruins",
             "path": "orchard-ruins.json",
-            "sha256": "bd960d9b4fd07d21231cbb82d2076c3e0818368c5af0dd60afa34c55d5e1cfb8"
+            "sha256": "c4738aa51a53d429a0d2573f4e1c9de890b4833b2b2617e670aa40858dabfb38"
           },
           {
             "id": "map:stilt-isles",
@@ -17656,7 +17797,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "The leafy fawn silhouette, cream flower-bud tail and brown legs remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -17866,7 +18007,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At the 115 px gameplay width, Brooklet keeps its blue river-otter and curled-water-tail identity across all five readable combat states. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -17927,7 +18068,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 37 px, Brooklet retains its blue otter body, cream face/chest and curled water tail across the eight views; the revised rear-angle stride matches neighboring frame scale and all feet share the same anchor. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -18027,7 +18168,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 115 px in combat and 37 px in the follower rows, cindercurl keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -18355,7 +18496,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "Wing pattern, cream collar, magenta eyes and moth silhouette remain readable in all five states at 115 px; no row-boundary clipping is visible in the corrected sheet. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -18416,7 +18557,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 37 px, Duskwing retains its spotted lavender wings, cream ruff and magenta eyes across the eight views; frame cells stay contained and the foot line remains fixed. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -18516,7 +18657,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 115 px battle width, Emberkin retains its flame crest, cream chest, dark paws and curled fire tail across all five states. At 37 px, its eight-direction follower keeps a shared foot line and readable identity. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -18673,7 +18814,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "The revised 115 px combat sheet now shows all four faint frames crouched progressively lower until Fernling lies down; the detached leaf fragments are gone. The separate 37 px follower sheet keeps its eight facing rows and common foot line. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -18830,7 +18971,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA at 37 px",
-          "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 37 px, Frostowl retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -19054,7 +19195,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 115 px battle width, Hushram retains its pale ram silhouette and ice-blue horns across all five combat states. At 37 px, its directional follower keeps the blue horns and dark hooves recognizable with stable feet. Owner taste review remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -19208,7 +19349,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "Lantern abdomen, teal wing-case shoulders and insect limbs remain distinct from Voltkit at gameplay scale; rear/front eyes and corrected SW facing read clearly. Combat states and follower wingflutter preserve the identity and stable anchor. Owner taste and enjoyment remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "Lantern abdomen, teal wing-case shoulders and insect limbs remain distinct from Voltkit at gameplay scale; rear/front eyes and corrected SW facing read clearly. Combat states and follower wingflutter preserve the identity and stable anchor. Owner taste and enjoyment remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -19362,7 +19503,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA at 37 px",
-          "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 37 px, Mushmallow retains its canonical silhouette, palette and distinguishing features through all eight directions; the four walk frames change foot placement while preserving the ground anchor. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -19587,7 +19728,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At the 115 px battle width the violet three-lobed body, central dimple, branching lavender veins and amber spore vents remain legible and distinct from Mushmallow; idle, attack, hit, faint and capture states remain cohesive. At 37 px the low connected radial silhouette is readable and does not resemble the taller hedgehog. Direction changes are intentionally subtle for a radial organism, while its eight-row atlas retains stable anchors and five animation columns. Owner taste and real playtest remain pending; this is not owner approval.",
+          "reason": "At the 115 px battle width the violet three-lobed body, central dimple, branching lavender veins and amber spore vents remain legible and distinct from Mushmallow; idle, attack, hit, faint and capture states remain cohesive. At 37 px the low connected radial silhouette is readable and does not resemble the taller hedgehog. Direction changes are intentionally subtle for a radial organism, while its eight-row atlas retains stable anchors and five animation columns. Owner taste and real playtest remain pending; this is not owner approval. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -19863,7 +20004,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "Amber stone shell, cream face, short legs and bright eye remain recognizable across all directions and battle states. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -20143,7 +20284,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 115 px in combat and 37 px in the follower rows, petalunge keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -20310,7 +20451,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At the 115 px battle scale the tall heron silhouette, cream throat, scoop bill and reed-fan crest remain distinct from low-bodied Siltkip. All five battle states preserve its identity and common ground anchor. At 37 px the directional follower rows retain readable facing and alternating high-knee steps with stable feet. Owner taste and real playtest remain pending; this is not owner approval.",
+          "reason": "At the 115 px battle scale the tall heron silhouette, cream throat, scoop bill and reed-fan crest remain distinct from low-bodied Siltkip. All five battle states preserve its identity and common ground anchor. At 37 px the directional follower rows retain readable facing and alternating high-knee steps with stable feet. Owner taste and real playtest remain pending; this is not owner approval. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -20471,7 +20612,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 115 px in combat and 37 px in follower frames, Rillume keeps its clear turquoise bell, dark core and four ribbon lobes through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "approved"
         }
       ],
@@ -20799,7 +20940,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 115 px in combat and 37 px in the follower rows, sedgegnaw keeps its species-specific silhouette and identifying details through idle, attack, recoil, faint, capture and eight facings. Frame cell margins and bottom-center anchors stay consistent. Owner visual taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],
@@ -20897,7 +21038,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "The blue-green otter silhouette, cream muzzle and curled water tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -21177,7 +21318,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "At 115 px in combat and 37 px in follower frames, Sunsifter keeps its broad shovel brow, amber ridged shell and six compact legs through five battle states and eight facings. Cell margins and bottom-center anchors stay consistent; the owner approved sprite appearance (\"Los sprites están muy bien.\"). Normal-play enjoyment/balance acceptance remains pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "approved"
         }
       ],
@@ -21275,7 +21416,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate.",
+          "reason": "The slender coral-orange insect silhouette, long antennae and swept tail remain readable across the battle rows and eight views. The direction rows have a stable bottom-center anchor; small limb changes are visible in the four walk columns at 37 px. Owner taste and gameplay acceptance remain pending. #347 recrop reviewed at 115 px: all twenty poses are fully visible without neighboring-frame fragments in the corrected contact sheet. Idle, attack effects, recoil, faint and capture remain distinct. Existing identity decisions and owner taste status remain separate. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -21495,7 +21636,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "Owner-provided redesign is now the canonical Voltkit look: orange fox-like scout, cream chest, dark legs, lightning flank mark and forked gold-crystal tail. Contact sheets were inspected at gameplay scale; combat states remain distinct. The supplied follower atlas lacks a distinct southeast pose, so its northeast source row is mirrored for that direction. Owner review requested this redesign; gameplay acceptance remains pending.",
+          "reason": "Owner-provided redesign is now the canonical Voltkit look: orange fox-like scout, cream chest, dark legs, lightning flank mark and forked gold-crystal tail. Contact sheets were inspected at gameplay scale; combat states remain distinct. The supplied follower atlas lacks a distinct southeast pose, so its northeast source row is mirrored for that direction. Owner review requested this redesign; gameplay acceptance remains pending. Shared roster tooling was refreshed for Reedstilt in #293; this subject’s exported asset still matches its pinned runtime output, and the current full-roster contact sheets were regenerated and inspected.",
           "ownerTaste": "pending"
         }
       ],
@@ -22438,7 +22579,7 @@
         {
           "decision": "accept",
           "reviewer": "implementation visual QA",
-          "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending.",
+          "reason": "At 52x84 px, NE/NW keep a stable diagonal through idle and all four walk poses; SW idle reads as a front-left diagonal; East has four distinct alternating walk poses. The contact sheet shows the full 5x8 atlas and the renderer preview confirms the production asset. Owner taste remains pending. Shared renderer/provenance binding refreshed for the bottom-center rounding correction: source pixels, frames, widths and existing visual decisions are unchanged. Ground-anchor regression covers fractional sizes and flips; owner taste remains as previously recorded.",
           "ownerTaste": "pending"
         }
       ],

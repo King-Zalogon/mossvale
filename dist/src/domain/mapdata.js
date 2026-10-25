@@ -253,6 +253,10 @@ function validateOne(m, byId, ctx, errors) {
     if (g?.solid !== undefined && !(Number.isFinite(g.solid) && g.solid > 0 && g.solid <= 16))
       at(where + '.solid', 'collision radius must be greater than 0 and at most 16 tiles');
     if (!['scenery', 'grass', 'flower'].includes(g?.kind)) at(where + '.kind', 'must be scenery, grass or flower');
+    if (g?.when !== undefined) {
+      errors.push(...validateLines([{text: '', when: g.when}], `map ${m.id}: ${where}`, {mapIds: new Set(byId.keys()), speciesIds: ctx.speciesIds}));
+      if (g.solid !== undefined) at(where + '.solid', 'conditional props must be decorative, without collision');
+    }
   });
   (m.zones ?? []).forEach((z, i) => {
     const where = `zones[${i}] (${z?.id})`;
@@ -396,7 +400,7 @@ export function compileMap(m, {spriteIndex, speciesIndex, mapById, regionIndex})
     ...(src.solid ? {solid: src.solid} : {}),
     ...extra,
   });
-  for (const g of m.props ?? []) for (const at of g.at) objects.push(mk({...g, at}, g.kind));
+  for (const g of m.props ?? []) for (const at of g.at) objects.push(mk({...g, at}, g.kind, g.when ? {when: g.when} : {}));
   const landmarks = (m.landmarks ?? []).map(l =>
     mk(l, l.kind, {
       ref: l.id,
