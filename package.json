@@ -44,7 +44,7 @@
     "handoffs:index": "node scripts/handoffs-index.mjs write",
     "handoffs:check": "node scripts/handoffs-index.mjs check",
     "regen": "npm run catalogue:write && node scripts/check-boundaries.mjs --write-api-inventory && npm run handoffs:index",
-    "typecheck": "tsc -p tsconfig.json && node scripts/check-imports.mjs",
+    "typecheck": "tsc -p tsconfig.check.json && node scripts/check-imports.mjs",
     "art:unpack": "node scripts/run-python.mjs art/characters/unpack-source.py"
   },
   "dependencies": {

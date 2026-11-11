@@ -29,7 +29,7 @@ test('a named import that the module does not export is caught (the startup-brea
     writeFileSync(join(dir, 'bad.js'), `import {doesNotExist} from '${rng}';\ndoesNotExist();\n`);
     writeFileSync(
       join(dir, 'tsconfig.json'),
-      JSON.stringify({extends: join(root, 'tsconfig.json'), compilerOptions: {baseUrl: root}, include: [join(dir, 'bad.js')]}),
+      JSON.stringify({extends: join(root, 'tsconfig.check.json'), compilerOptions: {baseUrl: root}, include: [join(dir, 'bad.js')]}),
     );
     const result = spawnSync(process.execPath, [tsc, '-p', join(dir, 'tsconfig.json')], {encoding: 'utf8'});
     assert.notEqual(result.status, 0);
@@ -40,6 +40,11 @@ test('a named import that the module does not export is caught (the startup-brea
 });
 
 test('the strictly typed layers have no type errors', () => {
-  const result = spawnSync(process.execPath, [tsc, '-p', join(root, 'tsconfig.json')], {encoding: 'utf8'});
+  const result = spawnSync(process.execPath, [tsc, '-p', join(root, 'tsconfig.check.json')], {encoding: 'utf8'});
   assert.equal(result.status, 0, result.stdout);
+});
+
+test('there is no root tsconfig.json: `next build` would rewrite it, install @types/react and create next-env.d.ts', async () => {
+  const {existsSync} = await import('node:fs');
+  assert.equal(existsSync(join(root, 'tsconfig.json')), false, 'keep the type-check config named tsconfig.check.json');
 });
