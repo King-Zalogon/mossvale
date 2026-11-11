@@ -573,7 +573,7 @@ export function resolveTurn(save, battle, action, rng, ctx = {}) {
     const item = ctx.inventoryRules?.supplies?.potions;
     const healed = item ? useBattleItem(save, item, ctx.inventoryRules) : usePotion(save);
     if (healed === null) return null;
-    push({type: item ? 'item' : 'potion', item, healed: item ? healed.healed : healed});
+    push({type: item ? 'item' : 'potion', item, healed: item ? /** @type {any} */ (healed).healed : healed});
   } else if (action.kind === 'item') {
     const healed = useBattleItem(save, action.id, ctx.inventoryRules);
     if (healed === null) return null;

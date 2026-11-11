@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.check.json",
+  "include": ["dist/src/**/*.js", "app/**/*.js", "lib/**/*.js", "proxy.js"]
+}

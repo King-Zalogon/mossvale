@@ -15,3 +15,7 @@ For the `mossvale` project in the `King-Zalogon` team, **Preview Deployments** i
 The guard is defense in depth for branch/PR builds. It does not replace setting the Vercel Production Branch to `main`, and it does not itself publish or promote a deployment.
 
 The game keeps the signed entry gate at its existing ten-minute lifetime. On boot, and once more if required art fails, the game renews that ticket through the authenticated `/api/launch` route before retrying resources. This preserves the private asset boundary while preventing a long-lived tab from misreporting portal redirects as missing artwork.
+
+## Response headers
+
+`next.config.mjs` sets, for every route: `X-Frame-Options: DENY`, `frame-ancestors 'none'`, `X-Content-Type-Options: nosniff`, HSTS, a restrictive `Permissions-Policy` and `Referrer-Policy`. `/game/*` additionally gets `Cache-Control: private, no-store` and an enforced Content-Security-Policy (same-origin only, plus the Google Fonts hosts the game stylesheet uses; inline style *attributes* are allowed because the menus build markup with them, inline scripts and `eval` are not). `tests/security-headers.test.mjs` pins the policy and `tests/csp.browser.mjs` plays the real game under it. Production builds also leave the development pages out of `/game`, and `?debug` stays available deliberately: the browser suite depends on it and it only affects the player's own session.

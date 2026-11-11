@@ -4,7 +4,7 @@ Describe the concrete behavior and link the issue.
 
 ## Validation and local testing
 
-List executed checks, exact-head CI results and concrete local steps/expected observations. State limitations honestly.
+List executed checks, the `npm run gate` summary for the exact head (hosted CI is disabled) and concrete local steps/expected observations. State limitations honestly.
 
 ## Documentation and compatibility
 
@@ -14,5 +14,5 @@ List affected catalogue entries/type templates, technical documentation, generat
 
 - [ ] Branch created from latest origin/main; latest integration changes incorporated without losing either side.
 - [ ] PR targets integration; no production deployment or main promotion.
-- [ ] Required checks passed on final head; no conflicts or pending reviews.
+- [ ] `npm run gate:check` passes for the final head (evidence committed); no conflicts or unresolved reviews.
 - [ ] Related documentation, regression tests and migration/configuration instructions are complete.

@@ -10,13 +10,12 @@ import {biomes} from '../data/biomes.js';
 
 /**
  * @param {object[]} rawMaps parsed map files
- * @param {{regions: object[]}} content
+ * @param {{assets:{name:string}[], species:{id:string, biome?:string}[], regions:{id:string, biome?:string}[], packId?:string}} content
  * @param {object} [rawObjectives] parsed objectives.json
  * @param {object} [rawStory] parsed story.json
  * @param {object} [rawPack] parsed maps/index.json: the adventure pack manifest (docs/PACKS.md)
  * @param {object} [inventoryRules] pack-owned optional item rules
- * @param {{assets:{name:string}[], species:{id:string}[], regions:{id:string}[], packId?:string}} content
- * @returns {{maps: object[], mapsById: object, errors: string[]}} `maps[i]` is the region hub; mapsById also includes side maps.
+ * @returns {{maps: object[], mapsById?: object, objectives?: object[], eventObjectives?: object[], story?: object, errors: string[]}} `maps[i]` is the region hub; mapsById also includes side maps.
  */
 export function buildAdventure(rawMaps, {assets, species, regions, packId}, rawObjectives, rawStory, rawPack, inventoryRules) {
   const spriteNames = new Set(assets.map(a => a.name));

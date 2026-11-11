@@ -149,3 +149,33 @@ test('the version label handles a missing stamp', () => {
   assert.match(describeBuild({short: 'abcdef0', builtAt: '2026-10-01T10:00:00Z'}), /^Build #abcdef0 · 2026-10-01$/);
   assert.match(describeBuild({short: 'abcdef0', dirty: true, builtAt: '2026-10-01T10:00:00Z'}), /abcdef0\+/);
 });
+
+test('production builds leave out development pages unless asked', async () => {
+  const {isDevOnly} = await import('../scripts/lib/dev-pages.mjs');
+  for (const path of [
+    'map-editor.html',
+    'map-editor.css',
+    'testing.html',
+    'creature-follower-preview.html',
+    'character-preview.css',
+    'reviews',
+    'reviews/chests/a.png',
+  ])
+    assert.equal(isDevOnly(path), true, path);
+  for (const path of ['index.html', 'style.css', 'src/main.js', 'src/map-editor.js', 'maps/index.json', 'assets/a.png', 'favicon.svg'])
+    assert.equal(isDevOnly(path), false, path);
+  const without = mkdtempSync(join(tmpdir(), 'mossvale no dev '));
+  const withDev = mkdtempSync(join(tmpdir(), 'mossvale with dev '));
+  try {
+    execFileSync('node', ['scripts/build.mjs'], {env: {...process.env, BUILD_DIR: without, MOSSVALE_PORTAL_RETURN_URL: ''}, stdio: 'pipe'});
+    execFileSync('node', ['scripts/build.mjs', '--with-dev-pages'], {env: {...process.env, BUILD_DIR: withDev, MOSSVALE_PORTAL_RETURN_URL: ''}, stdio: 'pipe'});
+    for (const file of ['index.html', 'style.css', 'src/main.js', 'maps/index.json']) assert.equal(existsSync(join(without, file)), true, file);
+    for (const file of ['map-editor.html', 'testing.html', 'creature-follower-preview.html', 'reviews']) {
+      assert.equal(existsSync(join(without, file)), false, `${file} must not ship by default`);
+      assert.equal(existsSync(join(withDev, file)), true, `${file} ships with --with-dev-pages`);
+    }
+  } finally {
+    rmSync(without, {recursive: true, force: true});
+    rmSync(withDev, {recursive: true, force: true});
+  }
+});

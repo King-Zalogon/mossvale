@@ -9,6 +9,7 @@
 import {companionRouteDiscovered} from './companion-routes.js';
 
 export const STATES = ['current', 'visited', 'known'];
+/** @type {[number, number, string][]} */
 const DIRECTIONS = [
   [1, 0, 'east'],
   [-1, 0, 'west'],

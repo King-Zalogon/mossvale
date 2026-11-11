@@ -1,0 +1,21 @@
+# Dependabot opens version and security PRs against integration; any agent may pick one up,
+# run `npm run gate` on it and merge it under AGENTS.md. Major upgrades of next, react,
+# @supabase/* and @modelcontextprotocol/sdk need their own issue first.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: integration
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+    ignore:
+      - dependency-name: next
+        update-types: [version-update:semver-major]
+      - dependency-name: react
+        update-types: [version-update:semver-major]
+      - dependency-name: react-dom
+        update-types: [version-update:semver-major]

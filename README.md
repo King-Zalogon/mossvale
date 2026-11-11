@@ -97,16 +97,16 @@ For local development of the portal wrapper, copy `.env.example` to `.env.local`
 
 ## Development and checks
 
-Node 20+ (CI uses 22). Install once with `npm ci`; serving the game needs no separate build (`npm start`).
+Node 20.9+ (`.nvmrc` pins 22). Install once with `npm ci`; serving the game needs no separate build (`npm start`).
 
 | Command                | What it runs                                                                                                                                                      |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `npm run check`        | ESLint, Prettier check, asset manifest + module-boundary validation, unit tests (save codec, seeded gameplay rules)                                               |
 | `npm run test:browser` | Chromium smoke tests: malformed/corrupt saves, missing-sprite retry, a seeded battle, menus, travel, v3 save write (needs `npx playwright install chromium` once) |
-| `npm run verify`       | Everything above, same as CI                                                                                                                                      |
+| `npm run verify`       | Everything above                                                                                                                                                  |
 | `npm run format`       | Apply Prettier                                                                                                                                                    |
 
-CI (`.github/workflows/ci.yml`) runs `verify` on every push and pull request. It never blocks direct pushes to `main`; failures show on the commit. To reproduce a CI failure locally, run `npm ci && npm run verify`. Open the game with `?debug` (and `&seed=N`) to get `window.mossvale` for manual inspection.
+GitHub Actions is disabled by owner decision. `npm run gate` runs every check and records the result for the exact commit under `docs/handoffs/evidence/`; `npm run gate:check` verifies it. `.github/workflows/ci.yml` is kept dormant. Run `npm ci && npm run setup` once (the latter provisions the pinned Python/Pillow in `.venv/`). Open the game with `?debug` (and `&seed=N`) to get `window.mossvale` for manual inspection.
 
 ## Development roadmap
 

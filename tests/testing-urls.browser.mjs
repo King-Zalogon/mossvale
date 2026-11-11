@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
 });
 let browser;
 try {
-  execFileSync(process.execPath, ['scripts/build.mjs'], {env: {...process.env, BUILD_DIR: build}, stdio: 'pipe'});
+  execFileSync(process.execPath, ['scripts/build.mjs', '--with-dev-pages'], {env: {...process.env, BUILD_DIR: build}, stdio: 'pipe'});
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = `http://127.0.0.1:${server.address().port}`;
   browser = await chromium.launch({executablePath: process.env.CHROMIUM || undefined});

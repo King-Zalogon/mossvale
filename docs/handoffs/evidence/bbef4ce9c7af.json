@@ -1,0 +1,74 @@
+{
+  "sha": "bbef4ce9c7af0f319a34c3611dd0b7ab145b3a5b",
+  "baseSha": "139f0866c85d8e0d558cc621082fb77dd63955ac",
+  "startedAt": "2026-11-11T22:32:54.872Z",
+  "node": "v22.23.4",
+  "python": "Python 3.13.18",
+  "pillow": "12.3.0",
+  "playwright": "1.56.1",
+  "os": "linux x64",
+  "stages": [
+    {
+      "name": "catalogue-impact",
+      "status": "pass",
+      "ms": 304
+    },
+    {
+      "name": "lint",
+      "status": "pass",
+      "ms": 3146
+    },
+    {
+      "name": "format",
+      "status": "pass",
+      "ms": 12696
+    },
+    {
+      "name": "typecheck",
+      "status": "pass",
+      "ms": 4882
+    },
+    {
+      "name": "validate",
+      "status": "pass",
+      "ms": 5425
+    },
+    {
+      "name": "unit",
+      "status": "pass",
+      "ms": 36873
+    },
+    {
+      "name": "art",
+      "status": "pass",
+      "ms": 107358
+    },
+    {
+      "name": "browser",
+      "status": "pass",
+      "ms": 611951
+    },
+    {
+      "name": "build",
+      "status": "pass",
+      "ms": 5806
+    },
+    {
+      "name": "account-api",
+      "status": "pass",
+      "ms": 1031
+    },
+    {
+      "name": "audit",
+      "status": "pass",
+      "ms": 447
+    }
+  ],
+  "restoredCaptures": [
+    "art/characters/reviews/293/reedstilt-battle.png",
+    "art/characters/reviews/293/reedstilt-reedfen.png",
+    "docs/map-design/278/desktop-canopy.png",
+    "docs/map-design/278/desktop-hollow.png",
+    "docs/map-design/278/phone-seep-discovered.png"
+  ]
+}
