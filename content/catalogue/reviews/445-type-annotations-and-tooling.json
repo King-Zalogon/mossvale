@@ -1,0 +1,33 @@
+{
+  "format": 1,
+  "changes": [
+    {
+      "paths": ["dist/src/domain/battle.js", "dist/src/save.js"],
+      "entries": ["mechanic:guardian-counterplay", "item:battle-potion", "mechanic:save-recovery"],
+      "disposition": "no-semantic-impact",
+      "reason": "JSDoc-only edits for the new tsc checkJs gate (#445): a type cast on the potion/item healed result and an any-typed fresh save object. No statement, value, save field, stable ID or battle outcome changed; the potion and counterplay behavior in the fiches is unchanged.",
+      "evidence": ["tests/typecheck.test.mjs", "tests/battle-actions.test.mjs", "tests/save.test.mjs"]
+    },
+    {
+      "paths": ["dist/src/domain/atlas.js", "dist/src/domain/mapdata.js", "dist/src/domain/objectives.js", "dist/src/domain/pack.js"],
+      "entries": ["mechanic:regional-atlas", "mechanic:landmark-discovery", "mechanic:companion-dialogue-conditions", "mechanic:pack-save-compatibility"],
+      "disposition": "no-semantic-impact",
+      "reason": "Type annotations only (tuple typedefs, widened JSDoc parameter and context types) added so the pure layers pass tsc checkJs. Runtime code is byte-for-byte the same apart from comments; map validation, atlas layout, dialogue conditions and pack compatibility behave exactly as documented.",
+      "evidence": ["tests/typecheck.test.mjs", "tests/maps.test.mjs", "tests/atlas.test.mjs", "tests/compatibility.test.mjs"]
+    },
+    {
+      "paths": ["dist/src/domain/adventure.js", "dist/src/domain/terrain-family.js"],
+      "entries": ["mechanic:adventure-readiness-report", "terrain:ground"],
+      "disposition": "no-semantic-impact",
+      "reason": "JSDoc corrections only: buildAdventure's documented content/return shape now matches what it already returns, and the terrain-family direction tables carry tuple types. Adventure compilation and terrain resolution are unchanged, so the readiness report and terrain fiche stay accurate.",
+      "evidence": ["tests/typecheck.test.mjs", "tests/adventure-readiness.test.mjs", "tests/terrain.test.mjs"]
+    },
+    {
+      "paths": ["art/characters/unpack-source.py"],
+      "entries": ["mechanic:creature-sheet-export"],
+      "disposition": "no-semantic-impact",
+      "reason": "New read-only helper that reassembles an already archived generated source PNG (size and SHA-256 verified by the existing source_archive module) into a git-ignored folder for viewing. It exports no asset, changes no art, manifest, provenance record or catalogue fact.",
+      "evidence": ["tests/python-launcher.test.mjs", "tests/test_source_archive.py"]
+    }
+  ]
+}
