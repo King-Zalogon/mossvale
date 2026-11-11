@@ -8,6 +8,7 @@ export const STAGES = [
   {name: 'catalogue-impact', command: 'npm run catalogue:impact -- --base origin/integration', skippable: true},
   {name: 'lint', command: 'npm run lint', skippable: false},
   {name: 'format', command: 'npm run format:check', skippable: false},
+  {name: 'typecheck', command: 'npm run typecheck', skippable: false},
   {name: 'validate', command: 'npm run validate', skippable: false},
   {name: 'unit', command: 'npm test', skippable: false},
   {name: 'art', command: 'npm run art:check', skippable: true},

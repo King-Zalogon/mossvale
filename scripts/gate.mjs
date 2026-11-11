@@ -120,6 +120,22 @@ function gate(argv) {
       evidence.stages.push(result);
     }
   }
+  // Browser tests rewrite committed review screenshots. Restore those captures; anything else changing means the run
+  // does not describe a single commit.
+  const modified = git('diff', '--name-only').split('\n').filter(Boolean);
+  const captures = modified.filter(path => /\.(png|jpe?g)$/i.test(path));
+  const others = modified.filter(path => !captures.includes(path));
+  if (git('rev-parse', 'HEAD') !== sha || others.length || git('diff', '--cached', '--name-only')) {
+    console.error(
+      `HEAD or tracked files changed while the gate was running (${others.slice(0, 5).join(', ') || 'HEAD moved'}); the results do not describe a single commit. Nothing recorded: commit, then run the gate again without editing.`,
+    );
+    return 2;
+  }
+  if (captures.length) {
+    git('checkout', '--', ...captures);
+    evidence.restoredCaptures = captures;
+    console.log(`Restored ${captures.length} review capture(s) rewritten by the test run (commit them deliberately only when a task is about them).`);
+  }
   const dir = join(root, EVIDENCE_DIR);
   mkdirSync(dir, {recursive: true});
   const file = join(dir, `${sha.slice(0, 12)}.json`);

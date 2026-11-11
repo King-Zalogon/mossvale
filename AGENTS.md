@@ -10,6 +10,8 @@ GitHub Actions is disabled by owner decision; hosted CI is not a merge condition
 
 ## Finishing a task
 
+Stage files explicitly, never `git add -A`: the browser tests rewrite committed review screenshots (`art/**/reviews/`, `docs/**/*.png`) on every run, and `npm run gate` restores them. Do not edit tracked files while a gate run is in progress.
+
 Unless the issue is labelled `needs-owner`, finish it yourself: merge the PR into `integration` with the repository's established strategy, comment on the issue with the PR link, integration merge commit and gate evidence sha, close the issue as completed (PRs to `integration` do not trigger `Closes #n`), delete your own head branch, and complete your handoff file. Keep the issue open only when it is an epic or the issue explicitly asks for owner acceptance. Waiting for the owner is correct only for `needs-owner` work: promotion to main and production deployment, applying migrations to the live Supabase project, and acceptance the issue asks for.
 
 Record your claim and handoff in `docs/handoffs/<issue>-<short-name>.md` (see `docs/handoffs/README.md`), never in a shared file; `docs/AGENT_HANDOFFS.md` is a frozen archive. Generated files (`content/catalogue/**`, `docs/API_INVENTORY.md`, `docs/handoffs/INDEX.md`) are never merged by hand: on conflict take either side and run `npm run regen`.

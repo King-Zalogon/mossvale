@@ -1,10 +1,12 @@
 /* Deterministic, authoring-time terrain resolution. Art is selected from authored source files; collision is data. */
+/** @type {[string, number, number, number][]} */
 const DIRS = [
   ['n', 0, -1, 1],
   ['e', 1, 0, 2],
   ['s', 0, 1, 4],
   ['w', -1, 0, 8],
 ];
+/** @type {[string, number, number, number][]} */
 const DIAGONALS = [
   ['ne', 1, -1, 1],
   ['se', 1, 1, 2],

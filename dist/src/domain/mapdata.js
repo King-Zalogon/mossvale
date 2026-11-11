@@ -47,7 +47,7 @@ const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 /**
  * Checks raw map JSON against the format and cross-references.
  * @param {object[]} rawMaps every map in the adventure
- * @param {{spriteNames:Set<string>, speciesIds:Set<string>, species?:object[]}} ctx
+ * @param {{spriteNames:Set<string>, speciesIds:Set<string>, species?:object[], assets?:object[]}} ctx
  * @returns {string[]} human-readable errors, each prefixed with the map and field
  */
 export function validateMaps(rawMaps, ctx) {

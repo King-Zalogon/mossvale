@@ -16,7 +16,7 @@
     "composition:briefs": "node scripts/composition-briefs.mjs",
     "combat:balance": "node scripts/combat-balance.mjs",
     "test:browser": "node scripts/run-browser-tests.mjs",
-    "check": "npm run lint && npm run format:check && npm run validate && npm test && npm run art:check",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm run validate && npm test && npm run art:check",
     "verify": "npm run check && npm run test:browser",
     "map:preview": "node scripts/validate-maps.mjs preview",
     "maps:design-report": "node scripts/map-design-report.mjs",
@@ -43,7 +43,9 @@
     "audit": "npm audit --omit=dev --audit-level=high",
     "handoffs:index": "node scripts/handoffs-index.mjs write",
     "handoffs:check": "node scripts/handoffs-index.mjs check",
-    "regen": "npm run catalogue:write && node scripts/check-boundaries.mjs --write-api-inventory && npm run handoffs:index"
+    "regen": "npm run catalogue:write && node scripts/check-boundaries.mjs --write-api-inventory && npm run handoffs:index",
+    "typecheck": "tsc -p tsconfig.json && node scripts/check-imports.mjs",
+    "art:unpack": "node scripts/run-python.mjs art/characters/unpack-source.py"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
@@ -56,11 +58,13 @@
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "@types/node": "^22.20.5",
     "ajv": "8.20.0",
     "eslint": "10.1.0",
     "globals": "17.13.0",
     "playwright": "1.56.1",
-    "prettier": "3.9.10"
+    "prettier": "3.9.10",
+    "typescript": "~5.9"
   },
   "type": "module",
   "engines": {

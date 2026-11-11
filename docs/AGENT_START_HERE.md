@@ -21,3 +21,15 @@ On the latest intended base, run `npm run gate` and commit its evidence record (
 ## Local authoring catalogue
 
 Read [CATALOGUE.md](CATALOGUE.md) and the generated [index](../content/catalogue/INDEX.md). Catalogue checks are part of validation; changed authorable resources need a scoped PR impact record. Use the documented local visual browser and portable export when a story writer needs to inspect resource art. Scene-script instructions and continuity handoffs are documented separately.
+
+## Lighter checkouts
+
+Most tasks never touch art sources. A partial, sparse clone avoids downloading them (blobs are fetched on demand):
+
+```bash
+git clone --filter=blob:none --no-checkout <repo-url> mossvale && cd mossvale
+git sparse-checkout set --no-cone '/*' '!/art/**/source/' '!/art/**/*.png.parts/' '!/concept_art/'
+git checkout integration
+```
+
+With sources absent, `npm run art:check` reports failures for source-dependent exporters; record that stage as skipped with the reason (`--skip art --reason "..."`) only when the change touches no `art/**`, `dist/assets/**` or `tests/test_*.py` paths. Changes to those paths need the sources present. Chunked sources (`*.png.parts/part-NNN.bin`, the sanctioned way to push large images) are viewable with `npm run art:unpack -- <path to the .png>`.

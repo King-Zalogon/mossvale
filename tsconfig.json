@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2023", "DOM"],
+    "strict": false,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {"@/*": ["./*"]},
+    "jsx": "preserve"
+  },
+  "include": [
+    "dist/src/domain/**/*.js",
+    "dist/src/data/**/*.js",
+    "dist/src/save.js",
+    "dist/src/config.js",
+    "dist/src/compatibility.js",
+    "lib/**/*.js",
+    "app/api/**/*.js",
+    "proxy.js"
+  ]
+}

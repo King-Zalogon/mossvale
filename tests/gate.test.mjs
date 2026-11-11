@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {STAGES, evaluateEvidence, markdownSummary, onlyHandoffPaths, parseGateArgs} from '../scripts/lib/gate.mjs';
 
+const at = (record, name) => record.stages.findIndex(stage => stage.name === name);
 const passing = () => ({
   sha: 'a'.repeat(40),
   baseSha: 'b'.repeat(40),
@@ -16,28 +17,28 @@ test('a complete passing record is accepted', () => {
 
 test('failed, missing, not-run and malformed records are rejected', () => {
   const failed = passing();
-  failed.stages[1].status = 'fail';
+  failed.stages[at(failed, 'lint')].status = 'fail';
   assert.match(evaluateEvidence(failed).problems[0], /lint: fail/);
   const missing = passing();
   missing.stages.pop();
   assert.match(evaluateEvidence(missing).problems[0], /audit: missing/);
   const partial = passing();
-  partial.stages[5] = {name: 'art', status: 'not-run', reason: 'not selected (partial run)'};
+  partial.stages[at(partial, 'art')] = {name: 'art', status: 'not-run', reason: 'not selected (partial run)'};
   assert.equal(evaluateEvidence(partial).ok, false);
   assert.equal(evaluateEvidence(null).ok, false);
 });
 
 test('skips need a real reason and only skippable stages may be skipped', () => {
   const record = passing();
-  record.stages[5] = {name: 'art', status: 'skipped', reason: 'docs-only change, no art or asset paths touched'};
+  record.stages[at(record, 'art')] = {name: 'art', status: 'skipped', reason: 'docs-only change, no art or asset paths touched'};
   assert.deepEqual(
     evaluateEvidence(record).skipped.map(skip => skip.name),
     ['art'],
   );
-  record.stages[5].reason = ' ';
+  record.stages[at(record, 'art')].reason = ' ';
   assert.match(evaluateEvidence(record).problems[0], /without a reason/);
   const lint = passing();
-  lint.stages[1] = {name: 'lint', status: 'skipped', reason: 'because I wanted to'};
+  lint.stages[at(lint, 'lint')] = {name: 'lint', status: 'skipped', reason: 'because I wanted to'};
   assert.match(evaluateEvidence(lint).problems[0], /cannot be skipped/);
 });
 

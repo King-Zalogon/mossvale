@@ -107,7 +107,12 @@ export function validateObjectives(data, {mapIds, speciesIds}) {
   return errors;
 }
 
-/** Validates the `when` conditions of NPC/sign lines found in maps. */
+/**
+ * Validates the `when` conditions of NPC/sign lines found in maps.
+ * @param {object[]} lines
+ * @param {string} where
+ * @param {{mapIds: Iterable<string>, speciesIds?: Iterable<string>}} ctx
+ */
 export function validateLines(lines, where, {mapIds, speciesIds}) {
   const errors = [];
   (lines ?? []).forEach((l, i) => {

@@ -125,6 +125,7 @@ function create({species, regions, size, bounds = {}, spawn = {x: 12, y: 13}, pa
 
   function fresh(rng = () => 0) {
     const starter = Math.min(species.length - 1, Math.max(0, Math.floor(rng() * species.length)));
+    /** @type {any} */
     const save = {
       version: VERSION,
       region: 0,

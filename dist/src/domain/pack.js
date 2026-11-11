@@ -23,6 +23,7 @@ export function packFileEntries(raw) {
 
 /** Checks optional authored-pack metadata; shipped/runtime packs make both sections mandatory.
     `engineVersion` / `saveSchema` pin a single supported level; `support` replaces the whole support range (tests, future migrations). */
+/** @param {*} raw @param {{required?: boolean, engineVersion?: number, saveSchema?: number, support?: *}} [options] */
 export function validatePackMetadata(raw, {required = false, engineVersion, saveSchema, support} = {}) {
   const levels = {
     engineVersion: engineVersion === undefined ? (support?.engineVersion ?? SUPPORT.engineVersion) : {min: engineVersion, max: engineVersion},
