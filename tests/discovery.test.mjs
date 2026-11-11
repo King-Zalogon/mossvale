@@ -118,8 +118,9 @@ test('exploration lives in the save, stays out of it when empty, and is validate
   const c = create({species, regions, size: 128, bounds});
   const save = c.fresh();
   assert.equal('explored' in JSON.parse(c.serialize(save)), false, 'an unexplored save is byte-identical to before');
-  const entry = entryFor(save.explored, 'meadow', 25, 25);
-  reveal(entry, 25, 25, 12, 12);
+  const {w, h} = bounds.meadow;
+  const entry = entryFor(save.explored, 'meadow', w, h);
+  reveal(entry, w, h, 12, 12);
   discover(entry, [{ref: 'shrine', x: 12, y: 5}], 12, 8);
   const raw = JSON.parse(c.serialize(save));
   assert.deepEqual(Object.keys(raw.explored), ['meadow']);
@@ -127,7 +128,7 @@ test('exploration lives in the save, stays out of it when empty, and is validate
   assert.deepEqual(encodeEntry(loaded.explored.meadow), encodeEntry(entry));
   // wrong mask size for the map, unknown map, bad id, and a flood of maps
   raw.explored.meadow.c = raw.explored.meadow.c.slice(2);
-  assert.equal(exploredShare(c.normalize(raw, false).explored.meadow, 25, 25), 0);
+  assert.equal(exploredShare(c.normalize(raw, false).explored.meadow, w, h), 0);
   raw.explored = {'not a map': {c: '', d: []}, ghost: {c: '00', d: ['x']}};
   assert.deepEqual(c.normalize(raw, false).explored, {}, 'unknown maps and bad ids are dropped');
   raw.explored = Object.fromEntries(Array.from({length: 100}, (_, i) => [`map-${i}`, {c: '', d: ['a']}]));
@@ -140,7 +141,8 @@ test('exploration travels with backups and is cleared by a new game, never store
   const c = create({species, regions, size: 128, bounds});
   const save = c.fresh();
   Object.assign(save, {met: true, wins: 1, coins: 5});
-  reveal(entryFor(save.explored, 'meadow', 25, 25), 25, 25, 12, 12);
+  const {w, h} = bounds.meadow;
+  reveal(entryFor(save.explored, 'meadow', w, h), w, h, 12, 12);
   const file = exportBackup(c, save);
   assert.ok(JSON.parse(file).save.explored.meadow, 'the export carries it');
   const parsed = parseBackup(file, c);

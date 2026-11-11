@@ -15,3 +15,11 @@ test('python launcher forwards a small script and its exit status', () => {
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /launcher-ok/);
 });
+
+test('python environment is pinned and diagnosed', async () => {
+  const {environmentHint, pinnedPillow, venvPython} = await import('../scripts/run-python.mjs');
+  assert.match(pinnedPillow(), /^\d+\.\d+\.\d+$/);
+  assert.equal(venvPython('linux', '/nonexistent-root'), null);
+  const hint = environmentHint('python3', ['-c', 'raise SystemExit(1)', '--']); // a command that cannot import PIL
+  assert.match(hint ?? '', /npm run setup/);
+});

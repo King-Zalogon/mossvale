@@ -1,52 +1,40 @@
 name: CI
 
-# Runs existing checks on pushes and PRs; integration PRs additionally enforce catalogue impact.
-# Required-check settings remain repository administration; never bypass failed checks.
+# GitHub Actions is DISABLED by owner decision (2026-11-11). The local gate is authoritative:
+# `npm run gate` records evidence per commit under docs/handoffs/evidence/ and `npm run gate:check` enforces it.
+# This workflow stays so that enabling Actions is a one-click option; it runs the same gate, once, on Ubuntu.
+# Windows coverage remains a local responsibility and is recorded in gate evidence.
 on:
-  push:
   pull_request:
+    branches: [integration, main]
   workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  verify:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
-      - name: Catalogue documentation impact
-        if: github.event_name == 'pull_request'
-        run: npm run catalogue:impact -- --base origin/integration
-      - name: Lint, format, asset manifest, module boundaries and unit tests
-        run: npm run check
-      - name: Install Chromium for browser smoke tests (Linux)
-        if: runner.os == 'Linux'
-        run: npx playwright install --with-deps chromium
-      - name: Install Chromium for browser smoke tests (Windows)
-        if: runner.os == 'Windows'
-        run: npx playwright install chromium
-      - name: Browser smoke tests
-        run: npm run test:browser
-      - name: Package a traceable build
-        run: npm run build
-      - name: Verify authenticated account APIs with a local Supabase fixture
-        run: npm run test:account-api
-      - name: Keep the build for this commit
-        uses: actions/upload-artifact@v4
+      - uses: actions/setup-python@v5
         with:
-          name: mossvale-${{ github.sha }}-${{ matrix.os }}
-          path: build/
-          retention-days: 90
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -r requirements.txt
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Local gate (the evidence file is not committed from CI)
+        run: npm run gate
